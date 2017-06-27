@@ -1,0 +1,1340 @@
+#Introduction to Loss Data Analytics
+
+*Chapter Preview*. This book introduces readers to methods of analyzing
+insurance data. Section 1 begins with a discussion of why the use of
+data is important in the insurance industry. Yes, this is obvious but we
+need to make a strong case for it as this is the whole premise of the
+book. Next, Section 2 provides an overview of the types of data that one
+encounters. There are many types from which to choose; your first step
+in the analysis of data is identify a broad class to help direct you to
+the appropriate tools and techniques. Section 3 gives a general overview
+of the purposes of analyzing insurance data which is reinforced in the
+Section 4 case study. Naturally, there is a huge gap between identifying
+the broad class of variables and what we learn from the data; this gap
+is covered through the methods and techniques of data analysis covered
+in the rest of the text.
+
+
+## Relevance of Analytics {#S:Intro}
+
+<hr />
+In this section, you learn how to:
+
+- Motivate the relevance of insurance
+- Describe analytics
+- Describe data generating events associated with the timeline of a typical insurance contract
+
+<hr />
+
+
+This book introduces the process of using data to make decisions in an
+insurance context. It does not assume that readers are familiar with
+insurance but introduces insurance concepts as needed. Insurance may not
+be as entertaining as the sports industry nor as widely familiar as the
+agricultural industry but it does affect the financial livelihoods of
+many. By almost any measure, insurance is a major economy activity. On a
+global level, insurance premiums comprised about 6.3% of the world gross
+domestic product (GDP) in 2013, [@III2015]. To illustrate, premiums
+accounted for 17.6% of GDP in Taiwan (the highest in the study) and
+represented 7.5% of GDP in the United States. On a personal level,
+almost everyone owning a home has insurance to protect themselves in the
+event of a fire, hailstorm, or some other calamitous event. Almost every
+country requires insurance for those driving a car. So, although not
+particulary entertaining nor widely familiar, insurance is an important
+piece of the economy and relevant to individual livelihoods.
+
+Insurance is a data-driven industry. Like other major corporations,
+insurers use data when trying to decide how much to pay employees, how
+many employees to retain, how to market their services, how to forecast
+financial trends, and so on. Although each industry retains its own
+nuances, these represent general areas of activities that are not
+specific to the insurance industry. You will find that the data methods
+and tools introduced in this text relevant for these general areas.
+
+Moreover, when introducing data methods, we will focus on losses that
+potentially arise from obligations in insurance contracts. This could be
+the amount of damage to one's apartment under a renter's insurance
+agreement, the amount needed to compensate someone that you hurt in a
+driving accident, and the like. We will call these *insurance claims* or
+*loss amounts*. With this focus, we will be able to introduce generally
+applicable statistical tools in techniques in real-life situations where
+the tools can be used directly.
+
+### What is Analytics?
+
+Insurance is a data-driven industry and analytics is a key to deriving
+information from data. But what is analytics? Making data-driven
+business decisions has been described as business analytics, business
+intelligence, and data science. These terms, among others, are
+sometimes used interchangeably and sometimes used separately, referring
+to distinct domains of applications. As an example of such distinctions,
+*business intelligence* may focus on processes of collecting data, often
+through databases and data warehouses, whereas *business analytics*
+utilizes tools and methods for statistical analyses of data. In contrast
+to these two terms that emphasize business applications, the term *data
+science* can encompass broader applications in many scientific domains.
+For our purposes, we use the term *analytics* to refer to the process of
+using data to make decisions. This process involves gathering data,
+understanding models of uncertainty, making general inferences, and
+communicating results.
+
+### Short-term Insurance
+
+This text will focus on short-term insurance contracts. By short-term,
+we mean contracts where the insurance coverage is typically provided for
+six months or a year. If you are new to insurance, then it is probably
+easiest to think about an insurance policy that covers the contents of
+an apartment or house that you are renting (known as renters insurance)
+or the contents and property of a building that is owned by you or a
+friend (known as homeowners insurance). Another easy example is
+automobile insurance. In the event of an accident, this policy may cover
+damage to your vehicle, damage to other vehicles in the accident, as
+well as medical expenses of those injured in the accident.
+
+In the US, policies such as renters and homeowners are known as
+property insurance whereas a policy such as auto that covers medical
+damages to people is known as casualty insurance. In the rest of the
+world, these are both known as nonlife or general insurance, to
+distinguish them from life insurance.
+
+Both life and nonlife insurances are important. To illustrate,
+[@III2015] estimates that direct insurance premiums in the world for
+2013 was 2,608,091 for life and 2,032,850 for nonlife; these figures are
+in millions of US dollars. As noted earlier, the total represents 6.3%
+of the world GDP. Put another way, life accounts for 56.2% of insurance
+premiums and 3.5% of world GDP, nonlife accounts for 43.8% of insurance
+premiums and 2.7% of world GDP. Both life and nonlife represent
+important economic activities and are worthy of study in their own
+right.
+
+Yet, life insurance considerations differ from nonlife. In life
+insurance, the default is to have a multi-year contract. For example, if
+a person 25 years old purchases a whole life policy that pays upon death
+of the insured and that person does not die until age 100, then the
+contract is in force for 75 years. We think of this as a long-term
+contract.
+
+Further, in life insurance, the benefit amount is often stipulated in
+the contract provisions. In contrast, most short-term contracts provide
+for reimbursement of insured losses which are unknown before the
+accident. (Of course, there are usually limits placed on the
+reimbursement amounts.) In a multi-year life insurance contract, the
+time value of money plays a prominent role. In contrast, in a short-term
+nonlife contract, the random amount of reimbursement takes priority.
+
+In both life and nonlife insurances, the frequency of claims is very
+important. For many life insurance contracts, the insured event (such as
+death) happens only once. In contrast, for nonlife insurances such as
+automobile, it is common for individuals (especially young male drivers)
+to get into more than one accident during a year. So, our models need to
+reflect this observation; we will introduce different frequency models
+than you may have seen when studying life insurance.
+
+For short-term insurance, the framework of the probabilistic model is
+straightforward. We think of a one-period model (the period length,
+e.g., six months, will be specified in the situation).
+
+-   At the beginning of the period, the insured pays the insurer a known
+    premium that is agreed upon by both parties to the contract.
+
+-   At the end of the period, the insurer reimburses the insured for a
+    (possibly multivariate) random loss that we will denote as $y$.
+
+This framework will be developed as we proceed but we first focus on
+integrating this framework with concerns about how the data may arise
+and what we can accomplish with this framework.
+
+### Insurance Processes {#S:InsProcesses}
+
+One way to describe the data arising from operations of a company that
+sells insurance products is to adopt a granular approach. In this
+micro oriented view, we can think specifically about what happens to a
+contract at various stages of its existence. Consider Figure \@ref(fig:StochOperations) that traces a timeline of a typical insurance contract. Throughout the existence of the contract, the company regularly processes events such as premium collection and valuation,
+described in Section \@ref(S:PredModApps); these are marked with an **x** on
+the timeline. Further, non-regular and unanticipated events also occur.
+To illustrate, times $\mathrm{t}_2$ and $\mathrm{t}_4$ mark the
+event of an insurance claim (some contracts, such as life insurance, can
+have only a single claim). Times $\mathrm{t}_3$ and $\mathrm{t}_5$
+mark the events when a policyholder wishes to alter certain contract
+features, such as the choice of a deductible or the amount of coverage.
+Moreover, from a company perspective, one can even think about the
+contract initiation (arrival, time $\mathrm{t}_1$) and contract
+termination (departure, time $\mathrm{t}_6$) as uncertain events.
+
+(ref:StochOperations) Timeline of a Typical Insurance Policy. Arrows mark the occurrences of random events. Each x marks the time of scheduled events that are typically non-random.
+
+```{r StochOperations, fig.cap='(ref:StochOperations)', out.width='100%', fig.asp=.75, fig.align='center', echo=FALSE}
+plot.new() 
+par(mar=c(0,0,0,0), cex=0.9)
+ytop <- 3.5
+ytop1 <- ytop - 0.5
+plot.window(xlim=c(0,20),ylim=c(0,5))
+#  Main Time Line
+arrows(.4,1,19.8,1,code=2,lwd=2,angle=25,length=0.10)
+#  Contract Initiation
+text(0.2,ytop,labels="Policy \nEnters\nPremium \nPaid",adj=0, cex=0.8)
+arrows(0.8,ytop1,0.8,1.2,code=2,lwd=2,angle=25,length=0.10)
+
+text(3.7,ytop,labels="Claim \nOccurs",adj=0, cex=0.8)
+arrows(4.3,ytop1,4.3,1.2,code=2,lwd=2,angle=25,length=0.10)
+
+text(9,ytop,labels="Contract \nAlteration\nIncrease \nDeductible",adj=0, cex=0.8)
+arrows(9.1,ytop1,9.1,1.2,code=2,lwd=2,angle=25,length=0.10)
+
+text(9.2,1.8,labels="Policy \nRenewal\nPremium \nPaid",adj=0, cex=0.8)
+text(9,1,labels="X",adj=0, cex=0.8)
+
+text(12,ytop,labels="Claim \nOccurs",adj=0, cex=0.8)
+arrows(12.5,ytop1,12.5,1.2,code=2,lwd=2,angle=25,length=0.10)
+
+text(15.5,ytop,labels="Contract \nAlteration\nIncrease \nCoverage",adj=0, cex=0.8)
+arrows(16.2,ytop1,16.2,1.2,code=2,lwd=2,angle=25,length=0.10)
+
+text(17.2,ytop,labels="Policy \nNonrenewal",adj=0, cex=0.8)
+arrows(17.8,ytop1,17.8,1.2,code=2,lwd=2,angle=25,length=0.10)
+text(0.8,0.6,expression(t[1]),adj=0, cex=0.8)
+text(4.2,0.6,expression(t[2]),adj=0, cex=0.8)
+text(9.1,0.6,expression(t[3]),adj=0, cex=0.8)
+text(12.5,0.6,expression(t[4]),adj=0, cex=0.8)
+text(16.0,0.6,expression(t[5]),adj=0, cex=0.8)
+text(17.8,0.6,expression(t[6]),adj=0, cex=0.8)
+
+#  Valuation Dates
+text(2.7,1.8,labels="Valuation\nDate 1",adj=0, cex=0.8)
+text(3,1,labels="X",adj=0, cex=0.8)
+text(6.7,1.8,labels="Valuation\nDate 2",adj=0, cex=0.8)
+text(7,1,labels="X",adj=0, cex=0.8)
+text(10.7,1.8,labels="Valuation\nDate 3",adj=0, cex=0.8)
+text(11,1,labels="X",adj=0, cex=0.8)
+text(14.7,1.8,labels="Valuation\nDate 4",adj=0, cex=0.8)
+text(15,1,labels="X",adj=0, cex=0.8)
+
+#  Premium Renewals
+text(4.9,1.8,labels="Policy \nRenewal\nPremium \nPaid",adj=0, cex=0.8)
+text(5,1,labels="X",adj=0, cex=0.8)
+text(12.9,1.8,labels="Policy \nRenewal\nPremium \nPaid",adj=0, cex=0.8)
+text(13,1,labels="X",adj=0, cex=0.8)
+```
+
+## Variable Types
+
+<hr />
+In this section, you learn how to:
+
+- Describe different types of variables typically encountered in insurance practice
+- Classify a variable into the appropriate category
+
+<hr />
+
+
+Before discussing how to use insurance data to make decisions, it is
+helpful to first describe common features of data. In general, people,
+firms, and other entities that we want to understand are described in a
+dataset by numerical characteristics. As these characteristics vary by
+entity, they are commonly known as *variables*. To manage insurance
+systems, it will be critical to understand the distribution of each
+variable and how they are associated with one another. We will encounter
+datasets that have many variables (high dimensional) and so it useful
+to begin by classifying them into different types. As will be seen, this
+classification is not strict; there is overlap among the types.
+Nonetheless, the classification summarized in Table \@ref(tab:VarTypes) and
+explained in the remainder of this section provide a solid first step in
+framing a dataset.
+
+Table: (\#tab:VarTypes) Variable Types
+
+$${\small \begin{matrix}
+\begin{array}{l|l} \hline
+\textbf{Variable Type} & \textbf{Example} \\\hline
+Qualitative &            \\
+    \text{Binary} &        \text{Sex} \\
+\text{Categorical (Unordered, Nominal)} & \text{Territory (e.g., state/province) in which an insured resides} \\
+\text{Ordered Category (Ordinal)} & \text{Claimant satisfaction (five point scale ranging from 1=dissatisfied} \\
+& ~~~ \text{to 5 =satisfied)} \\\hline
+Quantitative &            \\
+\text{Continuous} & \text{Policyholder's age, weight, income} \\
+  \text{Discrete} & \text{Amount of deductible} \\
+\text{Count} & \text{Number of insurance claims} \\
+\text{Combinations of}  & \text{Policy losses, mixture of 0's (for no loss)}  \\
+~~~ \text{Discrete and Continuous} & ~~~\text{and positive claim amount} \\
+\text{Interval Variable} & \text{Driver Age: 16-24 (young), 25-54 (intermediate),}  \\
+& ~~~\text{55 and over (senior)} \\
+\text{Circular Data} & \text{Time of day measures of customer arrival} \\ \hline
+Multivariate ~ Variable &            \\
+\text{High Dimensional Data} & \text{Characteristics of a firm purchasing worker's compensation} \\
+& ~~~\text{insurance (location of plants, industry, number of employees,} \\
+&~~~\text{and so on)} \\
+\text{Spatial Data} & \text{Longitude/latitude of the location an insurance hailstorm claim} \\
+\text{Missing Data} & \text{Policyholder's age (continuous/interval) and "-99" for} \\
+&~~~ \text{"not reported," that is, missing} \\
+\text{Censored and Truncated Data} & \text{Amount of insurance claims in excess of a deductible} \\
+\text{Aggregate Claims} & \text{Losses recorded for each claim in a motor vehicle policy.} \\
+\text{Stochastic Process Realizations} & \text{The time and amount of each occurrence of an insured loss} \\ \hline
+\end{array}
+\end{matrix}}
+$$
+
+
+### Qualitative Variables
+
+Let us start with the simplest type, a binary variable. As suggested by
+its name, a *binary variable* is one with only two possible values.
+Although not necessary, the two values are commonly taken to be a 0
+and a 1. Binary variables are typically used to indicate whether or
+not an entity possesses an attribute. For example, we might code a
+variable in a dataset to be a 1 if an insured is female and a 0 if
+male. (An *insured* is a person who is covered under an insurance
+agreement.)
+
+More generally, a *qualitative*, or *categorical*, variable is one for
+which the measurement denotes membership in a set of groups, or
+categories. For example, if you were coding in which area of the country
+in which an insured resides, you might use a 1 for the northern part,
+2 for southern, and 3 for everything else. A binary variable is a
+special type of categorical variable where there are only two
+categories. This location variable is an example of a *nominal*
+variable, one for which the levels have no natural ordering. Any
+analysis of nominal variables should not depend on the labeling of the
+categories. For example, instead of using a 1,2,3 for north, south,
+other, I should arrive at the same set of summary statistics if I used
+a 2,1,3 coding instead, interchanging north and south.
+
+In contrast, an *ordinal* variable is a type of categorical variable for
+which an ordering does exist. For example, with a survey to see how
+satisfied customers are with our claims servicing department, we might
+use a five point scale that ranges from 1 meaning dissatisfied to a
+5 meaning satisfied. Ordinal variables provide a clear ordering of
+levels of a variable but the amount of separation between levels is
+unknown.
+
+### Quantitative Variables
+
+Unlike a qualitative variable, a quantitative variable is one in which
+numerical level is a realization from some scale so that the distance
+between any two levels of the scale takes on meaning.
+
+A *continuous variable* is one that can take on any value within a
+finite interval. For example, it is common to represent a policyholder's
+age, weight, or income, as a continuous variable.
+
+In contrast, a *discrete variable* is one that takes on only a finite
+number of values in any finite interval. For example, when examining a
+policyholder's choice of deductibles, it may be that values of 0, 250,
+500, and 1000 are the only possible outcomes. Like a ordinal variable,
+these represent distinct categories that are ordered. Unlike an ordinal
+variable, the numerical difference between levels takes on economic
+meaning.
+
+A special type of discrete variable is a *count variable*, one with
+values on the nonnegative integers $0, 1, 2, \ldots.$ For example, we
+will be particularly interested in the number of claims arising from a
+policy during a given period. This is known as the *claim frequency*.
+
+Given that we will develop ways to analyze discrete variables, do we
+really need separate methods for dealing with continuous variables?
+After all, one can argue that few things in the physical world are truly
+continuous. For example, each currency has a smallest unit that is not
+subdivided further. (In the US, you cannot pay for anything smaller than
+one cent.) Nonetheless, models using continuous variables serve as
+excellent approximations to real-world discrete outcomes, in part due to
+their simplicity. It will be well worth our time and effort to develop
+models and analyze continuous and discrete variables differently.
+
+Having said that, some variables are inherently a *combination of
+discrete and continuous* components. For example, when we analyze the
+insured loss of a policyholder, we will encounter a discrete outcome at
+zero, representing no insured loss, and a continuous amount for positive
+outcomes, representing the amount of the insured loss.
+
+Another interesting variation is an *interval variable*, one that gives
+a range of possible outcomes. For example, instead of recording a
+driver's age in year, it is common for insurers to group ages into three
+categories, (i) ages 16-24, representing young drives, (ii) ages 25-54,
+representing intermediate age drivers, and (iii) ages 55 and over,
+representing senior drivers.
+
+*Circular data* represent an interesting category typically not analyzed
+by insurers. As an example of circular data, suppose that you monitor
+calls to your customer service center and would like to know when is the
+peak time of the day for calls to arrive. In this context, one can think
+about the time of the day as a variable with realizations on a circle,
+e.g., imagine an analog picture of a clock. For circular data, the
+distance between observations at 00:15 and 00:45 are just as close as
+observations 23:45 and 00:15 (here, we use the convention *HH:MM* means
+hours and minutes).
+
+### Multivariate Variables
+
+Insurance data are typically are *multivariate* in the sense that we can
+take many measurements on a single entity. For example, when studying
+losses associated with a firm's worker's compensation plan, we might
+want to know the location of its manufacturing plants, the industry in
+which it operates, the number of employees, and so forth. If there are
+many variables, such data are also known as *high dimensional*.
+
+The usual strategy for analyzing multivariate data is to begin by
+examining each variable in isolation of the others. This is known as a
+*univariate* approach. By considering only one measurement, variables
+are *scalars* and, as described, can be thought broadly as either
+qualitative or quantitative.
+
+In contrast, for some variables, it makes little sense to only look a
+one dimensional aspects. For example, insurers typically organize
+*spatial* data by longitude and latitude to analyze the location of
+weather related insurance claims due hailstorms. Having only a single
+number, either longitude or latitude, provides little information in
+understanding geographical location.
+
+Another special case of a multivariate variable, less obvious, involves
+coding for *missing data*. Historically, some statistical packages used
+a -99 to report when a variable, such as policyholder's age, was not
+available or not reported. This led to many unsuspecting analysts
+providing strange statistics when summarizing a set of data. When data
+are missing, it is better to think about the variable as two dimensions,
+one to indicate whether or not the variable is reported and the second
+providing the age (if reported).
+
+In the same way, insurance data are commonly *censored* and *truncated*.
+To illustrate, with automobile claims may be limited or censored by
+500,000, the upper limit that the insurer will pay. The loss amount may
+be in excess of 500000 but the insurer is only aware of its payout. To
+record censored claims, a binary variable is used to indicate whether or
+not the claim is censored (limited) and a second variable is used to
+indicate the payout. In the same way, claims may be truncated by a
+deductible. Although there are many types of deductibles, in a common
+form the insurer pays the amount in excess of a deductible. To
+illustrate, suppose you have an auto policy with a 250 deductible. If
+you have a 1000 loss, then the insurer pays 750. If you have a 200 loss,
+then the insurer pays nothing. In principle, one would like to use a
+binary variable to indicate whether or not the claim has a deductible
+and a second variable is used to indicate the payout. As we will see,
+the tricky thing about deductibles is that for many sampling schemes,
+the insurer does not observe a claim if it the loss falls below the
+deductible amount. More on this topic later.
+
+*Aggregate claims* can also be coded as another special type of
+multivariate variable. In this situation, an insurer has potentially
+zero, one, two, or more claims, within a policy period. Each claim has
+its own level (possibly mediated by deductibles and upper limits) and
+there are an uncertain, or random, number of each claims for each
+individual. This is a case where the the dimension of the multivariate
+variable is not known in advance.
+
+Perhaps the most complicated type of multivariate variable is a
+*realization of a stochastic process*. You will recall that a stochastic
+process is little more than a collection of random variables. For
+example, in insurance, we might think about the times that claims arrive
+to an insurance company in a one year time horizon. This is a high
+dimensional variable that theoretically is infinite dimensional. Special
+techniques are required to understand realizations of stochastic
+processes that will not be addressed here.
+
+## Insurance Company Operations {#S:PredModApps}
+
+<hr />
+In this section, you learn how to:
+
+- Describe five major operational areas of insurance companies.
+- Identify the role of data and analytics opportunities within each operational area.
+
+<hr />
+
+Armed with insurance data and a method of organizing the data into
+variable types, the end goal is to use data to make decisions. Of
+course, we will need to learn more about methods of analyzing and
+extrapolating data but that is the purpose of the remaining chapters in
+the text. To begin, let us think about why we wish to do the analysis.
+To provide motivation, we take the insurer's viewpoint (not a person)
+and introduce ways of bringing money in, paying it out, managing costs,
+and making sure that we have enough money to meet obligations.
+
+Specifically, in many insurance companies, it is customary to aggregate
+detailed insurance processes into larger operational units; many
+companies use these functional areas to segregate employee activities
+and areas of responsibilities. Actuaries and other financial analysts
+work within these units and use data for the following activities:
+
+1.  **Initiating Insurance**. At this stage, the company makes a
+    decision as to whether or not to take on a risk (the
+    *underwriting* stage) and assign an appropriate premium (or rate).
+    Insurance analytics has its actuarial roots in *ratemaking*, where
+    analysts seek to determine the right price for the right risk.
+
+2.  **Renewing Insurance**. Many contracts, particularly in general
+    insurance, have relatively short durations such as 6 months or
+    a year. Although there is an implicit expectation that such
+    contracts will be renewed, the insurer has the opportunity to
+    decline coverage and to adjust the premium. Analytics is also used
+    at this policy renewal stage where the goal is to retain
+    profitable customers.
+
+3.  **Claims Management**. Analytics has long been used in (1) detecting
+    and preventing claims fraud, (2) managing claim costs, including
+    identifying the appropriate support for claims handling expenses, as
+    well as (3) understanding excess layers for reinsurance
+    and retention.
+
+4.  **Loss Reserving**. Analytic tools are used to provide management
+    with an appropriate estimate of future obligations and to quantify
+    the uncertainty of the estimates.
+
+5.  **Solvency and Capital Allocation**. Deciding on the requisite
+    amount of capital and ways of allocating capital to alternative
+    investment activities represent other important
+    analytics activities. Companies must understand how much capital is
+    needed so that they will have sufficient flow of cash available to
+    meet their obligations. This is an important question that concerns
+    not only company managers but also customers, company shareholders,
+    regulatory authorities, as well as the public at large. Related to
+    issues of how much capital is the question of how to allocate
+    capital to differing financial projects, typically to maximize an
+    investor's return. Although this question can arise at several
+    levels, insurance companies are typically concerned with how to
+    allocate capital to different lines of business within a firm and to
+    different subsidiaries of a parent firm.
+
+Although data is a critical component of solvency and capital
+allocation, other components including an economic framework and
+financial investments environment are also important. Because of the
+background needed to address these components, we will not address
+solvency and capital allocation issues further in this text.
+
+Nonetheless, for all operating functions, we emphasize that analytics in
+the insurance industry is not an exercise that a small group of analysts
+can do by themselves. It requires an insurer to make significant
+investments in their information technology, marketing, underwriting,
+and actuarial functions. As these areas represent the primary end goals
+of the analysis of data, additional background on each operational unit
+is provided in the following subsections.
+
+### Initiating Insurance
+
+Setting the price of an insurance good can be a perplexing problem. In
+manufacturing, the cost of a good is (relatively) known and provides a
+benchmark for assessing a market demand price. In other areas of
+financial services, market prices are available and provide the basis
+for a market-consistent pricing structure of products. In contrast, for
+many lines of insurance, the cost of a good is uncertain and market
+prices are unavailable. Expectations of the random cost is a reasonable
+place to start for a price, as this is the optimal price for a
+risk-neutral insurer. Thus, it has been
+traditional in insurance pricing to begin with the expected cost and to
+add to this so-called margins to account for the product's riskiness,
+expenses incurred in servicing the product, and a profit/surplus
+allowance for the insurance company.
+
+For some lines of business, especially automobile and homeowners
+insurance, analytics has served to sharpen the market by making the
+calculation of the good's expectation more precise. The increasing
+availability of the internet among consumers has promoted transparency
+in pricing. Insurers seek to increase their market share by refining
+their risk classification systems and employing skimming the cream
+underwriting strategies. Recent surveys (e.g., [@survey2013]) indicate
+that pricing is the most common use of analytics among insurers.
+
+*Underwriting*, the process of classifying risks into homogenous
+categories and assigning policyholders to these categories, lies at the
+core of ratemaking. Policyholders within a class have similar risk
+profiles and so are charged the same insurance price. This is the
+concept of an actuarially fair premium; it is fair to charge
+different rates to policyholders only if they can be separated by
+identifiable risk factors. To illustrate, an early contribution, Two
+Studies in Automobile Insurance Ratemaking, by [@bailey1960] provided a
+catalyst to the acceptance of analytic methods in the insurance
+industry. This paper addresses the problem of classification ratemaking.
+It describes an example of automobile insurance that has five use
+classes cross-classified with four merit rating classes. At that time,
+the contribution to premiums for use and merit rating classes were
+determined independently of each other. Thinking about the interacting
+effects of different classification variables is a more difficult
+problem.
+
+### Renewing Insurance
+
+Insurance is a type of financial service and, like many service
+contracts, insurance coverage is often agreed upon for a limited time
+period, such as six months or a year, at which time commitments are
+complete. Particularly for general insurance, the need for coverage
+continues and so efforts are made to issue a new contract providing
+similar coverage. Renewal issues can also arise in life insurance, e.g.,
+term (temporary) life insurance, although other contracts, such as life
+annuities, terminate upon the insured's death and so issues of
+renewability are irrelevant.
+
+In absence of legal restrictions, at renewal the insurer has the
+opportunity to:
+
+-   accept or decline to underwrite the risk and
+
+-   determine a new premium, possibly in conjunction with a new
+    classification of the risk.
+
+Risk classification and rating at renewal is based on two types of
+information. First, as at the initial stage, the insurer has available
+many rating variables upon which decisions can be made. Many variables
+will not change, e.g., sex, whereas others are likely to have changed,
+e.g., age, and still others may or may not change, e.g., credit score.
+Second, unlike the initial stage, at renewal the insurer has available a
+history of policyholder's loss experience, and this history can provide
+insights into the policyholder that are not available from rating
+variables. Modifying premiums with claims history is known as
+*experience rating*, also sometimes referred to as *merit rating*.
+
+Experience rating methods are either applied retrospectively or
+prospectively. With retrospective methods, a refund of a portion of the
+premium is provided to the policyholder in the event of favorable (to
+the insurer) experience. Retrospective premiums are common in life
+insurance arrangements (where policyholders earned dividends in the
+U.S. and bonuses in the U.K.). In general insurance, prospective
+methods are more common, where favorable insured experience is rewarded
+through a lower renewal premium.
+
+Claims history can provide information about a policyholder's risk
+appetite. For example, in personal lines it is common to use a variable
+to indicate whether or not a claim has occurred in the last three years.
+As another example, in a commercial line such as worker's compensation,
+one may look to a policyholder's average claim over the last three
+years. Claims history can reveal information that is hidden (to the
+insurer) about the policyholder.
+
+### Claims and Product Management
+
+In some of areas of insurance, the process of paying claims for insured
+events is relatively straightforward. For example, in life insurance, a
+simple death certificate is all that is needed as the benefit amount is
+provided in the contract terms. However, in non-life areas such as
+property and casualty insurance, the process is much more complex. Think
+about even a relatively simple insured event such as automobile
+accident. Here, it is often helpful to determine which party is at
+fault, one needs to assess damage to all of the vehicles and people
+involved in the incident, both insured and non-insured, the expenses
+incurred in assessing the damages, and so forth. The process of
+determining coverage, legal liability, and settling claims is known as
+*claims adjustment*.
+
+Insurance managers sometimes use the phrase *claims leakage* to mean
+dollars lost through claims management inefficiencies. There are many
+ways in which analytics can help manage the claims process,
+[@SASsurvey]. Historically, the most important has been fraud detection.
+The claim adjusting process involves reducing information asymmetry (the
+claimant knows exactly what happened; the company knows some of what
+happened). Mitigating fraud is an important part of claims management
+process.
+
+One can think about the management of claims severity as consisting of
+the following components:
+
+-   **Claims triaging**. Just as in the medical world, early
+    identification and appropriate handling of high cost claims
+    (patients, in the medical world), can lead to dramatic
+    company savings. For example, in workers compensation, insurers look
+    to achieve early identification of those claims that run the risk of
+    high medical costs and a long payout period. Early intervention into
+    those cases could give insurers more control over the handling of
+    the claim, the medical treatment, and the overall costs with an
+    earlier return-to-work.
+
+-   **Claims processing**. The goal is to use analytics to identify
+    situations suitable for small claims handling processes and those
+    for adjuster assignment to complex claims.
+
+-   **Adjustment decisions**. Once a complex claim has been identified
+    and assigned to an adjuster, analytic driven routines can be
+    established to aid subsequent decision-making processes. Such
+    processes can also be helpful for adjusters in developing case
+    reserves, an important input to the insurer's loss reserves,
+    Section \@ref(S:Reserving).
+
+In addition to the insured's reimbursement for insured losses, the
+insurer also needs to be concerned with another source of revenue
+outflow, expenses. Loss adjustment expenses are part of an insurer's
+cost of managing claims. Analytics can be used to reduce expenses
+directly related to claims handling (allocated) as well as general
+staff time for overseeing the claims processes (unallocated). The
+insurance industry has high operating costs relative to other portions
+of the financial services sectors.
+
+In addition to claims payments, there are many other ways in which
+insurers use to data to manage their products. We have already discussed
+the need for analytics in underwriting, that is, risk classification at
+the initial acquisition stage. Insurers are also interested in which
+policyholders elect to renew their contract and, as with other products,
+monitor customer loyalty.
+
+Analytics can also be used to manage the portfolio, or collection, of
+risks that an insurer has acquired. When the risk is initially obtained,
+the insurer's risk can be managed by imposing contract parameters that
+modify contract payouts. In Chapter xx introduces common modifications
+including coinsurance, deductibles, and policy upper limits.
+
+After the contract has been agreed upon with an insured, the insurer may
+still modify its net obligation by entering into a reinsurance
+agreement. This type of agreement is with a reinsurer, an insurer of an
+insurer. It is common for insurance companies to purchase insurance on
+its portfolio of risks to gain protection from unusual events, just as
+people and other companies do.
+
+### Loss Reserving {#S:Reserving}
+
+An important feature that distinguishes insurance from other sectors of
+the economy is the timing of the exchange of considerations. In
+manufacturing, payments for goods are typically made at the time of a
+transaction. In contrast, for insurance, money received from a customer
+occurs in advance of benefits or services; these are rendered at a later
+date. This leads to the need to hold a reservoir of wealth to meet
+future obligations in respect to obligations made. The size of this
+reservoir of wealth, and the importance of ensuring its adequacy in
+regard to liabilities already assumed, is a major concern for the
+insurance industry.
+
+Setting aside money for unpaid claims is known as *loss reserving*; in
+some jurisdictions, reserves are also known as *technical provisions*.
+We saw in Figure \@ref(fig:StochOperations) how future obligations arise
+naturally at a specific (valuation) date; a company must estimate these
+outstanding liabilities when determining its financial strength.
+Accurately determining loss reserves is important to insurers for many
+reasons.
+
+1.  Loss reserves represent a loan that the insurer owes its customers.
+    Under-reserving may result in a failure to meet claim liabilities.
+    Conversely, an insurer with excessive reserves may present a weaker
+    financial position than it truly has and lose market share.
+
+2.  Reserves provide an estimate for the unpaid cost of insurance that
+    can be used for pricing contracts.
+
+3.  Loss reserving is required by laws and regulations. The public has a
+    strong interest in the financial strength of insurers.
+
+4.  In addition to the insurance company management and regulators,
+    other stakeholders such as investors and customers make decisions
+    that depend on company loss reserves.
+
+Loss reserving is a topic where there are substantive differences
+between life and general (also known as property and casualty, or
+non-life), insurance. In life insurance, the severity (amount of loss)
+is often not a source of concern as payouts are specified in the
+contract. The frequency, driven by mortality of the insured, is a
+concern. However, because of the length of time for settlement of life
+insurance contracts, the time value of money uncertainty as measured
+from issue to date of death can dominate frequency concerns. For
+example, for an insured who purchases a life contract at age 20, it
+would not be unusual for the contract to still be open in 60 years time.
+See, for example, [@bowers1986actuarial] or [@dickson2013actuarial] for
+introductions to reserving for life insurance.
+
+## Case Study: Wisconsin Property Fund {#S:LGPIF}
+
+<hr />
+In this section,for a real case study such as the Wisconsin Property Fund, you learn how to:
+
+- Describe how data generating events can produce data of interest to insurance analysts.
+- Identify the type of each variable.
+- Produce relevant summary statistics for each variable.
+- Describe how these summary statistcs can be used in each of the major operational areas of an insurance company.
+
+<hr />
+
+
+
+
+Let us illustrate the kind of data under consideration and the goals
+that we wish to achieve by examining the Local Government Property
+Insurance Fund (LGPIF), an insurance pool administered by the Wisconsin
+Office of the Insurance Commissioner. The LGPIF was established to
+provide property insurance for local government entities that include
+counties, cities, towns, villages, school districts, and library boards.
+The fund insures local government property such as government buildings,
+schools, libraries, and motor vehicles. The fund covers all property
+losses except those resulting from flood, earthquake, wear and tear,
+extremes in temperature, mold, war, nuclear reactions, and embezzlement
+or theft by an employee.
+
+The property fund covers over a thousand local government entities who
+pay approximately \$25 million in premiums each year and receive
+insurance coverage of about \$75 billion. State government buildings are
+not covered; the LGPIF is for local government entities that have
+separate budgetary responsibilities and who need insurance to moderate
+the budget effects of uncertain insurable events. Coverage for local
+government property has been made available by the State of Wisconsin
+since 1911.
+
+### Fund Claims Variables {#S:OutComes}
+
+At a fundamental level, insurance companies accept premiums in exchange
+for promises to indemnify a policyholder upon the uncertain occurrence
+of an insured event. This indemnification is known as a *claim*. A
+positive amount, also known as the *severity* of the claim, is a key
+financial expenditure for an insurer. So, knowing only the claim amount
+summarizes the reimbursement to the policyholder.
+
+Ignoring expenses, an insurer that examines only amounts paid would be
+indifferent to two claims of 100 when compared to one claim of 200, even
+though the number of claims differ. Nonetheless, it is common for
+insurers to study how often claims arise, known as the *frequency* of
+claims. The frequency is important for expenses, but it also influences
+contractual parameters (such as deductibles and policy limits) that are
+written on a per occurrence basis, is routinely monitored by insurance
+regulators, and is often a key driven in the overall indemnification
+obligation of the insurer. We shall consider the two claims variables,
+the severity and frequency, as the two main outcome variables that we
+wish to understand, model, and manage.
+
+To illustrate, in 2010 there were 1,110 policyholders in the property
+fund. Table \@ref(tab:Frequency2010) shows the distribution of the 1,377
+claims. Almost two-thirds (0.637) of the policyholders did not have any
+claims and an additional 18.8% only had one claim. The remaining 17.5%
+(=1 - 0.637 - 0.188) had more than one claim; the policyholder with the
+highest number recorded 239 claims. The average number of claims for
+this sample was 1.24 (=1377/1110).
+
+  Type                                                                                             
+  ------------ ------- ------- ------- ------- ------- ------- ------- ------- ------- ----------- -------
+  Number             0       1       2       3       4       5       6       7       8   9 or more     Sum
+  Count            707     209      86      40      18      12       9       4       6          19   1,110
+  Proportion     0.637   0.188   0.077   0.036   0.016   0.011   0.008   0.004   0.005       0.017   1.000
+
+Table: (\#tab:Frequency2010)  2010 Claims Frequency Distribution
+  
+
+<h5 style="text-align: center;"><a id="display.T:Frequency.1" href="javascript:togglecode
+('display.T:Frequency.2','display.T:Frequency.1');"><i><strong>R Code for Frequency Table</strong></i></a> </h5>
+<div id="display.T:Frequency.2" style="display: none">
+
+``` 
+Insample <- read.csv("Insample.csv", header=T,  na.strings=c("."), stringsAsFactors=FALSE)
+Insample2010 <- subset(Insample, Year==2010)
+table(Insample2010$Freq)
+```
+</div>  
+  
+
+For the severity distribution, one common approach is to examine the
+distribution of the sample of 1,377 claims. However, another common
+approach is to examine the distribution of the average claims of those
+policyholders with claims. In our 2010 sample, there were 403
+(=1110-707) such policyholders. For 209 of these policyholders with one
+claim, the average claim equals the only claim they experienced. For the
+policyholder with highest frequency, the average claim is an average
+over 239 separately reported claim events. The total severity divided by
+the number of claims is also known as the *pure premium* or *loss cost*.
+
+Table \@ref(tab:Severity2010) summarizes the sample distribution of average
+severities from the 403 policyholders; it shows that the average claim
+amount was 56,330 (all amounts are in US Dollars). However, the average
+gives only a limited look at the distribution. More information can be
+gleaned from the summary statistics which show a very large claim in the
+amount of 12,920,000. Figure \@ref(fig:SeverityFig) provides further
+information about the distribution of sample claims, showing a
+distribution that is dominated by this single large claim so that the
+histogram is not very helpful. Even when removing the large claim, you
+will find a distribution that is skewed to the right. A generally
+accepted technique is to work with claims in logarithmic units
+especially for graphical purposes; the corresponding figure in the
+right-hand panel is much easier to interpret.
+
+  --------- ---------- -------- -------- ---------- ------------
+                 First                        Third 
+    Minimum   Quartile   Median     Mean   Quartile      Maximum
+  --------- ---------- -------- -------- ---------- ------------
+        167      2,226    4,951   56,330     11,900   12,920,000
+  --------- ---------- -------- -------- ---------- ------------
+
+Table: (\#tab:Severity2010)  2010 Average Severity Distribution
+  
+ 
+
+<!-- ![\@ref(fig:SeverityFig)Distribution of Positive Average Severities. -->
+<!-- ](Severity1.pdf){width=".75\textwidth"} -->
+
+
+```{r SeverityFig, echo=FALSE, fig.cap='Distribution of Positive Average Severities', out.width='80%', fig.asp=.75, fig.align='center'}
+Insample <- read.csv("Data/PropertyFundInsample.csv", header=T, na.strings=c("."), stringsAsFactors=FALSE)
+Insample2010 <- subset(Insample, Year==2010)
+InsamplePos2010 <- subset(Insample2010, yAvg>0)
+par(mfrow=c(1, 2))
+hist(InsamplePos2010$yAvg, main="", xlab="Average Claims")
+hist(log(InsamplePos2010$yAvg), main="", xlab="Logarithmic Average Claims")
+```
+
+<h5 style="text-align: center;"><a id="display.SeverityFig.1" href="javascript:togglecode('display.SeverityFig.2','display.SeverityFig.1');"><i><strong>R Code for Severity Distribution Table and Figures</strong></i></a> </h5>
+<div id="display.SeverityFig.2" style="display: none">
+
+``` 
+Insample <- read.csv("Data/PropertyFundInsample.csv", header=T, na.strings=c("."), stringsAsFactors=FALSE)
+Insample2010 <- subset(Insample, Year==2010)
+InsamplePos2010 <- subset(Insample2010, yAvg>0)
+# Table
+summary(InsamplePos2010$yAvg)
+length(InsamplePos2010$yAvg)
+# Figures
+par(mfrow=c(1, 2))
+hist(InsamplePos2010$yAvg, main="", xlab="Average Claims")
+hist(log(InsamplePos2010$yAvg), main="", xlab="Logarithmic Average Claims")
+```
+</div>
+
+
+### Fund Rating Variables {#S:FundVariables}
+
+Developing models to represent and manage the two outcome variables,
+frequency and severity, is the focus of the early chapters of this text.
+However, when actuaries and other financial analysts use those models,
+they do so in the context of externally available variables. In general
+statistical terminology, one might call these explanatory or predictor
+variables; there are many other names in statistics, economics,
+psychology, and other disciplines. Because of our insurance focus, we
+call them *rating variables* as they will be useful in setting insurance
+rates and premiums.
+
+We earlier considered a sample of 1,110 observations which may seem like
+a lot. However, as we will seen in our forthcoming applications, because
+of the preponderance of zeros and the skewed nature of claims, actuaries
+typically yearn for more data. One common approach that we adopt here is
+to examine outcomes from multiple years, thus increasing the sample
+size. We will discuss the strengths and limitations of this strategy
+later but, at this juncture, just want to show the reader how it works.
+
+Specifically, Table \@ref(tab:CoverageBCIM) shows that we now consider
+policies over five years of data, years 2006, ..., 2010, inclusive. The
+data begins in 2006 because there was a shift in claim coding in 2005 so
+that comparisons with earlier years are not helpful. To mitigate the
+effect of open claims, we consider policy years prior to 2011. An open
+claim means that all of the obligations are not known at the time of the
+analysis; for some claims, such an injury to a person in an auto
+accident or in the workplace, it can take years before costs are fully
+known.
+
+Table \@ref(tab:CoverageBCIM) shows that the average claim varies over time,
+especially with the high 2010 value due to a single large claim. The
+total number of policyholders is steadily declining and, conversely, the
+coverage is steadily increasing. The coverage variable is the amount of
+coverage of the property and contents. Roughly, you can think of it as
+the maximum possible payout of the insurer. For our immediate purposes,
+it is our first rating variable. Other things being equal, we would
+expect that policyholders with larger coverage will have larger claims.
+We will make this vague idea much more precise as we proceed.
+
+
+  --------------------- ----------- ---------- ------------ ---------------
+  Year                      Average    Average      Average       Number of
+                          Frequency   Severity     Coverage   Policyholders
+  --------------------- ----------- ---------- ------------ ---------------
+  2006                        0.951      9,695   32,498,186           1,154
+  
+  2007                        1.167      6,544   35,275,949           1,138
+  
+  2008                        0.974      5,311   37,267,485           1,125
+  
+  2009                        1.219      4,572   40,355,382           1,112
+  
+  2010                        1.241     20,452   41,242,070           1,110
+  --------------------- ----------- ---------- ------------ ---------------
+
+  Table: (\#tab:CoverageBCIM) Building and Contents Claims Summary
+
+
+
+<h5 style="text-align: center;"><a id="display.CoverageBC.1" href="javascript:togglecode('display.CoverageBC.2','display.CoverageBC.1');"><i><strong>R Code for Building and Contents Claims Summary</strong></i></a> </h5>
+<div id="display.CoverageBC.2" style="display: none">
+
+``` 
+Insample <- read.csv("Data/PropertyFundInsample.csv", header=T, na.strings=c("."), stringsAsFactors=FALSE)
+library(doBy)
+T1A <- summaryBy(Freq ~ Year, data = Insample, 
+   FUN = function(x) { c(m = mean(x), num=length(x)) } )
+T1B <- summaryBy(yAvg    ~ Year, data = Insample,   
+   FUN = function(x) { c(m = mean(x), num=length(x)) } )
+T1C <- summaryBy(BCcov    ~ Year, data = Insample,   
+   FUN = function(x) { c(m = mean(x), num=length(x)) } )
+Table1In <- cbind(T1A[1],T1A[2],T1B[2],T1C[2],T1A[3])
+names(Table1In) <- c("Year", "Average Frequency","Average Severity", "Average","Number of Policyholders")
+Table1In
+```
+</div>
+
+
+For a different look at this five-year sample, Table \@ref(tab:DeductCov)
+summarizes the distribution of our two outcomes, frequency and claims
+amount. In each case, the average exceeds the median, suggesting that
+the two distributions are right-skewed. In addition, the table
+summarizes our continuous rating variables, coverage and deductible
+amount. The table also suggests that these variables also have
+right-skewed distributions.
+
+  ------------------ --------- -------- --------- ------------
+                       Minimum   Median   Average      Maximum    
+  ------------------ --------- -------- --------- ------------
+  Claim Frequency            0        0     1.109          263
+  
+  Claim Severity             0        0     9,292   12,922,218
+  
+  Deductible               500    1,000     3,365      100,000 
+  
+  Coverage (000's)       8.937   11,354    37,281    2,444,797    
+  ------------------ --------- -------- --------- ------------
+  
+Table: (\#tab:DeductCov) Summary of Claim Frequency and Severity, Deductibles, and Coverages
+  
+
+<h5 style="text-align: center;"><a id="display.DeductCov.1" href="javascript:togglecode('display.DeductCov.2','display.DeductCov.1');"><i><strong>R Code for Summary of Claim Frequency and Severity, Deductibles, and Coverages</strong></i></a> </h5>
+<div id="display.DeductCov.2" style="display: none">
+
+``` 
+Insample <- read.csv("Data/PropertyFundInsample.csv", header=T, na.strings=c("."), stringsAsFactors=FALSE)
+t1<- summaryBy(Insample$Freq ~ 1, data = Insample, 
+   FUN = function(x) { c(ma=min(x), m1=median(x),m=mean(x),mb=max(x)) } )
+names(t1) <- c("Minimum", "Median","Average", "Maximum")
+t2 <- summaryBy(Insample$yAvg ~ 1, data = Insample, 
+   FUN = function(x) { c(ma=min(x), m1=median(x), m=mean(x),mb=max(x)) } )
+names(t2) <- c("Minimum", "Median","Average", "Maximum")
+t3 <- summaryBy(Deduct ~ 1, data = Insample, 
+   FUN = function(x) { c(ma=min(x), m1=median(x), m=mean(x),mb=max(x)) } )
+names(t3) <- c("Minimum", "Median","Average", "Maximum")
+t4 <- summaryBy(BCcov/1000 ~ 1, data = Insample, 
+   FUN = function(x) { c(ma=min(x), m1=median(x), m=mean(x),mb=max(x)) } )
+names(t4) <- c("Minimum", "Median","Average", "Maximum")
+Table2 <- rbind(t1,t2,t3,t4)
+Table2a <- round(Table2,3)
+Rowlable <- rbind("Claim Frequency","Claim Severity","Deductible","Coverage (000's)")
+Table2aa <- cbind(Rowlable,as.matrix(Table2a))
+Table2aa
+```
+</div>  
+  
+
+Table \@ref(tab:VarDescr) describes the rating variables considered in this
+chapter. To handle the skewness, we henceforth focus on logarithmic
+transformations of coverage and deductibles. To get a sense of the
+relationship between the non-continuous rating variables and claims,
+Table \@ref(tab:ClaimRateVar) relates the claims outcomes to these
+categorical variables. Table \@ref(tab:ClaimRateVar) suggests substantial
+variation in the claim frequency and average severity of the claims by
+entity type. It also demonstrates higher frequency and severity for the
+ ${\tt Fire5}$ variable and the reverse for the ${\tt NoClaimCredit}$ variable.
+The relationship for the ${\tt Fire5}$ variable is counter-intuitive in that
+one would expect lower claim amounts for those policyholders in areas
+with better public protection (when the protection code is five or
+less). Naturally, there are other variables that influence this
+relationship. We will see that these background variables are accounted
+for in the subsequent multivariate regression analysis, which yields an
+intuitive, appealing (negative) sign for the ${\tt Fire5}$ variable.
+
+Table: (\#tab:VarDescr) Description of Rating Variables
+
+$${\small \begin{matrix}
+\begin{array}{ l | l}
+\hline
+Variable 	& Description \\
+\hline
+\text{EntityType} 	& \text{Categorical variable that is one of six types:  (Village, City,} \\
+& ~~~~ \text{County, Misc, School, or Town)} \\
+\text{LnCoverage}	& \text{Total building and content coverage, in logarithmic millions of dollars}\\
+\text{LnDeduct}   	& \text{Deductible, in logarithmic dollars} \\
+\text{AlarmCredit}  & \text{Categorical variable that is one of four types:  (0, 5, 10, or 15)} \\
+ &  ~~~~   \text{for automatic smoke alarms in main rooms} \\
+\text{NoClaimCredit}  	& \text{Binary variable to indicate no claims in the past two years} \\
+\text{Fire5 }			& \text{Binary variable to indicate the fire class is below 5} \\
+& ~~~~ \text{(The range of fire class is 0 to 10} \\
+\hline
+\end{array}
+\end{matrix}}$$
+
+
+
+
+  --------------------- ----------- ----------- ----------
+                          Number of       Claim    Average
+  Variable                 Policies   Frequency   Severity
+  --------------------- ----------- ----------- ----------
+  *EntityType* 
+  
+  Village                     1,341       0.452     10,645
+  
+  City                          793       1.941     16,924
+  
+  County                        328       4.899     15,453
+  
+  Misc                          609       0.186     43,036
+  
+  School                      1,597       1.434     64,346
+  
+  Town                          971       0.103     19,831
+  
+  Fire5=0                     2,508       0.502     13,935
+  
+  Fire5=1                     3,131       1.596     41,421
+  
+  NoClaimCredit=0             3,786       1.501     31,365
+  
+  NoClaimCredit=1             1,853       0.310     30,499
+  
+  Total                       5,639       1.109     31,206
+  --------------------- ----------- ----------- ----------
+
+ Table: (\#tab:ClaimRateVar) Claims Summary by Entity Type, Fire Class, and No Claim Credit
+  
+  
+<h5 style="text-align: center;"><a id="display.ClaimRateVar.1" href="javascript:togglecode('display.ClaimRateVar.2','display.ClaimRateVar.1');"><i><strong>R Code for Claims Summary by Entity Type, Fire Class, and No Claim Credit</strong></i></a> </h5>
+<div id="display.ClaimRateVar.2" style="display: none">
+
+``` 
+ByVarSumm<-function(datasub){
+  tempA <- summaryBy(Freq    ~ 1 , data = datasub,   
+     FUN = function(x) { c(m = mean(x), num=length(x)) } )
+  datasub1 <-  subset(datasub, yAvg>0)
+  tempB <- summaryBy(yAvg   ~ 1, data = datasub1,FUN = function(x) { c(m = mean(x)) } )
+  tempC <- merge(tempA,tempB,all.x=T)[c(2,1,3)]
+  tempC1 <- as.matrix(tempC)
+  return(tempC1)
+  }
+datasub <-  subset(Insample, TypeVillage == 1);   
+t1 <- ByVarSumm(datasub)
+datasub <-  subset(Insample, TypeCity == 1);      
+t2 <- ByVarSumm(datasub)
+datasub <-  subset(Insample, TypeCounty == 1);   
+t3 <- ByVarSumm(datasub)
+datasub <-  subset(Insample, TypeMisc == 1);      
+t4 <- ByVarSumm(datasub)
+datasub <-  subset(Insample, TypeSchool == 1);    
+t5 <- ByVarSumm(datasub)
+datasub <-  subset(Insample, TypeTown == 1);      
+t6 <- ByVarSumm(datasub)
+datasub <-  subset(Insample, Fire5 == 0);                      
+t7 <- ByVarSumm(datasub)
+datasub <-  subset(Insample, Fire5 == 1);                      
+t8 <- ByVarSumm(datasub)
+datasub <-  subset(Insample, Insample$NoClaimCredit == 0);
+t9 <- ByVarSumm(datasub)
+datasub <-  subset(Insample, Insample$NoClaimCredit == 1);
+t10 <- ByVarSumm(datasub)
+t11 <- ByVarSumm(Insample)
+
+Tablea <- rbind(t1,t2,t3,t4,t5,t6,t7,t8,t9,t10,t11)
+Tableaa <- round(Tablea,3)
+Rowlable <- rbind("Village","City","County","Misc","School",
+          "Town","Fire5--No","Fire5--Yes","NoClaimCredit--No",
+        "NoClaimCredit--Yes","Total")
+Table4 <- cbind(Rowlable,as.matrix(Tableaa))
+Table4
+```
+</div>  
+    
+
+Table \@ref(tab:RateAlarmCredit) shows the claims experience by alarm credit.
+It underscores the difficulty of examining variables individually. For
+example, when looking at the experience for all entities, we see that
+policyholders with no alarm credit have on average lower frequency and
+severity than policyholders with the highest (15%, with 24/7 monitoring
+by a fire station or security company) alarm credit. In particular, when
+we look at the entity type School, the frequency is 0.422 and the
+severity 25,257 for no alarm credit, whereas for the highest alarm level
+it is 2.008 and 85,140. This may simply imply that entities with more
+claims are the ones that are likely to have an alarm system. Summary
+tables do not examine multivariate effects; for example, Table
+\@ref(tab:ClaimRateVar) ignores the effect of size (as we measure through
+coverage amounts) that affect claims.
+
+  --------- ----------- ---------- ---------- ----------- ---------- ----------
+  Entity          Claim       Avg.       Num.       Claim       Avg.       Num.
+  Type        Frequency   Severity   Policies   Frequency   Severity   Policies
+  --------- ----------- ---------- ---------- ----------- ---------- ----------
+  Village         0.326     11,078        829       0.278      8,086         54
+  
+  City            0.893      7,576        244       2.077      4,150         13
+  
+  County          2.140     16,013         50           -          -          1
+  
+  Misc            0.117     15,122        386       0.278     13,064         18
+  
+  School          0.422     25,523        294       0.410     14,575        122
+  
+  Town            0.083     25,257        808       0.194      3,937         31
+  
+  Total           0.318     15,118      2,611       0.431     10,762        239
+  --------- ----------- ---------- ---------- ----------- ---------- ----------
+
+  Table: (\#tab:RateAlarmCredit) Claims Summary by Entity Type and Alarm Credit Category
+  
+   
+
+  --------- ----------- ---------- ---------- ----------- ---------- ----------
+  Entity          Claim       Avg.       Num.       Claim       Avg.       Num.
+  Type        Frequency   Severity   Policies   Frequency   Severity   Policies
+  --------- ----------- ---------- ---------- ----------- ---------- ----------
+  Village         0.500      8,792         50       0.725     10,544        408
+  
+  City            1.258      8,625         31       2.485     20,470        505
+  
+  County          2.125     11,688          8       5.513     15,476        269
+  
+  Misc            0.077      3,923         26       0.341     87,021        179
+  
+  School          0.488     11,597        168       2.008     85,140      1,013
+  
+  Town            0.091      2,338         44       0.261      9,490         88
+  
+  Total           0.517     10,194        327       2.093     41,458      2,462
+  --------- ----------- ---------- ---------- ----------- ---------- ----------
+
+  : Claims Summary by Entity Type and Alarm Credit Category
+
+
+<h5 style="text-align: center;"><a id="display.RateAlarmCredit.1" href="javascript:togglecode('display.RateAlarmCredit.2','display.RateAlarmCredit.1');"><i><strong>R Code for Claims Summary by Entity Type and Alarm Credit
+  Category</strong></i></a> </h5>
+<div id="display.RateAlarmCredit.2" style="display: none">
+
+``` 
+#Claims Summary by Entity Type and Alarm Credit
+ByVarSumm<-function(datasub){
+  tempA <- summaryBy(Freq    ~ AC00 , data = datasub,   
+                     FUN = function(x) { c(m = mean(x), num=length(x)) } )
+  datasub1 <-  subset(datasub, yAvg>0)
+  if(nrow(datasub1)==0) { n<-nrow(datasub)
+    return(c(0,0,n))
+  } else 
+  {
+    tempB <- summaryBy(yAvg   ~ AC00, data = datasub1,
+                       FUN = function(x) { c(m = mean(x)) } )
+    tempC <- merge(tempA,tempB,all.x=T)[c(2,4,3)]
+    tempC1 <- as.matrix(tempC)
+    return(tempC1)
+  }
+}
+AlarmC <- 1*(Insample$AC00==1) + 2*(Insample$AC05==1)+ 3*(Insample$AC10==1)+ 4*(Insample$AC15==1)
+ByVarCredit<-function(ACnum){
+datasub <-  subset(Insample, TypeVillage == 1 & AlarmC == ACnum); 
+  t1 <- ByVarSumm(datasub)
+datasub <-  subset(Insample, TypeCity == 1 & AlarmC == ACnum);      
+  t2 <- ByVarSumm(datasub)
+datasub <-  subset(Insample, TypeCounty == 1 & AlarmC == ACnum);   
+  t3 <- ByVarSumm(datasub)
+datasub <-  subset(Insample, TypeMisc == 1 & AlarmC == ACnum);
+  t4 <- ByVarSumm(datasub)
+datasub <-  subset(Insample, TypeSchool == 1 & AlarmC == ACnum);    
+  t5 <- ByVarSumm(datasub)
+datasub <-  subset(Insample, TypeTown == 1 & AlarmC ==ACnum);      
+  t6 <- ByVarSumm(datasub)
+datasub <-  subset(Insample, AlarmC == ACnum);  
+  t7 <- ByVarSumm(datasub)
+Tablea <- rbind(t1,t2,t3,t4,t5,t6,t7)
+Tableaa <- round(Tablea,3)
+Rowlable <- rbind("Village","City","County","Misc","School",
+                  "Town","Total")
+Table4 <- cbind(Rowlable,as.matrix(Tableaa))
+}
+Table4a <- ByVarCredit(1)    #Claims Summary by Entity Type and Alarm Credit==00
+Table4b <- ByVarCredit(2)    #Claims Summary by Entity Type and Alarm Credit==05 
+Table4c <- ByVarCredit(3)    #Claims Summary by Entity Type and Alarm Credit==10
+Table4d <- ByVarCredit(4)    #Claims Summary by Entity Type and Alarm Credit==15
+
+```
+</div>  
+      
+  
+
+### Fund Operations
+
+We have now seen the Fund's two outcome variables, a count variable for
+the number of claims and a continuous variable for the claims amount. We
+have also introduced a continuous rating variable, coverage, discrete
+quantitative variable, (logarithmic) deductibles, two binary rating
+variable, no claims credit and fire class, as well as two categorical
+rating variables, entity type and alarm credit. Subsequent chapters will
+explain how to analyze and model the distribution of these variables and
+their relationships. Before getting into these technical details, let us
+first think about where we want to go. General insurance company
+functional areas are described in Section \@ref(S:PredModApps); let us now
+think about how these areas might apply in the context of the property
+fund.
+
+####Initiating Insurance {-}
+
+Because this is a government sponsored fund, we do not have to worry
+about selecting good or avoiding poor risks; the fund is not allowed to
+deny a coverage application from a qualified local government entity. If
+we do not have to underwrite, what about how much to charge?
+
+We might look at the most recent experience in 2010, where the total
+fund claims were approximately 28.16 million USD
+($=1377 \text{ claims} \times 20452 \text{ average severity}$). Dividing
+that among 1,110 policyholders, that suggests a rate of 24,370 (
+$\approx$ 28,160,000/1110). However, 2010 was a bad year; using the same
+method, our premium would be much lower based on 2009 data. This swing
+in premiums would defeat the primary purpose of the fund, to allow for a
+steady charge that local property managers could utilize in their
+budgets.
+
+Having a single price for all policyholders is nice but hardly seems
+fair. For example, Table \@ref(tab:ClaimRateVar) suggests that Schools have
+much higher claims than other entities and so should pay more. However,
+simply doing the calculation on an entity by entity basis is not right
+either. For example, we saw in Table \@ref(tab:RateAlarmCredit) that had we
+used this strategy, entities with a 15% alarm credit (for good behavior,
+having top alarm systems) would actually wind up paying more.
+
+So, we have the data for thinking about the appropriate rates to charge
+but will need to dig deeper into the analysis. We will explore this
+topic further in Chapter 6 on *premium calculation fundamentals*.
+Selecting appropriate risks is introduced in Chapter 7 on *risk
+classification*.
+
+####Renewing Insurance {-}
+
+Although property insurance is typically a one-year contract, Table
+\@ref(tab:CoverageBCIM) suggests that policyholders tend to renew; this is
+typical of general insurance. For renewing policyholders, in addition to
+their rating variables we have their claims history and this claims
+history can be a good predictor of future claims. For example, Table
+\@ref(tab:CoverageBCIM) shows that policyholders without a claim in the last
+two years had much lower claim frequencies than those with at least one
+accident (0.310 compared to 1.501); a lower predicted frequency
+typically results in a lower premium. This is why it is common for
+insurers to use variables such as ${\tt NoClaimCredit}$ in their rating. We
+will explore this topic further in Chapter 8 on *experience rating*.
+
+####Claims Management {-}
+
+Of course, the main story line of 2010 experience was the large claim of
+over 12 million USD, nearly half the claims for that year. Are there
+ways that this could have been prevented or mitigated? Are their ways
+for the fund to purchase protection against such large unusual events?
+Another unusual feature of the 2010 experience noted earlier was the
+very large frequency of claims (239) for one policyholder. Given that
+there were only 1,377 claims that year, this means that a single
+policyholder had 17.4 % of the claims. This also suggestions
+opportunities for managing claims, the subject of Chapter 9.
+
+####Loss Reserving {-}
+
+In our case study, we look only at the one year outcomes of closed
+claims (the opposite of open). However, like many lines of insurance,
+obligations from insured events to buildings such as fire, hail, and the
+like, are not known immediately and may develop over time. Other lines
+of business, including those were there are injuries to people, take
+much longer to develop. Chapter 10 introduces this concern and *loss
+reserving*, the discipline of determining how much the insurance company
+should retain to meet its obligations.
+
+## Further Resources and Contributors {#further-reading-and-resources }
+
+This book introduces loss data analytic tools that are most relevant to actuaries and other financial risk analysts. Here are a few reference cited in the chapter.
+
+-  Bailey, Robert A. and J. Simon LeRoy (1960). "Two studies in automobile ratemaking," *Proceedings of the Casualty Actuarial Society Casualty Actuarial Society*, Vol. XLVII.
+
+-  Bowers, Newton L., Hans U. Gerber, James C. Hickman, Donald A. Jones, and Cecil J. Nesbitt (1986). *Actuarial Mathematics*. Society of Actuaries Itasca, Ill.
+
+-  Dickson, David C. M., Mary Hardy, and Howard R. Waters (2013). *Actuarial Mathematics for Life Contingent Risks*. Cambridge University Press.
+	
+-  Earnix (2013). "<a href="http://earnix.com/2013-insurance-predictive-modeling-survey/3594/" target="_blank">2013 Insurance Predictive Modeling Survey</a>," Earnix and Insurance Services Office, Inc. [Retrieved on May 10, 2016].
+
+-  Gorman, Mark and Stephen Swenson (2013). "<a href="http://www.sas.com/en_us/whitepapers/building-believers-predictive-analytics-claims-106256.html" target="_blank">Building believers: How to expand the use of predictive analytics in claims</a>," SAS,  [Retrieved on May 10, 2016].
+
+-  Insurance Information Institute (2015). "<a href="http://www.iii.org/sites/default/files/docs/pdf/international_insurance_factbook_2015.pdf" target="_blank">*International Insurance Fact Book*</a>. [Retrieved on May 10, 2016].
+
+-  Taylor, Gregory C. (2014). "Claims triangles/Loss reserves," in Edward W. Frees, Glenn Meyers, and Richard A. Derrig eds. *Predictive Modeling Applications in Actuarial Science*, Cambridge. Cambridge University Press.
+
+
+####Contributor {-}
+
+- **Edward W. (Jed) Frees**, University of Wisconsin-Madison, is the principal author of the initital version of this chapter. Email: jfrees@bus.wisc.edu for chapter comments and suggested improvements.

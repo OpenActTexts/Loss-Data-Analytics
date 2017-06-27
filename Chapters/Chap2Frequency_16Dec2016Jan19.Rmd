@@ -1,0 +1,773 @@
+#Frequency Distributions
+
+These are overheads from a course that provides some structure for this chapter.
+
+## How Frequency Augments Severity Information
+
+#### Basic Terminology
+
+-   **Claim** - indemnification upon the occurrence of an insured event
+
+    -   **Loss** - some authors use claim and loss interchangeably,
+        others think of loss as the amount suffered by the insured
+        whereas claim is the amount paid by the insurer
+
+-   **Frequency** - how often an insured event occurs, typically within
+    a policy contract
+
+-   **Count** - In this chapter, we focus on count random variables that
+    represent the number of claims, that is, how frequently an event
+    occurs
+
+-   **Severity** - Amount, or size, of each payment for an insured event
+
+#### The Importance of Frequency
+
+-   Insurers pay claims in monetary units, e.g., US dollars. So, why
+    should they care about how frequently claims occur?
+
+-   Many ways to use claims modeling – easiest to motivate in terms of
+    pricing for personal lines insurance
+
+    -   Recall from Chapter 1 that setting the price of an insurance
+        good can be a perplexing problem.
+
+    -   In manufacturing, the cost of a good is (relatively) known
+
+    -   Other financial service areas, market prices are available
+
+    -   Insurance tradition: Start with an expected cost. Add “margins”
+        to account for the product’s riskiness, expenses incurred in
+        servicing the product, and a profit/surplus allowance for the
+        insurance company.
+
+-   Think of the expected cost as the expected number of claims times
+    the expected amount per claims, that is, expected *frequency times
+    severity*.
+
+-   Claim amounts, or severities, will turn out to be relatively
+    homogeneous for many lines of business and so we begin our
+    investigations with frequency modeling.
+
+#### Other Ways that Frequency Augments Severity Information
+
+-   **Contractual** - For example, deductibles and policy limits are
+    often in terms of each occurrence of an insured event
+
+-   **Behaviorial** - Explanatory (rating) variables can have different
+    effects on models of how often an event occurs in contrast to the
+    size of the event.
+
+    -   In healthcare, the decision to utilize healthcare by individuals
+        is related primarily to personal characteristics whereas the
+        cost per user may be more related to characteristics of the
+        healthcare provider (such as the physician).
+
+-   **Databases**. Many insurers keep separate data files that suggest
+    developing separate frequency and severity models. This recording
+    process makes it natural for insurers to model the frequency and
+    severity as separate processes.
+
+    -   Policyholder file that is established when a policy is written.
+        This file records much underwriting information about the
+        insured(s), such as age, gender and prior claims experience,
+        policy information such as coverage, deductibles and
+        limitations, as well as the insurance claims event.
+
+    -   Claims file, records details of the claim against the insurer,
+        including the amount.
+
+    -   (There may also be a “payments” file that records the timing of
+        the payments although we shall not deal with that here.)
+
+-   **Regulatory and Administrative**
+
+    -   Regulators routinely require the reporting of claims numbers as
+        well as amounts.
+
+    -   This may be due to the fact that there can be alternative
+        definitions of an “amount,” e.g., paid versus incurred, and
+        there is less potential error when reporting claim numbers.
+
+## Basic Frequency Distributions
+
+### Foundations
+
+-   Claim count $N$ has support on the non-negative integers $k=0,1,2, \ldots$.
+
+-   The **probability mass function** is denoted as $\Pr(N = k) = p_k$
+
+-   We can summarize the distribution through its **moments**
+
+    -   The **mean**, or first moment, is
+    
+        $$\mathrm{E~} N = \mu_1 = \mu = \sum^{\infty}_{k=0} k p_k .$$
+
+    -   More generally, the $r$th moment is
+        $$\mathrm{E~} N^r = \mu_r^{\prime} = \sum^{\infty}_{k=0} k^r p_k .$$
+
+    -   The **variance** is
+        $$\mathrm{Var~} N = \mathrm{E~} (N-\mu)^2 = \mathrm{E~} N^2 - \mu^2$$
+
+-   Also recall the **moment generating function**
+    $$M_N(t) = \mathrm{E~}e^{tN} = \sum^{\infty}_{k=0} e^{tk} p_k .$$
+
+### Probability Generating Function
+
+-   The **probability generating function** is $$\begin{aligned}
+    \mathrm{P}(z) &= \mathrm{E~}z^N = \mathrm{E~}\exp{(N \ln z)} = M_N(\ln{z})\\
+    &= \sum^{\infty}_{k=0} z^k p_k .\end{aligned}$$
+
+-   By taking the $m$th derivative, we see that $$\begin{aligned}
+    \left. P^{(m)}(z)\right|_{z=0} &= \frac{\partial^m }{\partial z^m} P(z)|_{z=0} = p_m m!\end{aligned}$$
+    the pgf “generates” the probabilities.
+
+-   Further, the pgf can be used to generate moments $$\begin{aligned}
+    P^{(1)}(1) &= \sum k p_k = \mathrm{E~}N .\end{aligned}$$ and
+    $$P^{(2)}(1) = \mathrm{E~}N(N-1).$$
+
+### Important Frequency Distributions
+
+-   The three important (in insurance) frequency distributions are:
+
+    -   Poisson
+
+    -   Negative binomial
+
+    -   Binomial
+
+-   They are important because:
+
+    -   They fit well many insurance data sets of interest
+
+    -   They provide the basis for more complex distributions that even
+        better approximate real situations of interest to us
+
+#### Poisson Distribution
+
+-   This distribution has parameter $\lambda$, probability mass function
+    $$p_k = \frac{e^{-\lambda}\lambda^k}{k!}$$ and pgf $$\begin{aligned}
+    P(z) &= M_N (\ln z) = \exp(\lambda(z-1))\end{aligned}$$
+
+-   The expectation is $\mathrm{E~}N = \lambda$ which is the same as
+    the variance, $\mathrm{Var~}N = \lambda$.
+
+#### Negative Binomial Distribution
+
+-   This distribution has parameters $(r, \beta)$, probability mass
+    function (pmf)
+    $$p_k = {k+r-1\choose k} \left(\frac{1}{1+\beta}\right)^r \left(\frac{\beta}{1+\beta}\right)^k$$
+    and probability generating function (pgf) $$\begin{aligned}
+    P(z) &= (1-\beta(z-1))^{-r} \end{aligned}$$
+
+-   The expectation is $\mathrm{E~}N = r\beta$ and the variance is
+    $\mathrm{Var~}N = r\beta(1+\beta)$.
+
+-   When $\beta>0$, we have $\mathrm{Var~}N >\mathrm{E~}N$. This
+    distribution is said to be **overdispersed** (relative to
+    the Poisson).
+
+#### Binomial Distribution
+
+-   This distribution has parameters $(m,q)$, probability mass function
+    $$p_k = {m\choose k} q^k (1-q)^{m-k}$$ and pgf $$\begin{aligned}
+    P(z) &= (1+q(z-1))^m\end{aligned}$$
+
+-   The mean is $\mathrm{E~}N = mq$ and the variance is
+    $\mathrm{Var~}N = mq(1-q)$.
+
+## The ($a, b$, 0) Class
+
+-   Recall the notation $p_k= \Pr(N = k)$.
+
+-   *Definition*. A count distribution is a member of the **($a, b$, 0)
+    class** if the probabilities $p_k$ satisfy
+    $$\frac{p_k}{p_{k-1}}=a+\frac{b}{k},$$ for constants $a,b$ and for
+    $k=1,2,3, \ldots $.
+
+    -   There are only three distributions that are members of the
+        ($a,b$,0) class. They are the Poisson ($a=0$), binomial($a<0$),
+        and negative binomial ($a>0$).
+
+    -   The recursive expression provides a computationally efficient
+        way to generate probabilities.
+
+#### The ($a, b$, 0) Class - Special Cases
+
+-   *Example: Poisson Distribution*.
+
+    -   Recall the pmf $p_k =\frac{\lambda^k}{k!}e^{-\lambda}$.
+        Examining the ratio,
+        $$\frac{p_k}{p_{k-1}} = \frac{\lambda^k/k!}{\lambda^{k-1}/(k-1)!}\frac{e^{-\lambda}}{e^{-\lambda}}= \frac{\lambda}{k}$$
+        Thus, the Poisson is a member of the ($a, b$, 0) class with
+        $a = 0$, $b = \lambda$, and initial starting value
+        $p_0 = e^{-\lambda}$.
+
+    **Other special cases** (Please check)
+
+-   *Example: Binomial Distribution*. Use a similar technique to check
+    that the binomial distribution is a member of the ($a, b$, 0) class
+    with $a = \frac{-q}{1-q},$ $b = \frac{(m+1)q}{1-q},$ and initial
+    starting value $p_0 = (1-q)^m$.
+
+**Another special case of the ($a, b$, 0) Class** (Please check)
+
+-   *Example: Negative Binomial Distribution*. Check that the negative
+    binomial distribution is a member of the ($a, b$, 0) class with
+    $a = \frac{\beta}{1+\beta},$ $b = \frac{(r-1)\beta}{1+\beta},$ and
+    initial starting value $p_0 = (1+\beta)^{-r}$.
+
+*Exercise.* A discrete probability distribution has the following
+properties $$\begin{aligned}
+p_k&=c\left( 1+\frac{2}{k}\right) p_{k-1} \:\:\: k=1,2,3,\\
+p_1&= \frac{9}{256}\end{aligned}$$ Determine the expected value of this
+discrete random variable (Ans: 9)
+
+### The ($a, b$, 0) Class - Example
+
+*Exercise.* A discrete probability distribution has the following
+properties $$\begin{aligned}
+\Pr(N=k) = \left( \frac{3k+9}{8k}\right) \Pr(N=k-1), ~~~k=1,2,3,\ldots\end{aligned}$$
+Determine the value of $\Pr(N=3)$. (Ans: 0.1609)
+
+## Estimating Frequency Distributions
+
+#### Parameter estimation
+
+-   The customary method of estimation is **maximum likelihood**.
+
+-   To provide intuition, we outline the ideas in the context of
+    Bernoulli distribution.
+
+    -   This is a special case of the binomial distribution with $m=1$
+
+    -   For count distributions, either there is a claim $N=1$ or not
+        $N=0$. The probability mass function is
+        $$p_k = \Pr (N=k) = \left\{ \begin{array}{ll}
+        1-q & \mathrm{if}\ k=0 \\
+        q& \mathrm{if}\ k=1
+        \end{array} \right. .$$
+
+-   The Statistical Inference Problem
+
+
+    -   Now suppose that we have a collection of independent
+        random variables. The $i$th variable is denoted as $N_i$.
+        Further assume they have the same Bernoulli distribution with
+        parameter $q$.
+
+      
+
+    -   In statistical inference, we assume that we observe a sample of
+        such random variables. The observed value of the $i$th random
+        variable is $n_i$. Assuming that the Bernoulli distribution is
+        correct, we wish to say something about the probability
+        parameter $q$.
+
+#### Bernoulli Likelihoods
+
+-   *Definition*. The **likelihood** is the observed value of the
+    mass function.
+
+-   For a single observation, the likelihood is $$\left\{
+    \begin{array}{ll}
+    1-q & \mathrm{if}\ n_i=0 \\
+    q   & \mathrm{if}\ n_i=1
+    \end{array}
+    \right. .$$
+
+-   The objective of **maximum likelihood estimation (MLE)** is to find
+    the parameter values that produce the largest likelihood.
+
+    -   Finding the maximum of the logarithmic function yields the same
+        solution as finding the maximum of the corresponding function.
+
+    -   Because it is generally computationally simpler, we consider the
+        logarithmic (log-) likelihood, written as $$\left\{
+        \begin{array}{ll}
+        \ln \left( 1-q\right)  & \mathrm{if}\ n_i=0 \\
+        \ln     q              & \mathrm{if}\ n_i=1
+        \end{array}\right. .$$
+
+#### Bernoulli MLE
+
+-   More compactly, the log-likelihood of a single observation is
+    $$n_i \ln q + (1-n_i)\ln ( 1-q ) ,$$
+
+-   Assuming independence, the log-likelihood of the data set is
+    $$L_{Bern}(q)=\sum_i \left\{ n_i \ln q + (1-n_i)\ln ( 1-q ) \right\}$$
+
+    -   The (log) likelihood is viewed as a function of the parameters,
+        with the data held fixed.
+
+    -   In contrast, the joint probability mass function is viewed as a
+        function of the realized data, with the parameters held fixed.
+
+-   The method of maximum likelihood means finding the values of $q$
+    that maximize the log-likelihood.
+
+-   We began with the Bernoulli distribution in part because the
+    log-likelihood is easy to maximize.
+
+-   Take a derivative of $L_{Bern}(q)$ to get
+    $$\frac{\partial}{\partial q} L_{Bern}(q)=\sum_i \left\{ n_i \frac{1}{q} - (1-n_i)\frac{1}{1-q} \right\}$$
+    and solving the equation
+    $\frac{\partial}{\partial q} L_{Bern}(q) =0$ yields
+    $$\hat{q} = \frac{\sum_i n_i}{\mathrm{sample ~size}}$$ or, in words,
+    the $MLE$ $\hat{q}$ is the fraction of one’s in the sample.
+
+-   Just to be complete, you should check, by taking derivatives, that
+    when we solve $\frac{\partial}{\partial q} L_{Bern}(q) =0$ we are
+    maximizing the function $L_{Bern}(q)$, not minimizing it.
+
+#### Frequency Distributions MLE
+
+-   We can readily extend this procedure to all frequency distributions
+
+-   For notation, suppose that $\theta$ (“theta”) is a parameter that
+    describes a given frequency distribution
+    $\Pr(N=k; \theta) = p_k(\theta)$
+
+    -   In later developments we will let $\theta$ be a vector but for
+        the moment assume it to be a scalar.
+
+-   The log-likelihood of a a single observation is $$\left\{
+    \begin{array}{ll}
+    \ln p_0(\theta) & \mathrm{if}\ n_i=0 \\
+    \ln p_1(\theta) & \mathrm{if}\ n_i=1 \\
+    \vdots & \vdots
+    \end{array}
+    \right. .$$ that can be written more compactly as
+    $$\sum_k I(n_i=k) \ln p_k(\theta).$$ this uses the notation
+    $I(\cdot)$ to be the indicator of a set (it returns one if the event
+    is true and 0 otherwise).
+
+-   Assuming independence, the log-likelihood of the data set is
+    $$L(\theta)=\sum_i \left\{ \sum_k I(n_i=k) \ln p_k(\theta) \right\} = \left\{ \sum_k m_k\ln p_k(\theta) \right\}$$
+    where we use the notation $m_k$ to denote the number of observations
+    that are observed having count $k$. Using notation,
+    $m_k = \sum_i I(n_i=k)$.
+
+-   **Special Case**. *Poisson*. A simple exercise in calculus yields
+    $$\hat{\lambda} =  \frac{\mathrm{number ~of ~claims}}{\mathrm{sample ~size}} = \frac{\sum_k k m_k}{\sum_k  m_k}$$
+    the average claim count.
+
+## Other Frequency Distributions
+
+
+-   Naturally, there are many other count distributions needed in
+    practice
+
+-   For many insurance applications, one can work with one of our three
+    basic distributions (binomial, Poisson, negative binomial) and allow
+    the parameters to be a function of known explanatory variables.
+
+    -   This allows us to explain claim probabilities in terms of known
+        (to the insurer) variables such as age, sex, geographic location
+        (territory), and so forth.
+
+    -   This field of statistical study is known as **regression
+        analysis** - it is an important topic that we will not pursue in
+        this course.
+
+-   To extend our basic count distributions to alternatives needed in
+    practice, we consider two approaches:
+
+    -   Zero truncation or modification
+
+    -   Mixing
+
+### Zero Truncation or Modification
+
+-   Why truncate or modify zero?
+
+    -   If we work with a database of claims, then there are no zero!
+
+    -   In personal lines (like auto), people may not want to report
+        that first claim because they fear it will increase future
+        insurance rates.
+
+-   Let’s modify zero probabilities in terms of the $(a,b,0)$ class
+
+-   *Definition*. A count distribution is a member of the **($a, b$, 1)
+    class** if the probabilities $p_k$ satisfy
+    $$\frac{p_k}{p_{k-1}}=a+\frac{b}{k},$$
+for constants $a,b$ and for $k=2,3, \ldots$.
+
+-   Note that this starts at $k=2$, not $k=1$. That is, the most
+    important thing about this definition is that the recursion starts
+    at $p_1$, not $p_0$.
+
+-   Thus, all distributions that are members of the ($a, b$, 0) are
+    members of the ($a, b$, 1) class. Naturally, there are additional
+    distributions that are members of this wider class.
+
+-   To see how this works, pick a specific distribution in the
+    ($a, b$, 0) class.
+
+    -   Consider $p_k^0$ to be a probability for this member of
+        $(a,b,0)$.
+
+    -   Let $p_k^M$ be the corresponding probability for a member of
+        $(a,b,1)$, where the $M$ stands for “modified”.
+
+    -   Pick a new probability of a zero claim, $p_0^M$, and define
+        $$\begin{aligned}
+        c = \frac{1-p_0^M}{1-p_0^0} .\end{aligned}$$
+
+    -   We then calculate the rest of the modified distribution as
+        $$\begin{aligned}
+        p_k^M =c p_k^0\end{aligned}$$
+
+####Special Case: Poisson Truncated at Zero. 
+ For this case, we assume
+    that $p_0^M=0$, so that the probability of $N=0$ is zero, hence the
+    name “truncated at zero.”
+
+-   For this case, we use the letter $T$ to denote probabilities instead
+    of $M$, so we use $p_k^T$ for probabilities. Thus, $$\begin{aligned}
+    p_k^T&=
+    \left \{
+    \begin{array}{cc}
+    0 & k=0\\
+    \frac{1}{1-p_0^0}p_k^0 & k \ge 1\\
+    \end{array}
+    \right.\end{aligned}$$
+
+#### Modified Poisson Example
+
+*Example: Zero Truncated/Modified Poisson*. Consider a Poisson
+distribution with parameter $\lambda=2$. We show how to calculate
+$p_k, k=0,1,2,3$, for the usual (unmodified), truncated and a modified
+version with $(p_0^M=0.6)$.
+
+*Solution.* For the Poisson distribution as a member of the ($a,b$,0)
+class, we have $a=0$ and $b=\lambda=2$. Thus, we may use the recursion
+$p_k = \lambda p_{k-1}/k= 2 p_{k-1}/k$ for each type, after determining
+starting probabilities.
+
+   k                        $p_k$                                               $p_k^T$                                                $p_k^M$
+  --- -------------------------------------------------- ------------------------------------------------------ ------------------------------------------------------
+   0             $p_0=e^{-\lambda}=0.135335$                                       0                                                     0.6
+   1        $p_1=p_0(0+\frac{\lambda}{1})=0.27067$                    $\frac{p_1}{1-p_0}=0.313035$                       $\frac{1-p_0^M}{1-p_0}~p_1=0.125214$
+   2   $p_2=p_1\left( \frac{\lambda}{2}\right)=0.27067$   $p_2^T=p_1^T\left(\frac{\lambda}{2}\right)=0.313035$                     $p_2^M=0.125214$
+   3   $p_3=p_2\left(\frac{\lambda}{3}\right)=0.180447$   $p_3^T=p_2^T\left(\frac{\lambda}{3}\right)=0.208690$   $p_3^M=p_2^M\left(\frac{\lambda}{2}\right)=0.083476$
+
+#### Modified Poisson Exercise
+
+*Exercise: Course 3, May 2000, Exercise 37.* You are given:
+
+1.  $p_k$ denotes the probability that the number of claims equals $k$
+    for $k=0,1,2,\ldots$
+
+2.  $\frac{p_n}{p_m}=\frac{m!}{n!}, m\ge 0, n\ge 0$
+
+Using the corresponding zero-modified claim count distribution with
+$p_0^M=0.1$, calculate $p_1^M$.
+
+## Mixture Distributions
+
+### Mixtures of Finite Populations
+
+-   Suppose that our population consists of several subgroups, each
+    having their own distribution
+
+-   We randomly draw an observation from the population, without knowing
+    which subgroup that we are drawing from
+
+-   For example, suppose that $N_1$ represents claims form “good”
+    drivers and $N_2$ represents claims from “bad” drivers. We draw
+    $$N =
+    \begin{cases}
+    N_1  &  \text{with prob~}\alpha\\
+    N_2  &   \text{with prob~}(1-\alpha) .\\
+    \end{cases}$$
+
+-   Here, $\alpha$ represents the probability of drawing a
+    “good” driver.
+
+-   Our is said to be a “mixture” of two subgroups
+
+#### Finite Population Mixture Example
+
+*Exercise. Exam “C” 170*. In a certain town the number of common colds
+an individual will get in a year follows a Poisson distribution that
+depends on the individual’s age and smoking status. The distribution of
+the population and the mean number of colds are as follows:
+
+                       Proportion of population   Mean number of colds
+  ------------------- -------------------------- ----------------------
+  Children                       0.3                       3
+  Adult Non-Smokers              0.6                       1
+  Adult Smokers                  0.1                       4
+
+1.  Calculate the probability that a randomly drawn person has 3 common
+    colds in a year.
+
+2.  Calculate the conditional probability that a person with exactly 3
+    common colds in a year is an adult smoker.
+
+### Mixtures of Infinitely Many Populations
+
+-   We can extend the mixture idea to an infinite number of populations.
+
+-   To illustrate, suppose we have a population of drivers. The $i$th
+    person has their own (personal) expected number of claims,
+    $\lambda_i$.
+
+-   For some driver’s, $\lambda$ is small (good drivers), for others it
+    is high (not so good drivers). There is a distribution of $\lambda$.
+
+-   A convenient distribution is to use a gamma distribution with
+    parameters $(\alpha, \theta)$.
+
+-   Then, one can check that $$\begin{aligned}
+    N &\sim& \text{Negative Binomial} (r = \alpha, \beta = \theta) .\end{aligned}$$
+    See, for example, KPW, page 84.
+
+-   Mixture is very important in insurance applications, more on
+    this later...
+
+#### Negative Binomial as a Gamma Mixture of Poissons - Example
+
+*Example*. Suppose that $N|\Lambda \sim$ Poisson$(\Lambda)$ and that
+$\Lambda \sim$ gamma with mean of 1 and variance of 2. Determine the
+probability that $N=1$.
+
+*Solution.* For a gamma distribution with parameters $(\alpha, \theta)$,
+we have that mean is $\alpha \theta$ and the variance is
+$\alpha \theta^2$. Thus $$\begin{aligned}
+\alpha &= \frac{1}{2} \text{   and   } \theta =2.\end{aligned}$$
+
+Now, one can directly use the negative binomial approach to get
+$r = \alpha = \frac{1}{2}$ and $\beta= \theta =2$. Thus
+$$\begin{aligned}
+\Pr(N=1) = p_1  &= {1+r-1 \choose 1}(\frac{1}{(1+\beta)^r})(\frac{\beta}{1+\beta})^1 \\
+&=                 {1+\frac{1}{2}-1 \choose 1}{\frac{1}{(1+2)^{1/2}}}(\frac{2}{1+2})^1\\
+&=  \frac{1}{3^{3/2}} = 0.19245 .\end{aligned}$$
+
+
+## Goodness of Fit
+
+#### Example: Singapore Automobile Data
+
+-   A 1993 portfolio of $n=7,483$ automobile insurance policies from a
+    major insurance company in Singapore.
+
+-   The count variable is the number of automobile accidents
+    per policyholder.
+
+-   There were on average 0.06989 accidents per person.
+
+$$
+\begin{matrix}
+\hline \textbf{Table. Comparison of Observed to Fitted Counts } \\
+\textbf{Based on Singapore Automobile Data} \\
+\begin{array}{crr}
+\hline
+\text{Count} & \text{Observed} & \text{Fitted Counts using the} \\
+(k) & (m_k) & \text{Poisson Distribution} (n\widehat{p}_k) \\
+\hline
+0 & 6,996 & 6,977.86 \\
+1 & 455 & 487.70 \\
+2 & 28 & 17.04 \\
+3 & 4 & 0.40 \\
+4 & 0 & 0.01 \\ \hline Total & 7,483 & 7,483.00 \\ \hline
+\end{array}
+\end{matrix}$$
+
+The average is
+$\bar{N} = \frac{0\cdot 6996 + 1 \cdot 455 + 2 \cdot 28 + 3 \cdot 4 + 4 \cdot 0}{7483} = 0.06989$.
+
+#### Singapore Data: Adequacy of the Poisson Model
+
+-   With the Poisson distribution
+
+    -   The maximum likelihood estimator of $\lambda$ is
+        $\widehat{\lambda}=\overline{N}$.
+
+    -   Estimated probabilities, using $\widehat{\lambda}$, are denoted
+        as $\widehat{p}_k$.
+
+-   For goodness of fit, consider *Pearson’s chi-square statistic*
+    $$\sum_k\frac{\left( m_k-n\widehat{p}_k \right) ^{2}}{n\widehat{p}_k}.$$
+
+    -   Assuming that the Poisson distribution is a correct model; this
+        statistic has an asymptotic chi-square distribution
+
+        -   The degrees of freedom ($df$) equals the number of cells
+            minus one minus the number of estimated parameters.
+
+    -   For the Singapore data, this is $df=5-1-1=3$.
+
+    -   The statistic is 41.98; the basic Poisson model is inadequate.
+
+#### Example. Course C/Exam 4. May 2001, 19.
+
+During a one-year period, the number of accidents per day was
+distributed as follows:
+
+  --------------------- ----- ----- ---- --- --- --- --
+  Number of Accidents       0     1    2   3   4   5 
+  Number of Days          209   111   33   7   5   2 
+  --------------------- ----- ----- ---- --- --- --- --
+
+You use a chi-square test to measure the fit of a Poisson distribution
+with mean 0.60. The minimum expected number of observations in any group
+should be 5. The maximum number of groups should be used.
+
+Determine the chi-square statistic.
+
+
+##Exercises
+
+Here are a set of exercises that guide the viewer through some of the theoretical foundations of **Loss Data Analytics**. Each tutorial is based on one or more questions from the professional actuarial examinations – typically the Society of Actuaries Exam C.
+
+```{r }
+knitr::include_url("http://www.ssc.wisc.edu/~jfrees/loss-data-analytics/loss-data-analytics-problems/",height = "600px")
+```
+
+## Technical Supplement: Iterated Expectations
+
+#### Iterated Expectations
+
+In some situations, we only observe a single outcome but can
+conceptualize an outcome as resulting from a two (or more) stage
+process. These are called **two-stage**, or “**hierarchical**,” type
+situations. Some special cases include:
+
+-   problems where the parameters of the distribution are random
+    variables,
+
+-   mixture problems, where stage 1 represents the type of subpopulation
+    and stage 2 represents a random variable with a distribution that
+    depends on population type
+
+-   an aggregate distribution, where stage 1 represents the number of
+    events and stage two represents the amount per event.
+
+In these situations, the law of iterated expectations can be useful. The
+law of total variation is a special case that is particularly helpful
+for variance calculations.
+
+To apply these rules,
+
+1.  Identify the random variable that is being conditioned upon,
+    typically a stage 1 outcome (that is not observed).
+
+2.  Conditional on the stage 1 outcome, calculate summary measures such
+    as a mean, variance, and the like.
+
+3.  There are several results of the step (ii), one for each stage
+    1 outcome. Then, combine these results using the iterated
+    expectations or total variation rules.
+
+#### Iterated Expectations
+
+-   Consider two random variables, $X$ and $Y$, and a function $h(X,Y)$.
+    Assuming expectations exists and are finite, a rule/theorem from
+    probability states that
+    $$\mathrm{E~} h(X,Y)= \mathrm{E~} \left\{ \mathrm{E~} \left( h(X,Y) | X \right) \right \} .$$
+
+-   This result is known as the *law of iterated expectations*.
+
+-   Here, the random variables may be discrete, continuous, or a hybrid
+    combination of the two.
+
+-   Similarly, the *law of total variation* is
+    $$\mathrm{Var~} h(X,Y)= \mathrm{E~} \left\{ \mathrm{Var~} \left( h(X,Y) | X \right) \right \}
+    +\mathrm{Var~} \left\{ \mathrm{E~} \left( h(X,Y) | X \right) \right \},$$
+    the expectation of the conditional variance plus the variance of the
+    conditional expectation.
+
+#### Discrete Iterated Expectations
+
+-   To illustrate, suppose that $X$ and $Y$ are both discrete random
+    variables with joint probability $$p(x,y) = \Pr(X=x, Y=y).$$
+
+-   Further, let $p(y|x) = \frac{p(x,y)}{\Pr(X=x)}$ be the conditional
+    probability mass function.
+
+-   The conditional expectation is
+    $$\mathrm{E~} \left( h(X,Y) | X=x \right) = \sum_y h(x,y) p(y|x)$$
+
+-   You can use the conditional expectation to get the unconditional
+    expectation using $$\begin{aligned}
+     \mathrm{E~} \left\{ \mathrm{E~} \left( h(X,Y) | X \right) \right \}
+    &= \sum_x  \left\{\sum_y h(x,y) p(y|x) \right \} \Pr(X=x) \\
+    &= \sum_x  \sum_y h(x,y) p(y|x)  \Pr(X=x) \\
+    &=  \sum_x  \sum_y h(x,y) p(x,y)
+    =  \mathrm{E~} h(X,Y)\end{aligned}$$
+
+-   The proofs of the law of iterated expectations for the continuous
+    and hybrid cases are similar.
+
+#### Law of Total Variation
+
+-   To see this rule, first note that we can calculate a conditional
+    variance as $$\mathrm{Var~} \left( h(X,Y) | X \right)  =
+    \mathrm{E~} \left( h(X,Y)^2 | X \right) -\left\{\mathrm{E~} \left( h(X,Y) | X \right) \right\}^2.$$
+
+-   From this, the expectation of the conditional variance is
+    $$\begin{aligned}
+    \label{E:E1} \mathrm{E~} \mathrm{Var~} \left( h(X,Y) | X \right)  =
+    \mathrm{E~} \left( h(X,Y)^2\right) - \mathrm{E~}\left\{\mathrm{E~} \left( h(X,Y) | X \right) \right\}^2.\end{aligned}$$
+
+-   Further, note that the conditional expectation,
+    $\mathrm{E~} \left( h(X,Y) | X=x \right)$, is a function of $x$,
+    say, $g(x)$.
+
+-   Now, $g(X)$ is a random variable with mean $\mathrm{E~} h(X,Y)$ and
+    variance $$\begin{aligned}
+    \label{E:E2}
+    \mathrm{Var~} \left\{ \mathrm{E~} \left( h(X,Y) | X \right) \right \} &=\mathrm{Var~} g(X)  \nonumber \\
+    &= \mathrm{E~} g(X)^2\ - \left(\mathrm{E~} h(X,Y)\right)^2 \nonumber\\
+    &= \mathrm{E~} \left\{\mathrm{E~} \left( h(X,Y) | X \right) \right\}^2
+    - \left(\mathrm{E~} h(X,Y)\right)^2\end{aligned}$$
+
+-   Adding the variance of the conditional expectation in equation to
+    the expectation of conditional variance in equation gives the law of
+    total variation.
+
+#### Mixtures of Finite Populations: Example
+
+-   For example, suppose that $N_1$ represents claims form “good”
+    drivers and $N_2$ represents claims from “bad” drivers. We draw
+    $$N =
+    \begin{cases}
+    N_1  &  \text{with prob~}\alpha\\
+    N_2  &   \text{with prob~}(1-\alpha) .\\
+    \end{cases}$$
+
+-   Here, $\alpha$ represents the probability of drawing a
+    “good” driver.
+
+-   Let $T$ be the type, so $T=1$ with prob $\alpha$ and $T=2$ with prob
+    $1-\alpha$.
+
+-   From the law of iterated expectations, we have $$\begin{aligned}
+    \mathrm{E~} N &= \mathrm{E~} \left\{ \mathrm{E~} \left( N | T \right) \right \} \\
+     &= \mathrm{E~} N_1 \times \alpha +  \mathrm{E~} N_2 \times (1-\alpha).\end{aligned}$$
+
+-   From the law of total variation
+    $$\mathrm{Var~} N= \mathrm{E~} \left\{ \mathrm{Var~} \left( N | T \right) \right \}
+    +\mathrm{Var~} \left\{ \mathrm{E~} \left( N | T \right) \right \},$$
+
+#### Mixtures of Finite Populations: Example 2
+
+-   To be more concrete, suppose that $N_j$ is Poisson with parameter
+    $\lambda_j$. Then $$\mathrm{Var~} N_j|T= \mathrm{E~} N_j|T =
+    \begin{cases}
+    \lambda_1  &  T=1\\
+    \lambda_2  &  T=2\\
+    \end{cases}$$
+
+-   Thus
+    $$\mathrm{E~} \left\{ \mathrm{Var~} \left( N | T \right) \right \} = \alpha \lambda_1+ (1-\alpha) \lambda_2$$
+    and
+    $$\mathrm{Var~} \left\{ \mathrm{E~} \left( N | T \right) \right \} = (\lambda_1-\lambda_2)^2 \alpha (1-\alpha)$$
+    (Recall: for a Bernoulli with outcomes $a$ and $b$ and prob
+    $\alpha$, the variance is $(b-a)^2\alpha(1-\alpha)$).
+
+-   Thus,
+    $$\mathrm{Var~} N= \alpha \lambda_1+ (1-\alpha) \lambda_2 + (\lambda_1-\lambda_2)^2 \alpha (1-\alpha)$$

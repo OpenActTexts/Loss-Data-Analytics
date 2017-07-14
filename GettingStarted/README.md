@@ -2,8 +2,8 @@
 
 We are using an *R* package called *bookdown* to produce our books. A major advantage of this approach is that it allows us to automatically produce .html output for interactive use, a .pdf version for offline viewing, and an .epub version for mobile devices. To illustrate, you can check out three versions of our book:
 
-* [Online Version from R Bookdown](http://instruction.bus.wisc.edu/jfrees/UWCAELearn/LossDataAnalytics/index.html). 
-* [R Bookdown - pdf version](http://instruction.bus.wisc.edu/jfrees/UWCAELearn/LossDataAnalytics/LossDataAnaytics.pdf)
+* [Online Version from R Bookdown](http://instruction.bus.wisc.edu/jfrees/UWCAELearn/LossDataAnalytics/index.html) 
+* [R Bookdown - pdf version](http://instruction.bus.wisc.edu/jfrees/UWCAELearn/LossDataAnalytics/LossDataAnalytics.pdf)
 * [R Bookdown - EPUB version](http://instruction.bus.wisc.edu/jfrees/UWCAELearn/LossDataAnalytics/LossDataAnalytics.epub)
 
 For end users (especially students), you can direct them to these sites and you are done. However, many others will wish to adapt our materials for their own use and (hopefully) contribute improvements to the the project. By downloading/cloning this GitHub site, you have all the source materials needed to replicate the book.

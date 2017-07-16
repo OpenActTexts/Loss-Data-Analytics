@@ -12,8 +12,6 @@ To see our progress, a draft of a few chapters of the book is available at
 * [R Bookdown - pdf version](http://instruction.bus.wisc.edu/jfrees/UWCAELearn/LossDataAnalytics/LossDataAnalytics.pdf)
 * [R Bookdown - EPUB version](http://instruction.bus.wisc.edu/jfrees/UWCAELearn/LossDataAnalytics/LossDataAnalytics.epub)
 
-Soon, we will put the source code for these files on Github.
-
 We are also experimenting with a [WordPress site](http://www.ssc.wisc.edu/~jfrees/loss-data-analytics/).
 
 # R Codes for Loss Data Analytics
@@ -21,6 +19,10 @@ We are also experimenting with a [WordPress site](http://www.ssc.wisc.edu/~jfree
 This site provides files that generate *R* codes to support the online text **Loss Data Analytics**. To get an idea of what the files will generate for users, see the [Online Version from R Code Support](http://instruction.bus.wisc.edu/jfrees/UWCAELearn/LossDataAnalyticsRcode/index.html)
 
 Source code is available at our [GitHub site](https://github.com/ewfrees/LossDataAnalyticsRCode).
+
+# Overheads for Loss Data Analytics
+
+This site provides chapter summaries in the form of overheads to support the online text **Loss Data Analytics**. Overheads in .pdf format and source code is available at our [GitHub site](https://github.com/ewfrees/LossDataAnalyticsOverheads).
 
 
 # Life Contingencies / Actuarial Mathematics

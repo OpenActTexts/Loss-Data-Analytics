@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Loss Data Analytics</title>
+  <meta name="description" content="Loss Data Analytics is an interactive, online, freely available text. - The online version will contain many interactive objects (quizzes, computer demonstrations, interactive graphs, video, and the like) to promote deeper learning. - A subset of the book will be available in pdf format for low-cost printing. - The online text will be available in multiple languages to promote access to a worldwide audience.">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Loss Data Analytics" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Loss Data Analytics is an interactive, online, freely available text. - The online version will contain many interactive objects (quizzes, computer demonstrations, interactive graphs, video, and the like) to promote deeper learning. - A subset of the book will be available in pdf format for low-cost printing. - The online text will be available in multiple languages to promote access to a worldwide audience." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Loss Data Analytics" />
+  
+  <meta name="twitter:description" content="Loss Data Analytics is an interactive, online, freely available text. - The online version will contain many interactive objects (quizzes, computer demonstrations, interactive graphs, video, and the like) to promote deeper learning. - A subset of the book will be available in pdf format for low-cost printing. - The online text will be available in multiple languages to promote access to a worldwide audience." />
+  
+
+<meta name="author" content="An open text authored by the Actuarial Community">
+
+
+<meta name="date" content="2017-11-12">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="introduction-to-loss-data-analytics.html">
+<link rel="next" href="modeling-loss-severity.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script language="javascript">
+function toggle(id1,id2) {
+	var ele = document.getElementById(id1); var text = document.getElementById(id2);
+	if (ele.style.display == "block") {ele.style.display = "none"; text.innerHTML = "Show Solution";}
+		else {ele.style.display = "block"; text.innerHTML = "Hide Solution";}}
+</script>
+<script language="javascript">
+function togglecode(id1,id2) {
+   var ele = document.getElementById(id1); var text = document.getElementById(id2);
+   if (ele.style.display == "block") {ele.style.display = "none"; text.innerHTML = "Show R Code";}
+      else {ele.style.display = "block"; text.innerHTML = "Hide R Code";}}
+</script>
+<script language="javascript">
+function toggleEX(id1,id2) {
+   var ele = document.getElementById(id1); var text = document.getElementById(id2);
+   if (ele.style.display == "block") {ele.style.display = "none"; text.innerHTML = "Show Example";}
+      else {ele.style.display = "block"; text.innerHTML = "Hide Example";}}
+</script>
+<script language="javascript">
+function toggleTheory(id1,id2) {
+   var ele = document.getElementById(id1); var text = document.getElementById(id2);
+   if (ele.style.display == "block") {ele.style.display = "none"; text.innerHTML = "Show Theory";}
+      else {ele.style.display = "block"; text.innerHTML = "Hide Theory";}}
+</script>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Loss Data Analytics</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="1" data-path="introduction-to-loss-data-analytics.html"><a href="introduction-to-loss-data-analytics.html"><i class="fa fa-check"></i><b>1</b> Introduction to Loss Data Analytics</a><ul>
+<li class="chapter" data-level="1.1" data-path="introduction-to-loss-data-analytics.html"><a href="introduction-to-loss-data-analytics.html#S:Intro"><i class="fa fa-check"></i><b>1.1</b> Relevance of Analytics</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="introduction-to-loss-data-analytics.html"><a href="introduction-to-loss-data-analytics.html#what-is-analytics"><i class="fa fa-check"></i><b>1.1.1</b> What is Analytics?</a></li>
+<li class="chapter" data-level="1.1.2" data-path="introduction-to-loss-data-analytics.html"><a href="introduction-to-loss-data-analytics.html#short-term-insurance"><i class="fa fa-check"></i><b>1.1.2</b> Short-term Insurance</a></li>
+<li class="chapter" data-level="1.1.3" data-path="introduction-to-loss-data-analytics.html"><a href="introduction-to-loss-data-analytics.html#S:InsProcesses"><i class="fa fa-check"></i><b>1.1.3</b> Insurance Processes</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="introduction-to-loss-data-analytics.html"><a href="introduction-to-loss-data-analytics.html#variable-types"><i class="fa fa-check"></i><b>1.2</b> Variable Types</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="introduction-to-loss-data-analytics.html"><a href="introduction-to-loss-data-analytics.html#qualitative-variables"><i class="fa fa-check"></i><b>1.2.1</b> Qualitative Variables</a></li>
+<li class="chapter" data-level="1.2.2" data-path="introduction-to-loss-data-analytics.html"><a href="introduction-to-loss-data-analytics.html#quantitative-variables"><i class="fa fa-check"></i><b>1.2.2</b> Quantitative Variables</a></li>
+<li class="chapter" data-level="1.2.3" data-path="introduction-to-loss-data-analytics.html"><a href="introduction-to-loss-data-analytics.html#multivariate-variables"><i class="fa fa-check"></i><b>1.2.3</b> Multivariate Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="introduction-to-loss-data-analytics.html"><a href="introduction-to-loss-data-analytics.html#S:PredModApps"><i class="fa fa-check"></i><b>1.3</b> Insurance Company Operations</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="introduction-to-loss-data-analytics.html"><a href="introduction-to-loss-data-analytics.html#initiating-insurance"><i class="fa fa-check"></i><b>1.3.1</b> Initiating Insurance</a></li>
+<li class="chapter" data-level="1.3.2" data-path="introduction-to-loss-data-analytics.html"><a href="introduction-to-loss-data-analytics.html#renewing-insurance"><i class="fa fa-check"></i><b>1.3.2</b> Renewing Insurance</a></li>
+<li class="chapter" data-level="1.3.3" data-path="introduction-to-loss-data-analytics.html"><a href="introduction-to-loss-data-analytics.html#claims-and-product-management"><i class="fa fa-check"></i><b>1.3.3</b> Claims and Product Management</a></li>
+<li class="chapter" data-level="1.3.4" data-path="introduction-to-loss-data-analytics.html"><a href="introduction-to-loss-data-analytics.html#S:Reserving"><i class="fa fa-check"></i><b>1.3.4</b> Loss Reserving</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="introduction-to-loss-data-analytics.html"><a href="introduction-to-loss-data-analytics.html#S:LGPIF"><i class="fa fa-check"></i><b>1.4</b> Case Study: Wisconsin Property Fund</a><ul>
+<li class="chapter" data-level="1.4.1" data-path="introduction-to-loss-data-analytics.html"><a href="introduction-to-loss-data-analytics.html#S:OutComes"><i class="fa fa-check"></i><b>1.4.1</b> Fund Claims Variables</a></li>
+<li class="chapter" data-level="1.4.2" data-path="introduction-to-loss-data-analytics.html"><a href="introduction-to-loss-data-analytics.html#S:FundVariables"><i class="fa fa-check"></i><b>1.4.2</b> Fund Rating Variables</a></li>
+<li class="chapter" data-level="1.4.3" data-path="introduction-to-loss-data-analytics.html"><a href="introduction-to-loss-data-analytics.html#fund-operations"><i class="fa fa-check"></i><b>1.4.3</b> Fund Operations</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="introduction-to-loss-data-analytics.html"><a href="introduction-to-loss-data-analytics.html#further-reading-and-resources"><i class="fa fa-check"></i><b>1.5</b> Further Resources and Contributors</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="frequency-distributions.html"><a href="frequency-distributions.html"><i class="fa fa-check"></i><b>2</b> Frequency Distributions</a><ul>
+<li class="chapter" data-level="2.1" data-path="frequency-distributions.html"><a href="frequency-distributions.html#how-frequency-augments-severity-information"><i class="fa fa-check"></i><b>2.1</b> How Frequency Augments Severity Information</a></li>
+<li class="chapter" data-level="2.2" data-path="frequency-distributions.html"><a href="frequency-distributions.html#basic-frequency-distributions"><i class="fa fa-check"></i><b>2.2</b> Basic Frequency Distributions</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="frequency-distributions.html"><a href="frequency-distributions.html#foundations"><i class="fa fa-check"></i><b>2.2.1</b> Foundations</a></li>
+<li class="chapter" data-level="2.2.2" data-path="frequency-distributions.html"><a href="frequency-distributions.html#probability-generating-function"><i class="fa fa-check"></i><b>2.2.2</b> Probability Generating Function</a></li>
+<li class="chapter" data-level="2.2.3" data-path="frequency-distributions.html"><a href="frequency-distributions.html#important-frequency-distributions"><i class="fa fa-check"></i><b>2.2.3</b> Important Frequency Distributions</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="frequency-distributions.html"><a href="frequency-distributions.html#the-a-b-0-class"><i class="fa fa-check"></i><b>2.3</b> The (<span class="math inline">\(a, b\)</span>, 0) Class</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="frequency-distributions.html"><a href="frequency-distributions.html#the-a-b-0-class---example"><i class="fa fa-check"></i><b>2.3.1</b> The (<span class="math inline">\(a, b\)</span>, 0) Class - Example</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="frequency-distributions.html"><a href="frequency-distributions.html#estimating-frequency-distributions"><i class="fa fa-check"></i><b>2.4</b> Estimating Frequency Distributions</a></li>
+<li class="chapter" data-level="2.5" data-path="frequency-distributions.html"><a href="frequency-distributions.html#other-frequency-distributions"><i class="fa fa-check"></i><b>2.5</b> Other Frequency Distributions</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="frequency-distributions.html"><a href="frequency-distributions.html#zero-truncation-or-modification"><i class="fa fa-check"></i><b>2.5.1</b> Zero Truncation or Modification</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="frequency-distributions.html"><a href="frequency-distributions.html#mixture-distributions"><i class="fa fa-check"></i><b>2.6</b> Mixture Distributions</a><ul>
+<li class="chapter" data-level="2.6.1" data-path="frequency-distributions.html"><a href="frequency-distributions.html#mixtures-of-finite-populations"><i class="fa fa-check"></i><b>2.6.1</b> Mixtures of Finite Populations</a></li>
+<li class="chapter" data-level="2.6.2" data-path="frequency-distributions.html"><a href="frequency-distributions.html#mixtures-of-infinitely-many-populations"><i class="fa fa-check"></i><b>2.6.2</b> Mixtures of Infinitely Many Populations</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="frequency-distributions.html"><a href="frequency-distributions.html#goodness-of-fit"><i class="fa fa-check"></i><b>2.7</b> Goodness of Fit</a></li>
+<li class="chapter" data-level="2.8" data-path="frequency-distributions.html"><a href="frequency-distributions.html#exercises"><i class="fa fa-check"></i><b>2.8</b> Exercises</a></li>
+<li class="chapter" data-level="2.9" data-path="frequency-distributions.html"><a href="frequency-distributions.html#technical-supplement-iterated-expectations"><i class="fa fa-check"></i><b>2.9</b> Technical Supplement: Iterated Expectations</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="modeling-loss-severity.html"><a href="modeling-loss-severity.html"><i class="fa fa-check"></i><b>3</b> Modeling Loss Severity</a><ul>
+<li class="chapter" data-level="3.1" data-path="modeling-loss-severity.html"><a href="modeling-loss-severity.html#BasicQuantities"><i class="fa fa-check"></i><b>3.1</b> Basic Distributional Quantities</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="modeling-loss-severity.html"><a href="modeling-loss-severity.html#moments"><i class="fa fa-check"></i><b>3.1.1</b> Moments</a></li>
+<li class="chapter" data-level="3.1.2" data-path="modeling-loss-severity.html"><a href="modeling-loss-severity.html#quantiles"><i class="fa fa-check"></i><b>3.1.2</b> Quantiles</a></li>
+<li class="chapter" data-level="3.1.3" data-path="modeling-loss-severity.html"><a href="modeling-loss-severity.html#the-moment-generating-function"><i class="fa fa-check"></i><b>3.1.3</b> The Moment Generating Function</a></li>
+<li class="chapter" data-level="3.1.4" data-path="modeling-loss-severity.html"><a href="modeling-loss-severity.html#probability-generating-function-1"><i class="fa fa-check"></i><b>3.1.4</b> Probability Generating Function</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="modeling-loss-severity.html"><a href="modeling-loss-severity.html#ContinuousDistn"><i class="fa fa-check"></i><b>3.2</b> Continuous Distributions for Modeling Loss Severity</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="modeling-loss-severity.html"><a href="modeling-loss-severity.html#the-gamma-distribution"><i class="fa fa-check"></i><b>3.2.1</b> The Gamma Distribution</a></li>
+<li class="chapter" data-level="3.2.2" data-path="modeling-loss-severity.html"><a href="modeling-loss-severity.html#the-pareto-distribution"><i class="fa fa-check"></i><b>3.2.2</b> The Pareto Distribution</a></li>
+<li class="chapter" data-level="3.2.3" data-path="modeling-loss-severity.html"><a href="modeling-loss-severity.html#the-weibull-distribution"><i class="fa fa-check"></i><b>3.2.3</b> The Weibull Distribution</a></li>
+<li class="chapter" data-level="3.2.4" data-path="modeling-loss-severity.html"><a href="modeling-loss-severity.html#the-generalized-beta-distribution-of-the-second-kind"><i class="fa fa-check"></i><b>3.2.4</b> The Generalized Beta Distribution of the Second Kind</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="modeling-loss-severity.html"><a href="modeling-loss-severity.html#MethodsCreation"><i class="fa fa-check"></i><b>3.3</b> Methods of Creating New Distributions</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="modeling-loss-severity.html"><a href="modeling-loss-severity.html#functions-of-random-variables-and-their-distributions"><i class="fa fa-check"></i><b>3.3.1</b> Functions of Random Variables and their Distributions</a></li>
+<li class="chapter" data-level="3.3.2" data-path="modeling-loss-severity.html"><a href="modeling-loss-severity.html#multiplication-by-a-constant"><i class="fa fa-check"></i><b>3.3.2</b> Multiplication by a Constant</a></li>
+<li class="chapter" data-level="3.3.3" data-path="modeling-loss-severity.html"><a href="modeling-loss-severity.html#raising-to-a-power"><i class="fa fa-check"></i><b>3.3.3</b> Raising to a Power</a></li>
+<li class="chapter" data-level="3.3.4" data-path="modeling-loss-severity.html"><a href="modeling-loss-severity.html#exponentiation"><i class="fa fa-check"></i><b>3.3.4</b> Exponentiation</a></li>
+<li class="chapter" data-level="3.3.5" data-path="modeling-loss-severity.html"><a href="modeling-loss-severity.html#finite-mixtures"><i class="fa fa-check"></i><b>3.3.5</b> Finite Mixtures</a></li>
+<li class="chapter" data-level="3.3.6" data-path="modeling-loss-severity.html"><a href="modeling-loss-severity.html#continuous-mixtures"><i class="fa fa-check"></i><b>3.3.6</b> Continuous Mixtures</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="modeling-loss-severity.html"><a href="modeling-loss-severity.html#coverage-modifications"><i class="fa fa-check"></i><b>3.4</b> Coverage Modifications</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="modeling-loss-severity.html"><a href="modeling-loss-severity.html#PolicyDeduct"><i class="fa fa-check"></i><b>3.4.1</b> Policy Deductibles</a></li>
+<li class="chapter" data-level="3.4.2" data-path="modeling-loss-severity.html"><a href="modeling-loss-severity.html#PolicyLimits"><i class="fa fa-check"></i><b>3.4.2</b> Policy Limits</a></li>
+<li class="chapter" data-level="3.4.3" data-path="modeling-loss-severity.html"><a href="modeling-loss-severity.html#coinsurance"><i class="fa fa-check"></i><b>3.4.3</b> Coinsurance</a></li>
+<li class="chapter" data-level="3.4.4" data-path="modeling-loss-severity.html"><a href="modeling-loss-severity.html#reinsurance"><i class="fa fa-check"></i><b>3.4.4</b> Reinsurance</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="modeling-loss-severity.html"><a href="modeling-loss-severity.html#maximum-likelihood-estimation"><i class="fa fa-check"></i><b>3.5</b> Maximum Likelihood Estimation</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="modeling-loss-severity.html"><a href="modeling-loss-severity.html#maximum-likelihood-estimators-for-complete-data"><i class="fa fa-check"></i><b>3.5.1</b> Maximum Likelihood Estimators for Complete Data</a></li>
+<li class="chapter" data-level="3.5.2" data-path="modeling-loss-severity.html"><a href="modeling-loss-severity.html#MLEGrouped"><i class="fa fa-check"></i><b>3.5.2</b> Maximum Likelihood Estimators for Grouped Data</a></li>
+<li class="chapter" data-level="3.5.3" data-path="modeling-loss-severity.html"><a href="modeling-loss-severity.html#maximum-likelihood-estimators-for-censored-data"><i class="fa fa-check"></i><b>3.5.3</b> Maximum Likelihood Estimators for Censored Data</a></li>
+<li class="chapter" data-level="3.5.4" data-path="modeling-loss-severity.html"><a href="modeling-loss-severity.html#maximum-likelihood-estimators-for-truncated-data"><i class="fa fa-check"></i><b>3.5.4</b> Maximum Likelihood Estimators for Truncated Data</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="modeling-loss-severity.html"><a href="modeling-loss-severity.html#Resources-loss-severity"><i class="fa fa-check"></i><b>3.6</b> Further Resources and Contributors</a></li>
+<li class="chapter" data-level="3.7" data-path="modeling-loss-severity.html"><a href="modeling-loss-severity.html#exercises-1"><i class="fa fa-check"></i><b>3.7</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="model-selection-validation-and-inference.html"><a href="model-selection-validation-and-inference.html"><i class="fa fa-check"></i><b>4</b> Model Selection, Validation, and Inference</a><ul>
+<li class="chapter" data-level="4.1" data-path="model-selection-validation-and-inference.html"><a href="model-selection-validation-and-inference.html#S:NonParInf"><i class="fa fa-check"></i><b>4.1</b> Nonparametric Inference</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="model-selection-validation-and-inference.html"><a href="model-selection-validation-and-inference.html#nonparametric-estimation"><i class="fa fa-check"></i><b>4.1.1</b> Nonparametric Estimation</a></li>
+<li class="chapter" data-level="4.1.2" data-path="model-selection-validation-and-inference.html"><a href="model-selection-validation-and-inference.html#S:ToolsModelSelection"><i class="fa fa-check"></i><b>4.1.2</b> Tools for Model Selection</a></li>
+<li class="chapter" data-level="4.1.3" data-path="model-selection-validation-and-inference.html"><a href="model-selection-validation-and-inference.html#starting-values"><i class="fa fa-check"></i><b>4.1.3</b> Starting Values</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="model-selection-validation-and-inference.html"><a href="model-selection-validation-and-inference.html#S:ModelValidation"><i class="fa fa-check"></i><b>4.2</b> Model Validation</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="model-selection-validation-and-inference.html"><a href="model-selection-validation-and-inference.html#iterative-model-selection"><i class="fa fa-check"></i><b>4.2.1</b> Iterative Model Selection</a></li>
+<li class="chapter" data-level="4.2.2" data-path="model-selection-validation-and-inference.html"><a href="model-selection-validation-and-inference.html#summarizing-model-selection"><i class="fa fa-check"></i><b>4.2.2</b> Summarizing Model Selection</a></li>
+<li class="chapter" data-level="4.2.3" data-path="model-selection-validation-and-inference.html"><a href="model-selection-validation-and-inference.html#out-of-sample-validation"><i class="fa fa-check"></i><b>4.2.3</b> Out of Sample Validation</a></li>
+<li class="chapter" data-level="4.2.4" data-path="model-selection-validation-and-inference.html"><a href="model-selection-validation-and-inference.html#gini-statistic"><i class="fa fa-check"></i><b>4.2.4</b> Gini Statistic</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="model-selection-validation-and-inference.html"><a href="model-selection-validation-and-inference.html#S:ModifiedData"><i class="fa fa-check"></i><b>4.3</b> Modified Data</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="model-selection-validation-and-inference.html"><a href="model-selection-validation-and-inference.html#parametric-estimation-using-modified-data"><i class="fa fa-check"></i><b>4.3.1</b> Parametric Estimation using Modified Data</a></li>
+<li class="chapter" data-level="4.3.2" data-path="model-selection-validation-and-inference.html"><a href="model-selection-validation-and-inference.html#nonparametric-estimation-using-modified-data"><i class="fa fa-check"></i><b>4.3.2</b> Nonparametric Estimation using Modified Data</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="model-selection-validation-and-inference.html"><a href="model-selection-validation-and-inference.html#S:BayesInference"><i class="fa fa-check"></i><b>4.4</b> Bayesian Inference</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="model-selection-validation-and-inference.html"><a href="model-selection-validation-and-inference.html#bayesian-model"><i class="fa fa-check"></i><b>4.4.1</b> Bayesian Model</a></li>
+<li class="chapter" data-level="4.4.2" data-path="model-selection-validation-and-inference.html"><a href="model-selection-validation-and-inference.html#decision-analysis"><i class="fa fa-check"></i><b>4.4.2</b> Decision Analysis</a></li>
+<li class="chapter" data-level="4.4.3" data-path="model-selection-validation-and-inference.html"><a href="model-selection-validation-and-inference.html#posterior-distribution"><i class="fa fa-check"></i><b>4.4.3</b> Posterior Distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="model-selection-validation-and-inference.html"><a href="model-selection-validation-and-inference.html#exercises-2"><i class="fa fa-check"></i><b>4.5</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="simulation.html"><a href="simulation.html"><i class="fa fa-check"></i><b>5</b> Simulation</a><ul>
+<li class="chapter" data-level="5.1" data-path="simulation.html"><a href="simulation.html#generating-independent-uniform-observations"><i class="fa fa-check"></i><b>5.1</b> Generating Independent Uniform Observations</a></li>
+<li class="chapter" data-level="5.2" data-path="simulation.html"><a href="simulation.html#inverse-transform"><i class="fa fa-check"></i><b>5.2</b> Inverse Transform</a></li>
+<li class="chapter" data-level="5.3" data-path="simulation.html"><a href="simulation.html#how-many-simulated-values"><i class="fa fa-check"></i><b>5.3</b> How Many Simulated Values?</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="portfolio-management-including-reinsurance.html"><a href="portfolio-management-including-reinsurance.html"><i class="fa fa-check"></i><b>6</b> Portfolio Management including Reinsurance</a><ul>
+<li class="chapter" data-level="6.0.1" data-path="portfolio-management-including-reinsurance.html"><a href="portfolio-management-including-reinsurance.html#overview"><i class="fa fa-check"></i><b>6.0.1</b> Overview:</a></li>
+<li class="chapter" data-level="6.1" data-path="portfolio-management-including-reinsurance.html"><a href="portfolio-management-including-reinsurance.html#tails-of-distributions"><i class="fa fa-check"></i><b>6.1</b> Tails of Distributions</a></li>
+<li class="chapter" data-level="6.2" data-path="portfolio-management-including-reinsurance.html"><a href="portfolio-management-including-reinsurance.html#measures-of-risk"><i class="fa fa-check"></i><b>6.2</b> Measures of Risk</a></li>
+<li class="chapter" data-level="6.3" data-path="portfolio-management-including-reinsurance.html"><a href="portfolio-management-including-reinsurance.html#reinsurance-1"><i class="fa fa-check"></i><b>6.3</b> Reinsurance</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="portfolio-management-including-reinsurance.html"><a href="portfolio-management-including-reinsurance.html#proportional-reinsurance"><i class="fa fa-check"></i><b>6.3.1</b> Proportional Reinsurance</a></li>
+<li class="chapter" data-level="6.3.2" data-path="portfolio-management-including-reinsurance.html"><a href="portfolio-management-including-reinsurance.html#surplus-share-proportional-treaty"><i class="fa fa-check"></i><b>6.3.2</b> Surplus Share Proportional Treaty</a></li>
+<li class="chapter" data-level="6.3.3" data-path="portfolio-management-including-reinsurance.html"><a href="portfolio-management-including-reinsurance.html#excess-of-loss-reinsurance"><i class="fa fa-check"></i><b>6.3.3</b> Excess of Loss Reinsurance</a></li>
+<li class="chapter" data-level="6.3.4" data-path="portfolio-management-including-reinsurance.html"><a href="portfolio-management-including-reinsurance.html#relations-with-personal-insurance"><i class="fa fa-check"></i><b>6.3.4</b> Relations with Personal Insurance</a></li>
+<li class="chapter" data-level="6.3.5" data-path="portfolio-management-including-reinsurance.html"><a href="portfolio-management-including-reinsurance.html#layers-of-coverage"><i class="fa fa-check"></i><b>6.3.5</b> Layers of Coverage</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="technical-supplement-statistical-inference.html"><a href="technical-supplement-statistical-inference.html"><i class="fa fa-check"></i><b>7</b> Technical Supplement: Statistical Inference</a><ul>
+<li class="chapter" data-level="7.1" data-path="technical-supplement-statistical-inference.html"><a href="technical-supplement-statistical-inference.html#overview-of-statistical-inference"><i class="fa fa-check"></i><b>7.1</b> Overview of Statistical Inference</a></li>
+<li class="chapter" data-level="7.2" data-path="technical-supplement-statistical-inference.html"><a href="technical-supplement-statistical-inference.html#estimation-and-prediction"><i class="fa fa-check"></i><b>7.2</b> Estimation and Prediction</a></li>
+<li class="chapter" data-level="7.3" data-path="technical-supplement-statistical-inference.html"><a href="technical-supplement-statistical-inference.html#maximum-likelihood-theory"><i class="fa fa-check"></i><b>7.3</b> Maximum Likelihood Theory</a><ul>
+<li class="chapter" data-level="7.3.1" data-path="technical-supplement-statistical-inference.html"><a href="technical-supplement-statistical-inference.html#likelihood-function"><i class="fa fa-check"></i><b>7.3.1</b> Likelihood Function</a></li>
+<li class="chapter" data-level="7.3.2" data-path="technical-supplement-statistical-inference.html"><a href="technical-supplement-statistical-inference.html#information-criteria"><i class="fa fa-check"></i><b>7.3.2</b> Information Criteria</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="bibliography.html"><a href="bibliography.html"><i class="fa fa-check"></i>Bibliography</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Loss Data Analytics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="frequency-distributions" class="section level1">
+<h1><span class="header-section-number">Chapter 2</span> Frequency Distributions</h1>
+<p>These are overheads from a course that provides some structure for this chapter.</p>
+<div id="how-frequency-augments-severity-information" class="section level2">
+<h2><span class="header-section-number">2.1</span> How Frequency Augments Severity Information</h2>
+<div id="basic-terminology" class="section level4">
+<h4><span class="header-section-number">2.1.0.1</span> Basic Terminology</h4>
+<ul>
+<li><p><strong>Claim</strong> - indemnification upon the occurrence of an insured event</p>
+<ul>
+<li><strong>Loss</strong> - some authors use claim and loss interchangeably, others think of loss as the amount suffered by the insured whereas claim is the amount paid by the insurer</li>
+</ul></li>
+<li><p><strong>Frequency</strong> - how often an insured event occurs, typically within a policy contract</p></li>
+<li><p><strong>Count</strong> - In this chapter, we focus on count random variables that represent the number of claims, that is, how frequently an event occurs</p></li>
+<li><p><strong>Severity</strong> - Amount, or size, of each payment for an insured event</p></li>
+</ul>
+</div>
+<div id="the-importance-of-frequency" class="section level4">
+<h4><span class="header-section-number">2.1.0.2</span> The Importance of Frequency</h4>
+<ul>
+<li><p>Insurers pay claims in monetary units, e.g., US dollars. So, why should they care about how frequently claims occur?</p></li>
+<li><p>Many ways to use claims modeling – easiest to motivate in terms of pricing for personal lines insurance</p>
+<ul>
+<li><p>Recall from Chapter 1 that setting the price of an insurance good can be a perplexing problem.</p></li>
+<li><p>In manufacturing, the cost of a good is (relatively) known</p></li>
+<li><p>Other financial service areas, market prices are available</p></li>
+<li><p>Insurance tradition: Start with an expected cost. Add “margins” to account for the product’s riskiness, expenses incurred in servicing the product, and a profit/surplus allowance for the insurance company.</p></li>
+</ul></li>
+<li><p>Think of the expected cost as the expected number of claims times the expected amount per claims, that is, expected <em>frequency times severity</em>.</p></li>
+<li><p>Claim amounts, or severities, will turn out to be relatively homogeneous for many lines of business and so we begin our investigations with frequency modeling.</p></li>
+</ul>
+</div>
+<div id="other-ways-that-frequency-augments-severity-information" class="section level4">
+<h4><span class="header-section-number">2.1.0.3</span> Other Ways that Frequency Augments Severity Information</h4>
+<ul>
+<li><p><strong>Contractual</strong> - For example, deductibles and policy limits are often in terms of each occurrence of an insured event</p></li>
+<li><p><strong>Behaviorial</strong> - Explanatory (rating) variables can have different effects on models of how often an event occurs in contrast to the size of the event.</p>
+<ul>
+<li>In healthcare, the decision to utilize healthcare by individuals is related primarily to personal characteristics whereas the cost per user may be more related to characteristics of the healthcare provider (such as the physician).</li>
+</ul></li>
+<li><p><strong>Databases</strong>. Many insurers keep separate data files that suggest developing separate frequency and severity models. This recording process makes it natural for insurers to model the frequency and severity as separate processes.</p>
+<ul>
+<li><p>Policyholder file that is established when a policy is written. This file records much underwriting information about the insured(s), such as age, gender and prior claims experience, policy information such as coverage, deductibles and limitations, as well as the insurance claims event.</p></li>
+<li><p>Claims file, records details of the claim against the insurer, including the amount.</p></li>
+<li><p>(There may also be a “payments” file that records the timing of the payments although we shall not deal with that here.)</p></li>
+</ul></li>
+<li><p><strong>Regulatory and Administrative</strong></p>
+<ul>
+<li><p>Regulators routinely require the reporting of claims numbers as well as amounts.</p></li>
+<li><p>This may be due to the fact that there can be alternative definitions of an “amount,” e.g., paid versus incurred, and there is less potential error when reporting claim numbers.</p></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="basic-frequency-distributions" class="section level2">
+<h2><span class="header-section-number">2.2</span> Basic Frequency Distributions</h2>
+<div id="foundations" class="section level3">
+<h3><span class="header-section-number">2.2.1</span> Foundations</h3>
+<ul>
+<li><p>Claim count <span class="math inline">\(N\)</span> has support on the non-negative integers <span class="math inline">\(k=0,1,2, \ldots\)</span>.</p></li>
+<li><p>The <strong>probability mass function</strong> is denoted as <span class="math inline">\(\Pr(N = k) = p_k\)</span></p></li>
+<li><p>We can summarize the distribution through its <strong>moments</strong></p>
+<ul>
+<li><p>The <strong>mean</strong>, or first moment, is</p>
+<p><span class="math display">\[\mathrm{E~} N = \mu_1 = \mu = \sum^{\infty}_{k=0} k p_k .\]</span></p></li>
+<li><p>More generally, the <span class="math inline">\(r\)</span>th moment is <span class="math display">\[\mathrm{E~} N^r = \mu_r^{\prime} = \sum^{\infty}_{k=0} k^r p_k .\]</span></p></li>
+<li><p>The <strong>variance</strong> is <span class="math display">\[\mathrm{Var~} N = \mathrm{E~} (N-\mu)^2 = \mathrm{E~} N^2 - \mu^2\]</span></p></li>
+</ul></li>
+<li><p>Also recall the <strong>moment generating function</strong> <span class="math display">\[M_N(t) = \mathrm{E~}e^{tN} = \sum^{\infty}_{k=0} e^{tk} p_k .\]</span></p></li>
+</ul>
+</div>
+<div id="probability-generating-function" class="section level3">
+<h3><span class="header-section-number">2.2.2</span> Probability Generating Function</h3>
+<ul>
+<li><p>The <strong>probability generating function</strong> is <span class="math display">\[\begin{aligned}
+\mathrm{P}(z) &amp;= \mathrm{E~}z^N = \mathrm{E~}\exp{(N \ln z)} = M_N(\ln{z})\\
+&amp;= \sum^{\infty}_{k=0} z^k p_k .\end{aligned}\]</span></p></li>
+<li><p>By taking the <span class="math inline">\(m\)</span>th derivative, we see that <span class="math display">\[\begin{aligned}
+\left. P^{(m)}(z)\right|_{z=0} &amp;= \frac{\partial^m }{\partial z^m} P(z)|_{z=0} = p_m m!\end{aligned}\]</span> the pgf “generates” the probabilities.</p></li>
+<li><p>Further, the pgf can be used to generate moments <span class="math display">\[\begin{aligned}
+P^{(1)}(1) &amp;= \sum k p_k = \mathrm{E~}N .\end{aligned}\]</span> and <span class="math display">\[P^{(2)}(1) = \mathrm{E~}N(N-1).\]</span></p></li>
+</ul>
+</div>
+<div id="important-frequency-distributions" class="section level3">
+<h3><span class="header-section-number">2.2.3</span> Important Frequency Distributions</h3>
+<ul>
+<li><p>The three important (in insurance) frequency distributions are:</p>
+<ul>
+<li><p>Poisson</p></li>
+<li><p>Negative binomial</p></li>
+<li><p>Binomial</p></li>
+</ul></li>
+<li><p>They are important because:</p>
+<ul>
+<li><p>They fit well many insurance data sets of interest</p></li>
+<li><p>They provide the basis for more complex distributions that even better approximate real situations of interest to us</p></li>
+</ul></li>
+</ul>
+<div id="poisson-distribution" class="section level4">
+<h4><span class="header-section-number">2.2.3.1</span> Poisson Distribution</h4>
+<ul>
+<li><p>This distribution has parameter <span class="math inline">\(\lambda\)</span>, probability mass function <span class="math display">\[p_k = \frac{e^{-\lambda}\lambda^k}{k!}\]</span> and pgf <span class="math display">\[\begin{aligned}
+P(z) &amp;= M_N (\ln z) = \exp(\lambda(z-1))\end{aligned}\]</span></p></li>
+<li><p>The expectation is <span class="math inline">\(\mathrm{E~}N = \lambda\)</span> which is the same as the variance, <span class="math inline">\(\mathrm{Var~}N = \lambda\)</span>.</p></li>
+</ul>
+</div>
+<div id="negative-binomial-distribution" class="section level4">
+<h4><span class="header-section-number">2.2.3.2</span> Negative Binomial Distribution</h4>
+<ul>
+<li><p>This distribution has parameters <span class="math inline">\((r, \beta)\)</span>, probability mass function (pmf) <span class="math display">\[p_k = {k+r-1\choose k} \left(\frac{1}{1+\beta}\right)^r \left(\frac{\beta}{1+\beta}\right)^k\]</span> and probability generating function (pgf) <span class="math display">\[\begin{aligned}
+P(z) &amp;= (1-\beta(z-1))^{-r} \end{aligned}\]</span></p></li>
+<li><p>The expectation is <span class="math inline">\(\mathrm{E~}N = r\beta\)</span> and the variance is <span class="math inline">\(\mathrm{Var~}N = r\beta(1+\beta)\)</span>.</p></li>
+<li><p>When <span class="math inline">\(\beta&gt;0\)</span>, we have <span class="math inline">\(\mathrm{Var~}N &gt;\mathrm{E~}N\)</span>. This distribution is said to be <strong>overdispersed</strong> (relative to the Poisson).</p></li>
+</ul>
+</div>
+<div id="binomial-distribution" class="section level4">
+<h4><span class="header-section-number">2.2.3.3</span> Binomial Distribution</h4>
+<ul>
+<li><p>This distribution has parameters <span class="math inline">\((m,q)\)</span>, probability mass function <span class="math display">\[p_k = {m\choose k} q^k (1-q)^{m-k}\]</span> and pgf <span class="math display">\[\begin{aligned}
+P(z) &amp;= (1+q(z-1))^m\end{aligned}\]</span></p></li>
+<li><p>The mean is <span class="math inline">\(\mathrm{E~}N = mq\)</span> and the variance is <span class="math inline">\(\mathrm{Var~}N = mq(1-q)\)</span>.</p></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="the-a-b-0-class" class="section level2">
+<h2><span class="header-section-number">2.3</span> The (<span class="math inline">\(a, b\)</span>, 0) Class</h2>
+<ul>
+<li><p>Recall the notation <span class="math inline">\(p_k= \Pr(N = k)\)</span>.</p></li>
+<li><p><em>Definition</em>. A count distribution is a member of the <strong>(<span class="math inline">\(a, b\)</span>, 0) class</strong> if the probabilities <span class="math inline">\(p_k\)</span> satisfy <span class="math display">\[\frac{p_k}{p_{k-1}}=a+\frac{b}{k},\]</span> for constants <span class="math inline">\(a,b\)</span> and for $k=1,2,3, $.</p>
+<ul>
+<li><p>There are only three distributions that are members of the (<span class="math inline">\(a,b\)</span>,0) class. They are the Poisson (<span class="math inline">\(a=0\)</span>), binomial(<span class="math inline">\(a&lt;0\)</span>), and negative binomial (<span class="math inline">\(a&gt;0\)</span>).</p></li>
+<li><p>The recursive expression provides a computationally efficient way to generate probabilities.</p></li>
+</ul></li>
+</ul>
+<div id="the-a-b-0-class---special-cases" class="section level4">
+<h4><span class="header-section-number">2.3.0.1</span> The (<span class="math inline">\(a, b\)</span>, 0) Class - Special Cases</h4>
+<ul>
+<li><p><em>Example: Poisson Distribution</em>.</p>
+<ul>
+<li>Recall the pmf <span class="math inline">\(p_k =\frac{\lambda^k}{k!}e^{-\lambda}\)</span>. Examining the ratio, <span class="math display">\[\frac{p_k}{p_{k-1}} = \frac{\lambda^k/k!}{\lambda^{k-1}/(k-1)!}\frac{e^{-\lambda}}{e^{-\lambda}}= \frac{\lambda}{k}\]</span> Thus, the Poisson is a member of the (<span class="math inline">\(a, b\)</span>, 0) class with <span class="math inline">\(a = 0\)</span>, <span class="math inline">\(b = \lambda\)</span>, and initial starting value <span class="math inline">\(p_0 = e^{-\lambda}\)</span>.</li>
+</ul>
+<p><strong>Other special cases</strong> (Please check)</p></li>
+<li><p><em>Example: Binomial Distribution</em>. Use a similar technique to check that the binomial distribution is a member of the (<span class="math inline">\(a, b\)</span>, 0) class with <span class="math inline">\(a = \frac{-q}{1-q},\)</span> <span class="math inline">\(b = \frac{(m+1)q}{1-q},\)</span> and initial starting value <span class="math inline">\(p_0 = (1-q)^m\)</span>.</p></li>
+</ul>
+<p><strong>Another special case of the (<span class="math inline">\(a, b\)</span>, 0) Class</strong> (Please check)</p>
+<ul>
+<li><em>Example: Negative Binomial Distribution</em>. Check that the negative binomial distribution is a member of the (<span class="math inline">\(a, b\)</span>, 0) class with <span class="math inline">\(a = \frac{\beta}{1+\beta},\)</span> <span class="math inline">\(b = \frac{(r-1)\beta}{1+\beta},\)</span> and initial starting value <span class="math inline">\(p_0 = (1+\beta)^{-r}\)</span>.</li>
+</ul>
+<p><em>Exercise.</em> A discrete probability distribution has the following properties <span class="math display">\[\begin{aligned}
+p_k&amp;=c\left( 1+\frac{2}{k}\right) p_{k-1} \:\:\: k=1,2,3,\\
+p_1&amp;= \frac{9}{256}\end{aligned}\]</span> Determine the expected value of this discrete random variable (Ans: 9)</p>
+</div>
+<div id="the-a-b-0-class---example" class="section level3">
+<h3><span class="header-section-number">2.3.1</span> The (<span class="math inline">\(a, b\)</span>, 0) Class - Example</h3>
+<p><em>Exercise.</em> A discrete probability distribution has the following properties <span class="math display">\[\begin{aligned}
+\Pr(N=k) = \left( \frac{3k+9}{8k}\right) \Pr(N=k-1), ~~~k=1,2,3,\ldots\end{aligned}\]</span> Determine the value of <span class="math inline">\(\Pr(N=3)\)</span>. (Ans: 0.1609)</p>
+</div>
+</div>
+<div id="estimating-frequency-distributions" class="section level2">
+<h2><span class="header-section-number">2.4</span> Estimating Frequency Distributions</h2>
+<div id="parameter-estimation" class="section level4">
+<h4><span class="header-section-number">2.4.0.1</span> Parameter estimation</h4>
+<ul>
+<li><p>The customary method of estimation is <strong>maximum likelihood</strong>.</p></li>
+<li><p>To provide intuition, we outline the ideas in the context of Bernoulli distribution.</p>
+<ul>
+<li><p>This is a special case of the binomial distribution with <span class="math inline">\(m=1\)</span></p></li>
+<li><p>For count distributions, either there is a claim <span class="math inline">\(N=1\)</span> or not <span class="math inline">\(N=0\)</span>. The probability mass function is <span class="math display">\[p_k = \Pr (N=k) = \left\{ \begin{array}{ll}
+1-q &amp; \mathrm{if}\ k=0 \\
+q&amp; \mathrm{if}\ k=1
+\end{array} \right. .\]</span></p></li>
+</ul></li>
+<li><p>The Statistical Inference Problem</p>
+<ul>
+<li><p>Now suppose that we have a collection of independent random variables. The <span class="math inline">\(i\)</span>th variable is denoted as <span class="math inline">\(N_i\)</span>. Further assume they have the same Bernoulli distribution with parameter <span class="math inline">\(q\)</span>.</p></li>
+<li><p>In statistical inference, we assume that we observe a sample of such random variables. The observed value of the <span class="math inline">\(i\)</span>th random variable is <span class="math inline">\(n_i\)</span>. Assuming that the Bernoulli distribution is correct, we wish to say something about the probability parameter <span class="math inline">\(q\)</span>.</p></li>
+</ul></li>
+</ul>
+</div>
+<div id="bernoulli-likelihoods" class="section level4">
+<h4><span class="header-section-number">2.4.0.2</span> Bernoulli Likelihoods</h4>
+<ul>
+<li><p><em>Definition</em>. The <strong>likelihood</strong> is the observed value of the mass function.</p></li>
+<li><p>For a single observation, the likelihood is <span class="math display">\[\left\{
+\begin{array}{ll}
+1-q &amp; \mathrm{if}\ n_i=0 \\
+q   &amp; \mathrm{if}\ n_i=1
+\end{array}
+\right. .\]</span></p></li>
+<li><p>The objective of <strong>maximum likelihood estimation (MLE)</strong> is to find the parameter values that produce the largest likelihood.</p>
+<ul>
+<li><p>Finding the maximum of the logarithmic function yields the same solution as finding the maximum of the corresponding function.</p></li>
+<li><p>Because it is generally computationally simpler, we consider the logarithmic (log-) likelihood, written as <span class="math display">\[\left\{
+\begin{array}{ll}
+\ln \left( 1-q\right)  &amp; \mathrm{if}\ n_i=0 \\
+\ln     q              &amp; \mathrm{if}\ n_i=1
+\end{array}\right. .\]</span></p></li>
+</ul></li>
+</ul>
+</div>
+<div id="bernoulli-mle" class="section level4">
+<h4><span class="header-section-number">2.4.0.3</span> Bernoulli MLE</h4>
+<ul>
+<li><p>More compactly, the log-likelihood of a single observation is <span class="math display">\[n_i \ln q + (1-n_i)\ln ( 1-q ) ,\]</span></p></li>
+<li><p>Assuming independence, the log-likelihood of the data set is <span class="math display">\[L_{Bern}(q)=\sum_i \left\{ n_i \ln q + (1-n_i)\ln ( 1-q ) \right\}\]</span></p>
+<ul>
+<li><p>The (log) likelihood is viewed as a function of the parameters, with the data held fixed.</p></li>
+<li><p>In contrast, the joint probability mass function is viewed as a function of the realized data, with the parameters held fixed.</p></li>
+</ul></li>
+<li><p>The method of maximum likelihood means finding the values of <span class="math inline">\(q\)</span> that maximize the log-likelihood.</p></li>
+<li><p>We began with the Bernoulli distribution in part because the log-likelihood is easy to maximize.</p></li>
+<li><p>Take a derivative of <span class="math inline">\(L_{Bern}(q)\)</span> to get <span class="math display">\[\frac{\partial}{\partial q} L_{Bern}(q)=\sum_i \left\{ n_i \frac{1}{q} - (1-n_i)\frac{1}{1-q} \right\}\]</span> and solving the equation <span class="math inline">\(\frac{\partial}{\partial q} L_{Bern}(q) =0\)</span> yields <span class="math display">\[\hat{q} = \frac{\sum_i n_i}{\mathrm{sample ~size}}\]</span> or, in words, the <span class="math inline">\(MLE\)</span> <span class="math inline">\(\hat{q}\)</span> is the fraction of one’s in the sample.</p></li>
+<li><p>Just to be complete, you should check, by taking derivatives, that when we solve <span class="math inline">\(\frac{\partial}{\partial q} L_{Bern}(q) =0\)</span> we are maximizing the function <span class="math inline">\(L_{Bern}(q)\)</span>, not minimizing it.</p></li>
+</ul>
+</div>
+<div id="frequency-distributions-mle" class="section level4">
+<h4><span class="header-section-number">2.4.0.4</span> Frequency Distributions MLE</h4>
+<ul>
+<li><p>We can readily extend this procedure to all frequency distributions</p></li>
+<li><p>For notation, suppose that <span class="math inline">\(\theta\)</span> (“theta”) is a parameter that describes a given frequency distribution <span class="math inline">\(\Pr(N=k; \theta) = p_k(\theta)\)</span></p>
+<ul>
+<li>In later developments we will let <span class="math inline">\(\theta\)</span> be a vector but for the moment assume it to be a scalar.</li>
+</ul></li>
+<li><p>The log-likelihood of a a single observation is <span class="math display">\[\left\{
+\begin{array}{ll}
+\ln p_0(\theta) &amp; \mathrm{if}\ n_i=0 \\
+\ln p_1(\theta) &amp; \mathrm{if}\ n_i=1 \\
+\vdots &amp; \vdots
+\end{array}
+\right. .\]</span> that can be written more compactly as <span class="math display">\[\sum_k I(n_i=k) \ln p_k(\theta).\]</span> this uses the notation <span class="math inline">\(I(\cdot)\)</span> to be the indicator of a set (it returns one if the event is true and 0 otherwise).</p></li>
+<li><p>Assuming independence, the log-likelihood of the data set is <span class="math display">\[L(\theta)=\sum_i \left\{ \sum_k I(n_i=k) \ln p_k(\theta) \right\} = \left\{ \sum_k m_k\ln p_k(\theta) \right\}\]</span> where we use the notation <span class="math inline">\(m_k\)</span> to denote the number of observations that are observed having count <span class="math inline">\(k\)</span>. Using notation, <span class="math inline">\(m_k = \sum_i I(n_i=k)\)</span>.</p></li>
+<li><p><strong>Special Case</strong>. <em>Poisson</em>. A simple exercise in calculus yields <span class="math display">\[\hat{\lambda} =  \frac{\mathrm{number ~of ~claims}}{\mathrm{sample ~size}} = \frac{\sum_k k m_k}{\sum_k  m_k}\]</span> the average claim count.</p></li>
+</ul>
+</div>
+</div>
+<div id="other-frequency-distributions" class="section level2">
+<h2><span class="header-section-number">2.5</span> Other Frequency Distributions</h2>
+<ul>
+<li><p>Naturally, there are many other count distributions needed in practice</p></li>
+<li><p>For many insurance applications, one can work with one of our three basic distributions (binomial, Poisson, negative binomial) and allow the parameters to be a function of known explanatory variables.</p>
+<ul>
+<li><p>This allows us to explain claim probabilities in terms of known (to the insurer) variables such as age, sex, geographic location (territory), and so forth.</p></li>
+<li><p>This field of statistical study is known as <strong>regression analysis</strong> - it is an important topic that we will not pursue in this course.</p></li>
+</ul></li>
+<li><p>To extend our basic count distributions to alternatives needed in practice, we consider two approaches:</p>
+<ul>
+<li><p>Zero truncation or modification</p></li>
+<li><p>Mixing</p></li>
+</ul></li>
+</ul>
+<div id="zero-truncation-or-modification" class="section level3">
+<h3><span class="header-section-number">2.5.1</span> Zero Truncation or Modification</h3>
+<ul>
+<li><p>Why truncate or modify zero?</p>
+<ul>
+<li><p>If we work with a database of claims, then there are no zero!</p></li>
+<li><p>In personal lines (like auto), people may not want to report that first claim because they fear it will increase future insurance rates.</p></li>
+</ul></li>
+<li><p>Let’s modify zero probabilities in terms of the <span class="math inline">\((a,b,0)\)</span> class</p></li>
+<li><p><em>Definition</em>. A count distribution is a member of the <strong>(<span class="math inline">\(a, b\)</span>, 1) class</strong> if the probabilities <span class="math inline">\(p_k\)</span> satisfy <span class="math display">\[\frac{p_k}{p_{k-1}}=a+\frac{b}{k},\]</span> for constants <span class="math inline">\(a,b\)</span> and for <span class="math inline">\(k=2,3, \ldots\)</span>.</p></li>
+<li><p>Note that this starts at <span class="math inline">\(k=2\)</span>, not <span class="math inline">\(k=1\)</span>. That is, the most important thing about this definition is that the recursion starts at <span class="math inline">\(p_1\)</span>, not <span class="math inline">\(p_0\)</span>.</p></li>
+<li><p>Thus, all distributions that are members of the (<span class="math inline">\(a, b\)</span>, 0) are members of the (<span class="math inline">\(a, b\)</span>, 1) class. Naturally, there are additional distributions that are members of this wider class.</p></li>
+<li><p>To see how this works, pick a specific distribution in the (<span class="math inline">\(a, b\)</span>, 0) class.</p>
+<ul>
+<li><p>Consider <span class="math inline">\(p_k^0\)</span> to be a probability for this member of <span class="math inline">\((a,b,0)\)</span>.</p></li>
+<li><p>Let <span class="math inline">\(p_k^M\)</span> be the corresponding probability for a member of <span class="math inline">\((a,b,1)\)</span>, where the <span class="math inline">\(M\)</span> stands for “modified”.</p></li>
+<li><p>Pick a new probability of a zero claim, <span class="math inline">\(p_0^M\)</span>, and define <span class="math display">\[\begin{aligned}
+c = \frac{1-p_0^M}{1-p_0^0} .\end{aligned}\]</span></p></li>
+<li><p>We then calculate the rest of the modified distribution as <span class="math display">\[\begin{aligned}
+p_k^M =c p_k^0\end{aligned}\]</span></p></li>
+</ul></li>
+</ul>
+<div id="special-case-poisson-truncated-at-zero." class="section level4">
+<h4><span class="header-section-number">2.5.1.1</span> Special Case: Poisson Truncated at Zero.</h4>
+<p>For this case, we assume that <span class="math inline">\(p_0^M=0\)</span>, so that the probability of <span class="math inline">\(N=0\)</span> is zero, hence the name “truncated at zero.”</p>
+<ul>
+<li>For this case, we use the letter <span class="math inline">\(T\)</span> to denote probabilities instead of <span class="math inline">\(M\)</span>, so we use <span class="math inline">\(p_k^T\)</span> for probabilities. Thus, <span class="math display">\[\begin{aligned}
+p_k^T&amp;=
+\left \{
+\begin{array}{cc}
+0 &amp; k=0\\
+\frac{1}{1-p_0^0}p_k^0 &amp; k \ge 1\\
+\end{array}
+\right.\end{aligned}\]</span></li>
+</ul>
+</div>
+<div id="modified-poisson-example" class="section level4">
+<h4><span class="header-section-number">2.5.1.2</span> Modified Poisson Example</h4>
+<p><em>Example: Zero Truncated/Modified Poisson</em>. Consider a Poisson distribution with parameter <span class="math inline">\(\lambda=2\)</span>. We show how to calculate <span class="math inline">\(p_k, k=0,1,2,3\)</span>, for the usual (unmodified), truncated and a modified version with <span class="math inline">\((p_0^M=0.6)\)</span>.</p>
+<p><em>Solution.</em> For the Poisson distribution as a member of the (<span class="math inline">\(a,b\)</span>,0) class, we have <span class="math inline">\(a=0\)</span> and <span class="math inline">\(b=\lambda=2\)</span>. Thus, we may use the recursion <span class="math inline">\(p_k = \lambda p_{k-1}/k= 2 p_{k-1}/k\)</span> for each type, after determining starting probabilities.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">k</th>
+<th align="center"><span class="math inline">\(p_k\)</span></th>
+<th align="center"><span class="math inline">\(p_k^T\)</span></th>
+<th align="center"><span class="math inline">\(p_k^M\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">0</td>
+<td align="center"><span class="math inline">\(p_0=e^{-\lambda}=0.135335\)</span></td>
+<td align="center">0</td>
+<td align="center">0.6</td>
+</tr>
+<tr class="even">
+<td align="center">1</td>
+<td align="center"><span class="math inline">\(p_1=p_0(0+\frac{\lambda}{1})=0.27067\)</span></td>
+<td align="center"><span class="math inline">\(\frac{p_1}{1-p_0}=0.313035\)</span></td>
+<td align="center"><span class="math inline">\(\frac{1-p_0^M}{1-p_0}~p_1=0.125214\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">2</td>
+<td align="center"><span class="math inline">\(p_2=p_1\left( \frac{\lambda}{2}\right)=0.27067\)</span></td>
+<td align="center"><span class="math inline">\(p_2^T=p_1^T\left(\frac{\lambda}{2}\right)=0.313035\)</span></td>
+<td align="center"><span class="math inline">\(p_2^M=0.125214\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">3</td>
+<td align="center"><span class="math inline">\(p_3=p_2\left(\frac{\lambda}{3}\right)=0.180447\)</span></td>
+<td align="center"><span class="math inline">\(p_3^T=p_2^T\left(\frac{\lambda}{3}\right)=0.208690\)</span></td>
+<td align="center"><span class="math inline">\(p_3^M=p_2^M\left(\frac{\lambda}{2}\right)=0.083476\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="modified-poisson-exercise" class="section level4">
+<h4><span class="header-section-number">2.5.1.3</span> Modified Poisson Exercise</h4>
+<p><em>Exercise: Course 3, May 2000, Exercise 37.</em> You are given:</p>
+<ol style="list-style-type: decimal">
+<li><p><span class="math inline">\(p_k\)</span> denotes the probability that the number of claims equals <span class="math inline">\(k\)</span> for <span class="math inline">\(k=0,1,2,\ldots\)</span></p></li>
+<li><p><span class="math inline">\(\frac{p_n}{p_m}=\frac{m!}{n!}, m\ge 0, n\ge 0\)</span></p></li>
+</ol>
+<p>Using the corresponding zero-modified claim count distribution with <span class="math inline">\(p_0^M=0.1\)</span>, calculate <span class="math inline">\(p_1^M\)</span>.</p>
+</div>
+</div>
+</div>
+<div id="mixture-distributions" class="section level2">
+<h2><span class="header-section-number">2.6</span> Mixture Distributions</h2>
+<div id="mixtures-of-finite-populations" class="section level3">
+<h3><span class="header-section-number">2.6.1</span> Mixtures of Finite Populations</h3>
+<ul>
+<li><p>Suppose that our population consists of several subgroups, each having their own distribution</p></li>
+<li><p>We randomly draw an observation from the population, without knowing which subgroup that we are drawing from</p></li>
+<li><p>For example, suppose that <span class="math inline">\(N_1\)</span> represents claims form “good” drivers and <span class="math inline">\(N_2\)</span> represents claims from “bad” drivers. We draw <span class="math display">\[N =
+\begin{cases}
+N_1  &amp;  \text{with prob~}\alpha\\
+N_2  &amp;   \text{with prob~}(1-\alpha) .\\
+\end{cases}\]</span></p></li>
+<li><p>Here, <span class="math inline">\(\alpha\)</span> represents the probability of drawing a “good” driver.</p></li>
+<li><p>Our is said to be a “mixture” of two subgroups</p></li>
+</ul>
+<div id="finite-population-mixture-example" class="section level4">
+<h4><span class="header-section-number">2.6.1.1</span> Finite Population Mixture Example</h4>
+<p><em>Exercise. Exam “C” 170</em>. In a certain town the number of common colds an individual will get in a year follows a Poisson distribution that depends on the individual’s age and smoking status. The distribution of the population and the mean number of colds are as follows:</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th align="center">Proportion of population</th>
+<th align="center">Mean number of colds</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Children</td>
+<td align="center">0.3</td>
+<td align="center">3</td>
+</tr>
+<tr class="even">
+<td>Adult Non-Smokers</td>
+<td align="center">0.6</td>
+<td align="center">1</td>
+</tr>
+<tr class="odd">
+<td>Adult Smokers</td>
+<td align="center">0.1</td>
+<td align="center">4</td>
+</tr>
+</tbody>
+</table>
+<ol style="list-style-type: decimal">
+<li><p>Calculate the probability that a randomly drawn person has 3 common colds in a year.</p></li>
+<li><p>Calculate the conditional probability that a person with exactly 3 common colds in a year is an adult smoker.</p></li>
+</ol>
+</div>
+</div>
+<div id="mixtures-of-infinitely-many-populations" class="section level3">
+<h3><span class="header-section-number">2.6.2</span> Mixtures of Infinitely Many Populations</h3>
+<ul>
+<li><p>We can extend the mixture idea to an infinite number of populations.</p></li>
+<li><p>To illustrate, suppose we have a population of drivers. The <span class="math inline">\(i\)</span>th person has their own (personal) expected number of claims, <span class="math inline">\(\lambda_i\)</span>.</p></li>
+<li><p>For some driver’s, <span class="math inline">\(\lambda\)</span> is small (good drivers), for others it is high (not so good drivers). There is a distribution of <span class="math inline">\(\lambda\)</span>.</p></li>
+<li><p>A convenient distribution is to use a gamma distribution with parameters <span class="math inline">\((\alpha, \theta)\)</span>.</p></li>
+<li><p>Then, one can check that <span class="math display">\[\begin{aligned}
+N &amp;\sim&amp; \text{Negative Binomial} (r = \alpha, \beta = \theta) .\end{aligned}\]</span> See, for example, KPW, page 84.</p></li>
+<li><p>Mixture is very important in insurance applications, more on this later…</p></li>
+</ul>
+<div id="negative-binomial-as-a-gamma-mixture-of-poissons---example" class="section level4">
+<h4><span class="header-section-number">2.6.2.1</span> Negative Binomial as a Gamma Mixture of Poissons - Example</h4>
+<p><em>Example</em>. Suppose that <span class="math inline">\(N|\Lambda \sim\)</span> Poisson<span class="math inline">\((\Lambda)\)</span> and that <span class="math inline">\(\Lambda \sim\)</span> gamma with mean of 1 and variance of 2. Determine the probability that <span class="math inline">\(N=1\)</span>.</p>
+<p><em>Solution.</em> For a gamma distribution with parameters <span class="math inline">\((\alpha, \theta)\)</span>, we have that mean is <span class="math inline">\(\alpha \theta\)</span> and the variance is <span class="math inline">\(\alpha \theta^2\)</span>. Thus <span class="math display">\[\begin{aligned}
+\alpha &amp;= \frac{1}{2} \text{   and   } \theta =2.\end{aligned}\]</span></p>
+<p>Now, one can directly use the negative binomial approach to get <span class="math inline">\(r = \alpha = \frac{1}{2}\)</span> and <span class="math inline">\(\beta= \theta =2\)</span>. Thus <span class="math display">\[\begin{aligned}
+\Pr(N=1) = p_1  &amp;= {1+r-1 \choose 1}(\frac{1}{(1+\beta)^r})(\frac{\beta}{1+\beta})^1 \\
+&amp;=                 {1+\frac{1}{2}-1 \choose 1}{\frac{1}{(1+2)^{1/2}}}(\frac{2}{1+2})^1\\
+&amp;=  \frac{1}{3^{3/2}} = 0.19245 .\end{aligned}\]</span></p>
+</div>
+</div>
+</div>
+<div id="goodness-of-fit" class="section level2">
+<h2><span class="header-section-number">2.7</span> Goodness of Fit</h2>
+<div id="example-singapore-automobile-data" class="section level4">
+<h4><span class="header-section-number">2.7.0.1</span> Example: Singapore Automobile Data</h4>
+<ul>
+<li><p>A 1993 portfolio of <span class="math inline">\(n=7,483\)</span> automobile insurance policies from a major insurance company in Singapore.</p></li>
+<li><p>The count variable is the number of automobile accidents per policyholder.</p></li>
+<li><p>There were on average 0.06989 accidents per person.</p></li>
+</ul>
+<p><span class="math display">\[
+\begin{matrix}
+\hline \textbf{Table. Comparison of Observed to Fitted Counts } \\
+\textbf{Based on Singapore Automobile Data} \\
+\begin{array}{crr}
+\hline
+\text{Count} &amp; \text{Observed} &amp; \text{Fitted Counts using the} \\
+(k) &amp; (m_k) &amp; \text{Poisson Distribution} (n\widehat{p}_k) \\
+\hline
+0 &amp; 6,996 &amp; 6,977.86 \\
+1 &amp; 455 &amp; 487.70 \\
+2 &amp; 28 &amp; 17.04 \\
+3 &amp; 4 &amp; 0.40 \\
+4 &amp; 0 &amp; 0.01 \\ \hline Total &amp; 7,483 &amp; 7,483.00 \\ \hline
+\end{array}
+\end{matrix}\]</span></p>
+<p>The average is <span class="math inline">\(\bar{N} = \frac{0\cdot 6996 + 1 \cdot 455 + 2 \cdot 28 + 3 \cdot 4 + 4 \cdot 0}{7483} = 0.06989\)</span>.</p>
+</div>
+<div id="singapore-data-adequacy-of-the-poisson-model" class="section level4">
+<h4><span class="header-section-number">2.7.0.2</span> Singapore Data: Adequacy of the Poisson Model</h4>
+<ul>
+<li><p>With the Poisson distribution</p>
+<ul>
+<li><p>The maximum likelihood estimator of <span class="math inline">\(\lambda\)</span> is <span class="math inline">\(\widehat{\lambda}=\overline{N}\)</span>.</p></li>
+<li><p>Estimated probabilities, using <span class="math inline">\(\widehat{\lambda}\)</span>, are denoted as <span class="math inline">\(\widehat{p}_k\)</span>.</p></li>
+</ul></li>
+<li><p>For goodness of fit, consider <em>Pearson’s chi-square statistic</em> <span class="math display">\[\sum_k\frac{\left( m_k-n\widehat{p}_k \right) ^{2}}{n\widehat{p}_k}.\]</span></p>
+<ul>
+<li><p>Assuming that the Poisson distribution is a correct model; this statistic has an asymptotic chi-square distribution</p>
+<ul>
+<li>The degrees of freedom (<span class="math inline">\(df\)</span>) equals the number of cells minus one minus the number of estimated parameters.</li>
+</ul></li>
+<li><p>For the Singapore data, this is <span class="math inline">\(df=5-1-1=3\)</span>.</p></li>
+<li><p>The statistic is 41.98; the basic Poisson model is inadequate.</p></li>
+</ul></li>
+</ul>
+</div>
+<div id="example.-course-cexam-4.-may-2001-19." class="section level4">
+<h4><span class="header-section-number">2.7.0.3</span> Example. Course C/Exam 4. May 2001, 19.</h4>
+<p>During a one-year period, the number of accidents per day was distributed as follows:</p>
+<table>
+<tbody>
+<tr class="odd">
+<td align="left">Number of Accidents</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">5</td>
+<td></td>
+</tr>
+<tr class="even">
+<td align="left">Number of Days</td>
+<td align="right">209</td>
+<td align="right">111</td>
+<td align="right">33</td>
+<td align="right">7</td>
+<td align="right">5</td>
+<td align="right">2</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>You use a chi-square test to measure the fit of a Poisson distribution with mean 0.60. The minimum expected number of observations in any group should be 5. The maximum number of groups should be used.</p>
+<p>Determine the chi-square statistic.</p>
+</div>
+</div>
+<div id="exercises" class="section level2">
+<h2><span class="header-section-number">2.8</span> Exercises</h2>
+<p>Here are a set of exercises that guide the viewer through some of the theoretical foundations of <strong>Loss Data Analytics</strong>. Each tutorial is based on one or more questions from the professional actuarial examinations – typically the Society of Actuaries Exam C.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">knitr::<span class="kw">include_url</span>(<span class="st">&quot;http://www.ssc.wisc.edu/~jfrees/loss-data-analytics/loss-data-analytics-problems/&quot;</span>,<span class="dt">height =</span> <span class="st">&quot;600px&quot;</span>)</code></pre></div>
+<iframe src="http://www.ssc.wisc.edu/~jfrees/loss-data-analytics/loss-data-analytics-problems/" width="672" height="600px">
+</iframe>
+</div>
+<div id="technical-supplement-iterated-expectations" class="section level2">
+<h2><span class="header-section-number">2.9</span> Technical Supplement: Iterated Expectations</h2>
+<div id="iterated-expectations" class="section level4">
+<h4><span class="header-section-number">2.9.0.1</span> Iterated Expectations</h4>
+<p>In some situations, we only observe a single outcome but can conceptualize an outcome as resulting from a two (or more) stage process. These are called <strong>two-stage</strong>, or “<strong>hierarchical</strong>,” type situations. Some special cases include:</p>
+<ul>
+<li><p>problems where the parameters of the distribution are random variables,</p></li>
+<li><p>mixture problems, where stage 1 represents the type of subpopulation and stage 2 represents a random variable with a distribution that depends on population type</p></li>
+<li><p>an aggregate distribution, where stage 1 represents the number of events and stage two represents the amount per event.</p></li>
+</ul>
+<p>In these situations, the law of iterated expectations can be useful. The law of total variation is a special case that is particularly helpful for variance calculations.</p>
+<p>To apply these rules,</p>
+<ol style="list-style-type: decimal">
+<li><p>Identify the random variable that is being conditioned upon, typically a stage 1 outcome (that is not observed).</p></li>
+<li><p>Conditional on the stage 1 outcome, calculate summary measures such as a mean, variance, and the like.</p></li>
+<li><p>There are several results of the step (ii), one for each stage 1 outcome. Then, combine these results using the iterated expectations or total variation rules.</p></li>
+</ol>
+</div>
+<div id="iterated-expectations-1" class="section level4">
+<h4><span class="header-section-number">2.9.0.2</span> Iterated Expectations</h4>
+<ul>
+<li><p>Consider two random variables, <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, and a function <span class="math inline">\(h(X,Y)\)</span>. Assuming expectations exists and are finite, a rule/theorem from probability states that <span class="math display">\[\mathrm{E~} h(X,Y)= \mathrm{E~} \left\{ \mathrm{E~} \left( h(X,Y) | X \right) \right \} .\]</span></p></li>
+<li><p>This result is known as the <em>law of iterated expectations</em>.</p></li>
+<li><p>Here, the random variables may be discrete, continuous, or a hybrid combination of the two.</p></li>
+<li><p>Similarly, the <em>law of total variation</em> is <span class="math display">\[\mathrm{Var~} h(X,Y)= \mathrm{E~} \left\{ \mathrm{Var~} \left( h(X,Y) | X \right) \right \}
++\mathrm{Var~} \left\{ \mathrm{E~} \left( h(X,Y) | X \right) \right \},\]</span> the expectation of the conditional variance plus the variance of the conditional expectation.</p></li>
+</ul>
+</div>
+<div id="discrete-iterated-expectations" class="section level4">
+<h4><span class="header-section-number">2.9.0.3</span> Discrete Iterated Expectations</h4>
+<ul>
+<li><p>To illustrate, suppose that <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are both discrete random variables with joint probability <span class="math display">\[p(x,y) = \Pr(X=x, Y=y).\]</span></p></li>
+<li><p>Further, let <span class="math inline">\(p(y|x) = \frac{p(x,y)}{\Pr(X=x)}\)</span> be the conditional probability mass function.</p></li>
+<li><p>The conditional expectation is <span class="math display">\[\mathrm{E~} \left( h(X,Y) | X=x \right) = \sum_y h(x,y) p(y|x)\]</span></p></li>
+<li><p>You can use the conditional expectation to get the unconditional expectation using <span class="math display">\[\begin{aligned}
+ \mathrm{E~} \left\{ \mathrm{E~} \left( h(X,Y) | X \right) \right \}
+&amp;= \sum_x  \left\{\sum_y h(x,y) p(y|x) \right \} \Pr(X=x) \\
+&amp;= \sum_x  \sum_y h(x,y) p(y|x)  \Pr(X=x) \\
+&amp;=  \sum_x  \sum_y h(x,y) p(x,y)
+=  \mathrm{E~} h(X,Y)\end{aligned}\]</span></p></li>
+<li><p>The proofs of the law of iterated expectations for the continuous and hybrid cases are similar.</p></li>
+</ul>
+</div>
+<div id="law-of-total-variation" class="section level4">
+<h4><span class="header-section-number">2.9.0.4</span> Law of Total Variation</h4>
+<ul>
+<li><p>To see this rule, first note that we can calculate a conditional variance as <span class="math display">\[\mathrm{Var~} \left( h(X,Y) | X \right)  =
+\mathrm{E~} \left( h(X,Y)^2 | X \right) -\left\{\mathrm{E~} \left( h(X,Y) | X \right) \right\}^2.\]</span></p></li>
+<li><p>From this, the expectation of the conditional variance is <span class="math display">\[\begin{aligned}
+\label{E:E1} \mathrm{E~} \mathrm{Var~} \left( h(X,Y) | X \right)  =
+\mathrm{E~} \left( h(X,Y)^2\right) - \mathrm{E~}\left\{\mathrm{E~} \left( h(X,Y) | X \right) \right\}^2.\end{aligned}\]</span></p></li>
+<li><p>Further, note that the conditional expectation, <span class="math inline">\(\mathrm{E~} \left( h(X,Y) | X=x \right)\)</span>, is a function of <span class="math inline">\(x\)</span>, say, <span class="math inline">\(g(x)\)</span>.</p></li>
+<li><p>Now, <span class="math inline">\(g(X)\)</span> is a random variable with mean <span class="math inline">\(\mathrm{E~} h(X,Y)\)</span> and variance <span class="math display">\[\begin{aligned}
+\label{E:E2}
+\mathrm{Var~} \left\{ \mathrm{E~} \left( h(X,Y) | X \right) \right \} &amp;=\mathrm{Var~} g(X)  \nonumber \\
+&amp;= \mathrm{E~} g(X)^2\ - \left(\mathrm{E~} h(X,Y)\right)^2 \nonumber\\
+&amp;= \mathrm{E~} \left\{\mathrm{E~} \left( h(X,Y) | X \right) \right\}^2
+- \left(\mathrm{E~} h(X,Y)\right)^2\end{aligned}\]</span></p></li>
+<li><p>Adding the variance of the conditional expectation in equation to the expectation of conditional variance in equation gives the law of total variation.</p></li>
+</ul>
+</div>
+<div id="mixtures-of-finite-populations-example" class="section level4">
+<h4><span class="header-section-number">2.9.0.5</span> Mixtures of Finite Populations: Example</h4>
+<ul>
+<li><p>For example, suppose that <span class="math inline">\(N_1\)</span> represents claims form “good” drivers and <span class="math inline">\(N_2\)</span> represents claims from “bad” drivers. We draw <span class="math display">\[N =
+\begin{cases}
+N_1  &amp;  \text{with prob~}\alpha\\
+N_2  &amp;   \text{with prob~}(1-\alpha) .\\
+\end{cases}\]</span></p></li>
+<li><p>Here, <span class="math inline">\(\alpha\)</span> represents the probability of drawing a “good” driver.</p></li>
+<li><p>Let <span class="math inline">\(T\)</span> be the type, so <span class="math inline">\(T=1\)</span> with prob <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(T=2\)</span> with prob <span class="math inline">\(1-\alpha\)</span>.</p></li>
+<li><p>From the law of iterated expectations, we have <span class="math display">\[\begin{aligned}
+\mathrm{E~} N &amp;= \mathrm{E~} \left\{ \mathrm{E~} \left( N | T \right) \right \} \\
+ &amp;= \mathrm{E~} N_1 \times \alpha +  \mathrm{E~} N_2 \times (1-\alpha).\end{aligned}\]</span></p></li>
+<li><p>From the law of total variation <span class="math display">\[\mathrm{Var~} N= \mathrm{E~} \left\{ \mathrm{Var~} \left( N | T \right) \right \}
++\mathrm{Var~} \left\{ \mathrm{E~} \left( N | T \right) \right \},\]</span></p></li>
+</ul>
+</div>
+<div id="mixtures-of-finite-populations-example-2" class="section level4">
+<h4><span class="header-section-number">2.9.0.6</span> Mixtures of Finite Populations: Example 2</h4>
+<ul>
+<li><p>To be more concrete, suppose that <span class="math inline">\(N_j\)</span> is Poisson with parameter <span class="math inline">\(\lambda_j\)</span>. Then <span class="math display">\[\mathrm{Var~} N_j|T= \mathrm{E~} N_j|T =
+\begin{cases}
+\lambda_1  &amp;  T=1\\
+\lambda_2  &amp;  T=2\\
+\end{cases}\]</span></p></li>
+<li><p>Thus <span class="math display">\[\mathrm{E~} \left\{ \mathrm{Var~} \left( N | T \right) \right \} = \alpha \lambda_1+ (1-\alpha) \lambda_2\]</span> and <span class="math display">\[\mathrm{Var~} \left\{ \mathrm{E~} \left( N | T \right) \right \} = (\lambda_1-\lambda_2)^2 \alpha (1-\alpha)\]</span> (Recall: for a Bernoulli with outcomes <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> and prob <span class="math inline">\(\alpha\)</span>, the variance is <span class="math inline">\((b-a)^2\alpha(1-\alpha)\)</span>).</p></li>
+<li><p>Thus, <span class="math display">\[\mathrm{Var~} N= \alpha \lambda_1+ (1-\alpha) \lambda_2 + (\lambda_1-\lambda_2)^2 \alpha (1-\alpha)\]</span></p></li>
+</ul>
+
+</div>
+</div>
+</div>
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = '//lossdataanalytics.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="introduction-to-loss-data-analytics.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="modeling-loss-severity.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/Chapters/Chap2Frequency_16Dec2016Jan19.Rmd",
+"text": "Edit"
+},
+"download": ["LossDataAnalytics.pdf", "LossDataAnalytics.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

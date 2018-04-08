@@ -1,0 +1,215 @@
+# Technical Supplement: Iterated Expectations {#C:TS2a}
+
+This supplement introduces the laws related to iterated expectations. In particular, Section \@ref(S:TS2a:CD) introduces the concepts of conditional distribution and conditional expectation. Section \@ref(S:TS2a:IE) introduces the Law of Iterated Expectations and the Law of Total Variance.
+
+In some situations, we only observe a single outcome but can
+conceptualize an outcome as resulting from a two (or more) stage
+process. Such types of statistical models are called **two-stage**, or **hierarchical** models. Some special cases of hierarchical models include:
+
+-   models where the parameters of the distribution are random
+    variables;
+
+-   mixture distribution, where Stage 1 represents the draw of a sub-population and Stage 2 represents a random variable from a distribution that is determined by the sub-population drew in Stage 1;
+
+-   an aggregate distribution, where Stage 1 represents the draw of the number of events and Stage two represents the loss amount occurred per event.
+
+In these situations, the process gives rise to a conditional distribution of a random variable (the Stage 2 outcome) given the other (the Stage 1 outcome). The Law of Iterated Expectations can be useful for obtaining the unconditional expectation or variance of a random variable in such cases.
+
+## Conditional Distribution and Conditional Expectation {#S:TS2a:CD}
+
+<hr />
+
+In this section, you learn 
+
+- the concepts related to the conditional distribution of a random variable given another
+- how to define the conditional expectation and variance based on the conditional distribution function
+
+<hr />
+
+The iterated expectations are the laws regarding calculation of the expectation and variance of a random variable using a conditional distribution of the variable given another variable. Hence, we first introduce the concepts related to the conditional distribution, and the calculation of the conditional expectation and variable based on a given conditional distribution.
+
+### Conditional Distribution
+Here we introduce the concept of conditional distribution respectively for discrete and continuous random variables.
+
+#### Discrete Case
+Suppose that $X$ and $Y$ are both discrete random variables, meaning that they can take a finite or countable number of possible values with a positive probability. The **joint probability (mass) function** of ($X$, $Y$) is defined as $$p(x,y) = \Pr[X=x, Y=y]$$.
+
+When $X$ and $Y$ are **independent** (the value of $X$ does not depend on that of $Y$), we have
+$$p(x,y)=p(x)p(y),$$
+with $p(x)=\Pr[X=x]$ and $p(y)=\Pr[Y=y]$ being the **marginal probability function** of $X$ and $Y$, respectively.
+
+Given the joint probability function, we may obtain the marginal probability functions of $Y$ as
+$$p(y)=\sum_x p(x,y),$$
+where the summation is over all possible values of $x$, and the marginal probability function of $X$ can be obtained in a similar manner.
+
+The **conditional probability (mass) function** of $(Y|X)$ is defined as 
+$$p(y|x) =\Pr[Y=y|X=x]= \frac{p(x,y)}{\Pr[X=x]},$$ 
+where we may obtain the conditional probability function of $(X|Y)$ in a similar manner. In particular, the above conditional probability represents the probability of the event $Y=y$ given the event $X=x$. Hence, even in cases where $\Pr[X=x]=0$, the function may be given as a particular form, in real applications.
+
+#### Continuous Case
+For continuous random variables $X$ and $Y$, we may define their joint probability (density) function based on the joint cumulative distribution function. The **joint cumulative distribution function** of ($X$, $Y$) is defined as
+$$F(x,y) = \Pr[X\leq x, Y\leq y].$$
+
+When $X$ and $Y$ are *independent*, we have
+$$F(x,y)=F(x)F(y),$$
+with $F(x)=\Pr[X\leq x]$ and $F(y)=\Pr[Y\leq y]$ being the **cumulative distribution function** (cdf) of $X$ and $Y$, respectively. The random variable $X$ is referred to as a **continuous** random variable if its cdf is continuous on $x$.
+
+When the cdf $F(x)$ is continuous on $x$, then we define $f(x)=\partial F(x)/\partial x$ as the **(marginal) probability density function** (pdf) of $X$. Similarly, if the joint cdf $F(x,y)$ is continuous on both $x$ and $y$, we define
+$$f(x,y)=\frac{\partial^2 F(x,y)}{\partial x\partial y}$$
+as the **joint probability density function** of ($X$, $Y$), in which case we refer to the random variables as **jointly continuous**.
+
+When $X$ and $Y$ are *independent*, we have
+$$f(x,y)=f(x)f(y).$$
+
+Given the joint density function, we may obtain the marginal density function of $Y$ as
+$$f(y)=\int_x f(x,y)\,dx,$$
+where the integral is over all possible values of $x$, and the marginal probability function of $X$ can be obtained in a similar manner.
+
+Based on the joint pdf and the marginal pdf, we define the **conditional probability density function** of $(Y|X)$ as
+
+$$f(y|x) = \frac{f(x,y)}{f(x)},$$ 
+where we may obtain the conditional probability function of $(X|Y)$ in a similar manner. Here, the conditional density function is the density function of $y$ given $X=x$. Hence, even in cases where $\Pr[X=x]=0$ or when $f(x)$ is not defined, the function may be given in a particular form in real applications.
+
+### Conditional Expectation and Conditional Variance
+Now we define the conditional expectation and variance based on the conditional distribution defined in the previous subsection.
+
+#### Discrete Case
+For a discrete random variable $Y$, its **expectation** is defined as $\mathrm{E}[Y]=\sum_y y\,p(y)$ if its value is finite, and its **variance** is defined as $\mathrm{Var}[Y]=\mathrm{E}\{(Y-\mathrm{E}[Y])^2\}=\sum_y y^2\,p(y)-\{\mathrm{E}[Y]\}^2$ if its value is finite.
+
+For a discrete random variable $Y$, the **conditional expectation** of the random variable $Y$ given the event $X=x$ is defined as
+$$\mathrm{E}[Y|X=x]=\sum_y y\,p(y|x),$$
+where $X$ does not have to be a discrete variable, as far as the conditional probability function $p(y|x)$ is given.
+
+Note that the conditional expectation $\mathrm{E}[Y|X=x]$ is a fixed number. When we replace $x$ with $X$ on the right hand side of the above equation, we can define the expectation of $Y$ given the random variable $X$ as
+$$\mathrm{E}[Y|X]=\sum_y y\,p(y|X),$$
+which is still a *random variable*, and the randomness comes from $X$.
+
+In a similar manner, we can define the **conditional variance** of the random variable $Y$ given the event $X=x$ as
+$$\mathrm{Var}[Y|X=x]=\mathrm{E}[Y^2|X=x]-\{\mathrm{E}[Y|X=x]\}^2=\sum_y y^2\,p(y|x)-\{\mathrm{E}[Y|X=x]\}^2.$$
+
+The variance of $Y$ given $X$, $\mathrm{Var}[Y|X]$ can be defined by replacing $x$ by $X$ in the above equation, and $\mathrm{Var}[Y|X]$ is still a random variable and the randomness comes from $X$.
+
+#### Continuous Case
+For a continuous random variable $Y$, its **expectation** is defined as $\mathrm{E}[Y]=\int_y y\,f(y)dy$ if the integral exists, and its **variance** is defined as $\mathrm{Var}[Y]=\mathrm{E}\{(X-\mathrm{E}[Y])^2\}=\int_y y^2\,f(y)dy-\{\mathrm{E}[Y]\}^2$ if its value is finite.
+
+For jointly continuous random variables $X$ and $Y$, the **conditional expectation** of the random variable $Y$ given $X=x$ is defined as
+$$\mathrm{E}[Y|X=x]=\int_y y\,f(y|x)dy.$$
+where $X$ does not have to be a continuous variable, as far as the conditional probability function $f(y|x)$ is given.
+
+Similarly, the conditional expectation $\mathrm{E}[Y|X=x]$ is a fixed number. When we replace $x$ with $X$ on the right-hand side of the above equation, we can define the expectation of $Y$ given the random variable $X$ as
+$$\mathrm{E}[Y|X]=\int_y y\,p(y|X)\,dy,$$
+which is still a *random variable*, and the randomness comes from $X$.
+
+In a similar manner, we can define the **conditional variance** of the random variable $Y$ given the event $X=x$ as
+$$\mathrm{Var}[Y|X=x]=\mathrm{E}[Y^2|X=x]-\{\mathrm{E}[Y|X=x]\}^2=\int_y y^2\,f(y|x)\,dy-\{\mathrm{E}[Y|X=x]\}^2.$$
+
+The variance of $Y$ given $X$, $\mathrm{Var}[Y|X]$ can then be defined by replacing $x$ by $X$ in the above equation, and similarly $\mathrm{Var}[Y|X]$ is also a random variable and the randomness comes from $X$.
+
+## Iterated Expectations and Total Variance {#S:TS2a:IE}
+
+<hr />
+
+In this section, you learn
+
+- the Law of Iterated Expectations for calculating the expectation of a random variable based on its conditional distribution given another random variable
+- the Law of Total Variance for calculating the variance of a random variable based on its conditional distribution given another random variable
+- how to calculate the expectation and variance based on an example of a two-stage model
+
+<hr />
+
+### Law of Iterated Expectations
+Consider two random variables $X$ and $Y$, and $h(X,Y)$, a random variable depending on the function $h$, $X$ and $Y$.
+
+Assuming all the expectations exist and are finite, the **Law of Iterated Expectations** states that
+    $$\mathrm{E}[h(X,Y)]= \mathrm{E} \left\{ \mathrm{E} \left[ h(X,Y) | X \right] \right \},$$
+where the first (inside) expectation is taken with respect to the random variable $Y$ and the second (outside) expectation is taken with respect to $X$.
+
+For the Law of Iterated Expectations, the random variables may be discrete, continuous, or a hybrid combination of the two. We use the example of discrete variables of $X$ and $Y$ to illustrate the calculation of the unconditional expectation using the Law of Iterated Expectations. For continuous random variables, we only need to replace the summation with the integral, as illustrated earlier in the supplement.
+
+Given $p(y|x)$ the joint pmf of $X$ and $Y$, the conditional expectation of $h(X,Y)$ given the event $X=x$ is defined as
+    $$\mathrm{E} \left[ h(X,Y) | X=x \right] = \sum_y h(x,y) p(y|x),$$
+and the conditional expectation of $h(X,Y)$ given $X$ being a *random variable* can be written as
+$$\mathrm{E} \left[ h(X,Y) | X \right] = \sum_y h(X,y) p(y|X).$$
+
+The unconditional expectation of $h(X,Y)$ can then be obtained by taking the expectation of $\mathrm{E} \left[ h(X,Y) | X \right]$ with respect to the random variable $X$. That is, we can obtain $\mathrm{E}[ h(X,Y)]$ as
+ $$\begin{aligned}
+     \mathrm{E} \left\{ \mathrm{E} \left[ h(X,Y) | X \right] \right \}
+    &= \sum_x  \left\{\sum_y h(x,y) p(y|x) \right \} p(x) \\
+    &= \sum_x  \sum_y h(x,y) p(y|x)p(x) \\
+    &=  \sum_x  \sum_y h(x,y) p(x,y)
+    =  \mathrm{E}[h(X,Y)] \end{aligned}.$$
+
+The Law of Iterated Expectations for the continuous and hybrid cases can be proved in a similar manner, by replacing the corresponding summation(s) by integral(s).
+
+### Law of Total Variance
+Assuming that all the variances exist and are finite, the **Law of Total Variance** states that
+    $$\mathrm{Var}[h(X,Y)]= \mathrm{E} \left\{ \mathrm{Var} \left[h(X,Y) | X \right] \right \}
+    +\mathrm{Var} \left\{ \mathrm{E} \left[ h(X,Y) | X \right] \right \},$$
+where the first (inside) expectation/variance is taken with respect to the random variable $Y$ and the second (outside) expectation/variance is taken with respect to $X$. Thus, the unconditional variance equals to the expectation of the conditional variance plus the variance of the conditional expectation.
+
+*** 
+<h4 style="text-align: left;"><a id="EXM:S2a:LTV:display" href="javascript:toggleDetail('EXM:S2a:LTV','EXM:S2a:LTV:display');"><i><strong>Show Technical Detail</strong></i></a></h4>
+<div id="EXM:S2a:LTV" style="display: none">
+
+In order to verify this rule, first note that we can calculate a conditional variance as $$\mathrm{Var} \left[ h(X,Y) | X \right]  = \mathrm{E} [ h(X,Y)^2 | X ] -\left\{\mathrm{E} \left[ h(X,Y) | X \right] \right\}^2.$$
+
+From this, the expectation of the conditional variance is
+$$\begin{aligned}
+    \mathrm{E}\{\mathrm{Var} \left[ h(X,Y) | X \right] \} &=
+    \mathrm{E}\left\{\mathrm{E} \left[ h(X,Y)^2 | X \right] \right\} - \mathrm{E}\left(\left\{\mathrm{E} \left[ h(X,Y) | X \right] \right\}^2\right) \\
+    &=\mathrm{E} \left[ h(X,Y)^2\right] - \mathrm{E}\left(\left\{\mathrm{E} \left[ h(X,Y) | X \right] \right\}^2\right).(\#eq:TS2aEV)
+\end{aligned}$$
+
+Further, note that the conditional expectation,
+    $\mathrm{E} \left[ h(X,Y) | X \right]$, is a function of $X$, denoted $g(X)$. Thus, $g(X)$ is a random variable with mean $\mathrm{E}[h(X,Y)]$ and variance 
+$$\begin{aligned}
+    \mathrm{Var} \left\{ \mathrm{E} \left[ h(X,Y) | X \right] \right \} &=\mathrm{Var}[g(X)]  \nonumber \\
+    &= \mathrm{E}[g(X)^2]\ - \left\{\mathrm{E}[g(X)]\right\}^2 \nonumber\\
+    &= \mathrm{E}\left(\left\{\mathrm{E} \left[ h(X,Y) | X \right] \right\}^2\right)
+    - \left\{\mathrm{E}[h(X,Y)]\right\}^2. (\#eq:TS2aVE)
+\end{aligned}$$    
+
+Thus, adding Equations \@ref(eq:TS2aEV) and \@ref(eq:TS2aVE) leads to the unconditional variance $\mathrm{Var} \left[ h(X,Y) \right]$.
+
+</div>
+***
+
+### Application
+To apply the Law of Iterated Expectations and the Law of Total Variance, we generally adopt the following procedure.
+
+1.  Identify the random variable that is being conditioned upon,
+    typically a stage 1 outcome (that is not observed).
+
+2.  Conditional on the stage 1 outcome, calculate summary measures such as a mean, variance, and the like.
+
+3.  There are several results of the step 2, one for each stage
+    1 outcome. Then, combine these results using the iterated
+    expectations or total variance rules.
+
+**Mixtures of Finite Populations.** Suppose that the random variable $N_1$ represents a realization of the number of claims in a policy year from the population of good drivers and $N_2$ represents that from the population of bad drivers. For a specific driver, there is a probability $\alpha$ that (s)he is a good driver. For a specific draw $N$, we have
+    $$N =
+    \begin{cases}
+    N_1,  &  \text{if (s)he is a good driver;}\\
+    N_2,  &   \text{otherwise}.\\
+    \end{cases}$$
+
+Let $T$ be the indicator whether (s)he is a good driver, with $T=1$ representing that the driver is a good driver with $\Pr[T=1]=\alpha$ and $T=2$ representing that the driver is a bad driver with $\Pr[T=2]=1-\alpha$.
+
+From the Law of Iterated Expectations, we can obtain the expected number of claims as $$
+    \mathrm{E}[N]= \mathrm{E} \left\{ \mathrm{E} \left[ N | T \right] \right \}= \mathrm{E}[N_1] \times \alpha +  \mathrm{E}[N_2] \times (1-\alpha).$$
+
+From the Law of Total Variance, we can obtain the variance of $N$ as
+    $$\mathrm{Var}[N]= \mathrm{E} \left\{ \mathrm{Var} \left[ N | T \right] \right \}
+    +\mathrm{Var} \left\{ \mathrm{E} \left[ N | T \right] \right \}.$$
+
+To be more concrete, suppose that $N_j$ follows a Poisson distribution with the mean $\lambda_j$, $j=1,2$. Then we have $$\mathrm{Var}[N|T=j]= \mathrm{E}[N|T=j] = \lambda_j, \quad j = 1,2.$$
+
+Thus, we can derive the expectation of the conditional variance as
+    $$\mathrm{E} \left\{ \mathrm{Var} \left[ N | T \right] \right \} = \alpha \lambda_1+ (1-\alpha) \lambda_2$$
+    and the variance of the conditional expectation as
+    $$\mathrm{Var} \left\{ \mathrm{E} \left[ N | T \right] \right \} = (\lambda_1-\lambda_2)^2 \alpha (1-\alpha).$$
+Note that the later is the variance for a Bernoulli with outcomes $\lambda_1$ and $\lambda_2$, and the binomial probability $\alpha$.
+
+Based on the Law of Total Variance, the unconditional variance of $N$ is given by
+    $$\mathrm{Var}[N]= \alpha \lambda_1+ (1-\alpha) \lambda_2 + (\lambda_1-\lambda_2)^2 \alpha (1-\alpha).$$
+

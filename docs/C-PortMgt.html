@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Loss Data Analytics</title>
+  <meta name="description" content="Loss Data Analytics is an interactive, online, freely available text. - The online version will contain many interactive objects (quizzes, computer demonstrations, interactive graphs, video, and the like) to promote deeper learning. - A subset of the book will be available in pdf format for low-cost printing. - The online text will be available in multiple languages to promote access to a worldwide audience.">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Loss Data Analytics" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Loss Data Analytics is an interactive, online, freely available text. - The online version will contain many interactive objects (quizzes, computer demonstrations, interactive graphs, video, and the like) to promote deeper learning. - A subset of the book will be available in pdf format for low-cost printing. - The online text will be available in multiple languages to promote access to a worldwide audience." />
+  <meta name="github-repo" content="<a href="https://github.com/ewfrees/Loss-Data-Analytics" class="uri">https://github.com/ewfrees/Loss-Data-Analytics</a>" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Loss Data Analytics" />
+  
+  <meta name="twitter:description" content="Loss Data Analytics is an interactive, online, freely available text. - The online version will contain many interactive objects (quizzes, computer demonstrations, interactive graphs, video, and the like) to promote deeper learning. - A subset of the book will be available in pdf format for low-cost printing. - The online text will be available in multiple languages to promote access to a worldwide audience." />
+  
+
+<meta name="author" content="An open text authored by the Actuarial Community">
+
+
+<meta name="date" content="2018-04-08">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="C-Credibility.html">
+<link rel="next" href="C-LossReserves.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script language="javascript">
+function toggle(id1,id2) {
+	var ele = document.getElementById(id1); var text = document.getElementById(id2);
+	if (ele.style.display == "block") {ele.style.display = "none"; text.innerHTML = "Show Solution";}
+		else {ele.style.display = "block"; text.innerHTML = "Hide Solution";}}
+</script>
+<script language="javascript">
+function togglecode(id1,id2) {
+   var ele = document.getElementById(id1); var text = document.getElementById(id2);
+   if (ele.style.display == "block") {ele.style.display = "none"; text.innerHTML = "Show R Code";}
+      else {ele.style.display = "block"; text.innerHTML = "Hide R Code";}}
+</script>
+<script language="javascript">
+function toggleEX(id1,id2) {
+   var ele = document.getElementById(id1); var text = document.getElementById(id2);
+   if (ele.style.display == "block") {ele.style.display = "none"; text.innerHTML = "Show Example";}
+      else {ele.style.display = "block"; text.innerHTML = "Hide Example";}}
+</script>
+<script language="javascript">
+function toggleTheory(id1,id2) {
+   var ele = document.getElementById(id1); var text = document.getElementById(id2);
+   if (ele.style.display == "block") {ele.style.display = "none"; text.innerHTML = "Show Theory";}
+      else {ele.style.display = "block"; text.innerHTML = "Hide Theory";}}
+</script>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Loss Data Analytics</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="" data-path="contributor-list.html"><a href="contributor-list.html"><i class="fa fa-check"></i>Contributor List</a></li>
+<li class="chapter" data-level="" data-path="acknowledgements.html"><a href="acknowledgements.html"><i class="fa fa-check"></i>Acknowledgements</a><ul>
+<li class="chapter" data-level="" data-path="acknowledgements.html"><a href="acknowledgements.html#reviewer-acknowledgment"><i class="fa fa-check"></i>Reviewer Acknowledgment</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="introduction-to-loss-data-analytics.html"><a href="introduction-to-loss-data-analytics.html"><i class="fa fa-check"></i><b>1</b> Introduction to Loss Data Analytics</a><ul>
+<li class="chapter" data-level="1.1" data-path="introduction-to-loss-data-analytics.html"><a href="introduction-to-loss-data-analytics.html#sec:Intro"><i class="fa fa-check"></i><b>1.1</b> Relevance of Analytics</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="introduction-to-loss-data-analytics.html"><a href="introduction-to-loss-data-analytics.html#what-is-analytics"><i class="fa fa-check"></i><b>1.1.1</b> What is Analytics?</a></li>
+<li class="chapter" data-level="1.1.2" data-path="introduction-to-loss-data-analytics.html"><a href="introduction-to-loss-data-analytics.html#short-term-insurance"><i class="fa fa-check"></i><b>1.1.2</b> Short-term Insurance</a></li>
+<li class="chapter" data-level="1.1.3" data-path="introduction-to-loss-data-analytics.html"><a href="introduction-to-loss-data-analytics.html#sec:InsProcesses"><i class="fa fa-check"></i><b>1.1.3</b> Insurance Processes</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="introduction-to-loss-data-analytics.html"><a href="introduction-to-loss-data-analytics.html#sec:PredModApps"><i class="fa fa-check"></i><b>1.2</b> Insurance Company Operations</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="introduction-to-loss-data-analytics.html"><a href="introduction-to-loss-data-analytics.html#initiating-insurance"><i class="fa fa-check"></i><b>1.2.1</b> Initiating Insurance</a></li>
+<li class="chapter" data-level="1.2.2" data-path="introduction-to-loss-data-analytics.html"><a href="introduction-to-loss-data-analytics.html#renewing-insurance"><i class="fa fa-check"></i><b>1.2.2</b> Renewing Insurance</a></li>
+<li class="chapter" data-level="1.2.3" data-path="introduction-to-loss-data-analytics.html"><a href="introduction-to-loss-data-analytics.html#claims-and-product-management"><i class="fa fa-check"></i><b>1.2.3</b> Claims and Product Management</a></li>
+<li class="chapter" data-level="1.2.4" data-path="introduction-to-loss-data-analytics.html"><a href="introduction-to-loss-data-analytics.html#sec:Reserving"><i class="fa fa-check"></i><b>1.2.4</b> Loss Reserving</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="introduction-to-loss-data-analytics.html"><a href="introduction-to-loss-data-analytics.html#sec:LGPIF"><i class="fa fa-check"></i><b>1.3</b> Case Study: Wisconsin Property Fund</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="introduction-to-loss-data-analytics.html"><a href="introduction-to-loss-data-analytics.html#sec:OutComes"><i class="fa fa-check"></i><b>1.3.1</b> Fund Claims Variables</a></li>
+<li class="chapter" data-level="1.3.2" data-path="introduction-to-loss-data-analytics.html"><a href="introduction-to-loss-data-analytics.html#sec:FundVariables"><i class="fa fa-check"></i><b>1.3.2</b> Fund Rating Variables</a></li>
+<li class="chapter" data-level="1.3.3" data-path="introduction-to-loss-data-analytics.html"><a href="introduction-to-loss-data-analytics.html#fund-operations"><i class="fa fa-check"></i><b>1.3.3</b> Fund Operations</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="introduction-to-loss-data-analytics.html"><a href="introduction-to-loss-data-analytics.html#further-reading-and-resources"><i class="fa fa-check"></i><b>1.4</b> Further Resources and Contributors</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="frequency-distributions.html"><a href="frequency-distributions.html"><i class="fa fa-check"></i><b>2</b> Frequency Distributions</a><ul>
+<li class="chapter" data-level="2.1" data-path="frequency-distributions.html"><a href="frequency-distributions.html#how-frequency-augments-severity-information"><i class="fa fa-check"></i><b>2.1</b> How Frequency Augments Severity Information</a></li>
+<li class="chapter" data-level="2.2" data-path="frequency-distributions.html"><a href="frequency-distributions.html#basic-frequency-distributions"><i class="fa fa-check"></i><b>2.2</b> Basic Frequency Distributions</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="frequency-distributions.html"><a href="frequency-distributions.html#foundations"><i class="fa fa-check"></i><b>2.2.1</b> Foundations</a></li>
+<li class="chapter" data-level="2.2.2" data-path="frequency-distributions.html"><a href="frequency-distributions.html#probability-generating-function"><i class="fa fa-check"></i><b>2.2.2</b> Probability Generating Function</a></li>
+<li class="chapter" data-level="2.2.3" data-path="frequency-distributions.html"><a href="frequency-distributions.html#important-frequency-distributions"><i class="fa fa-check"></i><b>2.2.3</b> Important Frequency Distributions</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="frequency-distributions.html"><a href="frequency-distributions.html#the-a-b-0-class"><i class="fa fa-check"></i><b>2.3</b> The (a, b, 0) Class</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="frequency-distributions.html"><a href="frequency-distributions.html#the-a-b-0-class---example"><i class="fa fa-check"></i><b>2.3.1</b> The (a, b, 0) Class - Example</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="frequency-distributions.html"><a href="frequency-distributions.html#estimating-frequency-distributions"><i class="fa fa-check"></i><b>2.4</b> Estimating Frequency Distributions</a></li>
+<li class="chapter" data-level="2.5" data-path="frequency-distributions.html"><a href="frequency-distributions.html#other-frequency-distributions"><i class="fa fa-check"></i><b>2.5</b> Other Frequency Distributions</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="frequency-distributions.html"><a href="frequency-distributions.html#zero-truncation-or-modification"><i class="fa fa-check"></i><b>2.5.1</b> Zero Truncation or Modification</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="frequency-distributions.html"><a href="frequency-distributions.html#mixture-distributions"><i class="fa fa-check"></i><b>2.6</b> Mixture Distributions</a><ul>
+<li class="chapter" data-level="2.6.1" data-path="frequency-distributions.html"><a href="frequency-distributions.html#mixtures-of-finite-populations"><i class="fa fa-check"></i><b>2.6.1</b> Mixtures of Finite Populations</a></li>
+<li class="chapter" data-level="2.6.2" data-path="frequency-distributions.html"><a href="frequency-distributions.html#mixtures-of-infinitely-many-populations"><i class="fa fa-check"></i><b>2.6.2</b> Mixtures of Infinitely Many Populations</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="frequency-distributions.html"><a href="frequency-distributions.html#goodness-of-fit"><i class="fa fa-check"></i><b>2.7</b> Goodness of Fit</a></li>
+<li class="chapter" data-level="2.8" data-path="frequency-distributions.html"><a href="frequency-distributions.html#exercises"><i class="fa fa-check"></i><b>2.8</b> Exercises</a></li>
+<li class="chapter" data-level="2.9" data-path="frequency-distributions.html"><a href="frequency-distributions.html#technical-supplement-iterated-expectations"><i class="fa fa-check"></i><b>2.9</b> Technical Supplement: Iterated Expectations</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="modeling-loss-severity.html"><a href="modeling-loss-severity.html"><i class="fa fa-check"></i><b>3</b> Modeling Loss Severity</a><ul>
+<li class="chapter" data-level="3.1" data-path="modeling-loss-severity.html"><a href="modeling-loss-severity.html#BasicQuantities"><i class="fa fa-check"></i><b>3.1</b> Basic Distributional Quantities</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="modeling-loss-severity.html"><a href="modeling-loss-severity.html#moments"><i class="fa fa-check"></i><b>3.1.1</b> Moments</a></li>
+<li class="chapter" data-level="3.1.2" data-path="modeling-loss-severity.html"><a href="modeling-loss-severity.html#quantiles"><i class="fa fa-check"></i><b>3.1.2</b> Quantiles</a></li>
+<li class="chapter" data-level="3.1.3" data-path="modeling-loss-severity.html"><a href="modeling-loss-severity.html#the-moment-generating-function"><i class="fa fa-check"></i><b>3.1.3</b> The Moment Generating Function</a></li>
+<li class="chapter" data-level="3.1.4" data-path="modeling-loss-severity.html"><a href="modeling-loss-severity.html#probability-generating-function-1"><i class="fa fa-check"></i><b>3.1.4</b> Probability Generating Function</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="modeling-loss-severity.html"><a href="modeling-loss-severity.html#ContinuousDistn"><i class="fa fa-check"></i><b>3.2</b> Continuous Distributions for Modeling Loss Severity</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="modeling-loss-severity.html"><a href="modeling-loss-severity.html#the-gamma-distribution"><i class="fa fa-check"></i><b>3.2.1</b> The Gamma Distribution</a></li>
+<li class="chapter" data-level="3.2.2" data-path="modeling-loss-severity.html"><a href="modeling-loss-severity.html#the-pareto-distribution"><i class="fa fa-check"></i><b>3.2.2</b> The Pareto Distribution</a></li>
+<li class="chapter" data-level="3.2.3" data-path="modeling-loss-severity.html"><a href="modeling-loss-severity.html#the-weibull-distribution"><i class="fa fa-check"></i><b>3.2.3</b> The Weibull Distribution</a></li>
+<li class="chapter" data-level="3.2.4" data-path="modeling-loss-severity.html"><a href="modeling-loss-severity.html#the-generalized-beta-distribution-of-the-second-kind"><i class="fa fa-check"></i><b>3.2.4</b> The Generalized Beta Distribution of the Second Kind</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="modeling-loss-severity.html"><a href="modeling-loss-severity.html#MethodsCreation"><i class="fa fa-check"></i><b>3.3</b> Methods of Creating New Distributions</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="modeling-loss-severity.html"><a href="modeling-loss-severity.html#functions-of-random-variables-and-their-distributions"><i class="fa fa-check"></i><b>3.3.1</b> Functions of Random Variables and their Distributions</a></li>
+<li class="chapter" data-level="3.3.2" data-path="modeling-loss-severity.html"><a href="modeling-loss-severity.html#multiplication-by-a-constant"><i class="fa fa-check"></i><b>3.3.2</b> Multiplication by a Constant</a></li>
+<li class="chapter" data-level="3.3.3" data-path="modeling-loss-severity.html"><a href="modeling-loss-severity.html#raising-to-a-power"><i class="fa fa-check"></i><b>3.3.3</b> Raising to a Power</a></li>
+<li class="chapter" data-level="3.3.4" data-path="modeling-loss-severity.html"><a href="modeling-loss-severity.html#exponentiation"><i class="fa fa-check"></i><b>3.3.4</b> Exponentiation</a></li>
+<li class="chapter" data-level="3.3.5" data-path="modeling-loss-severity.html"><a href="modeling-loss-severity.html#finite-mixtures"><i class="fa fa-check"></i><b>3.3.5</b> Finite Mixtures</a></li>
+<li class="chapter" data-level="3.3.6" data-path="modeling-loss-severity.html"><a href="modeling-loss-severity.html#continuous-mixtures"><i class="fa fa-check"></i><b>3.3.6</b> Continuous Mixtures</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="modeling-loss-severity.html"><a href="modeling-loss-severity.html#coverage-modifications"><i class="fa fa-check"></i><b>3.4</b> Coverage Modifications</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="modeling-loss-severity.html"><a href="modeling-loss-severity.html#PolicyDeduct"><i class="fa fa-check"></i><b>3.4.1</b> Policy Deductibles</a></li>
+<li class="chapter" data-level="3.4.2" data-path="modeling-loss-severity.html"><a href="modeling-loss-severity.html#PolicyLimits"><i class="fa fa-check"></i><b>3.4.2</b> Policy Limits</a></li>
+<li class="chapter" data-level="3.4.3" data-path="modeling-loss-severity.html"><a href="modeling-loss-severity.html#coinsurance"><i class="fa fa-check"></i><b>3.4.3</b> Coinsurance</a></li>
+<li class="chapter" data-level="3.4.4" data-path="modeling-loss-severity.html"><a href="modeling-loss-severity.html#reinsurance"><i class="fa fa-check"></i><b>3.4.4</b> Reinsurance</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="modeling-loss-severity.html"><a href="modeling-loss-severity.html#maximum-likelihood-estimation"><i class="fa fa-check"></i><b>3.5</b> Maximum Likelihood Estimation</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="modeling-loss-severity.html"><a href="modeling-loss-severity.html#maximum-likelihood-estimators-for-complete-data"><i class="fa fa-check"></i><b>3.5.1</b> Maximum Likelihood Estimators for Complete Data</a></li>
+<li class="chapter" data-level="3.5.2" data-path="modeling-loss-severity.html"><a href="modeling-loss-severity.html#MLEGrouped"><i class="fa fa-check"></i><b>3.5.2</b> Maximum Likelihood Estimators for Grouped Data</a></li>
+<li class="chapter" data-level="3.5.3" data-path="modeling-loss-severity.html"><a href="modeling-loss-severity.html#maximum-likelihood-estimators-for-censored-data"><i class="fa fa-check"></i><b>3.5.3</b> Maximum Likelihood Estimators for Censored Data</a></li>
+<li class="chapter" data-level="3.5.4" data-path="modeling-loss-severity.html"><a href="modeling-loss-severity.html#maximum-likelihood-estimators-for-truncated-data"><i class="fa fa-check"></i><b>3.5.4</b> Maximum Likelihood Estimators for Truncated Data</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="modeling-loss-severity.html"><a href="modeling-loss-severity.html#Resources-loss-severity"><i class="fa fa-check"></i><b>3.6</b> Further Resources and Contributors</a></li>
+<li class="chapter" data-level="3.7" data-path="modeling-loss-severity.html"><a href="modeling-loss-severity.html#exercises-1"><i class="fa fa-check"></i><b>3.7</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="model-selection-validation-and-inference.html"><a href="model-selection-validation-and-inference.html"><i class="fa fa-check"></i><b>4</b> Model Selection, Validation, and Inference</a><ul>
+<li class="chapter" data-level="4.1" data-path="model-selection-validation-and-inference.html"><a href="model-selection-validation-and-inference.html#S:NonParInf"><i class="fa fa-check"></i><b>4.1</b> Nonparametric Inference</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="model-selection-validation-and-inference.html"><a href="model-selection-validation-and-inference.html#nonparametric-estimation"><i class="fa fa-check"></i><b>4.1.1</b> Nonparametric Estimation</a></li>
+<li class="chapter" data-level="4.1.2" data-path="model-selection-validation-and-inference.html"><a href="model-selection-validation-and-inference.html#S:ToolsModelSelection"><i class="fa fa-check"></i><b>4.1.2</b> Tools for Model Selection</a></li>
+<li class="chapter" data-level="4.1.3" data-path="model-selection-validation-and-inference.html"><a href="model-selection-validation-and-inference.html#starting-values"><i class="fa fa-check"></i><b>4.1.3</b> Starting Values</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="model-selection-validation-and-inference.html"><a href="model-selection-validation-and-inference.html#S:ModelValidation"><i class="fa fa-check"></i><b>4.2</b> Model Validation</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="model-selection-validation-and-inference.html"><a href="model-selection-validation-and-inference.html#iterative-model-selection"><i class="fa fa-check"></i><b>4.2.1</b> Iterative Model Selection</a></li>
+<li class="chapter" data-level="4.2.2" data-path="model-selection-validation-and-inference.html"><a href="model-selection-validation-and-inference.html#summarizing-model-selection"><i class="fa fa-check"></i><b>4.2.2</b> Summarizing Model Selection</a></li>
+<li class="chapter" data-level="4.2.3" data-path="model-selection-validation-and-inference.html"><a href="model-selection-validation-and-inference.html#out-of-sample-validation"><i class="fa fa-check"></i><b>4.2.3</b> Out of Sample Validation</a></li>
+<li class="chapter" data-level="4.2.4" data-path="model-selection-validation-and-inference.html"><a href="model-selection-validation-and-inference.html#gini-statistic"><i class="fa fa-check"></i><b>4.2.4</b> Gini Statistic</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="model-selection-validation-and-inference.html"><a href="model-selection-validation-and-inference.html#S:ModifiedData"><i class="fa fa-check"></i><b>4.3</b> Modified Data</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="model-selection-validation-and-inference.html"><a href="model-selection-validation-and-inference.html#parametric-estimation-using-modified-data"><i class="fa fa-check"></i><b>4.3.1</b> Parametric Estimation using Modified Data</a></li>
+<li class="chapter" data-level="4.3.2" data-path="model-selection-validation-and-inference.html"><a href="model-selection-validation-and-inference.html#nonparametric-estimation-using-modified-data"><i class="fa fa-check"></i><b>4.3.2</b> Nonparametric Estimation using Modified Data</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="model-selection-validation-and-inference.html"><a href="model-selection-validation-and-inference.html#S:BayesInference"><i class="fa fa-check"></i><b>4.4</b> Bayesian Inference</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="model-selection-validation-and-inference.html"><a href="model-selection-validation-and-inference.html#bayesian-model"><i class="fa fa-check"></i><b>4.4.1</b> Bayesian Model</a></li>
+<li class="chapter" data-level="4.4.2" data-path="model-selection-validation-and-inference.html"><a href="model-selection-validation-and-inference.html#decision-analysis"><i class="fa fa-check"></i><b>4.4.2</b> Decision Analysis</a></li>
+<li class="chapter" data-level="4.4.3" data-path="model-selection-validation-and-inference.html"><a href="model-selection-validation-and-inference.html#posterior-distribution"><i class="fa fa-check"></i><b>4.4.3</b> Posterior Distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="model-selection-validation-and-inference.html"><a href="model-selection-validation-and-inference.html#exercises-2"><i class="fa fa-check"></i><b>4.5</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="C-AggLoss.html"><a href="C-AggLoss.html"><i class="fa fa-check"></i><b>5</b> Aggregate Loss Models</a></li>
+<li class="chapter" data-level="6" data-path="simulation.html"><a href="simulation.html"><i class="fa fa-check"></i><b>6</b> Simulation</a><ul>
+<li class="chapter" data-level="6.1" data-path="simulation.html"><a href="simulation.html#generating-independent-uniform-observations"><i class="fa fa-check"></i><b>6.1</b> Generating Independent Uniform Observations</a></li>
+<li class="chapter" data-level="6.2" data-path="simulation.html"><a href="simulation.html#inverse-transform"><i class="fa fa-check"></i><b>6.2</b> Inverse Transform</a></li>
+<li class="chapter" data-level="6.3" data-path="simulation.html"><a href="simulation.html#how-many-simulated-values"><i class="fa fa-check"></i><b>6.3</b> How Many Simulated Values?</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="C-PremCalc.html"><a href="C-PremCalc.html"><i class="fa fa-check"></i><b>7</b> Premium Calcuations Fundamentals</a></li>
+<li class="chapter" data-level="8" data-path="C-RiskClass.html"><a href="C-RiskClass.html"><i class="fa fa-check"></i><b>8</b> Risk Classification</a><ul>
+<li class="chapter" data-level="8.1" data-path="C-RiskClass.html"><a href="C-RiskClass.html#introduction"><i class="fa fa-check"></i><b>8.1</b> Introduction</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="C-Credibility.html"><a href="C-Credibility.html"><i class="fa fa-check"></i><b>9</b> Experience Rating using Credibility Theory</a></li>
+<li class="chapter" data-level="10" data-path="C-PortMgt.html"><a href="C-PortMgt.html"><i class="fa fa-check"></i><b>10</b> Portfolio Management including Reinsurance</a><ul>
+<li class="chapter" data-level="10.0.1" data-path="C-PortMgt.html"><a href="C-PortMgt.html#overview"><i class="fa fa-check"></i><b>10.0.1</b> Overview:</a></li>
+<li class="chapter" data-level="10.1" data-path="C-PortMgt.html"><a href="C-PortMgt.html#tails-of-distributions"><i class="fa fa-check"></i><b>10.1</b> Tails of Distributions</a></li>
+<li class="chapter" data-level="10.2" data-path="C-PortMgt.html"><a href="C-PortMgt.html#measures-of-risk"><i class="fa fa-check"></i><b>10.2</b> Measures of Risk</a></li>
+<li class="chapter" data-level="10.3" data-path="C-PortMgt.html"><a href="C-PortMgt.html#reinsurance-1"><i class="fa fa-check"></i><b>10.3</b> Reinsurance</a><ul>
+<li class="chapter" data-level="10.3.1" data-path="C-PortMgt.html"><a href="C-PortMgt.html#proportional-reinsurance"><i class="fa fa-check"></i><b>10.3.1</b> Proportional Reinsurance</a></li>
+<li class="chapter" data-level="10.3.2" data-path="C-PortMgt.html"><a href="C-PortMgt.html#non-proportional-reinsurance"><i class="fa fa-check"></i><b>10.3.2</b> Non-Proportional Reinsurance</a></li>
+<li class="chapter" data-level="10.3.3" data-path="C-PortMgt.html"><a href="C-PortMgt.html#additional-reinsurance-treaties"><i class="fa fa-check"></i><b>10.3.3</b> Additional Reinsurance Treaties</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="C-LossReserves.html"><a href="C-LossReserves.html"><i class="fa fa-check"></i><b>11</b> Loss Reserving</a></li>
+<li class="chapter" data-level="12" data-path="C-BonusMalus.html"><a href="C-BonusMalus.html"><i class="fa fa-check"></i><b>12</b> Experience Rating using Bonus-Malus</a></li>
+<li class="chapter" data-level="13" data-path="data-systems.html"><a href="data-systems.html"><i class="fa fa-check"></i><b>13</b> Data Systems</a><ul>
+<li class="chapter" data-level="13.1" data-path="data-systems.html"><a href="data-systems.html#data"><i class="fa fa-check"></i><b>13.1</b> Data</a><ul>
+<li class="chapter" data-level="13.1.1" data-path="data-systems.html"><a href="data-systems.html#data-types-and-sources"><i class="fa fa-check"></i><b>13.1.1</b> Data Types and Sources</a></li>
+<li class="chapter" data-level="13.1.2" data-path="data-systems.html"><a href="data-systems.html#data-structures-and-storage"><i class="fa fa-check"></i><b>13.1.2</b> Data Structures and Storage</a></li>
+<li class="chapter" data-level="13.1.3" data-path="data-systems.html"><a href="data-systems.html#data-quality"><i class="fa fa-check"></i><b>13.1.3</b> Data Quality</a></li>
+<li class="chapter" data-level="13.1.4" data-path="data-systems.html"><a href="data-systems.html#data-cleaning"><i class="fa fa-check"></i><b>13.1.4</b> Data Cleaning</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="data-systems.html"><a href="data-systems.html#data-analysis-preliminary"><i class="fa fa-check"></i><b>13.2</b> Data Analysis Preliminary</a><ul>
+<li class="chapter" data-level="13.2.1" data-path="data-systems.html"><a href="data-systems.html#S:process"><i class="fa fa-check"></i><b>13.2.1</b> Data Analysis Process</a></li>
+<li class="chapter" data-level="13.2.2" data-path="data-systems.html"><a href="data-systems.html#exploratory-versus-confirmatory"><i class="fa fa-check"></i><b>13.2.2</b> Exploratory versus Confirmatory</a></li>
+<li class="chapter" data-level="13.2.3" data-path="data-systems.html"><a href="data-systems.html#supervised-versus-unsupervised"><i class="fa fa-check"></i><b>13.2.3</b> Supervised versus Unsupervised</a></li>
+<li class="chapter" data-level="13.2.4" data-path="data-systems.html"><a href="data-systems.html#parametric-versus-nonparametric"><i class="fa fa-check"></i><b>13.2.4</b> Parametric versus Nonparametric</a></li>
+<li class="chapter" data-level="13.2.5" data-path="data-systems.html"><a href="data-systems.html#S:expred"><i class="fa fa-check"></i><b>13.2.5</b> Explanation versus Prediction</a></li>
+<li class="chapter" data-level="13.2.6" data-path="data-systems.html"><a href="data-systems.html#data-modeling-versus-algorithmic-modeling"><i class="fa fa-check"></i><b>13.2.6</b> Data Modeling versus Algorithmic Modeling</a></li>
+<li class="chapter" data-level="13.2.7" data-path="data-systems.html"><a href="data-systems.html#big-data-analysis"><i class="fa fa-check"></i><b>13.2.7</b> Big Data Analysis</a></li>
+<li class="chapter" data-level="13.2.8" data-path="data-systems.html"><a href="data-systems.html#reproducible-analysis"><i class="fa fa-check"></i><b>13.2.8</b> Reproducible Analysis</a></li>
+<li class="chapter" data-level="13.2.9" data-path="data-systems.html"><a href="data-systems.html#ethical-issues"><i class="fa fa-check"></i><b>13.2.9</b> Ethical Issues</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="data-systems.html"><a href="data-systems.html#data-analysis-techniques"><i class="fa fa-check"></i><b>13.3</b> Data Analysis Techniques</a><ul>
+<li class="chapter" data-level="13.3.1" data-path="data-systems.html"><a href="data-systems.html#exploratory-techniques"><i class="fa fa-check"></i><b>13.3.1</b> Exploratory Techniques</a></li>
+<li class="chapter" data-level="13.3.2" data-path="data-systems.html"><a href="data-systems.html#descriptive-statistics"><i class="fa fa-check"></i><b>13.3.2</b> Descriptive Statistics</a></li>
+<li class="chapter" data-level="13.3.3" data-path="data-systems.html"><a href="data-systems.html#cluster-analysis"><i class="fa fa-check"></i><b>13.3.3</b> Cluster Analysis</a></li>
+<li class="chapter" data-level="13.3.4" data-path="data-systems.html"><a href="data-systems.html#confirmatory-techniques"><i class="fa fa-check"></i><b>13.3.4</b> Confirmatory Techniques</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="data-systems.html"><a href="data-systems.html#some-r-functions"><i class="fa fa-check"></i><b>13.4</b> Some R Functions</a></li>
+<li class="chapter" data-level="13.5" data-path="data-systems.html"><a href="data-systems.html#summary"><i class="fa fa-check"></i><b>13.5</b> Summary</a></li>
+<li class="chapter" data-level="13.6" data-path="data-systems.html"><a href="data-systems.html#further-resources-and-contributors"><i class="fa fa-check"></i><b>13.6</b> Further Resources and Contributors</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="dependence-modeling.html"><a href="dependence-modeling.html"><i class="fa fa-check"></i><b>14</b> Dependence Modeling</a><ul>
+<li class="chapter" data-level="14.1" data-path="dependence-modeling.html"><a href="dependence-modeling.html#S:Intro"><i class="fa fa-check"></i><b>14.1</b> Introduction</a></li>
+<li class="chapter" data-level="14.2" data-path="dependence-modeling.html"><a href="dependence-modeling.html#S:VarTypes"><i class="fa fa-check"></i><b>14.2</b> Variable Types</a><ul>
+<li class="chapter" data-level="14.2.1" data-path="dependence-modeling.html"><a href="dependence-modeling.html#S:QuaVar"><i class="fa fa-check"></i><b>14.2.1</b> Qualitative Variables</a></li>
+<li class="chapter" data-level="14.2.2" data-path="dependence-modeling.html"><a href="dependence-modeling.html#S:QuanVar"><i class="fa fa-check"></i><b>14.2.2</b> Quantitative Variables</a></li>
+<li class="chapter" data-level="14.2.3" data-path="dependence-modeling.html"><a href="dependence-modeling.html#multivariate-variables"><i class="fa fa-check"></i><b>14.2.3</b> Multivariate Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="dependence-modeling.html"><a href="dependence-modeling.html#S:Measures"><i class="fa fa-check"></i><b>14.3</b> Classic Measures of Scalar Associations</a><ul>
+<li class="chapter" data-level="14.3.1" data-path="dependence-modeling.html"><a href="dependence-modeling.html#association-measures-for-quantitative-variables"><i class="fa fa-check"></i><b>14.3.1</b> Association Measures for Quantitative Variables</a></li>
+<li class="chapter" data-level="14.3.2" data-path="dependence-modeling.html"><a href="dependence-modeling.html#rank-based-measures"><i class="fa fa-check"></i><b>14.3.2</b> Rank Based Measures</a></li>
+<li class="chapter" data-level="14.3.3" data-path="dependence-modeling.html"><a href="dependence-modeling.html#nominal-variables"><i class="fa fa-check"></i><b>14.3.3</b> Nominal Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="14.4" data-path="dependence-modeling.html"><a href="dependence-modeling.html#S:Copula"><i class="fa fa-check"></i><b>14.4</b> Introduction to Copula</a></li>
+<li class="chapter" data-level="14.5" data-path="dependence-modeling.html"><a href="dependence-modeling.html#S:CopAppl"><i class="fa fa-check"></i><b>14.5</b> Application Using Copulas</a><ul>
+<li class="chapter" data-level="14.5.1" data-path="dependence-modeling.html"><a href="dependence-modeling.html#data-description"><i class="fa fa-check"></i><b>14.5.1</b> Data Description</a></li>
+<li class="chapter" data-level="14.5.2" data-path="dependence-modeling.html"><a href="dependence-modeling.html#marginal-models"><i class="fa fa-check"></i><b>14.5.2</b> Marginal Models</a></li>
+<li class="chapter" data-level="14.5.3" data-path="dependence-modeling.html"><a href="dependence-modeling.html#probability-integral-transformation"><i class="fa fa-check"></i><b>14.5.3</b> Probability Integral Transformation</a></li>
+<li class="chapter" data-level="14.5.4" data-path="dependence-modeling.html"><a href="dependence-modeling.html#joint-modeling-with-copula-function"><i class="fa fa-check"></i><b>14.5.4</b> Joint Modeling with Copula Function</a></li>
+</ul></li>
+<li class="chapter" data-level="14.6" data-path="dependence-modeling.html"><a href="dependence-modeling.html#S:CopTyp"><i class="fa fa-check"></i><b>14.6</b> Types of Copulas</a><ul>
+<li class="chapter" data-level="14.6.1" data-path="dependence-modeling.html"><a href="dependence-modeling.html#elliptical-copulas"><i class="fa fa-check"></i><b>14.6.1</b> Elliptical Copulas</a></li>
+<li class="chapter" data-level="14.6.2" data-path="dependence-modeling.html"><a href="dependence-modeling.html#archimedian-copulas"><i class="fa fa-check"></i><b>14.6.2</b> Archimedian Copulas</a></li>
+<li class="chapter" data-level="14.6.3" data-path="dependence-modeling.html"><a href="dependence-modeling.html#properties-of-copulas"><i class="fa fa-check"></i><b>14.6.3</b> Properties of Copulas</a></li>
+</ul></li>
+<li class="chapter" data-level="14.7" data-path="dependence-modeling.html"><a href="dependence-modeling.html#S:CopImp"><i class="fa fa-check"></i><b>14.7</b> Why is Dependence Modeling Important?</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="C-TS1.html"><a href="C-TS1.html"><i class="fa fa-check"></i><b>15</b> Appendix A: Review of Statistical Inference</a><ul>
+<li class="chapter" data-level="15.1" data-path="C-TS1.html"><a href="C-TS1.html#S:TS1:BASIC"><i class="fa fa-check"></i><b>15.1</b> Basic Concepts</a><ul>
+<li class="chapter" data-level="15.1.1" data-path="C-TS1.html"><a href="C-TS1.html#random-sampling"><i class="fa fa-check"></i><b>15.1.1</b> Random Sampling</a></li>
+<li class="chapter" data-level="15.1.2" data-path="C-TS1.html"><a href="C-TS1.html#sampling-distribution"><i class="fa fa-check"></i><b>15.1.2</b> Sampling Distribution</a></li>
+<li class="chapter" data-level="15.1.3" data-path="C-TS1.html"><a href="C-TS1.html#central-limit-theorem"><i class="fa fa-check"></i><b>15.1.3</b> Central Limit Theorem</a></li>
+</ul></li>
+<li class="chapter" data-level="15.2" data-path="C-TS1.html"><a href="C-TS1.html#S:TS1:PE"><i class="fa fa-check"></i><b>15.2</b> Point Estimation and Properties</a><ul>
+<li class="chapter" data-level="15.2.1" data-path="C-TS1.html"><a href="C-TS1.html#method-of-moments-estimation"><i class="fa fa-check"></i><b>15.2.1</b> Method of Moments Estimation</a></li>
+<li class="chapter" data-level="15.2.2" data-path="C-TS1.html"><a href="C-TS1.html#maximum-likelihood-estimation-1"><i class="fa fa-check"></i><b>15.2.2</b> Maximum Likelihood Estimation</a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="C-TS1.html"><a href="C-TS1.html#S:TS1:IE"><i class="fa fa-check"></i><b>15.3</b> Interval Estimation</a><ul>
+<li class="chapter" data-level="15.3.1" data-path="C-TS1.html"><a href="C-TS1.html#S:TS1:IE:ED"><i class="fa fa-check"></i><b>15.3.1</b> Exact Distribution for Normal Sample Mean</a></li>
+<li class="chapter" data-level="15.3.2" data-path="C-TS1.html"><a href="C-TS1.html#large-sample-properties-of-mle"><i class="fa fa-check"></i><b>15.3.2</b> Large-sample Properties of MLE</a></li>
+<li class="chapter" data-level="15.3.3" data-path="C-TS1.html"><a href="C-TS1.html#confidence-interval"><i class="fa fa-check"></i><b>15.3.3</b> Confidence Interval</a></li>
+</ul></li>
+<li class="chapter" data-level="15.4" data-path="C-TS1.html"><a href="C-TS1.html#S:TS1:HT"><i class="fa fa-check"></i><b>15.4</b> Hypothesis Testing</a><ul>
+<li class="chapter" data-level="15.4.1" data-path="C-TS1.html"><a href="C-TS1.html#basic-concepts"><i class="fa fa-check"></i><b>15.4.1</b> Basic Concepts</a></li>
+<li class="chapter" data-level="15.4.2" data-path="C-TS1.html"><a href="C-TS1.html#student-t-test-based-on-mle"><i class="fa fa-check"></i><b>15.4.2</b> Student-<span class="math inline">\(t\)</span> test based on MLE</a></li>
+<li class="chapter" data-level="15.4.3" data-path="C-TS1.html"><a href="C-TS1.html#likelihood-ratio-test"><i class="fa fa-check"></i><b>15.4.3</b> Likelihood Ratio Test</a></li>
+<li class="chapter" data-level="15.4.4" data-path="C-TS1.html"><a href="C-TS1.html#information-criteria"><i class="fa fa-check"></i><b>15.4.4</b> Information Criteria</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="C-TS2a.html"><a href="C-TS2a.html"><i class="fa fa-check"></i><b>16</b> Appendix B: Iterated Expectations</a><ul>
+<li class="chapter" data-level="16.1" data-path="C-TS2a.html"><a href="C-TS2a.html#S:TS2a:CD"><i class="fa fa-check"></i><b>16.1</b> Conditional Distribution and Conditional Expectation</a><ul>
+<li class="chapter" data-level="16.1.1" data-path="C-TS2a.html"><a href="C-TS2a.html#conditional-distribution"><i class="fa fa-check"></i><b>16.1.1</b> Conditional Distribution</a></li>
+<li class="chapter" data-level="16.1.2" data-path="C-TS2a.html"><a href="C-TS2a.html#conditional-expectation-and-conditional-variance"><i class="fa fa-check"></i><b>16.1.2</b> Conditional Expectation and Conditional Variance</a></li>
+</ul></li>
+<li class="chapter" data-level="16.2" data-path="C-TS2a.html"><a href="C-TS2a.html#S:TS2a:IE"><i class="fa fa-check"></i><b>16.2</b> Iterated Expectations and Total Variance</a><ul>
+<li class="chapter" data-level="16.2.1" data-path="C-TS2a.html"><a href="C-TS2a.html#law-of-iterated-expectations"><i class="fa fa-check"></i><b>16.2.1</b> Law of Iterated Expectations</a></li>
+<li class="chapter" data-level="16.2.2" data-path="C-TS2a.html"><a href="C-TS2a.html#law-of-total-variance"><i class="fa fa-check"></i><b>16.2.2</b> Law of Total Variance</a></li>
+<li class="chapter" data-level="16.2.3" data-path="C-TS2a.html"><a href="C-TS2a.html#application"><i class="fa fa-check"></i><b>16.2.3</b> Application</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="C-TS2b.html"><a href="C-TS2b.html"><i class="fa fa-check"></i><b>17</b> Appendix C: Maximum Likelihood Theory</a><ul>
+<li class="chapter" data-level="17.1" data-path="C-TS2b.html"><a href="C-TS2b.html#S:TS2b:LF"><i class="fa fa-check"></i><b>17.1</b> Likelihood Function</a><ul>
+<li class="chapter" data-level="17.1.1" data-path="C-TS2b.html"><a href="C-TS2b.html#likelihood-and-log-likelihood-functions"><i class="fa fa-check"></i><b>17.1.1</b> Likelihood and Log-likelihood Functions</a></li>
+<li class="chapter" data-level="17.1.2" data-path="C-TS2b.html"><a href="C-TS2b.html#properties-of-likelihood-functions"><i class="fa fa-check"></i><b>17.1.2</b> Properties of Likelihood Functions</a></li>
+</ul></li>
+<li class="chapter" data-level="17.2" data-path="C-TS2b.html"><a href="C-TS2b.html#S:TS2b:MLE"><i class="fa fa-check"></i><b>17.2</b> Maximum Likelihood Estimators</a><ul>
+<li class="chapter" data-level="17.2.1" data-path="C-TS2b.html"><a href="C-TS2b.html#definition-and-derivation-of-mle"><i class="fa fa-check"></i><b>17.2.1</b> Definition and Derivation of MLE</a></li>
+<li class="chapter" data-level="17.2.2" data-path="C-TS2b.html"><a href="C-TS2b.html#asymptotic-properties-of-mle"><i class="fa fa-check"></i><b>17.2.2</b> Asymptotic Properties of MLE</a></li>
+<li class="chapter" data-level="17.2.3" data-path="C-TS2b.html"><a href="C-TS2b.html#use-of-maximum-likelihood-estimation"><i class="fa fa-check"></i><b>17.2.3</b> Use of Maximum Likelihood Estimation</a></li>
+</ul></li>
+<li class="chapter" data-level="17.3" data-path="C-TS2b.html"><a href="C-TS2b.html#S:TS2b:SI"><i class="fa fa-check"></i><b>17.3</b> Statistical Inference Based on Maximum Likelhood Estimation</a><ul>
+<li class="chapter" data-level="17.3.1" data-path="C-TS2b.html"><a href="C-TS2b.html#hypothesis-testing"><i class="fa fa-check"></i><b>17.3.1</b> Hypothesis Testing</a></li>
+<li class="chapter" data-level="17.3.2" data-path="C-TS2b.html"><a href="C-TS2b.html#mle-and-model-validation"><i class="fa fa-check"></i><b>17.3.2</b> MLE and Model Validation</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="bibliography.html"><a href="bibliography.html"><i class="fa fa-check"></i>Bibliography</a></li>
+<li class="divider"></li>
+<li><a href="https://ewfrees.github.io/Loss-Data-Analytics/" target="blank">Loss Data Analytics on GitHub</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Loss Data Analytics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="C:PortMgt" class="section level1">
+<h1><span class="header-section-number">Chapter 10</span> Portfolio Management including Reinsurance</h1>
+<div id="overview" class="section level3">
+<h3><span class="header-section-number">10.0.1</span> Overview:</h3>
+<p>Define <span class="math inline">\(S\)</span> to be (random) obligations that arise from a collection (portfolio) of insurance contracts</p>
+<ul>
+<li><p>We are particularly interested in probabilities of large outcomes and so formalize the notion of a heavy-tail distribution</p></li>
+<li><p>How much in assets does an insurer need to retain to meet obligations arising from the random <span class="math inline">\(S\)</span>? A study of risk measures helps to address this question</p></li>
+<li><p>As with policyholders, insurers also seek mechanisms in order to spread risks. A company that sells insurance to an insurance company is known as a reinsurer</p></li>
+</ul>
+</div>
+<div id="tails-of-distributions" class="section level2">
+<h2><span class="header-section-number">10.1</span> Tails of Distributions</h2>
+<p>In 1998 freezing rains fell on eastern Ontario, south-western Quebec and lasted for six days. The event doubled the amount of precipitation in the area experienced in any prior ice storm, and resulted in a catastrophe that produced excess of 840,000 cases of insurance claims. This number is 20% more than that of the claims caused by the Hurricane Andrew - one of the largest natural disasters in the history of North America. After all, the catastrophe caused approximately 1.44 billion Canadian dollars insurance settlements which is the highest loss burden in the history of Canada (Lecomte et al., 1998). More examples of similar catastrophic events that caused extremal insurance losses are Hurricanes Harvey and Sandy, the 2011 Japanese earthquake and tsunami, and so forth.</p>
+<p>In the context of insurance, a few heavy losses hitting a portfolio and then converting into claims usually represent the greatest part of the indemnities paid by insurance companies. The aforementioned losses, also called `extremes’, are quantitatively modelled by the tails of the associated probability distributions. From the quantitative modelling standpoint, relying on probabilistic models with improper tails is of course daunting. For instance, periods of financial stress may appear with higher frequency than the actuaries expect, and insurance losses may occur with worse severity. Therefore, studying the probabilistic behavior in the tail portion of actuarial models is of utmost importance in the modern framework of quantitative risk management. For this reason, this section is devoted to the introduction of a few mathematical notions that characterize the tail weight of random variables (r.v.’s). The applications of these notions will benefit us in the construction and selection of appropriate models with desired mathematical properties in the tail portion, that are suitable for a given task.</p>
+<p>Formally, define <span class="math inline">\(X\)</span> to be the (random) obligations that arise from a collection (portfolio) of insurance contracts. We are particularly interested in studying the right tail of the distribution of <span class="math inline">\(X\)</span>. Speaking plainly, a r.v. is said to be heavier-tailed if higher probabilities are assigned to larger values. Unwelcome outcomes are more likely to occur for an insurance portfolio that is described by a loss r.v. possessing heavier (right) tail. Tail weight can be an absolute or a relative concept. Specifically, for the former, we may consider a r.v. to be heavy-tailed if certain mathematical properties of the probability distribution are met. For the latter, we can say the tail of one distribution is heavier than the other if some tail measures are larger.</p>
+<p>In the statistics and probability literature, there are several quantitative approaches have been proposed to compare and classify tail weight. Among most of these approaches, the survival functions serve as the building block. In what follows, we are going to introduce two simple yet useful tail classification methods, in which the basic idea is to study the quantities that are closely related to the survival function of <span class="math inline">\(X\)</span>.</p>
+<div id="classification-based-on-moments" class="section level4">
+<h4><span class="header-section-number">10.1.0.1</span> Classification Based on Moments</h4>
+<p>One possible way of classifying the tail weight of distribution is by assessing the existence of raw moments. Since our major interest lies in the right tails of distributions, we henceforth assume the obligation/loss r.v. <span class="math inline">\(X\)</span> to be positive. At the outset, let us recall that the <span class="math inline">\(k-\)</span>th raw moment of <span class="math inline">\(X\)</span>, for <span class="math inline">\(k\in\mathcal{R}_+\)</span>, can be computed via <span class="math display">\[\begin{aligned}
+    \mu_k^{&#39;} &amp;= k \int_0^{\infty} x^{k-1} S(x) dx, \\
+    \end{aligned}\]</span> where <span class="math inline">\(S(\cdot)\)</span> denotes the survival function of <span class="math inline">\(X\)</span>. It is a simple matter to see that the existence of the raw moments depends on the asymptotic behavior of the survival function at infinity. Namely, the faster the survival function decays to zero, the higher the order of finite moment the associated r.v. possesses. Hence the maximal order of finite moment, denoted by <span class="math inline">\(k^{\ast}:=\sup\{k\in \mathcal{R}_+|\mu_k^{&#39;}&lt;\infty \}\)</span>, can be considered as an indicator of tail weight. This observation leads us to moment-based tail weight classification, which is defined formally next.</p>
+<p><strong>Definition 1.</strong> For a positive loss random variable <span class="math inline">\(X\)</span>, if all the positive raw moments exist, namely the maximal order of finite moment <span class="math inline">\(k^{\ast}=\infty\)</span>, then <span class="math inline">\(X\)</span> is said to be light-tailed based on the moment-method. If the <span class="math inline">\(k^{\ast}=a \in (0,\infty)\)</span>, then <span class="math inline">\(X\)</span> is said to be heavy-tailed based on the moment-method. Moreover, for two positive loss random variables <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span> with maximal orders of moment <span class="math inline">\(k^{&#39;}_1\)</span> and <span class="math inline">\(k^{&#39;}_2\)</span> respectively, we say <span class="math inline">\(X_1\)</span> has a heavier (right) tail than <span class="math inline">\(X_2\)</span> if <span class="math inline">\(k^{\ast}_1\leq k^{\ast}_2\)</span>.</p>
+<p>It is noteworthy that the first part of the aforementioned definition is an absolute concept of tail weight, while the second part is a relative concept that compares the weight of (right) tails between two distributions. Next, we are going to present a few examples that illustrate the applications of the moment-based method. Some of these examples are borrowed from Klugman et al., 2012.</p>
+<p><strong>Example 1.</strong> Let <span class="math inline">\(X\sim Gamma(\alpha,\theta)\)</span>, with <span class="math inline">\(\alpha&gt;0\)</span> and <span class="math inline">\(\theta&gt;0\)</span>, then for all <span class="math inline">\(k\in \mathcal{R}_+\)</span>, <span class="math display">\[\begin{aligned}
+    \mu_k^{&#39;} &amp;= \int_0^{\infty} x^k \frac{x^{\alpha-1} e^{-x/\theta}}{\Gamma(\alpha) \theta^{\alpha}} dx \\
+    &amp;= \int_0^{\infty} (y\theta)^k  \frac{(y\theta)^{\alpha-1} e^{-y}}{\Gamma(\alpha) \theta^{\alpha}} \theta dy \\
+    &amp;= \frac{\theta^k}{\Gamma(\alpha)} \Gamma(\alpha+k) &lt; \infty.\end{aligned}\]</span></p>
+<p>Since all the positive moments exist, i.e., <span class="math inline">\(k^{\ast}=\infty\)</span>, in accordance with the moment-based classification method in Definition 1, the gamma distribution is light-tailed.</p>
+<p><strong>Example 2.</strong> Let <span class="math inline">\(X\sim Weibull(\theta,\tau)\)</span>, with <span class="math inline">\(\theta&gt;0\)</span> and <span class="math inline">\(\tau&gt;0\)</span>, then for all <span class="math inline">\(k\in \mathcal{R}_+\)</span>, <span class="math display">\[\begin{aligned}
+    \mu_k^{&#39;} &amp;= \int_0^{\infty} x^k \frac{\tau x^{\tau-1} }{\theta^{\tau}} e^{-(x/\theta)^{\tau}}dx \\
+    &amp;= \int_0^{\infty}  \frac{ y^{k/\tau} }{\theta^{\tau}} e^{-y/\theta^{\tau}}dy \\
+    &amp;= \theta^{k} \Gamma(1+k/\tau) &lt; \infty.\end{aligned}\]</span></p>
+<p>Again, due to the existence of all the positive moments, the Weibull distribution is light-tailed.</p>
+<p>We notice in passing that the gamma and Weibull distributions have been used quite intensively in actuarial practice nowadays. Applications of these two distributions are vast which include, but are not limited to, insurance claim severity modelling, solvency assessment, loss reserving, aggregate risk approximation, reliability engineering and failure analysis. We have thus far seem two examples of using the moment-based method to analyze light-tailed distributions. We document a heavy-tailed example in what follows.</p>
+<p><strong>Example 3.</strong> Let <span class="math inline">\(X\sim Pareto(\alpha,\theta)\)</span>, with <span class="math inline">\(\alpha&gt;0\)</span> and <span class="math inline">\(\theta&gt;0\)</span>, then for <span class="math inline">\(k\in \mathcal{R}_+\)</span> <span class="math display">\[\begin{aligned}
+    \mu_k^{&#39;} &amp;= \int_0^{\infty} x^k \frac{\alpha \theta^{\alpha}}{(x+\theta)^{\alpha+1}} dx \\
+    &amp;= \alpha \theta^{\alpha} \int_{\theta}^{\infty} (y-\theta)^k {y^{-(\alpha+1)}} dy.\end{aligned}\]</span></p>
+<p>Consider a similar integration: <span class="math display">\[\begin{aligned}
+  g_k:=\int_{\theta}^{\infty} {y^{k-\alpha-1}} dy=\left\{
+  \begin{array}{ll}
+    &lt;\infty, &amp; \hbox{for } k&lt;\alpha\\
+    =\infty, &amp; \hbox{for } k\geq \alpha
+  \end{array}
+\right. .\end{aligned}\]</span> Meanwhile, <span class="math display">\[\lim_{y\rightarrow \infty} \frac{(y-\theta)^k {y^{-(\alpha+1)}}}{y^{k-\alpha-1}}=\lim_{y\rightarrow \infty}
+(1-\theta/y)^{k}=1.\]</span> Application of the limit comparison theorem for improper integrals yields <span class="math inline">\(\mu_k^{&#39;}\)</span> is finite if and only if <span class="math inline">\(g_k\)</span> is finite. Hence we can conclude that the raw moments of Pareto r.v.’s exist only up to <span class="math inline">\(k&lt;\alpha\)</span>, i.e., <span class="math inline">\(k^{\ast}=\alpha\)</span>, and thus the distribution is heavy-tailed. What is more, the maximal order of finite moments depends only on the shape parameter <span class="math inline">\(\alpha\)</span> and it is an increasing function of <span class="math inline">\(\alpha\)</span>. In other words, based on the moments method, the tail weight of the Pareto r.v.’s is solely manipulated by <span class="math inline">\(\alpha\)</span> – the smaller the value of <span class="math inline">\(\alpha\)</span>, the heavier the tail weight becomes. Since <span class="math inline">\(k^{\ast}&lt;\infty\)</span>, the tail of Pareto distribution is heavier than those of the gamma and Weibull distributions.</p>
+<p>We are going to conclude this current section by an open discussion on the limitations of the moment-based method. Despite its simple implementation and intuitive interpretation, there are certain circumstances in which the application of the moment-based method is not suitable. First, for more complicated probabilistic models, the <span class="math inline">\(k\)</span>-th raw moment may not be straightforward to derive and/or the identification of the maximal order of finite moment can be very challenging. Second, the moment-based method does not well comply with main body of the well established heavy tail theory in literature. Specifically, the existence of moment generating functions (MGF’s) is arguably the most popular method for classifying heavy tail verse light tail within the community of academic actuaries. However, for some r.v’s such as the log normal r.v.’s, their MGF’s do not exist even that all the positive moments are finite. In these cases, applications of the moment-based and the MFG-based methods can lead to different tail weight assessment. Third, when we need to compare the tail weight between two light-tailed distributions both having all positive moments exist, the moment-based method is no longer informative.</p>
+</div>
+<div id="comparison-based-on-limiting-tail-behavior" class="section level4">
+<h4><span class="header-section-number">10.1.0.2</span> Comparison Based on Limiting Tail Behavior</h4>
+<p>In order to resolve the shortfalls of the moment-based method discussed in the previous section, an alternative approach for comparing tail weight is to directly study the limiting behavior of the survival functions.</p>
+<p><strong>Definition 2.</strong> For two r.v.’s <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, and let <span class="math display">\[
+\gamma:=\lim_{t\rightarrow \infty}\frac{S_X(t)}{S_Y(t)}.
+\]</span> We say that</p>
+<ul>
+<li><span class="math inline">\(X\)</span> has a heavier right tail than <span class="math inline">\(Y\)</span> if <span class="math inline">\(\gamma=\infty\)</span>;</li>
+<li><span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are proportionally equivalent in the right tail, if <span class="math inline">\(\gamma =c\in \mathcal{R}_+\)</span>;</li>
+<li><span class="math inline">\(X\)</span> has a lighter right tail than <span class="math inline">\(Y\)</span> if <span class="math inline">\(\gamma=0\)</span>.</li>
+</ul>
+<p><strong>Example 4.</strong> Let <span class="math inline">\(X\sim Pareto(\alpha, \theta)\)</span> and <span class="math inline">\(Y\sim Weibull(\tau, \theta)\)</span>, for <span class="math inline">\(\alpha&gt;0\)</span>, <span class="math inline">\(\tau&gt;0\)</span>, and <span class="math inline">\(\theta&gt;0\)</span>, we have <span class="math display">\[\begin{aligned}
+    \lim_{t\rightarrow \infty}\frac{S_X(t)}{S_Y(t)} &amp;= \lim_{t\rightarrow \infty}\frac{(1+t/\theta)^{-\alpha}}{\exp\{-(t/\theta)^{\tau}\}} \\
+    &amp;= \lim_{t\rightarrow \infty}\frac{\exp\{t/\theta^{\tau} \}}{(1+t^{1/\tau}/\theta)^{\alpha}} \\
+    &amp;= \lim_{t\rightarrow \infty}\frac{\sum_{i=0}^{\infty}\left(\frac{t}{\theta^{\tau}}\right)^{i}/i!}{(1+t^{1/\tau}/\theta)^{\alpha}}\\
+    &amp;= \lim_{t\rightarrow \infty} \sum_{i=0}^{\infty} \left(t^{-i/\alpha}+\frac{t^{(1/\tau-i/\alpha)}}{\theta} \right)^{-\alpha}/\theta^{\tau i}i!\\
+    &amp;= \infty.
+    \end{aligned}\]</span> Therefore, the Pareto distribution has a heavier tail than the Weibull distribution. One may also realize that exponentials go to infinity faster than polynomials, thus the aforementioned limit must be infinite. For some distributions, the survival functions do not admit explicite expressions. In such cases, we may find the following alternative formula useful: <span class="math display">\[\begin{aligned}
+    \lim_{t\to \infty} \frac{S_X(t)}{S_Y(t)} &amp;= \lim_{t \to \infty} \frac{S_X^{&#39;}(t)}{S_Y^{&#39;}(t)} \\
+    &amp;= \lim_{t \to \infty} \frac{-f_X(t)}{-f_Y(t)} = \lim_{t\to \infty} \frac{f_X(t)}{f_Y(t)}.\end{aligned}\]</span> given that the density functions exist.</p>
+<p><strong>Example 5.</strong> Let <span class="math inline">\(X\sim Pareto(\alpha, \theta)\)</span> and <span class="math inline">\(Y\sim Gamma(\alpha, \theta)\)</span>, for <span class="math inline">\(\alpha&gt;0\)</span> and <span class="math inline">\(\theta&gt;0\)</span>, we have <span class="math display">\[\begin{aligned}
+    \lim_{t\to \infty} \frac{f_{X}(t)}{f_{Y}(t)} &amp;= \lim_{t \to \infty} \frac{\alpha \theta^{\alpha} (t+ \theta)^{-\alpha-1}}{t^{\tau-1} e^{-t/\lambda} \lambda^{-\tau} \Gamma(\tau)^{-1}} \\
+    &amp;= c \lim_{t\to \infty} \frac{e^{t/\lambda}}{(t+\theta)^{\alpha+1} t^{\tau-1}} \\
+    &amp;= \infty,\end{aligned}\]</span> as exponentials go to infinity faster than polynomials.</p>
+</div>
+</div>
+<div id="measures-of-risk" class="section level2">
+<h2><span class="header-section-number">10.2</span> Measures of Risk</h2>
+<ul>
+<li><p>A <strong>risk measure</strong> is a mapping from the r.v. representing the loss associated with the risks to the real line.</p></li>
+<li><p>A risk measure gives a single number that is intended to quantify the risk.</p>
+<ul>
+<li>For example, the standard deviation is a risk measure.</li>
+</ul></li>
+<li><p>Notation: <span class="math inline">\(\rho(X)\)</span>.</p></li>
+<li><p>We briefly mention:</p>
+<ul>
+<li><p><strong>VaR</strong>: Value at Risk;</p></li>
+<li><p><strong>TVaR</strong>: Tail Value at Risk.</p></li>
+</ul></li>
+</ul>
+<div id="value-at-risk" class="section level4">
+<h4><span class="header-section-number">10.2.0.1</span> Value at Risk</h4>
+<ul>
+<li><p>Say <span class="math inline">\(F_X(x)\)</span> represents the cdf of outcomes over a fixed period of time, e.g. one year, of a portfolio of risks.</p></li>
+<li><p>We consider positive values of <span class="math inline">\(X\)</span> as losses.</p></li>
+<li><p><strong>Definition 3.11</strong>: let <span class="math inline">\(X\)</span> denote a loss r.v., then the <strong>Value-at-Risk</strong> of <span class="math inline">\(X\)</span> at the <span class="math inline">\(100p\%\)</span> level, denoted <span class="math inline">\(VaR_p(X)\)</span> or <span class="math inline">\(\pi_p\)</span>, is the <span class="math inline">\(100p\)</span> percentile (or quantile) of the distribution of <span class="math inline">\(X\)</span>.</p></li>
+<li><p>E.g. for continuous distributions we have <span class="math display">\[\begin{aligned}
+P(X&gt; \pi_p) &amp;= 1-p.\end{aligned}\]</span></p></li>
+<li><p>VaR has become the standard risk measure used to evaluate exposure to risk.</p></li>
+<li><p><strong>VaR</strong> is the <strong>amount of capital</strong> required to ensure, with a <strong>high degree of certainty</strong>, that the <strong>enterprise does not become technically insolvent</strong>.</p></li>
+<li><p>Which degree of certainty?</p>
+<ul>
+<li><p>95<span class="math inline">\(\%\)</span>?</p></li>
+<li><p>in Solvency II <span class="math inline">\(99.5\%\)</span> (or: ruin probability of 1 in 200).</p></li>
+</ul></li>
+<li><p><strong>VaR is not subadditive</strong>.</p>
+<ul>
+<li><p>Subadditivity of a risk measure <span class="math inline">\(\rho(.)\)</span> requires <span class="math display">\[\begin{aligned}
+\rho(X+Y) \leq \rho(X)+\rho(Y).\end{aligned}\]</span></p></li>
+<li><p>Intuition behind subadditivity: combining risks is less riskier than holding them separately.</p></li>
+</ul></li>
+<li><p><strong>Example:</strong> let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be i.i.d. r.v.’s which are <span class="math inline">\(\text{Bern}(0.02)\)</span> distributed.</p>
+<ul>
+<li><p>Then, <span class="math inline">\(P(X\leq 0) = 0.98\)</span> and <span class="math inline">\(P(Y\leq 0)=0.98\)</span>. Thus, <span class="math inline">\(F_X^{-1}(0.975)=F_Y^{-1}(0.975)=0\)</span>.</p></li>
+<li><p>For the sum, <span class="math inline">\(X+Y\)</span>, we have <span class="math inline">\(P[X+Y=0]=0.98 \cdot 0.98=0.9604\)</span>. Thus, <span class="math inline">\(F_{X+Y}^{-1}(0.975)&gt;0\)</span>.</p></li>
+<li><p>VaR is not subadditive, since <span class="math inline">\(\text{VaR}(X+Y)\)</span> in this case is larger than <span class="math inline">\(\text{VaR}(X)+\text{VaR}(Y)\)</span>.</p></li>
+</ul></li>
+<li><p>Another <strong>drawback of VaR</strong>:</p>
+<ul>
+<li><p>it is a single quantile risk measure of a predetermined level <span class="math inline">\(p\)</span>;</p></li>
+<li><p>no information about the thickness of the upper tail of the distribution function from <span class="math inline">\(\text{VaR}_p\)</span> on;</p></li>
+<li><p>whereas stakeholders are interested in both frequency and severity of default.</p></li>
+</ul></li>
+<li><p>Therefore: study other risk measures, e.g. <strong>Tail Value at Risk</strong> (TVaR).</p></li>
+</ul>
+</div>
+<div id="tail-value-at-risk" class="section level4">
+<h4><span class="header-section-number">10.2.0.2</span> Tail Value at Risk</h4>
+<ul>
+<li><p><strong>Definition 3.12:</strong> let <span class="math inline">\(X\)</span> denote a loss r.v., then the Tail Value at Risk of <span class="math inline">\(X\)</span> at the <span class="math inline">\(100p\%\)</span> security level, <span class="math inline">\(\text{TVaR}(p)\)</span>, is the <strong>expected loss</strong> <strong>given that the loss exceeds the <span class="math inline">\(100p\)</span> percentile</strong> (or: quantile) of the distribution of <span class="math inline">\(X\)</span>.</p></li>
+<li><p>We have (assume continuous distribution) <span class="math display">\[\begin{aligned}
+\text{TVaR}_p(X) &amp;= E(X|X&gt;\pi_p) \\
+&amp;= \frac{\int_{\pi_p}^{\infty} x\cdot f(x) dx}{1-F(\pi_p)}.\end{aligned}\]</span></p></li>
+<li><p>We can rewrite this as <strong>the usual definition of TVaR</strong> <span class="math display">\[\begin{aligned}
+\text{TVaR}_p(X) &amp;= \frac{\int_{\pi_p}^{\infty} x dF_X(x)}{1-p} \\
+&amp;= \frac{\int_p^1 \text{VaR}_u(X) du}{1-p},\end{aligned}\]</span> using the substitution <span class="math inline">\(F_X(x) = u\)</span> and thus <span class="math inline">\(x=F_X^{-1}(u)\)</span>.</p></li>
+<li><p>From the definition <span class="math display">\[\begin{aligned}
+\text{TVaR}_p(X) &amp;= \frac{\int_p^1 \text{VaR}_u(X) du}{1-p},\end{aligned}\]</span> we understand</p>
+<ul>
+<li><p>TVaR is the <strong>arithmetic average</strong> of the quantiles of <span class="math inline">\(X\)</span>, from level <span class="math inline">\(p\)</span> on;</p></li>
+<li><p>TVaR is averaging high level VaR;</p></li>
+<li><p>TVaR <strong>tells us much more about the tail</strong> of the distribution than does VaR alone.</p></li>
+</ul></li>
+<li><p>Finally, TVaR can also be written as <span class="math display">\[\begin{aligned}
+\text{TVaR}_p(X) &amp;= E(X|X&gt;\pi_p) \\
+&amp;= \frac{\int_{\pi_p}^{\infty} x f(x)dx}{1-p} \\
+&amp;= \pi_p + \frac{\int_{\pi_p}^{\infty} (x-\pi_p) f(x) dx}{1-p} \\
+&amp;= \text{VaR}_p(X) + e(\pi_p),\end{aligned}\]</span> with <span class="math inline">\(e(\pi_p)\)</span> the mean excess loss function evaluated at the <span class="math inline">\(100p\)</span>th percentile.</p></li>
+<li><p>We can understand these connections as follows. (Assume continuous r.v.’s)</p></li>
+<li><p>The relation <span class="math display">\[\begin{aligned}
+\text{CTE}_p(X) &amp;= \text{TVaR}_{F_X(\pi_p)}(X),\end{aligned}\]</span> then follows immediately by combining the other two expressions.</p></li>
+<li><p>TVaR is a coherent risk measure, see e.g. <a href="http://onderwijsaanbod.kuleuven.be/syllabi/e/D0R57BE.htm#activetab=doelstellingen_idp1406608">Foundations of Risk Measurement</a> course.</p></li>
+<li><p>Thus, <span class="math inline">\(\text{TVaR}(X+Y) \leq \text{TVaR}(X)+\text{TVaR}(Y)\)</span>.</p></li>
+<li><p>When using this risk measure, we never encounter a situation where combining risks is viewed as being riskier than keeping them separate.</p></li>
+<li><p><strong>KPW Example 3.18</strong> <em>(Tail comparisons)</em> Consider three loss distributions for an insurance company. Losses for the next year are estimated to be on average 100 million with standard deviation 223.607 million. You are interested in finding high quantiles of the distribution of losses. Using the normal, Pareto, and Weibull distributions, obtain the VaR at the 90%, 99%, and 99.99% security levels.</p></li>
+<li><p><strong>Solution</strong></p></li>
+<li><p>Normal distribution has a lighter tail than the others, and thus smaller quantiles.</p></li>
+<li><p>Pareto and Weibull with <span class="math inline">\(\tau&lt;1\)</span> have heavy tails, and thus relatively larger extreme quantiles.</p></li>
+<li><p><strong>Example 3.18</strong> <em>(Tail comparisons)</em> Consider three loss distributions for an insurance company. Losses for the next year are estimated to be on average 100 million with standard deviation 223.607 million. You are interested in finding high quantiles of the distribution of losses. Using the normal, Pareto, and Weibull distributions, obtain the VaR at the 99%, 99.9%, and 99.99% security levels.</p>
+<pre><code>&gt; qnorm(c(0.9,0.99,0.999),mu,sigma)
+[1] 386.5639 620.1877 790.9976
+&gt; qpareto(c(0.9,0.99,0.999),alpha,s)
+[1]  226.7830  796.4362 2227.3411
+&gt; qweibull(c(0.9,0.99,0.999),tau,theta)
+[1]  265.0949 1060.3796 2385.8541</code></pre></li>
+<li><p>We learn from Example 3.18 that results vary widely depending on the choice of distribution.</p></li>
+<li><p>Thus, the selection of an <strong>appropriate loss model</strong> is highly important.</p></li>
+<li><p>To obtain numerical values of VaR or TVaR:</p>
+<ul>
+<li><p>estimate from the data directly;</p></li>
+<li><p>or use distributional formulas, and plug in parameter estimates.</p></li>
+</ul></li>
+<li><p>When estimating VaR directly from the data:</p>
+<ul>
+<li><p>use R to get quantile from the empirical distribution;</p></li>
+<li><p>R has 9 ways to estimate a VaR at level <span class="math inline">\(p\)</span> from a sample of size <span class="math inline">\(n\)</span>, differing in the way the interpolation between order statistics close to <span class="math inline">\(np\)</span> .</p></li>
+</ul></li>
+<li><p>When estimating TVaR directly from the data:</p>
+<ul>
+<li>take average of all observations that exceed the threshold (i.e.<span class="math inline">\(\pi_p\)</span>);</li>
+</ul></li>
+<li><p><strong>Caution:</strong> we need a large number of observations (and a large number of observations <span class="math inline">\(&gt; \pi_p\)</span>) in order to get reliable estimates.</p></li>
+<li><p>When not may observations in excess of the threshold are available:</p>
+<ul>
+<li><p>construct a loss model;</p></li>
+<li><p>calculate values of VaR and TVaR directly from the fitted distribution.</p></li>
+</ul></li>
+<li><p>For example <span class="math display">\[\begin{aligned}
+  \text{TVaR}_p(X) &amp;= E(X|X&gt;\pi_p) \\
+&amp;= \pi_p + \frac{\int_{\pi_p}^{\infty} (x-\pi_p) f(x) dx}{1-p} \\
+&amp;= \pi_p + \frac{\int_{-\infty}^{\infty} (x-\pi_p) f(x) dx -\int_{-\infty}^{\pi_p} (x-\pi_p) f(x) dx }{1-p} \\
+&amp;= \pi_p + \frac{E(X)-\int_{-\infty}^{\pi_p} xf(x) dx -\pi_p (1-F(\pi_p))}{1-p} \\
+&amp;= \pi_p + \frac{E(X) - E[\min{(X,\pi_p)}]}{1-p} = \pi_p + \frac{E(X)-E(X \wedge \pi_p)}{1-p},\end{aligned}\]</span> see Appendix A for those expressions.</p></li>
+</ul>
+</div>
+</div>
+<div id="reinsurance-1" class="section level2">
+<h2><span class="header-section-number">10.3</span> Reinsurance</h2>
+<p>Recall that <em>reinsurance</em> is simply insurance purchased by an insurer. Insurance purchased by non-insurers is sometimes known as <em>primary</em> insurance to distinguish it from reinsurance. Reinsurance differs from personal insurance purchased by individuals, such as auto and homeowners insurance, in contract flexibility. Like insurance purchased by major corporations, reinsurance programs are generally tailored more closely to the buyer. For contrast, in personal insurance buyers typically cannot negotiate on the contract terms although they may have a variety of different options (contracts) from which to choose.</p>
+<p>The two broad types are <em>proportional</em> and <em>non-proportional</em> reinsurance. A proportional reinsurance contract is an agreement between a reinsurer and a <em>ceding</em> company (also known as the <em>reinsured</em>) in which the reinsurer assumes a given percent of losses and premium. A reinsurance contract is also known as a <em>treaty</em>. Non-proportional agreements are simply everything else. As examples of non-proportional agreements, this chapter focuses on <em>stop-loss</em> and <em>excess of loss</em> contracts. For all types of agreements, we split the total risk <span class="math inline">\(S\)</span> into the portion taken on by the reinsurer, <span class="math inline">\(Y_{reinsurer}\)</span>, and that retained by the insurer, <span class="math inline">\(Y_{insurer}\)</span>, that is, <span class="math inline">\(S= Y_{insurer}+Y_{reinsurer}\)</span>.</p>
+<p>The mathematical structure of a basic reinsurance treaty is the same as the coverage modifications of personal insurance introduced in Chapter 3. For a proportional reinsurance, the transformation <span class="math inline">\(Y_{insurer} = c S\)</span> is identical to a coinsurance adjustment in personal insurance. For stop-loss reinsurance, the transformation <span class="math inline">\(Y_{reinsurer} = \max(0,S-M)\)</span> is the same as an insurer’s payment with a deductible <span class="math inline">\(M\)</span> and <span class="math inline">\(Y_{insurer} = \min(S,M) = S \wedge M\)</span> is equivalent to what a policyholder pays with deductible <span class="math inline">\(M\)</span>. For practical applications of the mathematics, in personal insurance the focus is generally upon the expectation as this is a key ingredient used in pricing. In constrast, for reinsurance the focus is on the entire distribution of the risk, as the extreme events are a primary concern of the financial stability of the insurer and reinsurer.</p>
+<p>This chapter describes the foundational and most basic of reinsurance treaties: Section 10.1 for proportional and Section 10.2 for non-proportional. Section 10.3 gives a flavor of more complex contracts.</p>
+<div id="proportional-reinsurance" class="section level3">
+<h3><span class="header-section-number">10.3.1</span> Proportional Reinsurance</h3>
+<p>The simplest example of a proportional treaty is called <em>quota share</em>.</p>
+<ul>
+<li><p>In a quota share treaty, the reinsurer receives a flat percent, say 50%, of the premium for the book of business reinsured.</p></li>
+<li><p>In exchange, the reinsurer pays 50% of losses, including allocated loss adjustment expenses</p></li>
+<li><p>The reinsurer also pays the ceding company a ceding commission which is designed to reflect the differences in underwriting expenses incurred.</p></li>
+</ul>
+<p>The amounts paid by the direct insurer and the reinsurer are summarized as</p>
+<p><span class="math display">\[
+Y_{insurer} = c S \ \ \text{and} \ \ \ Y_{reinsurer} = (1-c) S.
+\]</span></p>
+<p>Note that <span class="math inline">\(Y_{insurer}+Y_{reinsurer}=S\)</span>.</p>
+<p><strong>Example. Distribution of Losses under Quota Share</strong></p>
+<p>To develop intuition for the effect of quota-share agreement on the distribution of losses, the following is a short <code>R</code> demonstration using simulation. Note the relative shapes of the distributions of total losses, the retained portion (of the insurer), and the reinsurer’s portion.</p>
+<p><img src="LossDataAnalytics_files/figure-html/unnamed-chunk-9-1.png" width="960" style="display: block; margin: auto;" /></p>
+<h6 style="text-align: center;">
+<a id="displayQuotaShare" href="javascript:togglecode('toggleQuotaShare','displayQuotaShare');"><i><strong>Click Here to see the R Code</strong></i></a>
+</h6>
+<div id="toggleQuotaShare" style="display: none">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">2018</span>)
+theta =<span class="st"> </span><span class="dv">1000</span>
+alpha =<span class="st"> </span><span class="dv">3</span>
+nSim =<span class="st"> </span><span class="dv">10000</span>
+<span class="kw">library</span>(actuar)
+S &lt;-<span class="st">  </span><span class="kw">rpareto</span>(nSim, <span class="dt">shape =</span> alpha, <span class="dt">scale =</span> theta)
+
+<span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>))
+<span class="kw">plot</span>(<span class="kw">density</span>(S), <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">3</span><span class="op">*</span>theta), <span class="dt">main=</span><span class="st">&quot;Total Loss&quot;</span>, <span class="dt">xlab=</span><span class="st">&quot;Losses&quot;</span>)
+<span class="kw">plot</span>(<span class="kw">density</span>(<span class="fl">0.75</span><span class="op">*</span>S), <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">3</span><span class="op">*</span>theta), <span class="dt">main=</span><span class="st">&quot;Insurer (75%)&quot;</span>, <span class="dt">xlab=</span><span class="st">&quot;Losses&quot;</span>)
+<span class="kw">plot</span>(<span class="kw">density</span>(<span class="fl">0.25</span><span class="op">*</span>S), <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">3</span><span class="op">*</span>theta), <span class="dt">main=</span><span class="st">&quot;Reinsurer (25%)&quot;</span>, <span class="dt">xlab=</span><span class="st">&quot;Losses&quot;</span>)</code></pre></div>
+</div>
+<div id="quota-share-is-desirable-for-reinsurers" class="section level4">
+<h4><span class="header-section-number">10.3.1.1</span> Quota Share is Desirable for Reinsurers</h4>
+<p>The quota share contract is particularly desirable for the reinsurer. To see this, suppose that an insurer and reinsurer wish to enter a contract to share total losses <span class="math inline">\(S\)</span> such that <span class="math display">\[Y_{insurer}=g(S) \ \ \ \text{and} \ \ \ \ Y_{reinsurer}=S-g(S),\]</span> for some generic function <span class="math inline">\(g(\cdot)\)</span> (known as the <em>retention</em> function). Suppose further that the insurer only cares about the variability of retained claims and is indifferent to the choice of <span class="math inline">\(g\)</span> as long as <span class="math inline">\(Var~Y_{insurer}\)</span> stays the same and equals, say, <span class="math inline">\(Q\)</span>. Then, the following result shows that the quota share reinsurance treaty minimizes the reinsurer’s uncertainty as measured by <span class="math inline">\(Var~Y_{reinsurer}\)</span>.</p>
+<p><strong>Proposition</strong>. Suppose that <span class="math inline">\(Var~Y_{insurer}=Q.\)</span> Then, <span class="math inline">\(Var ((1-c)S) \le Var(g(S))\)</span> for all <span class="math inline">\(g(.)\)</span>.</p>
+<h6 style="text-align: center;">
+<a id="displayProof" href="javascript:togglecode('toggleProof','displayProof');"><i><strong>Click Here to see the Justification of the Proposition</strong></i></a>
+</h6>
+<div id="toggleProof" style="display: none">
+<strong>Proof of the Proposition</strong>. With <span class="math inline">\(Y_{reinsurer} = S - Y_{insurer}\)</span> and the law of total variation <span class="math display">\[
+\begin{array}{ll}
+Var (Y_{reinsurer}) &amp;= Var (S-Y_{insurer}) \\
+&amp;= Var (S) + Var (Y_{insurer})  - 2 Cov (S,Y_{insurer}) \\
+&amp;=Var (S) + Q - 2 Corr (S,Y_{insurer}) \times \sqrt{Q} \sqrt{Var (S)}
+\end{array}
+\]</span> In this expression, we see that <span class="math inline">\(Q\)</span> and <span class="math inline">\(Var(S)\)</span> do not change with the choice of <span class="math inline">\(g\)</span>. Thus, we can minimize <span class="math inline">\(Var (Y_{reinsurer})\)</span> by maximizing the correlation <span class="math inline">\(Corr (S,Y_{insurer})\)</span>. If we use a quota share reinsurance agreement, then <span class="math inline">\(Corr (S,Y_{insurer})=Corr (S,(1-c)S)=1\)</span>, the maximum possible correlation. This establishes the proposition.
+<p style="text-align:right;">
+<span class="math inline">\(\Box\)</span>`
+</p>
+</div>
+<p>The proposition is intuitively appealing - with quota share insurance, the reinsurer shares the responsibility for very large claims in the tail of the distribution. This is in contrast to non-proportional agreements where reinsurers take responsibility for the very large claims.</p>
+</div>
+<div id="optimizing-quota-share-agreements-for-insurers" class="section level4">
+<h4><span class="header-section-number">10.3.1.2</span> Optimizing Quota Share Agreements for Insurers</h4>
+<p>Now assume <span class="math inline">\(n\)</span> risks in the porfolio, <span class="math inline">\(X_1, \ldots, X_n,\)</span> so that the portfolio sum is <span class="math inline">\(S= X_1 + \cdots + X_n\)</span>. For simplicity, we focus on the case of independent risks. Let us consider a variation of the basic quota share agreement where the amount retained by the insurer may vary with each risk, say <span class="math inline">\(c_i\)</span>. Thus, the insurer’s portion of the portfolio risk is <span class="math inline">\(Y_{insurer} = \sum_{i=1}^n c_i X_i\)</span>. What is the best choice of the proportions <span class="math inline">\(c_i\)</span>?</p>
+<p>To formalize this question, we seek to find those values of <span class="math inline">\(c_i\)</span> that minimize <span class="math inline">\(Var ~Y_{insurer}\)</span> subject to the constraint that <span class="math inline">\(E ~Y_{insurer} = K.\)</span> The requirement that <span class="math inline">\(E ~Y_{insurer} = K\)</span> suggests that the insurers wishes to retain a revenue in at least the amount of the constant <span class="math inline">\(K\)</span>. Subject to this revenue constraint, the insurer wishes to minimize uncertainty of the retained risks as measured by the variance.</p>
+<h6 style="text-align: center;">
+<a id="displayDerivationProof" href="javascript:togglecode('toggleDerivationProof','displayDerivationProof');"><i><strong>Click Here to see the Optimal Retention Proportions</strong></i></a>
+</h6>
+<div id="toggleDerivationProof" style="display: none">
+<p><strong>The Optimal Retention Proportions</strong></p>
+<p>Minimizing <span class="math inline">\(Var ~Y_{insurer}\)</span> subject to <span class="math inline">\(E ~Y_{insurer} = K\)</span> is a constrained optimization problem - we can use the method of Lagrange multipliers, a calculus technique, to solve this. To this end, define the Lagrangian <span class="math display">\[
+\begin{array}{ll}
+L &amp;= Var (Y_{insurer}) - \lambda (E ~Y_{insurer} - K) \\
+&amp;= \sum_{i=1}^n c_i^2 ~Var ~X_i - \lambda (\sum_{i=1}^n c_i ~E ~X_i - K) 
+\end{array}
+\]</span> Taking a partial derivative with respect to <span class="math inline">\(\lambda\)</span> and setting this equal simply means that the constraint, <span class="math inline">\(E ~Y_{insurer} = K\)</span>, is enforced and we have to choose the proportions <span class="math inline">\(c_i\)</span> to satisfy this constraint. Moreover, taking the partial derivative with respect to each proportion <span class="math inline">\(c_i\)</span> yields <span class="math display">\[
+\frac{\partial}{\partial c_i} L = 2 c_i ~Var~ X_i - \lambda ~E ~X_i = 0 
+\]</span></p>
+<p>so that</p>
+<p><span class="math display">\[
+c_i  =  \frac{\lambda}{2} \frac{E ~X_i}{Var ~X_i} .
+\]</span></p>
+</div>
+<p>From the math, it turns out that the constant for the <span class="math inline">\(i\)</span>th risk, <span class="math inline">\(c_i\)</span> is proportional to <span class="math inline">\(\frac{E ~X_i}{Var ~X_i}\)</span>. This is intuitively appealing. Other things being equal, a higher revenue as measured by <span class="math inline">\(E ~X_i\)</span> means a higher value of <span class="math inline">\(c_i\)</span>. In the same way, a higher value of uncertainty as measured by <span class="math inline">\(Var ~X_i\)</span> means a lower value of <span class="math inline">\(c_i\)</span>. The proportional scaling factor is determined by the revenue requirement <span class="math inline">\(E ~Y_{insurer} = K\)</span>.</p>
+<p>The following example helps to develop a feel for this relationship.</p>
+<h6 style="text-align: center;">
+<a id="displayParetoRisksProp" href="javascript:togglecode('toggleParetoRisksProp','displayParetoRisksProp');"><i><strong>Click Here to see an Example with Three Pareto Risks</strong></i></a>
+</h6>
+<div id="toggleParetoRisksProp" style="display: none">
+<p><strong>Example</strong>. Consider three risks that have a Pareto distribution. The graph, and supporting code, give values of <span class="math inline">\(c_1\)</span>, <span class="math inline">\(c_2\)</span>, and <span class="math inline">\(c_3\)</span> for a required revenue <span class="math inline">\(K\)</span>. Note that these values increase linearly with <span class="math inline">\(K\)</span>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">theta1 =<span class="st"> </span><span class="dv">1000</span>;theta2 =<span class="st"> </span><span class="dv">2000</span>;theta3 =<span class="st"> </span><span class="dv">3000</span>;
+alpha1 =<span class="st"> </span><span class="dv">3</span>;alpha2 =<span class="st"> </span><span class="dv">3</span>;alpha3 =<span class="st"> </span><span class="dv">4</span>;
+<span class="kw">library</span>(actuar)
+propnfct &lt;-<span class="st"> </span><span class="cf">function</span>(alpha,theta){
+  mu    &lt;-<span class="st"> </span><span class="kw">mpareto</span>(<span class="dt">shape=</span>alpha, <span class="dt">scale=</span>theta, <span class="dt">order=</span><span class="dv">1</span>)
+  var   &lt;-<span class="st"> </span><span class="kw">mpareto</span>(<span class="dt">shape=</span>alpha, <span class="dt">scale=</span>theta, <span class="dt">order=</span><span class="dv">2</span>) <span class="op">-</span><span class="st"> </span>mu<span class="op">^</span><span class="dv">2</span>
+  ratio &lt;-<span class="st"> </span>mu<span class="op">/</span>var
+  ratio
+}
+c1 &lt;-<span class="st"> </span><span class="kw">propnfct</span>(alpha1, theta1)
+c2 &lt;-<span class="st"> </span><span class="kw">propnfct</span>(alpha2, theta2)
+c3 &lt;-<span class="st"> </span><span class="kw">propnfct</span>(alpha3, theta3)
+summeans =<span class="st"> </span><span class="kw">mpareto</span>(<span class="dt">shape=</span>alpha1, <span class="dt">scale=</span>theta1, <span class="dt">order=</span><span class="dv">1</span>)<span class="op">+</span>
+<span class="st">           </span><span class="kw">mpareto</span>(<span class="dt">shape=</span>alpha2, <span class="dt">scale=</span>theta2, <span class="dt">order=</span><span class="dv">1</span>)<span class="op">+</span>
+<span class="st">           </span><span class="kw">mpareto</span>(<span class="dt">shape=</span>alpha3, <span class="dt">scale=</span>theta3, <span class="dt">order=</span><span class="dv">1</span>)  
+temp =<span class="st"> </span>c1<span class="op">*</span><span class="kw">mpareto</span>(<span class="dt">shape=</span>alpha1, <span class="dt">scale=</span>theta1, <span class="dt">order=</span><span class="dv">1</span>)<span class="op">+</span>
+<span class="st">       </span>c2<span class="op">*</span><span class="kw">mpareto</span>(<span class="dt">shape=</span>alpha2, <span class="dt">scale=</span>theta2, <span class="dt">order=</span><span class="dv">1</span>)<span class="op">+</span>
+<span class="st">       </span>c3<span class="op">*</span><span class="kw">mpareto</span>(<span class="dt">shape=</span>alpha3, <span class="dt">scale=</span>theta3, <span class="dt">order=</span><span class="dv">1</span>)  
+KVec =<span class="st"> </span><span class="kw">seq</span>(<span class="dv">100</span>,summeans,<span class="dt">length.out=</span><span class="dv">20</span>)
+c1Vec &lt;-<span class="st"> </span>c2Vec &lt;-c3Vec &lt;-<span class="st"> </span><span class="dv">0</span><span class="op">*</span>KVec 
+<span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">20</span>) {
+  c1Vec[j] =<span class="st"> </span>c1 <span class="op">*</span><span class="st"> </span>KVec[j]<span class="op">/</span>temp
+  c2Vec[j] =<span class="st"> </span>c2 <span class="op">*</span><span class="st"> </span>KVec[j]<span class="op">/</span>temp
+  c3Vec[j] =<span class="st"> </span>c3 <span class="op">*</span><span class="st"> </span>KVec[j]<span class="op">/</span>temp
+  }
+<span class="kw">plot</span>(KVec,c1Vec, <span class="dt">type=</span><span class="st">&quot;l&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;proportion&quot;</span>, <span class="dt">xlab=</span><span class="st">&quot;required revenue&quot;</span>, <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))
+<span class="kw">lines</span>(KVec,c2Vec)
+<span class="kw">lines</span>(KVec,c3Vec)
+<span class="kw">text</span>(<span class="dv">1200</span>,.<span class="dv">8</span>,<span class="kw">expression</span>(c[<span class="dv">1</span>]))
+<span class="kw">text</span>(<span class="dv">2000</span>,.<span class="dv">75</span>,<span class="kw">expression</span>(c[<span class="dv">2</span>]))
+<span class="kw">text</span>(<span class="dv">1500</span>,.<span class="dv">3</span>,<span class="kw">expression</span>(c[<span class="dv">3</span>]))</code></pre></div>
+<p><img src="LossDataAnalytics_files/figure-html/unnamed-chunk-11-1.png" width="768" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+</div>
+<div id="non-proportional-reinsurance" class="section level3">
+<h3><span class="header-section-number">10.3.2</span> Non-Proportional Reinsurance</h3>
+<div id="the-optimality-of-stop-loss-insurance" class="section level4">
+<h4><span class="header-section-number">10.3.2.1</span> The Optimality of Stop Loss Insurance</h4>
+<p>Under this arrangement, the insurer sets a retention level <span class="math inline">\(M (&gt;0)\)</span> and pays in full total claims for which <span class="math inline">\(S \le M\)</span>. Thus, the insurer retains an amount <span class="math inline">\(M\)</span> of the risk. Further, for claims for which <span class="math inline">\(S &gt; M\)</span>, the direct insurer pays <span class="math inline">\(M\)</span> and the reinsurer pays the remaining amount <span class="math inline">\(S-M\)</span>. Summarizing, the amounts paid by the direct insurer and the reinsurer are</p>
+<p><span class="math display">\[
+Y_{insurer} =
+\begin{cases}
+S &amp; \text{for } S \le M\\
+M &amp; \text{for } S &gt;M \\
+\end{cases} \ \ \ \ = \min(S,M) = S \wedge M
+\]</span></p>
+<p>and</p>
+<p><span class="math display">\[
+Y_{reinsurer} =
+\begin{cases}
+0 &amp; \text{for } S \le M\\
+S- M &amp;  \text{for } S &gt;M \\
+\end{cases} \ \ \ \  = \max(0,S-M) .
+\]</span></p>
+<p>As before, note that <span class="math inline">\(Y_{insurer}+Y_{reinsurer}=S\)</span>.</p>
+<p>The stop loss type of contract is particularly desirable for the insurer. Similar to earlier, suppose that an insurer and reinsurer wish to enter a contract so that <span class="math inline">\(Y_{insurer}=g(S)\)</span> and <span class="math inline">\(Y_{reinsurer}=S-g(S)\)</span> for some generic retention function <span class="math inline">\(g(\cdot)\)</span>. Suppose further that the insurer only cares about the variability of retained claims and is indifferent to the choice of <span class="math inline">\(g\)</span> as long as <span class="math inline">\(Var~Y_{insurer}\)</span> can be minimized. Again, we impose the constraint that <span class="math inline">\(E ~Y_{insurer} = K\)</span>; the insurer needs to retain a revenue <span class="math inline">\(K\)</span>. Subject to this revenue constraint, the insurer wishes to minimize uncertainty of the retained risks (as measured by the variance). Then, the following result shows that the stop loss reinsurance treaty minimizes the reinsurer’s uncertainty as measured by <span class="math inline">\(Var~Y_{reinsurer}\)</span>.</p>
+<p><strong>Proposition</strong>. Suppose that <span class="math inline">\(E~Y_{insurer}=K.\)</span> Then, <span class="math inline">\(Var (S \wedge M) \le Var(g(S))\)</span> for all <span class="math inline">\(g(.)\)</span>.</p>
+<h6 style="text-align: center;">
+<a id="displayProofStopLoss" href="javascript:togglecode('toggleProofStopLoss','displayProofStopLoss');"><i><strong>Click Here to see the Justification of the Proposition</strong></i></a>
+</h6>
+<div id="toggleProofStopLoss" style="display: none">
+<p><strong>Proof of the Proposition</strong>. Add and subtract a constant <span class="math inline">\(M\)</span> and expand the square to get <span class="math display">\[
+\begin{array}{ll}
+Var~ g(S) &amp;= E (g(S) - K)^2 = E (g(S) -M +M- K)^2 \\
+&amp;= E (g(S) -M)^2 +  (M- K)^2 +2 E (g(S) -M)(M- K) \\
+&amp;= E (g(S) -M)^2 -  (M- K)^2 ,
+\end{array}
+\]</span> because <span class="math inline">\(E ~g(S)= K.\)</span></p>
+<p>Now, for any retention function, we have <span class="math inline">\(g(S) \le S\)</span>, that is, the insurer’s retained claims are less than or equal to total claims. Using the notation <span class="math inline">\(g_{SL}(S) = S \wedge M\)</span> for stop loss insurance, we have</p>
+<p><span class="math display">\[
+\begin{array}{ll}
+M- g_{SL}(S) &amp;= M-(S \wedge M) \\
+&amp;= (M-S) \wedge 0 \\
+&amp;\le (M-g(S)) \wedge 0 .
+\end{array}
+\]</span> Squaring each side yields <span class="math display">\[(M- g_{SL}(S))^2 \le (M-g(S))^2 \wedge 0 \le (M-g(S))^2.\]</span></p>
+Returning to our expression for the variance, we have <span class="math display">\[
+\begin{array}{ll}
+Var~ g_{SL}(S) &amp;= E (g_{SL}(S) -M)^2 -  (M- K)^2 \\
+&amp;\le E (g_{SL}(S) -M)^2 -  (M- K)^2 = Var~ g(S) ,
+\end{array}
+\]</span> for any retention function <span class="math inline">\(g\)</span>. This establishes the proposition.
+<p style="text-align:right;">
+<span class="math inline">\(\Box\)</span>`
+</p>
+</div>
+<p>The proposition is intuitively appealing - with stop loss insurance, the reinsurer takes the responsibility for very large claims in the tail of the distribution, not the insurer.</p>
+</div>
+<div id="excess-of-loss" class="section level4">
+<h4><span class="header-section-number">10.3.2.2</span> Excess of Loss</h4>
+<p>A closely related form of non-proportional reinsurance is the <em>excess of loss</em> coverage. Under this contract, we assume that the total risk <span class="math inline">\(S\)</span> can be thought of as composed as <span class="math inline">\(n\)</span> separate risks <span class="math inline">\(X_1, \ldots, X_n\)</span> and that each of these risks are subject to upper limit, say, <span class="math inline">\(M_i\)</span>. So the insurer retains</p>
+<p><span class="math display">\[
+Y_{i,insurer} = X_i \wedge M_i \ \ \ \ Y_{insurer} = \sum_{i=1}^n Y_{i,insurer}
+\]</span> and the reinsurer is responsible for the excess, <span class="math inline">\(Y_{reinsurer}=S - Y_{insurer}\)</span>. The retention limits may vary by risk or may be the same for all risks, <span class="math inline">\(M_i =M\)</span>, for all <span class="math inline">\(i\)</span>.</p>
+</div>
+<div id="optimal-choice-for-excess-of-loss-retention-limits" class="section level4">
+<h4><span class="header-section-number">10.3.2.3</span> Optimal Choice for Excess of Loss Retention Limits</h4>
+<p>What is the best choice of the excess of loss retention limits <span class="math inline">\(M_i\)</span>? To formalize this question, we seek to find those values of <span class="math inline">\(M_i\)</span> that minimize <span class="math inline">\(Var ~Y_{insurer}\)</span> subject to the constraint that <span class="math inline">\(E ~Y_{insurer} = K.\)</span> Subject to this revenue constraint, the insurer wishes to minimize uncertainty of the retained risks (as measured by the variance).</p>
+<h6 style="text-align: center;">
+<a id="displayDerivationProofExcess" href="javascript:togglecode('toggleDerivationProofExcess','displayDerivationProofExcess');"><i><strong>Click Here to see the Optimal Retention Proportions</strong></i></a>
+</h6>
+<div id="toggleDerivationProofExcess" style="display: none">
+<p><strong>The Optimal Retention Limits</strong></p>
+<p>Minimizing <span class="math inline">\(Var ~Y_{insurer}\)</span> subject to <span class="math inline">\(E ~Y_{insurer} = K\)</span> is a constrained optimization problem - we can use the method of Lagrange multipliers, a calculus technique, to solve this. As before, define the Lagrangian <span class="math display">\[
+\begin{array}{ll}
+L &amp;= Var (Y_{insurer}) - \lambda (E ~Y_{insurer} - K) \\
+&amp;= \sum_{i=1}^n ~Var (X_i \wedge M_i) - \lambda (\sum_{i=1}^n ~E(X_i \wedge M_i)- K) 
+\end{array}
+\]</span></p>
+<p>We first recall the relationships</p>
+<p><span class="math display">\[
+E~S \wedge M = \int_0^M ~(1- F(S))dx
+\]</span> and</p>
+<p><span class="math display">\[
+E~(S \wedge M)^2 = 2\int_0^M ~x(1- F(x))dx
+\]</span></p>
+<p>Taking a partial derivative with respect to <span class="math inline">\(\lambda\)</span> and setting this equal simply means that the constraint, <span class="math inline">\(E ~Y_{insurer} = K\)</span>, is enforced and we have to choose the limits <span class="math inline">\(M_i\)</span> to satisfy this constraint. Moreover, taking the partial derivative with respect to each limit <span class="math inline">\(M_i\)</span> yields</p>
+<p><span class="math display">\[
+\begin{array}{ll}
+\frac{\partial}{\partial M_i} L 
+&amp;= \frac{\partial}{\partial M_i}  ~Var~ (X_i \wedge M_i)  - \lambda \frac{\partial}{\partial M_i} ~E ~(X_i \wedge M_i) \\
+&amp;= \frac{\partial}{\partial M_i} \left(E~ (X_i \wedge M_i)^2 -(E ~(X_i \wedge M_i))^2\right) - \lambda (1-F_i(M_i)) \\
+&amp;= 2 M_i (1-F_i(M_i)) - 2 E ~(X_i \wedge M_i) (1-F_i(M_i))-
+\lambda (1-F_i(M_i)).
+\end{array}
+\]</span></p>
+<p>Setting <span class="math inline">\(\frac{\partial}{\partial M_i} L =0\)</span> and solving for <span class="math inline">\(\lambda\)</span>, we get</p>
+<p><span class="math display">\[
+\lambda = 2 (M_i - E ~(X_i \wedge M_i)) .
+\]</span></p>
+</div>
+<p>From the math, it turns out that the retention limit less the expected insurer’s claims, <span class="math inline">\(M_i - E ~(X_i \wedge M_i)\)</span>, is the same for <em>all</em> risks. This is intuitively appealing, ….</p>
+<h6 style="text-align: center;">
+<a id="displayParetoRisksExcess" href="javascript:togglecode('toggleParetoRisksExcess','displayParetoRisksExcess');"><i><strong>Click Here to see an Example with Three Pareto Risks</strong></i></a>
+</h6>
+<div id="toggleParetoRisksExcess" style="display: none">
+<p><strong>Example</strong>. Consider three risks that have a Pareto distribution, each having a different set of parameters (so they are independent but non-identical). We first optimize the Lagrangian using the <code>R</code> package <code>alabama</code> for <em>Augmented Lagrangian Adaptive Barrier Minimization Algorithm</em>. Then, we show that the optimal retention limits <span class="math inline">\(M_1\)</span>, <span class="math inline">\(M_2\)</span>, and <span class="math inline">\(M_3\)</span> resulting retention limit minus expected insurer’s claims, <span class="math inline">\(M_i - E ~(X_i \wedge M_i)\)</span>, is the same for all risks, as we derived theoretically. Finally, we graphically compare the distribution of total risks to that retained by the insurer and by the reinsurer.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">theta1 =<span class="st"> </span><span class="dv">1000</span>;theta2 =<span class="st"> </span><span class="dv">2000</span>;theta3 =<span class="st"> </span><span class="dv">3000</span>;
+alpha1 =<span class="st"> </span><span class="dv">3</span>;   alpha2 =<span class="st"> </span><span class="dv">3</span>;   alpha3 =<span class="st"> </span><span class="dv">4</span>;
+Pmin &lt;-<span class="st"> </span><span class="dv">2000</span>
+<span class="kw">library</span>(actuar)
+VarFct &lt;-<span class="st"> </span><span class="cf">function</span>(M){
+  M1=M[<span class="dv">1</span>];M2=M[<span class="dv">2</span>];M3=M[<span class="dv">3</span>]
+  mu1    &lt;-<span class="st"> </span><span class="kw">levpareto</span>(<span class="dt">limit=</span>M1,<span class="dt">shape=</span>alpha1, <span class="dt">scale=</span>theta1, <span class="dt">order=</span><span class="dv">1</span>)
+  var1   &lt;-<span class="st"> </span><span class="kw">levpareto</span>(<span class="dt">limit=</span>M1,<span class="dt">shape=</span>alpha1, <span class="dt">scale=</span>theta1, <span class="dt">order=</span><span class="dv">2</span>)<span class="op">-</span>mu1<span class="op">^</span><span class="dv">2</span>
+  mu2    &lt;-<span class="st"> </span><span class="kw">levpareto</span>(<span class="dt">limit=</span>M2,<span class="dt">shape=</span>alpha2, <span class="dt">scale=</span>theta2, <span class="dt">order=</span><span class="dv">1</span>)
+  var2   &lt;-<span class="st"> </span><span class="kw">levpareto</span>(<span class="dt">limit=</span>M2,<span class="dt">shape=</span>alpha2, <span class="dt">scale=</span>theta2, <span class="dt">order=</span><span class="dv">2</span>)<span class="op">-</span>mu2<span class="op">^</span><span class="dv">2</span>
+  mu3    &lt;-<span class="st"> </span><span class="kw">levpareto</span>(<span class="dt">limit=</span>M3,<span class="dt">shape=</span>alpha3, <span class="dt">scale=</span>theta3, <span class="dt">order=</span><span class="dv">1</span>)
+  var3   &lt;-<span class="st"> </span><span class="kw">levpareto</span>(<span class="dt">limit=</span>M3,<span class="dt">shape=</span>alpha3, <span class="dt">scale=</span>theta3, <span class="dt">order=</span><span class="dv">2</span>)<span class="op">-</span>mu3<span class="op">^</span><span class="dv">2</span>
+  varFct &lt;-<span class="st"> </span>var1 <span class="op">+</span>var2<span class="op">+</span>var3
+  meanFct &lt;-<span class="st"> </span>mu1<span class="op">+</span>mu2<span class="op">+</span>mu3
+  <span class="kw">c</span>(meanFct,varFct)
+  }
+f &lt;-<span class="st"> </span><span class="cf">function</span>(M){<span class="kw">VarFct</span>(M)[<span class="dv">2</span>]}
+h &lt;-<span class="st"> </span><span class="cf">function</span>(M){<span class="kw">VarFct</span>(M)[<span class="dv">1</span>] <span class="op">-</span><span class="st"> </span>Pmin}
+<span class="kw">library</span>(alabama)
+par0=<span class="kw">rep</span>(<span class="dv">1000</span>,<span class="dv">3</span>)
+op &lt;-<span class="st"> </span><span class="kw">auglag</span>(<span class="dt">par=</span>par0,<span class="dt">fn=</span>f,<span class="dt">hin=</span>h,<span class="dt">control.outer=</span><span class="kw">list</span>(<span class="dt">trace=</span><span class="ot">FALSE</span>))
+M1star =<span class="st"> </span>op<span class="op">$</span>par[<span class="dv">1</span>];M2star =<span class="st"> </span>op<span class="op">$</span>par[<span class="dv">2</span>];M3star =<span class="st"> </span>op<span class="op">$</span>par[<span class="dv">3</span>]
+M1star <span class="op">-</span><span class="kw">levpareto</span>(M1star,<span class="dt">shape=</span>alpha1, <span class="dt">scale=</span>theta1,<span class="dt">order=</span><span class="dv">1</span>)</code></pre></div>
+<pre><code>[1] 1344.135</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">M2star <span class="op">-</span><span class="kw">levpareto</span>(M2star,<span class="dt">shape=</span>alpha2, <span class="dt">scale=</span>theta2,<span class="dt">order=</span><span class="dv">1</span>)</code></pre></div>
+<pre><code>[1] 1344.133</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">M3star <span class="op">-</span><span class="kw">levpareto</span>(M3star,<span class="dt">shape=</span>alpha3, <span class="dt">scale=</span>theta3,<span class="dt">order=</span><span class="dv">1</span>)</code></pre></div>
+<pre><code>[1] 1344.133</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">2018</span>)
+nSim =<span class="st"> </span><span class="dv">10000</span>
+<span class="kw">library</span>(actuar)
+Y1 &lt;-<span class="st"> </span><span class="kw">rpareto</span>(nSim, <span class="dt">shape =</span> alpha1, <span class="dt">scale =</span> theta1)
+Y2 &lt;-<span class="st"> </span><span class="kw">rpareto</span>(nSim, <span class="dt">shape =</span> alpha2, <span class="dt">scale =</span> theta2)
+Y3 &lt;-<span class="st"> </span><span class="kw">rpareto</span>(nSim, <span class="dt">shape =</span> alpha3, <span class="dt">scale =</span> theta3)
+YTotal &lt;-<span class="st"> </span>Y1 <span class="op">+</span><span class="st"> </span>Y2 <span class="op">+</span><span class="st"> </span>Y3
+Yinsur &lt;-<span class="st">  </span><span class="kw">pmin</span>(Y1,M1star)<span class="op">+</span><span class="kw">pmin</span>(Y2,M2star)<span class="op">+</span><span class="kw">pmin</span>(Y3,M3star)
+Yreinsur &lt;-<span class="st"> </span>YTotal <span class="op">-</span><span class="st"> </span>Yinsur
+
+<span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>))
+<span class="kw">plot</span>(<span class="kw">density</span>(YTotal),   <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">10000</span>), <span class="dt">main=</span><span class="st">&quot;Total Loss&quot;</span>, <span class="dt">xlab=</span><span class="st">&quot;Losses&quot;</span>)
+<span class="kw">plot</span>(<span class="kw">density</span>(Yinsur),   <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">10000</span>), <span class="dt">main=</span><span class="st">&quot;Insurer&quot;</span>,    <span class="dt">xlab=</span><span class="st">&quot;Losses&quot;</span>)
+<span class="kw">plot</span>(<span class="kw">density</span>(Yreinsur), <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">10000</span>), <span class="dt">main=</span><span class="st">&quot;Reinsurer&quot;</span>,  <span class="dt">xlab=</span><span class="st">&quot;Losses&quot;</span>)</code></pre></div>
+<p><img src="LossDataAnalytics_files/figure-html/unnamed-chunk-12-1.png" width="768" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+</div>
+<div id="additional-reinsurance-treaties" class="section level3">
+<h3><span class="header-section-number">10.3.3</span> Additional Reinsurance Treaties</h3>
+<div id="surplus-share-proportional-treaty" class="section level4">
+<h4><span class="header-section-number">10.3.3.1</span> Surplus Share Proportional Treaty</h4>
+<p>Another proportional treaty is known as <em>surplus share</em>; this type of contract is common in commercial property insurance.</p>
+<ul>
+<li><p>A surplus share treaty allows the reinsured to limit its exposure on any one risk to a given amount (the <em>retained line</em>).</p></li>
+<li><p>The reinsurer assumes a part of the risk in proportion to the amount that the insured value exceeds the retained line, up to a given limit (expressed as a multiple of the retained line, or number of lines).</p></li>
+<li><p>For example, let the retained line be $100,000 and let the given limit be 4 lines ($400,000). Then, if <span class="math inline">\(S\)</span> is the loss, the reinsurer’s portion is <span class="math inline">\(\min(400000, (S-100000)_+)\)</span>.</p></li>
+</ul>
+</div>
+<div id="layers-of-coverage" class="section level4">
+<h4><span class="header-section-number">10.3.3.2</span> Layers of Coverage</h4>
+<p>One can also extend non-proportional stop loss treaties by introducing additional parties to the contract. For example, instead of simply an insurer and reinsurer or an insurer and a policyholder, think about the situation with all three parties, a policyholder, insurer, and reinsurer, who agree on how to share a risk. More generally, we consider <span class="math inline">\(k\)</span> parties. If <span class="math inline">\(k=4\)</span>, it could be an insurer and three different reinsurers.</p>
+<p><strong>Example</strong></p>
+<ul>
+<li><p>Suppose that there are <span class="math inline">\(k=3\)</span> parties. The first party is responsible for the first 100 of claims, the second responsible for claims from 100 to 3000, and the third responsible for claims above 3000.</p></li>
+<li><p>If there are four claims in the amounts 50, 600, 1800 and 4000, then they would be allocated to the parties as follows:</p></li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Layer</th>
+<th align="center">Claim 1</th>
+<th align="center">Claim 2</th>
+<th align="center">Claim 3</th>
+<th align="center">Claim 4</th>
+<th align="left">Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">(0, 100]</td>
+<td align="center">50</td>
+<td align="center">100</td>
+<td align="center">100</td>
+<td align="center">100</td>
+<td align="left">350</td>
+</tr>
+<tr class="even">
+<td align="left">(100, 3000]</td>
+<td align="center">0</td>
+<td align="center">500</td>
+<td align="center">1700</td>
+<td align="center">2900</td>
+<td align="left">5100</td>
+</tr>
+<tr class="odd">
+<td align="left">(3000, <span class="math inline">\(\infty\)</span>)</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">1000</td>
+<td align="left">1000</td>
+</tr>
+<tr class="even">
+<td align="left">Total</td>
+<td align="center">50</td>
+<td align="center">600</td>
+<td align="center">1800</td>
+<td align="center">4000</td>
+<td align="left">6450</td>
+</tr>
+</tbody>
+</table>
+<p>To handle the general situation with <span class="math inline">\(k\)</span> groups, partition the positive real line into <span class="math inline">\(k\)</span> intervals using the cut-points <span class="math display">\[0 = M_0 &lt; M_1 &lt; \cdots &lt; M_{k-1} &lt; M_k = \infty.\]</span></p>
+<p>Note that the <span class="math inline">\(j\)</span>th interval is <span class="math inline">\((M_{j-1}, M_j]\)</span>. Now let <span class="math inline">\(Y_j\)</span> be the amount of risk shared by the <span class="math inline">\(j\)</span>th party. To illustrate, if a loss <span class="math inline">\(x\)</span> is such that <span class="math inline">\(M_{j-1} &lt;x \le M_j\)</span>, then <span class="math display">\[\left(\begin{array}{c}
+    Y_1\\ Y_2 \\ \vdots \\ Y_j \\Y_{j+1} \\ \vdots \\Y_k
+    \end{array}\right)
+    =\left(\begin{array}{c}
+    M_1-M_0 \\ M_2-M_1  \\ \vdots \\ x-M_{j-1}  \\ 0 \\ \vdots \\0
+    \end{array}\right)\]</span></p>
+<p>More succinctly, we can write <span class="math display">\[Y_j = \min(S,M_j) - \min(S,M_{j-1}) .\]</span></p>
+<p>With the expression <span class="math inline">\(Y_j = \min(S,M_j) - \min(S,M_{j-1})\)</span>, we see that the <span class="math inline">\(j\)</span>th party is responsible for claims in the interval <span class="math inline">\((M_{j-1}, M_j].\)</span> With this, it is easy to check that <span class="math inline">\(S = Y_1 + Y_2 + \cdots + Y_k.\)</span> As emphasized in the following example, we also remark that the parties need not be different.</p>
+<p><strong>Example</strong> - Suppose that a policyholder is responsible for the first 500 of claims and all claims in excess of 100,000. The insurer takes claims between 100 and 100,000.</p>
+<ul>
+<li><p>Then, we would use <span class="math inline">\(M_1 = 100\)</span>, <span class="math inline">\(M_2 =100000\)</span>.</p></li>
+<li><p>The policyholder is responsible for <span class="math inline">\(Y_1 =\min(S,100)\)</span> and <span class="math inline">\(Y_3 = S - \min(S,100000) = \max(0, S-100000)\)</span>.</p></li>
+</ul>
+<p>For additional reading, wee the Wisconsin Property Fund site for more info on layers of reinsurance, <a href="https://sites.google.com/a/wisc.edu/local-government-property-insurance-fund/home/reinsurance" class="uri">https://sites.google.com/a/wisc.edu/local-government-property-insurance-fund/home/reinsurance</a>.</p>
+</div>
+<div id="portfolio-management-example" class="section level4">
+<h4><span class="header-section-number">10.3.3.3</span> Portfolio Management Example</h4>
+<p>Many other variations of the foundational contracts are possible. For one more illustration, consider the following.</p>
+<p><strong>Example.</strong> You are the Chief Risk Officer of a telecommunications firm. Your firm has several property and liabililty risks; we will consider:</p>
+<ul>
+<li><p><span class="math inline">\(X_1\)</span> - buildings, modeled using a gamma distribution with mean 200 and scale parameter 100.</p></li>
+<li><p><span class="math inline">\(X_2\)</span> - motor vehicles, modeled using a gamma distribution with mean 400 and scale parameter 200.</p></li>
+<li><p><span class="math inline">\(X_3\)</span> - directors and executive officers risk, modeled using a Pareto distribution with mean 1000 and scale parameter 1000.</p></li>
+<li><p><span class="math inline">\(X_4\)</span> - cyber risks, modeled using a Pareto distribution with mean 1000 and scale parameter 2000.</p></li>
+</ul>
+<p>Denote the total risk as <span class="math display">\[S = X_1 + X_2 + X_3 + X_4 .\]</span></p>
+<p>For simplicity, you assume that these risks are independent.</p>
+<p>To manage the risk, you seek some insurance protection. You wish to manage internally small building and motor vehicles amounts, up to <span class="math inline">\(M_1\)</span> and <span class="math inline">\(M_2\)</span>, respectively. You seek insurance to cover all other risks. Specifically, the insurer’s portion is <span class="math display">\[ Y_{insurer} = (X_1 - M_1)_+ + (X_2 - M_2)_+ + X_3 + X_4 ,\]</span> so that your retained risk is <span class="math inline">\(Y_{retained}= S- Y_{insurer} = \min(X_1,M_1) + \min(X_2,M_2)\)</span>. Using deductibles <span class="math inline">\(M_1=\)</span> 100 and <span class="math inline">\(M_2=\)</span> 200:</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Determine the expected claim amount of (i) that retained, (ii) that accepted by the insurer, and (iii) the total overall amount.</p></li>
+<li><p>Determine the 80th, 90th, 95th, and 99th percentiles for (i) that retained, (ii) that accepted by the insurer, and (iii) the total overall amount.</p></li>
+<li><p>Compare the distributions by plotting the densities for (i) that retained, (ii) that accepted by the insurer, and (iii) the total overall amount.</p></li>
+</ol>
+<h6 style="text-align: center;">
+<a id="displayPortMgtExample" href="javascript:togglecode('togglePortMgtExample','displayPortMgtExample');"><i><strong>R Code for Example Solution</strong></i></a>
+</h6>
+<div id="togglePortMgtExample" style="display: none">
+<p>In preparation, here is the code needed to set the parameters.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># For the gamma distributions, use</span>
+alpha1 &lt;-<span class="st"> </span><span class="dv">2</span>;      theta1 &lt;-<span class="st"> </span><span class="dv">100</span>
+alpha2 &lt;-<span class="st"> </span><span class="dv">2</span>;      theta2 &lt;-<span class="st"> </span><span class="dv">200</span>
+<span class="co"># For the Pareto distributions, use</span>
+alpha3 &lt;-<span class="st"> </span><span class="dv">2</span>;      theta3 &lt;-<span class="st"> </span><span class="dv">1000</span>
+alpha4 &lt;-<span class="st"> </span><span class="dv">3</span>;      theta4 &lt;-<span class="st"> </span><span class="dv">2000</span>
+<span class="co"># Limits</span>
+M1     &lt;-<span class="st"> </span><span class="dv">100</span>
+M2     &lt;-<span class="st"> </span><span class="dv">200</span></code></pre></div>
+<p>With these parameters, we can now simulate realizations of the portfolio risks.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Simulate the risks</span>
+nSim &lt;-<span class="st"> </span><span class="dv">10000</span>  <span class="co">#number of simulations</span>
+<span class="kw">set.seed</span>(<span class="dv">2017</span>) <span class="co">#set seed to reproduce work </span>
+X1 &lt;-<span class="st"> </span><span class="kw">rgamma</span>(nSim,alpha1,<span class="dt">scale =</span> theta1)  
+X2 &lt;-<span class="st"> </span><span class="kw">rgamma</span>(nSim,alpha2,<span class="dt">scale =</span> theta2)  
+<span class="co"># For the Pareto Distribution, use</span>
+<span class="kw">library</span>(actuar)
+X3 &lt;-<span class="st"> </span><span class="kw">rpareto</span>(nSim,<span class="dt">scale=</span>theta3,<span class="dt">shape=</span>alpha3)
+X4 &lt;-<span class="st"> </span><span class="kw">rpareto</span>(nSim,<span class="dt">scale=</span>theta4,<span class="dt">shape=</span>alpha4)
+<span class="co"># Portfolio Risks</span>
+S         &lt;-<span class="st"> </span>X1 <span class="op">+</span><span class="st"> </span>X2 <span class="op">+</span><span class="st"> </span>X3 <span class="op">+</span><span class="st"> </span>X4
+Yretained &lt;-<span class="st"> </span><span class="kw">pmin</span>(X1,M1) <span class="op">+</span><span class="st"> </span><span class="kw">pmin</span>(X2,M2)
+Yinsurer  &lt;-<span class="st"> </span>S <span class="op">-</span><span class="st"> </span>Yretained</code></pre></div>
+<p><strong>(a)</strong> Here is the code for the expected claim amounts.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Expected Claim Amounts</span>
+ExpVec &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">as.matrix</span>(<span class="kw">c</span>(<span class="kw">mean</span>(Yretained),<span class="kw">mean</span>(Yinsurer),<span class="kw">mean</span>(S))))
+<span class="kw">colnames</span>(ExpVec) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Retained&quot;</span>, <span class="st">&quot;Insurer&quot;</span>,<span class="st">&quot;Total&quot;</span>)
+<span class="kw">round</span>(ExpVec,<span class="dt">digits=</span><span class="dv">2</span>)</code></pre></div>
+<pre><code>     Retained Insurer   Total
+[1,]   269.05 2274.41 2543.46</code></pre>
+<p><strong>(b)</strong> Here is the code for the quantiles.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Quantiles</span>
+quantMat &lt;-<span class="st"> </span><span class="kw">rbind</span>(
+  <span class="kw">quantile</span>(Yretained, <span class="dt">probs=</span><span class="kw">c</span>(<span class="fl">0.80</span>, <span class="fl">0.90</span>, <span class="fl">0.95</span>, <span class="fl">0.99</span>)),
+  <span class="kw">quantile</span>(Yinsurer,  <span class="dt">probs=</span><span class="kw">c</span>(<span class="fl">0.80</span>, <span class="fl">0.90</span>, <span class="fl">0.95</span>, <span class="fl">0.99</span>)),
+  <span class="kw">quantile</span>(S       ,  <span class="dt">probs=</span><span class="kw">c</span>(<span class="fl">0.80</span>, <span class="fl">0.90</span>, <span class="fl">0.95</span>, <span class="fl">0.99</span>)))
+<span class="kw">rownames</span>(quantMat) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Retained&quot;</span>, <span class="st">&quot;Insurer&quot;</span>,<span class="st">&quot;Total&quot;</span>)
+<span class="kw">round</span>(quantMat,<span class="dt">digits=</span><span class="dv">2</span>)</code></pre></div>
+<pre><code>             80%     90%     95%      99%
+Retained  300.00  300.00  300.00   300.00
+Insurer  3075.67 4399.80 6172.69 11859.02
+Total    3351.35 4675.04 6464.20 12159.02</code></pre>
+<p><strong>(c)</strong> Here is the code for the density plots of the retained, insurer, and total portfolio risk.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>))
+<span class="kw">plot</span>(<span class="kw">density</span>(Yretained), <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">500</span>), <span class="dt">main=</span><span class="st">&quot;Retained Portfolio Risk&quot;</span>, <span class="dt">xlab=</span><span class="st">&quot;Loss (Note the different horizontal scale)&quot;</span>)
+<span class="kw">plot</span>(<span class="kw">density</span>(Yinsurer), <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">15000</span>), <span class="dt">main=</span><span class="st">&quot;Insurer Portfolio Risk&quot;</span>, <span class="dt">xlab=</span><span class="st">&quot;Loss&quot;</span>)
+<span class="kw">plot</span>(<span class="kw">density</span>(S), <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">15000</span>), <span class="dt">main=</span><span class="st">&quot;Total Portfolio Risk&quot;</span>, <span class="dt">xlab=</span><span class="st">&quot;Loss&quot;</span>)</code></pre></div>
+<p><img src="LossDataAnalytics_files/figure-html/unnamed-chunk-18-1.png" width="768" style="display: block; margin: auto;" /></p>
+</div>
+<script type="text/javascript">
+function togglecode(id1,id2) {
+   var ele = document.getElementById(id1); var text = document.getElementById(id2);
+   if (ele.style.display == "block") {ele.style.display = "none"; text.innerHTML = "Show";}
+      else {ele.style.display = "block"; text.innerHTML = "Hide";}}
+</script>
+
+</div>
+</div>
+</div>
+</div>
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = '//lossdataanalytics.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="C-Credibility.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="C-LossReserves.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/Chapters/PortMgt20Feb2018C.Rmd",
+"text": "Edit"
+},
+"download": ["LossDataAnalytics.pdf", "LossDataAnalytics.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

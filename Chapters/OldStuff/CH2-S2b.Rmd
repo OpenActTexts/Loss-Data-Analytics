@@ -1,0 +1,245 @@
+# Appendix C: Maximum Likelihood Theory {#C:TS2b}
+
+*Chapter preview*. Supplement \@ref(C:TS1) introduced the maximum likelihood theory regarding estimation of parameters from a parametric family. This supplement gives more specific examples and expands some of the concepts. Section \@ref(S:TS2b:LF) reviews the definition of the likelihood function, and introduces its properties. Section \@ref(S:TS2b:MLE) reviews the maximum likelihood estimators, and extends their large-sample properties to the case where there are multiple parameters in the model. Section \@ref(S:TS2b:SI) reviews statistical inference based on maximum likelihood estimators, with specific examples on cases with multiple parameters.
+
+## Likelihood Function {#S:TS2b:LF}
+
+<hr />
+
+In this section, you learn 
+
+- the definitions of the likelihood function and the log-likelihood function
+- the properties of the likelihood function
+
+<hr />
+
+From Supplement \@ref(C:TS1), the likelihood function is a function of parameters given the observed data. Here, we review the concepts of the likelihood function, and introduces its properties that are bases for maximum likelihood inference.
+
+### Likelihood and Log-likelihood Functions
+Here, we give a brief review of the likelihood function and the log-likelihood function from Supplement \@ref(C:TS1). Let $f(\cdot|\boldsymbol\theta)$ be the probability function of $X$, the probability mass function (pmf) if $X$ is discrete or the probability density function (pdf) if it is continuous. The likelihood is a function of the parameters ($\boldsymbol \theta$) given the data ($\mathbf{x}$). Hence, it is a function of the parameters with the data being fixed, rather than a function of the data with the parameters being fixed. The vector of data $\mathbf{x}$ is usually a realization of a *random sample* as defined in Supplement \@ref(C:TS1). 
+    
+Given a realized of a random sample $\mathbf{x}=(x_1,x_2,\cdots,x_n)$ of size $n$, the **likelihood function** is defined as
+$$L(\boldsymbol{\theta}|\mathbf{x})=f(\mathbf{x}|\boldsymbol{\theta})=\prod_{i=1}^nf(x_i|\boldsymbol{\theta}),$$
+with the corresponding **log-likelihood function** given by
+$$l(\boldsymbol{\theta}|\mathbf{x})=\ln L(\boldsymbol{\theta}|\mathbf{x})=\sum_{i=1}^n\ln f(x_i|\boldsymbol{\theta}),$$
+where $f(\mathbf{x}|\boldsymbol{\theta})$ denotes the joint probability function of $\mathbf{x}$. The log-likelihood function leads to an additive structure that is easy to work with. 
+
+In Supplement \@ref(C:TS1), we have used the normal distribution to illustrate concepts of the likelihood function and the log-likelihood function. Here, we derive the likelihood and corresponding log-likelihood functions when the population distribution is from the Pareto distribution family.  
+
+<h4 style="text-align: left;"><a id="EXM:S2b:LLK:display" href="javascript:toggleEX('EXM:S2b:LLK','EXM:S2b:LLK:display');"><i><strong>Show Example</strong></i></a></h4>
+<div id="EXM:S2b:LLK" style="display: none">
+
+**Example -- Pareto Distribution.** Suppose that $X_1, \ldots, X_n$ represents a random sample from a single-parameter Pareto distribution with the **cumulative distribution function** given by
+    $$F(x) = \Pr(X_i\leq x)=1- \left(\frac{500}{x}\right)^{\alpha}, ~~~~ x>500,$$
+where the parameter $\theta = \alpha$.
+
+The corresponding probability density function is
+    $f(x) = 500^{\alpha} \alpha x^{-\alpha-1}$ and the
+    log-likelihood function can be derived as
+    $$l(\boldsymbol \alpha|\mathbf{x}) = \sum_{i=1}^n \ln f(x_i;\alpha) = n \alpha \ln 500 +n \ln \alpha -(\alpha+1)  \sum_{i=1}^n \ln x_i .$$
+    
+</div>    
+
+### Properties of Likelihood Functions
+In mathematical statistics, the first derivative of the log-likelihood function with respect to the parameters, $u(\boldsymbol\theta)=\partial l(\boldsymbol \theta|\mathbf{x})/\partial \boldsymbol \theta$, is referred to as the **score function**, or the **score vector** when there are multiple parameters in $\boldsymbol\theta$. The score function or score vector can be written as
+$$u(\boldsymbol\theta)=\frac{ \partial}{\partial \boldsymbol \theta} l(\boldsymbol \theta|\mathbf{x})
+    =\frac{ \partial}{\partial \boldsymbol \theta} \ln \prod_{i=1}^n
+    f(x_i;\boldsymbol \theta ) =\sum_{i=1}^n \frac{
+    \partial}{\partial \boldsymbol \theta}
+    \ln f(x_i;\boldsymbol \theta ),$$
+    where $u(\boldsymbol\theta)=(u_1(\boldsymbol\theta),u_2(\boldsymbol\theta),\cdots,u_p(\boldsymbol\theta))$ when $\boldsymbol\theta=(\theta_1,\cdots,\theta_p)$ contains $p>2$ parameters, with the element $u_k(\boldsymbol\theta)=\partial l(\boldsymbol \theta|\mathbf{x})/\partial \theta_k$ being the partial derivative with respect to $\theta_k$ ($k=1,2,\cdots,p$).
+
+The likelihood function has the following properties:
+
+- One basic property of the likelihood function is that the expectation of the score function with respect to $\mathbf{x}$ is 0. That is, 
+    $$\mathrm{E}[u(\boldsymbol\theta)]=\mathrm{E} \left[ \frac{ \partial}{\partial \boldsymbol \theta}
+    l(\boldsymbol \theta|\mathbf{x}) \right] = \mathbf 0$$
+
+To illustrate this, we have 
+
+$$\begin{aligned}
+    \mathrm{E} \left[ \frac{ \partial}{\partial \boldsymbol \theta} l(\boldsymbol \theta|\mathbf{x}) \right]
+    &= \mathrm{E} \left[ \frac{\frac{\partial}{\partial \boldsymbol \theta}f(\mathbf{x};\boldsymbol \theta)}{f(\mathbf{x};\boldsymbol \theta )}  \right]
+    = \int\frac{\partial}{\partial \boldsymbol \theta} f(\mathbf{y};\boldsymbol \theta ) d \mathbf y \\
+    &= \frac{\partial}{\partial \boldsymbol \theta} \int f(\mathbf{y};\boldsymbol \theta ) d \mathbf y
+    = \frac{\partial}{\partial \boldsymbol \theta} 1 = \mathbf 0.\end{aligned}$$
+
+-   Denote by ${ \partial^2 l(\boldsymbol \theta|\mathbf{x}) }/{\partial \boldsymbol \theta\partial \boldsymbol \theta^{\prime}}={ \partial^2 l(\boldsymbol \theta|\mathbf{x}) }/{\partial \boldsymbol \theta^{2}}$ the second derivative of the log-likelihood function when $\boldsymbol\theta$ is a single parameter, or by ${ \partial^2 l(\boldsymbol \theta|\mathbf{x}) }/{\partial \boldsymbol \theta\partial \boldsymbol \theta^{\prime}}=(h_{jk})=({ \partial^2 l(\boldsymbol \theta|\mathbf{x}) }/\partial x_j\partial x_k)$ the hessian matrix of the log-likelihood function when it contains multiple parameters. Denote $[{ \partial l(\boldsymbol \theta|\mathbf{x})}{\partial\boldsymbol \theta}][{ \partial l(\boldsymbol \theta|\mathbf{x})}{\partial\boldsymbol \theta'}]=u^2(\boldsymbol \theta)$ when $\boldsymbol\theta$ is a single parameter, or let $[{ \partial l(\boldsymbol \theta|\mathbf{x})}{\partial\boldsymbol \theta}][{ \partial l(\boldsymbol \theta|\mathbf{x})}{\partial\boldsymbol \theta'}]=(uu_{jk})$ be a $p\times p$ matrix when $\boldsymbol\theta$ contains a total of $p$ parameters, with each element $uu_{jk}=u_j(\boldsymbol \theta)u_k(\boldsymbol \theta)$ and $u_j(\boldsymbol \theta)$ being the $k$th element of the score vector as defined earlier. Another basic property of the likelihood function is that sum of the expectation of the hessian matrix and the expectation of the kronecker product of the score vector and its transpose is $\mathbf 0$. That is,
+$$\mathrm{E} \left( \frac{ \partial^2 }{\partial \boldsymbol \theta\partial \boldsymbol \theta^{\prime}} l(\boldsymbol \theta|\mathbf{x}) \right) + \mathrm{E} \left( \frac{ \partial l(\boldsymbol \theta|\mathbf{x})}{\partial\boldsymbol \theta} \frac{ \partial l(\boldsymbol \theta|\mathbf{x})}{\partial\boldsymbol \theta^{\prime}}\right) = \mathbf 0.$$
+
+-  Define the **Fisher information matrix** as
+    $$
+    \mathcal{I}(\boldsymbol \theta) = \mathrm{E} \left( \frac{ \partial
+    l(\boldsymbol \theta|\mathbf{x})}{\partial \boldsymbol \theta} \frac{ \partial
+    l(\boldsymbol \theta|\mathbf{x})}{\partial \boldsymbol \theta^{\prime}}
+     \right) = -\mathrm{E} \left( \frac{ \partial^2}{\partial \boldsymbol \theta
+    \partial \boldsymbol \theta^{\prime}} l(\boldsymbol \theta|\mathbf{x}) \right).$$
+
+As the sample size $n$ goes to infinity, the score function (vector) converges in distribution to a **normal distribution** (or **multivariate normal distribution** when $\boldsymbol \theta$ contains multiple parameters) with mean **0** and variance (or covariance matrix in the multivariate case) given by $\mathcal{I}(\boldsymbol \theta)$.
+
+## Maximum Likelihood Estimators {#S:TS2b:MLE}
+
+<hr />
+
+In this section, you learn
+
+- the definition and derivation of the maximum likelihood estimator (MLE) for parameters from a specific distribution family
+- the properties of maximum likelihood estimators that ensure valid large-sample inference of the parameters
+- why using the MLE-based method, and what caution that needs to be taken
+
+<hr />
+
+In statistics, maximum likelihood estimators are values of the parameters $\boldsymbol \theta$ that are most likely to have been produced by the data. 
+
+### Definition and Derivation of MLE
+Based on the definition given in Supplement \@ref(C:TS1), the value of $\boldsymbol \theta$, say $\hat{\boldsymbol \theta}_{MLE}$,
+    that maximizes the likelihood function, is called
+    the *maximum likelihood estimator* (MLE) of $\boldsymbol \theta$. 
+    
+Because the log function $\ln(\cdot)$ is a one-to-one function, we can also determine
+    $\hat{\boldsymbol{\theta}}_{MLE}$ by maximizing the log-likelihood
+    function, $l(\boldsymbol \theta|\mathbf{x})$. That is, the MLE is defined as
+    $$\hat{\boldsymbol \theta}_{MLE}={\mbox{argmax}}_{\boldsymbol{\theta}\in\Theta}l(\boldsymbol{\theta}|\mathbf{x}).$$
+
+Given the analytical form of the likelihood function, the MLE can be obtained by taking the first derivative of the log-likelihood function with respect to $\boldsymbol{\theta}$, and setting the values of the partial derivatives to zero. That is, the MLE are the solutions of the equations of
+$$\frac{\partial l(\hat{\boldsymbol{\theta}}|\mathbf{x})}{\partial\hat{\boldsymbol{\theta}}}=\mathbf 0.$$
+
+*** 
+<h4 style="text-align: left;"><a id="EXM:S2b:MLE:display" href="javascript:toggleEX('EXM:S2b:MLE','EXM:S2b:MLE:display');"><i><strong>Show Example</strong></i></a></h4>
+<div id="EXM:S2b:MLE" style="display: none">
+
+**Example. Course C/Exam 4. May 2000, 21.** You are given the following
+five observations: 521, 658, 702, 819, 1217. You use the
+single-parameter Pareto with cumulative distribution function:
+$$F(x) = 1- \left(\frac{500}{x}\right)^{\alpha}, ~~~~ x>500 .$$
+Calculate the maximum likelihood estimate of the parameter $\alpha$.
+
+<h4 style="text-align: left;"><a id="SOL:S2b:MLE:display" href="javascript:toggleSolution('SOL:S2b:MLE','SOL:S2b:MLE:display');"><i><strong>Show Solution</strong></i></a></h4>
+<div id="SOL:S2b:MLE" style="display: none">
+
+*Solution*. With $n=5$, the log-likelihood function is
+$$l(\alpha|\mathbf{x} ) =  \sum_{i=1}^5 \ln f(x_i;\alpha ) =  5 \alpha \ln 500 + 5 \ln \alpha
+-(\alpha+1) \sum_{i=1}^5 \ln x_i.$$ Solving for the root of the score
+function yields
+$$\frac{ \partial}{\partial \alpha } l(\alpha |\mathbf{x}) =    5  \ln 500 + 5 / \alpha -  \sum_{i=1}^5 \ln x_i
+=_{set} 0 \Rightarrow \hat{\alpha}_{MLE} = \frac{5}{\sum_{i=1}^5 \ln x_i - 5  \ln 500 } = 2.453 .$$
+
+</div>
+</div>
+***
+
+### Asymptotic Properties of MLE
+From Supplement \@ref(C:TS1), the MLE has some nice large-sample properties, under certain regularity conditions. We presented the results for a single parameter in Supplement \@ref(C:TS1), but results are true for the case when $\boldsymbol{\theta}$ contains multiple parameters. In particular, we have the following results, in a general case when $\boldsymbol{\theta}=(\theta_1,\theta_2,\cdots,\theta_p)$.
+
+- The MLE of a parameter $\boldsymbol{\theta}$, $\hat{\boldsymbol{\theta}}_{MLE}$, is a **consistent** estimator. That is, the MLE $\hat{\boldsymbol{\theta}}_{MLE}$ converges in probability to the true value $\boldsymbol{\theta}$, as the sample size $n$ goes to infinity.
+
+-  The MLE has the **asymptotic normality** property, meaning that the estimator will converge in distribution to a multivariate normal distribution centered around the true value, when the sample size goes to infinity. Namely,
+$$\sqrt{n}(\hat{\boldsymbol{\theta}}_{MLE}-\boldsymbol{\theta})\rightarrow N\left(\mathbf 0,\,\boldsymbol{V}\right),\quad \mbox{as}\quad n\rightarrow \infty,$$
+where $\boldsymbol{V}$ denotes the asymptotic variance (or covariance matrix) of the estimator. Hence, the MLE $\hat{\boldsymbol{\theta}}_{MLE}$ has an approximate normal distribution with mean $\boldsymbol{\theta}$ and variance (covariance matrix when $p>1$) $\boldsymbol{V}/n$, when the sample size is large. 
+
+- The MLE is **efficient**, meaning that it has the smallest asymptotic variance $\boldsymbol{V}$, commonly referred to as the **Cramer--Rao lower bound**. In particular, the Cramer--Rao lower bound is the inverse of the Fisher information (matrix) $\mathcal{I}(\boldsymbol{\theta})$ defined earlier in this supplement. Hence, $\mathrm{Var}(\hat{\boldsymbol{\theta}}_{MLE})$ can be estimated based on the observed Fisher information.
+
+Based on the above results, we may perform statistical inference based on the procedures defined in Supplement \@ref(C:TS1).
+
+*** 
+<h4 style="text-align: left;"><a id="EXM:S2b:COV:display" href="javascript:toggleEX('EXM:S2b:COV','EXM:S2b:COV:display');"><i><strong>Show Example</strong></i></a></h4>
+<div id="EXM:S2b:COV" style="display: none">
+
+**Example. Course C/Exam 4. Nov 2000, 13.** A sample of ten
+    observations comes from a parametric family
+    $f(x,; \theta_1, \theta_2)$ with log-likelihood function
+    $$l(\theta_1, \theta_2)= \sum_{i=1}^{10} f(x_i; \theta_1, \theta_2) = -2.5 \theta_1^2 - 3
+    \theta_1 \theta_2 - \theta_2^2 + 5 \theta_1 + 2 \theta_2 + k,$$
+    where $k$ is a constant. Determine the estimated covariance matrix
+    of the maximum likelihood estimator, $\hat{\theta_1}, \hat{\theta_2}$.
+
+<h4 style="text-align: left;"><a id="SOL:S2b:COV:display" href="javascript:toggleSolution('SOL:S2b:COV','SOL:S2b:COV:display');"><i><strong>Show Solution</strong></i></a></h4>
+<div id="SOL:S2b:COV" style="display: none">
+
+*Solution*. Denoting $l=l(\theta_1, \theta_2)$, the hessian matrix of second derivatives is $$\left(
+\begin{array}{cc}
+  \frac{ \partial ^2}{\partial \theta_1 ^2 } l & \frac{ \partial ^2}{\partial \theta_1 \partial \theta_2 } l  \\
+  \frac{ \partial ^2}{\partial \theta_1 \partial \theta_2 } l & \frac{ \partial ^2}{\partial \theta_1 ^2 } l
+\end{array} \right) =
+\left(
+\begin{array}{cc}
+  -5 & -3  \\
+  -3 & -2
+\end{array} \right)$$ Thus, the information matrix is:
+$$\mathcal{I}(\theta_1, \theta_2) = -\mathrm{E} \left( \frac{ \partial^2}{\partial \boldsymbol \theta
+\partial \boldsymbol \theta^{\prime}} l(\boldsymbol \theta|\mathbf{x}) \right) = \left(
+\begin{array}{cc}
+  5 & 3  \\
+  3 & 2
+\end{array} \right)$$ and
+$$\mathcal{I}^{-1}(\theta_1, \theta_2) = \frac{1}{5(2) - 3(3)}\left(
+\begin{array}{cc}
+  2 & -3  \\
+  -3 & 5
+\end{array} \right) = \left(
+\begin{array}{cc}
+  2 & -3  \\
+  -3 & 5
+\end{array} \right) .$$
+
+</div>
+</div>
+***
+
+### Use of Maximum Likelihood Estimation
+The method of maximum likelihood has many advantages over alternative methods such as the method of moment method introduced in Supplement \@ref(C:TS1).
+
+  -   It is a general tool that works in many situations. For example, we may be able to write out the closed-form likelihood function for censored and truncated data. Maximum likelihood estimation can be used for regression models including covariates, such as survival regression, generalized linear models and mixed models, that may include covariates that are time-dependent.
+  -  From the efficiency of the MLE, it is optimal, the best, in the sense that it has the smallest variance among the class of all unbiased estimators for large sample sizes.
+  -  From the results on the asymptotic normality of the MLE, we can obtain a large-sample distribution for the estimator, allowing users to assess the variability in the estimation and perform statistical inference on the parameters. The approach is less computationally extensive than re-sampling methods that require a large of fittings of the model. 
+
+Despite its numerous advantages, MLE has its drawback in cases such as generalized linear models when it does not have a closed analytical form. In such cases, maximum likelihood estimators are computed iteratively using numerical optimization methods. For example, we may use the Newton-Raphson iterative algorithm or its variations for obtaining the MLE. Iterative algorithms require starting values. For some problems, the choice of a close starting value is critical, particularly in cases where the likelihood function has local minimums or maximums. Hence, there may be a convergence issue when the starting value is far from the maximum. Hence, it is important to start from different values across the parameter space, and compare the maximized likelihood or log-likelihood to make sure the algorithms have converged to a global maximum.
+
+## Statistical Inference Based on Maximum Likelhood Estimation {#S:TS2b:SI}
+
+<hr />
+
+In this section, you learn how to
+
+- perform hypothesis testing based on MLE for cases where there are multiple parameters in $\boldsymbol\theta$
+- perform likelihood ratio test  for cases where there are multiple parameters in $\boldsymbol\theta$
+
+<hr />
+
+In Supplement \@ref(C:TS1), we have introduced maximum likelihood-based methods for statistical inference when $\boldsymbol\theta$ contains a single parameter. Here, we will extend the results to cases where there are multiple parameters in $\boldsymbol\theta$.
+
+### Hypothesis Testing
+In Supplement \@ref(C:TS1), we defined hypothesis testing concerning the null hypothesis, a statement on the parameter(s) of a distribution or model. One important type of inference is to assess whether a parameter estimate is statistically significant, meaning whether the value of the parameter is zero or not.
+
+We have learned earlier that the MLE $\hat{\boldsymbol{\theta}}_{MLE}$ has a large-sample normal distribution with mean $\boldsymbol \theta$ and the variance covariance matrix $\mathcal{I}^{-1}(\boldsymbol \theta)$. Based on the multivariate normal distribution, the $j$th element of $\hat{\boldsymbol{\theta}}_{MLE}$, say
+    $\hat{\theta}_{MLE,j}$, has a large-sample univariate normal distribution.
+
+Define $se(\hat{\theta}_{MLE,j})$, the standard error (estimated
+    standard deviation) to be the square root of the $j$th diagonal element of $\mathcal{I}^{-1}(\boldsymbol \theta)_{MLE}$. 
+To assess the null hypothesis that $\theta_j=\theta_0$, we define the $t$-statistic or $t$-ratio to be
+    $t(\hat{\theta}_{MLE,j})=(\hat{\theta}_{MLE,j}-\theta_0)/se(\hat{\theta}_{MLE,j})$. 
+
+Under the null hypothesis, it has a Student-$t$ distribution with degrees of freedom equal to $n-p$, with $p$ being the dimension of
+    $\boldsymbol{\theta}$.
+
+For most actuarial applications, we have a large sample size $n$, so the $t$-distribution is very close to the (standard) normal distribution. In the case when $n$ is very large or when the standard error is known, the $t$-statistic can be referred to as a $z$-statistic or $z$-score.
+
+Based on the results from Supplement \@ref(C:TS1), if the $t$-statistic $t(\hat{\theta}_{MLE,j})$ exceeds a cut-off (in
+    absolute value), then the test for the $j$ parameter $\theta_j$ is said to be statistically significant. If $\theta_j$ is the regression coefficient of the $j$ th independent variable, then we say that the $j$th variable is statistically significant.
+
+For example, if we use a 5% significance level, then the cut-off value is 1.96 using a normal distribution approximation for cases with a large sample size. More generally, using a $100 \alpha \%$ significance level, then the cut-off is a $100(1-\alpha/2)\%$ quantile from a Student-$t$ distribution with the degree of freedom being $n-p$.
+
+Another useful concept in hypothesis testing is the $p$-value, shorthand for probability value. From the mathematical definition in Supplement \@ref(C:TS1), a $p$-value is defined as the smallest significance level for which the null hypothesis would be rejected. Hence, the $p$-value is a useful summary statistic for the data analyst to report because it allows the reader to understand the strength of statistical evidence concerning the deviation from the null hypothesis. 
+
+### MLE and Model Validation
+In addition to hypothesis testing and interval estimation introduced in Supplement \@ref(C:TS1) and the previous subsection, another important type of inference is selection of a model from two choices, where one choice is a special case of the other with certain parameters being restricted. For such two models with one being nested in the other, we have introduced the likelihood ratio test (LRT) in Supplement \@ref(C:TS1). Here, we will briefly review the process of performing a LRT based on a specific example of two alternative models.
+
+Suppose that we have a (large) model under which we derive the maximum likelihood estimator, $\hat{\boldsymbol{\theta}}_{MLE}$. Now assume that some of the $p$ elements in $\boldsymbol \theta$ are equal to zero and determine the maximum likelihood estimator over the remaining set, with the resulting estimator denoted $\hat{\boldsymbol{\theta}}_{Reduced}$.
+
+Based on the definition in Supplement \@ref(C:TS1), the statistic,
+    $LRT= 2 \left( l(\hat{\boldsymbol{\theta}}_{MLE}) - l(\hat{\boldsymbol{\theta}}_{Reduced}) \right)$,
+    is called the likelihood ratio statistic. Under the null hypothesis that the reduced model is correct, the
+likelihood ratio has a Chi-square distribution with degrees of
+freedom equal to $d$, the number of variables set to zero.
+
+Such a test allows us to judge which of the two models is more likely to be correct, given the observed data. If the statistic $LRT$ is large relative to the critical value from the chi-square distribution, then we reject the reduced model in favor of the larger one. Details regarding the critical value and alternative methods based on information criteria are given in Supplement \@ref(C:TS1).

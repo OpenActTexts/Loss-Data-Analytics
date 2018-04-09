@@ -25,7 +25,7 @@
 <meta name="author" content="An open text authored by the Actuarial Community">
 
 
-<meta name="date" content="2018-04-08">
+<meta name="date" content="2018-04-09">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -171,7 +171,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="2.7" data-path="frequency-distributions.html"><a href="frequency-distributions.html#goodness-of-fit"><i class="fa fa-check"></i><b>2.7</b> Goodness of Fit</a></li>
 <li class="chapter" data-level="2.8" data-path="frequency-distributions.html"><a href="frequency-distributions.html#exercises"><i class="fa fa-check"></i><b>2.8</b> Exercises</a></li>
-<li class="chapter" data-level="2.9" data-path="frequency-distributions.html"><a href="frequency-distributions.html#technical-supplement-iterated-expectations"><i class="fa fa-check"></i><b>2.9</b> Technical Supplement: Iterated Expectations</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="modeling-loss-severity.html"><a href="modeling-loss-severity.html"><i class="fa fa-check"></i><b>3</b> Modeling Loss Severity</a><ul>
 <li class="chapter" data-level="3.1" data-path="modeling-loss-severity.html"><a href="modeling-loss-severity.html#BasicQuantities"><i class="fa fa-check"></i><b>3.1</b> Basic Distributional Quantities</a><ul>
@@ -870,101 +869,10 @@ N &amp;\sim&amp; \text{Negative Binomial} (r = \alpha, \beta = \theta) .\end{ali
 <div id="exercises" class="section level2">
 <h2><span class="header-section-number">2.8</span> Exercises</h2>
 <p>Here are a set of exercises that guide the viewer through some of the theoretical foundations of <strong>Loss Data Analytics</strong>. Each tutorial is based on one or more questions from the professional actuarial examinations – typically the Society of Actuaries Exam C.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">knitr<span class="op">::</span><span class="kw">include_url</span>(<span class="st">&quot;http://www.ssc.wisc.edu/~jfrees/loss-data-analytics/loss-data-analytics-problems/&quot;</span>,<span class="dt">height =</span> <span class="st">&quot;600px&quot;</span>)</code></pre></div>
-<iframe src="http://www.ssc.wisc.edu/~jfrees/loss-data-analytics/loss-data-analytics-problems/" width="672" height="600px">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">knitr::<span class="kw">include_url</span>(<span class="st">&quot;http://www.ssc.wisc.edu/~jfrees/loss-data-analytics/loss-data-analytics-problems/&quot;</span>,<span class="dt">height =</span> <span class="st">&quot;200px&quot;</span>)</code></pre></div>
+<iframe src="http://www.ssc.wisc.edu/~jfrees/loss-data-analytics/loss-data-analytics-problems/" width="672" height="200px">
 </iframe>
-</div>
-<div id="technical-supplement-iterated-expectations" class="section level2">
-<h2><span class="header-section-number">2.9</span> Technical Supplement: Iterated Expectations</h2>
-<div id="iterated-expectations" class="section level4">
-<h4><span class="header-section-number">2.9.0.1</span> Iterated Expectations</h4>
-<p>In some situations, we only observe a single outcome but can conceptualize an outcome as resulting from a two (or more) stage process. These are called <strong>two-stage</strong>, or “<strong>hierarchical</strong>,” type situations. Some special cases include:</p>
-<ul>
-<li><p>problems where the parameters of the distribution are random variables,</p></li>
-<li><p>mixture problems, where stage 1 represents the type of subpopulation and stage 2 represents a random variable with a distribution that depends on population type</p></li>
-<li><p>an aggregate distribution, where stage 1 represents the number of events and stage two represents the amount per event.</p></li>
-</ul>
-<p>In these situations, the law of iterated expectations can be useful. The law of total variation is a special case that is particularly helpful for variance calculations.</p>
-<p>To apply these rules,</p>
-<ol style="list-style-type: decimal">
-<li><p>Identify the random variable that is being conditioned upon, typically a stage 1 outcome (that is not observed).</p></li>
-<li><p>Conditional on the stage 1 outcome, calculate summary measures such as a mean, variance, and the like.</p></li>
-<li><p>There are several results of the step (ii), one for each stage 1 outcome. Then, combine these results using the iterated expectations or total variation rules.</p></li>
-</ol>
-</div>
-<div id="iterated-expectations-1" class="section level4">
-<h4><span class="header-section-number">2.9.0.2</span> Iterated Expectations</h4>
-<ul>
-<li><p>Consider two random variables, <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, and a function <span class="math inline">\(h(X,Y)\)</span>. Assuming expectations exists and are finite, a rule/theorem from probability states that <span class="math display">\[\mathrm{E~} h(X,Y)= \mathrm{E~} \left\{ \mathrm{E~} \left( h(X,Y) | X \right) \right \} .\]</span></p></li>
-<li><p>This result is known as the <em>law of iterated expectations</em>.</p></li>
-<li><p>Here, the random variables may be discrete, continuous, or a hybrid combination of the two.</p></li>
-<li><p>Similarly, the <em>law of total variation</em> is <span class="math display">\[\mathrm{Var~} h(X,Y)= \mathrm{E~} \left\{ \mathrm{Var~} \left( h(X,Y) | X \right) \right \}
-+\mathrm{Var~} \left\{ \mathrm{E~} \left( h(X,Y) | X \right) \right \},\]</span> the expectation of the conditional variance plus the variance of the conditional expectation.</p></li>
-</ul>
-</div>
-<div id="discrete-iterated-expectations" class="section level4">
-<h4><span class="header-section-number">2.9.0.3</span> Discrete Iterated Expectations</h4>
-<ul>
-<li><p>To illustrate, suppose that <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are both discrete random variables with joint probability <span class="math display">\[p(x,y) = \Pr(X=x, Y=y).\]</span></p></li>
-<li><p>Further, let <span class="math inline">\(p(y|x) = \frac{p(x,y)}{\Pr(X=x)}\)</span> be the conditional probability mass function.</p></li>
-<li><p>The conditional expectation is <span class="math display">\[\mathrm{E~} \left( h(X,Y) | X=x \right) = \sum_y h(x,y) p(y|x)\]</span></p></li>
-<li><p>You can use the conditional expectation to get the unconditional expectation using <span class="math display">\[\begin{aligned}
- \mathrm{E~} \left\{ \mathrm{E~} \left( h(X,Y) | X \right) \right \}
-&amp;= \sum_x  \left\{\sum_y h(x,y) p(y|x) \right \} \Pr(X=x) \\
-&amp;= \sum_x  \sum_y h(x,y) p(y|x)  \Pr(X=x) \\
-&amp;=  \sum_x  \sum_y h(x,y) p(x,y)
-=  \mathrm{E~} h(X,Y)\end{aligned}\]</span></p></li>
-<li><p>The proofs of the law of iterated expectations for the continuous and hybrid cases are similar.</p></li>
-</ul>
-</div>
-<div id="law-of-total-variation" class="section level4">
-<h4><span class="header-section-number">2.9.0.4</span> Law of Total Variation</h4>
-<ul>
-<li><p>To see this rule, first note that we can calculate a conditional variance as <span class="math display">\[\mathrm{Var~} \left( h(X,Y) | X \right)  =
-\mathrm{E~} \left( h(X,Y)^2 | X \right) -\left\{\mathrm{E~} \left( h(X,Y) | X \right) \right\}^2.\]</span></p></li>
-<li><p>From this, the expectation of the conditional variance is <span class="math display">\[\begin{aligned}
-\label{E:E1} \mathrm{E~} \mathrm{Var~} \left( h(X,Y) | X \right)  =
-\mathrm{E~} \left( h(X,Y)^2\right) - \mathrm{E~}\left\{\mathrm{E~} \left( h(X,Y) | X \right) \right\}^2.\end{aligned}\]</span></p></li>
-<li><p>Further, note that the conditional expectation, <span class="math inline">\(\mathrm{E~} \left( h(X,Y) | X=x \right)\)</span>, is a function of <span class="math inline">\(x\)</span>, say, <span class="math inline">\(g(x)\)</span>.</p></li>
-<li><p>Now, <span class="math inline">\(g(X)\)</span> is a random variable with mean <span class="math inline">\(\mathrm{E~} h(X,Y)\)</span> and variance <span class="math display">\[\begin{aligned}
-\label{E:E2}
-\mathrm{Var~} \left\{ \mathrm{E~} \left( h(X,Y) | X \right) \right \} &amp;=\mathrm{Var~} g(X)  \nonumber \\
-&amp;= \mathrm{E~} g(X)^2\ - \left(\mathrm{E~} h(X,Y)\right)^2 \nonumber\\
-&amp;= \mathrm{E~} \left\{\mathrm{E~} \left( h(X,Y) | X \right) \right\}^2
-- \left(\mathrm{E~} h(X,Y)\right)^2\end{aligned}\]</span></p></li>
-<li><p>Adding the variance of the conditional expectation in equation to the expectation of conditional variance in equation gives the law of total variation.</p></li>
-</ul>
-</div>
-<div id="mixtures-of-finite-populations-example" class="section level4">
-<h4><span class="header-section-number">2.9.0.5</span> Mixtures of Finite Populations: Example</h4>
-<ul>
-<li><p>For example, suppose that <span class="math inline">\(N_1\)</span> represents claims form “good” drivers and <span class="math inline">\(N_2\)</span> represents claims from “bad” drivers. We draw <span class="math display">\[N =
-\begin{cases}
-N_1  &amp;  \text{with prob~}\alpha\\
-N_2  &amp;   \text{with prob~}(1-\alpha) .\\
-\end{cases}\]</span></p></li>
-<li><p>Here, <span class="math inline">\(\alpha\)</span> represents the probability of drawing a “good” driver.</p></li>
-<li><p>Let <span class="math inline">\(T\)</span> be the type, so <span class="math inline">\(T=1\)</span> with prob <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(T=2\)</span> with prob <span class="math inline">\(1-\alpha\)</span>.</p></li>
-<li><p>From the law of iterated expectations, we have <span class="math display">\[\begin{aligned}
-\mathrm{E~} N &amp;= \mathrm{E~} \left\{ \mathrm{E~} \left( N | T \right) \right \} \\
- &amp;= \mathrm{E~} N_1 \times \alpha +  \mathrm{E~} N_2 \times (1-\alpha).\end{aligned}\]</span></p></li>
-<li><p>From the law of total variation <span class="math display">\[\mathrm{Var~} N= \mathrm{E~} \left\{ \mathrm{Var~} \left( N | T \right) \right \}
-+\mathrm{Var~} \left\{ \mathrm{E~} \left( N | T \right) \right \},\]</span></p></li>
-</ul>
-</div>
-<div id="mixtures-of-finite-populations-example-2" class="section level4">
-<h4><span class="header-section-number">2.9.0.6</span> Mixtures of Finite Populations: Example 2</h4>
-<ul>
-<li><p>To be more concrete, suppose that <span class="math inline">\(N_j\)</span> is Poisson with parameter <span class="math inline">\(\lambda_j\)</span>. Then <span class="math display">\[\mathrm{Var~} N_j|T= \mathrm{E~} N_j|T =
-\begin{cases}
-\lambda_1  &amp;  T=1\\
-\lambda_2  &amp;  T=2\\
-\end{cases}\]</span></p></li>
-<li><p>Thus <span class="math display">\[\mathrm{E~} \left\{ \mathrm{Var~} \left( N | T \right) \right \} = \alpha \lambda_1+ (1-\alpha) \lambda_2\]</span> and <span class="math display">\[\mathrm{Var~} \left\{ \mathrm{E~} \left( N | T \right) \right \} = (\lambda_1-\lambda_2)^2 \alpha (1-\alpha)\]</span> (Recall: for a Bernoulli with outcomes <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> and prob <span class="math inline">\(\alpha\)</span>, the variance is <span class="math inline">\((b-a)^2\alpha(1-\alpha)\)</span>).</p></li>
-<li><p>Thus, <span class="math display">\[\mathrm{Var~} N= \alpha \lambda_1+ (1-\alpha) \lambda_2 + (\lambda_1-\lambda_2)^2 \alpha (1-\alpha)\]</span></p></li>
-</ul>
 
-</div>
 </div>
 </div>
 <div id="disqus_thread"></div>
@@ -1022,7 +930,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/rstudio/bookdown-demo/edit/master/Chapters/Chap2Frequency_16Dec2016Jan19.Rmd",
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/Chapters/FrequencyDist.Rmd",
 "text": "Edit"
 },
 "download": ["LossDataAnalytics.pdf", "LossDataAnalytics.epub"],

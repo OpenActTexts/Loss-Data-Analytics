@@ -25,7 +25,7 @@
 <meta name="author" content="An open text authored by the Actuarial Community">
 
 
-<meta name="date" content="2018-04-08">
+<meta name="date" content="2018-04-09">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -171,7 +171,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="2.7" data-path="frequency-distributions.html"><a href="frequency-distributions.html#goodness-of-fit"><i class="fa fa-check"></i><b>2.7</b> Goodness of Fit</a></li>
 <li class="chapter" data-level="2.8" data-path="frequency-distributions.html"><a href="frequency-distributions.html#exercises"><i class="fa fa-check"></i><b>2.8</b> Exercises</a></li>
-<li class="chapter" data-level="2.9" data-path="frequency-distributions.html"><a href="frequency-distributions.html#technical-supplement-iterated-expectations"><i class="fa fa-check"></i><b>2.9</b> Technical Supplement: Iterated Expectations</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="modeling-loss-severity.html"><a href="modeling-loss-severity.html"><i class="fa fa-check"></i><b>3</b> Modeling Loss Severity</a><ul>
 <li class="chapter" data-level="3.1" data-path="modeling-loss-severity.html"><a href="modeling-loss-severity.html#BasicQuantities"><i class="fa fa-check"></i><b>3.1</b> Basic Distributional Quantities</a><ul>
@@ -883,7 +882,7 @@ This yields
 \end{eqnarray*}\]</span>
 <p>where <span class="math inline">\(\hat{\pi}_X = (n-n_{0+})/n\)</span> and similarly for <span class="math inline">\(\hat{\pi}_Y\)</span>. Note that this is same form as the Pearson measure. From this, we see that the joint count <span class="math inline">\(n_{00}\)</span> drives this association measure.</p>
 </div>
-
+<p></p>
 <p>You can obtain the ties-corrected Spearman correlation statistic <span class="math inline">\(r_S\)</span> using the <code>cor()</code> function in <code>R</code> and selecting the <code>spearman</code> method. From below <span class="math inline">\(\hat{\rho}_S=-0.09\)</span></p>
 <h5 style="text-align: center;">
 <a id="display.spearT.1" href="javascript:togglecode
@@ -992,7 +991,7 @@ u_1) -1)(\exp(\theta u_2) -1)} {\exp(\theta) -1} \right).\]</span></p>
 <span class="kw">data</span>(loss) <span class="co"># loss data</span>
 Lossdata &lt;-<span class="st"> </span>loss <span class="co"># rename dataframe to distinguish from the loss variable</span>
 <span class="kw">attach</span>(Lossdata) <span class="co"># attach data to freely use any variable without referencing its parent dataframe</span>
-loss &lt;-<span class="st"> </span>Lossdata<span class="op">$</span>loss</code></pre></div>
+loss &lt;-<span class="st"> </span>Lossdata$loss</code></pre></div>
 <p>To visualize the relationship between <em>losses </em> and <em>expenses </em> (ALAE), scatterplots are created on the real dollar scale and on the log scale.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))
 <span class="kw">plot</span>(loss,alae, <span class="dt">cex=</span>.<span class="dv">5</span>) <span class="co"># real dollar scale</span>
@@ -1137,7 +1136,7 @@ function gradient
 </div>
 <p>The fitted model implies that losses and expenses are positively dependent and their dependence is significant.</p>
 <p>We use the fitted parameter to update the Frank’s copula. The Spearman’s correlation corresponding to the fitted copula parameter(3.114) is calculated with the <code>rho</code> function. In this case, the Spearman’s correlation coefficient is 0.462, which is very close to the sample Spearman’s correlation coefficient; 0.452.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">param =<span class="st"> </span>fit.ml<span class="op">@</span>estimate <span class="co"># fitted copula parameter</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">param =<span class="st"> </span>fit.ml@estimate <span class="co"># fitted copula parameter</span>
 frank.cop &lt;-<span class="st"> </span><span class="kw">archmCopula</span>(<span class="st">&quot;frank&quot;</span>, <span class="dt">param=</span> param, <span class="dt">dim =</span> <span class="dv">2</span>)
 <span class="co">#rho(frank.cop) # Spearman&#39;s correlation</span></code></pre></div>
 <h5 style="text-align: center;">
@@ -1258,7 +1257,7 @@ n&lt;-<span class="dv">100</span>
 <span class="kw">set.seed</span>(<span class="dv">1980</span>)
 U&lt;-<span class="kw">runif</span>(n)
 <span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))
-<span class="kw">plot</span>(<span class="kw">cbind</span>(U,<span class="dv">1</span><span class="op">-</span>U), <span class="dt">xlab=</span><span class="kw">quote</span>(U[<span class="dv">1</span>]), <span class="dt">ylab=</span><span class="kw">quote</span>(U[<span class="dv">2</span>]),<span class="dt">main=</span><span class="st">&quot;Perfect Negative Dependency&quot;</span>) <span class="co"># W for d=2</span>
+<span class="kw">plot</span>(<span class="kw">cbind</span>(U,<span class="dv">1</span>-U), <span class="dt">xlab=</span><span class="kw">quote</span>(U[<span class="dv">1</span>]), <span class="dt">ylab=</span><span class="kw">quote</span>(U[<span class="dv">2</span>]),<span class="dt">main=</span><span class="st">&quot;Perfect Negative Dependency&quot;</span>) <span class="co"># W for d=2</span>
 <span class="kw">plot</span> (<span class="kw">cbind</span>(U,U), <span class="dt">xlab=</span><span class="kw">quote</span>(U[<span class="dv">1</span>]),<span class="dt">ylab=</span><span class="kw">quote</span>(U[<span class="dv">2</span>]),<span class="dt">main=</span><span class="st">&quot;Perfect Positive Dependency&quot;</span>)  <span class="co">#M for d=2</span></code></pre></div>
 <p><img src="LossDataAnalytics_files/figure-html/unnamed-chunk-44-1.png" width="672" /></p>
 <h5 style="text-align: center;">

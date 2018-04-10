@@ -4515,7 +4515,7 @@ examinations -- typically the Society of Actuaries Exam C.
 \end{Shaded}
 
 \chapter{Model Selection, Validation, and
-Inference}\label{model-selection-validation-and-inference}
+Inference}\label{C:ModelSelection}
 
 \emph{Chapter Preview}. Chapters 2 and 3 have described how to fit
 parametric models to frequency and severity data, respectively. This
@@ -4741,7 +4741,7 @@ a situation in which the quantile can not be uniquely determined for the
 
 }
 
-\caption{Figure 3: Three Quantile Cases}\label{fig:Quantile2}
+\caption{Three Quantile Cases}\label{fig:Quantile2}
 \end{figure}
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
@@ -4907,7 +4907,7 @@ change it depending on the situation at hand.
 
 }
 
-\caption{Figure 4: Histogram of Logarithmic Property Claims with Superimposed Kernel Density Estimators}\label{fig:Density2}
+\caption{Histogram of Logarithmic Property Claims with Superimposed Kernel Density Estimators}\label{fig:Density2}
 \end{figure}
 
 Show R Code
@@ -5026,7 +5026,7 @@ figures, the Pareto distribution is the clear choice for the analyst.
 
 }
 
-\caption{Figure 5: Nonparametric Versus Fitted Parametric Distribution and Density Functions. The left-hand panel compares distribution functions, with the dots corresponding to the empirical distribution, the thick blue curve corresponding to the fitted gamma and the light purple curve corresponding to the fitted Pareto. The right hand panel compares these three distributions summarized using probability density functions.}\label{fig:ComparisonCDFPDF}
+\caption{Nonparametric Versus Fitted Parametric Distribution and Density Functions. The left-hand panel compares distribution functions, with the dots corresponding to the empirical distribution, the thick blue curve corresponding to the fitted gamma and the light purple curve corresponding to the fitted Pareto. The right hand panel compares these three distributions summarized using probability density functions.}\label{fig:ComparisonCDFPDF}
 \end{figure}
 
 For another way to compare the appropriateness of two fitted models,
@@ -5048,7 +5048,7 @@ additional evidence that the Pareto is the better model.
 
 }
 
-\caption{Figure 6: Probability-Probability ($pp$) Plots. The horizontal axes gives the empirical distribution function at each observation. In the left-hand panel, the corresponding distribution function for the gamma is shown in the vertical axis. The right-hand panel shows the fitted Pareto distribution. Lines of $y=x$ are superimposed.}\label{fig:PPPlot}
+\caption{Probability-Probability ($pp$) Plots. The horizontal axes gives the empirical distribution function at each observation. In the left-hand panel, the corresponding distribution function for the gamma is shown in the vertical axis. The right-hand panel shows the fitted Pareto distribution. Lines of $y=x$ are superimposed.}\label{fig:PPPlot}
 \end{figure}
 
 A \(pp\) plot is useful in part because no artificial scaling is
@@ -5085,7 +5085,7 @@ small observations.
 
 }
 
-\caption{Figure 7: Quantile-Quantile ($qq$) Plots. The horizontal axes gives the empirical quantiles at each observation. The right-hand panels they are graphed on a logarithmic basis. The vertical axis gives the quantiles from the fitted distributions; Gamma quantiles are in the upper panels, Pareto quantiles are in the lower panels.}\label{fig:QQPlot}
+\caption{Quantile-Quantile ($qq$) Plots. The horizontal axes gives the empirical quantiles at each observation. The right-hand panels they are graphed on a logarithmic basis. The vertical axis gives the quantiles from the fitted distributions; Gamma quantiles are in the upper panels, Pareto quantiles are in the lower panels.}\label{fig:QQPlot}
 \end{figure}
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
@@ -5538,276 +5538,6 @@ theoretically best procedure, it is widely agreed that model validation
 is an important part of confirming the usefulness and appropriateness of
 a model.
 
-\subsection{Gini Statistic}\label{gini-statistic}
-
-\subsubsection{The Classic Lorenz Curve}\label{the-classic-lorenz-curve}
-
-In welfare economics, it is common to compare distributions via the
-\textbf{Lorenz curve}, developed by Max Otto Lorenz
-\citep{lorenz1905methods}. A Lorenz curve is a graph of the proportion
-of a population on the horizontal axis and a distribution function of
-interest on the vertical axis. It is typically used to represent income
-distributions. When the income distribution is perfectly aligned with
-the population distribution, the Lorenz curve results in a 45 degree
-line that is known as the \textbf{line of equality}. The area between
-the Lorenz curve and the line of equality is a measure of the
-discrepancy between the income and population distributions. Two times
-this area is known as the \textbf{Gini index}, introduced by Corrado
-Gini in 1912.
-
-\textbf{Example -- Classic Lorenz Curve.} For an insurance example,
-Figure \ref{fig:ClassicLorenz} shows a distribution of insurance losses.
-This figure is based on a random sample of 2000 losses. The left-hand
-panel shows a right-skewed histogram of losses. The right-hand panel
-provides the corresponding Lorenz curve, showing again a skewed
-distribution. For example, the arrow marks the point where 60 percent of
-the policyholders have 30 percent of losses. The 45 degree line is the
-line of equality; if each policyholder has the same loss, then the loss
-distribution would be at this line. The Gini index, twice the area
-between the Lorenz curve and the 45 degree line, is 37.6 percent for
-this data set.
-
-\begin{figure}
-
-{\centering \includegraphics[width=0.9\linewidth]{LossDataAnalytics_files/figure-latex/ClassicLorenz-1} 
-
-}
-
-\caption{Distribution of insurance losses.}\label{fig:ClassicLorenz}
-\end{figure}
-
-\subsubsection{Ordered Lorenz Curve and the Gini
-Index}\label{ordered-lorenz-curve-and-the-gini-index}
-
-We now introduce a modification of the classic Lorenz curve and Gini
-statistic that is useful in insurance applications. Specifically, we
-introduce an \emph{ordered} Lorenz curve which is a graph of the
-distribution of losses versus premiums, where both losses and premiums
-are ordered by relativities. Intuitively, the relativities point towards
-aspects of the comparison where there is a mismatch between losses and
-premiums. To make the ideas concrete, we first provide some notation. We
-will consider \(i=1, \ldots, n\) policies. For the \(i\)th policy, let
-
-\begin{itemize}
-\tightlist
-\item
-  \(y_i\) denote the insurance loss,
-\item
-  \(\mathbf{x}_i\) be the set of policyholder characteristics known to
-  the analyst,
-\item
-  \(P_i=P(\mathbf{x}_i)\) be the associated premium that is a function
-  of \(\mathbf{x}_i\),
-\item
-  \(S_i = S(\mathbf{x}_i)\) be an insurance score under consideration
-  for rate changes, and
-\item
-  \(R_i = R(\mathbf{x}_i)=S(\mathbf{x}_i)/P(\mathbf{x}_i)\) is the
-  relativity, or relative premium.
-\end{itemize}
-
-Thus, the set of information used to calculate the ordered Lorenz curve
-for the \(i\)th policy is \((y_i, P_i, S_i, R_i)\).
-
-\paragraph{Ordered Lorenz Curve}\label{ordered-lorenz-curve}
-\addcontentsline{toc}{paragraph}{Ordered Lorenz Curve}
-
-We now sort the set of policies based on relativities (from smallest to
-largest) and compute the premium and loss distributions. Using notation,
-the premium distribution is
-
-\begin{equation}
-\hat{F}_P(s) =  \frac{ \sum_{i=1}^n
-P(\mathbf{x}_i) \mathrm{I}(R_i \leq s) }{\sum_{i=1}^n P(\mathbf{x}_i)} ,\label{eq:EmpPremDF}
-\end{equation}
-
-and the loss distribution is
-
-\begin{equation}
-\hat{F}_{L}(s) =  \frac{ \sum_{i=1}^n y_i \mathrm{I}(R_i
-\leq s) }{\sum_{i=1}^n y_i} ,\label{eq:EmpLossDF}
-\end{equation}
-
-where \(\mathrm{I}(\cdot)\) is the indicator function, returning a 1 if
-the event is true and zero otherwise. The graph
-\(\left(\hat{F}_P(s),\hat{F}_{L}(s) \right)\) is an \textbf{ordered
-Lorenz curve}.
-
-The classic Lorenz curve shows the proportion of policyholders on the
-horizontal axis and the loss distribution function on the vertical axis.
-The ordered Lorenz curve extends the classical Lorenz curve in two ways,
-(1) through the ordering of risks and prices by relativities and (2) by
-allowing prices to vary by observation. We summarize the ordered Lorenz
-curve in the same way as the classic Lorenz curve using a Gini index,
-defined as twice the area between the curve and a 45 degree line. The
-analyst seeks ordered Lorenz curves that approach passing through the
-southeast corner (1,0); these have greater separation between the loss
-and premium distributions and therefore larger Gini indices.
-
-\textbf{Example -- Loss Distribution.}
-
-Suppose we have \(n=5\) policyholders with experience as:
-
-\begin{longtable}[]{@{}lcllllll@{}}
-\toprule
-Variable & \(i\) & 1 & 2 & 3 & 4 & 5 & Sum\tabularnewline
-\midrule
-\endhead
-Loss & \(y_i\) & 5 & 5 & 5 & 4 & 6 & 25\tabularnewline
-Premium & \(P(\mathbf{x}_i)\) & 4 & 2 & 6 & 5 & 8 & 25\tabularnewline
-Relativity & \(R(\mathbf{x}_i)\) & 5 & 4 & 3 & 2 & 1 &\tabularnewline
-\bottomrule
-\end{longtable}
-
-Determine the Lorenz curve and the ordered Lorenz curve.
-
-Show Example Solution
-
-\hypertarget{toggleLorenz}{}
-\begin{figure}
-
-{\centering \includegraphics[width=0.9\linewidth]{LossDataAnalytics_files/figure-latex/LorenzVsOrdered-1} 
-
-}
-
-\caption{Lorenz versus Ordered Lorenz Curve}\label{fig:LorenzVsOrdered}
-\end{figure}
-
-Figure \ref{fig:LorenzVsOrdered} compares the Lorenz curve to the
-ordered version based on this data. The left-hand panel shows the Lorenz
-curve. The horizontal axis is the cumulative proportion of policyholders
-(0, 0.2, 0.4, and so forth) and the vertical axis is the cumulative
-proportion of losses (0, 4/25, 9/25, and so forth). This figure shows
-little separation between the distributions of losses and policyholders.
-
-The right-hand panel shows the ordered Lorenz curve. Because
-observations are sorted by relativities, the first point after the
-origin (reading from left to right) is (8/25, 6/25). The second point is
-(13/25, 10/25), with the pattern continuing. For the ordered Lorenz
-curve, the horizontal axis uses premium weights, the vertical axis uses
-loss weights, and both axes are ordered by relativities. From the
-figure, we see that there is greater separation between losses and
-premiums when viewed through this relativity.
-
-\paragraph{Gini Index}\label{gini-index}
-\addcontentsline{toc}{paragraph}{Gini Index}
-
-Specifically, the Gini index can be calculated as follows. Suppose that
-the empirical ordered Lorenz curve is given by
-\(\{ (a_0=0, b_0=0), (a_1, b_1), \ldots,\) \((a_n=1, b_n=1) \}\) for a
-sample of \(n\) observations. Here, we use \(a_j = \hat{F}_P(R_j)\) and
-\(b_j = \hat{F}_{L}(R_j)\). Then, the empirical Gini index is
-
-\begin{eqnarray}
-\widehat{Gini} &=&  2\sum_{j=0}^{n-1} (a_{j+1} - a_j) \left \{
-\frac{a_{j+1}+a_j}{2} - \frac{b_{j+1}+b_j}{2} \right\} \nonumber \\
-&=& 1 - \sum_{j=0}^{n-1} (a_{j+1} - a_j) (b_{j+1}+b_j) .\label{eq:GiniDefn}
-\end{eqnarray}
-
-\textbf{Example -- Loss Distribution: Continued.} In the figure, the
-Gini index for the left-hand panel is 5.6\%. In contrast, the Gini index
-for the right-hand panel is 14.9\%. \(~~\Box\)
-
-\subsubsection{Out-of-Sample
-Validation}\label{out-of-sample-validation-1}
-
-The Gini statistics based on an ordered Lorenz curve can be used for
-out-of-sample validation. The procedure follows:
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  Use an in-sample data set to estimate several competing models.
-\item
-  Designate an out-of-sample, or validation, data set of the form
-  \(\{(y_i, \mathbf{x}_i), i=1,\ldots,n\}\).
-\item
-  Establish one of the models as the base model. Use this estimated
-  model and explanatory variables from the validation sample to form
-  premiums of the form \(P(\mathbf{x}_i))\).
-\item
-  Use an estimated competing model and validation sample explanatory
-  variables to form scores of the form \(S(\mathbf{x}_i))\).
-\item
-  From the premiums and scores, develop relativities
-  \(R_i =S(\mathbf{x}_i)/P(\mathbf{x}_i)\).
-\item
-  Use the validation sample outcomes \(y_i\) to compute the Gini
-  statistic.
-\end{enumerate}
-
-\textbf{Example -- Out-of-Sample Validation.}
-
-Suppose that we have experience from 25 states. For each state, we have
-available 500 observations that can be used to predict future losses.
-For this illustration, we have generated losses using a gamma
-distrbution with common shape parameter equal to 5 and a scale parameter
-that varies by state, from a low of 20 to 66.
-
-Determine the ordered Lorenz curve and the corresponding Gini statistic
-to compare the two rate procedures.
-
-Show Example Solution
-
-\hypertarget{toggleExampleLor}{}
-For our base premium, we simply use the maximum likelihood estimate
-assuming a common distribution among all states. For the gamma
-distribution, this turns out to be simply the average which for our
-simulation is \textbf{P}=219.96. You can think of this common premium as
-based on a \emph{community rating} principle. As an alternative, we use
-averages that are state-specific. Because this illustration uses means
-that vary by states, we anticipate this alternative rating procedure to
-be preferred to the community rating procedure. (Recall for the gamma
-distribution that the mean equals the shape times the scale or, 5 times
-the scale parameter, for our example.)
-
-Out of sample claims were generated from the same gamma distribution,
-with 200 observations for each state. In the following, we have the
-ordered Lorenz curve.
-
-\begin{figure}
-
-{\centering \includegraphics[width=0.5\linewidth]{LossDataAnalytics_files/figure-latex/unnamed-chunk-7-1} 
-
-}
-
-\end{figure}
-
-For these data, the Gini index is 0.187 with a standard error equal to
-0.00381.
-
-\paragraph{Discussion}\label{discussion}
-\addcontentsline{toc}{paragraph}{Discussion}
-
-In insurance claims modeling, standard out-of-sample validation measures
-are not the most informative due to the high proportions of zeros
-(corresponding to no claim) and the skewed fat-tailed distribution of
-the positive values. The Gini index can be motivated by the economics of
-insurance. Intuitively, the Gini index measures the negative covariance
-between a policy's ``profit'' (\(P-y\), premium minus loss) and the rank
-of the relativity (\textbf{R}, score divided by premium). That is, the
-close approximation
-
-\[\widehat{Gini} \approx - \frac{2}{n} \widehat{Cov} \left( (P-y), rank(R) \right) .\]
-This observation leads an insurer to seek an ordering that produces to a
-large Gini index. Thus, the Gini index and associated ordered Lorenz
-curve are useful for identifying profitable blocks of insurance
-business.
-
-Unlike classical measures of association, the Gini index assumes that a
-premium base \textbf{P} is currently in place and seeks to assess
-vulnerabilities of this structure. This approach is more akin to
-hypothesis testing (when compared to goodness of fit) where one
-identifies a ``null hypothesis'' as the current state of the world and
-uses decision-making criteria/statistics to compare this with an
-``alternative hypothesis.''
-
-The insurance version of the Gini statistic was developed by
-\citep{frees2011summarizing} and \citep{frees2014insurance} where you
-can find formulas for the standard errors and other additional
-background information.
-
 \section{Modified Data}\label{S:ModifiedData}
 
 In this section, you learn how to:
@@ -5978,7 +5708,7 @@ value of \(X\) (left-truncated).
 
 }
 
-\caption{Figure 8: Censoring and Truncation}\label{fig:CensorTrunc}
+\caption{Censoring and Truncation}\label{fig:CensorTrunc}
 \end{figure}
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
@@ -6000,7 +5730,7 @@ represents exposure time.
 
 }
 
-\caption{Figure 9: Timeline for Several Subjects on Test in a Mortality Study}\label{fig:Mortality}
+\caption{Timeline for Several Subjects on Test in a Mortality Study}\label{fig:Mortality}
 \end{figure}
 
 \begin{itemize}
@@ -7107,6 +6837,277 @@ examinations, typically the Society of Actuaries Exam C.
   \href{mailto:jfrees@bus.wisc.edu}{\nolinkurl{jfrees@bus.wisc.edu}} for
   chapter comments and suggested improvements.
 \end{itemize}
+
+\section*{Technical Supplement - Gini
+Statistic}\label{technical-supplement---gini-statistic}
+\addcontentsline{toc}{section}{Technical Supplement - Gini Statistic}
+
+\subsection{The Classic Lorenz Curve}\label{the-classic-lorenz-curve}
+
+In welfare economics, it is common to compare distributions via the
+\textbf{Lorenz curve}, developed by Max Otto Lorenz
+\citep{lorenz1905methods}. A Lorenz curve is a graph of the proportion
+of a population on the horizontal axis and a distribution function of
+interest on the vertical axis. It is typically used to represent income
+distributions. When the income distribution is perfectly aligned with
+the population distribution, the Lorenz curve results in a 45 degree
+line that is known as the \textbf{line of equality}. The area between
+the Lorenz curve and the line of equality is a measure of the
+discrepancy between the income and population distributions. Two times
+this area is known as the \textbf{Gini index}, introduced by Corrado
+Gini in 1912.
+
+\textbf{Example -- Classic Lorenz Curve.} For an insurance example,
+Figure \ref{fig:ClassicLorenz} shows a distribution of insurance losses.
+This figure is based on a random sample of 2000 losses. The left-hand
+panel shows a right-skewed histogram of losses. The right-hand panel
+provides the corresponding Lorenz curve, showing again a skewed
+distribution. For example, the arrow marks the point where 60 percent of
+the policyholders have 30 percent of losses. The 45 degree line is the
+line of equality; if each policyholder has the same loss, then the loss
+distribution would be at this line. The Gini index, twice the area
+between the Lorenz curve and the 45 degree line, is 37.6 percent for
+this data set.
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.9\linewidth]{LossDataAnalytics_files/figure-latex/ClassicLorenz-1} 
+
+}
+
+\caption{Distribution of insurance losses.}\label{fig:ClassicLorenz}
+\end{figure}
+
+\subsection{Ordered Lorenz Curve and the Gini
+Index}\label{ordered-lorenz-curve-and-the-gini-index}
+
+We now introduce a modification of the classic Lorenz curve and Gini
+statistic that is useful in insurance applications. Specifically, we
+introduce an \emph{ordered} Lorenz curve which is a graph of the
+distribution of losses versus premiums, where both losses and premiums
+are ordered by relativities. Intuitively, the relativities point towards
+aspects of the comparison where there is a mismatch between losses and
+premiums. To make the ideas concrete, we first provide some notation. We
+will consider \(i=1, \ldots, n\) policies. For the \(i\)th policy, let
+
+\begin{itemize}
+\tightlist
+\item
+  \(y_i\) denote the insurance loss,
+\item
+  \(\mathbf{x}_i\) be the set of policyholder characteristics known to
+  the analyst,
+\item
+  \(P_i=P(\mathbf{x}_i)\) be the associated premium that is a function
+  of \(\mathbf{x}_i\),
+\item
+  \(S_i = S(\mathbf{x}_i)\) be an insurance score under consideration
+  for rate changes, and
+\item
+  \(R_i = R(\mathbf{x}_i)=S(\mathbf{x}_i)/P(\mathbf{x}_i)\) is the
+  relativity, or relative premium.
+\end{itemize}
+
+Thus, the set of information used to calculate the ordered Lorenz curve
+for the \(i\)th policy is \((y_i, P_i, S_i, R_i)\).
+
+\subsubsection*{Ordered Lorenz Curve}\label{ordered-lorenz-curve}
+\addcontentsline{toc}{subsubsection}{Ordered Lorenz Curve}
+
+We now sort the set of policies based on relativities (from smallest to
+largest) and compute the premium and loss distributions. Using notation,
+the premium distribution is
+
+\begin{equation}
+\hat{F}_P(s) =  \frac{ \sum_{i=1}^n
+P(\mathbf{x}_i) \mathrm{I}(R_i \leq s) }{\sum_{i=1}^n P(\mathbf{x}_i)} ,\label{eq:EmpPremDF}
+\end{equation}
+
+and the loss distribution is
+
+\begin{equation}
+\hat{F}_{L}(s) =  \frac{ \sum_{i=1}^n y_i \mathrm{I}(R_i
+\leq s) }{\sum_{i=1}^n y_i} ,\label{eq:EmpLossDF}
+\end{equation}
+
+where \(\mathrm{I}(\cdot)\) is the indicator function, returning a 1 if
+the event is true and zero otherwise. The graph
+\(\left(\hat{F}_P(s),\hat{F}_{L}(s) \right)\) is an \textbf{ordered
+Lorenz curve}.
+
+The classic Lorenz curve shows the proportion of policyholders on the
+horizontal axis and the loss distribution function on the vertical axis.
+The ordered Lorenz curve extends the classical Lorenz curve in two ways,
+(1) through the ordering of risks and prices by relativities and (2) by
+allowing prices to vary by observation. We summarize the ordered Lorenz
+curve in the same way as the classic Lorenz curve using a Gini index,
+defined as twice the area between the curve and a 45 degree line. The
+analyst seeks ordered Lorenz curves that approach passing through the
+southeast corner (1,0); these have greater separation between the loss
+and premium distributions and therefore larger Gini indices.
+
+\textbf{Example -- Loss Distribution.}
+
+Suppose we have \(n=5\) policyholders with experience as:
+
+\begin{longtable}[]{@{}lcllllll@{}}
+\toprule
+Variable & \(i\) & 1 & 2 & 3 & 4 & 5 & Sum\tabularnewline
+\midrule
+\endhead
+Loss & \(y_i\) & 5 & 5 & 5 & 4 & 6 & 25\tabularnewline
+Premium & \(P(\mathbf{x}_i)\) & 4 & 2 & 6 & 5 & 8 & 25\tabularnewline
+Relativity & \(R(\mathbf{x}_i)\) & 5 & 4 & 3 & 2 & 1 &\tabularnewline
+\bottomrule
+\end{longtable}
+
+Determine the Lorenz curve and the ordered Lorenz curve.
+
+Show Example Solution
+
+\hypertarget{toggleLorenz}{}
+\begin{figure}
+
+{\centering \includegraphics[width=0.9\linewidth]{LossDataAnalytics_files/figure-latex/LorenzVsOrdered-1} 
+
+}
+
+\caption{Lorenz versus Ordered Lorenz Curve}\label{fig:LorenzVsOrdered}
+\end{figure}
+
+Figure \ref{fig:LorenzVsOrdered} compares the Lorenz curve to the
+ordered version based on this data. The left-hand panel shows the Lorenz
+curve. The horizontal axis is the cumulative proportion of policyholders
+(0, 0.2, 0.4, and so forth) and the vertical axis is the cumulative
+proportion of losses (0, 4/25, 9/25, and so forth). This figure shows
+little separation between the distributions of losses and policyholders.
+
+The right-hand panel shows the ordered Lorenz curve. Because
+observations are sorted by relativities, the first point after the
+origin (reading from left to right) is (8/25, 6/25). The second point is
+(13/25, 10/25), with the pattern continuing. For the ordered Lorenz
+curve, the horizontal axis uses premium weights, the vertical axis uses
+loss weights, and both axes are ordered by relativities. From the
+figure, we see that there is greater separation between losses and
+premiums when viewed through this relativity.
+
+\subsubsection*{Gini Index}\label{gini-index}
+\addcontentsline{toc}{subsubsection}{Gini Index}
+
+Specifically, the Gini index can be calculated as follows. Suppose that
+the empirical ordered Lorenz curve is given by
+\(\{ (a_0=0, b_0=0), (a_1, b_1), \ldots,\) \((a_n=1, b_n=1) \}\) for a
+sample of \(n\) observations. Here, we use \(a_j = \hat{F}_P(R_j)\) and
+\(b_j = \hat{F}_{L}(R_j)\). Then, the empirical Gini index is
+
+\begin{eqnarray}
+\widehat{Gini} &=&  2\sum_{j=0}^{n-1} (a_{j+1} - a_j) \left \{
+\frac{a_{j+1}+a_j}{2} - \frac{b_{j+1}+b_j}{2} \right\} \nonumber \\
+&=& 1 - \sum_{j=0}^{n-1} (a_{j+1} - a_j) (b_{j+1}+b_j) .\label{eq:GiniDefn}
+\end{eqnarray}
+
+\textbf{Example -- Loss Distribution: Continued.} In the figure, the
+Gini index for the left-hand panel is 5.6\%. In contrast, the Gini index
+for the right-hand panel is 14.9\%. \(~~\Box\)
+
+\subsection{Out-of-Sample Validation}\label{out-of-sample-validation-1}
+
+The Gini statistics based on an ordered Lorenz curve can be used for
+out-of-sample validation. The procedure follows:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Use an in-sample data set to estimate several competing models.
+\item
+  Designate an out-of-sample, or validation, data set of the form
+  \(\{(y_i, \mathbf{x}_i), i=1,\ldots,n\}\).
+\item
+  Establish one of the models as the base model. Use this estimated
+  model and explanatory variables from the validation sample to form
+  premiums of the form \(P(\mathbf{x}_i))\).
+\item
+  Use an estimated competing model and validation sample explanatory
+  variables to form scores of the form \(S(\mathbf{x}_i))\).
+\item
+  From the premiums and scores, develop relativities
+  \(R_i =S(\mathbf{x}_i)/P(\mathbf{x}_i)\).
+\item
+  Use the validation sample outcomes \(y_i\) to compute the Gini
+  statistic.
+\end{enumerate}
+
+\textbf{Example -- Out-of-Sample Validation.}
+
+Suppose that we have experience from 25 states. For each state, we have
+available 500 observations that can be used to predict future losses.
+For this illustration, we have generated losses using a gamma
+distrbution with common shape parameter equal to 5 and a scale parameter
+that varies by state, from a low of 20 to 66.
+
+Determine the ordered Lorenz curve and the corresponding Gini statistic
+to compare the two rate procedures.
+
+Show Example Solution
+
+\hypertarget{toggleExampleLor}{}
+For our base premium, we simply use the maximum likelihood estimate
+assuming a common distribution among all states. For the gamma
+distribution, this turns out to be simply the average which for our
+simulation is \textbf{P}=219.96. You can think of this common premium as
+based on a \emph{community rating} principle. As an alternative, we use
+averages that are state-specific. Because this illustration uses means
+that vary by states, we anticipate this alternative rating procedure to
+be preferred to the community rating procedure. (Recall for the gamma
+distribution that the mean equals the shape times the scale or, 5 times
+the scale parameter, for our example.)
+
+Out of sample claims were generated from the same gamma distribution,
+with 200 observations for each state. In the following, we have the
+ordered Lorenz curve.
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.5\linewidth]{LossDataAnalytics_files/figure-latex/unnamed-chunk-8-1} 
+
+}
+
+\end{figure}
+
+For these data, the Gini index is 0.187 with a standard error equal to
+0.00381.
+
+\subsubsection*{Discussion}\label{discussion}
+\addcontentsline{toc}{subsubsection}{Discussion}
+
+In insurance claims modeling, standard out-of-sample validation measures
+are not the most informative due to the high proportions of zeros
+(corresponding to no claim) and the skewed fat-tailed distribution of
+the positive values. The Gini index can be motivated by the economics of
+insurance. Intuitively, the Gini index measures the negative covariance
+between a policy's ``profit'' (\(P-y\), premium minus loss) and the rank
+of the relativity (\textbf{R}, score divided by premium). That is, the
+close approximation
+
+\[\widehat{Gini} \approx - \frac{2}{n} \widehat{Cov} \left( (P-y), rank(R) \right) .\]
+This observation leads an insurer to seek an ordering that produces to a
+large Gini index. Thus, the Gini index and associated ordered Lorenz
+curve are useful for identifying profitable blocks of insurance
+business.
+
+Unlike classical measures of association, the Gini index assumes that a
+premium base \textbf{P} is currently in place and seeks to assess
+vulnerabilities of this structure. This approach is more akin to
+hypothesis testing (when compared to goodness of fit) where one
+identifies a ``null hypothesis'' as the current state of the world and
+uses decision-making criteria/statistics to compare this with an
+``alternative hypothesis.''
+
+The insurance version of the Gini statistic was developed by
+\citep{frees2011summarizing} and \citep{frees2014insurance} where you
+can find formulas for the standard errors and other additional
+background information.
 
 \chapter{Aggregate Loss Models}\label{C:AggLoss}
 
@@ -12744,24 +12745,27 @@ conditional variance as
 \[\mathrm{Var} \left[ h(X,Y) | X \right]  = \mathrm{E} [ h(X,Y)^2 | X ] -\left\{\mathrm{E} \left[ h(X,Y) | X \right] \right\}^2.\]
 
 From this, the expectation of the conditional variance is
-\[\begin{aligned}
+
+\begin{align}
     \mathrm{E}\{\mathrm{Var} \left[ h(X,Y) | X \right] \} &=
-    \mathrm{E}\left\{\mathrm{E} \left[ h(X,Y)^2 | X \right] \right\} - \mathrm{E}\left(\left\{\mathrm{E} \left[ h(X,Y) | X \right] \right\}^2\right) \\
-    &=\mathrm{E} \left[ h(X,Y)^2\right] - \mathrm{E}\left(\left\{\mathrm{E} \left[ h(X,Y) | X \right] \right\}^2\right).\label{eq:AppBEV}
-\end{aligned}\]
+    \mathrm{E}\left\{\mathrm{E} \left[ h(X,Y)^2 | X \right] \right\} - \mathrm{E}\left(\left\{\mathrm{E} \left[ h(X,Y) | X \right] \right\}^2\right) \notag \\
+    &=\mathrm{E} \left[ h(X,Y)^2\right] - \mathrm{E}\left(\left\{\mathrm{E} \left[ h(X,Y) | X \right] \right\}^2\right).\label{eq:AppBEV1}
+\end{align}
 
 Further, note that the conditional expectation,
 \(\mathrm{E} \left[ h(X,Y) | X \right]\), is a function of \(X\),
 denoted \(g(X)\). Thus, \(g(X)\) is a random variable with mean
-\(\mathrm{E}[h(X,Y)]\) and variance \[\begin{aligned}
-    \mathrm{Var} \left\{ \mathrm{E} \left[ h(X,Y) | X \right] \right \} &=\mathrm{Var}[g(X)]  \nonumber \\
+\(\mathrm{E}[h(X,Y)]\) and variance
+
+\begin{align}
+    \mathrm{Var} \left\{ \mathrm{E} \left[ h(X,Y) | X \right] \right \} &=\mathrm{Var}[g(X)]  \notag \\
     &= \mathrm{E}[g(X)^2]\ - \left\{\mathrm{E}[g(X)]\right\}^2 \nonumber\\
     &= \mathrm{E}\left(\left\{\mathrm{E} \left[ h(X,Y) | X \right] \right\}^2\right)
-    - \left\{\mathrm{E}[h(X,Y)]\right\}^2. \label{eq:AppBVE}
-\end{aligned}\]
+    - \left\{\mathrm{E}[h(X,Y)]\right\}^2.\label{eq:AppBVE2}
+\end{align}
 
-Thus, adding Equations \eqref{eq:AppBEV} and \eqref{eq:AppBVE} leads to the
-unconditional variance \(\mathrm{Var} \left[ h(X,Y) \right]\).
+Thus, adding Equations \eqref{eq:AppBEV1} and \eqref{eq:AppBVE2} leads to
+the unconditional variance \(\mathrm{Var} \left[ h(X,Y) \right]\).
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
@@ -12878,7 +12882,7 @@ where \(f(\mathbf{x}|\boldsymbol{\theta})\) denotes the joint
 probability function of \(\mathbf{x}\). The log-likelihood function
 leads to an additive structure that is easy to work with.
 
-In Appendix \ref{C:TS1}, we have used the normal distribution to
+In Appendix \ref{C:AppA}, we have used the normal distribution to
 illustrate concepts of the likelihood function and the log-likelihood
 function. Here, we derive the likelihood and corresponding
 log-likelihood functions when the population distribution is from the

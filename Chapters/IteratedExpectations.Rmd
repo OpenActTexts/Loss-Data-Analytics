@@ -1,6 +1,6 @@
-# Appendix B: Iterated Expectations {#C:TS2a}
+# Appendix B: Iterated Expectations {#C:AppB}
 
-This supplement introduces the laws related to iterated expectations. In particular, Section \@ref(S:TS2a:CD) introduces the concepts of conditional distribution and conditional expectation. Section \@ref(S:TS2a:IE) introduces the Law of Iterated Expectations and the Law of Total Variance.
+This appendix introduces the laws related to iterated expectations. In particular, Section \@ref(S:AppB:CD) introduces the concepts of conditional distribution and conditional expectation. Section \@ref(S:AppB:IE) introduces the Law of Iterated Expectations and the Law of Total Variance.
 
 In some situations, we only observe a single outcome but can
 conceptualize an outcome as resulting from a two (or more) stage
@@ -15,7 +15,7 @@ process. Such types of statistical models are called **two-stage**, or **hierarc
 
 In these situations, the process gives rise to a conditional distribution of a random variable (the Stage 2 outcome) given the other (the Stage 1 outcome). The Law of Iterated Expectations can be useful for obtaining the unconditional expectation or variance of a random variable in such cases.
 
-## Conditional Distribution and Conditional Expectation {#S:TS2a:CD}
+## Conditional Distribution and Conditional Expectation {#S:AppB:CD}
 
 <hr />
 
@@ -105,7 +105,7 @@ $$\mathrm{Var}[Y|X=x]=\mathrm{E}[Y^2|X=x]-\{\mathrm{E}[Y|X=x]\}^2=\int_y y^2\,f(
 
 The variance of $Y$ given $X$, $\mathrm{Var}[Y|X]$ can then be defined by replacing $x$ by $X$ in the above equation, and similarly $\mathrm{Var}[Y|X]$ is also a random variable and the randomness comes from $X$.
 
-## Iterated Expectations and Total Variance {#S:TS2a:IE}
+## Iterated Expectations and Total Variance {#S:AppB:IE}
 
 <hr />
 
@@ -124,7 +124,7 @@ Assuming all the expectations exist and are finite, the **Law of Iterated Expect
     $$\mathrm{E}[h(X,Y)]= \mathrm{E} \left\{ \mathrm{E} \left[ h(X,Y) | X \right] \right \},$$
 where the first (inside) expectation is taken with respect to the random variable $Y$ and the second (outside) expectation is taken with respect to $X$.
 
-For the Law of Iterated Expectations, the random variables may be discrete, continuous, or a hybrid combination of the two. We use the example of discrete variables of $X$ and $Y$ to illustrate the calculation of the unconditional expectation using the Law of Iterated Expectations. For continuous random variables, we only need to replace the summation with the integral, as illustrated earlier in the supplement.
+For the Law of Iterated Expectations, the random variables may be discrete, continuous, or a hybrid combination of the two. We use the example of discrete variables of $X$ and $Y$ to illustrate the calculation of the unconditional expectation using the Law of Iterated Expectations. For continuous random variables, we only need to replace the summation with the integral, as illustrated earlier in the appendix.
 
 Given $p(y|x)$ the joint pmf of $X$ and $Y$, the conditional expectation of $h(X,Y)$ given the event $X=x$ is defined as
     $$\mathrm{E} \left[ h(X,Y) | X=x \right] = \sum_y h(x,y) p(y|x),$$
@@ -148,7 +148,8 @@ Assuming that all the variances exist and are finite, the **Law of Total Varianc
 where the first (inside) expectation/variance is taken with respect to the random variable $Y$ and the second (outside) expectation/variance is taken with respect to $X$. Thus, the unconditional variance equals to the expectation of the conditional variance plus the variance of the conditional expectation.
 
 *** 
-<h4 style="text-align: left;"><a id="EXM:S2a:LTV:display" href="javascript:toggleDetail('EXM:S2a:LTV','EXM:S2a:LTV:display');"><i><strong>Show Technical Detail</strong></i></a></h4>
+
+<h4 style="text-align: left;"><a id="EXM:S2a:LTV:display" href="javascript:toggleTheory('EXM:S2a:LTV','EXM:S2a:LTV:display');"><i><strong>Show Technical Detail</strong></i></a></h4>
 <div id="EXM:S2a:LTV" style="display: none">
 
 In order to verify this rule, first note that we can calculate a conditional variance as $$\mathrm{Var} \left[ h(X,Y) | X \right]  = \mathrm{E} [ h(X,Y)^2 | X ] -\left\{\mathrm{E} \left[ h(X,Y) | X \right] \right\}^2.$$
@@ -157,7 +158,7 @@ From this, the expectation of the conditional variance is
 $$\begin{aligned}
     \mathrm{E}\{\mathrm{Var} \left[ h(X,Y) | X \right] \} &=
     \mathrm{E}\left\{\mathrm{E} \left[ h(X,Y)^2 | X \right] \right\} - \mathrm{E}\left(\left\{\mathrm{E} \left[ h(X,Y) | X \right] \right\}^2\right) \\
-    &=\mathrm{E} \left[ h(X,Y)^2\right] - \mathrm{E}\left(\left\{\mathrm{E} \left[ h(X,Y) | X \right] \right\}^2\right).(\#eq:TS2aEV)
+    &=\mathrm{E} \left[ h(X,Y)^2\right] - \mathrm{E}\left(\left\{\mathrm{E} \left[ h(X,Y) | X \right] \right\}^2\right).(\#eq:AppBEV)
 \end{aligned}$$
 
 Further, note that the conditional expectation,
@@ -166,12 +167,13 @@ $$\begin{aligned}
     \mathrm{Var} \left\{ \mathrm{E} \left[ h(X,Y) | X \right] \right \} &=\mathrm{Var}[g(X)]  \nonumber \\
     &= \mathrm{E}[g(X)^2]\ - \left\{\mathrm{E}[g(X)]\right\}^2 \nonumber\\
     &= \mathrm{E}\left(\left\{\mathrm{E} \left[ h(X,Y) | X \right] \right\}^2\right)
-    - \left\{\mathrm{E}[h(X,Y)]\right\}^2. (\#eq:TS2aVE)
+    - \left\{\mathrm{E}[h(X,Y)]\right\}^2. (\#eq:AppBVE)
 \end{aligned}$$    
 
-Thus, adding Equations \@ref(eq:TS2aEV) and \@ref(eq:TS2aVE) leads to the unconditional variance $\mathrm{Var} \left[ h(X,Y) \right]$.
+Thus, adding Equations \@ref(eq:AppBEV) and \@ref(eq:AppBVE) leads to the unconditional variance $\mathrm{Var} \left[ h(X,Y) \right]$.
 
 </div>
+
 ***
 
 ### Application

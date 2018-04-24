@@ -40,7 +40,8 @@ Hopefully you are done.
 
 ## Making Changes
 
-The next step is to upload your changes to this repository in GitHub. Need some instructions for doing that...
+The next step is to upload your changes to this repository in GitHub and so you will need to learn about GitHub. We recommend the site
+[Happy Git and GitHub for the useR](http://happygitwithr.com/).
 
 ## Word Files
 

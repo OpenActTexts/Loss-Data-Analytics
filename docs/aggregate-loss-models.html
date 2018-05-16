@@ -1,0 +1,1375 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Loss Data Analytics</title>
+  <meta name="description" content="Loss Data Analytics is an interactive, online, freely available text. - The online version will contain many interactive objects (quizzes, computer demonstrations, interactive graphs, video, and the like) to promote deeper learning. - A subset of the book will be available in pdf format for low-cost printing. - The online text will be available in multiple languages to promote access to a worldwide audience.">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Loss Data Analytics" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Loss Data Analytics is an interactive, online, freely available text. - The online version will contain many interactive objects (quizzes, computer demonstrations, interactive graphs, video, and the like) to promote deeper learning. - A subset of the book will be available in pdf format for low-cost printing. - The online text will be available in multiple languages to promote access to a worldwide audience." />
+  <meta name="github-repo" content="<a href="https://github.com/ewfrees/Loss-Data-Analytics" class="uri">https://github.com/ewfrees/Loss-Data-Analytics</a>" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Loss Data Analytics" />
+  
+  <meta name="twitter:description" content="Loss Data Analytics is an interactive, online, freely available text. - The online version will contain many interactive objects (quizzes, computer demonstrations, interactive graphs, video, and the like) to promote deeper learning. - A subset of the book will be available in pdf format for low-cost printing. - The online text will be available in multiple languages to promote access to a worldwide audience." />
+  
+
+<meta name="author" content="An open text authored by the Actuarial Community">
+
+
+<meta name="date" content="2018-05-16">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="C-ModelSelection.html">
+<link rel="next" href="simulation-1.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script language="javascript">
+function toggle(id1,id2) {
+	var ele = document.getElementById(id1); var text = document.getElementById(id2);
+	if (ele.style.display == "block") {ele.style.display = "none"; text.innerHTML = "Show Solution";}
+		else {ele.style.display = "block"; text.innerHTML = "Hide Solution";}}
+</script>
+<script language="javascript">
+function togglecode(id1,id2) {
+   var ele = document.getElementById(id1); var text = document.getElementById(id2);
+   if (ele.style.display == "block") {ele.style.display = "none"; text.innerHTML = "Show R Code";}
+      else {ele.style.display = "block"; text.innerHTML = "Hide R Code";}}
+</script>
+<script language="javascript">
+function toggleEX(id1,id2) {
+   var ele = document.getElementById(id1); var text = document.getElementById(id2);
+   if (ele.style.display == "block") {ele.style.display = "none"; text.innerHTML = "Show Example";}
+      else {ele.style.display = "block"; text.innerHTML = "Hide Example";}}
+</script>
+<script language="javascript">
+function toggleTheory(id1,id2) {
+   var ele = document.getElementById(id1); var text = document.getElementById(id2);
+   if (ele.style.display == "block") {ele.style.display = "none"; text.innerHTML = "Show Theory";}
+      else {ele.style.display = "block"; text.innerHTML = "Hide Theory";}}
+</script>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Loss Data Analytics</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="" data-path="contributor-list.html"><a href="contributor-list.html"><i class="fa fa-check"></i>Contributor List</a></li>
+<li class="chapter" data-level="" data-path="acknowledgements.html"><a href="acknowledgements.html"><i class="fa fa-check"></i>Acknowledgements</a><ul>
+<li class="chapter" data-level="" data-path="acknowledgements.html"><a href="acknowledgements.html#reviewer-acknowledgment"><i class="fa fa-check"></i>Reviewer Acknowledgment</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="C-Intro.html"><a href="C-Intro.html"><i class="fa fa-check"></i><b>1</b> Introduction to Loss Data Analytics</a><ul>
+<li class="chapter" data-level="1.1" data-path="C-Intro.html"><a href="C-Intro.html#S:Intro"><i class="fa fa-check"></i><b>1.1</b> Relevance of Analytics</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="C-Intro.html"><a href="C-Intro.html#what-is-analytics"><i class="fa fa-check"></i><b>1.1.1</b> What is Analytics?</a></li>
+<li class="chapter" data-level="1.1.2" data-path="C-Intro.html"><a href="C-Intro.html#short-term-insurance"><i class="fa fa-check"></i><b>1.1.2</b> Short-term Insurance</a></li>
+<li class="chapter" data-level="1.1.3" data-path="C-Intro.html"><a href="C-Intro.html#S:InsProcesses"><i class="fa fa-check"></i><b>1.1.3</b> Insurance Processes</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="C-Intro.html"><a href="C-Intro.html#S:PredModApps"><i class="fa fa-check"></i><b>1.2</b> Insurance Company Operations</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="C-Intro.html"><a href="C-Intro.html#initiating-insurance"><i class="fa fa-check"></i><b>1.2.1</b> Initiating Insurance</a></li>
+<li class="chapter" data-level="1.2.2" data-path="C-Intro.html"><a href="C-Intro.html#renewing-insurance"><i class="fa fa-check"></i><b>1.2.2</b> Renewing Insurance</a></li>
+<li class="chapter" data-level="1.2.3" data-path="C-Intro.html"><a href="C-Intro.html#claims-and-product-management"><i class="fa fa-check"></i><b>1.2.3</b> Claims and Product Management</a></li>
+<li class="chapter" data-level="1.2.4" data-path="C-Intro.html"><a href="C-Intro.html#S:Reserving"><i class="fa fa-check"></i><b>1.2.4</b> Loss Reserving</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="C-Intro.html"><a href="C-Intro.html#S:LGPIF"><i class="fa fa-check"></i><b>1.3</b> Case Study: Wisconsin Property Fund</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="C-Intro.html"><a href="C-Intro.html#S:OutComes"><i class="fa fa-check"></i><b>1.3.1</b> Fund Claims Variables</a></li>
+<li class="chapter" data-level="1.3.2" data-path="C-Intro.html"><a href="C-Intro.html#S:FundVariables"><i class="fa fa-check"></i><b>1.3.2</b> Fund Rating Variables</a></li>
+<li class="chapter" data-level="1.3.3" data-path="C-Intro.html"><a href="C-Intro.html#fund-operations"><i class="fa fa-check"></i><b>1.3.3</b> Fund Operations</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="C-Intro.html"><a href="C-Intro.html#further-reading-and-resources"><i class="fa fa-check"></i><b>1.4</b> Contributors and Further Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="C-Frequency.html"><a href="C-Frequency.html"><i class="fa fa-check"></i><b>2</b> Frequency Distributions</a><ul>
+<li class="chapter" data-level="2.1" data-path="C-Frequency.html"><a href="C-Frequency.html#how-frequency-augments-severity-information"><i class="fa fa-check"></i><b>2.1</b> How Frequency Augments Severity Information</a></li>
+<li class="chapter" data-level="2.2" data-path="C-Frequency.html"><a href="C-Frequency.html#basic-frequency-distributions"><i class="fa fa-check"></i><b>2.2</b> Basic Frequency Distributions</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="C-Frequency.html"><a href="C-Frequency.html#foundations"><i class="fa fa-check"></i><b>2.2.1</b> Foundations</a></li>
+<li class="chapter" data-level="2.2.2" data-path="C-Frequency.html"><a href="C-Frequency.html#probability-generating-function"><i class="fa fa-check"></i><b>2.2.2</b> Probability Generating Function</a></li>
+<li class="chapter" data-level="2.2.3" data-path="C-Frequency.html"><a href="C-Frequency.html#important-frequency-distributions"><i class="fa fa-check"></i><b>2.2.3</b> Important Frequency Distributions</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="C-Frequency.html"><a href="C-Frequency.html#the-a-b-0-class"><i class="fa fa-check"></i><b>2.3</b> The (a, b, 0) Class</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="C-Frequency.html"><a href="C-Frequency.html#the-a-b-0-class---example"><i class="fa fa-check"></i><b>2.3.1</b> The (a, b, 0) Class - Example</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="C-Frequency.html"><a href="C-Frequency.html#estimating-frequency-distributions"><i class="fa fa-check"></i><b>2.4</b> Estimating Frequency Distributions</a></li>
+<li class="chapter" data-level="2.5" data-path="C-Frequency.html"><a href="C-Frequency.html#other-frequency-distributions"><i class="fa fa-check"></i><b>2.5</b> Other Frequency Distributions</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="C-Frequency.html"><a href="C-Frequency.html#zero-truncation-or-modification"><i class="fa fa-check"></i><b>2.5.1</b> Zero Truncation or Modification</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="C-Frequency.html"><a href="C-Frequency.html#mixture-distributions"><i class="fa fa-check"></i><b>2.6</b> Mixture Distributions</a><ul>
+<li class="chapter" data-level="2.6.1" data-path="C-Frequency.html"><a href="C-Frequency.html#mixtures-of-finite-populations"><i class="fa fa-check"></i><b>2.6.1</b> Mixtures of Finite Populations</a></li>
+<li class="chapter" data-level="2.6.2" data-path="C-Frequency.html"><a href="C-Frequency.html#mixtures-of-infinitely-many-populations"><i class="fa fa-check"></i><b>2.6.2</b> Mixtures of Infinitely Many Populations</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="C-Frequency.html"><a href="C-Frequency.html#goodness-of-fit"><i class="fa fa-check"></i><b>2.7</b> Goodness of Fit</a></li>
+<li class="chapter" data-level="2.8" data-path="C-Frequency.html"><a href="C-Frequency.html#exercises"><i class="fa fa-check"></i><b>2.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="C-Severity.html"><a href="C-Severity.html"><i class="fa fa-check"></i><b>3</b> Modeling Loss Severity</a><ul>
+<li class="chapter" data-level="3.1" data-path="C-Severity.html"><a href="C-Severity.html#BasicQuantities"><i class="fa fa-check"></i><b>3.1</b> Basic Distributional Quantities</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="C-Severity.html"><a href="C-Severity.html#moments"><i class="fa fa-check"></i><b>3.1.1</b> Moments</a></li>
+<li class="chapter" data-level="3.1.2" data-path="C-Severity.html"><a href="C-Severity.html#quantiles"><i class="fa fa-check"></i><b>3.1.2</b> Quantiles</a></li>
+<li class="chapter" data-level="3.1.3" data-path="C-Severity.html"><a href="C-Severity.html#the-moment-generating-function"><i class="fa fa-check"></i><b>3.1.3</b> The Moment Generating Function</a></li>
+<li class="chapter" data-level="3.1.4" data-path="C-Severity.html"><a href="C-Severity.html#probability-generating-function-1"><i class="fa fa-check"></i><b>3.1.4</b> Probability Generating Function</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="C-Severity.html"><a href="C-Severity.html#ContinuousDistn"><i class="fa fa-check"></i><b>3.2</b> Continuous Distributions for Modeling Loss Severity</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="C-Severity.html"><a href="C-Severity.html#the-gamma-distribution"><i class="fa fa-check"></i><b>3.2.1</b> The Gamma Distribution</a></li>
+<li class="chapter" data-level="3.2.2" data-path="C-Severity.html"><a href="C-Severity.html#the-pareto-distribution"><i class="fa fa-check"></i><b>3.2.2</b> The Pareto Distribution</a></li>
+<li class="chapter" data-level="3.2.3" data-path="C-Severity.html"><a href="C-Severity.html#the-weibull-distribution"><i class="fa fa-check"></i><b>3.2.3</b> The Weibull Distribution</a></li>
+<li class="chapter" data-level="3.2.4" data-path="C-Severity.html"><a href="C-Severity.html#the-generalized-beta-distribution-of-the-second-kind"><i class="fa fa-check"></i><b>3.2.4</b> The Generalized Beta Distribution of the Second Kind</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="C-Severity.html"><a href="C-Severity.html#MethodsCreation"><i class="fa fa-check"></i><b>3.3</b> Methods of Creating New Distributions</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="C-Severity.html"><a href="C-Severity.html#functions-of-random-variables-and-their-distributions"><i class="fa fa-check"></i><b>3.3.1</b> Functions of Random Variables and their Distributions</a></li>
+<li class="chapter" data-level="3.3.2" data-path="C-Severity.html"><a href="C-Severity.html#multiplication-by-a-constant"><i class="fa fa-check"></i><b>3.3.2</b> Multiplication by a Constant</a></li>
+<li class="chapter" data-level="3.3.3" data-path="C-Severity.html"><a href="C-Severity.html#raising-to-a-power"><i class="fa fa-check"></i><b>3.3.3</b> Raising to a Power</a></li>
+<li class="chapter" data-level="3.3.4" data-path="C-Severity.html"><a href="C-Severity.html#exponentiation"><i class="fa fa-check"></i><b>3.3.4</b> Exponentiation</a></li>
+<li class="chapter" data-level="3.3.5" data-path="C-Severity.html"><a href="C-Severity.html#finite-mixtures"><i class="fa fa-check"></i><b>3.3.5</b> Finite Mixtures</a></li>
+<li class="chapter" data-level="3.3.6" data-path="C-Severity.html"><a href="C-Severity.html#continuous-mixtures"><i class="fa fa-check"></i><b>3.3.6</b> Continuous Mixtures</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="C-Severity.html"><a href="C-Severity.html#coverage-modifications"><i class="fa fa-check"></i><b>3.4</b> Coverage Modifications</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="C-Severity.html"><a href="C-Severity.html#PolicyDeduct"><i class="fa fa-check"></i><b>3.4.1</b> Policy Deductibles</a></li>
+<li class="chapter" data-level="3.4.2" data-path="C-Severity.html"><a href="C-Severity.html#PolicyLimits"><i class="fa fa-check"></i><b>3.4.2</b> Policy Limits</a></li>
+<li class="chapter" data-level="3.4.3" data-path="C-Severity.html"><a href="C-Severity.html#coinsurance"><i class="fa fa-check"></i><b>3.4.3</b> Coinsurance</a></li>
+<li class="chapter" data-level="3.4.4" data-path="C-Severity.html"><a href="C-Severity.html#reinsurance"><i class="fa fa-check"></i><b>3.4.4</b> Reinsurance</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="C-Severity.html"><a href="C-Severity.html#maximum-likelihood-estimation"><i class="fa fa-check"></i><b>3.5</b> Maximum Likelihood Estimation</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="C-Severity.html"><a href="C-Severity.html#maximum-likelihood-estimators-for-complete-data"><i class="fa fa-check"></i><b>3.5.1</b> Maximum Likelihood Estimators for Complete Data</a></li>
+<li class="chapter" data-level="3.5.2" data-path="C-Severity.html"><a href="C-Severity.html#MLEGrouped"><i class="fa fa-check"></i><b>3.5.2</b> Maximum Likelihood Estimators for Grouped Data</a></li>
+<li class="chapter" data-level="3.5.3" data-path="C-Severity.html"><a href="C-Severity.html#maximum-likelihood-estimators-for-censored-data"><i class="fa fa-check"></i><b>3.5.3</b> Maximum Likelihood Estimators for Censored Data</a></li>
+<li class="chapter" data-level="3.5.4" data-path="C-Severity.html"><a href="C-Severity.html#maximum-likelihood-estimators-for-truncated-data"><i class="fa fa-check"></i><b>3.5.4</b> Maximum Likelihood Estimators for Truncated Data</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="C-Severity.html"><a href="C-Severity.html#Resources-loss-severity"><i class="fa fa-check"></i><b>3.6</b> Further Resources and Contributors</a></li>
+<li class="chapter" data-level="3.7" data-path="C-Severity.html"><a href="C-Severity.html#exercises-1"><i class="fa fa-check"></i><b>3.7</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="C-ModelSelection.html"><a href="C-ModelSelection.html"><i class="fa fa-check"></i><b>4</b> Model Selection, Validation, and Inference</a><ul>
+<li class="chapter" data-level="4.1" data-path="C-ModelSelection.html"><a href="C-ModelSelection.html#S:NonParInf"><i class="fa fa-check"></i><b>4.1</b> Nonparametric Inference</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="C-ModelSelection.html"><a href="C-ModelSelection.html#nonparametric-estimation"><i class="fa fa-check"></i><b>4.1.1</b> Nonparametric Estimation</a></li>
+<li class="chapter" data-level="4.1.2" data-path="C-ModelSelection.html"><a href="C-ModelSelection.html#S:ToolsModelSelection"><i class="fa fa-check"></i><b>4.1.2</b> Tools for Model Selection</a></li>
+<li class="chapter" data-level="4.1.3" data-path="C-ModelSelection.html"><a href="C-ModelSelection.html#starting-values"><i class="fa fa-check"></i><b>4.1.3</b> Starting Values</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="C-ModelSelection.html"><a href="C-ModelSelection.html#S:ModelValidation"><i class="fa fa-check"></i><b>4.2</b> Model Validation</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="C-ModelSelection.html"><a href="C-ModelSelection.html#iterative-model-selection"><i class="fa fa-check"></i><b>4.2.1</b> Iterative Model Selection</a></li>
+<li class="chapter" data-level="4.2.2" data-path="C-ModelSelection.html"><a href="C-ModelSelection.html#summarizing-model-selection"><i class="fa fa-check"></i><b>4.2.2</b> Summarizing Model Selection</a></li>
+<li class="chapter" data-level="4.2.3" data-path="C-ModelSelection.html"><a href="C-ModelSelection.html#out-of-sample-validation"><i class="fa fa-check"></i><b>4.2.3</b> Out of Sample Validation</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="C-ModelSelection.html"><a href="C-ModelSelection.html#S:ModifiedData"><i class="fa fa-check"></i><b>4.3</b> Modified Data</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="C-ModelSelection.html"><a href="C-ModelSelection.html#parametric-estimation-using-modified-data"><i class="fa fa-check"></i><b>4.3.1</b> Parametric Estimation using Modified Data</a></li>
+<li class="chapter" data-level="4.3.2" data-path="C-ModelSelection.html"><a href="C-ModelSelection.html#nonparametric-estimation-using-modified-data"><i class="fa fa-check"></i><b>4.3.2</b> Nonparametric Estimation using Modified Data</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="C-ModelSelection.html"><a href="C-ModelSelection.html#S:BayesInference"><i class="fa fa-check"></i><b>4.4</b> Bayesian Inference</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="C-ModelSelection.html"><a href="C-ModelSelection.html#bayesian-model"><i class="fa fa-check"></i><b>4.4.1</b> Bayesian Model</a></li>
+<li class="chapter" data-level="4.4.2" data-path="C-ModelSelection.html"><a href="C-ModelSelection.html#decision-analysis"><i class="fa fa-check"></i><b>4.4.2</b> Decision Analysis</a></li>
+<li class="chapter" data-level="4.4.3" data-path="C-ModelSelection.html"><a href="C-ModelSelection.html#posterior-distribution"><i class="fa fa-check"></i><b>4.4.3</b> Posterior Distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="C-ModelSelection.html"><a href="C-ModelSelection.html#exercises-2"><i class="fa fa-check"></i><b>4.5</b> Exercises</a></li>
+<li class="chapter" data-level="" data-path="C-ModelSelection.html"><a href="C-ModelSelection.html#technical-supplement-a.-gini-statistic"><i class="fa fa-check"></i>Technical Supplement A. Gini Statistic</a><ul>
+<li class="chapter" data-level="" data-path="C-ModelSelection.html"><a href="C-ModelSelection.html#ts-a.1.-the-classic-lorenz-curve"><i class="fa fa-check"></i>TS A.1. The Classic Lorenz Curve</a></li>
+<li class="chapter" data-level="" data-path="C-ModelSelection.html"><a href="C-ModelSelection.html#ts-a.2.-ordered-lorenz-curve-and-the-gini-index"><i class="fa fa-check"></i>TS A.2. Ordered Lorenz Curve and the Gini Index</a></li>
+<li class="chapter" data-level="" data-path="C-ModelSelection.html"><a href="C-ModelSelection.html#ts-a.3.-out-of-sample-validation"><i class="fa fa-check"></i>TS A.3. Out-of-Sample Validation</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="aggregate-loss-models.html"><a href="aggregate-loss-models.html"><i class="fa fa-check"></i><b>5</b> Aggregate Loss Models</a><ul>
+<li class="chapter" data-level="5.1" data-path="aggregate-loss-models.html"><a href="aggregate-loss-models.html#introduction"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
+<li class="chapter" data-level="5.2" data-path="aggregate-loss-models.html"><a href="aggregate-loss-models.html#individual-risk-model"><i class="fa fa-check"></i><b>5.2</b> Individual Risk Model</a></li>
+<li class="chapter" data-level="5.3" data-path="aggregate-loss-models.html"><a href="aggregate-loss-models.html#collective-risk-model"><i class="fa fa-check"></i><b>5.3</b> Collective Risk Model</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="aggregate-loss-models.html"><a href="aggregate-loss-models.html#moments-and-distribution"><i class="fa fa-check"></i><b>5.3.1</b> Moments and Distribution</a></li>
+<li class="chapter" data-level="5.3.2" data-path="aggregate-loss-models.html"><a href="aggregate-loss-models.html#stop-loss-insurance"><i class="fa fa-check"></i><b>5.3.2</b> Stop-loss Insurance</a></li>
+<li class="chapter" data-level="5.3.3" data-path="aggregate-loss-models.html"><a href="aggregate-loss-models.html#analytic-results"><i class="fa fa-check"></i><b>5.3.3</b> Analytic Results</a></li>
+<li class="chapter" data-level="5.3.4" data-path="aggregate-loss-models.html"><a href="aggregate-loss-models.html#tweedie-distribution"><i class="fa fa-check"></i><b>5.3.4</b> Tweedie Distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="aggregate-loss-models.html"><a href="aggregate-loss-models.html#computing-the-aggregate-claims-distribution"><i class="fa fa-check"></i><b>5.4</b> Computing the Aggregate Claims Distribution</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="aggregate-loss-models.html"><a href="aggregate-loss-models.html#recursive-method"><i class="fa fa-check"></i><b>5.4.1</b> Recursive Method</a></li>
+<li class="chapter" data-level="5.4.2" data-path="aggregate-loss-models.html"><a href="aggregate-loss-models.html#simulation"><i class="fa fa-check"></i><b>5.4.2</b> Simulation</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="aggregate-loss-models.html"><a href="aggregate-loss-models.html#effects-of-coverage-modifications"><i class="fa fa-check"></i><b>5.5</b> Effects of Coverage Modifications</a><ul>
+<li class="chapter" data-level="5.5.1" data-path="aggregate-loss-models.html"><a href="aggregate-loss-models.html#impact-of-exposure-on-frequency"><i class="fa fa-check"></i><b>5.5.1</b> Impact of Exposure on Frequency</a></li>
+<li class="chapter" data-level="5.5.2" data-path="aggregate-loss-models.html"><a href="aggregate-loss-models.html#impact-of-deductibles-on-claim-frequency"><i class="fa fa-check"></i><b>5.5.2</b> Impact of Deductibles on Claim Frequency</a></li>
+<li class="chapter" data-level="5.5.3" data-path="aggregate-loss-models.html"><a href="aggregate-loss-models.html#impact-of-policy-modifications-on-aggregate-claims"><i class="fa fa-check"></i><b>5.5.3</b> Impact of Policy Modifications on Aggregate Claims</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="simulation-1.html"><a href="simulation-1.html"><i class="fa fa-check"></i><b>6</b> Simulation</a><ul>
+<li class="chapter" data-level="6.1" data-path="simulation-1.html"><a href="simulation-1.html#generating-independent-uniform-observations"><i class="fa fa-check"></i><b>6.1</b> Generating Independent Uniform Observations</a></li>
+<li class="chapter" data-level="6.2" data-path="simulation-1.html"><a href="simulation-1.html#inverse-transform"><i class="fa fa-check"></i><b>6.2</b> Inverse Transform</a></li>
+<li class="chapter" data-level="6.3" data-path="simulation-1.html"><a href="simulation-1.html#how-many-simulated-values"><i class="fa fa-check"></i><b>6.3</b> How Many Simulated Values?</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="C-PremCalc.html"><a href="C-PremCalc.html"><i class="fa fa-check"></i><b>7</b> Premium Calcuations Fundamentals</a></li>
+<li class="chapter" data-level="8" data-path="C-RiskClass.html"><a href="C-RiskClass.html"><i class="fa fa-check"></i><b>8</b> Risk Classification</a><ul>
+<li class="chapter" data-level="8.1" data-path="C-RiskClass.html"><a href="C-RiskClass.html#introduction-1"><i class="fa fa-check"></i><b>8.1</b> Introduction</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="C-Credibility.html"><a href="C-Credibility.html"><i class="fa fa-check"></i><b>9</b> Experience Rating using Credibility Theory</a></li>
+<li class="chapter" data-level="10" data-path="C-PortMgt.html"><a href="C-PortMgt.html"><i class="fa fa-check"></i><b>10</b> Portfolio Management including Reinsurance</a><ul>
+<li class="chapter" data-level="10.1" data-path="C-PortMgt.html"><a href="C-PortMgt.html#S:Tails"><i class="fa fa-check"></i><b>10.1</b> Tails of Distributions</a></li>
+<li class="chapter" data-level="10.2" data-path="C-PortMgt.html"><a href="C-PortMgt.html#S:RiskMeasure"><i class="fa fa-check"></i><b>10.2</b> Measures of Risk</a></li>
+<li class="chapter" data-level="10.3" data-path="C-PortMgt.html"><a href="C-PortMgt.html#S:Reinsurance"><i class="fa fa-check"></i><b>10.3</b> Reinsurance</a><ul>
+<li class="chapter" data-level="10.3.1" data-path="C-PortMgt.html"><a href="C-PortMgt.html#proportional-reinsurance"><i class="fa fa-check"></i><b>10.3.1</b> Proportional Reinsurance</a></li>
+<li class="chapter" data-level="10.3.2" data-path="C-PortMgt.html"><a href="C-PortMgt.html#non-proportional-reinsurance"><i class="fa fa-check"></i><b>10.3.2</b> Non-Proportional Reinsurance</a></li>
+<li class="chapter" data-level="10.3.3" data-path="C-PortMgt.html"><a href="C-PortMgt.html#additional-reinsurance-treaties"><i class="fa fa-check"></i><b>10.3.3</b> Additional Reinsurance Treaties</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="C-LossReserves.html"><a href="C-LossReserves.html"><i class="fa fa-check"></i><b>11</b> Loss Reserving</a></li>
+<li class="chapter" data-level="12" data-path="C-BonusMalus.html"><a href="C-BonusMalus.html"><i class="fa fa-check"></i><b>12</b> Experience Rating using Bonus-Malus</a></li>
+<li class="chapter" data-level="13" data-path="data-systems.html"><a href="data-systems.html"><i class="fa fa-check"></i><b>13</b> Data Systems</a><ul>
+<li class="chapter" data-level="13.1" data-path="data-systems.html"><a href="data-systems.html#data"><i class="fa fa-check"></i><b>13.1</b> Data</a><ul>
+<li class="chapter" data-level="13.1.1" data-path="data-systems.html"><a href="data-systems.html#data-types-and-sources"><i class="fa fa-check"></i><b>13.1.1</b> Data Types and Sources</a></li>
+<li class="chapter" data-level="13.1.2" data-path="data-systems.html"><a href="data-systems.html#data-structures-and-storage"><i class="fa fa-check"></i><b>13.1.2</b> Data Structures and Storage</a></li>
+<li class="chapter" data-level="13.1.3" data-path="data-systems.html"><a href="data-systems.html#data-quality"><i class="fa fa-check"></i><b>13.1.3</b> Data Quality</a></li>
+<li class="chapter" data-level="13.1.4" data-path="data-systems.html"><a href="data-systems.html#data-cleaning"><i class="fa fa-check"></i><b>13.1.4</b> Data Cleaning</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="data-systems.html"><a href="data-systems.html#data-analysis-preliminary"><i class="fa fa-check"></i><b>13.2</b> Data Analysis Preliminary</a><ul>
+<li class="chapter" data-level="13.2.1" data-path="data-systems.html"><a href="data-systems.html#S:process"><i class="fa fa-check"></i><b>13.2.1</b> Data Analysis Process</a></li>
+<li class="chapter" data-level="13.2.2" data-path="data-systems.html"><a href="data-systems.html#exploratory-versus-confirmatory"><i class="fa fa-check"></i><b>13.2.2</b> Exploratory versus Confirmatory</a></li>
+<li class="chapter" data-level="13.2.3" data-path="data-systems.html"><a href="data-systems.html#supervised-versus-unsupervised"><i class="fa fa-check"></i><b>13.2.3</b> Supervised versus Unsupervised</a></li>
+<li class="chapter" data-level="13.2.4" data-path="data-systems.html"><a href="data-systems.html#parametric-versus-nonparametric"><i class="fa fa-check"></i><b>13.2.4</b> Parametric versus Nonparametric</a></li>
+<li class="chapter" data-level="13.2.5" data-path="data-systems.html"><a href="data-systems.html#S:expred"><i class="fa fa-check"></i><b>13.2.5</b> Explanation versus Prediction</a></li>
+<li class="chapter" data-level="13.2.6" data-path="data-systems.html"><a href="data-systems.html#data-modeling-versus-algorithmic-modeling"><i class="fa fa-check"></i><b>13.2.6</b> Data Modeling versus Algorithmic Modeling</a></li>
+<li class="chapter" data-level="13.2.7" data-path="data-systems.html"><a href="data-systems.html#big-data-analysis"><i class="fa fa-check"></i><b>13.2.7</b> Big Data Analysis</a></li>
+<li class="chapter" data-level="13.2.8" data-path="data-systems.html"><a href="data-systems.html#reproducible-analysis"><i class="fa fa-check"></i><b>13.2.8</b> Reproducible Analysis</a></li>
+<li class="chapter" data-level="13.2.9" data-path="data-systems.html"><a href="data-systems.html#ethical-issues"><i class="fa fa-check"></i><b>13.2.9</b> Ethical Issues</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="data-systems.html"><a href="data-systems.html#data-analysis-techniques"><i class="fa fa-check"></i><b>13.3</b> Data Analysis Techniques</a><ul>
+<li class="chapter" data-level="13.3.1" data-path="data-systems.html"><a href="data-systems.html#exploratory-techniques"><i class="fa fa-check"></i><b>13.3.1</b> Exploratory Techniques</a></li>
+<li class="chapter" data-level="13.3.2" data-path="data-systems.html"><a href="data-systems.html#descriptive-statistics"><i class="fa fa-check"></i><b>13.3.2</b> Descriptive Statistics</a></li>
+<li class="chapter" data-level="13.3.3" data-path="data-systems.html"><a href="data-systems.html#cluster-analysis"><i class="fa fa-check"></i><b>13.3.3</b> Cluster Analysis</a></li>
+<li class="chapter" data-level="13.3.4" data-path="data-systems.html"><a href="data-systems.html#confirmatory-techniques"><i class="fa fa-check"></i><b>13.3.4</b> Confirmatory Techniques</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="data-systems.html"><a href="data-systems.html#some-r-functions"><i class="fa fa-check"></i><b>13.4</b> Some R Functions</a></li>
+<li class="chapter" data-level="13.5" data-path="data-systems.html"><a href="data-systems.html#summary"><i class="fa fa-check"></i><b>13.5</b> Summary</a></li>
+<li class="chapter" data-level="13.6" data-path="data-systems.html"><a href="data-systems.html#further-resources-and-contributors"><i class="fa fa-check"></i><b>13.6</b> Further Resources and Contributors</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="dependence-modeling.html"><a href="dependence-modeling.html"><i class="fa fa-check"></i><b>14</b> Dependence Modeling</a><ul>
+<li class="chapter" data-level="14.1" data-path="dependence-modeling.html"><a href="dependence-modeling.html#S:VarTypes"><i class="fa fa-check"></i><b>14.1</b> Variable Types</a><ul>
+<li class="chapter" data-level="14.1.1" data-path="dependence-modeling.html"><a href="dependence-modeling.html#S:QuaVar"><i class="fa fa-check"></i><b>14.1.1</b> Qualitative Variables</a></li>
+<li class="chapter" data-level="14.1.2" data-path="dependence-modeling.html"><a href="dependence-modeling.html#S:QuanVar"><i class="fa fa-check"></i><b>14.1.2</b> Quantitative Variables</a></li>
+<li class="chapter" data-level="14.1.3" data-path="dependence-modeling.html"><a href="dependence-modeling.html#multivariate-variables"><i class="fa fa-check"></i><b>14.1.3</b> Multivariate Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="14.2" data-path="dependence-modeling.html"><a href="dependence-modeling.html#S:Measures"><i class="fa fa-check"></i><b>14.2</b> Classic Measures of Scalar Associations</a><ul>
+<li class="chapter" data-level="14.2.1" data-path="dependence-modeling.html"><a href="dependence-modeling.html#association-measures-for-quantitative-variables"><i class="fa fa-check"></i><b>14.2.1</b> Association Measures for Quantitative Variables</a></li>
+<li class="chapter" data-level="14.2.2" data-path="dependence-modeling.html"><a href="dependence-modeling.html#rank-based-measures"><i class="fa fa-check"></i><b>14.2.2</b> Rank Based Measures</a></li>
+<li class="chapter" data-level="14.2.3" data-path="dependence-modeling.html"><a href="dependence-modeling.html#nominal-variables"><i class="fa fa-check"></i><b>14.2.3</b> Nominal Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="dependence-modeling.html"><a href="dependence-modeling.html#S:Copula"><i class="fa fa-check"></i><b>14.3</b> Introduction to Copula</a></li>
+<li class="chapter" data-level="14.4" data-path="dependence-modeling.html"><a href="dependence-modeling.html#S:CopAppl"><i class="fa fa-check"></i><b>14.4</b> Application Using Copulas</a><ul>
+<li class="chapter" data-level="14.4.1" data-path="dependence-modeling.html"><a href="dependence-modeling.html#data-description"><i class="fa fa-check"></i><b>14.4.1</b> Data Description</a></li>
+<li class="chapter" data-level="14.4.2" data-path="dependence-modeling.html"><a href="dependence-modeling.html#marginal-models"><i class="fa fa-check"></i><b>14.4.2</b> Marginal Models</a></li>
+<li class="chapter" data-level="14.4.3" data-path="dependence-modeling.html"><a href="dependence-modeling.html#probability-integral-transformation"><i class="fa fa-check"></i><b>14.4.3</b> Probability Integral Transformation</a></li>
+<li class="chapter" data-level="14.4.4" data-path="dependence-modeling.html"><a href="dependence-modeling.html#joint-modeling-with-copula-function"><i class="fa fa-check"></i><b>14.4.4</b> Joint Modeling with Copula Function</a></li>
+</ul></li>
+<li class="chapter" data-level="14.5" data-path="dependence-modeling.html"><a href="dependence-modeling.html#S:CopTyp"><i class="fa fa-check"></i><b>14.5</b> Types of Copulas</a><ul>
+<li class="chapter" data-level="14.5.1" data-path="dependence-modeling.html"><a href="dependence-modeling.html#elliptical-copulas"><i class="fa fa-check"></i><b>14.5.1</b> Elliptical Copulas</a></li>
+<li class="chapter" data-level="14.5.2" data-path="dependence-modeling.html"><a href="dependence-modeling.html#archimedian-copulas"><i class="fa fa-check"></i><b>14.5.2</b> Archimedian Copulas</a></li>
+<li class="chapter" data-level="14.5.3" data-path="dependence-modeling.html"><a href="dependence-modeling.html#properties-of-copulas"><i class="fa fa-check"></i><b>14.5.3</b> Properties of Copulas</a></li>
+</ul></li>
+<li class="chapter" data-level="14.6" data-path="dependence-modeling.html"><a href="dependence-modeling.html#S:CopImp"><i class="fa fa-check"></i><b>14.6</b> Why is Dependence Modeling Important?</a></li>
+<li class="chapter" data-level="" data-path="dependence-modeling.html"><a href="dependence-modeling.html#technical-supplement-a.-other-classic-measures-of-scalar-associations"><i class="fa fa-check"></i>Technical Supplement A. Other Classic Measures of Scalar Associations</a><ul>
+<li class="chapter" data-level="" data-path="dependence-modeling.html"><a href="dependence-modeling.html#a.1.-blomqvists-beta"><i class="fa fa-check"></i>A.1. Blomqvist’s Beta</a></li>
+<li class="chapter" data-level="" data-path="dependence-modeling.html"><a href="dependence-modeling.html#a.2.-nonparametric-approach-using-spearman-correlation-with-tied-ranks"><i class="fa fa-check"></i>A.2. Nonparametric Approach Using Spearman Correlation with Tied Ranks</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="C-AppA.html"><a href="C-AppA.html"><i class="fa fa-check"></i><b>15</b> Appendix A: Review of Statistical Inference</a><ul>
+<li class="chapter" data-level="15.1" data-path="C-AppA.html"><a href="C-AppA.html#S:AppA:BASIC"><i class="fa fa-check"></i><b>15.1</b> Basic Concepts</a><ul>
+<li class="chapter" data-level="15.1.1" data-path="C-AppA.html"><a href="C-AppA.html#random-sampling"><i class="fa fa-check"></i><b>15.1.1</b> Random Sampling</a></li>
+<li class="chapter" data-level="15.1.2" data-path="C-AppA.html"><a href="C-AppA.html#sampling-distribution"><i class="fa fa-check"></i><b>15.1.2</b> Sampling Distribution</a></li>
+<li class="chapter" data-level="15.1.3" data-path="C-AppA.html"><a href="C-AppA.html#central-limit-theorem"><i class="fa fa-check"></i><b>15.1.3</b> Central Limit Theorem</a></li>
+</ul></li>
+<li class="chapter" data-level="15.2" data-path="C-AppA.html"><a href="C-AppA.html#S:AppA:PE"><i class="fa fa-check"></i><b>15.2</b> Point Estimation and Properties</a><ul>
+<li class="chapter" data-level="15.2.1" data-path="C-AppA.html"><a href="C-AppA.html#method-of-moments-estimation"><i class="fa fa-check"></i><b>15.2.1</b> Method of Moments Estimation</a></li>
+<li class="chapter" data-level="15.2.2" data-path="C-AppA.html"><a href="C-AppA.html#maximum-likelihood-estimation-1"><i class="fa fa-check"></i><b>15.2.2</b> Maximum Likelihood Estimation</a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="C-AppA.html"><a href="C-AppA.html#S:AppA:IE"><i class="fa fa-check"></i><b>15.3</b> Interval Estimation</a><ul>
+<li class="chapter" data-level="15.3.1" data-path="C-AppA.html"><a href="C-AppA.html#S:AppA:IE:ED"><i class="fa fa-check"></i><b>15.3.1</b> Exact Distribution for Normal Sample Mean</a></li>
+<li class="chapter" data-level="15.3.2" data-path="C-AppA.html"><a href="C-AppA.html#large-sample-properties-of-mle"><i class="fa fa-check"></i><b>15.3.2</b> Large-sample Properties of MLE</a></li>
+<li class="chapter" data-level="15.3.3" data-path="C-AppA.html"><a href="C-AppA.html#confidence-interval"><i class="fa fa-check"></i><b>15.3.3</b> Confidence Interval</a></li>
+</ul></li>
+<li class="chapter" data-level="15.4" data-path="C-AppA.html"><a href="C-AppA.html#S:AppA:HT"><i class="fa fa-check"></i><b>15.4</b> Hypothesis Testing</a><ul>
+<li class="chapter" data-level="15.4.1" data-path="C-AppA.html"><a href="C-AppA.html#basic-concepts"><i class="fa fa-check"></i><b>15.4.1</b> Basic Concepts</a></li>
+<li class="chapter" data-level="15.4.2" data-path="C-AppA.html"><a href="C-AppA.html#student-t-test-based-on-mle"><i class="fa fa-check"></i><b>15.4.2</b> Student-<span class="math inline">\(t\)</span> test based on MLE</a></li>
+<li class="chapter" data-level="15.4.3" data-path="C-AppA.html"><a href="C-AppA.html#likelihood-ratio-test"><i class="fa fa-check"></i><b>15.4.3</b> Likelihood Ratio Test</a></li>
+<li class="chapter" data-level="15.4.4" data-path="C-AppA.html"><a href="C-AppA.html#information-criteria"><i class="fa fa-check"></i><b>15.4.4</b> Information Criteria</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="C-AppB.html"><a href="C-AppB.html"><i class="fa fa-check"></i><b>16</b> Appendix B: Iterated Expectations</a><ul>
+<li class="chapter" data-level="16.1" data-path="C-AppB.html"><a href="C-AppB.html#S:AppB:CD"><i class="fa fa-check"></i><b>16.1</b> Conditional Distribution and Conditional Expectation</a><ul>
+<li class="chapter" data-level="16.1.1" data-path="C-AppB.html"><a href="C-AppB.html#conditional-distribution"><i class="fa fa-check"></i><b>16.1.1</b> Conditional Distribution</a></li>
+<li class="chapter" data-level="16.1.2" data-path="C-AppB.html"><a href="C-AppB.html#conditional-expectation-and-conditional-variance"><i class="fa fa-check"></i><b>16.1.2</b> Conditional Expectation and Conditional Variance</a></li>
+</ul></li>
+<li class="chapter" data-level="16.2" data-path="C-AppB.html"><a href="C-AppB.html#S:AppB:IE"><i class="fa fa-check"></i><b>16.2</b> Iterated Expectations and Total Variance</a><ul>
+<li class="chapter" data-level="16.2.1" data-path="C-AppB.html"><a href="C-AppB.html#law-of-iterated-expectations"><i class="fa fa-check"></i><b>16.2.1</b> Law of Iterated Expectations</a></li>
+<li class="chapter" data-level="16.2.2" data-path="C-AppB.html"><a href="C-AppB.html#law-of-total-variance"><i class="fa fa-check"></i><b>16.2.2</b> Law of Total Variance</a></li>
+<li class="chapter" data-level="16.2.3" data-path="C-AppB.html"><a href="C-AppB.html#application"><i class="fa fa-check"></i><b>16.2.3</b> Application</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="C-AppC.html"><a href="C-AppC.html"><i class="fa fa-check"></i><b>17</b> Appendix C: Maximum Likelihood Theory</a><ul>
+<li class="chapter" data-level="17.1" data-path="C-AppC.html"><a href="C-AppC.html#S:AppC:LF"><i class="fa fa-check"></i><b>17.1</b> Likelihood Function</a><ul>
+<li class="chapter" data-level="17.1.1" data-path="C-AppC.html"><a href="C-AppC.html#likelihood-and-log-likelihood-functions"><i class="fa fa-check"></i><b>17.1.1</b> Likelihood and Log-likelihood Functions</a></li>
+<li class="chapter" data-level="17.1.2" data-path="C-AppC.html"><a href="C-AppC.html#properties-of-likelihood-functions"><i class="fa fa-check"></i><b>17.1.2</b> Properties of Likelihood Functions</a></li>
+</ul></li>
+<li class="chapter" data-level="17.2" data-path="C-AppC.html"><a href="C-AppC.html#S:AppC:MLE"><i class="fa fa-check"></i><b>17.2</b> Maximum Likelihood Estimators</a><ul>
+<li class="chapter" data-level="17.2.1" data-path="C-AppC.html"><a href="C-AppC.html#definition-and-derivation-of-mle"><i class="fa fa-check"></i><b>17.2.1</b> Definition and Derivation of MLE</a></li>
+<li class="chapter" data-level="17.2.2" data-path="C-AppC.html"><a href="C-AppC.html#asymptotic-properties-of-mle"><i class="fa fa-check"></i><b>17.2.2</b> Asymptotic Properties of MLE</a></li>
+<li class="chapter" data-level="17.2.3" data-path="C-AppC.html"><a href="C-AppC.html#use-of-maximum-likelihood-estimation"><i class="fa fa-check"></i><b>17.2.3</b> Use of Maximum Likelihood Estimation</a></li>
+</ul></li>
+<li class="chapter" data-level="17.3" data-path="C-AppC.html"><a href="C-AppC.html#S:AppC:SI"><i class="fa fa-check"></i><b>17.3</b> Statistical Inference Based on Maximum Likelhood Estimation</a><ul>
+<li class="chapter" data-level="17.3.1" data-path="C-AppC.html"><a href="C-AppC.html#hypothesis-testing"><i class="fa fa-check"></i><b>17.3.1</b> Hypothesis Testing</a></li>
+<li class="chapter" data-level="17.3.2" data-path="C-AppC.html"><a href="C-AppC.html#mle-and-model-validation"><i class="fa fa-check"></i><b>17.3.2</b> MLE and Model Validation</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="bibliography.html"><a href="bibliography.html"><i class="fa fa-check"></i>Bibliography</a></li>
+<li class="divider"></li>
+<li><a href="https://ewfrees.github.io/Loss-Data-Analytics/" target="blank">Loss Data Analytics on GitHub</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Loss Data Analytics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="aggregate-loss-models" class="section level1">
+<h1><span class="header-section-number">Chapter 5</span> Aggregate Loss Models</h1>
+<p><em>Chapter Preview</em>. This chapter introduces probability models for describing the aggregate claims that arise from a portfolio of insurance contracts. We presents two standard modeling approaches, the individual risk model and the collective risk model. Further, we discuss strategies for computing the distribution of the aggregate claims. Finally, we examine the effects of individual policy modifications on the aggregate loss distribution.</p>
+<div id="introduction" class="section level2">
+<h2><span class="header-section-number">5.1</span> Introduction</h2>
+<p>The objective of this chapter is to build a probability model to describe the aggregate claims by an insurance system occurring in a fixed time period. The insurance system could be a single policy, a group insurance contract, a business line, or an entire book of an insurance’s business. In the chapter, aggregate claims refers to either the number or the amount of claims from a portfolio of insurance contracts. However, the modeling framework is readily to apply in the more general setup.</p>
+<p>Consider an insurance portfolio of <span class="math inline">\(n\)</span> individual contracts, and let <span class="math inline">\(S\)</span> denote the aggregate losses of the portfolio in a given time period. There are two approaches to modeling the aggregate losses <span class="math inline">\(S\)</span>, the individual risk model and the collective risk model. The individual risk model emphasizes the loss from each individual contract and represents the aggregate losses as: <span class="math display">\[\begin{aligned}
+S=X_1 +X_2 +\cdots+X_n,
+\end{aligned}\]</span> where <span class="math inline">\(X_i~(i=1,\ldots,n)\)</span> is interpreted as the loss amount from the <span class="math inline">\(i\)</span>th contract. It is worth stressing that <span class="math inline">\(n\)</span> denotes the number of contracts in the portfolio and thus is a fixed number rather than a random variable. For the individual risk model, one usually assumes <span class="math inline">\(X_{i}\)</span>’s are independent, i.e., <span class="math inline">\(X_{i}\perp X_{j}\)</span> <span class="math inline">\(\forall\)</span> <span class="math inline">\(i,j\)</span>. Because of different contract features such as coverage and exposure, <span class="math inline">\(X_{i}\)</span>’s are not necessarily identically distributed. A notable feature of the distribution of each <span class="math inline">\(X_i\)</span> is the probability mass at zero corresponding to the event of no claims.</p>
+<p>The collective risk model represents the aggregate losses in terms of a frequency distribution and a severity distribution: <span class="math display">\[\begin{aligned}
+S=X_1 +X_2 +\cdots+X_N.
+\end{aligned}\]</span> Here one thinks of a random number of claims <span class="math inline">\(N\)</span> that may represent either the number of losses or the number of payments. In contrast, in the individual risk model, we use a fixed number of contracts <span class="math inline">\(n\)</span>. We think of <span class="math inline">\(X_1, X_2, \ldots, X_N\)</span> as representing the amount of each loss. Each loss may or may not corresponding to a unique contract. For instance, there may be multiple claims arising from a single contract. It is natural to think about <span class="math inline">\(X_i&gt;0\)</span> because if <span class="math inline">\(X_i=0\)</span> then no claim has occurred. Typically we assume that conditional on <span class="math inline">\(N=n\)</span>, <span class="math inline">\(X_{1},X_{2},\cdots ,X_{n}\)</span> are i.i.d. random variables. The distribution of <span class="math inline">\(N\)</span> is known as the frequency distribution, and the common distribution of <span class="math inline">\(X\)</span> is known as the severity distribution. We further assume <span class="math inline">\(N\)</span> and <span class="math inline">\(X\)</span> are independent. With the collective risk model, we may decompose the aggregate losses into the frequency (<span class="math inline">\(N\)</span>) process and the severity (<span class="math inline">\(X\)</span>) process. This flexibility allows the analyst to comment on these two separate components. For example, sales growth due to lower underwriting standards could lead to higher frequency of losses but might not affect severity. Similarly, inflation or other economic forces could have an impact on severity but not on frequency.</p>
+</div>
+<div id="individual-risk-model" class="section level2">
+<h2><span class="header-section-number">5.2</span> Individual Risk Model</h2>
+As noted earlier, for the individual risk model, we think of <span class="math inline">\(X_i\)</span> as the loss from <span class="math inline">\(i^{th}\)</span> contract and interpret
+<span class="math display">\[\begin{eqnarray*}
+S_n=X_1 +X_2 +\cdots+X_n
+\end{eqnarray*}\]</span>
+<p>to be the aggregate loss from all contracts in a portfolio or group of contracts. Under the independence assumption on <span class="math inline">\(X_i&#39;s\)</span>, it is straightforward to show <span class="math display">\[\begin{aligned}
+    {\rm E}(S_n) &amp;= \sum_{i=1}^{n} {\rm E}(X_i),~~~~
+    {\rm Var}(S_n) = \sum_{i=1}^{n} {\rm Var}(X_i)\\
+    P_{S_n}(z) &amp;= \prod_{i=1}^{n}P_{X_i}(z), ~~~~
+    M_{S_n}(t) = \prod_{i=1}^{n}M_{X_i}(t) \\
+ \end{aligned}\]</span> where <span class="math inline">\(P_S(\cdot)\)</span> and <span class="math inline">\(M_S(\cdot)\)</span> are probability generating function and moment generating function of <span class="math inline">\(S\)</span>, respectively. The distribution of each <span class="math inline">\(X_i\)</span> contains mass at zero, corresponding to the event of no claim. One strategy to incorporate the zero mass in the distribution is using the two-part framework: <span class="math display">\[\begin{aligned}
+X_i = I_i\times B_i = \left\{\begin{array}{ll}
+                               0 &amp; I_i=0 \\
+                               B_i &amp; I_i=1
+                             \end{array}
+             \right.
+\end{aligned}\]</span> Here <span class="math inline">\(I_i\)</span> is a Bernoulli variable indicating whether or not a loss occurs for the <span class="math inline">\(i\)</span>th contract, and <span class="math inline">\(B_i\)</span>, a r.v. with nonnegative support, represents the amount of losses of the contract given loss occurrence. Assume that <span class="math inline">\(I_1 ,\ldots,I_n ,B_1 ,\ldots,B_n\)</span> are mutually independent. Denote <span class="math inline">\({\rm Pr} (I_i =1)=q_i\)</span>, <span class="math inline">\(\mu_i={\rm E}(B_i)\)</span>, and <span class="math inline">\(\sigma_i^2={\rm Var}(B_i)\)</span>. One can show <span class="math display">\[\begin{aligned}
+\mathrm{E}(S_n)&amp; =\sum_{i=1}^n ~q_i  ~\mu _j \\
+\mathrm{Var}(S_n) &amp; =\sum_{i=1}^n \left( q_i \sigma _i^2+q_i (1-q_j)\mu_i^2 \right)\\
+P_{S_n}(z) &amp; =\sum_{i=1}^n \left( 1-q_i+q_i P_{B_i}(z) \right)\\
+M_{S_n}(t) &amp; =\sum_{i=1}^n \left( 1-q_i+q_i M_{B_i}(t) \right)
+\end{aligned}\]</span> A special case of the above model is when <span class="math inline">\(B_i\)</span> follows a degenerate distribution with <span class="math inline">\(\mu_i=b_i\)</span> and <span class="math inline">\(\sigma^2_i=0\)</span>. One example is term life insurance or a pure endowment insurance where <span class="math inline">\(b_i\)</span> represents the amount of insurance of the <span class="math inline">\(i\)</span>th contract.</p>
+<p>Another strategy to accommodate zero mass in the distribution of <span class="math inline">\(X_i\)</span> is a collective risk model, i.e. <span class="math inline">\(X_i=Z_{i1}+\cdots+Z_{iN_i}\)</span> where <span class="math inline">\(X_i=0\)</span> when <span class="math inline">\(N_i=0\)</span>. The collective risk model will be discussed in detail in the next section.</p>
+<p><em>Example. Course 3, May 2000, 19.</em> An insurance company sold 300 fire insurance policies as follows:</p>
+<p><span class="math display">\[\begin{matrix}
+    \begin{array}{c c c} \hline
+        \text{Number of} &amp; \text{Policy} &amp; \text{Probability of}\\
+        \text{Policies} &amp;  \text{Maximum} &amp;  \text{Claim Per Policy}\\ \hline
+        100 &amp; 400 &amp; 0.05\\
+        200 &amp; 300 &amp; 0.06\\ \hline
+    \end{array}
+\end{matrix}\]</span></p>
+<p>You are given:<br />
+(i) The claim amount for each policy is uniformly distributed between <span class="math inline">\(0\)</span> and the policy maximum.<br />
+(ii) The probability of more than one claim per policy is <span class="math inline">\(0\)</span>.<br />
+(iii) Claim occurrences are independent.</p>
+<p>Calculate the mean <span class="math inline">\(\mathrm{E~}S_n\)</span> and variance <span class="math inline">\(\mathrm{Var~}S_n\)</span> of the aggregate claims. How would these results change if every claim is equal to the policy maximum?</p>
+<p><em>Solution.</em> The aggregate claims are <span class="math inline">\(S_{300} = X_1+\cdots+X_{300}\)</span>. Policy claims amounts are uniformly distributed on <span class="math inline">\((0,PolMax)\)</span>, so the mean claim amount is <span class="math inline">\(PolMax/2\)</span> and the variance is<span class="math inline">\(PolMax^2/12\)</span>. Thus, for policy <span class="math inline">\(i=1,...,300\)</span>, we have <span class="math display">\[\begin{matrix}
+    \begin{array}{ccccc} \hline
+        \text{Number of} &amp; \text{Policy} &amp; \text{Probability of} &amp; \text{Mean} &amp; \text{Variance}\\
+        \text{Policies} &amp;  \text{Maximum} &amp;  \text{Claim Per Policy} &amp; \text{Amount} &amp; \text{Amount}\\
+        &amp; &amp; (q_{i}) &amp; (\mu_{i}) &amp; (\sigma_{i}^2) \\ \hline
+        100 &amp; 400 &amp; 0.05 &amp; 200 &amp; 400^2/12\\
+        200 &amp; 300 &amp; 0.06 &amp; 150 &amp; 300^2/12 \\ \hline
+    \end{array}
+\end{matrix}\]</span></p>
+<p>The mean of the aggregate claims is <span class="math display">\[\mathrm{E~} S_{300} = \sum_{i=1}^{300} q_i \mu_i = 100\left\{0.05(200)\right\} + 200\left\{0.06 (150) \right\} = 1,000+1,824 =
+2,824\]</span></p>
+The variance of the aggregate claims is
+<span class="math display">\[\begin{eqnarray*}
+    \mathrm{Var~}S_{300} &amp;=&amp; \sum_{i=1}^{300} \left( q_i \sigma _i^2+q_i (1-q_i
+    )\mu_i^2 \right) \\
+    &amp;=&amp; 100\left\{ 0.05 \left(\frac{400^2}{12}\right) +0.05 (1-0.05 )200^2 \right\}+
+    200\left\{
+    0.06 \left(\frac{300^2}{12}\right) +0.06 (1-0.06 )150^2 \right\}\\
+    &amp;=&amp; 600,466.67 .
+\end{eqnarray*}\]</span>
+<p><span class="math inline">\(\Box\)</span></p>
+<p><em>Follow-Up.</em> Now suppose everybody receives the policy maximum if a claim occurs. What is the expected aggregate loss and variance of the aggregate loss? Each policy claim amount <span class="math inline">\(B_i\)</span> is now fixed at <span class="math inline">\(PolMax\)</span> instead of random, so <span class="math inline">\(\sigma_i^2 = \mathrm{Var~} B_i = 0\)</span> and <span class="math inline">\(\mu_i = PolMax\)</span>. <span class="math display">\[\begin{aligned}
+\mathrm{E~}S^X &amp;= \sum_{i=1}^{300} q_i \mu_i = 100 \left\{0.05(400) \right\} + 200 \left\{ 0.06(300) \right\} = 5,648
+\end{aligned}\]</span><br />
+<span class="math display">\[\begin{aligned}
+\mathrm{Var~}S^X &amp;= \sum_{i=1}^{300} \left( q_i \sigma _i^2+q_i (1-q_i
+)\mu_i^2 \right) = \sum_{i=1}^{300} \left( q_i (1-q_i) \mu_i^2 \right) \\
+&amp;= 100 \left\{(0.05) (1-0.05) 400^2\right\} +
+200 \left\{(0.06) (1-0.06)300^2\right\} \\
+&amp;= 76,000 + 101,520 = 177,520
+\end{aligned}\]</span> <span class="math inline">\(\Box\)</span></p>
+<p>The individual risk model can also be used for claim frequency. If <span class="math inline">\(X_i\)</span> denotes the number of claims from the <span class="math inline">\(i\)</span>th contract, and <span class="math inline">\(S_n\)</span> is interpreted as the total number of claims from the portfolio. In this case, the above two-part framework still applies. Assume <span class="math inline">\(X_i\)</span> belongs to the <span class="math inline">\((a,b,0)\)</span> class with pmf denoted by <span class="math inline">\(p_{ik}\)</span>. Let <span class="math inline">\(X_i^{T}\)</span> denote the associated zero-truncated distribution in the <span class="math inline">\((a,b,1)\)</span> class with the pmf <span class="math inline">\(p_{ik}^T=p_{ik}/(1-p_{i0})\)</span> for <span class="math inline">\(k=1,2,\ldots\)</span>. Using the relationship between their generating functions: <span class="math display">\[\begin{aligned}
+P_{X_i}(z) = p_{i0} +(1-p_{i0}) P_{X_i^{T}}(z),
+\end{aligned}\]</span> we can write <span class="math inline">\(X_i=I_i\times B_i\)</span> with <span class="math inline">\(q_i={\rm Pr}(I_i=1)={\rm Pr}(X_i&gt;0)=1-p_{i0}\)</span> and <span class="math inline">\(B_i=X_i^T\)</span>.</p>
+<p><em>Example.</em>An insurance company sold a portfolio of 100 independent homeowners insurance policies, each of which has claim frequency following a zero-modified Poisson distribution, as follows:</p>
+<p><span class="math display">\[\begin{matrix}
+    \begin{array}{cccc} \hline
+        \text{Type of} &amp; \text{Number of}  &amp; \text{Probability of} &amp; \lambda \\
+        \text{Policy} &amp; \text{Policies}  &amp;  \text{At Least 1 Claim} &amp;  \\ \hline
+        \text{Low-risk} &amp; 40 &amp; 0.03 &amp; 1 \\
+        \text{High-risk} &amp; 60 &amp; 0.05 &amp; 2 \\ \hline
+    \end{array}
+\end{matrix}\]</span> Find the expected value and variance of the claim frequency for the entire portfolio.</p>
+<p><em>Solution.</em> For each policy, we can write the zero-modified Poisson claim frequency <span class="math inline">\(N_i\)</span> as <span class="math inline">\(N_i = I_i \times B_i\)</span>, where <span class="math display">\[q_i = \Pr(I_i = 1) = \Pr(N_i &gt; 0) = 1-p_{i0}\]</span> For the low-risk policies, we have <span class="math inline">\(q_i = 0.03\)</span> and for the high-risk policies, we have <span class="math inline">\(q_i=0.05\)</span>. Further, <span class="math inline">\(B_i = N_i^T\)</span>, the zero-truncated version of <span class="math inline">\(N_i\)</span>. Thus, we have <span class="math display">\[\begin{aligned}
+\mu_i &amp;={\rm E}(B_i) = {\rm E}(N_i^T) = \frac{\lambda}{1-e^{-\lambda}} \\
+\sigma_i^2 &amp;={\rm Var}(B_i) = {\rm Var}(N_i^T) = \frac{\lambda [1-(\lambda+1)e^{-\lambda}]}{(1-e^{-\lambda})^2}
+\end{aligned}\]</span> Let the portfolio claim frequency be <span class="math inline">\(S_n = \sum_{i=1}^n N_i\)</span>. Using the formulas above, the expected claim frequency of the portfolio is <span class="math display">\[\begin{aligned}
+    \mathrm{E~} S_n &amp;= \sum_{i=1}^{100} q_i \mu_i \\
+    &amp; = 40\left[0.03 \left(\frac{1}{1-e^{-1}} \right) \right] + 60 \left[0.05 \left( \frac{2}{1-e^{-2}} \right) \right] \\
+    &amp;= 40(0.03)(1.5820) + 60(0.05)(2.3130) = 8.8375
+\end{aligned}\]</span> The variance of the claim frequency of the portfolio is <span class="math display">\[\begin{aligned}
+    \mathrm{Var~}S_n &amp;= \sum_{i=1}^{100} \left( q_i \sigma _i^2+q_i (1-q_i
+    )\mu_i^2 \right) \\
+    &amp;= 40 \left[ 0.03 \left(\frac{1-2e^{-1}}{(1-e^{-1})^2} \right) + 0.03(0.97)(1.5820^2) \right] + 60 \left[0.05 \left( \frac{2[1-3e^{-2}]}{ (1-e^{-2})^2} \right) + 0.05(0.95)(2.3130^2) \right] \\
+    &amp;= 23.7214
+\end{aligned}\]</span> Note that equivalently, we could have calculated the mean and variance of an individual policy directly using the relationship between the zero-modified and zero-truncated Poisson distributions.</p>
+<p><span class="math inline">\(\Box\)</span></p>
+<p>To understand the distribution of the aggregate loss, one could use central limit theorem to approximate the distribution of <span class="math inline">\(S_n\)</span>. Denote <span class="math inline">\(\mu_S={\rm E}(S)\)</span> and <span class="math inline">\(\sigma^2_S={\rm Var}(S)\)</span>, the cdf of <span class="math inline">\(S_n\)</span> is: <span class="math display">\[\begin{aligned}
+ F_{S_n}(s)={\rm Pr}({S_n}\leq s) = \Phi \left(\frac{s-\mu_S}{\sigma_S}\right).
+\end{aligned}\]</span></p>
+<p><em>Example. Course 3, May 2000, 19 (Follow-Up).</em> As in the original example earlier, an insurance company sold 300 fire insurance policies, with claim amounts uniformly distributed between 0 and the policy maximum. Using the normal approximation, calculate the probability that the aggregate claim amount exceeds <span class="math inline">\(\$3,500\)</span>.</p>
+<p><em>Solution.</em> We have seen earlier that <span class="math inline">\(\mathrm{E~} S_{300}=2,824\)</span> and <span class="math inline">\(\mathrm{Var~}S_{300} = 600,466.67\)</span>. Then <span class="math display">\[\begin{aligned}
+{\rm Pr}(S_{300} &gt; 3,500) &amp;= 1 - {\rm Pr}(S_{300} \leq 3,500) \\
+&amp;= 1- \Phi \left( \frac{3,500-2,824}{\sqrt{600,466.67}} \right) = 1 - \Phi \left( 0.87237 \right) \\
+&amp;= 1 - 0.8085 = 0.1915
+\end{aligned}\]</span> <span class="math inline">\(\Box\)</span></p>
+<p>For small <span class="math inline">\(n\)</span>, the distribution of <span class="math inline">\(S_n\)</span> is likely skewed, and the normal approximation would be a poor choice. To examine the aggregate loss distribution, we go back to the basics and first principles. Specifically, the distribution can be derived recursively. Define <span class="math inline">\(S_k=X_1 + \cdots + X_k, k=1,\ldots,n\)</span>, we have: For <span class="math inline">\(k=1\)</span>: <span class="math display">\[F_{S_1}(s) = {\rm Pr}(S_1\leq s) = {\rm Pr}(X_1\leq s) = F_{X_1}(s).\]</span> For <span class="math inline">\(k=2,\ldots,n\)</span>, <span class="math display">\[\begin{aligned}
+    F_{S_k}(s)&amp;={\Pr}(X_1+\cdots+X_k\leq s) ={\Pr}(S_{k-1}+X_k\leq s) \\
+    &amp;={\rm E}_{X_k}\left[{\rm Pr}(S_{k-1}\leq s-X_k|X_k)\right]= {\rm E}_{X_k}\left[F_{S_{k-1}}(s-X_k)\right].
+   \end{aligned}\]</span></p>
+<p>There are some simple cases where the <span class="math inline">\(S_n\)</span> has a closed form. Examples include</p>
+<ul>
+<li><p>If <span class="math inline">\(X_i\sim N(\mu_i,\sigma_i^2)\)</span>, then <span class="math inline">\(S_n\sim N(\sum_{i=1}^{n}\mu_i,\sum_{i=1}^{n}\sigma_i^2)\)</span></p></li>
+<li><p>If <span class="math inline">\(X_i\sim Exponential(\theta)\)</span>, then <span class="math inline">\(S_n\sim Gamma(n,\theta)\)</span></p></li>
+<li><p>If <span class="math inline">\(X_i\sim Gamma(\alpha_i,\theta)\)</span>, then <span class="math inline">\(S_n\sim Gamma(\sum_{i=1}^n\alpha_i,\theta)\)</span></p></li>
+<li><p>If <span class="math inline">\(X_i\sim Poisson(\lambda_i)\)</span>, then <span class="math inline">\(S_n\sim Poisson(\sum_{i=1}^{n}\lambda_i)\)</span></p></li>
+<li><p>If <span class="math inline">\(X_i\sim Bin(q,m_i)\)</span>, then <span class="math inline">\(S_n\sim Bin(q,\sum_{i=1}^n m_i)\)</span></p></li>
+<li><p>If <span class="math inline">\(X_i\sim Geometric(\beta)\)</span>, then <span class="math inline">\(S_n\sim NegBin(\beta,n)\)</span></p></li>
+<li><p>If <span class="math inline">\(X_i\sim NegBin(\beta,r_i)\)</span>, then <span class="math inline">\(S_n\sim NegBin(\beta,\sum_{i=1}^n r_i)\)</span></p></li>
+</ul>
+<p>A special case is when <span class="math inline">\(X_i&#39;s\)</span> are identically distributed. Let <span class="math inline">\(F_X(x)={\Pr}(X\leq x)\)</span> be the common distribution of <span class="math inline">\(X_i\)</span> <span class="math inline">\((i=1,\ldots,n)\)</span>, we define <span class="math display">\[F^{*n}_X(x)={\Pr}(X_1+\cdots+X_n\leq x)\]</span> the <span class="math inline">\(n\)</span>-fold convolution of <span class="math inline">\(F_X\)</span>.</p>
+<em>Example: Gamma Distribution</em>. For an easy case, assume that <span class="math inline">\(X_i \sim\)</span> gamma with parameters <span class="math inline">\((\alpha, \theta)\)</span>. As we know, the moment generating function (mgf) is <span class="math inline">\(M_{X}(t) = (1 - \theta t)^{- \alpha}\)</span>. Thus, the mgf of the sum <span class="math inline">\(S_n = X_1 + \cdots + X_n\)</span> is
+<span class="math display">\[\begin{eqnarray*}
+M_{S_n}(t) = \mathrm{E~} \exp(t(X_1 + \cdots + X_n)) = (1 - \theta t)^{-n \alpha} ,
+\end{eqnarray*}\]</span>
+<p>Thus, <span class="math inline">\(S_n\)</span> has a gamma distribution with parameters <span class="math inline">\((n \alpha, \theta)\)</span>. This makes it easy to compute <span class="math inline">\(F^{\ast n}(x) = \Pr(S_n \le x).\)</span> This property is known as ``closed under convolution’’.</p>
+<p><span class="math inline">\(\Box\)</span></p>
+<p><em>Example: Negative Binomial Distribution.</em> Assume <span class="math inline">\(X_i \sim NegBin(\beta, r_i)\)</span>. The probability generating function (pgf) is <span class="math inline">\(P_X(z) = \left[1-\beta(z-1) \right]^{-r}\)</span>. Thus, the pgf of the sum <span class="math inline">\(S_n =X_1+\cdots+X_n\)</span> is <span class="math display">\[\begin{aligned}
+P_{S_n}(z) &amp;= \mathrm{E~}\left[ z^{S_n} \right] = \mathrm{E~}\left[ z^{X_1+\cdots+X_n} \right] = \mathrm{E~}\left[ z^{X_1} z^{X_2} \cdots z^{X_n} \right] = \mathrm{E~}\left[z^{X_1}\right] \cdots \mathrm{E~}\left[z^{X_n}\right] \\
+&amp;= \prod_{i=1}^n P_{X_i}(z) = \prod_{i=1}^n \left[1-\beta(z-1) \right]^{-r_i} = \left[1-\beta(z-1) \right]^{-\sum_{i=1}^n r_i}
+\end{aligned}\]</span> Thus, <span class="math inline">\(S_n\)</span> has a negative binomial distribution with parameters <span class="math inline">\((\beta, \sum_{i=1}^n r_i)\)</span>.<br />
+<span class="math inline">\(\Box\)</span></p>
+More generally, we can compute <span class="math inline">\(F^{\ast n}\)</span> recursively. Begin the recursion at <span class="math inline">\(n=1\)</span> using <span class="math inline">\(F^{\ast 1} \left(x \right) =F(x)\)</span>. Next, for <span class="math inline">\(n=2\)</span>, we have
+<span class="math display">\[\begin{eqnarray*}
+F^{\ast 2} \left(x \right) &amp;=&amp; \Pr(X_1 + X_2 \le x) = \mathrm{E}_{X_2} \Pr(X_1 \le x - X_2|X_2)\\
+&amp;=&amp; \mathrm{E}_X F(x - X)\\
+&amp;=&amp; \int_{0}^{x} F(x-y) f(y) dy \:\:\:\:\:\:\:\:\:\:\:\:\:\:\text{continuous}\\
+&amp;=&amp; \sum_{y \le x} F(x-y) f(y) \:\:\:\:\:\:\:\:\:\:\:\:\:\:\:\:\:\:\;\text{discrete}\\
+\end {eqnarray*}\]</span>
+<p>$$</p>
+<p>Recall <span class="math inline">\(F(0) = 0\)</span>.</p>
+Similarly, let <span class="math inline">\(S_n = X_1 + X_2 + \cdots + X_n\)</span>
+<span class="math display">\[\begin{eqnarray*}
+F^{\ast n}\left(x\right) &amp;=&amp; \Pr(S_n \le x) = \Pr(S_{n-1} + X_n \le x)\\
+&amp;=&amp;\mathrm{E}_{X_n}\Pr(S_{n-1} \le x - X_n|X_n)\\
+&amp;=&amp;\mathrm{E}_X F^{\ast(n-1)}(x - X)\\
+&amp;=&amp; \int_{0}^{x} F^{\ast(n-1)}(x-y)f(y)dy \:\:\:\text{continuous}\\
+&amp;=&amp; \sum_{y \le x} F^{\ast(n-1)}(x-y)f(y) \:\:\:\:\:\:\:\:\text{discrete}\\
+\end{eqnarray*}\]</span>
+<p><em>Example. SOA Sample Question, 283 (modified).</em> The annual number of doctor visits for each individual in a family of 4 has geometric distribution with mean 1.5. The annual numbers of visits for the family members are mutually independent. An insurance pays 100 per doctor visit beginning with the 4th visit per family. Calculate the probability that the family will receive an insurance payment this year.</p>
+<p><em>Solution.</em> Let <span class="math inline">\(X_i \sim Geometric(\beta=1.5)\)</span> be the number of doctor visits for one individual in the family and <span class="math inline">\(S_4 = X_1 + X_2 + X_3 + X_4\)</span> be the number of doctor visits for the family. The sum of 4 independent geometric distributions each with mean 1.5 follows a negative binomial distribution, i.e. <span class="math inline">\(S_4 \sim NegBin(\beta=1.5, r=4)\)</span>.</p>
+<p>If the insurance pays 100 per visit beginning with the 4th visit for the family, then the family will not receive an insurance payment if they have less than 4 claims. This probability is <span class="math display">\[\begin{aligned}
+    \Pr(S_4 &lt; 4) &amp;= \Pr(S_4 = 0) + \Pr(S_4 = 1) + \Pr(S_4 = 2) +\Pr(S_4 = 3) \\
+    &amp;= (1+1.5)^{-4} + \frac{4(1.5)}{(1+1.5)^5} + \frac{4(5)(1.5^2)}{2(1+1.5)^6} + \frac{4(5)(6)(1.5^3)}{3!(1+1.5)^7}\\
+    &amp;= 0.0256 + 0.0614 + 0.0922 + 0.1106 = 0.2898
+\end{aligned}\]</span> <span class="math inline">\(\Box\)</span></p>
+</div>
+<div id="collective-risk-model" class="section level2">
+<h2><span class="header-section-number">5.3</span> Collective Risk Model</h2>
+<div id="moments-and-distribution" class="section level3">
+<h3><span class="header-section-number">5.3.1</span> Moments and Distribution</h3>
+Under the collective risk model <span class="math inline">\(S=X_1+\cdots+X_N\)</span>, <span class="math inline">\(\{X_i\}\)</span> are i.i.d., and independent of <span class="math inline">\(N\)</span>. Let <span class="math inline">\(\mu = {\rm E}\left( X_{i}\right)\)</span> and <span class="math inline">\(\sigma ^{2} = {\rm Var}\left(X_{i}\right)\)</span> <span class="math inline">\(\forall\)</span> <span class="math inline">\(i\)</span>. Using the law of iterated expectations, the mean is
+<span class="math display">\[\begin{eqnarray*}
+{\rm E}(S)={\rm E}_N[{\rm E}_S(S|N)] = {\rm E}_N[N\mu] = \mu {\rm E}(N).
+\end{eqnarray*}\]</span>
+<p>Using the law of total variation, the variance is <span class="math display">\[\begin{aligned}
+{\rm Var}(S) &amp;= {\rm E}_N[{\rm Var}_S(S|N)] + {\rm Var}_N[{\rm E}_S(S|N)] \\
+&amp;={\rm E}_N[N\sigma^2] + {\rm Var}_N[N\mu] \\
+&amp;=\sigma^2{\rm E}[N] + \mu^2{\rm Var}[N]
+\end{aligned}\]</span></p>
+<em>Special Case: Poisson Distributed Frequency.</em> If <span class="math inline">\(N \sim Poisson (\lambda)\)</span>, then
+<span class="math display">\[\begin{eqnarray*}
+\mathrm{E~}N &amp;=&amp; \mathrm{Var~}N = \lambda\\
+\mathrm{Var~}S &amp;=&amp; \lambda (\sigma^2 + \mu^2) = \lambda ~\mathrm{E~} X^2 .
+\end{eqnarray*}\]</span>
+<p><em>Example. Course 3, May 2001, 36.</em> The number of accidents follows a Poisson distribution with mean 12. Each accident generates 1, 2, or 3 claimants with probabilities 1/2, 1/3, and 1/6 respectively.</p>
+<p>Calculate the variance in the total number of claimants.</p>
+<p><em>Solution:</em> <span class="math display">\[\mathrm{E~}X^2 = 1^2 \left( \frac{1}{2}\right) + 2^2\left(\frac{1}{3} \right) + 3^2\left(\frac{1}{6}\right)
+= \frac{10}{3}\]</span> <span class="math display">\[\mathrm{Var~}S = \lambda \ \mathrm{E~}X^2 = 12\left(\frac{10}{3}\right) = 40\]</span></p>
+<p>Alternatively, using the general approach, <span class="math inline">\(\mathrm{Var~}S = \sigma^2 \mathrm{E~}N + \mu^2 \mathrm{Var~}N\)</span>, where</p>
+<p><span class="math display">\[\mathrm{E~}N = \mathrm{Var~}N = 12\]</span> <span class="math display">\[\mu = \mathrm{E~}X = 1\left(\frac{1}{2}\right) + 2\left(\frac{1}{3}\right) + 3\left(\frac{1}{6}\right)
+= \frac{5}{3}\]</span> <span class="math display">\[\sigma^2 = \mathrm{E~}X^2 - (\mathrm{E~}X)^2 = \frac{10}{3} - \frac{25}{9}
+= \frac{5}{9}\]</span> <span class="math display">\[\Rightarrow \ \mathrm{Var~}S = \left(\frac{5}{9}\right)\left(12\right) + \left(\frac{5}{3}\right)^2\left(12\right) = 40\]</span> <span class="math inline">\(\Box\)</span></p>
+In general, the moments of <span class="math inline">\(S\)</span> can be derived from its moment generating function (mgf). Because <span class="math inline">\(\{X_i\}\)</span> are i.i.d., we denote the mgf of <span class="math inline">\(X\)</span> as <span class="math inline">\(M_{X}(t) = \mathrm{E~}(e^{tX})\)</span>. Using the law of iterated expectations, the mgf of <span class="math inline">\(S\)</span> is
+<span class="math display">\[\begin{eqnarray*}
+M_{S}(t) &amp;=&amp; \mathrm{E}(e^{St})=\mathrm{E}[\mathrm{E}(e^{St}|N)]\\
+&amp;=&amp; \mathrm{E~}[(M_{X}(t))^N]
+\end{eqnarray*}\]</span>
+where we use the relation <span class="math inline">\(\mathrm{E}[e^{t(X_1+\cdots+X_n)}] = \mathrm{E}(e^{tX_1})\cdots\mathrm{E}(e^{tX_n}) = (M_{X}(t))^n\)</span>. Now, recall that the probability generating function (pgf) of <span class="math inline">\(N\)</span> is <span class="math inline">\(P(z) = \mathrm{E}(z^N)\)</span>. Denote <span class="math inline">\(M_{X}(t)=z\)</span>, it is shown
+<span class="math display">\[\begin{eqnarray*}
+M_{S}(t) = \mathrm{E~}(z^N)  = P_{N}(z) = P_{N}[M_{X}(t)].
+\end{eqnarray*}\]</span>
+Similarly, if <span class="math inline">\(S\)</span> a discrete, one can show the pgf of <span class="math inline">\(S\)</span> is:
+<span class="math display">\[\begin{eqnarray*}
+P_{S}(z) = P_{N}[P_{X}(z)].
+\end{eqnarray*}\]</span>
+To get <span class="math inline">\(\mathrm{E~}S = M_{S}&#39;(0)\)</span>, we use the chain rule <span class="math display">\[
+M_{S}&#39;(t) = \frac{\partial}{\partial t} P_{N}(M_{X}(t)) = P_{N}&#39;(M_{X}(t)) M_{X}&#39;(t)\\
+\]</span> and recall <span class="math inline">\(M_{X}(0) = 1, M_{X}&#39;(0) = \mathrm{E~}X = \mu, P_{N}&#39;(1) = \mathrm{E~}N\)</span>. So,
+<span class="math display">\[\begin{eqnarray*}
+\mathrm{E~}S = M_{S}&#39;(0) = P_{N}&#39;(M_{X}&#39;(0)) M_{X}&#39;(0) = \mu {\rm E}(X)
+\end{eqnarray*}\]</span>
+<p>Similarly, one could use relation <span class="math display">\[
+\mathrm{E~}S^2 = M_{S}&#39;&#39;(0)
+\]</span> to get <span class="math display">\[\mathrm{Var~}S = \sigma^2 \mathrm{E~}N + \mu^2 \mathrm{Var~}N.\]</span></p>
+<em>Special Case. Poisson Frequency.</em> Let <span class="math inline">\(N \sim Poisson (\lambda)\)</span>. Thus, the pgf of <span class="math inline">\(N\)</span> is <span class="math inline">\(P_N (z) =\exp[\lambda(z-1)]\)</span>, and the mgf of <span class="math inline">\(S\)</span> is
+<span class="math display">\[\begin{eqnarray*}
+M_{S}(t) &amp;=&amp;\exp[\lambda(M_{X}(t) - 1)].
+\end{eqnarray*}\]</span>
+Taking derivatives yield
+<span class="math display">\[\begin{eqnarray*}
+M_{S}(t) &amp;=&amp;\exp(\lambda(M_{X}(t) - 1))\\
+M_{S}&#39;(t) &amp;=&amp;\exp(\lambda(M_{X}(t) - 1)) \lambda M_{X}&#39;(t)\\
+&amp;=&amp; M_{S}(t) \lambda M_{X}&#39;(t)\\
+M_{S}&#39;&#39;(t) &amp;=&amp; M_{S}(t) \lambda M_{X}&#39;&#39;(t) + \{M_{S}(t) \lambda M_{X}&#39;(t)\} \lambda M_{X}&#39;(t)
+\end{eqnarray*}\]</span>
+Evaluating these at <span class="math inline">\(t=0\)</span> yields
+<span class="math display">\[\begin{eqnarray*}
+M_{S}&#39;&#39;(0) &amp;=&amp; \lambda \mathrm{E}(X^2) + \lambda^2 \mu^2\\
+\mathrm{Var~}S &amp;=&amp; \lambda \mathrm{E}(X^2) + \lambda^2 \mu^2 - (\lambda \mu)^2\\
+&amp;=&amp; \lambda \mathrm{E}(X^2).
+\end{eqnarray*}\]</span>
+<p><span class="math inline">\(\Box\)</span></p>
+<p><em>Example. Course 3, May 2001, 29.</em> You are the producer of a television quiz show that gives cash prizes. The number of prizes, <span class="math inline">\(N\)</span>, and prize amount, <span class="math inline">\(X\)</span>, have the following distributions:</p>
+<p><span class="math display">\[\begin{matrix}
+\begin{array}{ccccc}\hline
+    n &amp; \Pr(N=n) &amp; &amp; x &amp; \Pr(X=x)\\ \hline
+    1 &amp; 0.8 &amp; &amp; 0 &amp; 0.2 \\
+    2 &amp; 0.2 &amp; &amp; 100 &amp; 0.7 \\
+       &amp;       &amp; &amp; 1000 &amp; 0.1\\\hline
+  \end{array}
+\end{matrix}\]</span></p>
+<p>Your budget for prizes equals the expected aggregate cash prizes plus the standard deviation of aggregate cash prizes. Calculate your budget.</p>
+<em>Solution.</em> We need to calculate the mean and standard deviation of the aggregate (sum) of cash prizes. The moments of the frequency distribution <span class="math inline">\(N\)</span> are
+<span class="math display">\[\begin{eqnarray*}
+\mathrm{E~}N &amp;=&amp; 1 (0.8) + 2 (0.2) =1.2\\
+\mathrm{E~}N^2 &amp;=&amp;  1^2 (0.8) + 2^2 (0.2) =1.6\\
+\mathrm{Var~}N &amp;=&amp; \mathrm{E~}N^2 - \left( \mathrm{E~}N \right)^2= 0.16
+\end{eqnarray*}\]</span>
+The moments of the severity distribution <span class="math inline">\(X\)</span> are
+<span class="math display">\[\begin{eqnarray*}
+\mathrm{E~}X &amp;=&amp; 0 (0.2) + 100 (0.7) + 1000 (0.1) = 170 = \mu\\
+\mathrm{E~}X^2 &amp;=&amp; 0^2 (0.2) + 100^2 (0.7) + 1000^2 (0.1) = 107,000\\
+\mathrm{Var~}X &amp;=&amp; \mathrm{E~}X^2 - \left( \mathrm{E~}X \right)^2=78,100 = \sigma^2
+\end{eqnarray*}\]</span>
+Thus, the mean and variance of the aggregate cash prize are
+<span class="math display">\[\begin{eqnarray*}
+\mathrm{E~}S  &amp;=&amp; \mu \mathrm{E~}N = 170 (1.2) = 204 \\
+\mathrm{Var~}S &amp;=&amp; \sigma^2 \mathrm{E~}N + \mu^2 \mathrm{Var~}N\\
+&amp;=&amp; 78,100 (1.2) + 170^2 (0.16) = 98,344
+\end{eqnarray*}\]</span>
+This gives the following required budget
+<span class="math display">\[\begin{eqnarray*}
+Budget &amp;=&amp; \mathrm{E~}S + \sqrt{\mathrm{Var~}S} \\
+&amp;=&amp; 204 + \sqrt{98,344} = 517.60 .
+\end{eqnarray*}\]</span>
+<p><span class="math inline">\(\Box\)</span></p>
+The distribution of <span class="math inline">\(S\)</span> is called a compound distribution, and it can be derived based on the convolution of <span class="math inline">\(F_X\)</span> as follows:
+<span class="math display">\[\begin{eqnarray*}
+F_{S}(s) &amp;=&amp; \Pr \left(X_1 + \cdots + X_N \le s \right) \\
+&amp;=&amp;  \mathrm{E} \left[ \Pr \left(X_1 + \cdots + X_N  \le s|N=n \right) \right]\\
+&amp;=&amp;  \mathrm{E} \left[ F_{X}^{\ast N}(s) \right] \\
+&amp;=&amp;  p_0 + \sum_{n=1}^{\infty }p_n F_{X}^{\ast n}(s)
+\end{eqnarray*}\]</span>
+<p><em>Example. Course 3, Fall 2002, 36.</em> The number of claims in a period has a geometric distribution with mean <span class="math inline">\(4\)</span>. The amount of each claim <span class="math inline">\(X\)</span> follows <span class="math inline">\(\Pr(X=x) = 0.25, \ x=1,2,3,4.\)</span> The number of claims and the claim amounts are independent. Let <span class="math inline">\(S\)</span> denote the aggregate claim amount in the period. Calculate <span class="math inline">\(F_{S}(3)\)</span></p>
+<p><em>Solution.</em> By definition, we have <span class="math display">\[\begin{aligned}
+F_{S}\left(3 \right) &amp;= {\rm Pr}\left(\sum_{i=1}^N X_i \leq 3\right) = \sum_{n=0}^\infty {\rm Pr}\left(\sum_{i=1}^n X_i\leq 3|N=n\right){\rm Pr}(N=n) \\
+&amp;= \sum_n F^{\ast n} \left(3 \right) p_n = \sum_{n=0}^3 F^{\ast n}(3) p_n \\
+&amp;= p_0 + F^{\ast 1}(3) \ p_1 + F^{\ast 2}(3) \ p_2 + F^{\ast 3}(3) \ p_3
+\end{aligned}\]</span> Because <span class="math inline">\(N\)</span> has a geometric distribution with mean 4, we know that <span class="math display">\[\begin{aligned}
+p_n &amp;= \frac{1}{1+\beta}
+\left(\frac{\beta}{1+ \beta} \right)^n = \frac{1}{5} \left(\frac{4}{5} \right)^n
+\end{aligned}\]</span> For the claim severity distribution, recursively, we have <span class="math display">\[\begin{aligned}
+F^{\ast 1}(3) &amp;= \Pr(X \le 3) = \frac{3}{4} \\
+F^{\ast 2}(3) &amp;= \sum_{y \le 3} F^{\ast 1} (3-y) f(y) = F^{\ast 1}(2)f(1) + F^{\ast 1}(1)f(2) \\
+&amp;= \frac{1}{4}\left[F^{\ast 1} (2) + F^{\ast 1}(1)\right] = \frac{1}{4}\left[{\rm Pr}(X\leq 2) + {\rm Pr}(X \leq 1) \right] \\
+&amp;= \frac{1}{4} \left(\frac{2}{4} + \frac{1}{4} \right) = \frac{3}{16}\\
+F^{\ast 3}(3) &amp;= \Pr(X_1+X_2 + X_3 \le 3) = \Pr(X_1=X_2=X_3=1) = \left(\frac{1}{4} \right)^3
+\end{aligned}\]</span> Notice that we did not need to recursively calculate <span class="math inline">\(F^{\ast 3}(3)\)</span> by recognizing that each <span class="math inline">\(X \in \{1,2,3,4\}\)</span>, so the only way of obtaining <span class="math inline">\(X_1+X_2+X_3 \leq 3\)</span> is to have <span class="math inline">\(X_1=X_2=X_3=1\)</span>. Additionally, for <span class="math inline">\(n \geq 4\)</span>, <span class="math inline">\(F^{\ast n} (3)=0\)</span> since it is impossible for the sum of 4 or more <span class="math inline">\(X\)</span>’s to be less than 3. For <span class="math inline">\(n=0\)</span>, <span class="math inline">\(F^{\ast 0}(3) = 1\)</span> since the sum of 0 <span class="math inline">\(X\)</span>’s is 0, which is always less than 3. Laying out the probabilities systematically,</p>
+<p><span class="math display">\[\begin {matrix}
+\begin{array}{c c c c}\hline
+    x &amp; F^{\ast 1}(x) &amp; F^{\ast 2}(x) &amp; F^{\ast 3}(x)\\ \hline
+    0 &amp; &amp; &amp; \\
+    1 &amp; \frac{1}{4} &amp; 0 &amp; \\
+    2 &amp; \frac{2}{4} &amp; \left( \frac{1}{4} \right)^2 &amp; \\
+    3 &amp; \frac{3}{4} &amp; \frac{3}{16} &amp; \left( \frac{1}{4} \right)^3 \\ \hline
+\end{array}
+\end{matrix}\]</span></p>
+<p>Finally, <span class="math display">\[\begin{aligned}
+F_{S}(3) &amp;= p_0 + F^{\ast 1}(3) \ p_1 + F^{\ast 2}(3) \ p_2 + F^{\ast 3}(3) \ p_3 \\
+&amp;= \frac{1}{5} + \frac{3}{4}\left(\frac{4}{25} \right) + \frac{3}{16} \left( \frac{16}{125} \right) + \frac{1}{64} \left( \frac{64}{625}\right) = 0.3456\\
+\end{aligned}\]</span> <span class="math inline">\(\Box\)</span></p>
+<!-- Page 12 of notes -->
+<!-- Here is another way to think about this problem. Lay them out systematically, as follows: -->
+<!-- $$\begin {matrix} -->
+<!-- \begin{array}{c c c c}\hline -->
+<!--     x & F^{\ast 1}(x) & F^{\ast 2}(x) & F^{\ast 3}(x)\\ \hline -->
+<!--     0 & & & \\ -->
+<!--     1 & \frac{1}{4} & 0 & \\ -->
+<!--     2 & \frac{2}{4} & \left( \frac{1}{4} \right)^2 & \\ -->
+<!--     3 & \frac{3}{4} & \frac{3}{16} & \left( \frac{1}{4} \right)^3 \\ \hline -->
+<!--   \end{array} -->
+<!-- \end{matrix}$$ -->
+<!-- $\Box$ -->
+<p>When <span class="math inline">\(\mathrm{E}(N)\)</span>, one may also use the central limit theorem to approximate the distribution of <span class="math inline">\(S\)</span> as in the individual risk model. That is, <span class="math inline">\(\frac{S - \mathrm{E}(S)}{\sqrt{\mathrm{Var}(S)}}\)</span> approximately follows <span class="math inline">\(N(0,1)\)</span>.</p>
+<p><em>Example. Exam 3, May 2000, 16.</em> You are given:</p>
+<p><span class="math display">\[\begin{matrix}
+  \begin{array}{ c | c  c }
+    \hline
+      &amp; \text{Mean} &amp; \text{Standard Deviation}\\ \hline
+    \text{Number of Claims} &amp; 8 &amp; 3\\
+    \text{Individual Losses} &amp; 10,000 &amp; 3,937\\
+    \hline
+  \end{array}
+\end{matrix}\]</span> Using the normal approximation, determine the probability that the aggregate loss will exceed 150<span class="math inline">\(\%\)</span> of the expected loss:</p>
+<p><span class="math display">\[\begin{array}{ c c c c c}
+(A) \Phi (1.25) &amp; (B) \Phi (1.5) &amp; (C) 1-\Phi (1.5) &amp; (D) 1-\Phi (1.25) &amp; (E) 1.5 \times \Phi (1)
+\end{array}\]</span></p>
+<em>Solution.</em> To use the normal approximation, we must first find the mean and variance of the aggregate loss <span class="math inline">\(S\)</span>
+<span class="math display">\[\begin{eqnarray*}
+\mathrm{E~}S &amp;=&amp; \mu \ \mathrm{E~}N = 10,000(8) = 80,000\\
+\mathrm{Var~}S &amp;=&amp; \sigma^2 \ \mathrm{E~}N + \mu^2 \ \mathrm{Var~}N\\
+&amp;=&amp; 3937^2(8) + 10000^2 (3^2) = 1,023,999,752\\
+\sqrt{\mathrm{Var~}S} &amp;=&amp; 31,999.996 \approx 32,000
+\end{eqnarray*}\]</span>
+<p>Then under the normal approximation, aggregate loss <span class="math inline">\(S\)</span> is approximately normal with mean 80,000 and standard deviation 32,000. The probability that <span class="math inline">\(S\)</span> will exceed 150<span class="math inline">\(\%\)</span> of the expected aggregate loss is therefore <span class="math display">\[\begin{aligned}
+\Pr(S&gt;1.5 \mathrm{E~}S) &amp;= \Pr \left( \frac{S - \mathrm{E~} S}{\sqrt{\mathrm{Var~}S}} &gt; \frac{1.5 \mathrm{E~}S - \mathrm{E~} S}{\sqrt{\mathrm{Var~}S}} \right) \\
+&amp;= \Pr \left( N(0,1) &gt; \frac{0.5 \mathrm{E~}S}{\sqrt{\mathrm{Var~}S} } \right) \\
+&amp;= \Pr \left( N(0,1) &gt; \frac{0.5(80,000)}{32,000} \right) = \Pr( N(0,1) &gt; 1.25) \\
+&amp;= 1-\Phi(1.25) = 0.1056
+\end{aligned}\]</span> <span class="math inline">\(\Box\)</span></p>
+<p><em>Example. Course 3, November 2000, 32.</em> For an individual over <span class="math inline">\(65\)</span>:<br />
+(i) The number of pharmacy claims is a Poisson random variable with mean <span class="math inline">\(25\)</span>.<br />
+(ii) The amount of each pharmacy claim is uniformly distributed between <span class="math inline">\(5\)</span> and <span class="math inline">\(95\)</span>.<br />
+(iii) The amounts of the claims and the number of claims are mutually independent.<br />
+Determine the probability that aggregate claims for this individual will exceed <span class="math inline">\(2000\)</span> using the normal approximation:</p>
+<p><span class="math display">\[\begin{array}{ c c c c c}
+    (A) 1-\Phi (1.33) &amp; (B) 1-\Phi (1.66) &amp; (C) 1-\Phi (2.33) &amp; (D) 1-\Phi (2.66) &amp; (E) 1-\Phi (3.33)
+\end{array}\]</span></p>
+<p><em>Solution.</em> We have claim frequency <span class="math inline">\(N \sim Poisson (\lambda = 25)\)</span> and claim severity <span class="math inline">\(X \sim U \left(5, 95 \right)\)</span>. To use the normal approximation, we need to find the mean and variance of the aggregate claims <span class="math inline">\(S\)</span>. Note</p>
+<span class="math display">\[\begin{matrix}
+\begin{array}{lll}
+\mathrm{E~} N = 25 &amp; &amp; \mathrm{Var~} N = 25\\
+\mathrm{E~}X = \frac{5+95}{2} = 50 = \mu &amp; &amp; \mathrm{Var~}X = \frac{(95-5)^2}{12} = 675 = \sigma^2\\
+\end{array}
+\end{matrix}\]</span> Then for <span class="math inline">\(S\)</span>,
+<span class="math display">\[\begin{eqnarray*}
+\mathrm{E~}S &amp;=&amp; \mu \ \mathrm{E~} N = 50(25) = 1,250\\
+\mathrm{Var~}S &amp;=&amp; \sigma^2 \ \mathrm{E~}N + \mu^2 \ \mathrm{Var~}N\\
+&amp;=&amp; 675 (25) + 50^2 (25) = 79,375
+\end{eqnarray*}\]</span>
+<p>Using the normal approximation, <span class="math inline">\(S\)</span> is approximately normal with mean 1,250 and variance 79,375. The probability that <span class="math inline">\(S\)</span> exceeds 2,000 is <span class="math display">\[\begin{aligned}
+\Pr(S&gt;2,000) &amp;= \Pr \left(\frac{S - \mathrm{E~} S}{\sqrt{\mathrm{Var~} S}} &gt; \frac{2,000- \mathrm{E~} S}{\sqrt{\mathrm{Var~} S}} \right) \\
+&amp;= \Pr\left( N(0,1) &gt; \frac{2,000-1,250}{\sqrt{79,375}} \right) \\
+&amp;= \Pr (N(0,1) &gt; 2.662) = 1-\Phi(2.662) = 0.003884
+\end{aligned}\]</span> <span class="math inline">\(\Box\)</span></p>
+</div>
+<div id="stop-loss-insurance" class="section level3">
+<h3><span class="header-section-number">5.3.2</span> Stop-loss Insurance</h3>
+Insurance on the aggregate loss <span class="math inline">\(S\)</span>, subjected to a deductible <span class="math inline">\(d\)</span>, is called . The quantity
+<span class="math display">\[\begin{eqnarray*}
+\mathrm{E}[(S-d)_+]
+\end{eqnarray*}\]</span>
+<p>is known as the <em>net stop-loss premium</em>.</p>
+To calculate the net stop-loss premium, we have
+<span class="math display">\[\begin{eqnarray*}
+\mathrm{E}(S-d)_+  &amp; =&amp; \int_{d}^{\infty} \left(1-F_S(s) \right) ds\\
+&amp;=&amp; \int_{d}^{\infty}(s-d) f_{S}(s) ds ~~~~{\rm continuous}\\
+&amp;=&amp; \sum_{s&gt;d}(s-d) f_{S}(s) ds  ~~~~~{\rm discrete}\\
+&amp;=&amp; \mathrm{E}(S) - \mathrm{E}(S\wedge d)\\
+\end{eqnarray*}\]</span>
+<p><em>Example. Exam M, Fall 2005, 19.</em> In a given week, the number of projects that require you to work overtime has a geometric distribution with <span class="math inline">\(\beta=2\)</span>. For each project, the distribution of the number of overtime hours in the week is as follows:</p>
+<p><span class="math display">\[\begin{matrix}
+\begin{array}{ccc} \hline
+    x &amp;  &amp; f(x)\\ \hline
+    5 &amp;  &amp; 0.2 \\
+    10 &amp; &amp; 0.3 \\
+    20 &amp; &amp; 0.5\\ \hline
+  \end{array}
+\end{matrix}\]</span></p>
+<p>The number of projects and the number of overtime hours are independent. You will get paid for overtime hours in excess of 15 hours in the week. Calculate the expected number of overtime hours for which you will get paid in the week.</p>
+<p><em>Solution.</em> The number of projects in a week requiring overtime work has distribution <span class="math inline">\(N \sim Geometric(\beta=2)\)</span>, while the number of overtime hours worked per project has distribution <span class="math inline">\(X\)</span> as described above. The aggregate number of overtime hours in a week is <span class="math inline">\(S\)</span> and we are therefore looking for <span class="math display">\[\mathrm{E~}(S-15)_+ = \mathrm{E~}S - \mathrm{E~}(S \wedge 15).\]</span></p>
+To find <span class="math inline">\(\mathrm{E~}S = \mathrm{E~}X \ \mathrm{E~}N\)</span>, we have
+<span class="math display">\[\begin{eqnarray*}
+\mathrm{E~}X &amp;=&amp; 5(0.2) + 10(0.3)+ 20(0.5)= 14 \\
+\mathrm{E~}N &amp;=&amp; 2 \\
+\Rightarrow \ \mathrm{E~}S &amp;=&amp; \mathrm{E~}X \ \mathrm{E~}N = 14(2) = 28
+\end{eqnarray*}\]</span>
+To find <span class="math inline">\(\mathrm{E~} (S \wedge 15) = 0 \Pr (S=0) + 5 \Pr(S=5) + 10 \Pr(S=10) + 15 \Pr(S \geq 15)\)</span>, we have
+<span class="math display">\[\begin{eqnarray*}
+\Pr(S=0) &amp;=&amp; \Pr(N=0) = \frac{1}{1+\beta} = \frac{1}{3} \\
+\Pr(S=5) &amp;=&amp; \Pr(X=5, \ N=1) = 0.2 \left(\frac{2}{9} \right)= \frac{0.4}{9}\\
+\Pr(S=10) &amp;=&amp; \Pr(X=10, \ N=1) + \Pr(X_1=X_2=5, N=2) \\
+&amp;=&amp; 0.3 \left(\frac{2}{9} \right) + (0.2)(0.2) \left( \frac{4}{27} \right)= 0.0726 \\
+\Pr(S \geq 15) &amp;=&amp; 1 - \left(\frac{1}{3} + \frac{0.4}{9} + 0.0726 \right) = 0.5496\\
+\Rightarrow \mathrm{E~}(S \wedge 15) &amp;=&amp; 0 \Pr (S=0) + 5 \Pr(S=5) + 10 \Pr(S=10) + 15 \Pr(S \geq 15) \\
+&amp;=&amp; 0 \left( \frac{1}{3} \right) + 5
+\left( \frac{0.4}{9} \right) + 10 (0.0726) + 15 (0.5496) = 9.193\\
+\end{eqnarray*}\]</span>
+Therefore,
+<span class="math display">\[\begin{eqnarray*}
+\mathrm{E~}(S-15)_+ &amp;=&amp; \mathrm{E~}S - \mathrm{E~}(S \wedge 15) \\
+&amp;=&amp; 28 - 9.193 = 18.807
+\end{eqnarray*}\]</span>
+<p><span class="math inline">\(\Box\)</span></p>
+<em>Recursive Net Stop-Loss Premium Calculation</em>. For the discrete case, this can be computed recursively as
+<span class="math display">\[\begin{eqnarray*}
+\mathrm{E~}\left[ S-(j+1)h \right] _{+}=\mathrm{E~}\left[ ( S-jh )_{+} \right] -h \left( 1-F_S(jh)
+\right) .
+\end{eqnarray*}\]</span>
+<p>This assumes that the support of <span class="math inline">\(S\)</span> is equally spaced over units of <span class="math inline">\(h\)</span>.</p>
+To establish this, we assume that <span class="math inline">\(h=1\)</span>. Now, on the left-hand side, we have <span class="math inline">\(\mathrm{E~}\left[ S-(j+1) \right] _{+}=\mathrm{E~}S - \mathrm{E~}S\wedge (j+1)\)</span>. We can write
+<span class="math display">\[\begin{eqnarray*}
+\mathrm{E~}S\wedge (j+1) = \sum_{x=0}^{j}xf_S(x) + (j+1)\Pr(S \ge j+1).
+\end{eqnarray*}\]</span>
+Similarly
+<span class="math display">\[\begin{eqnarray*}
+\mathrm{E~}S\wedge j = \sum_{x=0}^{j}xf_S(x) + j\Pr(S\ge j+1).
+\end{eqnarray*}\]</span>
+With these, expressions, we have
+<span class="math display">\[\begin{eqnarray*}
+\mathrm{E~}\left[ S-(j+1) \right] _{+} &amp;-&amp; \mathrm{E~}\left[ ( S-j )_{+} \right]  \\
+&amp;=&amp;\left\{\mathrm{E~}S - \mathrm{E~}S\wedge (j+1) \right\}
+-\left\{\mathrm{E~}S - \mathrm{E~}S\wedge j \right\} \\
+&amp;=&amp;\left\{ \sum_{x=0}^{j}xf_S(x) + j\Pr(S\ge j+1) \right\}
+- \left\{ \sum_{x=0}^{j}xf_S(x) + (j+1)\Pr(S \ge j+1) \right\} \\
+&amp;=&amp; -\Pr(S\ge j+1) = -\{1 - F_{S}(j)\},
+\end{eqnarray*}\]</span>
+<p>as required.</p>
+<p><span class="math inline">\(\Box\)</span></p>
+<!-- *Example. KPW Example 9.5, with units of h=25 dollars.* -->
+<!-- \begin{eqnarray*} -->
+<!-- \mathrm{E~}S &=& 314.5\\ -->
+<!-- \mathrm{E~}(S-25)_+ &=& \mathrm{E~}S - 25 \Pr (S\ge 25)\\ -->
+<!-- &=& 314.5 -25 (.95) = 290.75\\ -->
+<!-- \mathrm{E~}(S-50)_+ &=& \mathrm{E~}(S-25)_+ - 25 \Pr (S\ge 50)\\ -->
+<!-- &=& 290.75 - 25 (.935) = 267.375\\ -->
+<!-- \end{eqnarray*} -->
+<p><em>Exercise. Exam M, Fall 2005, 19 - Continued</em>. Recall that the goal of this question was to calculate <span class="math inline">\(\mathrm{E~}(S-15)_+\)</span>. Note that the support of <span class="math inline">\(S\)</span> is equally spaced over units of 5, so this question can also be done recursively, using steps of <span class="math inline">\(h=5\)</span>:</p>
+<ul>
+<li><p>Step 1:<br />
+<span class="math display">\[\begin{aligned}
+\mathrm{E~}(S-5)_+ &amp;= \mathrm{E~}S - 5 [1-\Pr(S \leq 0) ]\\ %\Pr (S\geq 5) \\
+&amp;= 28 - 5 \left(1 - \frac{1}{3}\right) = \frac{74}{3}=24.6667
+\end{aligned}\]</span></p></li>
+<li><p>Step 2:<br />
+<span class="math display">\[\begin{aligned}
+\mathrm{E~}(S-10)_+ &amp;= \mathrm{E~}(S-5)_+ - 5 [1-\Pr(S \leq 5)]\\ %\Pr (S\ge 10) \\
+&amp;= \frac{74}{3} - 5\left( 1 - \frac{1}{3} - \frac{0.4}{9}\right) = 21.555
+\end{aligned}\]</span></p></li>
+<li><p>Step 3: <span class="math display">\[\begin{aligned}
+\mathrm{E~}(S-15)_+ &amp;= \mathrm{E~}(S-10)_+ - 5 [1-\Pr(S \leq 10)] \\ %\Pr (S\ge 15) \\
+&amp;= \mathrm{E~}(S-10)_+ - 5\Pr (S\ge 15) \\
+&amp;= 21.555 - 5 (0.5496) = 18.887
+\end{aligned}\]</span></p></li>
+</ul>
+<p><span class="math inline">\(\Box\)</span></p>
+</div>
+<div id="analytic-results" class="section level3">
+<h3><span class="header-section-number">5.3.3</span> Analytic Results</h3>
+<p>There are few combinations of claim frequency and severity distributions that result in an easy-to-compute distribution for aggregate losses. This section gives some simple examples. Analysts view these examples as too simple to be used in practice.</p>
+<p><em>Example <span class="math inline">\(\#1\)</span></em> One has a closed-form expression for the aggregate loss distribution by assuming a geometric frequency distribution and an exponential severity distribution.</p>
+Assume that claim count <span class="math inline">\(N\)</span> is geometric with parameter <span class="math inline">\(\beta\)</span> such that <span class="math inline">\(\mathrm{E}(N)=\beta\)</span>, and that claim amount <span class="math inline">\(X\)</span> is exponential with parameter <span class="math inline">\(\theta\)</span> such that <span class="math inline">\(\mathrm{E}(X)=\theta\)</span>. Recall that the pgf of <span class="math inline">\(N\)</span> and the mgf of <span class="math inline">\(X\)</span> are: <span class="math display">\[\begin{aligned}
+P_N (z) &amp;=\frac{1}{1- \beta (z-1)},\\
+M_{X}(t) &amp;=\frac{1}{1-\theta t}.
+\end{aligned}\]</span> Thus, the mgf of aggregate loss <span class="math inline">\(S\)</span> is
+<span class="math display">\[\begin{eqnarray}
+M_{S}(t) &amp;=&amp; P_N [M_{X}(t)] = \frac{1}{1 - \beta \left( \frac{1}{1-\theta t} + 1\right)} \nonumber\\
+&amp;=&amp; 1+ \frac{1}{1+\beta} ([1-\theta(1+\beta)z]^{-1}-1)...(1)\\
+&amp;=&amp; \frac{1}{1+\beta}(1) +\frac{\beta}{1+\beta}
+\left( \frac{1}{1-\theta (1+\beta)t}\right)...(2)
+\end{eqnarray}\]</span>
+<p>From (1), we note that <span class="math inline">\(S\)</span> is equivalent to the compound distribution of <span class="math inline">\(S=X^{*}_1+\cdots+X^{*}_{N^{*}}\)</span>, where <span class="math inline">\(N^{*}\)</span> is a Bernoulli with mean <span class="math inline">\(\beta/(1+\beta)\)</span> and <span class="math inline">\(x^{*}\)</span> is an exponential with mean <span class="math inline">\(\theta(1+\beta)\)</span>. To see this, we examine the mgf of <span class="math inline">\(S\)</span>: <span class="math display">\[\begin{aligned}
+M_{S}(t) = P_N [M_{X}(t)] = P_{N^{*}} [M_{X^{*}}(t)],
+\end{aligned}\]</span> where <span class="math display">\[\begin{aligned}
+P_{N^*} (z) &amp;=1+ \color{blue}{\frac{\beta}{1+ \beta}} (z-1),\\
+M_{X^*} (t) &amp;=\frac{1}{1- {\color{blue}{\theta(1+\beta)}} t}.
+\end{aligned}\]</span></p>
+From (2), we note that <span class="math inline">\(S\)</span> is also equivalent to a 2-point mixture of 0 and <span class="math inline">\(X^{*}\)</span>. Specifically,
+<span class="math display">\[\begin{eqnarray*}
+S &amp;=&amp;
+\left\{
+\begin{array}{cl}
+0 &amp; {\rm with~ probability ~Pr}(N^*=0) = 1/(1+\beta) \\
+Y^{*} &amp; {\rm with~ probability ~Pr}(N^*=1) = \beta/(1+\beta)
+\end{array}
+\right..
+\end{eqnarray*}\]</span>
+The distribution function of <span class="math inline">\(S\)</span> is:
+<span class="math display">\[\begin{eqnarray*}
+\Pr(S=0) &amp;=&amp; \frac{1}{1+\beta}\\
+\Pr(S&gt;s) &amp;=&amp; \Pr(X^*&gt;s) =\frac{\beta}{1+\beta} \exp\left( -\frac{s}{
+\theta (1+\beta)}\right)
+\end{eqnarray*}\]</span>
+with pdf
+<span class="math display">\[\begin{eqnarray*}
+f_{S}(s) = \frac{\beta}{\theta (1+\beta)^2}\exp\left( -\frac{s}{
+\theta (1+\beta)}\right).
+\end{eqnarray*}\]</span>
+<p><span class="math inline">\(\Box\)</span></p>
+<em>Example <span class="math inline">\(\#2\)</span></em> Consider a collective risk model with an exponential severity and an arbitrary frequency distribution. Recall that if If <span class="math inline">\(X_i\sim Exponential(\theta)\)</span>, then the sum of i.i.d. exponential, <span class="math inline">\(S_n=X_1+\cdots+X_n\)</span>, has a Gamma distribution, i.e. <span class="math inline">\(S_n\sim Gamma(n,\theta)\)</span>. This has cdf:
+<span class="math display">\[\begin{eqnarray*}
+F_{X}^{\ast n}(s) &amp;=&amp; \Pr (S_n \le s) = \int_{0}^{s} \frac{1}{\Gamma(n)\theta^n}s^{n-1}\exp\left(-\frac{s}{\theta}\right) ds\\
+&amp;=&amp; 1-\sum_{j=0}^{n-1}\frac{1}{j!}\left( \frac{s}{\theta}\right)^j e^{-s/\theta } .
+\end{eqnarray*}\]</span>
+<p>The last equality is derived by integration by parts.</p>
+For the aggregate loss distribution, we can interchange order of summations to get
+<span class="math display">\[\begin{eqnarray*}
+F_{S}\left(s\right) &amp;=&amp; p_{0}+\sum_{n=1}^{\infty }p_n F_{X}^{\ast n}\left(s\right)\\
+&amp;=&amp; 1 - \sum_{n=1}^{\infty }p_n \sum_{j=0}^{n-1}\frac{1}{j!}
+\left( \frac{s}{\theta}\right)^j e^{-s/\theta }\\
+&amp;=&amp; 1-e^{-s/\theta}\sum_{j=0}^{\infty} \frac{1}{j!}
+\left( \frac{s}{\theta} \right)^j \overline{P}_j
+\end{eqnarray*}\]</span>
+<p>where <span class="math inline">\(\overline{P}_j =p_{j+1}+p_{j+2}+\cdots = \Pr (N&gt;j),\)</span> the ``survival function’’ of the claims count distribution.</p>
+</div>
+<div id="tweedie-distribution" class="section level3">
+<h3><span class="header-section-number">5.3.4</span> Tweedie Distribution</h3>
+<p>In this section, we examine a particular compound distribution where the number of claims is a Poisson distribution and the amount of claims is a Gamma distribution. This specification leads to what is known as a Tweedie distribution. The Tweedie distribution has a mass probability at zero and a continuous component for positive values. Because of this feature, it is widely used in insurance claims modeling, where the zero mass is interpreted as no claims and the positive component as the amount of claims.</p>
+<p>Specifically, consider the collective risk model <span class="math inline">\(S=X_1+\cdots+X_N\)</span>. Suppose that <span class="math inline">\(N\)</span> has a Poisson distribution with mean <span class="math inline">\(\lambda\)</span>, and each <span class="math inline">\(X_i\)</span> has a Gamma distribution shape parameter <span class="math inline">\(\alpha\)</span> and scale parameter <span class="math inline">\(\gamma\)</span>. The Tweedie distribution is derived as the Poisson sum of gamma variables. To understand the distribution of <span class="math inline">\(S\)</span>, we first examine the mass probability at zero. It is straightforward to see that the aggregate loss is zero when there is no claims occurred, thus: <span class="math display">\[f_S(0)={\rm Pr}(S=0)= {\rm Pr}(N=0)=e^{-\lambda}.\]</span> In addition, one notes that that <span class="math inline">\(S\)</span> conditional on <span class="math inline">\(N_i=n\)</span>, denoted by <span class="math inline">\(S_n=X_1+\cdots+X_n\)</span>, follows a gamma distribution with shape <span class="math inline">\(n\alpha\)</span> and scale <span class="math inline">\(\gamma_i\)</span>. Thus, for <span class="math inline">\(s&gt;0\)</span>, the density of a Tweedie distribution can be calculated as <span class="math display">\[\begin{aligned}
+f_S(s)&amp;=\sum_{n=1}^{+\infty} p_n f_{S_n}(s)\\
+&amp;=\sum_{n=1}^{\infty}e^{-\lambda_i}\frac{(\lambda_i)^n}{n!}\frac{1}{\gamma^{n\alpha}}y^{n\alpha-1}e^{-y\gamma}
+\end{aligned}\]</span> Thus, the Tweedie distribution can be thought of a mixture of zero and a positive valued distribution, which makes it a convenient tool for modeling insurance claims and for calculating pure premiums. The mean and variance of the Tweedie compound Poisson model are: <span class="math display">\[{\rm E} (S)=\lambda\frac{\alpha}{\gamma}~~~~{\rm and}~~~~{\rm Var} (S)=\lambda\frac{\alpha(1+\alpha)}{\gamma^2}.\]</span></p>
+As another important feature, the Tweedie distribution is a special case of exponential dispersion models, a class of models used to describe the random component in generalized linear models. To see this, we consider the following reparameterizations:
+<span class="math display">\[\begin{equation*}
+\lambda=\frac{\mu^{2-p}}{\phi(2-p)},~~~~\alpha=\frac{2-p}{p-1},~~~~\gamma=\phi(p-1)\mu^{p-1}
+\end{equation*}\]</span>
+With the above relationships, one can show that the distribution of <span class="math inline">\(S\)</span> is <span class="math display">\[f_S(s)=\exp\left[\frac{1}{\phi}\left(\frac{-s}{(p-1)\mu^{p-1}}-\frac{\mu^{2-p}}{2-p}\right)+C(s;\phi)\right]\]</span> where
+<span class="math display">\[\begin{equation*}
+C(s;\phi/\omega_i)=\left\{\begin{array}{ll}
+                    \displaystyle 0 &amp; {\rm if}~ y=0 \\
+                   \displaystyle \ln \sum\limits_{n\ge 1} \left\{\frac{(1/\phi)^{1/(p-1)}y^{(2-p)/(p-1)}}{(2-p)(p-1)^{(2-p)/(p-1)}}\right\}^{n}\frac{1}{n!\Gamma(n(2-p)/(p-1))s} &amp; {\rm if}~ y&gt;0
+                  \end{array}\right.
+\end{equation*}\]</span>
+<p>Hence, the distribution of <span class="math inline">\(S\)</span> belongs to the exponential family with parameters <span class="math inline">\(\mu\)</span>, <span class="math inline">\(\phi\)</span>, and <span class="math inline">\(p\in(1,2)\)</span>, and we have <span class="math display">\[{\rm E} (S)=\mu~~~~{\rm and}~~~~{\rm Var} (S)=\phi\mu^{p}\]</span> It is also worth mentioning the two limiting cases of the Tweedie model: <span class="math inline">\(p\rightarrow 1\)</span> results in the Poisson distribution and <span class="math inline">\(p\rightarrow 2\)</span> results in the gamma distribution. The Tweedie compound Poisson model accommodates the situations in between.</p>
+</div>
+</div>
+<div id="computing-the-aggregate-claims-distribution" class="section level2">
+<h2><span class="header-section-number">5.4</span> Computing the Aggregate Claims Distribution</h2>
+<p>Computing the distribution of aggregate losses is a difficult, yet important, problem. As we have seen, for both individual risk model and collective risk model, computing the distribution involves the evaluation of a <span class="math inline">\(n\)</span>-fold convolution. To make the problem tractable, one strategy is to use a distribution that is easy to evaluate to approximate the aggregate loss distribution. For instance, normal distribution is a natural choice based on central limit theorem where parameters of the normal distribution can be estimated by matching the moments. This approach has its strength and limitations. The main advantage is the ease of computation. The disadvantage are: first, the size and direction of approximation error are unknown; second, the approximation may fail to capture some special features of the aggregate loss such as mass point at zero.</p>
+<p>This section discusses two practical approaches to computing the distribution of aggregate loss, the recursive method and the simulation.</p>
+<div id="recursive-method" class="section level3">
+<h3><span class="header-section-number">5.4.1</span> Recursive Method</h3>
+<p>The recursive method applies to compound models where the frequency component <span class="math inline">\(N\)</span> belongs to either <span class="math inline">\((a,b,0)\)</span> or <span class="math inline">\((a,b,1)\)</span> class and the severity component <span class="math inline">\(X\)</span> has a discrete distribution. For continuous <span class="math inline">\(X\)</span>, a common practice is to first discretize the severity distribution and then the recursive method is ready to apply.</p>
+<p>Assume that <span class="math inline">\(N\)</span> is in the <span class="math inline">\((a,b,1)\)</span> class so that <span class="math inline">\(p_{k}=\left( a+\frac{b}{k} \right) p_{k-1}, k = 2,3,\ldots\)</span>. Further assume that the support of <span class="math inline">\(X\)</span> is <span class="math inline">\(\{0,1,\ldots,m\}\)</span>, discrete and finite. Then, the probability function of <span class="math inline">\(S\)</span> is: <span class="math display">\[\begin{aligned}
+f_{S}(s)&amp;=\Pr (S=s) \\
+&amp;=\frac{1}{1-af_{X}(0)}\left\{ \left[ p_1 -(a+b)p_{0}\right]
+f_X (s)+\sum_{x=1}^{s\wedge m}\left( a+\frac{bx}{s} \right) f_X (x)f_{S}(s-x)\right\}.
+\end{aligned}\]</span> If <span class="math inline">\(N\)</span> is in the <span class="math inline">\((a,b,0)\)</span> class, then <span class="math inline">\(p_1=(a+b)p_0\)</span> and so <span class="math display">\[
+f_S(s)=\frac{1}{1-af_X (0)}\left\{ \sum_{x=1}^{s\wedge m}\left( a+\frac{bx
+}{s}\right) f_X (x)f_{S}(s-x)\right\}.
+\]</span> <em>Special Case</em>: If <span class="math inline">\(N \sim\)</span> Poisson with mean <span class="math inline">\(\lambda\)</span>, then <span class="math inline">\(a=0\)</span> and <span class="math inline">\(b=\lambda\)</span>, thus <span class="math display">\[
+f_{S}(s)=\frac{\lambda }{s}\left\{ \sum_{x=1}^{s \wedge
+m} x f_X (x) f_S (s-x)\right\} .
+\]</span></p>
+<!-- *Check*. We establish the result for the $(a,b,0)$ for $N$. To this end, recall $M_S (t) = P_N\left( M_X (t)\right)$, and -->
+<!-- \[ -->
+<!-- P_S (z) = M_S \left(\ln z\right) = M_S (t) = P_N \left( M_X (\ln z)\right) -->
+<!-- = P_N \left( P_X (z)\right) = \sum_n p_n \left( P_X (z)\right)^n -->
+<!-- \] -->
+<!-- Taking derivatives, we have -->
+<!-- \[ -->
+<!-- P_S '(z) = \sum_{n=1}^{\infty}n p_n P_X (z)^{n-1} P_X '(z) -->
+<!-- \] -->
+<!-- For $(a,b,0)$, we have the recursion -->
+<!-- \[ -->
+<!-- n p_n = (na+b) p_{n-1} = a(n-1) p_{n-1} + (a+b) p_{n-1} -->
+<!-- \] -->
+<!-- Thus, -->
+<!-- \begin{eqnarray*} -->
+<!-- P_S '(z) &=& a \sum (n-1) p_{n-1} P_X (z)^{n-1} P_X '(z) + (a+b)\sum p_{n-1} -->
+<!-- P_X (z)^{n-1} P_X '(z)\\ -->
+<!-- &=& a P_S '(z) P_X (z) + (a+b) P_S (z) P_X '(z) -->
+<!-- \end{eqnarray*} -->
+<!-- This yields -->
+<!-- \[ -->
+<!-- P_S '(z)\left(1-a P_X (z)\right)=(a+b) P_S (z) P_X '(z) -->
+<!-- \] -->
+<!-- Evaluating this at $z=0$ yields -->
+<!-- \[ -->
+<!-- f_S (1) \left( 1-a f_X (0)\right) =  (a+b) f_S(0) f_X (1) -->
+<!-- \] -->
+<!-- This establishes the result for $x=1$. -->
+<!-- Expand each and match powers  of $z$ to complete the proof. See KPW page 128 for details. -->
+<!-- $\Box$ -->
+<!-- \[ -->
+<!-- f_S (x) = \frac{1}{1-a f_X (0)}\{\sum_{y=1}^{x\wedge m}\left( a+\frac{by}{x} -->
+<!-- \right) f_X (y) f_S  (x-y) \} -->
+<!-- \] -->
+<p><em>Example. SOA Fall 2002, 36.</em> The number of claims in a period <span class="math inline">\(N\)</span> has a geometric distribution with mean 4. The amount of each claim <span class="math inline">\(X\)</span> follows <span class="math inline">\({\rm Pr} (X = x) = 0.25\)</span>, for <span class="math inline">\(x = 1,2,3,4\)</span>. The number of claims and the claim amount are independent. <span class="math inline">\(S\)</span> is the aggregate claim amount in the period. Calculate <span class="math inline">\(F_S(3)\)</span>.</p>
+<em>Solution.</em> The severity distribution <span class="math inline">\(X\)</span> follows <span class="math display">\[f_X (x) = \frac{1}{4}, \ \ x=1, 2, 3, 4.\]</span> The frequency distribution <span class="math inline">\(N\)</span> is geometric with mean 4, which is a member of the <span class="math inline">\((a,b,0)\)</span> class with <span class="math inline">\(b=0\)</span>, <span class="math inline">\(a=\frac{\beta}{1+\beta} = \frac{4}{5}\)</span>, and <span class="math inline">\(p_0 = \frac{1}{1+\beta} = \frac{1}{5}\)</span>. Thus, we can use the recursive method
+<span class="math display">\[\begin{eqnarray*}
+f_S (x) &amp;=&amp; 1 \sum_{y=1}^{x\wedge m} (a+0) f_X (y) f_S (x-y) \\
+&amp;=&amp; \frac{4}{5} \sum_{y=1}^{x\wedge m} f_X (y) f_S (x-y)
+\end{eqnarray*}\]</span>
+Specifically, we have
+<span class="math display">\[\begin{eqnarray*}
+f_S (0) &amp;=&amp; \Pr(N=0) = p_0=\frac{1}{5}\\
+f_S (1) &amp;=&amp; \frac{4}{5}\sum_{y=1}^{1} f_X (y) f_S (1-y) = \frac{4}{5} f_X(1) f_S(0)\\
+&amp;=&amp; \frac{4}{5}\left( \frac{1}{4}\right)\left(\frac{1}{5} \right) = \frac{1}{25}\\
+f_S (2) &amp;=&amp;  \frac{4}{5}\sum_{y=1}^{2} f_X (y) f_S (2-y) = \frac{4}{5} \left[ f_X(1)f_S(1) + f_X(2) f_S(0) \right] \\
+&amp;=&amp; \frac{4}{5}\left[ \frac{1}{4} \left( \frac{1}{25} + \frac{1}{5}\right) \right] =
+\frac{4}{5}\left( \frac{6}{100}\right) = \frac{6}{125}\\
+f_S (3) &amp;=&amp; \frac{4}{5} \left[ f_X(1) f_S(2) + f_X(2)f_S(1) + f_X(3) f_S(0) \right]\\
+&amp;=&amp; \frac{4}{5}\left[ \frac{1}{4} \left( \frac{1}{25} + \frac{1}{5} +
+\frac{6}{125}\right) \right] = \frac{1}{5}\left( \frac{5+25+6}{125}\right) = 0.0576\\
+\Rightarrow \ F_S (3) &amp;=&amp; f_S (0)+f_S (1)+f_S (2)+f_S (2)+f_S (3) = 0.3456
+\end{eqnarray*}\]</span>
+<p><span class="math inline">\(\Box\)</span></p>
+</div>
+<div id="simulation" class="section level3">
+<h3><span class="header-section-number">5.4.2</span> Simulation</h3>
+<p>The distribution of aggregate loss can be evaluated using Monte Carlo simulation. The idea is one can calculate the empirical distribution of <span class="math inline">\(S\)</span> using a random sample. Blow we summarize the simulation procedures for the aggregate loss models.</p>
+<ol style="list-style-type: decimal">
+<li>Individual Risk Model <span class="math inline">\(S_n=X_1+\cdots+X_n\)</span></li>
+</ol>
+<ul>
+<li><p>For each <span class="math inline">\(X_i\)</span>, <span class="math inline">\(i=1,\ldots,n\)</span>, generate random sample of size <span class="math inline">\(m\)</span>, denoted by <span class="math inline">\(x_{ij}~(j=1,\ldots,m)\)</span>;</p></li>
+<li><p>Calculate the aggregate loss <span class="math inline">\(s_j=x_{1j}+\ldots+x_{nj}\)</span> for <span class="math inline">\(j=1,\ldots,m\)</span>;</p></li>
+<li><p>We obtain a random sample of <span class="math inline">\(S\)</span>, i.e. <span class="math inline">\(\{s_1,\ldots,s_m\}\)</span>.</p></li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>Collective Risk Model <span class="math inline">\(S=Y_1+\cdots+Y_N\)</span></li>
+</ol>
+<ul>
+<li><p>Generate the number of claims <span class="math inline">\(n_j\)</span> from frequency distribution <span class="math inline">\(N\)</span>;</p></li>
+<li><p>Given <span class="math inline">\(n_j\)</span>, generate the amount of claims for each claim independently from <span class="math inline">\(Y\)</span>, denoted by <span class="math inline">\(y_{1},\ldots,y_{n_j}\)</span>;</p></li>
+<li><p>Calculate the aggregate loss <span class="math inline">\(s_j=y_{1j}+\ldots+y_{n_j}\)</span>;</p></li>
+<li><p>Repeat the above three steps for <span class="math inline">\(j=1,\ldots,m\)</span>;</p></li>
+<li><p>We obtain a random sample of <span class="math inline">\(S\)</span>, i.e. <span class="math inline">\(\{s_1,\ldots,s_m\}\)</span>.</p></li>
+</ul>
+<p>Given the random sample of <span class="math inline">\(S\)</span>, the empirical distribution can be calculated as <span class="math display">\[\hat{F}_S(s)=\frac{1}{m}\sum_{i=1}^{m}I(s_i\leq s),\]</span> where <span class="math inline">\(I(\cdot)\)</span> is an indicator function. The empirical distribution <span class="math inline">\(\hat{F}_S(s)\)</span> will converge to <span class="math inline">\({F}_S(s)\)</span> almost surely as <span class="math inline">\(m\rightarrow \infty\)</span>.</p>
+<p>The above procedure assumes that the parameters of the frequency and severity distributions are known. In practice, one would need to estimate these parameters from the data. For instance, the assumptions in the collective risk model suggest a two-stage estimation where a model is developed for the number of claims <span class="math inline">\(N\)</span> from the data on claim counts and a model is developed for the severity of claims <span class="math inline">\(X\)</span> from the data on the amount of claims.</p>
+</div>
+</div>
+<div id="effects-of-coverage-modifications" class="section level2">
+<h2><span class="header-section-number">5.5</span> Effects of Coverage Modifications</h2>
+<div id="impact-of-exposure-on-frequency" class="section level3">
+<h3><span class="header-section-number">5.5.1</span> Impact of Exposure on Frequency</h3>
+<p>This section focuses on an individual risk model for claim counts. Consider the number of claims from a group of <span class="math inline">\(n\)</span> policies: <span class="math display">\[S=X_1+\cdots+X_n\]</span> where we assume <span class="math inline">\(X_i\)</span> are i.i.d. representing the number of claims from policy <span class="math inline">\(i\)</span>. In this case, the exposure for the portfolio is <span class="math inline">\(b\)</span> using policy as exposure base. The pgf of <span class="math inline">\(S\)</span> is <span class="math display">\[\begin{aligned}
+P_S(z)&amp;={\rm E}(z^S)={\rm E}\left(z^{\sum_{i=1}^nX_i}\right)\\
+&amp;=\prod_{i=1}^n{\rm E}(z^{X_i})=[P_X(z)]^n
+\end{aligned}\]</span></p>
+<p><em>Special Case</em> Poisson. If <span class="math inline">\(X_i\sim Poisson(\lambda)\)</span>, its pgf is <span class="math inline">\(P_X(z)=e^{\lambda(z-1)}\)</span>. Then the pgf of <span class="math inline">\(S\)</span> is <span class="math display">\[P_S(z)=[e^{\lambda(z-1)}]^n=e^{n\lambda(z-1)}.\]</span> So <span class="math inline">\(S\sim Poisson(n\lambda)\)</span>.</p>
+<p><em>Special Case</em> Negative binomial. If <span class="math inline">\(X_i\sim NegBin(\beta,r)\)</span>, its pgf is <span class="math inline">\(P_X(z)=[1-\beta(z-1)]^{-r}\)</span>. Then the pgf of <span class="math inline">\(S\)</span> is <span class="math display">\[P_S(z)=[[1-\beta(z-1)]^{-r}]^n=[1-\beta(z-1)]^{-nr}.\]</span> So <span class="math inline">\(S\sim NB(\beta,nr)\)</span>.</p>
+<p><em>Example</em>. Assume that the number of claims for each vehicle is Poisson with mean <span class="math inline">\(\lambda\)</span>. Given the following data on the observed number of claims for each household, calculate the MLE of <span class="math inline">\(\lambda\)</span>.</p>
+<p><span class="math display">\[\begin{matrix}
+\begin{array}{|c|c|c|}
+  \hline
+  \text{Household ID} &amp; \text{Number of vehicles} &amp; \text{Number of claims} \\
+  \hline
+  1 &amp; 2 &amp; 0 \\
+  2 &amp; 1 &amp; 2 \\
+  3 &amp; 3 &amp; 2 \\
+  4 &amp; 1 &amp; 0 \\
+  5 &amp; 1 &amp; 1 \\
+  \hline
+\end{array}
+\end{matrix}\]</span></p>
+<p><em>Solution.</em> Each of the 5 households has number of exposures <span class="math inline">\(b_j\)</span> (number of vehicles) and number of claims <span class="math inline">\(S_j\)</span>, <span class="math inline">\(j=1,...,5\)</span>. Note for each household, the number of claims <span class="math inline">\(S_j \sim Poisson (b_j \lambda)\)</span>. The likelihood function is<br />
+<span class="math display">\[\begin{aligned}
+L(\lambda) &amp;= \prod_{j=1}^5 \Pr(S_j=s_j) = \prod_{j=1}^5 \frac{e^{-b_j\lambda} (b_j \lambda)^{s_j}}{s_j!} \\
+&amp;= \left(\frac{e^{-2\lambda} (2 \lambda)^{0}}{0!} \right)
+\left(\frac{e^{-1\lambda} (1 \lambda)^{2}}{2!} \right)
+\left(\frac{e^{-3\lambda} (3 \lambda)^{2}}{2!} \right)
+\left(\frac{e^{-1\lambda} (1 \lambda)^{0}}{0!} \right)
+\left(\frac{e^{-1\lambda} (1 \lambda)^{1}}{1!} \right) \\
+&amp;\propto e^{-8\lambda} \lambda^5
+\end{aligned}\]</span> Taking the log-likehood, we have <span class="math display">\[\begin{aligned}
+l(\lambda) = \log L(\lambda) = -8\lambda + 5\log(\lambda)
+\end{aligned}\]</span> Setting the first derivative of the log-likehood to 0, we have <span class="math display">\[\begin{aligned}
+&amp;l&#39;(\lambda) = -8 + \frac{5}{\lambda} = 0 \\
+\Rightarrow \ &amp; 8 = \frac{5}{\hat{\lambda}} \ \Rightarrow \ \hat{\lambda} = \frac{5}{8}
+\end{aligned}\]</span> <span class="math inline">\(\Box\)</span></p>
+<p>If the exposure of the portfolio change from <span class="math inline">\(n_1\)</span> to <span class="math inline">\(n_2\)</span>, we can establish the following relation between the aggregate claim counts: <span class="math display">\[P_{S_2}(z)=[P_X(z)]^{n_2}=[P_X(z)^{n_1}]^{n_2/n_1}=P_{S_1}(z)^{n_2/n_1}.\]</span></p>
+</div>
+<div id="impact-of-deductibles-on-claim-frequency" class="section level3">
+<h3><span class="header-section-number">5.5.2</span> Impact of Deductibles on Claim Frequency</h3>
+<p>This section examine the effect of deductible on claim frequency. Intuitively, there will be fewer claims filed when a policy deductible is imposed because a loss below deductible might not result in a claim. Even if an insured does file a claim, this may not result in a payment by the policy, since the claim may be denied or the loss amount may ultimately be determined to be below deductible. Let <span class="math inline">\(N^L\)</span> denote the number of loss (i.e. the number of claims with no deductible), and <span class="math inline">\(N^P\)</span> denote the number of payments when a deductible <span class="math inline">\(d\)</span> is imposed. Our goal is to identify the distribution of <span class="math inline">\(N^P\)</span> given the distribution of <span class="math inline">\(N^L\)</span>. We show below that the relationship between <span class="math inline">\(N^L\)</span> and <span class="math inline">\(N^P\)</span> can be established within an aggregate risk model framework.</p>
+<p>Note that sometimes changes in deductible will affect policyholder behavior. We assume that this is not the case, i.e. the distribution of losses for both frequency and severity remain unchanged when the deductible changes.</p>
+Given there are <span class="math inline">\(N^L\)</span> losses, let <span class="math inline">\(X_1,X_2\ldots,X_{N^L}\)</span> be the associated amount of losses. For <span class="math inline">\(j=1,\ldots,N^L\)</span>, define
+<span class="math display">\[\begin{eqnarray*}
+I_j&amp;=&amp;
+\left \{
+\begin{array}{cc}
+1 &amp; \text{if} ~X_j&gt;d\\
+0 &amp; \text{otherwise}\\
+\end{array}
+\right..
+\end{eqnarray*}\]</span>
+<p>Then we establish <span class="math display">\[N^P=I_1+I_2+\cdots+I_{N_L}.\]</span></p>
+Note that conditioning on <span class="math inline">\(N^L\)</span>, the distribution of <span class="math inline">\(N^P \sim Binomial (N^L, v)\)</span>, where <span class="math inline">\(v=\Pr(X&gt;d)\)</span>. Thus, given <span class="math inline">\(N^L\)</span>,
+<span class="math display">\[\begin{eqnarray*}
+\mathrm{E}\left(z^{N^P}|N^L\right)&amp;=&amp;\left[ 1+v(z-1)\right]^{N^L}
+\end{eqnarray*}\]</span>
+So the p.g.f. of <span class="math inline">\(N^P\)</span> is
+<span class="math display">\[\begin{eqnarray*}
+P_{N^P}(z)&amp;=&amp;\mathrm{E}_{N^P}\left(z^{N^P}\right)=\mathrm{E}_{N^L}\left[\mathrm{E}_{N^P}\left(z^{N^P}|N^L\right)\right]\\
+&amp;=&amp;\mathrm{E}_{N^L}\left[(1+v(z-1))^{N^L}\right]\\
+&amp;=&amp;P_{N^L}\left(1+v(z-1)\right)
+\end{eqnarray*}\]</span>
+<p>Thus, we can write the pgf of <span class="math inline">\(N^P\)</span> as the pgf of <span class="math inline">\(N^L\)</span>, evaluated at a new argument <span class="math inline">\(z^* = 1+v(z-1)\)</span>, that is, <span class="math inline">\(P_{N^P}(z)=P_{N^L}(z^*)\)</span>.</p>
+<p><em>Special Cases:</em></p>
+<ul>
+<li><span class="math inline">\(N^L\sim Poisson (\lambda)\)</span>. The pgf of <span class="math inline">\(N^L\)</span> is <span class="math inline">\(P_{N^L}=\exp(\lambda(z-1))\)</span>. Thus the pgf of <span class="math inline">\(N^P\)</span> is
+<span class="math display">\[\begin{eqnarray*}
+P_{N^P}(z)&amp;=&amp;\exp\left( \lambda(1+v(z-1)-1)\right)\\
+&amp;=&amp;\exp(\lambda v(z-1))\sim Poisson (\lambda v)
+\end{eqnarray*}\]</span></li>
+</ul>
+<p>So the payment number has the same distribution as the loss number but with the expected number of payments equal to <span class="math inline">\(\lambda v = \lambda \Pr(X&gt;d)\)</span>.</p>
+<ul>
+<li><span class="math inline">\(N^L \sim NegBin(\beta, r)\)</span>. The pgf of <span class="math inline">\(N^L\)</span> is <span class="math inline">\(P_{N^{L}}\left( z\right) =\left[ 1-\beta \left( z-1\right)\right]^{-r}\)</span>.
+<span class="math display">\[\begin{eqnarray*}
+P_{N^P}(z)&amp;=&amp;\left( 1-\beta (1+v(z-1)-1)\right)^{-r}\\
+&amp;=&amp;\left( 1-\beta v(z-1)\right)^{-r} \:\:\:\sim NegBin(\beta v, r)
+\end{eqnarray*}\]</span></li>
+</ul>
+<p>So the payment number has the same distribution as the loss number but with parameters <span class="math inline">\(\beta v\)</span> and <span class="math inline">\(r\)</span>.</p>
+<p><em>Example.</em> Suppose that loss amounts <span class="math inline">\(X_i\sim Pareto(\alpha=4,\ \theta=150)\)</span>. You are given that the loss frequency is <span class="math inline">\(N^L\sim Poisson(\lambda)\)</span> and the payment frequency distribution <span class="math inline">\(N^{P_1}\sim Poisson (0.4)\)</span> with <span class="math inline">\(d_1=30\)</span>. Find the distribution of <span class="math inline">\(N^{P_2}\)</span> with <span class="math inline">\(d_2=100\)</span>.</p>
+<p><em>Solution.</em> Because the loss frequency <span class="math inline">\(N^L\)</span> is Poisson, we can relate the means of the loss distribution <span class="math inline">\(N^L\)</span> and the first payment distribution <span class="math inline">\(N^{P_1}\)</span> as <span class="math inline">\(0.4 = v_1 \lambda\)</span>, where <span class="math display">\[\begin{aligned}
+&amp;v_1 = \Pr(X &gt; 30) = \left( \frac{150}{30+150}\right)^4=\left( \frac{5}{6}\right)^4 \\
+\Rightarrow \ &amp; \lambda = 0.4 \left( \frac{6}{5} \right)^4
+\end{aligned}\]</span> With this, we can assess the second payment distribution <span class="math inline">\(N^{P_2}\)</span> as being Poisson with mean <span class="math inline">\(\lambda_2 = \lambda v_2\)</span>, where <span class="math display">\[\begin{aligned}
+&amp; v_2 = \Pr(X&gt;100)=\left( \frac{150}{100+150}\right)^4=\left( \frac{3}{5}\right)^4 \\
+\Rightarrow \ &amp; \lambda_2 = \lambda v_2 = 0.4\left( \frac{6}{5} \right)^4 \left( \frac{3}{5} \right)^4 = 0.1075
+\end{aligned}\]</span> <span class="math inline">\(\Box\)</span></p>
+<!-- %Repeat with the negative binomial distribution. -->
+<p><em>Follow-Up.</em> Now suppose instead that the loss frequency is <span class="math inline">\(N^L \sim NegBin(\beta,\ r)\)</span> and for deductible <span class="math inline">\(d_1=30\)</span>, the payment frequency <span class="math inline">\(N^{P_1}\)</span> is negative binomial with mean <span class="math inline">\(0.4\)</span>. Find the mean of the payment frequency <span class="math inline">\(N^{P_2}\)</span> with deductible <span class="math inline">\(d_2=100\)</span>.</p>
+<p><em>Solution.</em> Because the loss frequency <span class="math inline">\(N^L\)</span> is negative binomial, we can relate the parameter <span class="math inline">\(\beta\)</span> of the <span class="math inline">\(N^L\)</span> distribution and the parameter <span class="math inline">\(\beta_1\)</span> of the first payment distribution <span class="math inline">\(N^{P_1}\)</span> using <span class="math inline">\(\beta_1 = \beta v_1\)</span>, where <span class="math display">\[v_1 = \Pr(X &gt; 30) = \left( \frac{5}{6} \right)^4\]</span> Thus, the mean of <span class="math inline">\(N^{P_1}\)</span> and the mean of <span class="math inline">\(N^L\)</span> are related <span class="math display">\[\begin{aligned}
+&amp;0.4 =  r \beta_1 = r \left(\beta v_1\right) \\
+\Rightarrow \ &amp; r\beta = \frac{0.4}{v_1} = 0.4 \left(\frac{6}{5} \right)^4
+\end{aligned}\]</span> Note that <span class="math inline">\(v_2 = \Pr(X &gt; 100) = \left( \frac{3}{5}\right)^4\)</span> as in the original question. Then the second payment frequency distribution is <span class="math inline">\(N^{P_2} \sim NegBin(\beta v_2, \ r)\)</span> with mean <span class="math display">\[\begin{aligned}
+r (\beta v_2) = (r \beta) v_2 = 0.4 \left( \frac{6}{5}\right)^4 \left( \frac{3}{5} \right)^4 = 0.1075
+\end{aligned}\]</span> <span class="math inline">\(\Box\)</span></p>
+Next we examine the more general case where <span class="math inline">\(N^L\)</span> is a zero-modified distribution. Recall that a modified distribution is defined in terms of an unmodified one. That is, <span class="math display">\[\begin{aligned}
+p_k^M = c~p_k^0, {~\rm for~} k=1,2,3,\ldots,  {~\rm with~}c = \frac{1-p_0^M}{1-p_0^0}.
+\end{aligned}\]</span> In the case that <span class="math inline">\(p_0^M=0\)</span>, we call this a ``truncated’’ distribution at zero, or <span class="math inline">\(ZT\)</span>. For other arbitrary values of <span class="math inline">\(p_0^M\)</span>, this is a zero-modified, or <span class="math inline">\(ZM\)</span>, distribution. The pgf for the modified distribution is shown as
+<span class="math display">\[\begin{eqnarray*}
+P^M(z) = 1-c+c~P^0(z).
+\end{eqnarray*}\]</span>
+<!-- Check: -->
+<!-- \begin{eqnarray*} -->
+<!-- P^M(z) &=& \sum_{k=0}^{\infty} p_k^M~z^k = p_0^M + c (\sum_{k=0}^{\infty} p_k^0~z^k - p_0^0)\\ -->
+<!-- &=&p_0^M + c(P^0(z)-p^0_0)\\ -->
+<!-- &=& 1 - c + cP^0(z), -->
+<!-- \end{eqnarray*} -->
+<!-- as required. By taking $z=0$, we have on the left-hand side, that $P^M(0)=p_0^M$. On the right-hand side, we have $1-c+cP^0(0)=1-c+cp^0_0$. Equating the two yields -->
+<!-- \begin{eqnarray*} -->
+<!-- c = \frac{1-p_0^M}{1-p^0_0} -->
+<!-- \end{eqnarray*} -->
+<!-- as noted above.   -->
+<p>When <span class="math inline">\(N^L\)</span> follows a zero-modified distribution, the distribution of <span class="math inline">\(N^P\)</span> is established using the same relation <span class="math inline">\(P_{N^P}(z)=P_{N^L}\left(1+v(z-1)\right)\)</span>.</p>
+<p><em>Special Cases:</em></p>
+<ul>
+<li><p><span class="math inline">\(N^{L}\)</span> is a ZM-Poisson with parameters <span class="math inline">\(\lambda\)</span> and <span class="math inline">\(p_0^{M}\)</span>. The pgf of <span class="math inline">\(N^L\)</span> is <span class="math display">\[P_{N^{L}}(z)=1-\cfrac{1-p_0^{M}}{1-\exp(-\lambda)}+\cfrac{1-p_0^{M}}{1-\exp(-\lambda)}\exp[\lambda(z-1)].\]</span> Thus the pgf of <span class="math inline">\(N^P\)</span> is <span class="math display">\[P_{N^{L}}(z)=1-\cfrac{1-p_0^{M}}{1-\exp(-\lambda)}+\cfrac{1-p_0^{M}}{1-\exp(-\lambda)}\exp[\lambda v(z-1)].\]</span> So the number of payments is also a ZM-Poisson distribution with parameters <span class="math inline">\(\lambda v\)</span> and <span class="math inline">\(p_0^{M}\)</span>. The probability at zero can be evaluated using <span class="math inline">\({\rm Pr}(N^P=0) = P_{N^P}(0)\)</span>.</p></li>
+<li><p><span class="math inline">\(N^{L}\)</span> is a ZM-NegBin with parameters <span class="math inline">\(\beta\)</span>, <span class="math inline">\(r\)</span>, and <span class="math inline">\(p_0^{M}\)</span>. The pgf of <span class="math inline">\(N^L\)</span> is <span class="math display">\[P_{N^{L}}(z)=1-\cfrac{1-p_0^{M}}{1-(1+\beta)^{-r}}+\cfrac{1-p_0^{M}}{1-(1+\beta)^{-r}}\left[ 1-\beta \left( z-1\right)\right]^{-r}.\]</span> Thus the pgf of <span class="math inline">\(N^P\)</span> is <span class="math display">\[P_{N^{L}}(z)=1-\cfrac{1-p_0^{M}}{1-(1+\beta)^{-r}}+\cfrac{1-p_0^{M}}{1-(1+\beta)^{-r}}\left[ 1-\beta v\left( z-1\right)\right]^{-r}.\]</span> So the number of payments is also a ZM-NegBin distribution with parameters <span class="math inline">\(\beta v\)</span>, <span class="math inline">\(r\)</span>, and <span class="math inline">\(p_0^{M}\)</span>. Similarly, the probability at zero can be evaluated using <span class="math inline">\({\rm Pr}(N^P=0) = P_{N^P}(0)\)</span>.</p></li>
+</ul>
+<p><em>Example.</em> Aggregate losses are modeled as follows:<br />
+(i) The number of losses follows a zero-modified Poisson distribution with <span class="math inline">\(\lambda=3\)</span> and <span class="math inline">\(p_0^M = 0.5\)</span>.<br />
+(ii) The amount of each loss has a Burr distribution with <span class="math inline">\(\alpha=3, \theta=50, \gamma=1\)</span>.<br />
+(iii) There is a deductible of <span class="math inline">\(d=30\)</span> on each loss.<br />
+(iv) The number of losses and the amounts of the losses are mutually independent.</p>
+<p>Calculate <span class="math inline">\(\mathrm{E~} N^P\)</span> and <span class="math inline">\(\mathrm{Var~} N^P\)</span>.</p>
+<p><em>Solution.</em> Since <span class="math inline">\(N^L\)</span> follows a ZM-Poisson distribution with parameters <span class="math inline">\(\lambda\)</span> and <span class="math inline">\(p_0^M\)</span>, we know that <span class="math inline">\(N^P\)</span> also follows a ZM-Poisson distribution, but with parameters <span class="math inline">\(\lambda v\)</span> and <span class="math inline">\(p_0^M\)</span>, where</p>
+<p><span class="math display">\[v = \Pr(X&gt;30) = \left( \frac{1}{1+(30/50)} \right)^3 = 0.2441\]</span></p>
+<p>Thus, <span class="math inline">\(N^P\)</span> follows a ZM-Poisson distribution with parameters <span class="math inline">\(\lambda^\ast = \lambda v= 0.7324\)</span> and <span class="math inline">\(p_0^M = 0.5\)</span>. Finally, <span class="math display">\[\begin{aligned}
+\mathrm{E~} N^P &amp;= (1-p_0^M) \frac{\lambda^\ast}{1-e^{-\lambda^\ast}} = 0.5 \left( \frac{0.7324}{1-e^{-0.7324}} \right) \\
+&amp;= 0.7053 \\
+\mathrm{Var~} N^P &amp;= (1-p_0^M) \left( \frac{\lambda^\ast[1-(\lambda^\ast + 1) e^{-\lambda^\ast}]}{(1-e^{-\lambda^\ast})^2} \right) + p_0^M(1-p_0^M) \left(\frac{\lambda^\ast}{1-e^{-\lambda^\ast}} \right)^2 \\
+&amp;= 0.5 \left( \frac{0.7324(1-1.7324 e^{-0.7324})}{(1-e^{-0.7324})^2} \right) + 0.5^2 \left( \frac{0.7324}{1-e^{-0.7324}} \right)^2 \\
+&amp;= 0.7244
+\end{aligned}\]</span> <span class="math inline">\(\Box\)</span></p>
+</div>
+<div id="impact-of-policy-modifications-on-aggregate-claims" class="section level3">
+<h3><span class="header-section-number">5.5.3</span> Impact of Policy Modifications on Aggregate Claims</h3>
+<p>In this section, we examine how the change in deductibles affect aggregate payments from an insurance portfolio. We assume that policy limits, coinsurance, and inflation have no effect on the frequency of payments made by an insurer. As in the previous section, we further assume that deductible changes do not impact the distribution of losses for both frequency and severity.</p>
+Recall the notation <span class="math inline">\(N^L\)</span> for the number of losses. With ground-up loss <span class="math inline">\(X\)</span> and policy deductible <span class="math inline">\(d\)</span>, we use <span class="math inline">\(N^P = I(X_1&gt;d) + \cdots + I(X_{N^L}&gt;d)\)</span> for the number of payments. Also, define the amount of payment on a per-loss basis as
+<span class="math display">\[\begin{eqnarray*}
+    X^{L}&amp;=\left\{
+      \begin{array}{cc}
+        0 &amp; X&lt;\cfrac{d}{1+r} \\
+        \alpha[(1+r)X-d] &amp; \cfrac{d}{1+r}\leq X&lt;\cfrac{u}{1+r} \\
+        \alpha(u-d) &amp;  X \ge \cfrac{u}{1+r}\\
+      \end{array}
+\right.,
+\end{eqnarray*}\]</span>
+and the the amount of payment on a per-payment basis as
+<span class="math display">\[\begin{eqnarray*}
+    X^{P}&amp;=\left\{
+      \begin{array}{cc}
+        {\rm Undefined} &amp; X&lt;\cfrac{d}{1+r} \\
+        \alpha[(1+r)X-d] &amp; \cfrac{d}{1+r}\leq X&lt;\cfrac{u}{1+r} \\
+        \alpha(u-d) &amp;  X \ge \cfrac{u}{1+r}\\
+      \end{array}
+\right..
+\end{eqnarray*}\]</span>
+In the above, <span class="math inline">\(r\)</span>, <span class="math inline">\(u\)</span>, <span class="math inline">\(\alpha\)</span> represents the inflation rate, policy limit, and coinsurance, respectively. Hence, aggregate costs (payment amounts) can be expressed either on a per loss or per payment basis:
+<span class="math display">\[\begin{eqnarray*}
+S &amp;=&amp; X^L_1 + \cdots + X^L_{N^L} \\
+&amp;=&amp;X^P_1 + \cdots + X^P_{N^P} .
+\end{eqnarray*}\]</span>
+<p>The fundamentals regarding collective risk models are ready to apply. For instance, we have: <span class="math display">\[\begin{aligned}
+  {\rm E}(S) &amp;= {\rm E}\left(N^L\right) {\rm E}\left(X^L\right) = {\rm E}\left(N^P\right) {\rm E}\left(X^P\right)\\
+  {\rm Var}(S) &amp;= {\rm E}\left(N^L\right) {\rm Var}\left(X^L\right) + \left[{\rm E}\left(X^L\right)\right]^2 {\rm Var}(N^L) \\
+  &amp;= {\rm E}\left(N^P\right) {\rm Var}\left(X^P\right) + \left[{\rm E}\left(X^P\right)\right]^2 {\rm Var}(N^P)\\
+  M_S(z)&amp;=P_{N^L}\left[M_{X^L}(z)\right]=P_{N^P}\left[M_{X^P}(z)\right]
+\end{aligned}\]</span></p>
+<p><em>Example. Course 3, November 2001, 6.</em> A group dental policy has a negative binomial claim count distribution with mean 300 and variance 800. Ground-up severity is given by the following table:</p>
+<p><span class="math display">\[\begin{matrix}
+  \begin{array}{ c | c }
+    \hline
+      \text{Severity} &amp; \text{Probability}\\ \hline
+    40 &amp; 0.25\\
+    80 &amp; 0.25\\
+    120 &amp; 0.25\\
+    200 &amp; 0.25\\
+    \hline
+  \end{array}
+\end{matrix}\]</span></p>
+<p>You expect severity to increase 50% with no change in frequency. You decide to impose a per claim deductible of 100. Calculate the expected total claim payment after these changes.</p>
+<em>Solution.</em> The cost per loss with a 50% increase in severity and a 100 deductible per claim is
+<span class="math display">\[\begin{eqnarray*}
+Y^L &amp;=&amp;
+\left\{
+\begin{array}{cc}
+0 &amp; 1.5x&lt;100 \\
+1.5x-100 &amp; 1.5x\ge 100\\
+\end{array}
+\right.
+\end{eqnarray*}\]</span>
+<p>This has expectation <span class="math display">\[\begin{aligned}
+\mathrm{E~}Y^L &amp;= \frac{1}{4} \left[ \left(1.5(40)-100\right)_+ +
+\left(1.5(80)-100\right)_+ + \left(1.5(120)-100\right)_+ +
+\left(1.5(200)-100\right)_+ \right]  \\
+&amp;= \frac{1}{4}\left[ (60-100)_+ + (120-100)_+ + (180-100)_+ + (300-100)_+\right] \\
+&amp;= \frac{1}{4}\left[ 0 + 20 + 80 + 200 \right] = 75
+\end{aligned}\]</span> Thus, the expected aggregate loss is <span class="math display">\[\mathrm{E~}S=(\mathrm{E~}N) \left( \mathrm{E~}Y^L \right)= 300 (75) = 22,500
+.\]</span></p>
+<p><em>Follow-Up.</em> What is <span class="math inline">\(\mathrm{Var~}S\)</span>?</p>
+On a per loss basis, we have <span class="math display">\[\begin{aligned}
+\mathrm{Var~}S &amp;= \left(\mathrm{E~}N \right) \left( \mathrm{Var~} Y^L \right) + \left[ \mathrm{E~} Y^L \right]^2 \left(\mathrm{Var~} N \right)
+\end{aligned}\]</span> where <span class="math inline">\(\mathrm{E~}N = 300\)</span> and <span class="math inline">\(\mathrm{Var~} N = 800\)</span>. We find <span class="math display">\[\begin{aligned}
+&amp;\mathrm{E} \left[ (Y^L)^2 \right] = \frac{1}{4} \left[ 0^2 + 20^2 + 80^2 + 200^2 \right] = 11,700 \\
+\Rightarrow \ &amp; \mathrm{Var~} Y^L = \mathrm{E} \left[ (Y^L)^2 \right] - \left( \mathrm{E~}Y^L \right)^2 = 11,700 - 75^2 = 6,075
+\end{aligned}\]</span> Thus, the variance of the aggregate claim payment is
+<span class="math display">\[\begin{eqnarray*}
+\mathrm{Var~}S &amp;=&amp; 300(6,075) + 75^2 (800) = 6,322,500
+\end{eqnarray*}\]</span>
+<p><span class="math inline">\(\Box\)</span></p>
+<em>Alternative Method: Using the Per Payment Basis.</em> Previously, we calculated the expected total claim payment by multiplying the expected number of losses by the expected payment <em>per loss</em>. Recall that we can also multiply the expected number of payments by the expected payment <em>per payment</em>. In this case, we have <span class="math display">\[S=Y_1^P + \cdots + Y_{N_P}^P \]</span> The probability of a payment is <span class="math display">\[v=\Pr(1.5X \ge 100)=\Pr(X \ge 66.\bar{6})=\frac{3}{4} .\]</span> Thus, the number of payments, <span class="math inline">\(N^P\)</span> has a negative binomial distribution with mean <span class="math display">\[\mathrm{E~}N^P=300 \left(\frac{3}{4} \right)=225\]</span> The cost per payment is
+<span class="math display">\[\begin{eqnarray*}
+Y^P &amp;=&amp;
+\left\{
+\begin{array}{cc}
+\text{undefined} &amp; 1.5x&lt;100 \\
+1.5x-100 &amp; 1.5x\ge 100\\
+\end{array}
+\right.
+\end{eqnarray*}\]</span>
+<p>This has expectation <span class="math display">\[\mathrm{E~}Y^P=\frac{\mathrm{E~}Y^L}{\Pr(1.5X &gt; 100)}=
+\frac{\mathrm{E~}Y^L}{v}=\frac{75}{(3/4)}=100\]</span> Thus, as before, the expected aggregate loss is <span class="math display">\[\mathrm{E~}S=\left(\mathrm{E~}Y^P\right) \left(\mathrm{E~}N^P\right) =
+100(225)=22,500\]</span> <span class="math inline">\(\Box\)</span></p>
+<p><em>Example. SOA Sample Question, 109.</em> A company insures a fleet of vehicles. Aggregate losses have a compound Poisson distribution. The expected number of losses is 20. Loss amounts, regardless of vehicle type, have exponential distribution with <span class="math inline">\(\theta=200\)</span>. To reduce the cost of the insurance, two modifications are to be made:<br />
+(i) A certain type of vehicle will not be insured. It is estimated that this will reduce loss frequency by 20<span class="math inline">\(\%\)</span>.<br />
+(ii) A deductible of 100 per loss will be imposed.</p>
+<p>Calculate the expected aggregate amount paid by the insurer after the modifications.</p>
+<p><em>Solution.</em> On a per loss basis, we have a 100 deductible. Thus, the expectation per loss is <span class="math display">\[\begin{aligned}
+\mathrm{E~} Y^L &amp;= E[(X-100)_+] = E(X) - E(X\wedge 100) \\
+&amp;= 200 - 200(1-e^{-100/200}) = 121.31
+\end{aligned}\]</span> Loss frequency has been reduced by 20<span class="math inline">\(\%\)</span>, resulting in an expected number of losses <span class="math display">\[\mathrm{E~}N^L = 0.8(20) = 16\]</span> Thus, the expected aggregate amount paid after the modifications is <span class="math display">\[\mathrm{E~}S = \left(\mathrm{E~}Y^L \right) \left( \mathrm{E~} N^L\right) = 121.31(16) = 1,941\]</span> <span class="math inline">\(\Box\)</span></p>
+<p><em>Alternative Method: Using the Per Payment Basis.</em> We can also use the per payment basis to find the expected aggregate amount paid after the modifications. For the per payment severity, <span class="math display">\[\begin{aligned}
+\mathrm{E~} Y^P = \frac{\mathrm{E~} Y^L}{\Pr(X &gt; 100)} = \frac{200 - 200(1-e^{-100/200})}{e^{-100/200}} = 200
+\end{aligned}\]</span> This is not surprising – recall that the exponential distribution is memoryless, so the expected claim amounts paid in excess of 100 is still exponential with mean 200. Now we look at the payment frequency. With the deductible of 100, the probability that a payment occurs is <span class="math inline">\(\Pr(X &gt; 100) = e^{-100/200}\)</span> Thus, <span class="math display">\[\mathrm{E~} N^P = 16 e^{-100/200} = 9.7\]</span> Putting this together, we produce the same answer using the per payment basis as the per loss basis from earlier <span class="math display">\[\mathrm{E~}S = \left( \mathrm{E~} Y^P \right) \left( \mathrm{E~} N^P \right) = 200(9.7) = 1,941\]</span> <span class="math inline">\(\Box\)</span></p>
+
+</div>
+</div>
+</div>
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = '//lossdataanalytics.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="C-ModelSelection.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="simulation-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/Chapters/AggregateLossModels.Rmd",
+"text": "Edit"
+},
+"download": ["LossDataAnalytics.pdf", "LossDataAnalytics.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

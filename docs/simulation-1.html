@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="C-Intro.html">
-<link rel="next" href="C-Severity.html">
+<link rel="prev" href="aggregate-loss-models.html">
+<link rel="next" href="C-PremCalc.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -401,501 +401,226 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="C:Frequency" class="section level1">
-<h1><span class="header-section-number">Chapter 2</span> Frequency Distributions</h1>
-<p><em>Chapter Preview</em>. These are overheads from a course that provides some structure for this chapter.</p>
-<div id="how-frequency-augments-severity-information" class="section level2">
-<h2><span class="header-section-number">2.1</span> How Frequency Augments Severity Information</h2>
-<div id="basic-terminology" class="section level4">
-<h4><span class="header-section-number">2.1.0.1</span> Basic Terminology</h4>
+<div id="simulation-1" class="section level1">
+<h1><span class="header-section-number">Chapter 6</span> Simulation</h1>
+<p>Simulation is a computer-based, computationally intensive, method of solving difficult problems, such as analyzing business processes. Instead of creating physical processes and experimenting with them in order to understand their operational characteristics, a simulation study is based on a computer representation - it considers various hypothetical conditions as inputs and summarizes the results. Through simulation, a vast number of hypothetical conditions can be quickly and inexpensively examined. Performing the same analysis with a physical system is not only expensive and time-consuming but, in many cases, impossible. A drawback of simulation is that computer models are not perfect representations of business processes.</p>
+<p>There are three basic steps for producing a simulation study:</p>
 <ul>
-<li><p><strong>Claim</strong> - indemnification upon the occurrence of an insured event</p>
-<ul>
-<li><strong>Loss</strong> - some authors use claim and loss interchangeably, others think of loss as the amount suffered by the insured whereas claim is the amount paid by the insurer</li>
-</ul></li>
-<li><p><strong>Frequency</strong> - how often an insured event occurs, typically within a policy contract</p></li>
-<li><p><strong>Count</strong> - In this chapter, we focus on count random variables that represent the number of claims, that is, how frequently an event occurs</p></li>
-<li><p><strong>Severity</strong> - Amount, or size, of each payment for an insured event</p></li>
+<li><p>Generating approximately independent realizations that are uniformly distributed</p></li>
+<li><p>Transforming the uniformly distributed realizations to observations from a probability distribution of interest</p></li>
+<li><p>With the generated observations as inputs, designing a structure to produce interesting and reliable results.</p></li>
 </ul>
-</div>
-<div id="the-importance-of-frequency" class="section level4">
-<h4><span class="header-section-number">2.1.0.2</span> The Importance of Frequency</h4>
-<ul>
-<li><p>Insurers pay claims in monetary units, e.g., US dollars. So, why should they care about how frequently claims occur?</p></li>
-<li><p>Many ways to use claims modeling – easiest to motivate in terms of pricing for personal lines insurance</p>
-<ul>
-<li><p>Recall from Chapter 1 that setting the price of an insurance good can be a perplexing problem.</p></li>
-<li><p>In manufacturing, the cost of a good is (relatively) known</p></li>
-<li><p>Other financial service areas, market prices are available</p></li>
-<li><p>Insurance tradition: Start with an expected cost. Add “margins” to account for the product’s riskiness, expenses incurred in servicing the product, and a profit/surplus allowance for the insurance company.</p></li>
-</ul></li>
-<li><p>Think of the expected cost as the expected number of claims times the expected amount per claims, that is, expected <em>frequency times severity</em>.</p></li>
-<li><p>Claim amounts, or severities, will turn out to be relatively homogeneous for many lines of business and so we begin our investigations with frequency modeling.</p></li>
-</ul>
-</div>
-<div id="other-ways-that-frequency-augments-severity-information" class="section level4">
-<h4><span class="header-section-number">2.1.0.3</span> Other Ways that Frequency Augments Severity Information</h4>
-<ul>
-<li><p><strong>Contractual</strong> - For example, deductibles and policy limits are often in terms of each occurrence of an insured event</p></li>
-<li><p><strong>Behaviorial</strong> - Explanatory (rating) variables can have different effects on models of how often an event occurs in contrast to the size of the event.</p>
-<ul>
-<li>In healthcare, the decision to utilize healthcare by individuals is related primarily to personal characteristics whereas the cost per user may be more related to characteristics of the healthcare provider (such as the physician).</li>
-</ul></li>
-<li><p><strong>Databases</strong>. Many insurers keep separate data files that suggest developing separate frequency and severity models. This recording process makes it natural for insurers to model the frequency and severity as separate processes.</p>
-<ul>
-<li><p>Policyholder file that is established when a policy is written. This file records much underwriting information about the insured(s), such as age, gender and prior claims experience, policy information such as coverage, deductibles and limitations, as well as the insurance claims event.</p></li>
-<li><p>Claims file, records details of the claim against the insurer, including the amount.</p></li>
-<li><p>(There may also be a “payments” file that records the timing of the payments although we shall not deal with that here.)</p></li>
-</ul></li>
-<li><p><strong>Regulatory and Administrative</strong></p>
-<ul>
-<li><p>Regulators routinely require the reporting of claims numbers as well as amounts.</p></li>
-<li><p>This may be due to the fact that there can be alternative definitions of an “amount,” e.g., paid versus incurred, and there is less potential error when reporting claim numbers.</p></li>
-</ul></li>
-</ul>
-</div>
-</div>
-<div id="basic-frequency-distributions" class="section level2">
-<h2><span class="header-section-number">2.2</span> Basic Frequency Distributions</h2>
-<div id="foundations" class="section level3">
-<h3><span class="header-section-number">2.2.1</span> Foundations</h3>
-<ul>
-<li><p>Claim count <span class="math inline">\(N\)</span> has support on the non-negative integers <span class="math inline">\(k=0,1,2, \ldots\)</span>.</p></li>
-<li><p>The <strong>probability mass function</strong> is denoted as <span class="math inline">\(\Pr(N = k) = p_k\)</span></p></li>
-<li><p>We can summarize the distribution through its <strong>moments</strong></p>
-<ul>
-<li><p>The <strong>mean</strong>, or first moment, is</p>
-<p><span class="math display">\[\mathrm{E~} N = \mu_1 = \mu = \sum^{\infty}_{k=0} k p_k .\]</span></p></li>
-<li><p>More generally, the <span class="math inline">\(r\)</span>th moment is <span class="math display">\[\mathrm{E~} N^r = \mu_r^{\prime} = \sum^{\infty}_{k=0} k^r p_k .\]</span></p></li>
-<li><p>The <strong>variance</strong> is <span class="math display">\[\mathrm{Var~} N = \mathrm{E~} (N-\mu)^2 = \mathrm{E~} N^2 - \mu^2\]</span></p></li>
-</ul></li>
-<li><p>Also recall the <strong>moment generating function</strong> <span class="math display">\[M_N(t) = \mathrm{E~}e^{tN} = \sum^{\infty}_{k=0} e^{tk} p_k .\]</span></p></li>
-</ul>
-</div>
-<div id="probability-generating-function" class="section level3">
-<h3><span class="header-section-number">2.2.2</span> Probability Generating Function</h3>
-<ul>
-<li><p>The <strong>probability generating function</strong> is <span class="math display">\[\begin{aligned}
-\mathrm{P}(z) &amp;= \mathrm{E~}z^N = \mathrm{E~}\exp{(N \ln z)} = M_N(\ln{z})\\
-&amp;= \sum^{\infty}_{k=0} z^k p_k .\end{aligned}\]</span></p></li>
-<li><p>By taking the <span class="math inline">\(m\)</span>th derivative, we see that <span class="math display">\[\begin{aligned}
-\left. P^{(m)}(z)\right|_{z=0} &amp;= \frac{\partial^m }{\partial z^m} P(z)|_{z=0} = p_m m!\end{aligned}\]</span> the pgf “generates” the probabilities.</p></li>
-<li><p>Further, the pgf can be used to generate moments <span class="math display">\[\begin{aligned}
-P^{(1)}(1) &amp;= \sum k p_k = \mathrm{E~}N .\end{aligned}\]</span> and <span class="math display">\[P^{(2)}(1) = \mathrm{E~}N(N-1).\]</span></p></li>
-</ul>
-</div>
-<div id="important-frequency-distributions" class="section level3">
-<h3><span class="header-section-number">2.2.3</span> Important Frequency Distributions</h3>
-<ul>
-<li><p>The three important (in insurance) frequency distributions are:</p>
-<ul>
-<li><p>Poisson</p></li>
-<li><p>Negative binomial</p></li>
-<li><p>Binomial</p></li>
-</ul></li>
-<li><p>They are important because:</p>
-<ul>
-<li><p>They fit well many insurance data sets of interest</p></li>
-<li><p>They provide the basis for more complex distributions that even better approximate real situations of interest to us</p></li>
-</ul></li>
-</ul>
-<div id="poisson-distribution" class="section level4">
-<h4><span class="header-section-number">2.2.3.1</span> Poisson Distribution</h4>
-<ul>
-<li><p>This distribution has parameter <span class="math inline">\(\lambda\)</span>, probability mass function <span class="math display">\[p_k = \frac{e^{-\lambda}\lambda^k}{k!}\]</span> and pgf <span class="math display">\[\begin{aligned}
-P(z) &amp;= M_N (\ln z) = \exp(\lambda(z-1))\end{aligned}\]</span></p></li>
-<li><p>The expectation is <span class="math inline">\(\mathrm{E~}N = \lambda\)</span> which is the same as the variance, <span class="math inline">\(\mathrm{Var~}N = \lambda\)</span>.</p></li>
-</ul>
-</div>
-<div id="negative-binomial-distribution" class="section level4">
-<h4><span class="header-section-number">2.2.3.2</span> Negative Binomial Distribution</h4>
-<ul>
-<li><p>This distribution has parameters <span class="math inline">\((r, \beta)\)</span>, probability mass function (pmf) <span class="math display">\[p_k = {k+r-1\choose k} \left(\frac{1}{1+\beta}\right)^r \left(\frac{\beta}{1+\beta}\right)^k\]</span> and probability generating function (pgf) <span class="math display">\[\begin{aligned}
-P(z) &amp;= (1-\beta(z-1))^{-r} \end{aligned}\]</span></p></li>
-<li><p>The expectation is <span class="math inline">\(\mathrm{E~}N = r\beta\)</span> and the variance is <span class="math inline">\(\mathrm{Var~}N = r\beta(1+\beta)\)</span>.</p></li>
-<li><p>When <span class="math inline">\(\beta&gt;0\)</span>, we have <span class="math inline">\(\mathrm{Var~}N &gt;\mathrm{E~}N\)</span>. This distribution is said to be <strong>overdispersed</strong> (relative to the Poisson).</p></li>
-</ul>
-</div>
-<div id="binomial-distribution" class="section level4">
-<h4><span class="header-section-number">2.2.3.3</span> Binomial Distribution</h4>
-<ul>
-<li><p>This distribution has parameters <span class="math inline">\((m,q)\)</span>, probability mass function <span class="math display">\[p_k = {m\choose k} q^k (1-q)^{m-k}\]</span> and pgf <span class="math display">\[\begin{aligned}
-P(z) &amp;= (1+q(z-1))^m\end{aligned}\]</span></p></li>
-<li><p>The mean is <span class="math inline">\(\mathrm{E~}N = mq\)</span> and the variance is <span class="math inline">\(\mathrm{Var~}N = mq(1-q)\)</span>.</p></li>
-</ul>
-</div>
-</div>
-</div>
-<div id="the-a-b-0-class" class="section level2">
-<h2><span class="header-section-number">2.3</span> The (a, b, 0) Class</h2>
-<ul>
-<li><p>Recall the notation <span class="math inline">\(p_k= \Pr(N = k)\)</span>.</p></li>
-<li><p><em>Definition</em>. A count distribution is a member of the <strong>(<span class="math inline">\(a, b\)</span>, 0) class</strong> if the probabilities <span class="math inline">\(p_k\)</span> satisfy <span class="math display">\[\frac{p_k}{p_{k-1}}=a+\frac{b}{k},\]</span> for constants <span class="math inline">\(a,b\)</span> and for $k=1,2,3, $.</p>
-<ul>
-<li><p>There are only three distributions that are members of the (<span class="math inline">\(a,b\)</span>,0) class. They are the Poisson (<span class="math inline">\(a=0\)</span>), binomial(<span class="math inline">\(a&lt;0\)</span>), and negative binomial (<span class="math inline">\(a&gt;0\)</span>).</p></li>
-<li><p>The recursive expression provides a computationally efficient way to generate probabilities.</p></li>
-</ul></li>
-</ul>
-<div id="the-a-b-0-class---special-cases" class="section level4">
-<h4><span class="header-section-number">2.3.0.1</span> The (a, b, 0) Class - Special Cases</h4>
-<ul>
-<li><p><em>Example: Poisson Distribution</em>.</p>
-<ul>
-<li>Recall the pmf <span class="math inline">\(p_k =\frac{\lambda^k}{k!}e^{-\lambda}\)</span>. Examining the ratio, <span class="math display">\[\frac{p_k}{p_{k-1}} = \frac{\lambda^k/k!}{\lambda^{k-1}/(k-1)!}\frac{e^{-\lambda}}{e^{-\lambda}}= \frac{\lambda}{k}\]</span> Thus, the Poisson is a member of the (<span class="math inline">\(a, b\)</span>, 0) class with <span class="math inline">\(a = 0\)</span>, <span class="math inline">\(b = \lambda\)</span>, and initial starting value <span class="math inline">\(p_0 = e^{-\lambda}\)</span>.</li>
-</ul>
-<p><strong>Other special cases</strong> (Please check)</p></li>
-<li><p><em>Example: Binomial Distribution</em>. Use a similar technique to check that the binomial distribution is a member of the (<span class="math inline">\(a, b\)</span>, 0) class with <span class="math inline">\(a = \frac{-q}{1-q},\)</span> <span class="math inline">\(b = \frac{(m+1)q}{1-q},\)</span> and initial starting value <span class="math inline">\(p_0 = (1-q)^m\)</span>.</p></li>
-</ul>
-<p><strong>Another special case of the (<span class="math inline">\(a, b\)</span>, 0) Class</strong> (Please check)</p>
-<ul>
-<li><em>Example: Negative Binomial Distribution</em>. Check that the negative binomial distribution is a member of the (<span class="math inline">\(a, b\)</span>, 0) class with <span class="math inline">\(a = \frac{\beta}{1+\beta},\)</span> <span class="math inline">\(b = \frac{(r-1)\beta}{1+\beta},\)</span> and initial starting value <span class="math inline">\(p_0 = (1+\beta)^{-r}\)</span>.</li>
-</ul>
-<p><em>Exercise.</em> A discrete probability distribution has the following properties <span class="math display">\[\begin{aligned}
-p_k&amp;=c\left( 1+\frac{2}{k}\right) p_{k-1} \:\:\: k=1,2,3,\\
-p_1&amp;= \frac{9}{256}\end{aligned}\]</span> Determine the expected value of this discrete random variable (Ans: 9)</p>
-</div>
-<div id="the-a-b-0-class---example" class="section level3">
-<h3><span class="header-section-number">2.3.1</span> The (a, b, 0) Class - Example</h3>
-<p><em>Exercise.</em> A discrete probability distribution has the following properties <span class="math display">\[\begin{aligned}
-\Pr(N=k) = \left( \frac{3k+9}{8k}\right) \Pr(N=k-1), ~~~k=1,2,3,\ldots\end{aligned}\]</span> Determine the value of <span class="math inline">\(\Pr(N=3)\)</span>. (Ans: 0.1609)</p>
-</div>
-</div>
-<div id="estimating-frequency-distributions" class="section level2">
-<h2><span class="header-section-number">2.4</span> Estimating Frequency Distributions</h2>
-<div id="parameter-estimation" class="section level4">
-<h4><span class="header-section-number">2.4.0.1</span> Parameter estimation</h4>
-<ul>
-<li><p>The customary method of estimation is <strong>maximum likelihood</strong>.</p></li>
-<li><p>To provide intuition, we outline the ideas in the context of Bernoulli distribution.</p>
-<ul>
-<li><p>This is a special case of the binomial distribution with <span class="math inline">\(m=1\)</span></p></li>
-<li><p>For count distributions, either there is a claim <span class="math inline">\(N=1\)</span> or not <span class="math inline">\(N=0\)</span>. The probability mass function is <span class="math display">\[p_k = \Pr (N=k) = \left\{ \begin{array}{ll}
-1-q &amp; \mathrm{if}\ k=0 \\
-q&amp; \mathrm{if}\ k=1
-\end{array} \right. .\]</span></p></li>
-</ul></li>
-<li><p>The Statistical Inference Problem</p>
-<ul>
-<li><p>Now suppose that we have a collection of independent random variables. The <span class="math inline">\(i\)</span>th variable is denoted as <span class="math inline">\(N_i\)</span>. Further assume they have the same Bernoulli distribution with parameter <span class="math inline">\(q\)</span>.</p></li>
-<li><p>In statistical inference, we assume that we observe a sample of such random variables. The observed value of the <span class="math inline">\(i\)</span>th random variable is <span class="math inline">\(n_i\)</span>. Assuming that the Bernoulli distribution is correct, we wish to say something about the probability parameter <span class="math inline">\(q\)</span>.</p></li>
-</ul></li>
-</ul>
-</div>
-<div id="bernoulli-likelihoods" class="section level4">
-<h4><span class="header-section-number">2.4.0.2</span> Bernoulli Likelihoods</h4>
-<ul>
-<li><p><em>Definition</em>. The <strong>likelihood</strong> is the observed value of the mass function.</p></li>
-<li><p>For a single observation, the likelihood is <span class="math display">\[\left\{
-\begin{array}{ll}
-1-q &amp; \mathrm{if}\ n_i=0 \\
-q   &amp; \mathrm{if}\ n_i=1
-\end{array}
-\right. .\]</span></p></li>
-<li><p>The objective of <strong>maximum likelihood estimation (MLE)</strong> is to find the parameter values that produce the largest likelihood.</p>
-<ul>
-<li><p>Finding the maximum of the logarithmic function yields the same solution as finding the maximum of the corresponding function.</p></li>
-<li><p>Because it is generally computationally simpler, we consider the logarithmic (log-) likelihood, written as <span class="math display">\[\left\{
-\begin{array}{ll}
-\ln \left( 1-q\right)  &amp; \mathrm{if}\ n_i=0 \\
-\ln     q              &amp; \mathrm{if}\ n_i=1
-\end{array}\right. .\]</span></p></li>
-</ul></li>
-</ul>
-</div>
-<div id="bernoulli-mle" class="section level4">
-<h4><span class="header-section-number">2.4.0.3</span> Bernoulli MLE</h4>
-<ul>
-<li><p>More compactly, the log-likelihood of a single observation is <span class="math display">\[n_i \ln q + (1-n_i)\ln ( 1-q ) ,\]</span></p></li>
-<li><p>Assuming independence, the log-likelihood of the data set is <span class="math display">\[L_{Bern}(q)=\sum_i \left\{ n_i \ln q + (1-n_i)\ln ( 1-q ) \right\}\]</span></p>
-<ul>
-<li><p>The (log) likelihood is viewed as a function of the parameters, with the data held fixed.</p></li>
-<li><p>In contrast, the joint probability mass function is viewed as a function of the realized data, with the parameters held fixed.</p></li>
-</ul></li>
-<li><p>The method of maximum likelihood means finding the values of <span class="math inline">\(q\)</span> that maximize the log-likelihood.</p></li>
-<li><p>We began with the Bernoulli distribution in part because the log-likelihood is easy to maximize.</p></li>
-<li><p>Take a derivative of <span class="math inline">\(L_{Bern}(q)\)</span> to get <span class="math display">\[\frac{\partial}{\partial q} L_{Bern}(q)=\sum_i \left\{ n_i \frac{1}{q} - (1-n_i)\frac{1}{1-q} \right\}\]</span> and solving the equation <span class="math inline">\(\frac{\partial}{\partial q} L_{Bern}(q) =0\)</span> yields <span class="math display">\[\hat{q} = \frac{\sum_i n_i}{\mathrm{sample ~size}}\]</span> or, in words, the <span class="math inline">\(MLE\)</span> <span class="math inline">\(\hat{q}\)</span> is the fraction of one’s in the sample.</p></li>
-<li><p>Just to be complete, you should check, by taking derivatives, that when we solve <span class="math inline">\(\frac{\partial}{\partial q} L_{Bern}(q) =0\)</span> we are maximizing the function <span class="math inline">\(L_{Bern}(q)\)</span>, not minimizing it.</p></li>
-</ul>
-</div>
-<div id="frequency-distributions-mle" class="section level4">
-<h4><span class="header-section-number">2.4.0.4</span> Frequency Distributions MLE</h4>
-<ul>
-<li><p>We can readily extend this procedure to all frequency distributions</p></li>
-<li><p>For notation, suppose that <span class="math inline">\(\theta\)</span> (“theta”) is a parameter that describes a given frequency distribution <span class="math inline">\(\Pr(N=k; \theta) = p_k(\theta)\)</span></p>
-<ul>
-<li>In later developments we will let <span class="math inline">\(\theta\)</span> be a vector but for the moment assume it to be a scalar.</li>
-</ul></li>
-<li><p>The log-likelihood of a a single observation is <span class="math display">\[\left\{
-\begin{array}{ll}
-\ln p_0(\theta) &amp; \mathrm{if}\ n_i=0 \\
-\ln p_1(\theta) &amp; \mathrm{if}\ n_i=1 \\
-\vdots &amp; \vdots
-\end{array}
-\right. .\]</span> that can be written more compactly as <span class="math display">\[\sum_k I(n_i=k) \ln p_k(\theta).\]</span> this uses the notation <span class="math inline">\(I(\cdot)\)</span> to be the indicator of a set (it returns one if the event is true and 0 otherwise).</p></li>
-<li><p>Assuming independence, the log-likelihood of the data set is <span class="math display">\[L(\theta)=\sum_i \left\{ \sum_k I(n_i=k) \ln p_k(\theta) \right\} = \left\{ \sum_k m_k\ln p_k(\theta) \right\}\]</span> where we use the notation <span class="math inline">\(m_k\)</span> to denote the number of observations that are observed having count <span class="math inline">\(k\)</span>. Using notation, <span class="math inline">\(m_k = \sum_i I(n_i=k)\)</span>.</p></li>
-<li><p><strong>Special Case</strong>. <em>Poisson</em>. A simple exercise in calculus yields <span class="math display">\[\hat{\lambda} =  \frac{\mathrm{number ~of ~claims}}{\mathrm{sample ~size}} = \frac{\sum_k k m_k}{\sum_k  m_k}\]</span> the average claim count.</p></li>
-</ul>
-</div>
-</div>
-<div id="other-frequency-distributions" class="section level2">
-<h2><span class="header-section-number">2.5</span> Other Frequency Distributions</h2>
-<ul>
-<li><p>Naturally, there are many other count distributions needed in practice</p></li>
-<li><p>For many insurance applications, one can work with one of our three basic distributions (binomial, Poisson, negative binomial) and allow the parameters to be a function of known explanatory variables.</p>
-<ul>
-<li><p>This allows us to explain claim probabilities in terms of known (to the insurer) variables such as age, sex, geographic location (territory), and so forth.</p></li>
-<li><p>This field of statistical study is known as <strong>regression analysis</strong> - it is an important topic that we will not pursue in this course.</p></li>
-</ul></li>
-<li><p>To extend our basic count distributions to alternatives needed in practice, we consider two approaches:</p>
-<ul>
-<li><p>Zero truncation or modification</p></li>
-<li><p>Mixing</p></li>
-</ul></li>
-</ul>
-<div id="zero-truncation-or-modification" class="section level3">
-<h3><span class="header-section-number">2.5.1</span> Zero Truncation or Modification</h3>
-<ul>
-<li><p>Why truncate or modify zero?</p>
-<ul>
-<li><p>If we work with a database of claims, then there are no zero!</p></li>
-<li><p>In personal lines (like auto), people may not want to report that first claim because they fear it will increase future insurance rates.</p></li>
-</ul></li>
-<li><p>Let’s modify zero probabilities in terms of the <span class="math inline">\((a,b,0)\)</span> class</p></li>
-<li><p><em>Definition</em>. A count distribution is a member of the <strong>(<span class="math inline">\(a, b\)</span>, 1) class</strong> if the probabilities <span class="math inline">\(p_k\)</span> satisfy <span class="math display">\[\frac{p_k}{p_{k-1}}=a+\frac{b}{k},\]</span> for constants <span class="math inline">\(a,b\)</span> and for <span class="math inline">\(k=2,3, \ldots\)</span>.</p></li>
-<li><p>Note that this starts at <span class="math inline">\(k=2\)</span>, not <span class="math inline">\(k=1\)</span>. That is, the most important thing about this definition is that the recursion starts at <span class="math inline">\(p_1\)</span>, not <span class="math inline">\(p_0\)</span>.</p></li>
-<li><p>Thus, all distributions that are members of the (<span class="math inline">\(a, b\)</span>, 0) are members of the (<span class="math inline">\(a, b\)</span>, 1) class. Naturally, there are additional distributions that are members of this wider class.</p></li>
-<li><p>To see how this works, pick a specific distribution in the (<span class="math inline">\(a, b\)</span>, 0) class.</p>
-<ul>
-<li><p>Consider <span class="math inline">\(p_k^0\)</span> to be a probability for this member of <span class="math inline">\((a,b,0)\)</span>.</p></li>
-<li><p>Let <span class="math inline">\(p_k^M\)</span> be the corresponding probability for a member of <span class="math inline">\((a,b,1)\)</span>, where the <span class="math inline">\(M\)</span> stands for “modified”.</p></li>
-<li><p>Pick a new probability of a zero claim, <span class="math inline">\(p_0^M\)</span>, and define <span class="math display">\[\begin{aligned}
-c = \frac{1-p_0^M}{1-p_0^0} .\end{aligned}\]</span></p></li>
-<li><p>We then calculate the rest of the modified distribution as <span class="math display">\[\begin{aligned}
-p_k^M =c p_k^0\end{aligned}\]</span></p></li>
-</ul></li>
-</ul>
-<div id="special-case-poisson-truncated-at-zero." class="section level4">
-<h4><span class="header-section-number">2.5.1.1</span> Special Case: Poisson Truncated at Zero.</h4>
-<p>For this case, we assume that <span class="math inline">\(p_0^M=0\)</span>, so that the probability of <span class="math inline">\(N=0\)</span> is zero, hence the name “truncated at zero.”</p>
-<ul>
-<li>For this case, we use the letter <span class="math inline">\(T\)</span> to denote probabilities instead of <span class="math inline">\(M\)</span>, so we use <span class="math inline">\(p_k^T\)</span> for probabilities. Thus, <span class="math display">\[\begin{aligned}
-p_k^T&amp;=
-\left \{
-\begin{array}{cc}
-0 &amp; k=0\\
-\frac{1}{1-p_0^0}p_k^0 &amp; k \ge 1\\
-\end{array}
-\right.\end{aligned}\]</span></li>
-</ul>
-</div>
-<div id="modified-poisson-example" class="section level4">
-<h4><span class="header-section-number">2.5.1.2</span> Modified Poisson Example</h4>
-<p><em>Example: Zero Truncated/Modified Poisson</em>. Consider a Poisson distribution with parameter <span class="math inline">\(\lambda=2\)</span>. We show how to calculate <span class="math inline">\(p_k, k=0,1,2,3\)</span>, for the usual (unmodified), truncated and a modified version with <span class="math inline">\((p_0^M=0.6)\)</span>.</p>
-<p><em>Solution.</em> For the Poisson distribution as a member of the (<span class="math inline">\(a,b\)</span>,0) class, we have <span class="math inline">\(a=0\)</span> and <span class="math inline">\(b=\lambda=2\)</span>. Thus, we may use the recursion <span class="math inline">\(p_k = \lambda p_{k-1}/k= 2 p_{k-1}/k\)</span> for each type, after determining starting probabilities.</p>
+<p>Designing the structure can be a difficult step, where the degree of difficulty depends on the problem being studied. There are many resources, including this tutorial, to help the actuary with the first two steps.</p>
+<div id="generating-independent-uniform-observations" class="section level2">
+<h2><span class="header-section-number">6.1</span> Generating Independent Uniform Observations</h2>
+<p>We begin with a historically prominent method.</p>
+<p><strong>Linear Congruential Generator.</strong> To generate a sequence of random numbers, start with <span class="math inline">\(B_0\)</span>, a starting value that is known as a “seed.” Update it using the recursive relationship <span class="math display">\[B_{n+1} = a B_n + c  \text{ modulo }m, ~~ n=0, 1, 2, \ldots .\]</span> This algorithm is called a <em>linear congruential generator</em>. The case of <span class="math inline">\(c=0\)</span> is called a <em>multiplicative</em> congruential generator; it is particularly useful for really fast computations.</p>
+<p>For illustrative values of <span class="math inline">\(a\)</span> and <span class="math inline">\(m\)</span>, Microsoft’s Visual Basic uses <span class="math inline">\(m=2^{24}\)</span>, <span class="math inline">\(a=1,140,671,485\)</span>, and <span class="math inline">\(c = 12,820,163\)</span> (see <a href="http://support.microsoft.com/kb/231847" class="uri">http://support.microsoft.com/kb/231847</a>). This is the engine underlying the random number generation in Microsoft’s Excel program.</p>
+<p>The sequence used by the analyst is defined as <span class="math inline">\(U_n=B_n/m.\)</span> The analyst may interpret the sequence {<span class="math inline">\(U_{i}\)</span>} to be (approximately) identically and independently uniformly distributed on the interval (0,1). To illustrate the algorithm, consider the following.</p>
+<p><strong>Example.</strong> Take <span class="math inline">\(m=15\)</span>, <span class="math inline">\(a=3\)</span>, <span class="math inline">\(c=2\)</span> and <span class="math inline">\(B_0=1\)</span>. Then we have:</p>
 <table>
 <thead>
 <tr class="header">
-<th align="center">k</th>
-<th align="center"><span class="math inline">\(p_k\)</span></th>
-<th align="center"><span class="math inline">\(p_k^T\)</span></th>
-<th align="center"><span class="math inline">\(p_k^M\)</span></th>
+<th align="center">step <span class="math inline">\(n\)</span></th>
+<th align="left"><span class="math inline">\(B_n\)</span></th>
+<th align="center"><span class="math inline">\(U_n\)</span></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td align="center">0</td>
-<td align="center"><span class="math inline">\(p_0=e^{-\lambda}=0.135335\)</span></td>
-<td align="center">0</td>
-<td align="center">0.6</td>
+<td align="left"><span class="math inline">\(B_0=1\)</span></td>
+<td align="center"></td>
 </tr>
 <tr class="even">
 <td align="center">1</td>
-<td align="center"><span class="math inline">\(p_1=p_0(0+\frac{\lambda}{1})=0.27067\)</span></td>
-<td align="center"><span class="math inline">\(\frac{p_1}{1-p_0}=0.313035\)</span></td>
-<td align="center"><span class="math inline">\(\frac{1-p_0^M}{1-p_0}~p_1=0.125214\)</span></td>
+<td align="left"><span class="math inline">\(B_1 =\mod(3 \times 1 +2) = 5\)</span></td>
+<td align="center"><span class="math inline">\(U_1 = \frac{5}{15}\)</span></td>
 </tr>
 <tr class="odd">
 <td align="center">2</td>
-<td align="center"><span class="math inline">\(p_2=p_1\left( \frac{\lambda}{2}\right)=0.27067\)</span></td>
-<td align="center"><span class="math inline">\(p_2^T=p_1^T\left(\frac{\lambda}{2}\right)=0.313035\)</span></td>
-<td align="center"><span class="math inline">\(p_2^M=0.125214\)</span></td>
+<td align="left"><span class="math inline">\(B_2 =\mod(3 \times 5 +2) = 2\)</span></td>
+<td align="center"><span class="math inline">\(U_2 = \frac{2}{15}\)</span></td>
 </tr>
 <tr class="even">
 <td align="center">3</td>
-<td align="center"><span class="math inline">\(p_3=p_2\left(\frac{\lambda}{3}\right)=0.180447\)</span></td>
-<td align="center"><span class="math inline">\(p_3^T=p_2^T\left(\frac{\lambda}{3}\right)=0.208690\)</span></td>
-<td align="center"><span class="math inline">\(p_3^M=p_2^M\left(\frac{\lambda}{2}\right)=0.083476\)</span></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="modified-poisson-exercise" class="section level4">
-<h4><span class="header-section-number">2.5.1.3</span> Modified Poisson Exercise</h4>
-<p><em>Exercise: Course 3, May 2000, Exercise 37.</em> You are given:</p>
-<ol style="list-style-type: decimal">
-<li><p><span class="math inline">\(p_k\)</span> denotes the probability that the number of claims equals <span class="math inline">\(k\)</span> for <span class="math inline">\(k=0,1,2,\ldots\)</span></p></li>
-<li><p><span class="math inline">\(\frac{p_n}{p_m}=\frac{m!}{n!}, m\ge 0, n\ge 0\)</span></p></li>
-</ol>
-<p>Using the corresponding zero-modified claim count distribution with <span class="math inline">\(p_0^M=0.1\)</span>, calculate <span class="math inline">\(p_1^M\)</span>.</p>
-</div>
-</div>
-</div>
-<div id="mixture-distributions" class="section level2">
-<h2><span class="header-section-number">2.6</span> Mixture Distributions</h2>
-<div id="mixtures-of-finite-populations" class="section level3">
-<h3><span class="header-section-number">2.6.1</span> Mixtures of Finite Populations</h3>
-<ul>
-<li><p>Suppose that our population consists of several subgroups, each having their own distribution</p></li>
-<li><p>We randomly draw an observation from the population, without knowing which subgroup that we are drawing from</p></li>
-<li><p>For example, suppose that <span class="math inline">\(N_1\)</span> represents claims form “good” drivers and <span class="math inline">\(N_2\)</span> represents claims from “bad” drivers. We draw <span class="math display">\[N =
-\begin{cases}
-N_1  &amp;  \text{with prob~}\alpha\\
-N_2  &amp;   \text{with prob~}(1-\alpha) .\\
-\end{cases}\]</span></p></li>
-<li><p>Here, <span class="math inline">\(\alpha\)</span> represents the probability of drawing a “good” driver.</p></li>
-<li><p>Our is said to be a “mixture” of two subgroups</p></li>
-</ul>
-<div id="finite-population-mixture-example" class="section level4">
-<h4><span class="header-section-number">2.6.1.1</span> Finite Population Mixture Example</h4>
-<p><em>Exercise. Exam “C” 170</em>. In a certain town the number of common colds an individual will get in a year follows a Poisson distribution that depends on the individual’s age and smoking status. The distribution of the population and the mean number of colds are as follows:</p>
-<table>
-<thead>
-<tr class="header">
-<th></th>
-<th align="center">Proportion of population</th>
-<th align="center">Mean number of colds</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Children</td>
-<td align="center">0.3</td>
-<td align="center">3</td>
-</tr>
-<tr class="even">
-<td>Adult Non-Smokers</td>
-<td align="center">0.6</td>
-<td align="center">1</td>
+<td align="left"><span class="math inline">\(B_3 =\mod(3 \times 2 +2) = 8\)</span></td>
+<td align="center"><span class="math inline">\(U_3 = \frac{8}{15}\)</span></td>
 </tr>
 <tr class="odd">
-<td>Adult Smokers</td>
-<td align="center">0.1</td>
 <td align="center">4</td>
+<td align="left"><span class="math inline">\(B_4 =\mod(3 \times 8 +2) = 11\)</span></td>
+<td align="center"><span class="math inline">\(U_4 = \frac{11}{15}\)</span></td>
 </tr>
 </tbody>
 </table>
-<ol style="list-style-type: decimal">
-<li><p>Calculate the probability that a randomly drawn person has 3 common colds in a year.</p></li>
-<li><p>Calculate the conditional probability that a person with exactly 3 common colds in a year is an adult smoker.</p></li>
-</ol>
+<p>Sometimes computer generated random results are known as <em>pseudo</em>-random numbers to reflect the fact that they are machine generated and can be replicated. That is, despite the fact that {<span class="math inline">\(U_{i}\)</span>} appears to be i.i.d, it can be reproduced by using the same seed number (and the same algorithm). The ability to replicate results can be a tremendous tool as you use simulation while trying to uncover patterns in a business process.</p>
+<p>The linear congruential generator is just one method of producing pseudo-random outcomes. It is easy to understand and is (still) widely used. The linear congruential generator does have limitations, including the fact that it is possible to detect long-run patterns over time in the sequences generated (recall that we can interpret “independence” to mean a total lack of functional patterns). Not surprisingly, advanced techniques have been developed that address some of this method’s drawbacks.</p>
 </div>
+<div id="inverse-transform" class="section level2">
+<h2><span class="header-section-number">6.2</span> Inverse Transform</h2>
+<p>With the sequence of uniform random numbers, we next transform them to a distribution of interest. Let <span class="math inline">\(F\)</span> represent a distribution function of interest. Then, use the <em>inverse transform</em> <span class="math display">\[X_i=F^{-1}\left( U_i \right) .\]</span> The result is that the sequence {<span class="math inline">\(X_{i}\)</span>} is approximately i.i.d. with distribution function <span class="math inline">\(F\)</span>.</p>
+<p>To interpret the result, recall that a distribution function, <span class="math inline">\(F\)</span>, is monotonically increasing and so the inverse function, <span class="math inline">\(F^{-1}\)</span>, is well-defined. The inverse distribution function (also known as the <em>quantile function</em>), is defined as <span class="math display">\[\begin{aligned}
+F^{-1}(y) = \inf_x \{ F(x) \ge y \} ,\end{aligned}\]</span> where “<span class="math inline">\(\inf\)</span>” stands for “infimum”, or the greatest lower bound.</p>
+<p><strong>Inverse Transform Visualization.</strong> Here is a graph to help you visualize the inverse transform. When the random variable is continuous, the distribution function is strictly increasing and we can readily identify a unique inverse at each point of the distribution.</p>
+<div class="figure" style="text-align: center"><span id="fig:InverseDF"></span>
+<img src="LossDataAnalytics_files/figure-html/InverseDF-1.png" alt="Inverse of a Distribution Function" width="60%" />
+<p class="caption">
+Figure 6.1: Inverse of a Distribution Function
+</p>
 </div>
-<div id="mixtures-of-infinitely-many-populations" class="section level3">
-<h3><span class="header-section-number">2.6.2</span> Mixtures of Infinitely Many Populations</h3>
-<ul>
-<li><p>We can extend the mixture idea to an infinite number of populations.</p></li>
-<li><p>To illustrate, suppose we have a population of drivers. The <span class="math inline">\(i\)</span>th person has their own (personal) expected number of claims, <span class="math inline">\(\lambda_i\)</span>.</p></li>
-<li><p>For some driver’s, <span class="math inline">\(\lambda\)</span> is small (good drivers), for others it is high (not so good drivers). There is a distribution of <span class="math inline">\(\lambda\)</span>.</p></li>
-<li><p>A convenient distribution is to use a gamma distribution with parameters <span class="math inline">\((\alpha, \theta)\)</span>.</p></li>
-<li><p>Then, one can check that <span class="math display">\[\begin{aligned}
-N &amp;\sim&amp; \text{Negative Binomial} (r = \alpha, \beta = \theta) .\end{aligned}\]</span> See, for example, KPW, page 84.</p></li>
-<li><p>Mixture is very important in insurance applications, more on this later…</p></li>
-</ul>
-<div id="negative-binomial-as-a-gamma-mixture-of-poissons---example" class="section level4">
-<h4><span class="header-section-number">2.6.2.1</span> Negative Binomial as a Gamma Mixture of Poissons - Example</h4>
-<p><em>Example</em>. Suppose that <span class="math inline">\(N|\Lambda \sim\)</span> Poisson<span class="math inline">\((\Lambda)\)</span> and that <span class="math inline">\(\Lambda \sim\)</span> gamma with mean of 1 and variance of 2. Determine the probability that <span class="math inline">\(N=1\)</span>.</p>
-<p><em>Solution.</em> For a gamma distribution with parameters <span class="math inline">\((\alpha, \theta)\)</span>, we have that mean is <span class="math inline">\(\alpha \theta\)</span> and the variance is <span class="math inline">\(\alpha \theta^2\)</span>. Thus <span class="math display">\[\begin{aligned}
-\alpha &amp;= \frac{1}{2} \text{   and   } \theta =2.\end{aligned}\]</span></p>
-<p>Now, one can directly use the negative binomial approach to get <span class="math inline">\(r = \alpha = \frac{1}{2}\)</span> and <span class="math inline">\(\beta= \theta =2\)</span>. Thus <span class="math display">\[\begin{aligned}
-\Pr(N=1) = p_1  &amp;= {1+r-1 \choose 1}(\frac{1}{(1+\beta)^r})(\frac{\beta}{1+\beta})^1 \\
-&amp;=                 {1+\frac{1}{2}-1 \choose 1}{\frac{1}{(1+2)^{1/2}}}(\frac{2}{1+2})^1\\
-&amp;=  \frac{1}{3^{3/2}} = 0.19245 .\end{aligned}\]</span></p>
-</div>
-</div>
-</div>
-<div id="goodness-of-fit" class="section level2">
-<h2><span class="header-section-number">2.7</span> Goodness of Fit</h2>
-<div id="example-singapore-automobile-data" class="section level4">
-<h4><span class="header-section-number">2.7.0.1</span> Example: Singapore Automobile Data</h4>
-<ul>
-<li><p>A 1993 portfolio of <span class="math inline">\(n=7,483\)</span> automobile insurance policies from a major insurance company in Singapore.</p></li>
-<li><p>The count variable is the number of automobile accidents per policyholder.</p></li>
-<li><p>There were on average 0.06989 accidents per person.</p></li>
-</ul>
-<p><span class="math display">\[
-\begin{matrix}
-\hline \textbf{Table. Comparison of Observed to Fitted Counts } \\
-\textbf{Based on Singapore Automobile Data} \\
-\begin{array}{crr}
-\hline
-\text{Count} &amp; \text{Observed} &amp; \text{Fitted Counts using the} \\
-(k) &amp; (m_k) &amp; \text{Poisson Distribution} (n\widehat{p}_k) \\
-\hline
-0 &amp; 6,996 &amp; 6,977.86 \\
-1 &amp; 455 &amp; 487.70 \\
-2 &amp; 28 &amp; 17.04 \\
-3 &amp; 4 &amp; 0.40 \\
-4 &amp; 0 &amp; 0.01 \\ \hline Total &amp; 7,483 &amp; 7,483.00 \\ \hline
-\end{array}
-\end{matrix}\]</span></p>
-<p>The average is <span class="math inline">\(\bar{N} = \frac{0\cdot 6996 + 1 \cdot 455 + 2 \cdot 28 + 3 \cdot 4 + 4 \cdot 0}{7483} = 0.06989\)</span>.</p>
-</div>
-<div id="singapore-data-adequacy-of-the-poisson-model" class="section level4">
-<h4><span class="header-section-number">2.7.0.2</span> Singapore Data: Adequacy of the Poisson Model</h4>
-<ul>
-<li><p>With the Poisson distribution</p>
-<ul>
-<li><p>The maximum likelihood estimator of <span class="math inline">\(\lambda\)</span> is <span class="math inline">\(\widehat{\lambda}=\overline{N}\)</span>.</p></li>
-<li><p>Estimated probabilities, using <span class="math inline">\(\widehat{\lambda}\)</span>, are denoted as <span class="math inline">\(\widehat{p}_k\)</span>.</p></li>
-</ul></li>
-<li><p>For goodness of fit, consider <em>Pearson’s chi-square statistic</em> <span class="math display">\[\sum_k\frac{\left( m_k-n\widehat{p}_k \right) ^{2}}{n\widehat{p}_k}.\]</span></p>
-<ul>
-<li><p>Assuming that the Poisson distribution is a correct model; this statistic has an asymptotic chi-square distribution</p>
-<ul>
-<li>The degrees of freedom (<span class="math inline">\(df\)</span>) equals the number of cells minus one minus the number of estimated parameters.</li>
-</ul></li>
-<li><p>For the Singapore data, this is <span class="math inline">\(df=5-1-1=3\)</span>.</p></li>
-<li><p>The statistic is 41.98; the basic Poisson model is inadequate.</p></li>
-</ul></li>
-</ul>
-</div>
-<div id="example.-course-cexam-4.-may-2001-19." class="section level4">
-<h4><span class="header-section-number">2.7.0.3</span> Example. Course C/Exam 4. May 2001, 19.</h4>
-<p>During a one-year period, the number of accidents per day was distributed as follows:</p>
+<p>The inverse transform result is available when the underlying random variable is continuous, discrete or a mixture. Here is a series of examples to illustrate its scope of applications.</p>
+<p><strong>Exponential Distribution Example.</strong> Suppose that we would like to generate observations from an exponential distribution with scale parameter <span class="math inline">\(\theta\)</span> so that <span class="math inline">\(F(x) = 1 - e^{-x/\theta}\)</span>. To compute the inverse transform, we can use the following steps: <span class="math display">\[\begin{aligned}
+ y = F(x) &amp;\Leftrightarrow  y = 1-e^{-x/\theta} \\
+  &amp;\Leftrightarrow -\theta \ln(1-y) = x = F^{-1}(y) .\end{aligned}\]</span> Thus, if <span class="math inline">\(U\)</span> has a uniform (0,1) distribution, then <span class="math inline">\(X = -\theta \ln(1-U)\)</span> has an exponential distribution with parameter <span class="math inline">\(\theta\)</span>.</p>
+<p><em>Some Numbers.</em> Take <span class="math inline">\(\theta = 10\)</span> and generate three random numbers to get</p>
 <table>
 <tbody>
 <tr class="odd">
-<td align="left">Number of Accidents</td>
+<td align="left"><span class="math inline">\(U\)</span></td>
+<td align="right">0.26321364</td>
+<td align="right">0.196884752</td>
+<td align="right">0.897884218</td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(X = -10\ln(1-U)\)</span></td>
+<td align="right">1.32658423</td>
+<td align="right">0.952221285</td>
+<td align="right">9.909071325</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Pareto Distribution Example.</strong> Suppose that we would like to generate observations from a Pareto distribution with parameters <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\theta\)</span> so that <span class="math inline">\(F(x) = 1 - \left(\frac{\theta}{x+\theta} \right)^{\alpha}\)</span>. To compute the inverse transform, we can use the following steps: <span class="math display">\[\begin{aligned}
+ y = F(x) &amp;\Leftrightarrow 1-y = \left(\frac{\theta}{x+\theta} \right)^{\alpha} \\
+  &amp;\Leftrightarrow \left(1-y\right)^{-1/\alpha} = \frac{x+\theta}{\theta} = \frac{x}{\theta} +1 \\
+    &amp;\Leftrightarrow \theta \left((1-y)^{-1/\alpha} - 1\right) = x = F^{-1}(y) .\end{aligned}\]</span> Thus, <span class="math inline">\(X = \theta \left((1-U)^{-1/\alpha} - 1\right)\)</span> has a Pareto distribution with parameters <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\theta\)</span>.</p>
+<p><strong>Inverse Transform Justification.</strong> Why does the random variable <span class="math inline">\(X = F^{-1}(U)\)</span> have a distribution function “<span class="math inline">\(F\)</span>”?</p>
+<p>This is easy to establish in the continuous case. Because <span class="math inline">\(U\)</span> is a Uniform random variable on (0,1), we know that <span class="math inline">\(\Pr(U \le y) = y\)</span>, for <span class="math inline">\(0 \le y \le 1\)</span>. Thus, <span class="math display">\[\begin{aligned}
+\Pr(X \le x) &amp;= \Pr(F^{-1}(U) \le x) \\
+ &amp;= \Pr(F(F^{-1}(U)) \le F(x)) \\
+&amp;= \Pr(U \le F(x)) = F(x)\end{aligned}\]</span> as required. The key step is that $ F(F^{-1}(u)) = u$ for each <span class="math inline">\(u\)</span>, which is clearly true when <span class="math inline">\(F\)</span> is strictly increasing.</p>
+<p><strong>Bernoulli Distribution Example.</strong> Suppose that we wish to simulate random variables from a Bernoulli distribution with parameter <span class="math inline">\(p=0.85\)</span>. A graph of the cumulative distribution function shows that the quantile function can be written as</p>
+<div class="figure" style="text-align: center"><span id="fig:BinaryDF"></span>
+<img src="LossDataAnalytics_files/figure-html/BinaryDF-1.png" alt="Distribution Function of a Binary Random Variable" width="50%" />
+<p class="caption">
+Figure 6.2: Distribution Function of a Binary Random Variable
+</p>
+</div>
+<!-- ![image](BinaryDF.eps){width=".6\textwidth"} -->
+<p><span class="math display">\[\begin{aligned}
+F^{-1}(y) = \left\{ \begin{array}{cc}
+              0 &amp; 0&lt;y \leq 0.85 \\
+              1 &amp; 0.85 &lt; y  \leq  1.0 .
+            \end{array} \right.\end{aligned}\]</span></p>
+<p>Thus, with the inverse transform we may define <span class="math display">\[\begin{aligned}
+X = \left\{ \begin{array}{cc}
+              0 &amp; 0&lt;U \leq 0.85  \\
+              1 &amp;  0.85 &lt; U  \leq  1.0
+            \end{array} \right.\end{aligned}\]</span> <em>Some Numbers.</em> Generate three random numbers to get</p>
+<table>
+<tbody>
+<tr class="odd">
+<td align="left"><span class="math inline">\(U\)</span></td>
+<td align="right">0.26321364</td>
+<td align="right">0.196884752</td>
+<td align="right">0.897884218</td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(X =F^{-1}(U)\)</span></td>
 <td align="right">0</td>
+<td align="right">0</td>
+<td align="right">1</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Discrete Distribution Example.</strong> Consider the time of a machine failure in the first five years. The distribution of failure times is given as:</p>
+<table>
+<tbody>
+<tr class="odd">
+<td align="left">Time (<span class="math inline">\(x\)</span>)</td>
 <td align="right">1</td>
 <td align="right">2</td>
 <td align="right">3</td>
 <td align="right">4</td>
 <td align="right">5</td>
-<td></td>
 </tr>
 <tr class="even">
-<td align="left">Number of Days</td>
-<td align="right">209</td>
-<td align="right">111</td>
-<td align="right">33</td>
-<td align="right">7</td>
-<td align="right">5</td>
-<td align="right">2</td>
-<td></td>
+<td align="left">probability</td>
+<td align="right">0.1</td>
+<td align="right">0.2</td>
+<td align="right">0.1</td>
+<td align="right">0.4</td>
+<td align="right">0.2</td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\(F(x)\)</span></td>
+<td align="right">0.1</td>
+<td align="right">0.3</td>
+<td align="right">0.4</td>
+<td align="right">0.8</td>
+<td align="right">1.0</td>
 </tr>
 </tbody>
 </table>
-<p>You use a chi-square test to measure the fit of a Poisson distribution with mean 0.60. The minimum expected number of observations in any group should be 5. The maximum number of groups should be used.</p>
-<p>Determine the chi-square statistic.</p>
-</div>
-</div>
-<div id="exercises" class="section level2">
-<h2><span class="header-section-number">2.8</span> Exercises</h2>
-<p>Here are a set of exercises that guide the viewer through some of the theoretical foundations of <strong>Loss Data Analytics</strong>. Each tutorial is based on one or more questions from the professional actuarial examinations – typically the Society of Actuaries Exam C.</p>
-<p style="text-align: center;">
-<a href="http://www.ssc.wisc.edu/~jfrees/loss-data-analytics/loss-data-analytics-problems/">Frequency Distribution Guided Tutorials</a>
+<div class="figure" style="text-align: center"><span id="fig:DiscreteDF"></span>
+<img src="LossDataAnalytics_files/figure-html/DiscreteDF-1.png" alt="Distribution Function of a Discrete Random Variable" width="80%" />
+<p class="caption">
+Figure 6.3: Distribution Function of a Discrete Random Variable
 </p>
+</div>
+<p>Using the graph of the distribution function, with the inverse transform we may define <span class="math display">\[\begin{aligned}
+X = \left\{ \begin{array}{cc}
+              1 &amp;   0&lt;U  \leq 0.1  \\
+              2 &amp;  0.1 &lt; U  \leq  0.3\\
+              3 &amp;  0.3 &lt; U  \leq  0.4\\
+              4 &amp;  0.4 &lt; U  \leq  0.8  \\
+              5 &amp;  0.8 &lt; U  \leq  1.0     .
+            \end{array} \right.\end{aligned}\]</span></p>
+<p>For general discrete random variables there may not be an ordering of outcomes. For example, a person could own one of five types of life insurance products and we might use the following algorithm to generate random outcomes:</p>
+<p><span class="math display">\[\begin{aligned}
+X = \left\{ \begin{array}{cc}
+  \textrm{whole life} &amp;   0&lt;U  \leq 0.1  \\
+ \textrm{endowment} &amp;  0.1 &lt; U  \leq  0.3\\
+\textrm{term life} &amp;  0.3 &lt; U  \leq  0.4\\
+  \textrm{universal life} &amp;  0.4 &lt; U  \leq  0.8  \\
+  \textrm{variable life} &amp;  0.8 &lt; U  \leq  1.0 .
+            \end{array} \right.\end{aligned}\]</span></p>
+<p>Another analyst may use an alternative procedure such as:</p>
+<p><span class="math display">\[\begin{aligned}
+X = \left\{ \begin{array}{cc}
+  \textrm{whole life} &amp;   0.9&lt;U&lt;1.0  \\
+ \textrm{endowment} &amp;  0.7 \leq U &lt; 0.9\\
+\textrm{term life} &amp;  0.6 \leq U &lt; 0.7\\
+  \textrm{universal life} &amp;  0.2 \leq U &lt; 0.6  \\
+  \textrm{variable life} &amp;  0 \leq U &lt; 0.2 .
+            \end{array} \right.\end{aligned}\]</span></p>
+<p>Both algorithms produce (in the long-run) the same probabilities, e.g., <span class="math inline">\(\Pr(\textrm{whole life})=0.1\)</span>, and so forth. So, neither is incorrect. You should be aware that there is “more than one way to skin a cat.” (What an old expression!) Similarly, you could use an alterative algorithm for ordered outcomes (such as failure times 1, 2, 3, 4, or 5, above).</p>
+<p><strong>Mixed Distribution Example.</strong> Consider a random variable that is 0 with probability 70% and is exponentially distributed with parameter <span class="math inline">\(\theta= 10,000\)</span> with probability 30%. In practice, this might correspond to a 70% chance of having no insurance claims and a 30% chance of a claim - if a claim occurs, then it is exponentially distributed. The distribution function is given as</p>
+<p><span class="math display">\[\begin{aligned}
+F(y) = \left\{ \begin{array}{cc}
+              0 &amp;  x&lt;0  \\
+              1 - 0.3 \exp(-x/10000) &amp; x \ge 0 .
+            \end{array} \right.\end{aligned}\]</span></p>
+<div class="figure" style="text-align: center"><span id="fig:MixedDF"></span>
+<img src="LossDataAnalytics_files/figure-html/MixedDF-1.png" alt="Distribution Function of a Hybrid Random Variable" width="60%" />
+<p class="caption">
+Figure 6.4: Distribution Function of a Hybrid Random Variable
+</p>
+</div>
+<!-- ![image](MixedDF.eps){width=".6\textwidth"} -->
+<p>From the graph, we can see that the inverse transform for generating random variables with this distribution function is</p>
+<p><span class="math display">\[\begin{aligned}
+X = F^{-1}(U) = \left\{ \begin{array}{cc}
+              0 &amp;  0&lt; U  \leq  0.7  \\
+              -1000 \ln (\frac{1-U}{0.3}) &amp; 0.7 &lt; U &lt; 1 .
+            \end{array} \right.\end{aligned}\]</span></p>
+<p>As you have seen, for the discrete and mixed random variables, the key is to draw a graph of the distribution function that allows you to visualize potential values of the inverse function.</p>
+</div>
+<div id="how-many-simulated-values" class="section level2">
+<h2><span class="header-section-number">6.3</span> How Many Simulated Values?</h2>
+<p>There are many topics to be described in the study of simulation (and fortunately many good sources to help you). The best way to appreciate simulation is to experience it. One topic that inevitably comes up is the number of simulated trials needed to rid yourself of sampling variability so that you may focus on patterns of interest.</p>
+<p>How many simulated values are recommended? 100? 1,000,000? We can use the central limit theorem to respond to this question. Suppose that we wish to use simulation to calculate <span class="math inline">\(\mathrm{E~}h(X)\)</span>, where <span class="math inline">\(h(\cdot)\)</span> is some known function. Then, based on <span class="math inline">\(R\)</span> simulations (replications), we get $ X_1,,X_R$. From this simulated sample, we calculate a sample average <span class="math display">\[\overline{h}_R=\frac{1}{R}\sum_{i=1}^{R} h(X_i)\]</span> and a sample standard deviation <span class="math display">\[s_{h,R}^2 = \frac{1}{R} \sum_{i=1}^{R}\left( h(X_i) -\overline{h}_R
+\right) ^2.\]</span> So, <span class="math inline">\(\overline{h}_R\)</span> is your best estimate of <span class="math inline">\(\mathrm{E~}h(X)\)</span> and <span class="math inline">\(s_{h,R}^2\)</span> provides an indication of the uncertainty of your estimate. As one criterion for your confidence in the result, suppose that you wish to be within 1% of the mean with 95% certainty. According to the central limit theorem, your estimate should be approximately normally distributed. Thus, you should continue your simulation until <span class="math display">\[\frac{.01\overline{h}_R}{s_{h,R}/\sqrt{R}}\geq 1.96\]</span> or equivalently <span class="math display">\[R \geq 38,416\frac{s_{h,R}^2}{\overline{h}_R^2}.\]</span> This criterion is a direct application of the approximate normality (recall that 1.96 is the 97.5th percentile of the standard normal curve). Note that <span class="math inline">\(\overline{h}_R\)</span> and <span class="math inline">\(s_{h,R}\)</span> are not known in advance, so you will have to come up with estimates as you go (sequentially), either by doing a little pilot study in advance or by interrupting your procedure intermittently to see if the criterion is satisfied.</p>
 
 </div>
 </div>
@@ -924,8 +649,8 @@ s.setAttribute('data-timestamp', +new Date());
           </div>
         </div>
       </div>
-<a href="C-Intro.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="C-Severity.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="aggregate-loss-models.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="C-PremCalc.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -955,7 +680,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/rstudio/bookdown-demo/edit/master/Chapters/FrequencyDist.Rmd",
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/Chapters/Simulation28Jan2017.Rmd",
 "text": "Edit"
 },
 "download": ["LossDataAnalytics.pdf", "LossDataAnalytics.epub"],

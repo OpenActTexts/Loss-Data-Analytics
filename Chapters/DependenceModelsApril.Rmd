@@ -1,10 +1,32 @@
 # Dependence Modeling
 
 *Chapter Preview*. 
-In practice, there are many types of variables that one encounter and the first step in dependence modeling is identifying the type of variable you are dealing with to help direct you to the appropriate technique.This chapter introduces readers to variable types and techniques for modeling dependence or association of multivariate distributions. Section \@ref(S:VarTypes) provides an overview of the types of variables. Section \@ref(S:Measures) then elaborates basic measures for modeling the dependence between variables.
+In practice, there are many types of variables that one encounter and the first step in dependence modeling is identifying the type of variable you are dealing with to help direct you to the appropriate technique.This chapter introduces readers to variable types and techniques for modeling dependence or association of multivariate distributions. Section \@ref(S:Intro) motivates the importance of understanding what type of variable you are working with and Section \@ref(S:VarTypes) provides an overview of the types of variables. Section \@ref(S:Measures) then elaborates basic measures for modeling the dependence between variables.
 
 Section \@ref(S:Copula) introduces a novel approach to modeling dependence using Copulas which is reinforced with practical illustrations in Section \@ref(S:CopAppl). The types of Copula families and basic properties of Copula functions is explained Section \@ref(S:CopTyp). The chapter concludes by explaining why the study of dependence modeling is important in Section \@ref(S:CopImp).
 
+
+
+## Introduction {#S:Intro}
+
+
+Consider a pair of random variables *(Coverage,Claim)* as displayed in Figure \@ref(fig:IntroPlot) below. We would like to know whether the distribution of *Coverage* depends on the distribution of *Claim* or whether they are statistically independent. We would also want to know how the *Claim* distribution depends on the *EntityType* variable but as seen in later sections, the  *EntityType* variable belongs to a different class of variables. Hence, modeling the dependence between *Claim* and *Coverage* may require a different technique from that of *Claim* and *EntityType*. 
+
+
+```{r IntroPlot, fig.cap='Scatter plot of *(Coverage,Claim)* from LGPIF data',echo=FALSE, warning=FALSE,fig.width=7}
+library(ggplot2)
+Insample <- read.csv("Data/PropertyFundInsample.csv", header=T, na.strings=c("."), stringsAsFactors=FALSE)
+Claim<-Insample$y
+Coverage<-Insample$BCcov/1000000
+NoClaimCredit<-Insample$NoClaimCredit
+EntityType<-ifelse(Insample$TypeCity==1,"City",
+                   ifelse(Insample$TypeCounty==1,"County",
+                          ifelse(Insample$TypeMisc==1,"Misc",
+                                 ifelse(Insample$TypeSchool==1,"School",
+                                        ifelse(Insample$TypeTown==1,"Town",
+                                               ifelse(Insample$TypeVillage==1,"Village",0))))))
+qplot(Coverage,Claim,colour=EntityType, ylim = c(0,3000000), xlab = "Coverage(Million)")
+```
 
 
 
@@ -14,19 +36,13 @@ Section \@ref(S:Copula) introduces a novel approach to modeling dependence using
 In this section, you learn how to:
 
 - Classify variables as qualitative or quantitative. 
-- Describe multivariate variables.
+- Describe multivariate variables
 
 <hr />
 
+People, firms, and other entities that we want to understand are described in a dataset by numerical characteristics. As these characteristics vary by entity, they are commonly  known as *variables*. To manage insurance systems, it will be critical to understand the distribution of each variable and how they are associated with one another. It is common for datasets to have many variables (high dimensional) and so it useful to begin by classifying them into different types. As will be seen, these classifications are not strict; there is overlap among the groups.Nonetheless, the grouping summarized in Table \@ref(tab:VarTypes) and explained in the remainder of this section provide a solid first step in framing a data set.
 
-People, firms, and other entities that we want to understand are described in a dataset by numerical characteristics. As these characteristics vary by entity, they are commonly known as *variables*. To manage insurance systems, it will be critical to understand the distribution of each variable and how they are associated with one another. It is common for data sets to have many variables (high dimensional) and so it useful to begin by classifying them into different types. As will be seen, these classifications are not strict; there is overlap among the groups. Nonetheless, the grouping summarized in  [Table 14.1] and explained in the remainder of this section provide a solid first step in framing a data set.
-
-
-
-<a id=tab:14.1></a>  
-
-
-[Table 14.1]: \#tab:14.1
+Table : (\#tab:VarTypes) Variable Types
 
 $$
 {\small \begin{matrix}
@@ -61,46 +77,21 @@ Multivariate ~ Variable &            \\
 $$
 
 
-[Table 14.1] : Variable types
-
-
-In data analysis, it is important to understand what type of variable you are working with. For example, Consider a pair of random variables *(Coverage,Claim)* from the LGPIF data introduced in chapter 1 as displayed in Figure \@ref(fig:IntroPlot) below. We would like to know whether the distribution of *Coverage* depends on the distribution of *Claim* or whether they are statistically independent. We would also want to know how the *Claim* distribution depends on the *EntityType* variable. Because the  *EntityType* variable belongs to a different class of variables, modeling the dependence between *Claim* and *Coverage* may require a different technique from that of *Claim* and *EntityType*. 
-
-
-```{r IntroPlot, fig.cap='Scatter plot of *(Coverage,Claim)* from LGPIF data',echo=FALSE, warning=FALSE,fig.width=7}
-library(ggplot2)
-Insample <- read.csv("Data/Insample.csv", header=T, na.strings=c("."), stringsAsFactors=FALSE)
-Claim<-Insample$y
-Coverage<-Insample$BCcov/1000000
-NoClaimCredit<-Insample$NoClaimCredit
-EntityType<-ifelse(Insample$TypeCity==1,"City",
-                   ifelse(Insample$TypeCounty==1,"County",
-                          ifelse(Insample$TypeMisc==1,"Misc",
-                                 ifelse(Insample$TypeSchool==1,"School",
-                                        ifelse(Insample$TypeTown==1,"Town",
-                                               ifelse(Insample$TypeVillage==1,"Village",0))))))
-qplot(Coverage,Claim,colour=EntityType, ylim = c(0,3000000), xlab = "Coverage(Million)")
-```
-
-
-
 ### Qualitative Variables {#S:QuaVar}
 
 <hr />
 In this sub-section, you learn how to:
 
+- Describe binary variable and code it
 - Classify qualitative variables as nominal or ordinal 
-- Describe binary variable 
 
 <hr />
 
+Let us start with the simplest type, a binary variable. As suggested by its name, a *binary variable* is one with only two possible values. Although not necessary, the two values are commonly taken to be a 0 and a 1. Binary variables are typically used to indicate whether or not an entity possesses an attribute. For example, we might code a variable in a dataset to be a 1 if an insured is female and a 0 if male.  (An *insured* is a person who is covered under an insurance agreement). 
 
-A *qualitative*, or *categorical*, variable is one for which the measurement denotes membership in a set of groups, or categories. For example, if you were coding which area of the country an insured resides, you might use a 1 for the northern part, 2 for southern, and 3 for everything else. This location variable is an example of a *nominal* variable, one for which the levels have no natural ordering. Any analysis of nominal variables should not depend on the labeling of the categories. For example, instead of using a 1,2,3 for north, south, other, I should arrive at the same set of summary statistics if I used a 2,1,3 coding instead, interchanging north and south. 
+More generally, a *qualitative*, or *categorical*, variable is one for which the measurement denotes membership in a set of groups, or categories. For example, if you were coding in which area of the country in which an insured resides, you might use a 1 for the northern part, 2 for southern, and 3 for everything else. A binary variable is a special type of categorical variable where there are only two categories. This location variable is an example of a *nominal* variable, one for which the levels have no natural ordering. Any analysis of nominal variables should not depend on the labeling of the categories. For example, instead of using a 1,2,3 for north, south, other, I should arrive at the same set of summary statistics if I used a 2,1,3 coding instead, interchanging north and south. 
 
 In contrast, an *ordinal* variable is a type of categorical variable for which an ordering does exist. For example, with a survey to see how satisfied customers are with our claims servicing department, we might use a five point scale that ranges from 1 meaning dissatisfied to a 5 meaning satisfied. Ordinal variables provide a clear ordering of levels of a variable but the amount of separation between levels is unknown.
-
-A *binary* variable is a special type of categorical variable where there are only two categories commonly taken to be a 0 and a 1. For example, we might code a variable in a dataset to be a 1 if an insured is female and a 0 if male. 
-
 
 ### Quantitative Variables {#S:QuanVar}
 
@@ -113,29 +104,42 @@ In this sub-section, you learn how to:
 
 <hr />
 
-Unlike a qualitative variable, a quantitative variable is one in which numerical level is a realization from some scale so that the distance between any two levels of the scale takes on meaning. A *continuous variable* is one that can take on any value within a finite interval. For example, it is common to represent a policyholder's age, weight, or income, as a continuous variable. In contrast, a *discrete variable* is one that takes on only a finite number of values in any finite interval. Like an ordinal variable, these represent distinct categories that are ordered. Unlike an ordinal variable, the numerical difference between levels takes on economic meaning. A special type of discrete variable is a *count variable*, one with values on the nonnegative integers. For example, we will be particularly interested in the number of claims arising from a policy during a given period. 
+Unlike a qualitative variable, a quantitative variable is one in which numerical level is a realization from some scale so that the distance between any two levels of the scale takes on meaning.
 
+A *continuous variable* is one that can take on any value within a finite interval. For example, it is common to represent a policyholder's age, weight, or income, as a continuous variable.
 
-Some variables are inherently a *combination of discrete and continuous* components. For example, when we analyze the insured loss of a policyholder, we will encounter a discrete outcome at zero, representing no insured loss, and a continuous amount for positive outcomes, representing the amount of the insured loss. Another interesting variation is an *interval variable*, one that gives a range of possible outcomes. 
+In contrast, a *discrete variable* is one that takes on only a finite number of values in any finite interval. For example, when examining a policyholder's choice of deductibles, it may be that values of 0, 250, 500, and 1000 are the only possible outcomes. Like a ordinal variable, these represent distinct categories that are ordered. Unlike an ordinal variable, the numerical difference between levels takes on economic meaning.
+
+A special type of discrete variable is a *count variable*, one with values on the nonnegative integers 0, 1, 2, $\ldots.$ For example, we will be particularly interested in the number of claims arising from a policy during a given period. This is known as the *claim frequency*.
+
+Given that we will develop ways to analyze discrete variables, do we really need separate methods for dealing with continuous variables? After all, one can argue that few things in the physical world are truly continuous. For example, each currency has a smallest unit that is not subdivided further. (In the US, you cannot pay for anything smaller than one cent.) Nonetheless, models using continuous variables serve as excellent approximations to real-world discrete outcomes, in part due to their simplicity. It will be well worth our time and effort to develop models and analyze continuous and discrete variables differently.
+
+Having said that, some variables are inherently a *combination of discrete and continuous* components. For example, when we analyze the insured loss of a policyholder, we will encounter a discrete outcome at zero, representing no insured loss, and a continuous amount for positive outcomes, representing the amount of the insured loss. Another interesting variation is an *interval variable*, one that gives a range of possible outcomes. 
 
 *Circular data* represent an interesting category typically not analyzed by insurers. As an example of circular data, suppose that you monitor calls to your customer service center and would like to know when is the peak time of the day for calls to arrive. In this context, one can think about the time of the day as a variable with realizations on a circle, e.g., imagine an analog picture of a clock. For circular data, the distance between observations at 00:15 and 00:45 are just as close as observations 23:45 and 00:15 (here, we use the convention *HH:MM* means hours and minutes).
 
-
 ### Multivariate Variables
+
+
 
 <hr />
 In this sub-section, you learn how to:
 
 - Differentiate between univariate and multivariate data
-- Handle missing variables 
+- Code missing variables 
+- Describe aggregate claims
 
 <hr />
 
-Insurance data typically are *multivariate* in the sense that we can take many measurements on a single entity. For example, when studying losses associated with a firm's worker's compensation plan, we might want to know the location of its manufacturing plants, the industry in which it operates, the number of employees, and so forth. The usual strategy for analyzing multivariate data is to begin by examining each variable in isolation of the others. This is known as a *univariate* approach. 
+Insurance data typically are *multivariate* in the sense that we can take many measurements on a single entity. For example, when studying losses associated with a firm's worker's compensation plan, we might want to know the location of its manufacturing plants, the industry in which it operates, the number of employees, and so forth. If there are many variables, such data are also known as *high dimensional*.
 
-In contrast, for some variables, it makes little sense to only look at one dimensional aspects. For example, insurers typically organize *spatial* data by longitude and latitude to analyze the location of weather related insurance claims due hailstorms. Having only a single number, either longitude or latitude, provides little information in understanding geographical location.
+The usual strategy for analyzing multivariate data is to begin by examining each variable in isolation of the others. This is known as a *univariate* approach. By considering only one measurement, variables are *scalars* and, as described, can be thought broadly as either qualitative or quantitative.
 
-Another special case of a multivariate variable, less obvious, involves coding for *missing data*. When data are missing, it is better to think about the variable as two dimensions, one to indicate whether or not the variable is reported and the second providing the age (if reported). In the same way, insurance data are commonly *censored* and *truncated*. We refer you to Chapter 4 for more on censored and truncated data. *Aggregate claims* can also be coded as another special type of multivariate variable. We refer you to Chapter 5 for more Aggregate claims.
+In contrast, for some variables, it makes little sense to only look a one dimensional aspects. For example, insurers typically organize *spatial* data by longitude and latitude to analyze the location of weather related insurance claims due hailstorms. Having only a single number, either longitude or latitude, provides little information in understanding geographical location.
+
+Another special case of a multivariate variable, less obvious, involves coding for *missing data*. Historically, some statistical packages used a -99 to report when a variable, such as policyholder's age, was not available or not reported. This led to many unsuspecting analysts providing strange statistics when summarizing a set of data. When data are missing, it is better to think about the variable as two dimensions, one to indicate whether or not the variable is reported and the second providing the age (if reported). In the same way, insurance data are commonly *censored* and *truncated*. We refer you to Chapter 4 for more on censored and truncated data. 
+
+*Aggregate claims* can also be coded as another special type of multivariate variable. In this situation, an insurer has potentially zero, one, two, or more claims, within a policy period. Each claim has its own level (possibly mediated by deductibles and upper limits) and there are an uncertain, or random, number of each claims for each individual. This is a case where the the dimension of the multivariate variable is not known in advance.
 
 Perhaps the most complicated type of multivariate variable is a *realization of a stochastic process*. You will recall that a stochastic process is little more than a collection of random variables. For example, in insurance, we might think about the times that claims arrive to an insurance company in a one year time horizon. This is a high dimensional variable that theoretically is infinite dimensional. Special techniques are required to understand realizations of stochastic processes that will not be addressed here.
 
@@ -146,7 +150,7 @@ Perhaps the most complicated type of multivariate variable is a *realization of 
 In this section, you learn how to:
 
 - Estimate correlation using Pearson method 
-- Use rank based measures like Spearman, Kendall to estimate correlation
+- Use rank based measures like Spearman, Kendall and Blomqvist’s Beta to estimate correlation
 - Measure dependence using odds ratio,Pearson chi-square and likelihood ratio test statistic 
 - Use normal-based correlations to quantify associations involving ordinal variables
 
@@ -216,7 +220,7 @@ From `R` output above, $r=0.31$ , which indicates a positive association between
 
 The Pearson correlation coefficient does have the drawback that it is not invariant to nonlinear transforms of the data. For example, the correlation between $X$ and $\ln Y$ can be quite different from the correlation between $X$ and $Y$. As we see from the `R` code for Pearson correlation statistic above, the correlation statistic $r$ between *Coverage* rating variable in logarithmic millions of dollars and *Claim* amounts variable in dollars is $0.1$ as compared to $0.31$ when we calculate the correlation between *Coverage* rating variable in millions of dollars and *Claim* amounts variable in dollars. This limitation is one reason for considering alternative statistics.
 
-Alternative measures of correlation are based on ranks of the data. Let $R(X_j)$ denote the rank of $X_j$ from the sample $X_1, \ldots, X_n$ and similarly for $R(Y_j)$. Let $R(X) = \left(R(X_1), \ldots, R(X_n)\right)'$ denote the vector of ranks, and similarly for $R(Y)$. For example, if $n=3$ and $X=(24, 13, 109)$, then $R(X)=(2,1,3)$. A comprehensive introduction of rank statistics can be found in, for example, [@hettmansperger1984statistical]. Also, ranks can be used to obtain the empirical distribution function, refer to section 4.1.1 for more on the empirical distribution function.
+Alternative measures of correlation are based on ranks of the data. Let $R(X_j)$ denote the rank of $X_j$ from the sample $X_1, \ldots, X_n$ and similarly for $R(Y_j)$. Let $R(X) = \left(R(X_1), \ldots, R(X_n)\right)'$ denote the vector of ranks, and similarly for $R(X)$. For example, if $n=3$ and $X=(24, 13, 109)$, then $R(X)=(2,1,3)$. A comprehensive introduction of rank statistics can be found in, for example, [@hettmansperger1984statistical].
 
 With this, the correlation measure of [@spearman1904proof] is simply the product-moment correlation computed on the ranks:
 \begin{equation*}
@@ -263,22 +267,16 @@ To show that the Spearman correlation statistic is invariate under strictly incr
 
 #### Kendall
 
-An alternative measure that uses ranks is based on the concept of *concordance*. An observation pair $(X,Y)$ is said to be concordant (discordant) if the observation with a larger value of $X$ has also the larger (smaller) value of $Y$. Then $\Pr(concordance) = \Pr[ (X_1-X_2)(Y_1-Y_2) >0 ]$ , $\Pr(discordance) = \Pr[ (X_1-X_2)(Y_1-Y_2) <0 ]$ and
-
+An alternative measure that uses ranks is based on the concept of *concordance*. An observation pair $(X,Y)$ is said to be concordant (discordant) if the observation with a larger value of $X$ has also the larger (smaller) value of $Y$. Then
+$\Pr(concordance) = \Pr[ (X_1-X_2)(Y_1-Y_2) >0 ]$,  $\Pr(discordance) = \Pr[ (X_1-X_2)(Y_1-Y_2) <0 ]$, and
 \begin{eqnarray*}
 \tau(X,Y)= \Pr(concordance) - \Pr(discordance) = 2\Pr(concordance) - 1 + \Pr(tie).
 \end{eqnarray*}
 
 To estimate this, the pairs $(X_i,Y_i)$ and $(X_j,Y_j)$ are said to be concordant if the product $sgn(X_j-X_i)sgn(Y_j-Y_i)$ equals 1 and discordant if the product equals -1. Here, $sgn(x)=1,0,-1$ as $x>0$, $x=0$, $x<0$, respectively. With this, we can express the association measure of [@kendall1938new], known as *Kendall's tau*, as
-
 \begin{equation*}
-\begin{array}{rl}
-\tau &= \frac{2}{n(n-1)} \sum_{i<j}sgn(X_j-X_i)sgn(Y_j-Y_i)\\
-&= \frac{2}{n(n-1)} \sum_{i<j}sgn(R(X_j)-R(X_i))sgn(R(Y_j)-R(Y_i)) 
-\end{array}.
+\tau = \frac{2}{n(n-1)} \sum_{i<j}sgn(X_j-X_i)sgn(Y_j-Y_i)= \frac{2}{n(n-1)} \sum_{i<j}sgn(R(X_j)-R(X_i))sgn(R(Y_j)-R(Y_i)) .
 \end{equation*}
-
-
 Interestingly, [@hougaard2000analysis], page 137, attributes the original discovery of this statistic to [@fechnerkollektivmasslehre], noting that Kendall's discovery was independent and more complete than the original work.
 
 
@@ -319,6 +317,70 @@ Also,to show that the Kendall's tau is invariate under strictly increasing trans
 
 
 
+#### Blomqvist's Beta
+
+[@blomqvist1950measure] developed a measure of dependence now known as Blomqvist's beta, also called the median concordance coefficient and the medial correlation coefficient. Using distribution functions, this parameter can be expressed as
+\begin{equation*}
+\beta = 4F\left(F^{-1}_X(1/2),F^{-1}_Y(1/2) \right) - 1.
+\end{equation*}
+That is, first evaluate each marginal at its median ($F^{-1}_X(1/2)$ and $F^{-1}_Y(1/2)$, respectively). Then, evaluate the bivariate distribution function at the two medians. After rescaling (multiplying by 4 and subtracting 1), the coefficient turns out to have a range of $[-1,1]$, where 0 occurs under independence.
+
+Like Spearman's rho and Kendall's tau, an estimator based on ranks is easy to provide. First write $\beta = 4C(1/2,1/2)-1 = 2\Pr((U_1-1/2)(U_2-1/2))-1$ where $U_1, U_2$ are uniform random variables. Then, define
+\begin{equation*}
+\hat{\beta} = \frac{2}{n} \sum_{i=1}^n I\left( (R(X_{i})-\frac{n+1}{2})(R(Y_{i})-\frac{n+1}{2}) \ge 0 \right)-1 .
+\end{equation*}
+See, for example, [@joe2014dependence], page 57 or [@hougaard2000analysis], page 135, for more details.
+
+Because Blomqvist's parameter is based on the center of the distribution, it is particularly useful when data are censored; in this case, information in extreme parts of the distribution are not always reliable. How does this affect a choice of association measures? First, recall that association measures are based on a bivariate distribution function. So, if one has knowledge of a good approximation of the distribution function, then calculation of an association measure is straightforward in principle. Second, for censored data, bivariate extensions of the univariate Kaplan-Meier distribution function estimator are available. For example, the version introduced in [@dabrowska1988kaplan] is appealing. However, because of instances when large masses of data appear at the upper range of the data, this and other estimators of the bivariate distribution function are unreliable. This means that, summary measures of the estimated distribution function based on Spearman's rho or Kendall's tau can be unreliable. For this situation, Blomqvist's beta appears to be a better choice as it focuses on the center of the distribution. [@hougaard2000analysis], Chapter 14, provides additional discussion.
+
+You can obtain the Blomqvist's beta, using the `betan()` function from the `copula` library in `R`. From below, $\beta=0.3$ between the *Coverage* rating variable in millions of dollars and *Claim* amount  variable in dollars. 
+
+```{r comment="", results='hide', echo=FALSE, warning=FALSE}
+### Blomqvist's beta correlation between Claim and Coverage ###
+library(copula)
+n<-length(Claim)
+U<-cbind(((n+1)/n*pobs(Claim)),((n+1)/n*pobs(Coverage)))
+beta<-betan(U, scaling=FALSE)
+round(beta,2)
+
+### Blomqvist's beta correlation between Claim and log(Coverage) ###
+n<-length(Claim)
+Fx<-cbind(((n+1)/n*pobs(Claim)),((n+1)/n*pobs(log(Coverage))))
+beta<-betan(Fx, scaling=FALSE)
+round(beta,2)
+```
+
+<h5 style="text-align: center;"><a id="display.beta.1" href="javascript:togglecode
+('display.beta.2','display.beta.1');"><i><strong>R Code for Blomqvist's Beta</strong></i></a> </h5>
+<div id="display.beta.2" style="display: none">
+
+``` 
+### Blomqvist's beta correlation between Claim and Coverage ###
+library(copula)
+n<-length(Claim)
+U<-cbind(((n+1)/n*pobs(Claim)),((n+1)/n*pobs(Coverage)))
+beta<-betan(U, scaling=FALSE)
+round(beta,2)
+
+Output:
+[1]  0.3
+
+### Blomqvist's beta correlation between Claim and log(Coverage) ###
+n<-length(Claim)
+Fx<-cbind(((n+1)/n*pobs(Claim)),((n+1)/n*pobs(log(Coverage))))
+beta<-betan(Fx, scaling=FALSE)
+round(beta,2)
+
+Output:
+[1]  0.3
+```
+</div>  
+
+
+In addition,to show that the Blomqvist's beta is invariate under strictly increasing transformations , $\beta=0.3$ between the *Coverage* rating variable in logarithmic millions of dollars and *Claim* amount variable in dollars. 
+
+
+
 ### Nominal Variables
 
 #### Bernoulli Variables
@@ -328,7 +390,7 @@ To see why dependence measures for continuous variables may not be the best for 
 \begin{eqnarray*}
 \rho = \frac{\pi_{11} - \pi_X \pi_Y}{\sqrt{\pi_X(1-\pi_X)\pi_Y(1-\pi_Y)}} .
 \end{eqnarray*}
-Unlike the case for continuous data, it is not possible for this measure to achieve the limiting boundaries of the interval $[-1,1]$. To see this, students of probability may recall the Fr$\acute{e}$chet-H$\ddot{o}$effding bounds for a joint distribution that turn out to be $\max\{0, \pi_X+\pi_Y-1\} \le \pi_{11} \le \min\{\pi_X,\pi_Y\}$ for this joint probability. This limit on the joint probability imposes an additional restriction on the Pearson correlation. As an illustration, assume equal probabilities $\pi_X =\pi_Y = \pi > 1/2$. Then, the lower bound is
+Unlike the case for continuous data, it is not possible for this measure to achieve the limiting boundaries of the interval $[-1,1]$. To see this, students of probability may recall the Fr\'{e}chet-H\"{o}effding bounds for a joint distribution that turn out to be $\max\{0, \pi_X+\pi_Y-1\} \le \pi_{11} \le \min\{\pi_X,\pi_Y\}$ for this joint probability. This limit on the joint probability imposes an additional restriction on the Pearson correlation. As an illustration, assume equal probabilities $\pi_X =\pi_Y = \pi > 1/2$. Then, the lower bound is
 \begin{eqnarray*}
 \frac{2\pi - 1 - \pi^2}{\pi(1-\pi)} = -\frac{1-\pi}{\pi} .
 \end{eqnarray*}
@@ -340,10 +402,9 @@ As an alternative measure for Bernoulli variables, the *odds ratio* is given by
 \begin{eqnarray*}
 OR(\pi_{11}) = \frac{\pi_{11} \pi_{00}}{\pi_{01} \pi_{10}} = \frac{\pi_{11} \left( 1+\pi_{11}-\pi_1 -\pi_2\right)}{(\pi_1-\pi_{11})(\pi_2- \pi_{11})} .
 \end{eqnarray*}
-Pleasant calculations show that $OR(z)$ is $0$ at the lower Fr$\acute{e}$chet-H$\ddot{o}$effding bound $z= \max\{0, \pi_1+\pi_2-1\}$ and is $\infty$ at the upper bound $z=\min\{\pi_1,\pi_2\}$. Thus, the bounds on this measure do not depend on the marginal probabilities $\pi_X$ and $\pi_Y$, making it easier to interpret this measure.
+Pleasant calculations show that $OR(z)$ is $0$ at the lower Fr\'{e}chet-H\"{o}effding bound $z= \max\{0, \pi_1+\pi_2-1\}$ and is $\infty$ at the upper bound $z=\min\{\pi_1,\pi_2\}$. Thus, the bounds on this measure do not depend on the marginal probabilities $\pi_X$ and $\pi_Y$, making it easier to interpret this measure.
 
 As noted by [@yule1900association], odds ratios are invariant to the labeling of 0 and 1. Further, they are invariant to the marginals in the sense that one can rescale $\pi_1$ and $\pi_2$ by positive constants and the odds ratio remains unchanged. Specifically, suppose that $a_i$, $b_j$ are sets of positive constants and that
-
 \begin{eqnarray*}
 \pi_{ij}^{new} &=& a_i b_j \pi_{ij}
 \end{eqnarray*}
@@ -363,34 +424,26 @@ and the second in [@yule1912methods],
 \end{eqnarray*}
 Although these statistics provide the same information as is the original odds ration $OR$, they have the advantage of taking values in the interval $[-1,1]$, making them easier to interpret.
 
-In a later section, we will also see that the marginal distributions have no effect on the Fr$\acute{e}$chet-H$\ddot{o}$effding of the tetrachoric correlation, another measure of association, see also, [@joe2014dependence], page 48. 
+In a later section, we will also see that the marginal distributions have no effect on the Fr\'{e}chet-H\"{o}effding bounds of the tetrachoric correlation, another measures of association, see also, [@joe2014dependence], page 48. 
 
-
-<a id=tab:14.2></a>
-
-
-[Table 14.2]:\#tab:14.2
-
+Table : (\#tab:2by2) 2 $\times$ 2 table of counts for *Fire5* and *NoClaimCredit*
 $$
 {\small \begin{matrix}
 \begin{array}{|l|rr|r|} 
     \hline
-                  & \text{Fire5} & & \\
-\text{NoClaimCredit} & 0     & 1     & \text{Total} \\
+                  & Fire5 & & \\
+NoClaimCredit & 0     & 1     & Total \\
   \hline
            0  & 1611  & 2175  & 3786 \\
            1  & 897   & 956   & 1853 \\
     \hline
-    \text{Total}    & 2508  & 3131  & 5639 \\
+    Total    & 2508  & 3131  & 5639 \\
    \hline
 \end{array}
 \end{matrix}}
 $$
 
-[Table 14.2] : 2 $\times$ 2 table of counts for *Fire5* and *NoClaimCredit*
-
-
-From [Table 14.2], $OR(\pi_{11})=\frac{1611(956)}{897(2175)}=0.79$. You can obtain the $OR(\pi_{11})$, using the `oddsratio()` function from the `epitools` library in `R`. From the output below, $OR(\pi_{11})=0.79$ for the binary variables *NoClaimCredit*  and *Fier5* from the LGPIF data.
+From Table \@ref(tab:2by2), $OR(\pi_{11})=\frac{1611(956)}{897(2175)}=0.79$. You can obtain the $OR(\pi_{11})$, using the `oddsratio()` function from the `epitools` library in `R`. From the output below, $OR(\pi_{11})=0.79$ for the binary variables *NoClaimCredit*  and *Fier5* from the LGPIF data.
 
 ```{r echo=FALSE,warning=FALSE}
 NoClaimCredit<-Insample$NoClaimCredit
@@ -442,33 +495,27 @@ Under the null hypothesis of independence, we have $\pi_{jk} =\pi_{X,j}\pi_{Y,k}
 
 Classical approaches, as described in [@bishop1975discrete] (page 374), distinguish between tests of independence and measures of associations. The former are designed to detect whether a relationship exists whereas the latter are meant to assess the type and extent of a relationship. We acknowledge these differing purposes but also less concerned with this distinction for actuarial applications.
 
-<a id=tab:14.3></a>
-
-
-[Table 14.3]:\#tab:14.3
-
-
+Table : (\#tab:TwoWayNoClEnt) Two-way table of counts for *EntityType* and *NoClaimCredit*
 $$
 {\small \begin{matrix}
 \begin{array}{|l|rr|} 
     \hline
-                  & \text{NoClaimCredit} &  \\
-       \text{EntityType} & 0     & 1      \\
+                  & NoClaimCredit &  \\
+       EntityType & 0     & 1      \\
   \hline
-            \text{City}    & 644  & 149 \\
-          \text{County}    & 310  &  18 \\
-            \text{Misc}    & 336  & 273 \\
-          \text{School}    & 1103 & 494 \\
-           \text{Town}     & 492  & 479 \\
-         \text{Village}    & 901  & 440 \\
+            City    & 644  & 149 \\
+          County    & 310  &  18 \\
+            Misc    & 336  & 273 \\
+          School    & 1103 & 494 \\
+           Town     & 492  & 479 \\
+         Village    & 901  & 440 \\
    \hline
 \end{array}
 \end{matrix}}
 $$
 
-[Table 14.3] : Two-way table of counts for *EntityType* and *NoClaimCredit*
 
-You can obtain the Pearson chi-square statistic, using the `chisq.test()` function from the `MASS` library in `R`. Here, we test whether the  *EntityType*  variable is independent of *NoClaimCredit* variable using [Table 14.3].
+Table \@ref(tab:TwoWayNoClEnt) gives the two-way table of counts for *EntityType* and *NoClaimCredit*. You can obtain the Pearson chi-square statistic, using the `chisq.test()` function from the `MASS` library in `R`. Here, we test whether the  *EntityType*  variable is independent of *NoClaimCredit* variable from the LGPIF data.
 
 ```{r echo=FALSE,warning=FALSE, results='hide', echo=FALSE}
 library(pander)
@@ -555,40 +602,30 @@ As described in Section \@ref(S:QuaVar), ordinal variables provide a clear order
 
 #### Parametric Approach Using Normal Based Correlations
 
-Refer to page 60, Section 2.12.7 of [@joe2014dependence]. Let $(y_1,y_2)$ be a bivariate pair with discrete values on $m_1, \ldots, m_2$. For a two-way table of ordinal counts, let $n_{st}$ be the number in the $s$th row, $t$ column. Let $(n_{m_1*}, \ldots, n_{m_2*})$ be the row margin total and $(n_{*m_1}, \ldots, n_{*m_2})$ be the column margin total.
+Refer to page 60, Section 2.12.7 of [@joe2014dependence]. Let $(y_1,y_2)$ be a bivariate pair with discrete values on $m_1, \ldots, m_2$. For a two-way table of ordinal counts, let $n_{st}$ be the number in the $s$th row, $t$ column. Let $(n_{m_1+}, \ldots, n_{m_2+})$ be the row margin total and $(n_{+m_1}, \ldots, n_{+m_2})$ be the column margin total.
 
 
-Let $\hat{\xi}_{1s} = \Phi^{-1}((n_{m_1}+\cdots+n_{s*})/n)$ for $s=m_1, \ldots, m_2$ be a cutpoint and similarly for $\hat{\xi}_{2t}$. The *polychoric* correlation, based on a two-step estimation procedure, is
+Let $\hat{\xi}_{1s} = \Phi^{-1}((n_{m_1}+\cdots+n_{s+})/n)$ for $s=m_1, \ldots, m_2$ be a cutpoint and similarly for $\hat{\xi}_{2t}$. The *polychoric* correlation, based on a two-step estimation procedure, is
 
-
-
-  \begin{eqnarray*}
-\begin{array}{cr}
-  \hat{\rho_N} &=\text{argmax}_{\rho}
-  \sum_{s=m_1}^{m_2} \sum_{t=m_1}^{m_2} n_{st} \log\left\{
-    \Phi_2(\hat{\xi}_{1s}, \hat{\xi}_{2t};\rho)
-    -\Phi_2(\hat{\xi}_{1,s-1}, \hat{\xi}_{2t};\rho) \right.\\
-   & \left. -\Phi_2(\hat{\xi}_{1s}, \hat{\xi}_{2,t-1};\rho)
-    +\Phi_2(\hat{\xi}_{1,s-1}, \hat{\xi}_{2,t-1};\rho)
-    \right\}
-\end{array}
+\begin{eqnarray*}
+\hat{\rho_N} = \text{argmax}_{\rho}
+\sum_{s=m_1}^{m_2} \sum_{t=m_1}^{m_2} n_{st} \log\left\{
+\Phi_2(\hat{\xi}_{1s}, \hat{\xi}_{2t};\rho)
+-\Phi_2(\hat{\xi}_{1,s-1}, \hat{\xi}_{2t};\rho)
+-\Phi_2(\hat{\xi}_{1s}, \hat{\xi}_{2,t-1};\rho)
++\Phi_2(\hat{\xi}_{1,s-1}, \hat{\xi}_{2,t-1};\rho)
+\right\}
 \end{eqnarray*}
 
 It is called a tetrachoric correlation for binary variables.
 
-<a id=tab:14.4></a>
-
-
-[Table 14.4]:\#tab:14.4
-
-
-
+Table : (\#tab:TwoWayAlEnt) Two-way table of counts for *AlarmCredit* and *NoClaimCredit*
 $$
 {\small \begin{matrix}
 \begin{array}{|l|rr|} 
     \hline
-                  & \text{NoClaimCredit} &  \\
-\text{AlarmCredit} & 0     & 1      \\
+                  & NoClaimCredit &  \\
+AlarmCredit & 0     & 1      \\
   \hline
           1  & 1669  &  942   \\
           2  &    121 &  118 \\
@@ -599,10 +636,8 @@ $$
 \end{matrix}}
 $$
 
-[Table 14.4] : Two-way table of counts for *AlarmCredit* and *NoClaimCredit*
 
-
-You can obtain the polychoric or tetrachoric correlation using the `polychoric()` or `tetrachoric()` function from the `psych` library in `R`. The polychoric correlation is illustrated using [Table 14.4].  $\hat{\rho_N}=-0.14$, which means that there is a negative relationship between *AlarmCredit* and *NoClaimCredit*.
+You can obtain the polychoric or tetrachoric correlation using the `polychoric()` or `tetrachoric()` function from the `psych` library in `R`. From Table \@ref(tab:TwoWayAlEnt), the polychoric correlation is illustrated using *AlarmCredit*  and *NoClaimCredit* variable from the LGPIF data.  $\hat{\rho_N}=-0.14$, which means that there is a negative relationship between *AlarmCredit* and *NoClaimCredit*.
 
 ```{r echo=FALSE,warning=FALSE, message=FALSE, results='hide', echo=FALSE}
 NoClaimCredit<-as.numeric(Insample$NoClaimCredit)
@@ -643,6 +678,91 @@ Output:
 ```
 </div>  
 
+#### Nonparametric Approach Using Spearman Correlation with Tied Ranks
+
+
+For the first variable, the average rank of observations in the $s$th row is
+\begin{equation*}
+r_{1s} = n_{m_1+}+ \cdots+ n_{s-1,+}+ \frac{1}{2} \left(1+ n_{s+}\right)
+\end{equation*}
+and similarly $r_{2t} = \frac{1}{2} \left[(n_{+m_1}+ \cdots+ n_{+,s-1}+1)+ (n_{+m_1}+ \ldots+ n_{+s})\right]$. With this, we have Spearman's rho with tied rank is
+\begin{equation*}
+\hat{\rho}_S = \frac{\sum_{s=m_1}^{m_2} \sum_{t=m_1}^{m_2} n_{st}(r_{1s} - \bar{r})(r_{2t} - \bar{r})}
+{\left[\sum_{s=m_1}^{m_2}n_{s+}(r_{1s} - \bar{r})^2 \sum_{t=m_1}^{m_2} n_{+t}(r_{2t} - \bar{r})^2
+\right]^2}
+\end{equation*}
+
+where the average rank is $\bar{r} = (n+1)/2$.
+
+
+
+<h5 style="text-align: center;"><a id="display.Thry.1" href="javascript:togglecode
+('display.Thry.2','display.Thry.1');"><i><strong>Click to Show Proof for Special Case: Binary Data.</strong></i></a> </h5>
+<div id="display.Thry.2" style="display: none">
+
+
+Special Case: Binary Data.  Here, $m_1=0$ and $m_2=1$. For the first variable ranks, we have $r_{10} = (1+n_{0+})/2$ and $r_{11} = (n_{0+}+1+n)/2$. Thus, $r_{10} -\bar{r}= (n_{0+}-n)/2$ and $r_{11}-\bar{r} = n_{0+}/2$.
+This means that we have $\sum_{s=0}^{1}n_{s+}(r_{1s} - \bar{r})^2 = n (n-n_{0+})n_{0+}/4$ and similarly for the second variable. For the numerator, we have
+\begin{eqnarray*}
+\sum_{s=0}^{1}  \sum_{t=0}^{1} && n_{st}(r_{1s} - \bar{r})(r_{2t} - \bar{r})\\
+&=& n_{00} \frac{n_{0+}-n}{2} \frac{n_{+0}-n}{2}
++n_{01} \frac{n_{0+}-n}{2} \frac{n_{+0}}{2}
++n_{10} \frac{n_{0+}}{2} \frac{n_{+0}-n}{2}
++n_{11} \frac{n_{0+}}{2} \frac{n_{+0}}{2} \\
+&=& \frac{1}{4}(n_{00} (n_{0+}-n) (n_{+0}-n)
++(n_{0+}-n_{00}) (n_{0+}-n)n_{+0} \\
+&&  ~ ~ ~ +(n_{+0}-n_{00})  n_{0+}(n_{+0}-n)
++(n-n_{+0}-n_{0+}+n_{00}) n_{0+}n_{+0} ) \\
+&=& \frac{1}{4}(n_{00} n^2
+- n_{0+} (n_{0+}-n)n_{+0} \\
+&& ~ ~ ~ +n_{+0}  n_{0+}(n_{+0}-n)
++(n-n_{+0}-n_{0+}) n_{0+}n_{+0} ) \\
+&=& \frac{1}{4}(n_{00} n^2
+- n_{0+}n_{+0} (n_{0+}-n +n_{+0}-n
++n-n_{+0}-n_{0+}) \\
+&=& \frac{n}{4}(n n_{00} - n_{0+}n_{+0}) .
+\end{eqnarray*}
+
+This yields
+\begin{eqnarray*}
+\hat{\rho}_S &=& \frac{n(n n_{00} - n_{0+}n_{+0})}
+{4\sqrt{(n (n-n_{0+})n_{0+}/4)(n (n-n_{+0})n_{+0}/4)}} \\
+&=& \frac{n n_{00} - n_{0+}n_{+0}}
+{\sqrt{ n_{0+} n_{+0}(n-n_{0+}) (n-n_{+0})}} \\
+&=& \frac{n_{00} - n (1-\hat{\pi}_X)(1- \hat{\pi}_Y)}
+{\sqrt{\hat{\pi}_X(1-\hat{\pi}_X)\hat{\pi}_Y(1-\hat{\pi}_Y) }}
+\end{eqnarray*}
+where $\hat{\pi}_X = (n-n_{0+})/n$ and similarly for $\hat{\pi}_Y$. Note that this is same form as the Pearson measure. From this, we see that the joint count $n_{00}$ drives this association measure.
+
+
+</div>  
+
+\bigskip
+
+You can obtain the ties-corrected Spearman correlation statistic $r_S$ using the `cor()` function in `R` and selecting the `spearman` method.  From below $\hat{\rho}_S=-0.09$
+
+```{r comment="", results='hide', echo=FALSE}
+rs_ties<-cor(AlarmCredit,NoClaimCredit, method = c("spearman"))
+round(rs_ties,2)
+```
+
+
+<h5 style="text-align: center;"><a id="display.spearT.1" href="javascript:togglecode
+('display.spearT.2','display.spearT.1');"><i><strong>R Code for Ties-corrected Spearman Correlation</strong></i></a> </h5>
+<div id="display.spearT.2" style="display: none">
+
+``` 
+rs_ties<-cor(AlarmCredit,NoClaimCredit, method = c("spearman"))
+round(rs_ties,2)
+
+Output:
+[1] -0.09
+```
+</div>  
+
+
+
+
 
 
 #### Interval Variables
@@ -660,9 +780,9 @@ The polyserial correlation is defined similarly, when one variable ($y_1$) is co
 \begin{eqnarray*}
 \hat{\rho_N} = \text{argmax}_{\rho}
 \sum_{i=1}^n \log\left\{ \phi(z_{i1})\left[
-\Phi(\frac{\hat{\xi}_{2,y_{i2}} - \rho z_{i1}}
+\Phi(\frac{\hat{\zeta}_{2,y_{i2}} - \rho z_{i1}}
 {(1-\rho^2)^{1/2}})
--\Phi(\frac{\hat{\xi}_{2,y_{i2-1}} - \rho z_{i1}}
+-\Phi(\frac{\hat{\zeta}_{2,y_{i2-1}} - \rho z_{i1}}
 {(1-\rho^2)^{1/2}})
 \right]
 \right\}
@@ -670,17 +790,13 @@ The polyserial correlation is defined similarly, when one variable ($y_1$) is co
 
 The biserial correlation is defined similarly, when one variable is continuous and the other binary.
 
-<a id=tab:14.5></a>
-
-
-[Table 14.5]:\#tab:14.5
-
+Table : (\#tab:ClByNoCl) *Claim* by  *NoClaimCredit*
 
 $$
 {\small \begin{matrix}
 \begin{array}{|l|r|r|} 
     \hline
-\text{NoClaimCredit} & \text{Mean}     &\text{Total}       \\
+NoClaimCredit & \text{Mean}     &\text{Total}       \\
  & \text{Claim}     &\text{Claim}       \\
   \hline
           0  & 22,505  &  85,200,483   \\
@@ -690,10 +806,8 @@ $$
 \end{matrix}}
 $$
 
-[Table 14.5] : Summary of *Claim* by  *NoClaimCredit*
 
-
-You can obtain the polyserial or biserial correlation using the `polyserial()` or `biserial()` function from the `psych` library in `R`. [Table 14.5] gives the summary of *Claim* by *NoClaimCredit* and  the biserial correlation is illustrated using `R` code below. The $\hat{\rho_N}=-0.04$ which means that there is a negative correlation between *Claim* and *NoClaimCredit*.
+You can obtain the polyserial or biserial correlation using the `polyserial()` or `biserial()` function from the `psych` library in `R`. Table \@ref(tab:ClByNoCl) gives the summary of *Claim* by *NoClaimCredit* and  the biserial correlation is illustrated using `R` code below. The $\hat{\rho_N}=-0.04$ which means that there is a negative correlation between *Claim* and *NoClaimCredit*.
 
 
 ```{r warning=FALSE, comment="", results='hide', echo=FALSE}
@@ -719,8 +833,6 @@ Output:
 
 
 
-
-
 ## Introduction to Copula  {#S:Copula}
 
 Copula functions are widely used in statistics and actuarial science literature for dependency modeling.
@@ -734,13 +846,13 @@ In this section, you learn how to:
 
 
 A $copula$ is a multivariate distribution function with uniform marginals. Specifically, let $U_1, \ldots, U_p$ be $p$ uniform random variables on $(0,1)$. Their distribution function $${C}(u_1, \ldots, u_p) = \Pr(U_1 \leq u_1, \ldots, U_p \leq
-u_p),$$
+u_p)$$
 
 is a copula.
 We seek to use copulas in applications that are based on more than just uniformly distributed data. Thus, consider arbitrary marginal distribution functions ${F}_1(y_1)$,...,${F}_p(y_p)$.Then, we can define a multivariate distribution function using the copula such that $${F}(y_1, \ldots, y_p)= {C}({F}_1(y_1), \ldots,
-{F}_p(y_p)).$$
+{F}_p(y_p))$$.
 
-Here, $F$ is a multivariate distribution function in this equation. Sklar (1959) showed that $any$ multivariate distribution function $F$, can be written in the form of this equation, that is, using a copula representation.
+$F$ is a multivariate distribution function in this equation. Sklar (1959) showed that $any$ multivariate distribution function $F$, can be written in the form of this equation, that is, using a copula representation.
 
 Sklar also showed that, if the marginal distributions are continuous, then there is a unique copula representation. In this chapter we are just focusing copula modeling with  continuous variables. For discrete case, readers can see [@joe2014dependence];[@genest2007methods].
 
@@ -751,7 +863,7 @@ u_2),$$
 $${F}(y_1, \, y_2)= {C}({F}_1(y_1), \,
 {F}_p(y_2)).$$
 
-To give an example for  bivariate copula, we can look at Frank's (1979) copula. The equation is
+To give an example for  bivariate copula, we can look at Frank's (1979) copula. the equation is
 
 $${C}(u_1,u_2) = \frac{1}{\theta} \ln \left( 1+ \frac{ (\exp(\theta
 u_1) -1)(\exp(\theta u_2) -1)} {\exp(\theta) -1} \right).$$
@@ -767,8 +879,8 @@ association can be summarized with Spearman's rho ($\rho$) and Kendall's tau ($\
 <hr />
 In this section, you learn how to:
 
-- Discover dependence structure between random variables
-- Model the dependence with a copula function
+- Figure out dependency structure between random variables
+- Model the dependent data with a copula function
 
 <hr />
 
@@ -776,14 +888,14 @@ This section analyzes the insurance *losses * and  *expenses * data with the sta
 Model fitting process is started by marginal modeling of two variables ($loss$ and $expense$). Then we model the joint distribution of these marginal outcomes.
 
 ### Data Description
-We start with getting a sample ($n = 1500$) from the whole data. We consider first two variables of the data;  *losses * and  *expenses *.
+We start with getting a sample ($n = 1500$) from whole data. We consider first two variables of the data;  *losses * and  *expenses *.
 
 *  *losses *: general liability claims from Insurance Services Office, Inc. (ISO)
 *  *expenses *: ALAE, specifically attributable to the settlement of individual claims (e.g. lawyer's fees, claims investigation expenses)
 
 
 
-```{r message=FALSE, results='hide', echo=FALSE}
+```{r message=FALSE}
 library(copula)
 data(loss) # loss data
 Lossdata <- loss # rename dataframe to distinguish from the loss variable
@@ -791,9 +903,9 @@ attach(Lossdata) # attach data to freely use any variable without referencing it
 loss <- Lossdata$loss
 ```
 
-To visualize the relationship between  *losses * and  *expenses * (ALAE), scatterplots in figure \@ref(fig:Scatter) are created on the real dollar scale and on the log scale.
+To visualize the relationship between  *losses * and  *expenses * (ALAE), scatterplots are created on the real dollar scale and on the log scale.
 
-```{r  Scatter, message=FALSE, results='hide', echo=FALSE, fig.cap='Scatter plot of Loss and ALAE'}
+```{r}
 par(mfrow=c(1, 2))
 plot(loss,alae, cex=.5) # real dollar scale
 plot(log(loss),log(alae),cex=.5) # log scale
@@ -888,7 +1000,7 @@ Output:
 </div>  
 
 
-To visualize the fitted distribution of  *expenses * and *loss* variables, we use the estimated parameters and plot the corresponding distribution function and density function. For more details on marginal model selection, we refer you to *Chapter 4 *.
+To visualize the fitted distribution of  *expenses * and *loss* variables, we use the estimated parameters and plot the corresponding distribution function and density function.To see more details of marginal model selection,readers can remember  the *Chapter 4 *.
 
 
 
@@ -904,21 +1016,21 @@ $$u_1 = 1 - \left( 1 + \frac{ALAE}{\hat{\theta}} \right)^{-\hat{\alpha}}.$$
 u1 = 1 - (1 + (alae/theta))^(-alpha) # or u1=pparetoII(alae, location=0, scale=theta, shape=alpha)
 ```
 
-After applying the probability integral transformation to  *expenses * variable, we plot the histogram of *Transformed Alae * in figure \@ref(fig:Hist). 
+After applying the probablity integral transformation to  *expenses * variable, we plot the histogram of *Transformed Alae * 
 
-```{r Hist, message=FALSE, warning=FALSE, comment=FALSE, echo=FALSE,fig.height=4,fig.width=4, fig.align='center', fig.cap='Histogram of Transformed Alae'}
-hist(u1, main="", xlab="" )
+```{r message=FALSE, warning=FALSE, comment=FALSE, echo=FALSE,fig.height=4,fig.width=4, fig.align='center'}
+hist(u1, main="", xlab="Histogram of Transformed Alae" )
 ```
 
-After fitting process,the variable *loss* is also transformed to the variable $u_2$, which follows a uniform distribution on $[0,1]$. We plot the histogram of *Transformed Loss *. As an alternative, the variable *loss* is transformed to $normal$ $scores$ with the quantile function of standard normal distribution. As we see in figure \@ref(fig:Hist2), normal scores of the variable *loss* are approximately marginally standard normal.
+After fitting process,the variable *loss* is also transformed to the variable $u_2$, which follows a uniform distribution on $[0,1]$. We plot the histogram of *Transformed Loss *. As an alternative, the variable *loss* is trasformed to $normal$ $scores$ with the quantile function of standard normal distribution. As we see in the second histogram, normal scores of the variable *loss* are approximately marginally standard normal.
 
-```{r Hist2, message=FALSE, warning=FALSE, comment="", echo=FALSE, fig.cap='Left: Histogram of Transformed Loss.  Right:Histogram of normal scores of Loss'}
+```{r message=FALSE, warning=FALSE, comment="", echo=FALSE}
 scaleloss = Coef(fitloss)[1]
 shapeloss = Coef(fitloss)[2]
 u2 = 1 - (1 + (loss/scaleloss))^(-shapeloss)
 par(mfrow=c(1, 2))
-hist(u2, main="", xlab="")
-hist(qnorm(u2), main="", xlab="")
+hist(u2, main="", xlab="Histogram of Transformed Loss")
+hist(qnorm(u2), main="", xlab="Histogram of qnorm(Loss)")
 ```
 
 
@@ -943,11 +1055,11 @@ hist(qnorm(u2), main="", xlab="Histogram of qnorm(Loss)")
 
 ### Joint Modeling with Copula Function
 
-Before jointly modeling losses and expenses, we draw the scatterplot of transformed variables $(u_1, u_2)$ and the scatterplot of normal scores in figure \@ref(fig:Scatter2). 
+Before jointly modeling losses and expenses, we draw the scatterplot of transformed variables $(u_1, u_2)$ and the scatterplot of normal scores. 
 
 Then we calculate the Spearman's rho correlation between these two uniform random variables.
 
-```{r Scatter2, message=FALSE, warning=FALSE, comment="", echo=FALSE, fig.cap='Left: Scatter plot for transformed variables.  Right:Scatter plot for normal scores'}
+```{r message=FALSE, warning=FALSE, comment="", echo=FALSE}
 par(mfrow=c(1, 2))
 plot(u1,u2, cex=0.5, xlim=c(-0.1,1.1), ylim=c(-0.1,1.1),
      xlab="Transformed Alae", ylab="Transformed Loss")
@@ -978,7 +1090,7 @@ Output:
 Scatter plots and Spearman's rho correlation value (0.451)  shows us there is a positive dependency between these two uniform random variables.It is more clear to see the relationship with normal scores in the second graph. To learn more details about normal scores, readers can see [@joe2014dependence].
 
 
-$(U_1, U_2)$, ($U_1 = F_1(ALAE)$ and $U_2=F_2(LOSS)$), is fitted to Frank's copula with Maximum likelihood method.
+$(U_1, U_2)$, ($U_1 = F_1(ALAE)$ and $U_2=F_2(LOSS)$), is fitted to Frank's copula with Maximumlikelihood method.
 
 ```{r message=FALSE, warning=FALSE, comment="", echo=FALSE}
 uu = cbind(u1,u2) # transformed data matrix uu
@@ -1029,7 +1141,7 @@ The fitted model implies that losses and expenses are positively dependent and t
 
 We use the fitted parameter to update the Frank's copula. The Spearman's correlation corresponding to the fitted copula parameter(3.114) is calculated with the `rho` function. In this case, the Spearman's correlation coefficient is 0.462, which is very close to the sample Spearman's correlation coefficient; 0.452.
 
-```{r message=FALSE, warning=FALSE, comment="", echo=FALSE}
+```{r}
 param = fit.ml@estimate # fitted copula parameter
 frank.cop <- archmCopula("frank", param= param, dim = 2)
 #rho(frank.cop) # Spearman's correlation
@@ -1052,9 +1164,9 @@ Output :
 ```
 </div> 
 
-To visualize the fitted Frank's copula, the distribution function and density function perspective plots are drawn in figure \@ref(fig:FrankCop).
+To visualize the fitted Frank's copula, the distribution function and density function perspective plots are drawn.
 
-```{r FrankCop, message=FALSE, warning=FALSE, comment="", echo=FALSE, fig.cap='Left: Plot for distribution function for Franks Copula. Right:Plot for density function for Franks Copula '}
+```{r}
 par(mar=c(3.2,3,.2,.2),mfrow=c(1,2))
 persp(frank.cop, pCopula, theta=50, zlab="C(u,v)",
         xlab ="u", ylab="v", cex.lab=1.3)
@@ -1077,7 +1189,8 @@ persp(frank.cop, dCopula, theta=0, zlab="c(u,v)",
 ```
 </div> 
 
-Frank's copula models positive dependence for this data set, with $\theta=3.114$. For Frank's copula, the dependence is related to values of $\theta$. That is: 
+Frank's copula models positive dependency for this data set, with $\theta=3.114$.
+Frank's copula can model not only positive dependence between the marginals, but also independence and negative dependence, according to different values of $\theta$:
 
 * $\theta=0$: independent copula
 * $\theta>0$: positive dependence
@@ -1097,10 +1210,10 @@ In this section, you learn how to:
 
 
 There are several families of copulas have been described in the literature. 
-Two main families of the copula families are Archimedian  copulas and Elliptical copulas.
+Two main families of the copula faimilies are Archimedian  copulas and Elliptical copulas.
 
 ### Elliptical Copulas
-Elliptical copulas are constructed from elliptical distributions.This copula decompose (multivariate) elliptical distributions into their univariate elliptical marginal distributions by Sklar's theorem [@yan2017elements].
+Elliptical copulas are constructed from elliptical distributions.This copula decompose (multivariate) elliptical distributions into their univariate elliptical marginal distrubitions by Sklar's theorem [@yan2017elements].
 
 Properties of elliptical copulas are typically obtained from the properties of  corresponding elliptical distributions[@yan2017elements].
 
@@ -1111,7 +1224,7 @@ $$\phi_N (\mathbf{z})= \frac{1}{(2 \pi)^{p/2}\sqrt{\det \boldsymbol \Sigma}}
 
 Here, $\boldsymbol \Sigma$ is a correlation matrix, with ones on the
 diagonal. Let $\Phi$ and $\phi$ denote the standard normal distribution and density functions.
-We define the Gaussian (normal) copula density function as
+We define the gaussian (normal) copula density function as
 $${c}_N(u_1,  \ldots, u_p) = \phi_N \left(\Phi^{-1}(u_1),
 \ldots, \Phi^{-1}(u_p) \right) \prod_{j=1}^p
 \frac{1}{\phi(\Phi^{-1}(u_j))}.$$
@@ -1130,18 +1243,15 @@ copulas. Because copulas are concerned primarily with relationships,
 we may restrict our considerations to the case where $\mu = \mathbf{0}$ and  $\boldsymbol \Sigma$ is a correlation matrix. With these restrictions, the marginal distributions of the multivariate elliptical copula are identical; we use $H$ to refer to this marginal distribution function and $h$ is the corresponding density. This marginal density is $h(z) = k_1 g_1(z^2/2).$
 
 We are now ready to define the  $elliptical$ $copula$, a function
-defined on the unit cube $[0,1]^p$  as
+defined on the unit cube $[0,1]^p$  by
 $${c}_E(u_1,  \ldots, u_p) = h_E \left(H^{-1}(u_1), \ldots,
 H^{-1}(u_p) \right) \prod_{j=1}^p \frac{1}{h(H^{-1}(u_j))}.$$
 In the Elliptical copula family, the function $g_p$ is known as
 a ``generator'' in that it can be used to generate alternative
 distributions. 
 
-<a id=tab:14.6></a>  
-
-
-[Table 14.6]: \#tab:14.6
-
+ 
+ Table : (\#tab:Generator Functions) Distribution and Generator Functions ($\mathrm{g}_p(x)$) for Selected Elliptical Copulas:
  
 $$
 \small\begin{array}{lc}
@@ -1157,9 +1267,7 @@ $$
 \end{array}
 $$
 
-[Table 14.6] : Distribution and Generator Functions ($\mathrm{g}_p(x)$) for Selected Elliptical Copulas
-
-Most empirical work focuses on the normal copula and $t$-copula. $t$-copulas are useful for modeling  the dependency in the tails of bivariate distributions,especially in financial risk analysis applications. 
+Most empirical work focuses on the normal copula and $t$-copula. $t$-copulas are useful for modeling  the dependency in the tails of bivariate distrubitions,especially in financial risk analysis applications. 
 
 The $t$-copulas with same  association parameter in varying the degrees of freedom parameter show us different tail dependency structures. For more information on about $t$-copulas readers can see [@joe2014dependence],[@yan2017elements].
 
@@ -1205,16 +1313,16 @@ Like all multivariate distribution functions, copulas are bounded. The Fr$'{e}$c
 $$\max( u_1 +\cdots+ u_p + p -1, 0) \leq  \mathrm{C}(u_1,  \ldots, u_p) \leq \min (u_1,  \ldots,u_p).$$
 
 To see the right-hand side of the equation, note that 
-$$\mathrm{C}(u_1,\ldots, u_p) = \Pr(U_1 \leq u_1, \ldots, U_p \leq u_p) \leq  \Pr(U_j \leq u_j)$$, for $j=1,\ldots,p$. The bound is achieved when $U_1 = \cdots = U_p$. To see the left-hand side when $p=2$, consider $U_2=1-U_1$. In this case, if $1-u_2 < u_1$ then $\Pr(U_1 \leq u_1, U_2 \leq u_2) = \Pr ( 1-u_2 \leq U_1 < u_1) =u_1+u_2-1.$ [@nelsen1997introduction]
+$$\mathrm{C}(u_1,\ldots, u_p) = \Pr(U_1 \leq u_1, \ldots, U_p \leq u_p) \leq  \Pr(U_j \leq u_j)$$, for $j=1,\ldots,p$. The bound is
+achieved when $U_1 = \cdots = U_p$.  The bound is achieved when $U_1 = \cdots = U_p$. To see the left-hand side when $p=2$, consider $U_2=1-U_1$. In this case, if $1-u_2 < u_1$ then $\Pr(U_1 \leq u_1, U_2 \leq u_2) = \Pr ( 1-u_2 \leq U_1 < u_1) =u_1+u_2-1.$ [@nelsen1997introduction]
 
 The product copula is $\mathrm{C}(u_1,u_2)=u_1u_2$ is the result of assuming independence between random variables.
 
 The lower bound is achieved when the two random variables are perfectly negatively related ($U_2=1-U_1$) and the upper bound is achieved when they are
 perfectly positively related ($U_2=U_1$).
 
-We can see The Frechet-Hoeffding bounds for two random variables in the figure \@ref(fig:Bounds).
-
-```{r Bounds, message=FALSE, warning=FALSE, comment="", echo=FALSE, fig.cap='Perfect Positive and Perfect negative dependence plots'}
+We can see The Frechet-Hoeffding bounds for two random variables in the graphs.
+```{r}
 library(copula)
 n<-100
 set.seed(1980)
@@ -1282,152 +1390,32 @@ From this equation ,$R(z)$ will equal to $z$ under independence. Joe (1997) uses
 $$L(z) = \frac{\Pr(U_1 \leq z, U_2 \leq z)}{z}=\Pr(U_1 \leq z | U_2
 \leq z) =\frac{ \mathrm{C}(z,z)}{1-z}.$$ 
 
-Tail dependency concentration function captures the probability of two random variables both catching up extreme values.
 
-We calculate the left and right tail concentration functions for four different types of copulas; Normal, Frank,Gumbel and t copula. After getting tail concentration functions for each copula, we show concentration function's values for these four copulas in  [Table 14.7]. As in @Venter2002tails,  we show $L(z)$ for $z\leq 0.5$ and $R(z)$ for $z>0.5$ in the tail dependence plot in figure \@ref(fig:DepTails). We interpret the tail dependence plot, to mean that both the Frank and Normal copula exhibit no tail dependence whereas the $t$ and the Gumbel may do so. The $t$ copula is symmetric in its treatment of upper and lower tails.
-
-
-<a id=tab:14.7></a>
-
-
-[Table 14.7]:\#tab:14.7
-
-$$
-{\small \begin{matrix}
-\begin{array}{|l|rr|} 
-    \hline
-\text{Copula} & \text{Lower}    & \text{Upper}     \\
-\hline
-\text{Frank}  & 0  & 0   \\
-\text{Gumbel}  & 0   & 0.74    \\
-\text{Normal}  & 0   & 0    \\
-\text{t}  & 0.10   & 0.10    \\
-   \hline
-\end{array}
-\end{matrix}}
-$$
-
-[Table 14.7] : Tail concentration function values for different copulas
-
-
-
-```{r message=FALSE, warning=FALSE, comment="", echo=FALSE}
-library(copula)
-U1 = seq(0,0.5, by=0.002)
-U2 = seq(0.5,1, by=0.002)
-U = rbind(U1, U2)
-TailFunction <- function(Tailcop) {
-  lowertail <- pCopula(cbind(U1,U1), Tailcop)/U1
-  uppertail <- (1-2*U2 +pCopula(cbind(U2,U2), Tailcop))/(1-U2)
-  jointtail <- rbind(lowertail,uppertail)
-}
-Tailcop1 <- archmCopula(family = "frank", param= c(0.05), dim = 2)
-Tailcop2 <- archmCopula(family = "gumbel",param = 3)
-Tailcop3 <- ellipCopula("normal", param = c(0.25),dim = 2, dispstr = "un")
-Tailcop4 <- ellipCopula("t", param = c(0.25),dim = 2, dispstr = "un", df=5)
-jointtail1 <- TailFunction(Tailcop1)
-jointtail2 <- TailFunction(Tailcop2)
-jointtail3 <- TailFunction(Tailcop3)
-jointtail4 <- TailFunction(Tailcop4)
-#tailIndex(Tailcop1)
-#tailIndex(Tailcop2)
-#tailIndex(Tailcop3)
-#tailIndex(Tailcop4)
-
-```
-
-
-<h5 style="text-align: center;"><a id="display.Tail.1" href="javascript:togglecode
-('display.Tail.2','display.Tail.1');"><i><strong>R Code for Tail Copula Functions for Different Copulas</strong></i></a> </h5>
-<div id="display.Sim.2" style="display: none">
-
-```
-
-library(copula)
-U1 = seq(0,0.5, by=0.002)
-U2 = seq(0.5,1, by=0.002)
-U = rbind(U1, U2)
-TailFunction <- function(Tailcop) {
-  lowertail <- pCopula(cbind(U1,U1), Tailcop)/U1
-  uppertail <- (1-2*U2 +pCopula(cbind(U2,U2), Tailcop))/(1-U2)
-  jointtail <- rbind(lowertail,uppertail)
-}
-Tailcop1 <- archmCopula(family = "frank", param= c(0.05), dim = 2)
-Tailcop2 <- archmCopula(family = "gumbel",param = 3)
-Tailcop3 <- ellipCopula("normal", param = c(0.25),dim = 2, dispstr = "un")
-Tailcop4 <- ellipCopula("t", param = c(0.25),dim = 2, dispstr = "un", df=5)
-jointtail1 <- TailFunction(Tailcop1)
-jointtail2 <- TailFunction(Tailcop2)
-jointtail3 <- TailFunction(Tailcop3)
-jointtail4 <- TailFunction(Tailcop4)
-tailIndex(Tailcop1)
-tailIndex(Tailcop2)
-tailIndex(Tailcop3)
-tailIndex(Tailcop4)
-```
-
-</div> 
-
-
-
-```{r DepTails, message=FALSE, warning=FALSE, comment="", echo=FALSE, fig.cap='Tail dependence plots'}
-plot(U,jointtail1, cex=.2, xlim=c(0,1),ylab="Tail Dependence", ylim=c(0,1))
-lines(U,jointtail2, type="p",lty=1, cex=.2)
-lines(U,jointtail3, type="p",lty=1, cex=.2)
-lines(U,jointtail4, type="p",lty=1, cex=.2)
-text(0.75, 0.1, "Frank", cex=1.3)        #1
-text(0.1, 0.8, "Gumbel", cex=1.3)        #2
-text(0.25, 0.1, "normal", cex=1.3)       #3
-arrows(.17, 0.1, .07, 0.12,code=2, angle=20, length=0.1)
-text(0.9, 0.4, "t with 5 df", cex=1.3)   #4
-```
-
-<h5 style="text-align: center;"><a id="display.Tailplot.1" href="javascript:togglecode
-('display.Tailplot.2','display.Tailplot.1');"><i><strong>R Code for Tail Dependence Plots for Different Copulas</strong></i></a> </h5>
-<div id="display.Sim.2" style="display: none">
-
-```
-plot(U,jointtail1, cex=.2, xlim=c(0,1),ylab="Tail Dependence", ylim=c(0,1))
-lines(U,jointtail2, type="p",lty=1, cex=.2)
-lines(U,jointtail3, type="p",lty=1, cex=.2)
-lines(U,jointtail4, type="p",lty=1, cex=.2)
-text(0.75, 0.1, "Frank", cex=1.3)        #1
-text(0.1, 0.8, "Gumbel", cex=1.3)        #2
-text(0.25, 0.1, "normal", cex=1.3)       #3
-arrows(.17, 0.1, .07, 0.12,code=2, angle=20, length=0.1)
-text(0.9, 0.4, "t with 5 df", cex=1.3)   #4
-
-```
-</div> 
 
 ## Why is Dependence Modeling Important? {#S:CopImp}
 
 Dependence Modeling is important because it enables us to understand the dependence structure by defining the relationship between variables in a dataset. In insurance, ignoring dependence modeling may not impact pricing but could lead to misestimation of required capital to cover losses. For instance, from Section  \@ref(S:CopAppl) , it is seen that there was a positive relationship between *Loss* and *Expense*. This means that, if there is a large loss then we expect expenses to be large as well and ignoring this relationship could lead to misestimation of reserves.
 
 
-To illustrate the importance of dependence modeling, we refer you back to Portfolio Management example in Chapter 6 that assumed that the property and liability risks are independent. Here, we incorporate dependence by allowing the 4 lines of business to depend on one another through a Gaussian copula. In [Table 14.8], we show that dependence affects the portfolio quantiles ($VaR_q$), although not the expect value. For instance , the $VaR_{0.99}$ for total risk which is the amount of capital required to ensure, with a $99\%$ degree of certainty that the firm does not become technically insolvent is higher when we incorporate dependence. This leads to less capital being allocated when dependence is ignored and can cause unexpected solvency problems. 
+To illustrate the importance of dependence modeling, we refer you back to Portfolio Management example in Chapter 6 that assumed that the property and liability risks are independent. Here, we incorporate dependence by allowing the 4 lines of business to depend on one another through a Gaussian copula. In Table \@ref(tab:LossExpSim), we show that dependence affects the portfolio quantiles ($VaR_q$), although not the expect value. For instance , the $VaR_{0.99}$ for total risk which is the amount of capital required to ensure, with a $99\%$ degree of certainty that the firm does not become technically insolvent is higher when we incorporate dependence. This leads to less capital being allocated when dependence is ignored that can cause unexpected solvency problems. 
 
-
-<a id=tab:14.8></a>  
-
-
-[Table 14.8]: \#tab:14.8
+Table : (\#tab:LossExpSim) *Claim* by  *NoClaimCredit*
 
 
 $$
 {\small \begin{matrix}
 \begin{array}{|l|rrrr|} 
     \hline
- \text{Independent} &\text{Expected}   & VaR_{0.9}  & VaR_{0.95}  & VaR_{0.99}  \\
+\text{Independent} &                  &            &             &             \\
+                   &\text{Expected}   & VaR_{0.9}  & VaR_{0.95}  & VaR_{0.99}  \\
                    &\text{Value}      &            &             &             \\
-     \hline              
 \text{Retained}    & 269              &  300       & 300         & 300         \\
 \text{Insurer}     & 2,274            &  4,400     & 6,173       & 11,859      \\
 \text{Total}       & 2,543            &  4,675     & 6,464       & 12,159      \\
    \hline
-\text{Gaussian Copula}&\text{Expected}& VaR_{0.9}  & VaR_{0.95}  & VaR_{0.99}  \\
+\text{Gaussian Copula}&               &            &             &             \\
+                      &\text{Expected}& VaR_{0.9}  & VaR_{0.95}  & VaR_{0.99}  \\
                       &\text{Value}    &           &             &              \\
-     \hline                      
 \text{Retained}       & 269            &  300      & 300         &  300         \\
 \text{Insurer}        & 2,340          &  4,988    & 7,339       & 14,905       \\
 \text{Total}          & 2,609          &  5,288    & 7,639       & 15,205       \\
@@ -1436,7 +1424,6 @@ $$
 \end{matrix}}
 $$
 
-[Table 14.8] : Results for portfolio expected value and quantiles ($VaR_q$)
 
 ```{r comment="",warning=FALSE, results='hide', echo=FALSE, message=FALSE}
 # For the gamma distributions, use
@@ -1616,153 +1603,5 @@ plot(density(S), main="Density of Total Portfolio Risk S", xlab="S")
 
 
 
-
-
-## Technical Supplement A. Other Classic Measures of Scalar Associations {-}
-
-### A.1. Blomqvist's Beta {-}
-
-[@blomqvist1950measure] developed a measure of dependence now known as Blomqvist's beta, also called the median concordance coefficient and the medial correlation coefficient. Using distribution functions, this parameter can be expressed as
-\begin{equation*}
-\beta = 4F\left(F^{-1}_X(1/2),F^{-1}_Y(1/2) \right) - 1.
-\end{equation*}
-That is, first evaluate each marginal at its median ($F^{-1}_X(1/2)$ and $F^{-1}_Y(1/2)$, respectively). Then, evaluate the bivariate distribution function at the two medians. After rescaling (multiplying by 4 and subtracting 1), the coefficient turns out to have a range of $[-1,1]$, where 0 occurs under independence.
-
-Like Spearman's rho and Kendall's tau, an estimator based on ranks is easy to provide. First write $\beta = 4C(1/2,1/2)-1 = 2\Pr((U_1-1/2)(U_2-1/2))-1$ where $U_1, U_2$ are uniform random variables. Then, define
-\begin{equation*}
-\hat{\beta} = \frac{2}{n} \sum_{i=1}^n I\left( (R(X_{i})-\frac{n+1}{2})(R(Y_{i})-\frac{n+1}{2}) \ge 0 \right)-1 .
-\end{equation*}
-See, for example, [@joe2014dependence], page 57 or [@hougaard2000analysis], page 135, for more details.
-
-Because Blomqvist's parameter is based on the center of the distribution, it is particularly useful when data are censored; in this case, information in extreme parts of the distribution are not always reliable. How does this affect a choice of association measures? First, recall that association measures are based on a bivariate distribution function. So, if one has knowledge of a good approximation of the distribution function, then calculation of an association measure is straightforward in principle. Second, for censored data, bivariate extensions of the univariate Kaplan-Meier distribution function estimator are available. For example, the version introduced in [@dabrowska1988kaplan] is appealing. However, because of instances when large masses of data appear at the upper range of the data, this and other estimators of the bivariate distribution function are unreliable. This means that, summary measures of the estimated distribution function based on Spearman's rho or Kendall's tau can be unreliable. For this situation, Blomqvist's beta appears to be a better choice as it focuses on the center of the distribution. [@hougaard2000analysis], Chapter 14, provides additional discussion.
-
-You can obtain the Blomqvist's beta, using the `betan()` function from the `copula` library in `R`. From below, $\beta=0.3$ between the *Coverage* rating variable in millions of dollars and *Claim* amount  variable in dollars. 
-
-```{r comment="", results='hide', echo=FALSE, warning=FALSE}
-### Blomqvist's beta correlation between Claim and Coverage ###
-library(copula)
-n<-length(Claim)
-U<-cbind(((n+1)/n*pobs(Claim)),((n+1)/n*pobs(Coverage)))
-beta<-betan(U, scaling=FALSE)
-round(beta,2)
-
-### Blomqvist's beta correlation between Claim and log(Coverage) ###
-n<-length(Claim)
-Fx<-cbind(((n+1)/n*pobs(Claim)),((n+1)/n*pobs(log(Coverage))))
-beta<-betan(Fx, scaling=FALSE)
-round(beta,2)
-```
-
-<h5 style="text-align: center;"><a id="display.beta.1" href="javascript:togglecode
-('display.beta.2','display.beta.1');"><i><strong>R Code for Blomqvist's Beta</strong></i></a> </h5>
-<div id="display.beta.2" style="display: none">
-
-``` 
-### Blomqvist's beta correlation between Claim and Coverage ###
-library(copula)
-n<-length(Claim)
-U<-cbind(((n+1)/n*pobs(Claim)),((n+1)/n*pobs(Coverage)))
-beta<-betan(U, scaling=FALSE)
-round(beta,2)
-
-Output:
-[1]  0.3
-
-### Blomqvist's beta correlation between Claim and log(Coverage) ###
-n<-length(Claim)
-Fx<-cbind(((n+1)/n*pobs(Claim)),((n+1)/n*pobs(log(Coverage))))
-beta<-betan(Fx, scaling=FALSE)
-round(beta,2)
-
-Output:
-[1]  0.3
-```
-</div>  
-
-
-In addition,to show that the Blomqvist's beta is invariate under strictly increasing transformations , $\beta=0.3$ between the *Coverage* rating variable in logarithmic millions of dollars and *Claim* amount variable in dollars. 
-
-
-### A.2. Nonparametric Approach Using Spearman Correlation with Tied Ranks {-}
-
-For the first variable, the average rank of observations in the $s$th row is
-
-\begin{equation*}
-r_{1s} = n_{m_1*}+ \cdots+ n_{s-1,*}+ \frac{1}{2} \left(1+ n_{s*}\right)
-\end{equation*}
-and similarly $r_{2t} = \frac{1}{2} \left[(n_{*m_1}+ \cdots+ n_{*,s-1}+1)+ (n_{*m_1}+ \ldots+ n_{*s})\right]$. With this, we have Spearman's rho with tied rank is
-\begin{equation*}
-\hat{\rho}_S = \frac{\sum_{s=m_1}^{m_2} \sum_{t=m_1}^{m_2} n_{st}(r_{1s} - \bar{r})(r_{2t} - \bar{r})}
-{\left[\sum_{s=m_1}^{m_2}n_{s*}(r_{1s} - \bar{r})^2 \sum_{t=m_1}^{m_2} n_{*t}(r_{2t} - \bar{r})^2
-\right]^2}
-\end{equation*}
-
-where the average rank is $\bar{r} = (n+1)/2$.
-
-
-
-<h5 style="text-align: center;"><a id="display.Thry.1" href="javascript:togglecode
-('display.Thry.2','display.Thry.1');"><i><strong>Click to Show Proof for Special Case: Binary Data.</strong></i></a> </h5>
-<div id="display.Thry.2" style="display: none">
-
-
-Special Case: Binary Data.  Here, $m_1=0$ and $m_2=1$. For the first variable ranks, we have $r_{10} = (1+n_{0+})/2$ and $r_{11} = (n_{0+}+1+n)/2$. Thus, $r_{10} -\bar{r}= (n_{0+}-n)/2$ and $r_{11}-\bar{r} = n_{0+}/2$.
-This means that we have $\sum_{s=0}^{1}n_{s+}(r_{1s} - \bar{r})^2 = n (n-n_{0+})n_{0+}/4$ and similarly for the second variable. For the numerator, we have
-\begin{eqnarray*}
-\sum_{s=0}^{1}  \sum_{t=0}^{1} && n_{st}(r_{1s} - \bar{r})(r_{2t} - \bar{r})\\
-&=& n_{00} \frac{n_{0+}-n}{2} \frac{n_{+0}-n}{2}
-+n_{01} \frac{n_{0+}-n}{2} \frac{n_{+0}}{2}
-+n_{10} \frac{n_{0+}}{2} \frac{n_{+0}-n}{2}
-+n_{11} \frac{n_{0+}}{2} \frac{n_{+0}}{2} \\
-&=& \frac{1}{4}(n_{00} (n_{0+}-n) (n_{+0}-n)
-+(n_{0+}-n_{00}) (n_{0+}-n)n_{+0} \\
-&&  ~ ~ ~ +(n_{+0}-n_{00})  n_{0+}(n_{+0}-n)
-+(n-n_{+0}-n_{0+}+n_{00}) n_{0+}n_{+0} ) \\
-&=& \frac{1}{4}(n_{00} n^2
-- n_{0+} (n_{0+}-n)n_{+0} \\
-&& ~ ~ ~ +n_{+0}  n_{0+}(n_{+0}-n)
-+(n-n_{+0}-n_{0+}) n_{0+}n_{+0} ) \\
-&=& \frac{1}{4}(n_{00} n^2
-- n_{0+}n_{+0} (n_{0+}-n +n_{+0}-n
-+n-n_{+0}-n_{0+}) \\
-&=& \frac{n}{4}(n n_{00} - n_{0+}n_{+0}) .
-\end{eqnarray*}
-
-This yields
-\begin{eqnarray*}
-\hat{\rho}_S &=& \frac{n(n n_{00} - n_{0+}n_{+0})}
-{4\sqrt{(n (n-n_{0+})n_{0+}/4)(n (n-n_{+0})n_{+0}/4)}} \\
-&=& \frac{n n_{00} - n_{0+}n_{+0}}
-{\sqrt{ n_{0+} n_{+0}(n-n_{0+}) (n-n_{+0})}} \\
-&=& \frac{n_{00} - n (1-\hat{\pi}_X)(1- \hat{\pi}_Y)}
-{\sqrt{\hat{\pi}_X(1-\hat{\pi}_X)\hat{\pi}_Y(1-\hat{\pi}_Y) }}
-\end{eqnarray*}
-where $\hat{\pi}_X = (n-n_{0+})/n$ and similarly for $\hat{\pi}_Y$. Note that this is same form as the Pearson measure. From this, we see that the joint count $n_{00}$ drives this association measure.
-
-
-</div>  
-
-\bigskip
-
-You can obtain the ties-corrected Spearman correlation statistic $r_S$ using the `cor()` function in `R` and selecting the `spearman` method.  From below $\hat{\rho}_S=-0.09$
-
-```{r comment="", results='hide', echo=FALSE}
-rs_ties<-cor(AlarmCredit,NoClaimCredit, method = c("spearman"))
-round(rs_ties,2)
-```
-
-
-<h5 style="text-align: center;"><a id="display.spearT.1" href="javascript:togglecode
-('display.spearT.2','display.spearT.1');"><i><strong>R Code for Ties-corrected Spearman Correlation</strong></i></a> </h5>
-<div id="display.spearT.2" style="display: none">
-
-``` 
-rs_ties<-cor(AlarmCredit,NoClaimCredit, method = c("spearman"))
-round(rs_ties,2)
-
-Output:
-[1] -0.09
-```
-</div>  
 
 

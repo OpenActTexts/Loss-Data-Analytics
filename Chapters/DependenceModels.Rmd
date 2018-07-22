@@ -1,22 +1,23 @@
-# Dependence Modeling
+`r chapnum = 14`
 
-*Chapter Preview*. 
-In practice, there are many types of variables that one encounter and the first step in dependence modeling is identifying the type of variable you are dealing with to help direct you to the appropriate technique.This chapter introduces readers to variable types and techniques for modeling dependence or association of multivariate distributions. Section \@ref(S:VarTypes) provides an overview of the types of variables. Section \@ref(S:Measures) then elaborates basic measures for modeling the dependence between variables.
+# Dependence Modeling {#C:DependenceModel}
+
+*Chapter Preview*. In practice, there are many types of variables that one encounter and the first step in dependence modeling is identifying the type of variable you are dealing with to help direct you to the appropriate technique.This chapter introduces readers to variable types and techniques for modeling dependence or association of multivariate distributions. Section \@ref(S:VarTypes) provides an overview of the types of variables. Section \@ref(S:Measures) then elaborates basic measures for modeling the dependence between variables.
 
 Section \@ref(S:Copula) introduces a novel approach to modeling dependence using Copulas which is reinforced with practical illustrations in Section \@ref(S:CopAppl). The types of Copula families and basic properties of Copula functions is explained Section \@ref(S:CopTyp). The chapter concludes by explaining why the study of dependence modeling is important in Section \@ref(S:CopImp).
 
 
 
-
 ## Variable Types {#S:VarTypes}
 
-<hr />
+***
+
 In this section, you learn how to:
 
 - Classify variables as qualitative or quantitative. 
 - Describe multivariate variables.
 
-<hr />
+***
 
 
 People, firms, and other entities that we want to understand are described in a dataset by numerical characteristics. As these characteristics vary by entity, they are commonly known as *variables*. To manage insurance systems, it will be critical to understand the distribution of each variable and how they are associated with one another. It is common for data sets to have many variables (high dimensional) and so it useful to begin by classifying them into different types. As will be seen, these classifications are not strict; there is overlap among the groups. Nonetheless, the grouping summarized in  [Table 14.1] and explained in the remainder of this section provide a solid first step in framing a data set.
@@ -67,18 +68,18 @@ $$
 In data analysis, it is important to understand what type of variable you are working with. For example, Consider a pair of random variables *(Coverage,Claim)* from the LGPIF data introduced in chapter 1 as displayed in Figure \@ref(fig:IntroPlot) below. We would like to know whether the distribution of *Coverage* depends on the distribution of *Claim* or whether they are statistically independent. We would also want to know how the *Claim* distribution depends on the *EntityType* variable. Because the  *EntityType* variable belongs to a different class of variables, modeling the dependence between *Claim* and *Coverage* may require a different technique from that of *Claim* and *EntityType*. 
 
 
-```{r IntroPlot, fig.cap='Scatter plot of *(Coverage,Claim)* from LGPIF data',echo=FALSE, warning=FALSE,fig.width=7}
+```{r IntroPlot, fig.cap='Scatter plot of *(Coverage,Claim)* from LGPIF data',echo=FALSE, warning=FALSE, out.width='100%', fig.asp=.75, fig.align='center'}
 library(ggplot2)
 Insample <- read.csv("Data/Insample.csv", header=T, na.strings=c("."), stringsAsFactors=FALSE)
-Claim<-Insample$y
-Coverage<-Insample$BCcov/1000000
-NoClaimCredit<-Insample$NoClaimCredit
-EntityType<-ifelse(Insample$TypeCity==1,"City",
-                   ifelse(Insample$TypeCounty==1,"County",
-                          ifelse(Insample$TypeMisc==1,"Misc",
-                                 ifelse(Insample$TypeSchool==1,"School",
-                                        ifelse(Insample$TypeTown==1,"Town",
-                                               ifelse(Insample$TypeVillage==1,"Village",0))))))
+Claim <- Insample$y
+Coverage <- Insample$BCcov/1000000
+NoClaimCredit <- Insample$NoClaimCredit
+EntityType <- ifelse(Insample$TypeCity == 1, "City",
+                   ifelse(Insample$TypeCounty == 1, "County",
+                          ifelse(Insample$TypeMisc == 1, "Misc",
+                                 ifelse(Insample$TypeSchool == 1, "School",
+                                        ifelse(Insample$TypeTown == 1, "Town",
+                                               ifelse(Insample$TypeVillage == 1, "Village", 0))))))
 qplot(Coverage,Claim,colour=EntityType, ylim = c(0,3000000), xlab = "Coverage(Million)")
 ```
 
@@ -86,14 +87,14 @@ qplot(Coverage,Claim,colour=EntityType, ylim = c(0,3000000), xlab = "Coverage(Mi
 
 ### Qualitative Variables {#S:QuaVar}
 
-<hr />
+***
+
 In this sub-section, you learn how to:
 
 - Classify qualitative variables as nominal or ordinal 
 - Describe binary variable 
 
-<hr />
-
+***
 
 A *qualitative*, or *categorical*, variable is one for which the measurement denotes membership in a set of groups, or categories. For example, if you were coding which area of the country an insured resides, you might use a 1 for the northern part, 2 for southern, and 3 for everything else. This location variable is an example of a *nominal* variable, one for which the levels have no natural ordering. Any analysis of nominal variables should not depend on the labeling of the categories. For example, instead of using a 1,2,3 for north, south, other, I should arrive at the same set of summary statistics if I used a 2,1,3 coding instead, interchanging north and south. 
 
@@ -104,14 +105,15 @@ A *binary* variable is a special type of categorical variable where there are on
 
 ### Quantitative Variables {#S:QuanVar}
 
-<hr />
+***
+
 In this sub-section, you learn how to:
 
 - Differentiate between continuous and discrete variable
 - Use a combination of continuous and discrete variable
 - Describe circular data
 
-<hr />
+***
 
 Unlike a qualitative variable, a quantitative variable is one in which numerical level is a realization from some scale so that the distance between any two levels of the scale takes on meaning. A *continuous variable* is one that can take on any value within a finite interval. For example, it is common to represent a policyholder's age, weight, or income, as a continuous variable. In contrast, a *discrete variable* is one that takes on only a finite number of values in any finite interval. Like an ordinal variable, these represent distinct categories that are ordered. Unlike an ordinal variable, the numerical difference between levels takes on economic meaning. A special type of discrete variable is a *count variable*, one with values on the nonnegative integers. For example, we will be particularly interested in the number of claims arising from a policy during a given period. 
 
@@ -123,13 +125,14 @@ Some variables are inherently a *combination of discrete and continuous* compone
 
 ### Multivariate Variables
 
-<hr />
+***
+
 In this sub-section, you learn how to:
 
 - Differentiate between univariate and multivariate data
 - Handle missing variables 
 
-<hr />
+***
 
 Insurance data typically are *multivariate* in the sense that we can take many measurements on a single entity. For example, when studying losses associated with a firm's worker's compensation plan, we might want to know the location of its manufacturing plants, the industry in which it operates, the number of employees, and so forth. The usual strategy for analyzing multivariate data is to begin by examining each variable in isolation of the others. This is known as a *univariate* approach. 
 
@@ -142,7 +145,8 @@ Perhaps the most complicated type of multivariate variable is a *realization of 
 
 ## Classic Measures of Scalar Associations {#S:Measures}
 
-<hr />
+***
+
 In this section, you learn how to:
 
 - Estimate correlation using Pearson method 
@@ -150,15 +154,14 @@ In this section, you learn how to:
 - Measure dependence using odds ratio,Pearson chi-square and likelihood ratio test statistic 
 - Use normal-based correlations to quantify associations involving ordinal variables
 
-<hr />
-
-
+***
 
 
 ### Association Measures for Quantitative Variables
+
 For this section, consider a pair of random variables $(X,Y)$ having joint distribution function $F(\cdot)$ and a random sample $(X_i,Y_i), i=1, \ldots, n$. For the continuous case, suppose that $F(\cdot)$ is absolutely continuous with absolutely continuous marginals.
 
-#### Pearson
+#### Pearson Correlation
 
 Define the sample covariance function $Cov(X,Y) = \frac{1}{n} \sum_{i=1}^n (X_i - \bar{X})(Y_i - \bar{Y})$, where $\bar{X}$ and $\bar{Y}$ are the sample means of $X$ and $Y$, respectively. Then, the product-moment (Pearson) correlation can be written as
 \begin{equation*}
@@ -212,7 +215,7 @@ From `R` output above, $r=0.31$ , which indicates a positive association between
 
 ### Rank Based Measures
 
-#### Spearman
+#### Spearman's Rho
 
 The Pearson correlation coefficient does have the drawback that it is not invariant to nonlinear transforms of the data. For example, the correlation between $X$ and $\ln Y$ can be quite different from the correlation between $X$ and $Y$. As we see from the `R` code for Pearson correlation statistic above, the correlation statistic $r$ between *Coverage* rating variable in logarithmic millions of dollars and *Claim* amounts variable in dollars is $0.1$ as compared to $0.31$ when we calculate the correlation between *Coverage* rating variable in millions of dollars and *Claim* amounts variable in dollars. This limitation is one reason for considering alternative statistics.
 
@@ -260,8 +263,7 @@ To show that the Spearman correlation statistic is invariate under strictly incr
 
 
 
-
-#### Kendall
+#### Kendall's Tau
 
 An alternative measure that uses ranks is based on the concept of *concordance*. An observation pair $(X,Y)$ is said to be concordant (discordant) if the observation with a larger value of $X$ has also the larger (smaller) value of $Y$. Then $\Pr(concordance) = \Pr[ (X_1-X_2)(Y_1-Y_2) >0 ]$ , $\Pr(discordance) = \Pr[ (X_1-X_2)(Y_1-Y_2) <0 ]$ and
 
@@ -314,8 +316,6 @@ Output:
 </div>  
 
 Also,to show that the Kendall's tau is invariate under strictly increasing transformations ,  $\tau=0.32$ between the *Coverage* rating variable in logarithmic millions of dollars and *Claim* amount variable in dollars. 
-
-
 
 
 
@@ -373,7 +373,7 @@ In a later section, we will also see that the marginal distributions have no eff
 
 $$
 {\small \begin{matrix}
-\begin{array}{|l|rr|r|} 
+\begin{array}{l|rr|r} 
     \hline
                   & \text{Fire5} & & \\
 \text{NoClaimCredit} & 0     & 1     & \text{Total} \\
@@ -450,7 +450,7 @@ Classical approaches, as described in [@bishop1975discrete] (page 374), distingu
 
 $$
 {\small \begin{matrix}
-\begin{array}{|l|rr|} 
+\begin{array}{l|rr} 
     \hline
                   & \text{NoClaimCredit} &  \\
        \text{EntityType} & 0     & 1      \\
@@ -585,7 +585,7 @@ It is called a tetrachoric correlation for binary variables.
 
 $$
 {\small \begin{matrix}
-\begin{array}{|l|rr|} 
+\begin{array}{l|rr} 
     \hline
                   & \text{NoClaimCredit} &  \\
 \text{AlarmCredit} & 0     & 1      \\
@@ -678,7 +678,7 @@ The biserial correlation is defined similarly, when one variable is continuous a
 
 $$
 {\small \begin{matrix}
-\begin{array}{|l|r|r|} 
+\begin{array}{l|r|r} 
     \hline
 \text{NoClaimCredit} & \text{Mean}     &\text{Total}       \\
  & \text{Claim}     &\text{Claim}       \\
@@ -721,30 +721,29 @@ Output:
 
 
 
-## Introduction to Copula  {#S:Copula}
+## Introduction to Copulas  {#S:Copula}
 
 Copula functions are widely used in statistics and actuarial science literature for dependency modeling.
  
-<hr />
+***
+
 In this section, you learn how to:
 
-- Describe the multivariate distribution function in terms of a Copula  function
+- Describe a multivariate distribution function in terms of a copula  function.
 
-<hr />
+***
 
 
-A $copula$ is a multivariate distribution function with uniform marginals. Specifically, let $U_1, \ldots, U_p$ be $p$ uniform random variables on $(0,1)$. Their distribution function $${C}(u_1, \ldots, u_p) = \Pr(U_1 \leq u_1, \ldots, U_p \leq
-u_p),$$
+A $copula$ is a multivariate distribution function with uniform marginals. Specifically, let $U_1, \ldots, U_p$ be $p$ uniform random variables on $(0,1)$. Their distribution function $${C}(u_1, \ldots, u_p) = \Pr(U_1 \leq u_1, \ldots, U_p \leq u_p),$$
 
-is a copula.
-We seek to use copulas in applications that are based on more than just uniformly distributed data. Thus, consider arbitrary marginal distribution functions ${F}_1(y_1)$,...,${F}_p(y_p)$.Then, we can define a multivariate distribution function using the copula such that $${F}(y_1, \ldots, y_p)= {C}({F}_1(y_1), \ldots,
+is a copula. We seek to use copulas in applications that are based on more than just uniformly distributed data. Thus, consider arbitrary marginal distribution functions ${F}_1(y_1)$,...,${F}_p(y_p)$. Then, we can define a multivariate distribution function using the copula such that $${F}(y_1, \ldots, y_p)= {C}({F}_1(y_1), \ldots,
 {F}_p(y_p)).$$
 
 Here, $F$ is a multivariate distribution function in this equation. Sklar (1959) showed that $any$ multivariate distribution function $F$, can be written in the form of this equation, that is, using a copula representation.
 
-Sklar also showed that, if the marginal distributions are continuous, then there is a unique copula representation. In this chapter we are just focusing copula modeling with  continuous variables. For discrete case, readers can see [@joe2014dependence];[@genest2007methods].
+Sklar also showed that, if the marginal distributions are continuous, then there is a unique copula representation. In this chapter we focus on copula modeling with  continuous variables. For discrete case, readers can see [@joe2014dependence] and [@genest2007methods].
 
-For bivariate case; $d=2$ , the distribution function of two random variables can be written by the bivariate copula function: 
+For bivariate case, $p=2$ , the distribution function of two random variables can be written by the bivariate copula function: 
 $${C}(u_1, \, u_2) = \Pr(U_1 \leq u_1, \, U_2 \leq
 u_2),$$
 
@@ -756,27 +755,26 @@ To give an example for  bivariate copula, we can look at Frank's (1979) copula. 
 $${C}(u_1,u_2) = \frac{1}{\theta} \ln \left( 1+ \frac{ (\exp(\theta
 u_1) -1)(\exp(\theta u_2) -1)} {\exp(\theta) -1} \right).$$
 
-This is a bivariate distribution function with its domain on the
-unit square $[0,1]^2.$ Here $\theta$ is dependence parameter and the range of dependence is controlled by the parameter $\theta$. Positive association increases as $\theta$ increases and this positive
-association can be summarized with Spearman's rho ($\rho$) and Kendall's tau ($\tau$).Frank copula is one of the commonly used copula functions in the copula literature. We will learn more details about copula types in Section \@ref(S:CopTyp).
-
+This is a bivariate distribution function with its domain on the unit square $[0,1]^2.$ Here $\theta$ is dependence parameter and the range of dependence is controlled by the parameter $\theta$. Positive association increases as $\theta$ increases and this positive association can be summarized with Spearman's rho ($\rho$) and Kendall's tau ($\tau$). Frank's copula is one of the commonly used copula functions in the copula literature. We will see other copula functions in Section \@ref(S:CopTyp).
 
 
 ## Application Using Copulas  {#S:CopAppl}
 
-<hr />
+***
+
 In this section, you learn how to:
 
 - Discover dependence structure between random variables
 - Model the dependence with a copula function
 
-<hr />
+***
 
-This section analyzes the insurance *losses * and  *expenses * data with the statistical programming "R". This data set is included in `copula` package.
-Model fitting process is started by marginal modeling of two variables ($loss$ and $expense$). Then we model the joint distribution of these marginal outcomes.
+
+This section analyzes the insurance *losses * and  *expenses * data with the statistical programming `R`. This data set was introduced in @frees1998understanding and is now readily available in the `copula` package. The model fitting process is started by marginal modeling of two variables ($loss$ and $expense$). Then we model the joint distribution of these marginal outcomes.
 
 ### Data Description
-We start with getting a sample ($n = 1500$) from the whole data. We consider first two variables of the data;  *losses * and  *expenses *.
+
+We start with getting a sample ($n = 1500$) from the whole data. We consider first two variables of the data;  *losses* and  *expenses*.
 
 *  *losses *: general liability claims from Insurance Services Office, Inc. (ISO)
 *  *expenses *: ALAE, specifically attributable to the settlement of individual claims (e.g. lawyer's fees, claims investigation expenses)
@@ -821,14 +819,15 @@ par(mfrow=c(1, 2))
 
 
 ### Marginal Models
-We need to check the histograms of *losses * and *expenses * before going through the joint modeling. The histograms show that both  *losses * and  *expenses * are  right-skewed and fat-tailed.
 
-For marginal distributions of losses and expenses, we consider a Pareto-type distribution, namely a Pareto type II with distribution function:
+We first examine the marginal distributions of *losses * and *expenses * before going through the joint modeling. The histograms show that both  *losses * and  *expenses * are right-skewed and fat-tailed.
 
-$$ F(y)=1- \left( 1 + \frac{y}{\theta} \right) ^{-\alpha}$$
+For marginal distributions of losses and expenses, we consider a Pareto-type distribution, namely a Pareto type II with distribution function
+
+$$ F(y)=1- \left( 1 + \frac{y}{\theta} \right) ^{-\alpha},$$
 where $\theta$ is the scale parameter and $\alpha$ is the shape parameter.
 
-The marginal distributions of losses and expenses are fitted with regression. $vglm$ function is used for the estimation from `VGAM` package. Firstly, we fit the marginal distribution of   *expenses *.
+The marginal distributions of losses and expenses are fitted with maximum likelihood. Specifically, we use the $vglm$ function from the `R VGAM` package. Firstly, we fit the marginal distribution of   *expenses *.
 
 ```{r message=FALSE, warning=FALSE, comment="", echo=FALSE, results='hide'}
 library(VGAM)
@@ -859,7 +858,7 @@ Output:
 </div>  
 
 
-We repeat the procedure above to fit the marginal distribution of the *loss* variable. Because the loss data also seems right-skewed and heavy-tail data, we model the marginal distribution with Pareto II distribution. 
+We repeat this procedure to fit the marginal distribution of the *loss* variable. Because the loss data also seems right-skewed and heavy-tail data, we also model the marginal distribution with Pareto II distribution. 
 
 ```{r message=FALSE, warning=FALSE, comment="", echo=FALSE, results='hide'}
 fitloss = vglm(loss ~ 1, paretoII, trace=TRUE)
@@ -888,13 +887,13 @@ Output:
 </div>  
 
 
-To visualize the fitted distribution of  *expenses * and *loss* variables, we use the estimated parameters and plot the corresponding distribution function and density function. For more details on marginal model selection, we refer you to *Chapter 4 *.
+To visualize the fitted distribution of  *expenses * and *loss* variables, we use the estimated parameters and plot the corresponding distribution function and density function. For more details on marginal model selection, see Chapter \@ref(C:ModelSelection).
 
 
 
 ### Probability Integral Transformation
 
- *Probability integral transformation * shows us any continuous variable can be mapped to a $U(0,1)$ random variable via its distribution function.
+The *probability integral transformation * shows that any continuous variable can be mapped to a $U(0,1)$ random variable via its distribution function.
 
 Given the fitted Pareto II distribution, the variable *expenses* is transformed to the variable $u_1$, which follows a uniform distribution on $[0,1]$:
 
@@ -904,15 +903,15 @@ $$u_1 = 1 - \left( 1 + \frac{ALAE}{\hat{\theta}} \right)^{-\hat{\alpha}}.$$
 u1 = 1 - (1 + (alae/theta))^(-alpha) # or u1=pparetoII(alae, location=0, scale=theta, shape=alpha)
 ```
 
-After applying the probability integral transformation to  *expenses * variable, we plot the histogram of *Transformed Alae * in figure \@ref(fig:Hist). 
+After applying the probability integral transformation to  *expenses * variable, we plot the histogram of *Transformed Alae * in Figure \@ref(fig:Hist). 
 
 ```{r Hist, message=FALSE, warning=FALSE, comment=FALSE, echo=FALSE,fig.height=4,fig.width=4, fig.align='center', fig.cap='Histogram of Transformed Alae'}
 hist(u1, main="", xlab="" )
 ```
 
-After fitting process,the variable *loss* is also transformed to the variable $u_2$, which follows a uniform distribution on $[0,1]$. We plot the histogram of *Transformed Loss *. As an alternative, the variable *loss* is transformed to $normal$ $scores$ with the quantile function of standard normal distribution. As we see in figure \@ref(fig:Hist2), normal scores of the variable *loss* are approximately marginally standard normal.
+After fitting process,the variable *loss* is also transformed to the variable $u_2$, which follows a uniform distribution on $[0,1]$. We plot the histogram of *Transformed Loss *. As an alternative, the variable *loss* is transformed to $normal$ $scores$ with the quantile function of standard normal distribution. As we see in Figure \@ref(fig:Hist2), normal scores of the variable *loss* are approximately marginally standard normal.
 
-```{r Hist2, message=FALSE, warning=FALSE, comment="", echo=FALSE, fig.cap='Left: Histogram of Transformed Loss.  Right:Histogram of normal scores of Loss'}
+```{r Hist2, message=FALSE, warning=FALSE, comment="", echo=FALSE, fig.cap='Histogram of Transformed Loss. The left-hand panel shows the distribution of probability integral transformed losses. The right-hand panel shows the distribution for the corresponding normal scores.'}
 scaleloss = Coef(fitloss)[1]
 shapeloss = Coef(fitloss)[2]
 u2 = 1 - (1 + (loss/scaleloss))^(-shapeloss)
@@ -923,19 +922,19 @@ hist(qnorm(u2), main="", xlab="")
 
 
 <h5 style="text-align: center;"><a id="display.transalae.1" href="javascript:togglecode
-('display.transalae.2','display.transalae.1');"><i><strong>R Code for The Histogram of Transformed Alae  </strong></i></a> </h5>
+('display.transalae.2','display.transalae.1');"><i><strong>R Code for Histograms of Transformed Variables  </strong></i></a> </h5>
 <div id="display.transalae.2" style="display: none">
 
 ``` 
-u1 = 1 - (1 + (alae/b))^(-s) # or u1=pparetoII(alae, location=0, scale=b, shape=s)
-hist(u1, main="", xlab="Histogram of Transformed alae")
+u1 <- 1 - (1 + (alae/b))^(-s) # or u1 <- pparetoII(alae, location=0, scale=b, shape=s)
+hist(u1, main = "", xlab = "Histogram of Transformed alae")
 
-scaleloss = Coef(fitloss)[1]
-shapeloss = Coef(fitloss)[2]
-u2 = 1 - (1 + (loss/scaleloss))^(-shapeloss)
-par(mfrow=c(1, 2))
-hist(u2, main="", xlab="Histogram of Transformed Loss")
-hist(qnorm(u2), main="", xlab="Histogram of qnorm(Loss)")
+scaleloss <- Coef(fitloss)[1]
+shapeloss <- Coef(fitloss)[2]
+u2 <- 1 - (1 + (loss/scaleloss))^(-shapeloss)
+par(mfrow = c(1, 2))
+hist(u2, main = "", xlab = "Histogram of Transformed Loss")
+hist(qnorm(u2), main = "", xlab = "Histogram of qnorm(Loss)")
 ```
 </div>  
 
@@ -943,19 +942,17 @@ hist(qnorm(u2), main="", xlab="Histogram of qnorm(Loss)")
 
 ### Joint Modeling with Copula Function
 
-Before jointly modeling losses and expenses, we draw the scatterplot of transformed variables $(u_1, u_2)$ and the scatterplot of normal scores in figure \@ref(fig:Scatter2). 
+Before jointly modeling losses and expenses, we draw the scatterplot of transformed variables $(u_1, u_2)$ and the scatterplot of normal scores in Figure \@ref(fig:Scatter2). 
 
-Then we calculate the Spearman's rho correlation between these two uniform random variables.
+Then we calculate the Spearman's rho  between these two uniform random variables.
 
 ```{r Scatter2, message=FALSE, warning=FALSE, comment="", echo=FALSE, fig.cap='Left: Scatter plot for transformed variables.  Right:Scatter plot for normal scores'}
-par(mfrow=c(1, 2))
-plot(u1,u2, cex=0.5, xlim=c(-0.1,1.1), ylim=c(-0.1,1.1),
-     xlab="Transformed Alae", ylab="Transformed Loss")
-plot(qnorm(u1),qnorm(u2))
+par(mfrow = c(1, 2))
+plot(u1, u2, cex = 0.5, xlim = c(-0.1,1.1), ylim = c(-0.1,1.1),
+     xlab = "Transformed Alae", ylab = "Transformed Loss")
+plot(qnorm(u1), qnorm(u2))
 #cor(u1,u2, method="spearman")
 ```
-
-
 
 
 <h5 style="text-align: center;"><a id="display.Cor.1" href="javascript:togglecode
@@ -963,11 +960,11 @@ plot(qnorm(u1),qnorm(u2))
 <div id="display.Cor.2" style="display: none">
 
 ``` 
-par(mfrow=c(1, 2))
-plot(u1,u2, cex=0.5, xlim=c(-0.1,1.1), ylim=c(-0.1,1.1),
-     xlab="Transformed Alae", ylab="Transformed Loss")
-plot(qnorm(u1),qnorm(u2))
-cor(u1,u2, method="spearman")
+par(mfrow = c(1, 2))
+plot(u1, u2, cex = 0.5, xlim = c(-0.1,1.1), ylim = c(-0.1,1.1),
+     xlab = "Transformed Alae", ylab = "Transformed Loss")
+plot(qnorm(u1), qnorm(u2))
+cor(u1, u2, method = "spearman")
 
 Output: 
 
@@ -975,10 +972,10 @@ Output:
 ```
 </div>  
 
-Scatter plots and Spearman's rho correlation value (0.451)  shows us there is a positive dependency between these two uniform random variables.It is more clear to see the relationship with normal scores in the second graph. To learn more details about normal scores, readers can see [@joe2014dependence].
+Scatter plots and Spearman's rho correlation value (0.451)  shows us there is a positive dependency between these two uniform random variables. It is more clear to see the relationship with normal scores in the second graph. To learn more details about normal scores and their applications in copula modeling,  see [@joe2014dependence].
 
 
-$(U_1, U_2)$, ($U_1 = F_1(ALAE)$ and $U_2=F_2(LOSS)$), is fitted to Frank's copula with Maximum likelihood method.
+$(U_1, U_2)$, ($U_1 = F_1(ALAE)$ and $U_2=F_2(LOSS)$), is fit to Frank's copula with maximum likelihood method.
 
 ```{r message=FALSE, warning=FALSE, comment="", echo=FALSE}
 uu = cbind(u1,u2) # transformed data matrix uu
@@ -1052,7 +1049,7 @@ Output :
 ```
 </div> 
 
-To visualize the fitted Frank's copula, the distribution function and density function perspective plots are drawn in figure \@ref(fig:FrankCop).
+To visualize the fitted Frank's copula, the distribution function and density function perspective plots are drawn in Figure \@ref(fig:FrankCop).
 
 ```{r FrankCop, message=FALSE, warning=FALSE, comment="", echo=FALSE, fig.cap='Left: Plot for distribution function for Franks Copula. Right:Plot for density function for Franks Copula '}
 par(mar=c(3.2,3,.2,.2),mfrow=c(1,2))
@@ -1085,36 +1082,32 @@ Frank's copula models positive dependence for this data set, with $\theta=3.114$
 
 ## Types of Copulas {#S:CopTyp}
 
-We will go on reviewing copula functions with more details.
+***
 
-<hr />
 In this section, you learn how to:
 
 - Define the basic families of the copula functions
 - Calculate the association coefficients by the help of copula functions
 
-<hr />
+***
 
-
-There are several families of copulas have been described in the literature. 
-Two main families of the copula families are Archimedian  copulas and Elliptical copulas.
+There are several families of copulas have been described in the literature. Two main families of the copula families are the **Archimedian** and **Elliptical** copulas.
 
 ### Elliptical Copulas
-Elliptical copulas are constructed from elliptical distributions.This copula decompose (multivariate) elliptical distributions into their univariate elliptical marginal distributions by Sklar's theorem [@yan2017elements].
 
-Properties of elliptical copulas are typically obtained from the properties of  corresponding elliptical distributions[@yan2017elements].
+Elliptical copulas are constructed from elliptical distributions. This copula decompose (multivariate) elliptical distributions into their univariate elliptical marginal distributions by Sklar's theorem [@hofertelements].
 
-The normal distribution is a special type of elliptical distribution. To introduce the elliptical class of copulas, we start with the familiar multivariate normal distribution with probability density function
+Properties of elliptical copulas are typically obtained from the properties ofcorresponding elliptical distributions [@hofertelements].
+
+For example, the normal distribution is a special type of elliptical distribution. To introduce the elliptical class of copulas, we start with the familiar multivariate normal distribution with probability density function
 $$\phi_N (\mathbf{z})= \frac{1}{(2 \pi)^{p/2}\sqrt{\det \boldsymbol \Sigma}}
 \exp\left( -\frac{1}{2} \mathbf{z}^{\prime} \boldsymbol
 \Sigma^{-1}\mathbf{z}\right).$$
 
-Here, $\boldsymbol \Sigma$ is a correlation matrix, with ones on the
-diagonal. Let $\Phi$ and $\phi$ denote the standard normal distribution and density functions.
+Here, $\boldsymbol \Sigma$ is a correlation matrix, with ones on the diagonal. Let $\Phi$ and $\phi$ denote the standard normal distribution and density functions.
 We define the Gaussian (normal) copula density function as
-$${c}_N(u_1,  \ldots, u_p) = \phi_N \left(\Phi^{-1}(u_1),
-\ldots, \Phi^{-1}(u_p) \right) \prod_{j=1}^p
-\frac{1}{\phi(\Phi^{-1}(u_j))}.$$
+
+$${c}_N(u_1,  \ldots, u_p) = \phi_N \left(\Phi^{-1}(u_1), \ldots, \Phi^{-1}(u_p) \right) \prod_{j=1}^p \frac{1}{\phi(\Phi^{-1}(u_j))}.$$
 
 As with other copulas, the domain is the unit cube $[0,1]^p$.
 
@@ -1129,13 +1122,12 @@ We will use elliptical distributions to generate
 copulas. Because copulas are concerned primarily with relationships,
 we may restrict our considerations to the case where $\mu = \mathbf{0}$ and  $\boldsymbol \Sigma$ is a correlation matrix. With these restrictions, the marginal distributions of the multivariate elliptical copula are identical; we use $H$ to refer to this marginal distribution function and $h$ is the corresponding density. This marginal density is $h(z) = k_1 g_1(z^2/2).$
 
-We are now ready to define the  $elliptical$ $copula$, a function
-defined on the unit cube $[0,1]^p$  as
+We are now ready to define the  $elliptical$ $copula$, a function defined on the unit cube $[0,1]^p$  as
+
 $${c}_E(u_1,  \ldots, u_p) = h_E \left(H^{-1}(u_1), \ldots,
 H^{-1}(u_p) \right) \prod_{j=1}^p \frac{1}{h(H^{-1}(u_j))}.$$
-In the Elliptical copula family, the function $g_p$ is known as
-a ``generator'' in that it can be used to generate alternative
-distributions. 
+
+In the elliptical copula family, the function $g_p$ is known as a *generator* in that it can be used to generate alternative distributions. 
 
 <a id=tab:14.6></a>  
 
@@ -1159,49 +1151,48 @@ $$
 
 [Table 14.6] : Distribution and Generator Functions ($\mathrm{g}_p(x)$) for Selected Elliptical Copulas
 
-Most empirical work focuses on the normal copula and $t$-copula. $t$-copulas are useful for modeling  the dependency in the tails of bivariate distributions,especially in financial risk analysis applications. 
+Most empirical work focuses on the normal copula and $t$-copula. That is, $t$-copulas are useful for modeling  the dependency in the tails of bivariate distributions, especially in financial risk analysis applications. 
 
-The $t$-copulas with same  association parameter in varying the degrees of freedom parameter show us different tail dependency structures. For more information on about $t$-copulas readers can see [@joe2014dependence],[@yan2017elements].
+The $t$-copulas with same  association parameter in varying the degrees of freedom parameter show us different tail dependency structures. For more information on about $t$-copulas readers can see [@joe2014dependence], [@hofertelements].
 
 
 ### Archimedian Copulas
 
-This class of copulas are constructed from a $generator$ function,which is $\mathrm{g}(\cdot)$ is a convex, decreasing function with domain [0,1] and range $[0, \infty)$ such that $\mathrm{g}(0)=0$. Use $\mathrm{g}^{-1}$ for the inverse
-function of $\mathrm{g}$. Then the function
-$$\mathrm{C}_{\mathrm{g}}(u_1, \ldots, u_p) = \mathrm{g}^{-1} \left(
-\mathrm{g}(u_1)+ \cdots + \mathrm{g}(u_p) \right)$$
+This class of copulas are constructed from a $generator$ function,which is $\mathrm{g}(\cdot)$ is a convex, decreasing function with domain [0,1] and range $[0, \infty)$ such that $\mathrm{g}(0)=0$. Use $\mathrm{g}^{-1}$ for the inverse function of $\mathrm{g}$. Then the function
 
-is said to be an \emph{Archimedean} copula. The function
-``$\mathrm{g}$'' is known as the \emph{generator} of the copula
-$\mathrm{C}_{\mathrm{g}}$.
+$$\mathrm{C}_{\mathrm{g}}(u_1, \ldots, u_p) = \mathrm{g}^{-1} \left(\mathrm{g}(u_1)+ \cdots + \mathrm{g}(u_p) \right)$$
 
-For bivariate case; $d=2$ , Archimedean copula function can be written by the function 
-$$\mathrm{C}_{\mathrm{g}}(u_1, \, u_2) = \mathrm{g}^{-1} \left(
-\mathrm{g}(u_1) + \mathrm{g}(u_2) \right).$$
+is said to be an *Archimedean* copula. The function $\mathrm{g}$ is known as the *generator* of the copula $\mathrm{C}_{\mathrm{g}}$.
 
-Some important special cases of Archimedean copulas are Frank copula, Clayton/Cook-Johnson copula, Gumbel/Hougaard copula.This copula classes are derived from different generator functions.
+For bivariate case; $p=2$ , Archimedean copula function can be written by the function 
+
+$$\mathrm{C}_{\mathrm{g}}(u_1, \, u_2) = \mathrm{g}^{-1} \left(\mathrm{g}(u_1) + \mathrm{g}(u_2) \right).$$
+
+Some important special cases of Archimedean copulas are Frank copula, Clayton/Cook-Johnson copula, Gumbel/Hougaard copula. This copula classes are derived from different generator functions.
 
 We can remember that we mentioned about Frank's copula with details in Section \@ref(S:Copula) and  in Section \@ref(S:CopAppl). Here we will continue to express the equations for Clayton copula and Gumbel/Hougaard copula. 
 
 #### Clayton Copula 
-For $d=2$ , the Clayton copula is parameterized by $\theta \in [-1,\infty)$ is defined by
+
+For $p=2$, the Clayton copula is parameterized by $\theta \in [-1,\infty)$ is defined by
 $$C_{\theta}^C(u)=\max\{u_1^{-\theta}+u_2^{-\theta}-1,0\}^{1/\theta}, \quad u\in[0,1]^2.$$
 
-This is a bivariate distribution function of Clayton copula defined in
-unit square $[0,1]^2.$ The range of dependence is controlled by the parameter $\theta$ as the same as Frank copula.
-
+This is a bivariate distribution function of Clayton copula defined in unit square $[0,1]^2.$ The range of dependence is controlled by the parameter $\theta$ as the same as Frank copula.
 
 #### Gumbel-Hougaard copula
+
 The Gumbel-Hougaarg copula is parametrized by $\theta \in [1,\infty)$ and defined by 
 $$C_{\theta}^{GH}(u)=\exp\left(-\left(\sum_{i=1}^2 (-\log u_i)^{\theta}\right)^{1/\theta}\right), \quad u\in[0,1]^2.$$
 
-Readers seeking deeper background on Archimedean copulas can see [@joe2014dependence];[@frees1998understanding]; [@genest1986bivariate].
+Readers seeking deeper background on Archimedean copulas can see @joe2014dependence, @frees1998understanding, and @genest1986bivariate.
 
 
 ### Properties of Copulas
 
 #### Bounds on Association
+
 Like all multivariate distribution functions, copulas are bounded. The Fr$'{e}$chet-Hoeffding bounds are 
+
 $$\max( u_1 +\cdots+ u_p + p -1, 0) \leq  \mathrm{C}(u_1,  \ldots, u_p) \leq \min (u_1,  \ldots,u_p).$$
 
 To see the right-hand side of the equation, note that 
@@ -1212,7 +1203,7 @@ The product copula is $\mathrm{C}(u_1,u_2)=u_1u_2$ is the result of assuming ind
 The lower bound is achieved when the two random variables are perfectly negatively related ($U_2=1-U_1$) and the upper bound is achieved when they are
 perfectly positively related ($U_2=U_1$).
 
-We can see The Frechet-Hoeffding bounds for two random variables in the figure \@ref(fig:Bounds).
+We can see The Frechet-Hoeffding bounds for two random variables in the Figure \@ref(fig:Bounds).
 
 ```{r Bounds, message=FALSE, warning=FALSE, comment="", echo=FALSE, fig.cap='Perfect Positive and Perfect negative dependence plots'}
 library(copula)
@@ -1220,8 +1211,8 @@ n<-100
 set.seed(1980)
 U<-runif(n)
 par(mfrow=c(1, 2))
-plot(cbind(U,1-U), xlab=quote(U[1]), ylab=quote(U[2]),main="Perfect Negative Dependency") # W for d=2
-plot (cbind(U,U), xlab=quote(U[1]),ylab=quote(U[2]),main="Perfect Positive Dependency")  #M for d=2
+plot(cbind(U,1-U), xlab=quote(U[1]), ylab=quote(U[2]),main="Perfect Negative Dependency") # W for p=2
+plot (cbind(U,U), xlab=quote(U[1]),ylab=quote(U[2]),main="Perfect Positive Dependency")  #M for p=2
 ```
 
 
@@ -1235,56 +1226,44 @@ n<-100
 set.seed(1980)
 U<-runif(n)
 par(mfrow=c(1, 2))
-plot(cbind(U,1-U), xlab=quote(U[1]), ylab=quote(U[2]),main="Perfect Negative Dependency") # W for d=2
-plot (cbind(U,U), xlab=quote(U[1]),ylab=quote(U[2]),main="Perfect Positive Dependency")  #M for d=2
+plot(cbind(U,1-U), xlab=quote(U[1]), ylab=quote(U[2]),main="Perfect Negative Dependency") # W for p=2
+plot (cbind(U,U), xlab=quote(U[1]),ylab=quote(U[2]),main="Perfect Positive Dependency")  #M for p=2
 ```
 </div>  
 
 
 
 #### Measures of Association
-Schweizer and Wolff (1981) established that the copula accounts for
-all the dependence between two random variables, $Y_1$ and $Y_2$, in
-the following sense. Consider m$_1$ and m$_2$, strictly increasing
-functions. Thus, the manner in which $Y_1$ and $Y_2$ ``move
-together'' is captured by the copula, regardless of the scale in
-which each variable is measured.
 
-Schweizer and Wolff also showed the two standard nonparametric
-measures of association could be expressed solely in terms of the
-copula function. Spearman's correlation coefficient is
-given by
+Schweizer and Wolff (1981) established that the copula accounts for all the dependence between two random variables, $Y_1$ and $Y_2$, in the following sense. Consider m$_1$ and m$_2$, strictly increasing functions. Thus, the manner in which $Y_1$ and $Y_2$ "move together" is captured by the copula, regardless of the scale in which each variable is measured.
 
-$$= 12 \int \int \left\{\mathrm{C}(u,v) -
-uv \right\} du dv.$$
+Schweizer and Wolff also showed the two standard nonparametric measures of association could be expressed solely in terms of the copula function. Spearman's correlation coefficient is given by
 
-And Kendall's tau is given by
+$$= 12 \int \int \left\{\mathrm{C}(u,v) - uv \right\} du dv.$$
+
+Kendall's tau is given by
 
 $$= 4 \int \int \mathrm{C}(u,v)d\mathrm{C}(u,v) - 1 .$$
 
-For these expressions, we assume that $Y_1$ and $Y_2$ have a jointly
-continuous distribution function. Further, the definition of
-Kendall's tau uses an independent copy of ($Y_1$, $Y_2$), labeled
-($Y_1^{\ast}$, $Y_2^{\ast}$), to define the measure of ``concordance.'' the widely used Pearson correlation depends on the margins as well as the copula. Because it is affected by non-linear changes of scale.
+For these expressions, we assume that $Y_1$ and $Y_2$ have a jointly continuous distribution function. Further, the definition of
+Kendall's tau uses an independent copy of ($Y_1$, $Y_2$), labeled ($Y_1^{\ast}$, $Y_2^{\ast}$), to define the measure of "concordance." the widely used Pearson correlation depends on the margins as well as the copula. Because it is affected by non-linear changes of scale.
 
 
 #### Tail Dependency
+
 There are some applications in which it is useful to distinguish by the part of the distribution in which the association is strongest. For example, in insurance it is helpful to understand association among the largest losses, that is, association in the right tails of the data. 
 
-To capture this type of dependency, we use the right-tail
-concentration function. The function is
+To capture this type of dependency, we use the right-tail concentration function. The function is
 
-$$R(z) = \frac{\Pr(U_1 >z, U_2 > z)}{1-z} =\Pr(U_1 > z | U_2 > z)
-=\frac{1 - 2z + \mathrm{C}(z,z)}{1-z} .$$
+$$R(z) = \frac{\Pr(U_1 >z, U_2 > z)}{1-z} =\Pr(U_1 > z | U_2 > z) =\frac{1 - 2z + \mathrm{C}(z,z)}{1-z} .$$
 
-From this equation ,$R(z)$ will equal to $z$ under independence. Joe (1997) uses the term `"upper tail dependence parameter" for $R = \lim_{z \rightarrow 1} R(z)$. Similarly, the left-tail concentration function is 
+From this equation , $R(z)$ will equal to $z$ under independence. Joe (1997) uses the term "upper tail dependence parameter" for $R = \lim_{z \rightarrow 1} R(z)$. Similarly, the left-tail concentration function is 
 
-$$L(z) = \frac{\Pr(U_1 \leq z, U_2 \leq z)}{z}=\Pr(U_1 \leq z | U_2
-\leq z) =\frac{ \mathrm{C}(z,z)}{1-z}.$$ 
+$$L(z) = \frac{\Pr(U_1 \leq z, U_2 \leq z)}{z}=\Pr(U_1 \leq z | U_2 \leq z) =\frac{ \mathrm{C}(z,z)}{1-z}.$$ 
 
 Tail dependency concentration function captures the probability of two random variables both catching up extreme values.
 
-We calculate the left and right tail concentration functions for four different types of copulas; Normal, Frank,Gumbel and t copula. After getting tail concentration functions for each copula, we show concentration function's values for these four copulas in  [Table 14.7]. As in @Venter2002tails,  we show $L(z)$ for $z\leq 0.5$ and $R(z)$ for $z>0.5$ in the tail dependence plot in figure \@ref(fig:DepTails). We interpret the tail dependence plot, to mean that both the Frank and Normal copula exhibit no tail dependence whereas the $t$ and the Gumbel may do so. The $t$ copula is symmetric in its treatment of upper and lower tails.
+We calculate the left and right tail concentration functions for four different types of copulas; Normal, Frank,Gumbel and t copula. After getting tail concentration functions for each copula, we show concentration function's values for these four copulas in  [Table 14.7]. As in @venter2002tails,  we show $L(z)$ for $z\leq 0.5$ and $R(z)$ for $z>0.5$ in the tail dependence plot in Figure \@ref(fig:DepTails). We interpret the tail dependence plot, to mean that both the Frank and Normal copula exhibit no tail dependence whereas the $t$ and the Gumbel may do so. The $t$ copula is symmetric in its treatment of upper and lower tails.
 
 
 <a id=tab:14.7></a>
@@ -1294,7 +1273,7 @@ We calculate the left and right tail concentration functions for four different 
 
 $$
 {\small \begin{matrix}
-\begin{array}{|l|rr|} 
+\begin{array}{l|rr} 
     \hline
 \text{Copula} & \text{Lower}    & \text{Upper}     \\
 \hline
@@ -1329,10 +1308,7 @@ jointtail1 <- TailFunction(Tailcop1)
 jointtail2 <- TailFunction(Tailcop2)
 jointtail3 <- TailFunction(Tailcop3)
 jointtail4 <- TailFunction(Tailcop4)
-#tailIndex(Tailcop1)
-#tailIndex(Tailcop2)
-#tailIndex(Tailcop3)
-#tailIndex(Tailcop4)
+
 
 ```
 
@@ -1416,7 +1392,7 @@ To illustrate the importance of dependence modeling, we refer you back to Portfo
 
 $$
 {\small \begin{matrix}
-\begin{array}{|l|rrrr|} 
+\begin{array}{l|rrrr} 
     \hline
  \text{Independent} &\text{Expected}   & VaR_{0.9}  & VaR_{0.95}  & VaR_{0.99}  \\
                    &\text{Value}      &            &             &             \\
@@ -1622,10 +1598,12 @@ plot(density(S), main="Density of Total Portfolio Risk S", xlab="S")
 
 ### A.1. Blomqvist's Beta {-}
 
-[@blomqvist1950measure] developed a measure of dependence now known as Blomqvist's beta, also called the median concordance coefficient and the medial correlation coefficient. Using distribution functions, this parameter can be expressed as
+@blomqvist1950measure developed a measure of dependence now known as *Blomqvist's beta*, also called the *median concordance coefficient* and the *medial correlation coefficient*. Using distribution functions, this parameter can be expressed as
+
 \begin{equation*}
 \beta = 4F\left(F^{-1}_X(1/2),F^{-1}_Y(1/2) \right) - 1.
 \end{equation*}
+
 That is, first evaluate each marginal at its median ($F^{-1}_X(1/2)$ and $F^{-1}_Y(1/2)$, respectively). Then, evaluate the bivariate distribution function at the two medians. After rescaling (multiplying by 4 and subtracting 1), the coefficient turns out to have a range of $[-1,1]$, where 0 occurs under independence.
 
 Like Spearman's rho and Kendall's tau, an estimator based on ranks is easy to provide. First write $\beta = 4C(1/2,1/2)-1 = 2\Pr((U_1-1/2)(U_2-1/2))-1$ where $U_1, U_2$ are uniform random variables. Then, define

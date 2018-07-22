@@ -3659,20 +3659,16 @@ Here are a few reference cited in the chapter.
 
 \chapter{Modeling Loss Severity}\label{C:Severity}
 
-\textbf{October 27, 2016}
-
-\subsubsection*{Chapter Preview}\label{chapter-preview}
-\addcontentsline{toc}{subsubsection}{Chapter Preview}
-
-The traditional loss distribution approach to modeling aggregate losses
-starts by separately fitting a frequency distribution to the number of
-losses and a severity distribution to the size of losses. The estimated
-aggregate loss distribution combines the loss frequency distribution and
-the loss severity distribution by convolution. Discrete distributions
-often referred to as counting or frequency distributions were used in
-Chapter 2 to describe the number of events such as number of accidents
-to the driver or number of claims to the insurer. Lifetimes, asset
-values, losses and claim sizes are usually modeled as continuous random
+\emph{Chapter Preview.} The traditional loss distribution approach to
+modeling aggregate losses starts by separately fitting a frequency
+distribution to the number of losses and a severity distribution to the
+size of losses. The estimated aggregate loss distribution combines the
+loss frequency distribution and the loss severity distribution by
+convolution. Discrete distributions often referred to as counting or
+frequency distributions were used in Chapter \ref{C:Frequency-Modeling}
+to describe the number of events such as number of accidents to the
+driver or number of claims to the insurer. Lifetimes, asset values,
+losses and claim sizes are usually modeled as continuous random
 variables and as such are modeled using continuous distributions, often
 referred to as loss or severity distributions. Mixture distributions are
 used to model phenomenon investigated in a heterogeneous population,
@@ -3686,7 +3682,7 @@ of coverage modifications, which change the conditions that trigger a
 payment, such as applying deductibles, limits, or adjusting for
 inflation, on the distribution of individual loss amounts.
 
-\section{Basic Distributional Quantities}\label{BasicQuantities}
+\section{Basic Distributional Quantities}\label{S:BasicQuantities}
 
 In this section we calculate the basic distributional quantities:
 moments, percentiles and generating functions.
@@ -3699,14 +3695,14 @@ denoted by \(\mu_{k}^{\prime}\), is the expected value of the
 \emph{k}-th power of \(X\), provided it exists. The first raw moment
 \(\mu_{1}^{\prime}\) is the mean of \(X\) usually denoted by \(\mu\).
 The formula for \(\mu_{k}^{\prime}\) is given as
-\[\mu_{k}^{\prime} = E\left( X^{k} \right) = \int_{0}^{\infty}{x^{k}f_{X}\left( x \right)dx } .\]
+\[\mu_{k}^{\prime} = \mathrm{E}\left( X^{k} \right) = \int_{0}^{\infty}{x^{k}f_{X}\left( x \right)dx } .\]
 The support of the random variable \(X\) is assumed to be nonnegative
 since actuarial phenomena are rarely negative.
 
 The \emph{k}-th central moment of \(X\), denoted by \(\mu_{k}\), is the
 expected value of the \emph{k}-th power of the deviation of \(X\) from
 its mean \(\mu\). The formula for \(\mu_{k}\) is given as
-\[\mu_{k} = E\left\lbrack {(X - \mu)}^{k} \right\rbrack = \int_{0}^{\infty}{\left( x - \mu \right)^{k}f_{X}\left( x \right) dx }.\]
+\[\mu_{k} = \mathrm{E}\left\lbrack {(X - \mu)}^{k} \right\rbrack = \int_{0}^{\infty}{\left( x - \mu \right)^{k}f_{X}\left( x \right) dx }.\]
 The second central moment \(\mu_{2}\) defines the variance of \(X\),
 denoted by \(\sigma^{2}\). The square root of the variance is the
 standard deviation \(\sigma\). A further characterization of the shape
@@ -3724,26 +3720,31 @@ Distributions with a coefficient of kurtosis greater than 3 have heavier
 tails and higher peak than the normal, whereas distributions with a
 coefficient of kurtosis less than 3 have lighter tails and are flatter.
 
-Example 3.1 (SOA) \(X\) has a gamma distribution with mean 8 and
-skewness 1. Find the variance of \(X\).
+\textbf{Example 3.1.1. SOA Exam Question.} Assume that the \emph{rv}
+\(X\) has a gamma distribution with mean 8 and skewness 1. Find the
+variance of \(X\).
 
-Solution
+Show Example Solution
 
-The probability density function of \(X\) is given by
+\hypertarget{toggleExampleLoss.1.1}{}
+\textbf{Solution.} The probability density function of \(X\) is given by
 \[f_{X}\left( x \right) = \frac{\left( x / \theta \right)^{\alpha}}{x\Gamma\left( \alpha \right)} e^{- x / \theta} \]
 for \(x > 0\). For \(\alpha>0\),
-\[\mu_{k}^{\prime} = E\left( X^{k} \right) = \int_{0}^{\infty}{\frac{1}{\left( \alpha - 1 \right)!\theta^{\alpha}}x^{k + \alpha - 1}e^{- x / \theta} dx} = \frac{\Gamma\left( k + \alpha \right)}{\Gamma\left( \alpha \right)}\theta^{k}\]
+\[\mu_{k}^{\prime} = \mathrm{E}\left( X^{k} \right) = \int_{0}^{\infty}{\frac{1}{\left( \alpha - 1 \right)!\theta^{\alpha}}x^{k + \alpha - 1}e^{- x / \theta} dx} = \frac{\Gamma\left( k + \alpha \right)}{\Gamma\left( \alpha \right)}\theta^{k}\]
 Given \(\Gamma\left( r + 1 \right) = r\Gamma\left( r \right)\), then
-\(\mu_{1}^{\prime} = E\left( X \right) = \alpha\theta\),
-\(\mu_{2}^{\prime} = E\left( X^{2} \right) = \left( \alpha + 1 \right)\alpha\theta^{2}\),
-\(\mu_{3}^{\prime} = E\left( X^{3} \right) = \left( \alpha + 2 \right)\left( \alpha + 1 \right)\alpha\theta^{3}\),
-and \(Var\left( X \right) = \alpha\theta^{2}\).
+\(\mu_{1}^{\prime} = \mathrm{E}\left( X \right) = \alpha\theta\),
+\(\mu_{2}^{\prime} = \mathrm{E}\left( X^{2} \right) = \left( \alpha + 1 \right)\alpha\theta^{2}\),
+\(\mu_{3}^{\prime} = \mathrm{E}\left( X^{3} \right) = \left( \alpha + 2 \right)\left( \alpha + 1 \right)\alpha\theta^{3}\),
+and \(\mathrm{Var}\left( X \right) = \alpha\theta^{2}\).
 
-\[\text{Skewness}  = \frac{E\left\lbrack {(X - \mu_{1}^{\prime})}^{3} \right\rbrack}{{Var\left( X \right)}^{3/2}} = \frac{\mu_{3}^{\prime} - 3\mu_{2}^{\prime}\mu_{1}^{\prime} + 2{\mu_{1}^{\prime}}^{3}}{{Var\left( X \right)}^{3/2}} \\
+\[\text{Skewness}  = \frac{\mathrm{E}\left\lbrack {(X - \mu_{1}^{\prime})}^{3} \right\rbrack}{{\mathrm{Var}\left( X \right)}^{3/2}} = \frac{\mu_{3}^{\prime} - 3\mu_{2}^{\prime}\mu_{1}^{\prime} + 2{\mu_{1}^{\prime}}^{3}}{{\mathrm{Var}\left( X \right)}^{3/2}} \\
  = \frac{\left( \alpha + 2 \right)\left( \alpha + 1 \right)\alpha\theta^{3} - 3\left( \alpha + 1 \right)\alpha^{2}\theta^{3} + 2\alpha^{3}\theta^{3}}{\left( \alpha\theta^{2} \right)^{3/2}} = \frac{2}{\alpha^{1/2}} = 1\]
 
-Hence, \(\alpha = 4\). Since, \(E\left( X \right) = \alpha\theta = 8\),
-then \(\theta = 2\) and \(Var\left( X \right) = \alpha\theta^{2} = 16\).
+Hence, \(\alpha = 4\). Since,
+\(\mathrm{E}\left( X \right) = \alpha\theta = 8\), then \(\theta = 2\)
+and \(\mathrm{Var}\left( X \right) = \alpha\theta^{2} = 16\).
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
 \subsection{Quantiles}\label{quantiles}
 
@@ -3757,19 +3758,25 @@ The 50-th percentile or the middle point of the distribution,
 \(\pi_{0.5}\), is the median. Unlike discrete random variables,
 percentiles of continuous variables are distinct.
 
-Example 3.2 (SOA) Let \(X\) be a continuous random variable with density
-function \(f_{X}\left( x \right) = \theta e^{- \theta x}\), for
-\(x > 0\) and 0 elsewhere. If the median of this distribution is
-\(\frac{1}{3}\), find \(\theta\).
+\textbf{Example 3.1.1. SOA Exam Question.} Let \(X\) be a continuous
+random variable with density function
+\(f_{X}\left( x \right) = \theta e^{- \theta x}\), for \(x > 0\) and 0
+elsewhere. If the median of this distribution is \(\frac{1}{3}\), find
+\(\theta\).
 
-Solution
+Show Example Solution
+
+\hypertarget{toggleExampleLoss.1.2}{}
+\textbf{Solution.}
 
 \(F_{X}\left( x \right) = 1 - e^{- \theta x}\). Then,
 \(F_{X}\left( \pi_{0.5} \right) = 1 - e^{- \theta\pi_{0.5}} = 0.5\).
 Thus, \(1 - e^{-\theta / 3} = 0.5\) and \(\theta = 3 \ln 2\).
 
-\subsection{The Moment Generating
-Function}\label{the-moment-generating-function}
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsection{Moment Generating
+Function}\label{moment-generating-function}
 
 The moment generating function, denoted by \(M_{X}\left( t \right)\)
 uniquely characterizes the distribution of \(X\). While it is possible
@@ -3780,30 +3787,39 @@ then they have the same distribution. The moment generating is a real
 function whose \emph{k}-th derivative at zero is equal to the
 \emph{k}-th raw moment of \(X\). The moment generating function is given
 by
-\[M_{X}\left( t \right) = E\left( e^{\text{tX}} \right) = \int_{0}^{\infty}{e^{\text{tx}}f_{X}\left( x \right) dx }\]
+\[M_{X}\left( t \right) = \mathrm{E}\left( e^{\text{tX}} \right) = \int_{0}^{\infty}{e^{\text{tx}}f_{X}\left( x \right) dx }\]
 for all \(t\) for which the expected value exists.
 
-Example 3.3 (SOA) The random variable \(X\) has an exponential
-distribution with mean \(\frac{1}{b}\). It is found that
+\textbf{Example 3.1.3. SOA Exam Question.} The random variable \(X\) has
+an exponential distribution with mean \(\frac{1}{b}\). It is found that
 \(M_{X}\left( - b^{2} \right) = 0.2\). Find \(b\).
 
-Solution
+Show Example Solution
 
-\[M_{X}\left( t \right) = E\left( e^{\text{tX}} \right) = \int_{0}^{\infty}{e^{\text{tx}}be^{- bx} dx} = \int_{0}^{\infty}{be^{- x\left( b - t \right)} dx} = \frac{b}{\left( b - t \right)}.\]
+\hypertarget{toggleExampleLoss.1.3}{}
+\textbf{Solution.}
+
+\[M_{X}\left( t \right) = \mathrm{E}\left( e^{\text{tX}} \right) = \int_{0}^{\infty}{e^{\text{tx}}be^{- bx} dx} = \int_{0}^{\infty}{be^{- x\left( b - t \right)} dx} = \frac{b}{\left( b - t \right)}.\]
 
 Then,
 \[M_{X}\left( - b^{2} \right) = \frac{b}{\left( b + b^{2} \right)} = \frac{1}{\left( 1 + b \right)} = 0.2.\]
 Thus, \(b = 4\).
 
-Example 3.4 Let \(X_{1}\), \(X_{2}\), ., \(X_{n}\) be independent
-\(\text{Ga}\left( \alpha_{i},\theta \right)\) random variables. Find the
-distribution of \(S = \sum_{i = 1}^{n}X_{i}\).
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
-Solution
+\textbf{Example 3.1.4. SOA Exam Question.} Let \(X_{1}\), \(X_{2}\), .,
+\(X_{n}\) be independent \(\text{Ga}\left( \alpha_{i},\theta \right)\)
+random variables. Find the distribution of
+\(S = \sum_{i = 1}^{n}X_{i}\).
+
+Show Example Solution
+
+\hypertarget{toggleExampleLoss.1.4}{}
+\textbf{Solution.}
 
 The moment generating function of \(S\) is
-\[M_{S}\left( t \right) = \text{E}\left( e^{\text{tS}} \right) = E\left( e^{t\sum_{i = 1}^{n}X_{i}} \right) \\
-= E\left( \prod_{i = 1}^{n}e^{tX_{i}} \right) = \prod_{i = 1}^{n}{E\left( e^{tX_{i}} \right) = \prod_{i = 1}^{n}{M_{X_{i}}\left( t \right)}} .\]
+\[M_{S}\left( t \right) = \mathrm{E}\left( e^{\text{tS}} \right) = \mathrm{E}\left( e^{t\sum_{i = 1}^{n}X_{i}} \right) \\
+= \mathrm{E}\left( \prod_{i = 1}^{n}e^{tX_{i}} \right) = \prod_{i = 1}^{n}{\mathrm{E}\left( e^{tX_{i}} \right) = \prod_{i = 1}^{n}{M_{X_{i}}\left( t \right)}} .\]
 
 The moment generating function of \(X_{i}\) is
 \(M_{X_{i}}\left( t \right) = \left( 1 - \theta t \right)^{- \alpha_{i}}\).
@@ -3814,10 +3830,12 @@ indicating that
 
 By finding the first and second derivatives of \(M_{S}\left( t \right)\)
 at zero, we can show that
-\(E\left( S \right) = \left. \ \frac{\partial M_{S}\left( t \right)}{\partial t} \right|_{t = 0} = \alpha\theta\)
+\(\mathrm{E}\left( S \right) = \left. \ \frac{\partial M_{S}\left( t \right)}{\partial t} \right|_{t = 0} = \alpha\theta\)
 where \(\alpha = \sum_{i = 1}^{n}\alpha_{i}\), and
-\[E\left( S^{2} \right) = \left. \ \frac{\partial^{2}M_{S}\left( t \right)}{\partial t^{2}} \right|_{t = 0} = \left( \alpha + 1 \right)\alpha\theta^{2}.\]
-Hence, \(Var\left( S \right) = \alpha\theta^{2}\).
+\[\mathrm{E}\left( S^{2} \right) = \left. \ \frac{\partial^{2}M_{S}\left( t \right)}{\partial t^{2}} \right|_{t = 0} = \left( \alpha + 1 \right)\alpha\theta^{2}.\]
+Hence, \(\mathrm{Var}\left( S \right) = \alpha\theta^{2}\).
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
 \subsection{Probability Generating
 Function}\label{probability-generating-function}
@@ -3825,24 +3843,27 @@ Function}\label{probability-generating-function}
 The probability generating function, denoted by
 \(P_{X}\left( z \right)\), also uniquely characterizes the distribution
 of \(X\). It is defined as
-\[P_{X}\left( z \right) = E\left( z^{X} \right) = \int_{0}^{\infty}{z^{x}f_{X}\left( x \right) dx}\]
+\[P_{X}\left( z \right) = \mathrm{E}\left( z^{X} \right) = \int_{0}^{\infty}{z^{x}f_{X}\left( x \right) dx}\]
 for all \(z\) for which the expected value exists.
 
 We can also use the probability generating function to generate moments
 of \(X\). By taking the \emph{k}-th derivative of
 \(P_{X}\left( z \right)\) with respect to \(z\) and evaluate it at
 \(z\  = \ 1\), we get
-\[E\left\lbrack X\left( X - 1 \right)\ldots\left( X - k + 1 \right) \right\rbrack .\]
+\(\mathrm{E}\left\lbrack X\left( X - 1 \right)\ldots\left( X - k + 1 \right) \right\rbrack .\)
+
+The probability generating function is more useful for discrete
+\emph{rv}s and was introduced in Section \ref{S:generating-functions}.
 
 \section{Continuous Distributions for Modeling Loss
-Severity}\label{ContinuousDistn}
+Severity}\label{S:ContinuousDistn}
 
 In this section we explain the characteristics of distributions suitable
 for modeling severity of losses, including gamma, Pareto, Weibull and
 generalized beta distribution of the second kind. Applications for which
 each distribution may be used are identified.
 
-\subsection{The Gamma Distribution}\label{the-gamma-distribution}
+\subsection{Gamma Distribution}\label{gamma-distribution}
 
 The gamma distribution is commonly used in modeling claim severity. The
 traditional approach in modelling losses is to fit separate models for
@@ -3859,50 +3880,44 @@ probability density function is given by
 \[f_{X}\left( x \right) = \frac{\left( x/ \theta  \right)^{\alpha}}{x\Gamma\left( \alpha \right)}\exp \left( -x/ \theta \right) \ \ \ \text{for } x > 0 .\]
 Note that \(\ \alpha > 0,\ \theta > 0\).
 
-Figures \ref{fig:gammascale} and \ref{fig:gammashape} demonstrate the
-effect of the scale and shape parameters on the gamma density function.
+The two panels in Figure \ref{fig:gammapdf} demonstrate the effect of
+the scale and shape parameters on the gamma density function.
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.8\linewidth]{LossDataAnalytics_files/figure-latex/gammascale-1} 
+{\centering \includegraphics[width=1.2\linewidth]{LossDataAnalytics_files/figure-latex/gammapdf-1} 
 
 }
 
-\caption{Gamma Density, with shape=2 and Varying Scale}\label{fig:gammascale}
-\end{figure}
-
-\begin{figure}
-
-{\centering \includegraphics[width=0.8\linewidth]{LossDataAnalytics_files/figure-latex/gammashape-1} 
-
-}
-
-\caption{Gamma Density, with scale=100 and Varying Shape}\label{fig:gammashape}
+\caption{Gamma Densities. The left-hand panel is with shape=2 and Varying Scale. 
+ The right-hand panel is with scale=100 and Varying Shape.}\label{fig:gammapdf}
 \end{figure}
 
 R Code for Gamma Density Plots
 
 \hypertarget{display.gammascale.2}{}
 \begin{verbatim}
+par(mfrow=c(1, 2), mar = c(4, 4, .1, .1))
+
 # Varying Scale Gamma Densities
-scaleparam <- seq(100,250,by=50)
+scaleparam <- seq(100, 250, by = 50)
 shapeparam <- 2:5
-x = seq(0,1000,by=1)
-par(mar = c(4, 4, .1, .1))
+x <- seq(0, 1000, by = 1)
 fgamma <- dgamma(x, shape = 2, scale = scaleparam[1])
 plot(x, fgamma, type = "l", ylab = "Gamma Density")
 for(k in 2:length(scaleparam)){
   fgamma <- dgamma(x,shape = 2, scale = scaleparam[k])
-  lines(x,fgamma, col = k) }
+  lines(x,fgamma, col = k)
+}
 legend("topright", c("scale=100", "scale=150", "scale=200", "scale=250"), lty=1, col = 1:4)
 
 # Varying Shape Gamma Densities
-par(mar = c(4, 4, .1, .1))
 fgamma <- dgamma(x, shape = shapeparam[1], scale = 100)
 plot(x, fgamma, type = "l", ylab = "Gamma Density")
 for(k in 2:length(shapeparam)){
   fgamma <- dgamma(x,shape = shapeparam[k], scale = 100)
-  lines(x,fgamma, col = k) }
+  lines(x,fgamma, col = k)
+}
 legend("topright", c("shape=2", "shape=3", "shape=4", "shape=5"), lty=1, col = 1:4)
 \end{verbatim}
 
@@ -3920,16 +3935,17 @@ and defined as
 
 The \(k\)-th moment of the gamma distributed random variable for any
 positive \(k\) is given by
-\[E\left( X^{k} \right) = \theta^{k} \frac{\Gamma\left( \alpha + k \right)}{\Gamma\left( \alpha \right)}  \ \ \ \text{for } k > 0 .\]
-The mean and variance are given by \(E\left( X \right) = \alpha\theta\)
-and \(Var\left( X \right) = \alpha\theta^{2}\), respectively.
+\[\mathrm{E}\left( X^{k} \right) = \theta^{k} \frac{\Gamma\left( \alpha + k \right)}{\Gamma\left( \alpha \right)}  \ \ \ \text{for } k > 0 .\]
+The mean and variance are given by
+\(\mathrm{E}\left( X \right) = \alpha\theta\) and
+\(\mathrm{Var}\left( X \right) = \alpha\theta^{2}\), respectively.
 
 Since all moments exist for any positive \(k\), the gamma distribution
 is considered a light tailed distribution, which may not be suitable for
 modeling risky assets as it will not provide a realistic assessment of
 the likelihood of severe losses.
 
-\subsection{The Pareto Distribution}\label{the-pareto-distribution}
+\subsection{Pareto Distribution}\label{pareto-distribution}
 
 The Pareto distribution, named after the Italian economist Vilfredo
 Pareto (1843-1923), has many economic and financial applications. It is
@@ -3946,8 +3962,8 @@ The continuous variable \(X\) is said to have the Pareto distribution
 with shape parameter \(\alpha\) and scale parameter \(\theta\) if its
 pdf is given by
 \[f_{X}\left( x \right) = \frac{\alpha\theta^{\alpha}}{\left( x + \theta \right)^{\alpha + 1}} \ \ \  x  >  0,\ \alpha >  0,\ \theta > 0.\]
-Figures \ref{fig:Paretoscale} and \ref{fig:Paretoshape} demonstrate the
-effect of the scale and shape parameters on the Pareto density function.
+The two panels in Figure \ref{fig:Paretopdf} demonstrate the effect of
+the scale and shape parameters on the Pareto density function.
 
 \begin{verbatim}
 ## Loading required package: stats4
@@ -3959,46 +3975,37 @@ effect of the scale and shape parameters on the Pareto density function.
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.8\linewidth]{LossDataAnalytics_files/figure-latex/Paretoscale-1} 
+{\centering \includegraphics[width=1.2\linewidth]{LossDataAnalytics_files/figure-latex/Paretopdf-1} 
 
 }
 
-\caption{Pareto Density, with shape=3 and Varying Scale}\label{fig:Paretoscale}
-\end{figure}
-
-\begin{figure}
-
-{\centering \includegraphics[width=0.8\linewidth]{LossDataAnalytics_files/figure-latex/Paretoshape-1} 
-
-}
-
-\caption{Pareto Density, with scale=2000 and Varying Shape}\label{fig:Paretoshape}
+\caption{Pareto Densities. The left-hand panel is with scale=2000 and Varying Shape.  The right-hand panel is with shape=3 and Varying Scale}\label{fig:Paretopdf}
 \end{figure}
 
 R Code for Pareto Density Plots
 
 \hypertarget{display.Paretoscale.2}{}
 \begin{verbatim}
-# Varying Scale Pareto Densities
-#install.packages("VGAM")
-library(VGAM)
-scaleparam <- seq(2000,3500,500)
-shapeparam <- 1:4
-z<- seq(1,3000,by=1)
-fpareto <- dpareto(z, shape = 3, scale = scaleparam[1])
-plot(z, fpareto, ylim=c(0,0.002),type = "l", ylab = "Pareto Density")
-for(k in 2:length(shapeparam)){
-  fpareto <- dpareto(z,shape = 3, scale = scaleparam[k])
-  lines(z,fpareto, col = k) }
-legend("topright", c("scale=2000", "scale=2500", "scale=3000", "scale=3500"), lty=1, col = 1:4)
+par(mfrow=c(1, 2), mar = c(4, 4, .1, .1))
 
 # Varying Shape Pareto Densities
-fpareto <- dpareto(z, shape = shapeparam[1], scale = 2000)
-plot(z, fpareto, ylim=c(0,0.002),type = "l", ylab = "Pareto Density")
+x <- seq(1, 3000, by = 1)
+scaleparam <- seq(2000, 3500, 500)
+shapeparam <- 1:4
+
+# varying the shape parameter
+plot(x, dparetoII(x, loc=0, shape = shapeparam[1], scale = 2000), ylim=c(0,0.002),type = "l", ylab = "Pareto density")
 for(k in 2:length(shapeparam)){
-  fpareto <- dpareto(z,shape = shapeparam[k], scale = 2000)
-  lines(z,fpareto, col = k)}
-legend("topright", c("shape=1", "shape=2", "shape=3", "shape=4"), lty=1, col = 1:4)
+  lines(x, dparetoII(x, loc=0, shape = shapeparam[k], scale = 2000), col = k)
+}
+legend("topright", c(expression(alpha~'=1'), expression(alpha~'=2'), expression(alpha~'=3'), expression(alpha~'=4')), lty=1, col = 1:4)
+
+# Varying Scale Pareto Densities
+plot(x, dparetoII(x, loc=0, shape = 3, scale = scaleparam[1]), type = "l", ylab = "Pareto density")
+for(k in 2:length(scaleparam)){
+  lines(x, dparetoII(x, loc=0, shape = 3, scale = scaleparam[k]), col = k)
+}
+legend("topright", c(expression(theta~'=2000'), expression(theta~'=2500'), expression(theta~'=3000'), expression(theta~'=3500')), lty=1, col = 1:4)
 \end{verbatim}
 
 The distribution function of the Pareto distribution is given by
@@ -4009,23 +4016,27 @@ the distribution is heavy tailed.
 
 The \(k\)-th moment of the Pareto distributed random variable exists, if
 and only if, \(\alpha > k\). If \(k\) is a positive integer then
-\[E\left( X^{k} \right) = \frac{k!\theta^{k}}{\left( \alpha - 1 \right)\cdots\left( \alpha - k \right)} \ \ \ \alpha > k.\]
+\[\mathrm{E}\left( X^{k} \right) = \frac{k!\theta^{k}}{\left( \alpha - 1 \right)\cdots\left( \alpha - k \right)} \ \ \ \alpha > k.\]
 The mean and variance are given by
-\[E\left( X \right) = \frac{\theta}{\alpha - 1} \ \ \ \text{for } \alpha > 1\]
+\[\mathrm{E}\left( X \right) = \frac{\theta}{\alpha - 1} \ \ \ \text{for } \alpha > 1\]
 and
-\[Var\left( X \right) = \frac{\alpha\theta^{2}}{\left( \alpha - 1 \right)^{2}\left( \alpha - 2 \right)} \ \ \ \text{for } \alpha > 2,\]respectively.
+\[\mathrm{Var}\left( X \right) = \frac{\alpha\theta^{2}}{\left( \alpha - 1 \right)^{2}\left( \alpha - 2 \right)} \ \ \ \text{for } \alpha > 2,\]respectively.
 
-Example 3.5 The claim size of an insurance portfolio follows the Pareto
-distribution with mean and variance of 40 and 1800 respectively. Find
+\textbf{Example 3.2.1. } The claim size of an insurance portfolio
+follows the Pareto distribution with mean and variance of 40 and 1800
+respectively. Find
 
 The shape and scale parameters.
 
 The 95-th percentile of this distribution.
 
-Solution
+Show Example Solution
 
-\(E\left( X \right) = \frac{\theta}{\alpha - 1} = 40\) and
-\(Var\left( X \right) = \frac{\alpha\theta^{2}}{\left( \alpha - 1 \right)^{2}\left( \alpha - 2 \right)} = 1800\).
+\hypertarget{toggleExampleLoss.2.1}{}
+\textbf{Solution.}
+
+\(\mathrm{E}\left( X \right) = \frac{\theta}{\alpha - 1} = 40\) and
+\(\mathrm{Var}\left( X \right) = \frac{\alpha\theta^{2}}{\left( \alpha - 1 \right)^{2}\left( \alpha - 2 \right)} = 1800\).
 By dividing the square of the first equation by the second we get
 \(\frac{\alpha - 2}{\alpha} = \frac{40^{2}}{1800}\). Thus,
 \(\alpha = 18.02\) and \(\theta = 680.72\).
@@ -4034,7 +4045,9 @@ The 95-th percentile, \(\pi_{0.95}\), satisfies the equation
 \[F_{X}\left( \pi_{0.95} \right) = 1 - \left( \frac{680.72}{\pi_{0.95} + 680.72} \right)^{18.02} = 0.95.\]
 Thus, \(\pi_{0.95} = 122.96\).
 
-\subsection{The Weibull Distribution}\label{the-weibull-distribution}
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsection{Weibull Distribution}\label{weibull-distribution}
 
 The Weibull distribution, named after the Swedish physicist Waloddi
 Weibull (1887-1979) is widely used in reliability, life data analysis,
@@ -4048,32 +4061,24 @@ The continuous variable \(X\) is said to have the Weibull distribution
 with shape parameter \(\alpha\) and scale parameter \(\theta\) if its
 probability density function is given by
 \[f_{X}\left( x \right) = \frac{\alpha}{\theta}\left( \frac{x}{\theta} \right)^{\alpha - 1} \exp \left(- \left( \frac{x}{\theta} \right)^{\alpha}\right) \ \ \ x > 0,\ \alpha > 0,\ \theta > 0.\]
-Figures \ref{fig:Weibullscale} and \ref{fig:Weibullshape} demonstrate
-the effects of the scale and shape parameters on the Weibull density
-function.
+The two panels Figure \ref{fig:Weibullpdf} demonstrate the effects of
+the scale and shape parameters on the Weibull density function.
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.8\linewidth]{LossDataAnalytics_files/figure-latex/Weibullscale-1} 
+{\centering \includegraphics[width=1.2\linewidth]{LossDataAnalytics_files/figure-latex/Weibullpdf-1} 
 
 }
 
-\caption{Weibull Density, with shape=3 and Varying Scale}\label{fig:Weibullscale}
-\end{figure}
-
-\begin{figure}
-
-{\centering \includegraphics[width=0.8\linewidth]{LossDataAnalytics_files/figure-latex/Weibullshape-1} 
-
-}
-
-\caption{Weibull Density, with scale=100 and Varying Shape}\label{fig:Weibullshape}
+\caption{Weibull Densities. The left-hand panel is with shape=3 and Varying Scale. The right-hand panel is with scale=100 and Varying Shape.}\label{fig:Weibullpdf}
 \end{figure}
 
 R Code for Weibull Density Plots
 
 \hypertarget{display.ux20Weibullscale.2}{}
 \begin{verbatim}
+par(mfrow=c(1, 2), mar = c(4, 4, .1, .1))
+
 # Varying Scale Weibull Densities
 z<- seq(0,400,by=1)
 scaleparam <- seq(50,200,50)
@@ -4103,17 +4108,18 @@ industrial engineering, insurance modeling and financial risk analysis.
 
 The \(k\)-th moment of the Weibull distributed random variable is given
 by
-\[E\left( X^{k} \right) = \theta^{k}\Gamma\left( 1 + \frac{k}{\alpha} \right) .\]
+\[\mathrm{E}\left( X^{k} \right) = \theta^{k}\Gamma\left( 1 + \frac{k}{\alpha} \right) .\]
 
 The mean and variance are given by
-\[E\left( X \right) = \theta\Gamma\left( 1 + \frac{1}{\alpha} \right)\]
+\[\mathrm{E}\left( X \right) = \theta\Gamma\left( 1 + \frac{1}{\alpha} \right)\]
 and
-\[Var(X)= \theta^{2}\left( \Gamma\left( 1 + \frac{2}{\alpha} \right)  - \left\lbrack \Gamma\left( 1 + \frac{1}{\alpha} \right) \right\rbrack  ^{2}\right),\]
+\[\mathrm{Var}(X)= \theta^{2}\left( \Gamma\left( 1 + \frac{2}{\alpha} \right)  - \left\lbrack \Gamma\left( 1 + \frac{1}{\alpha} \right) \right\rbrack  ^{2}\right),\]
 respectively.
 
-Example 3.6 Suppose that the probability distribution of the lifetime of
-AIDS patients (in months) from the time of diagnosis is described by the
-Weibull distribution with shape parameter 1.2 and scale parameter 33.33.
+\textbf{Example 3.2.2.} Suppose that the probability distribution of the
+lifetime of AIDS patients (in months) from the time of diagnosis is
+described by the Weibull distribution with shape parameter 1.2 and scale
+parameter 33.33.
 
 Find the probability that a randomly selected person from this
 population survives at least 12 months,
@@ -4124,7 +4130,10 @@ diagnosis.
 
 Find the 99-th percentile of this distribution.
 
-Solution
+Show Example Solution
+
+\hypertarget{toggleExampleLoss.2.2}{}
+\textbf{Solution.}
 
 Let \(X\) be the lifetime of AIDS patients (in months)
 \[{\Pr\left( X \geq 12 \right) = S}_{X}\left( 12 \right) = e^{- \left( \frac{12}{33.33} \right)^{1.2}} = 0.746.\]
@@ -4134,6 +4143,8 @@ diagnosis. Then, \(Y\sim Bin\left( 10,\ 0.254 \right)\) and
 99-th percentile of this distribution. Then,
 \[S_{X}\left( \pi_{0.99} \right) = \exp\left\{- \left( \frac{\pi_{0.99}}{33.33} \right)^{1.2}\right\} = 0.01\]
 and \(\pi_{0.99} = 118.99\).
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
 \subsection{The Generalized Beta Distribution of the Second
 Kind}\label{the-generalized-beta-distribution-of-the-second-kind}
@@ -4162,7 +4173,7 @@ when \(\alpha = 1\) and \(\beta \rightarrow \infty\), it reduces to the
 Weibull distribution.
 
 The \(k\)-th moment of the GB2 distributed random variable is given by
-\[E\left( X^{k} \right) = \frac{b^{k}\left( \alpha + \frac{k}{a},\beta - \frac{k}{a} \right)}{\left( \alpha,\beta \right)}, \ \ \ k > 0.\]
+\[\mathrm{E}\left( X^{k} \right) = \frac{b^{k}\left( \alpha + \frac{k}{a},\beta - \frac{k}{a} \right)}{\left( \alpha,\beta \right)}, \ \ \ k > 0.\]
 Earlier applications of the GB2 were on income data and more recently
 have been used to model long-tailed claims data. GB2 was used to model
 different types of automobile insurance claims, severity of fire losses
@@ -4182,7 +4193,7 @@ provide foundations for creating new distributions.
 \subsection{Functions of Random Variables and their
 Distributions}\label{functions-of-random-variables-and-their-distributions}
 
-In Section \ref{ContinuousDistn} we discussed some elementary known
+In Section \ref{S:ContinuousDistn} we discussed some elementary known
 distributions. In this section we discuss means of creating new
 parametric probability distributions from existing ones. Let \(X\) be a
 continuous random variable with a known probability density function
@@ -4224,13 +4235,16 @@ The parameter is changed by multiplying by \(c\);
 
 All other parameter remain unchanged.
 
-Example 3.7 (SOA) The aggregate losses of Eiffel Auto Insurance are
-denoted in Euro currency and follow a Lognormal distribution with
-\(\mu = 8\) and \(\sigma = 2\). Given that 1 euro \(=\) 1.3 dollars,
-find the set of lognormal parameters, which describe the distribution of
-Eiffel's losses in dollars?
+\textbf{Example 3.3.1. SOA Exam Question.} The aggregate losses of
+Eiffel Auto Insurance are denoted in Euro currency and follow a
+Lognormal distribution with \(\mu = 8\) and \(\sigma = 2\). Given that 1
+euro \(=\) 1.3 dollars, find the set of lognormal parameters, which
+describe the distribution of Eiffel's losses in dollars?
 
-Solution
+Show Example Solution
+
+\hypertarget{toggleExampleLoss.3.1}{}
+\textbf{Solution.}
 
 Let \(X\) and \(Y\) denote the aggregate losses of Eiffel Auto Insurance
 in euro currency and dollars respectively. Then, \(Y = 1.3X\).
@@ -4249,13 +4263,22 @@ Then \(Y\) follows a lognormal distribution with parameters
 scale parameter which was multiplied by 1.3 while \(\sigma\) is the
 shape parameter that remained unchanged.
 
-Example 3.8 Demonstrate that the gamma distribution is a scale
-distribution. Solution
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\textbf{Example 3.3.2. SOA Exam Question.} Demonstrate that the gamma
+distribution is a scale distribution.
+
+Show Example Solution
+
+\hypertarget{toggleExampleLoss.3.2}{}
+\textbf{Solution.}
 
 Let \(X\sim Ga(\alpha,\theta)\) and \(Y = cX\), then
 \[f_{Y}\left( y \right) = \frac{1}{c}f_{X}\left( \frac{y}{c} \right) = \frac{\left( \frac{y}{c\theta} \right)^{\alpha}}{y\Gamma\left( \alpha \right)}\exp \left( - \frac{y}{c\theta} \right)  .\]
 We can see that \(Y\sim Ga(\alpha,c\theta)\) indicating that gamma is a
 scale distribution and \(\theta\) is a scale parameter.
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
 \subsection{Raising to a Power}\label{raising-to-a-power}
 
@@ -4279,11 +4302,16 @@ On the other hand, if \(\tau < 0\), then the distribution function of
 and
 \[f_{Y}(y) = \left| \frac{1}{\tau} \right|{y^{1/ \tau - 1}f}_{X}\left( y^{1/ \tau} \right).\]
 
-Example 3.9 We assume that \(X\) follows the exponential distribution
-with mean \(\theta\) and consider the transformed variable
+\textbf{Example 3.3.3.} We assume that \(X\) follows the exponential
+distribution with mean \(\theta\) and consider the transformed variable
 \(Y = X^{\tau}\). Show that \(Y\) follows the Weibull distribution when
 \(\tau\) is positive and determine the parameters of the Weibull
-distribution. Solution
+distribution.
+
+Show Example Solution
+
+\hypertarget{toggleExampleLoss.3.3}{}
+\textbf{Solution.}
 
 \[f_{X}(x) = \frac{1}{\theta}e^{- x/ \theta} \ \ \ \, x > 0.\]
 \[f_{Y}\left( y \right) = \frac{1}{\tau}{y^{\frac{1}{\tau} - 1}f}_{X}\left( y^{\frac{1}{\tau}} \right) \\
@@ -4291,6 +4319,8 @@ distribution. Solution
 where \(\alpha = \frac{1}{\tau}\) and \(\beta = \theta^{\tau}\). Then,
 \(Y\) follows the Weibull distribution with shape parameter \(\alpha\)
 and scale parameter \(\beta\).
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
 \subsection{Exponentiation}\label{exponentiation}
 
@@ -4312,13 +4342,21 @@ function of \(Y\) is given by
 Hence, the probability density function of interest \(f_{Y}(y)\) can be
 written as \[f_{Y}(y) = \frac{1}{y}f_{X}\left( \ln y \right).\]
 
-Example 3.10 (SOA) \(X\) has a uniform distribution on the interval
-\((0,\ c)\). \(Y = e^{X}\). Find the distribution of \(Y\). Solution
+\textbf{Example 3.3.4. SOA Exam Question.} \(X\) has a uniform
+distribution on the interval \((0,\ c)\). \(Y = e^{X}\). Find the
+distribution of \(Y\).
+
+Show Example Solution
+
+\hypertarget{toggleExampleLoss.3.4}{}
+\textbf{Solution.}
 
 \[F_{Y}\left( y \right) = \Pr\left( Y \leq y \right) = \Pr\left( e^{X} \leq y \right) = \Pr\left( X \leq \ln y \right) = F_{X}\left( \ln y \right).\]
 Then,
 \[f_{Y}\left( y \right) = \frac{1}{y}f_{X}\left(\ln y \right) = \frac{1}{\text{cy}}. \]
 Since \(0 < x < c\), then \(1 < y < e^{c}\).
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
 \subsection{Finite Mixtures}\label{finite-mixtures}
 
@@ -4348,25 +4386,32 @@ represent the proportions of data points that fall under each of the two
 subpopulations respectively. This weighted average can be applied to a
 number of other distribution related quantities. The \emph{k}-th moment
 and moment generating function of \(X\) are given by
-\(E\left( X^{k} \right) = aE\left( X_{1}^{K} \right) + \left( 1 - a \right)E\left( X_{2}^{k} \right)\),
+\(\mathrm{E}\left( X^{k} \right) = a\mathrm{E}\left( X_{1}^{K} \right) + \left( 1 - a \right)\mathrm{E}\left( X_{2}^{k} \right)\),
 and
 \[M_{X}\left( t \right) = aM_{X_{1}}\left( t \right) + \left( 1 - a \right)M_{X_{2}}\left( t \right),\]
 respectively.
 
-Example 3.11 (SOA) The distribution of the random variable \(X\) is an
-equally weighted mixture of two Poisson distributions with parameters
-\(\lambda_{1}\) and \(\lambda_{2}\) respectively. The mean and variance
-of \(X\) are 4 and 13, respectively. Determine
-\(\Pr\left( X > 2 \right)\). Solution
+\textbf{Example 3.3.5. SOA Exam Question.} The distribution of the
+random variable \(X\) is an equally weighted mixture of two Poisson
+distributions with parameters \(\lambda_{1}\) and \(\lambda_{2}\)
+respectively. The mean and variance of \(X\) are 4 and 13, respectively.
+Determine \(\Pr\left( X > 2 \right)\).
 
-\[E\left( X \right) = 0.5\lambda_{1} + 0.5\lambda_{2} = 4\]
+Show Example Solution
 
-\[E\left( X^{2} \right) = 0.5\left( \lambda_{1} + \lambda_{1}^{2} \right) + 0.5\left( \lambda_{2} + \lambda_{2}^{2} \right) = 13 + 16\]
+\hypertarget{toggleExampleLoss.3.5}{}
+\textbf{Solution.}
+
+\[\mathrm{E}\left( X \right) = 0.5\lambda_{1} + 0.5\lambda_{2} = 4\]
+
+\[\mathrm{E}\left( X^{2} \right) = 0.5\left( \lambda_{1} + \lambda_{1}^{2} \right) + 0.5\left( \lambda_{2} + \lambda_{2}^{2} \right) = 13 + 16\]
 
 Simplifying the two equations we get \(\lambda_{1} + \lambda_{2} = 8\)
 and \(\lambda_{1}^{2} + \lambda_{2}^{2} = 50\). Then, the parameters of
 the two Poisson distributions are 1 and 7.
 \[\Pr\left( X > 2 \right) = 0.5\Pr\left( X_{1} > 2 \right) + 0.5\Pr\left( X_{2} > 2 \right) = 0.05\]
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
 \subsubsection{\texorpdfstring{\emph{k}-point
 Mixture}{k-point Mixture}}\label{k-point-mixture}
@@ -4388,19 +4433,23 @@ point mixture. The distribution function, \(r\)-th moment and moment
 generating functions of the \(k\)-th point mixture are given as
 
 \[F_{X}\left( x \right) = \sum_{i = 1}^{k}{p_{i}F_{X_{i}}\left( x \right)},\]
-\[E\left( X^{r} \right) = \sum_{i = 1}^{k}{p_{i}E\left( X_{i}^{r} \right)}, \text{and}\]
+\[\mathrm{E}\left( X^{r} \right) = \sum_{i = 1}^{k}{p_{i}\mathrm{E}\left( X_{i}^{r} \right)}, \text{and}\]
 \[M_{X}\left( t \right) = \sum_{i = 1}^{k}{p_{i}M_{X_{i}}\left( t \right)},\]
 respectively.
 
-Example 3.12 (SOA) \(Y_{1}\) is a mixture of \(X_{1}\) and \(X_{2}\)
-with mixing weights \(a\) and \((1 - a)\). \(Y_{2}\) is a mixture of
-\(X_{3}\) and \(X_{4}\) with mixing weights \(b\) and \((1 - b)\). \(Z\)
-is a mixture of \(Y_{1}\) and \(Y_{2}\) with mixing weights \(c\) and
-\((1 - c)\).
+\textbf{Example 3.3.6. SOA Exam Question.} \(Y_{1}\) is a mixture of
+\(X_{1}\) and \(X_{2}\) with mixing weights \(a\) and \((1 - a)\).
+\(Y_{2}\) is a mixture of \(X_{3}\) and \(X_{4}\) with mixing weights
+\(b\) and \((1 - b)\). \(Z\) is a mixture of \(Y_{1}\) and \(Y_{2}\)
+with mixing weights \(c\) and \((1 - c)\).
 
 Show that \(Z\) is a mixture of \(X_{1}\), \(X_{2}\), \(X_{3}\) and
-\(X_{4}\), and find the mixing weights. Solution
+\(X_{4}\), and find the mixing weights.
 
+Show Example Solution
+
+\hypertarget{toggleExampleLoss.3.6}{}
+\textbf{Solution.}
 \[f_{Y_{1}}\left( x \right) = af_{X_{1}}\left( x \right) + \left( 1 - a \right)f_{X_{2}}\left( x \right)\]
 
 \[f_{Y_{2}}\left( x \right) = bf_{X_{3}}\left( x \right) + \left( 1 - b \right)f_{X_{4}}\left( x \right)\]
@@ -4414,6 +4463,8 @@ Show that \(Z\) is a mixture of \(X_{1}\), \(X_{2}\), \(X_{3}\) and
 Then, \(Z\) is a mixture of \(X_{1}\), \(X_{2}\), \(X_{3}\) and
 \(X_{4}\), with mixing weights \(\text{ca}\), \(c\left( 1 - a \right)\),
 \(\left( 1 - c \right)b\) and \((1 - c)\left( 1 - b \right)\).
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
 \subsection{Continuous Mixtures}\label{continuous-mixtures}
 
@@ -4436,36 +4487,49 @@ analysis).
 The distribution function, \(k\)-th moment and moment generating
 functions of the continuous mixture are given as
 \[F_{X}\left( x \right) = \int_{-\infty}^{\infty}{F_{X}\left( x\left| \theta \right.\  \right)g\left( \theta \right)} d \theta,\]
-\[E\left( X^{k} \right) = \int_{-\infty}^{\infty}{E\left( X^{k}\left| \theta \right.\  \right)g\left( \theta \right)}d \theta,\]
-\[M_{X}\left( t \right) = E\left( e^{t X} \right) = \int_{-\infty}^{\infty}{E\left( e^{ tx}\left| \theta \right.\  \right)g\left( \theta \right)}d \theta, \]
+\[\mathrm{E}\left( X^{k} \right) = \int_{-\infty}^{\infty}{\mathrm{E}\left( X^{k}\left| \theta \right.\  \right)g\left( \theta \right)}d \theta,\]
+\[M_{X}\left( t \right) = \mathrm{E}\left( e^{t X} \right) = \int_{-\infty}^{\infty}{\mathrm{E}\left( e^{ tx}\left| \theta \right.\  \right)g\left( \theta \right)}d \theta, \]
 respectively.
 
-The \(k\)-th moments of the mixture distribution can be rewritten as
-\[E\left( X^{k} \right) = \int_{-\infty}^{\infty}{E\left( X^{k}\left| \theta \right.\  \right)g\left( \theta \right)}d\theta = E\left\lbrack E\left( X^{k}\left| \theta \right.\  \right) \right\rbrack .\]
+The \(k\)-th moment of the mixture distribution can be rewritten as
+\[\mathrm{E}\left( X^{k} \right) = \int_{-\infty}^{\infty}{\mathrm{E}\left( X^{k}\left| \theta \right.\  \right)g\left( \theta \right)}d\theta = \mathrm{E}\left\lbrack \mathrm{E}\left( X^{k}\left| \theta \right.\  \right) \right\rbrack .\]
 
 In particular the mean and variance of \(X\) are given by
-\[E\left( X \right) = E\left\lbrack E\left( X\left| \theta \right.\  \right) \right\rbrack\]
+\[\mathrm{E}\left( X \right) = \mathrm{E}\left\lbrack \mathrm{E}\left( X\left| \theta \right.\  \right) \right\rbrack\]
 and
-\[Var\left( X \right) = E\left\lbrack Var\left( X\left| \theta \right.\  \right) \right\rbrack + Var\left\lbrack E\left( X\left| \theta \right.\  \right) \right\rbrack .\]
+\[\mathrm{Var}\left( X \right) = \mathrm{E}\left\lbrack \mathrm{Var}\left( X\left| \theta \right.\  \right) \right\rbrack + \mathrm{Var}\left\lbrack \mathrm{E}\left( X\left| \theta \right.\  \right) \right\rbrack .\]
 
-Example 3.13 (SOA) \(X\) has a binomial distribution with a mean of
-\(100q\) and a variance of \(100q\left( 1 - q \right)\) and \(q\) has a
-beta distribution with parameters \(a = 3\) and \(b = 2\). Find the
-unconditional mean and variance of \(X\). Solution
+\textbf{Example 3.3.7. SOA Exam Question.} \(X\) has a binomial
+distribution with a mean of \(100q\) and a variance of
+\(100q\left( 1 - q \right)\) and \(q\) has a beta distribution with
+parameters \(a = 3\) and \(b = 2\). Find the unconditional mean and
+variance of \(X\).
 
-\(E\left( q \right) = \frac{a}{a + b} = \frac{3}{5}\) and
-\(E\left( q^{2} \right) = \frac{a\left( a + 1 \right)}{\left( a + b \right)\left( a + b + 1 \right)} = \frac{2}{5}\).
+Show Example Solution
 
-\(E\left( X \right) = E\left\lbrack E\left( X\left| q \right.\  \right) \right\rbrack = E\left( 100q \right) = 100E\left( q \right) = 60\),
+\hypertarget{toggleExampleLoss.3.7}{}
+\textbf{Solution.}
 
-\[Var\left( X \right) = E\left\lbrack Var\left( X\left| q \right.\  \right) \right\rbrack + Var\left\lbrack E\left( X\left| q \right.\  \right) \right\rbrack = E\left\lbrack 100q\left( 1 - q \right) \right\rbrack + Var\left( 100q \right)\]
+\(\mathrm{E}\left( q \right) = \frac{a}{a + b} = \frac{3}{5}\) and
+\(\mathrm{E}\left( q^{2} \right) = \frac{a\left( a + 1 \right)}{\left( a + b \right)\left( a + b + 1 \right)} = \frac{2}{5}\).
 
-\(= 100E\left( q \right) - 100E\left( q^{2} \right) + 100^{2}V\left( q \right) = 420\).
+\(\mathrm{E}\left( X \right) = \mathrm{E}\left\lbrack \mathrm{E}\left( X\left| q \right.\  \right) \right\rbrack = \mathrm{E}\left( 100q \right) = 100\mathrm{E}\left( q \right) = 60\),
 
-Exercise 3.14 (SOA) Claim sizes, \(X\), are uniform on for each
-policyholder. varies by policyholder according to an exponential
-distribution with mean 5. Find the unconditional distribution, mean and
-variance of \(X\). Solution
+\[\mathrm{Var}\left( X \right) = \mathrm{E}\left\lbrack \mathrm{Var}\left( X\left| q \right.\  \right) \right\rbrack + \mathrm{Var}\left\lbrack \mathrm{E}\left( X\left| q \right.\  \right) \right\rbrack = \mathrm{E}\left\lbrack 100q\left( 1 - q \right) \right\rbrack + \mathrm{Var}\left( 100q \right)\]
+
+\(= 100\mathrm{E}\left( q \right) - 100\mathrm{E}\left( q^{2} \right) + 100^{2}V\left( q \right) = 420\).
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\textbf{Example 3.3.8. SOA Exam Question.} Claim sizes, \(X\), are
+uniform on for each policyholder. varies by policyholder according to an
+exponential distribution with mean 5. Find the unconditional
+distribution, mean and variance of \(X\).
+
+Show Example Solution
+
+\hypertarget{toggleExampleLoss.3.8}{}
+\textbf{Solution.}
 
 The conditional distribution of \(X\) is
 \(f_{X}\left( \left. \ x \right|\theta \right) = \frac{1}{10}\) for
@@ -4476,16 +4540,16 @@ The prior distribution of \(\theta\) is
 \(0 < \theta < \infty\).
 
 The conditional mean and variance of \(X\) are given by
-\[E\left( \left. \ X \right|\theta \right) = \frac{\theta + \theta + 10}{2} = \theta + 5\]
+\[\mathrm{E}\left( \left. \ X \right|\theta \right) = \frac{\theta + \theta + 10}{2} = \theta + 5\]
 and
-\[Var\left( \left. \ X \right|\theta \right) = \frac{\left\lbrack \left( \theta + 10 \right) - \theta \right\rbrack^{2}}{12} = \frac{100}{12}, \]
+\[\mathrm{Var}\left( \left. \ X \right|\theta \right) = \frac{\left\lbrack \left( \theta + 10 \right) - \theta \right\rbrack^{2}}{12} = \frac{100}{12}, \]
 respectively.
 
 Hence, the unconditional mean and variance of \(X\) are given by
-\[E\left( X \right) = E\left\lbrack E\left( X\left| \theta \right.\  \right) \right\rbrack = E\left( \theta + 5 \right) = E\left( \theta \right) + 5 = 5 + 5 = 10,\]
+\[\mathrm{E}\left( X \right) = \mathrm{E}\left\lbrack \mathrm{E}\left( X\left| \theta \right.\  \right) \right\rbrack = \mathrm{E}\left( \theta + 5 \right) = \mathrm{E}\left( \theta \right) + 5 = 5 + 5 = 10,\]
 and
-\[Var\left( X \right) = E\left\lbrack V\left( X\left| \theta \right.\  \right) \right\rbrack + Var\left\lbrack E\left( X\left| \theta \right.\  \right) \right\rbrack \\
-= E\left( \frac{100}{12} \right) + Var\left( \theta + 5 \right) = 8.33 + Var\left( \theta \right) = 33.33. \]
+\[\mathrm{Var}\left( X \right) = \mathrm{E}\left\lbrack V\left( X\left| \theta \right.\  \right) \right\rbrack + \mathrm{Var}\left\lbrack \mathrm{E}\left( X\left| \theta \right.\  \right) \right\rbrack \\
+= \mathrm{E}\left( \frac{100}{12} \right) + \mathrm{Var}\left( \theta + 5 \right) = 8.33 + \mathrm{Var}\left( \theta \right) = 33.33. \]
 The unconditional distribution of \(X\) is
 \[f_{X}\left( x \right) = \int_{}^{}{f_{X}\left( x |\theta \right) ~g\left( \theta \right) d \theta} .\]
 
@@ -4500,13 +4564,15 @@ The unconditional distribution of \(X\) is
 \int_{x - 10}^{x}{\frac{1}{50}e^{- \frac{\theta}{5}} d\theta} = \frac{1}{10}\left( e^{- \frac{\left( x - 10 \right)}{5}} - e^{- \frac{x}{5}} \right) & 10 < x < \infty. \\
 \end{matrix} \right.\ \]
 
-\section{Coverage Modifications}\label{coverage-modifications}
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\section{Coverage Modifications}\label{S:CoverageModifications}
 
 In this section we evaluate the impacts of coverage modifications: a)
 deductibles, b) policy limit, c) coinsurance and inflation on insurer's
 costs.
 
-\subsection{Policy Deductibles}\label{PolicyDeduct}
+\subsection{Policy Deductibles}\label{S:PolicyDeduct}
 
 Under an ordinary deductible policy, the insured (policyholder) agrees
 to cover a fixed amount of an insurance claim before the insurer starts
@@ -4579,9 +4645,9 @@ for \(y > 0\), respectively.
 
 The raw moments of \(Y^{L}\) and \(Y^{P}\) can be found directly using
 the probability density function of \(X\) as follows
-\[E\left\lbrack \left( Y^{L} \right)^{k} \right\rbrack = \int_{d}^{\infty}\left( x - d \right)^{k}f_{X}\left( x \right)dx ,\]
+\[\mathrm{E}\left\lbrack \left( Y^{L} \right)^{k} \right\rbrack = \int_{d}^{\infty}\left( x - d \right)^{k}f_{X}\left( x \right)dx ,\]
 and
-\[E\left\lbrack \left( Y^{P} \right)^{k} \right\rbrack = \frac{\int_{d}^{\infty}\left( x - d \right)^{k}f_{X}\left( x \right) dx }{{1 - F}_{X}\left( d \right)} = \frac{E\left\lbrack \left( Y^{L} \right)^{k} \right\rbrack}{{1 - F}_{X}\left( d \right)},\]
+\[\mathrm{E}\left\lbrack \left( Y^{P} \right)^{k} \right\rbrack = \frac{\int_{d}^{\infty}\left( x - d \right)^{k}f_{X}\left( x \right) dx }{{1 - F}_{X}\left( d \right)} = \frac{\mathrm{E}\left\lbrack \left( Y^{L} \right)^{k} \right\rbrack}{{1 - F}_{X}\left( d \right)},\]
 respectively.
 
 We have seen that the deductible \(d\) imposed on an insurance policy is
@@ -4590,7 +4656,7 @@ makes any payment. The deductible \(d\) imposed on an insurance policy
 reduces the insurer's payment. The loss elimination ratio (\emph{LER})
 is the percentage decrease in the expected payment of the insurer as a
 result of imposing the deductible. \emph{LER} is defined as
-\[LER = \frac{E\left( X \right) - E\left( Y^{L} \right)}{E\left( X \right)}.\]
+\[LER = \frac{\mathrm{E}\left( X \right) - \mathrm{E}\left( Y^{L} \right)}{\mathrm{E}\left( X \right)}.\]
 
 A little less common type of policy deductible is the franchise
 deductible. The Franchise deductible will apply to the policy in the
@@ -4605,37 +4671,42 @@ X & X > d, \\
 X & X > d, \\
 \end{matrix} \right.\ \] respectively.
 
-Example 3.15 (SOA) A claim severity distribution is exponential with
-mean 1000. An insurance company will pay the amount of each claim in
-excess of a deductible of 100. Calculate the variance of the amount paid
-by the insurance company for one claim, including the possibility that
-the amount paid is 0.
+\textbf{Example 3.4.1. SOA Exam Question.} A claim severity distribution
+is exponential with mean 1000. An insurance company will pay the amount
+of each claim in excess of a deductible of 100. Calculate the variance
+of the amount paid by the insurance company for one claim, including the
+possibility that the amount paid is 0.
 
-Solution
+Show Example Solution
+
+\hypertarget{toggleExampleLoss.4.1}{}
+\textbf{Solution.}
 
 Let \(Y^{L}\) denote the amount paid by the insurance company for one
 claim. \[Y^{L} = \left( X - 100 \right)_{+} = \left\{ \begin{matrix}
 0 & X \leq 100, \\
 X - 100 & X > 100. \\
 \end{matrix} \right.\ \] The first and second moments of \(Y^{L}\) are
-\[E\left( Y^{L} \right) = \int_{100}^{\infty}\left( x - 100 \right)f_{X}\left( x \right)dx \\
+\[\mathrm{E}\left( Y^{L} \right) = \int_{100}^{\infty}\left( x - 100 \right)f_{X}\left( x \right)dx \\
 = {\int_{100}^{\infty}{S_{X}\left( x \right)}dx = 1000e}^{- \frac{100}{1000}},\]
 and
-\[E\left\lbrack \left( Y^{L} \right)^{2} \right\rbrack = \int_{100}^{\infty}\left( x - 100 \right)^{2}f_{X}\left( x \right)dx \\
+\[\mathrm{E}\left\lbrack \left( Y^{L} \right)^{2} \right\rbrack = \int_{100}^{\infty}\left( x - 100 \right)^{2}f_{X}\left( x \right)dx \\
 = 2 \times 1000^{2}e^{- \frac{100}{1000}}.\]
-\[Var\left( Y^{L} \right) = \left( 2 \times 1000^{2}e^{- \frac{100}{1000}} \right) - \left( {1000e}^{- \frac{100}{1000}} \right)^{2} = 990,944.\]
+\[\mathrm{Var}\left( Y^{L} \right) = \left( 2 \times 1000^{2}e^{- \frac{100}{1000}} \right) - \left( {1000e}^{- \frac{100}{1000}} \right)^{2} = 990,944.\]
 
 The solution can be simplified if we make use of the relationship
 between \(X\) and \(Y^{P}\). If \(X\) is exponentially distributed with
 mean 1000, then \(Y^{P}\) is also exponentially distributed with the
-same mean. Hence, \(E\left( Y^{P} \right)\)=1000 and
-\[E\left\lbrack \left( Y^{P} \right)^{2} \right\rbrack = 2 \times 1000^{2}.\]
+same mean. Hence, \(\mathrm{E}\left( Y^{P} \right)\)=1000 and
+\[\mathrm{E}\left\lbrack \left( Y^{P} \right)^{2} \right\rbrack = 2 \times 1000^{2}.\]
 Using the relationship between \(Y^{L}\) and \(Y^{P}\) we find
-\[E\left( Y^{L} \right) = \ E\left( Y^{P} \right)S_{X}\left( 100 \right){= 1000e}^{- \frac{100}{1000}}\]
+\[\mathrm{E}\left( Y^{L} \right) = \ \mathrm{E}\left( Y^{P} \right)S_{X}\left( 100 \right){= 1000e}^{- \frac{100}{1000}}\]
 
-\[E\left\lbrack \left( Y^{L} \right)^{2} \right\rbrack = E\left\lbrack \left( Y^{P} \right)^{2} \right\rbrack S_{X}\left( 100 \right) = 2 \times 1000^{2}e^{- \frac{100}{1000}}.\]
+\[\mathrm{E}\left\lbrack \left( Y^{L} \right)^{2} \right\rbrack = \mathrm{E}\left\lbrack \left( Y^{P} \right)^{2} \right\rbrack S_{X}\left( 100 \right) = 2 \times 1000^{2}e^{- \frac{100}{1000}}.\]
 
-Example 3.16 (SOA) For an insurance:
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\textbf{Example 3.4.2. SOA Exam Question.} For an insurance:
 
 Losses have a density function
 \[f_{X}\left( x \right) = \left\{ \begin{matrix}
@@ -4647,18 +4718,23 @@ The insurance has an ordinary deductible of 4 per loss.
 
 \(Y^{P}\) is the claim payment per payment random variable.
 
-Calculate \(E\left( Y^{P} \right)\).
+Calculate \(\mathrm{E}\left( Y^{P} \right)\).
 
-Solution
+Show Example Solution
+
+\hypertarget{toggleExampleLoss.4.2}{}
+\textbf{Solution.}
 
 \[Y^{P} = \left\{ \begin{matrix}
 \text{Undefined} & X \leq 4, \\
 X - 4 & X > 4. \\
 \end{matrix} \right.\ \]
 
-\(E\left( Y^{P} \right) = \frac{\int_{4}^{10}\left( x - 4 \right)0.02xdx}{{1 - F}_{X}\left( 4 \right)} = \frac{2.88}{0.84} = 3.43\).
+\(\mathrm{E}\left( Y^{P} \right) = \frac{\int_{4}^{10}\left( x - 4 \right)0.02xdx}{{1 - F}_{X}\left( 4 \right)} = \frac{2.88}{0.84} = 3.43\).
 
-Example 3.17 (SOA) You are given:
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\textbf{Example 3.4.3. SOA Exam Question.} You are given:
 
 Losses follow an exponential distribution with the same mean in all
 years.
@@ -4670,16 +4746,21 @@ deductible.
 
 Compute the loss elimination ratio for the coming year.
 
-Solution
+Show Example Solution
+
+\hypertarget{toggleExampleLoss.4.3}{}
+\textbf{Solution.}
 
 The \emph{LER} for the current year is
-\[\frac{E\left( X \right) - E\left( Y^{L} \right)}{E\left( X \right)} = \frac{\theta - \theta e^{- d / \theta}}{\theta} = 1 - e^{- d / \theta} = 0.7.\]
+\[\frac{\mathrm{E}\left( X \right) - \mathrm{E}\left( Y^{L} \right)}{\mathrm{E}\left( X \right)} = \frac{\theta - \theta e^{- d / \theta}}{\theta} = 1 - e^{- d / \theta} = 0.7.\]
 Then, \(e^{- d / \theta} = 0.3\).
 
 The \emph{LER} for the coming year is
 \[ \frac{\theta - \theta e^{- \frac{\left( \frac{4}{3}d \right)}{\theta}}}{\theta} = 1 - e^{- \frac{\left( \frac{4}{3} d \right)}{\theta}} = 1 - \left( e^{-d /\theta} \right)^{4/3} = 1 - {0.3}^{4/3} = 0.8 .\]
 
-\subsection{Policy Limits}\label{PolicyLimits}
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsection{Policy Limits}\label{S:PolicyLimits}
 
 Under a limited policy, the insurer is responsible for covering the
 actual loss \(X\) up to the limit of its coverage. This fixed limit of
@@ -4716,29 +4797,37 @@ F_{X}\left( x \right) & 0 < y < u, \\
 1 & y \geq u. \\
 \end{matrix} \right.\ \] The raw moments of \(Y\) can be found directly
 using the probability density function of \(X\) as follows
-\[E\left( Y^{k} \right) = E\left\lbrack \left( X \land u \right)^{k} \right\rbrack = \int_{0}^{u}x^{k}f_{X}\left( x \right)dx + \int_{u}^{\infty}{u^{k}f_{X}\left( x \right)} dx \\ \int_{0}^{u}x^{k}f_{X}\left( x \right)dx + u^{k}\left\lbrack {1 - F}_{X}\left( u \right) \right\rbrack dx.\]
+\[\mathrm{E}\left( Y^{k} \right) = \mathrm{E}\left\lbrack \left( X \land u \right)^{k} \right\rbrack = \int_{0}^{u}x^{k}f_{X}\left( x \right)dx + \int_{u}^{\infty}{u^{k}f_{X}\left( x \right)} dx \\ \int_{0}^{u}x^{k}f_{X}\left( x \right)dx + u^{k}\left\lbrack {1 - F}_{X}\left( u \right) \right\rbrack dx.\]
 
-Example 3.18 (SOA) Under a group insurance policy, an insurer agrees to
-pay 100\% of the medical bills incurred during the year by employees of
-a small company, up to a maximum total of one million dollars. The total
-amount of bills incurred, \(X\), has probability density function
+\textbf{Example 3.4.4. SOA Exam Question.} Under a group insurance
+policy, an insurer agrees to pay 100\% of the medical bills incurred
+during the year by employees of a small company, up to a maximum total
+of one million dollars. The total amount of bills incurred, \(X\), has
+probability density function
 \[f_{X}\left( x \right) = \left\{ \begin{matrix}
 \frac{x\left( 4 - x \right)}{9} & 0 < x < 3, \\
 0 & \text{elsewhere.} \\
 \end{matrix} \right.\ \] where \(x\) is measured in millions. Calculate
 the total amount, in millions of dollars, the insurer would expect to
-pay under this policy. Solution
+pay under this policy.
+
+Show Example Solution
+
+\hypertarget{toggleExampleLoss.4.4}{}
+\textbf{Solution.}
 
 \[Y = X \land 1 = \left\{ \begin{matrix}
 X & X \leq 1, \\
 1 & X > 1. \\
 \end{matrix} \right.\ \]
 
-\(E\left( Y \right) = E\left( X \land 1 \right) = \int_{0}^{1}\frac{x^{2}(4 - x)}{9}dx + \int_{1}^{3}\frac{x\left( 4 - x \right)}{9}dx = 0.935\).
+\(\mathrm{E}\left( Y \right) = \mathrm{E}\left( X \land 1 \right) = \int_{0}^{1}\frac{x^{2}(4 - x)}{9}dx + \int_{1}^{3}\frac{x\left( 4 - x \right)}{9}dx = 0.935\).
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
 \subsection{Coinsurance}\label{coinsurance}
 
-As we have seen in Section \ref{PolicyDeduct}, the amount of loss
+As we have seen in Section \ref{S:PolicyDeduct}, the amount of loss
 retained by the policyholder can be losses up to the deductible \(d\).
 The retained loss can also be a percentage of the claim. The percentage
 \(\alpha\), often referred to as the coinsurance factor, is the
@@ -4756,7 +4845,7 @@ the insurer) in this case is \(\alpha\left( u - d \right)\), while \(u\)
 is the maximum covered loss.
 
 The \(k\)-th moment of \(Y^{L}\) is given by
-\[E\left\lbrack \left( Y^{L} \right)^{k} \right\rbrack = \int_{d}^{u}\left\lbrack \alpha\left( x - d \right) \right\rbrack^{k}f_{X}\left( x \right)dx + \int_{u}^{\infty}\left\lbrack \alpha\left( u - d \right) \right\rbrack^{k}f_{X}\left( x \right) dx .\]
+\[\mathrm{E}\left\lbrack \left( Y^{L} \right)^{k} \right\rbrack = \int_{d}^{u}\left\lbrack \alpha\left( x - d \right) \right\rbrack^{k}f_{X}\left( x \right)dx + \int_{u}^{\infty}\left\lbrack \alpha\left( u - d \right) \right\rbrack^{k}f_{X}\left( x \right) dx .\]
 
 A growth factor \(\left( 1 + r \right)\) may be applied to \(X\)
 resulting in an inflated loss random variable \(\left( 1 + r \right)X\)
@@ -4767,29 +4856,36 @@ per loss variable can be written as \[Y^{L} = \left\{ \begin{matrix}
 \alpha\left( u - d \right) & X > \frac{u}{1 + r}. \\
 \end{matrix} \right.\ \] The first and second moments of \(Y^{L}\) can
 be expressed as
-\[E\left( Y^{L} \right) = \alpha\left( 1 + r \right)\left\lbrack E\left( X \land \frac{u}{1 + r} \right) - E\left( X \land \frac{d}{1 + r} \right) \right\rbrack,\]
-and \[E\left\lbrack \left( Y^{L} \right)^{2} 
-\right\rbrack = \alpha^{2}\left( 1 + r \right)^{2}  \left\{ E\left\lbrack \left( X \land \frac{u}{1 + r} \right)^{2} \right\rbrack - E\left\lbrack \left( X \land \frac{d}{1 + r} \right)^{2} \right\rbrack  \right. \\
-\left. \ \ \ \ \ - 2\left( \frac{d}{1 + r} \right)\left\lbrack E\left( X \land \frac{u}{1 + r} \right) - E\left( X \land \frac{d}{1 + r} \right) \right\rbrack \right\} ,\]
+\[\mathrm{E}\left( Y^{L} \right) = \alpha\left( 1 + r \right)\left\lbrack \mathrm{E}\left( X \land \frac{u}{1 + r} \right) - \mathrm{E}\left( X \land \frac{d}{1 + r} \right) \right\rbrack,\]
+and \[\mathrm{E}\left\lbrack \left( Y^{L} \right)^{2} 
+\right\rbrack = \alpha^{2}\left( 1 + r \right)^{2}  \left\{ \mathrm{E}\left\lbrack \left( X \land \frac{u}{1 + r} \right)^{2} \right\rbrack - \mathrm{E}\left\lbrack \left( X \land \frac{d}{1 + r} \right)^{2} \right\rbrack  \right. \\
+\left. \ \ \ \ \ - 2\left( \frac{d}{1 + r} \right)\left\lbrack \mathrm{E}\left( X \land \frac{u}{1 + r} \right) - \mathrm{E}\left( X \land \frac{d}{1 + r} \right) \right\rbrack \right\} ,\]
 respectively.
 
 The formulae given for the first and second moments of \(Y^{L}\) are
 general. Under full coverage, \(\alpha = 1\), \(r = 0\), \(u = \infty\),
-\(d = 0\) and \(E\left( Y^{L} \right)\) reduces to
-\(E\left( X \right)\). If only an ordinary deductible is imposed,
-\(\alpha = 1\), \(r = 0\), \(u = \infty\) and \(E\left( Y^{L} \right)\)
-reduces to \(E\left( X \right) - E\left( X \land d \right)\). If only a
-policy limit is imposed \(\alpha = 1\), \(r = 0\), \(d = 0\) and
-\(E\left( Y^{L} \right)\) reduces to \(E\left( X \land u \right)\).
+\(d = 0\) and \(\mathrm{E}\left( Y^{L} \right)\) reduces to
+\(\mathrm{E}\left( X \right)\). If only an ordinary deductible is
+imposed, \(\alpha = 1\), \(r = 0\), \(u = \infty\) and
+\(\mathrm{E}\left( Y^{L} \right)\) reduces to
+\(\mathrm{E}\left( X \right) - \mathrm{E}\left( X \land d \right)\). If
+only a policy limit is imposed \(\alpha = 1\), \(r = 0\), \(d = 0\) and
+\(\mathrm{E}\left( Y^{L} \right)\) reduces to
+\(\mathrm{E}\left( X \land u \right)\).
 
-Example 3.19 (SOA) The ground up loss random variable for a health
-insurance policy in 2006 is modeled with \emph{X}, an exponential
-distribution with mean 1000. An insurance policy pays the loss above an
-ordinary deductible of 100, with a maximum annual payment of 500. The
-ground up loss random variable is expected to be 5\% larger in 2007, but
-the insurance in 2007 has the same deductible and maximum payment as in
-2006. Find the percentage increase in the expected cost per payment from
-2006 to 2007. Solution
+\textbf{Example 3.4.5. SOA Exam Question.} The ground up loss random
+variable for a health insurance policy in 2006 is modeled with \emph{X},
+an exponential distribution with mean 1000. An insurance policy pays the
+loss above an ordinary deductible of 100, with a maximum annual payment
+of 500. The ground up loss random variable is expected to be 5\% larger
+in 2007, but the insurance in 2007 has the same deductible and maximum
+payment as in 2006. Find the percentage increase in the expected cost
+per payment from 2006 to 2007.
+
+Show Example Solution
+
+\hypertarget{toggleExampleLoss.4.5}{}
+\textbf{Solution.}
 
 \[Y_{2006}^{L} = \left\{ \begin{matrix}
 0 & X \leq 100, \\
@@ -4803,38 +4899,40 @@ X - 100 & 100 <  X \leq 600, \\
 500 & X > 571.43. \\
 \end{matrix} \right.\ \]
 
-\[E\left( Y_{2006}^{L} \right) = E\left( X \land 600 \right) - E\left( X \land 100 \right) = 1000\left( {1 - e}^{- \frac{600}{1000}} \right) - 1000\left( {1 - e}^{- \frac{100}{1000}} \right)\]
+\[\mathrm{E}\left( Y_{2006}^{L} \right) = \mathrm{E}\left( X \land 600 \right) - \mathrm{E}\left( X \land 100 \right) = 1000\left( {1 - e}^{- \frac{600}{1000}} \right) - 1000\left( {1 - e}^{- \frac{100}{1000}} \right)\]
 
 \(= 356.026\).
 
-\[E\left( Y_{2007}^{L} \right) = 1.05\left\lbrack E\left( X \land 571.43 \right) - E\left( X \land 95.24 \right) \right\rbrack\]
+\[\mathrm{E}\left( Y_{2007}^{L} \right) = 1.05\left\lbrack \mathrm{E}\left( X \land 571.43 \right) - \mathrm{E}\left( X \land 95.24 \right) \right\rbrack\]
 
 \(= 1.05\left\lbrack 1000\left( {1 - e}^{- \frac{571.43}{1000}} \right) - 1000\left( {1 - e}^{- \frac{95.24}{1000}} \right) \right\rbrack\)
 
 \(\mathbf{=}361.659\).
 
-\(E\left( Y_{2006}^{P} \right) = \frac{356.026}{e^{- \frac{100}{1000}} = 393.469}\).
+\(\mathrm{E}\left( Y_{2006}^{P} \right) = \frac{356.026}{e^{- \frac{100}{1000}} = 393.469}\).
 
-\(E\left( Y_{2007}^{P} \right) = \frac{361.659}{e^{- \frac{95.24}{1000}} = 397.797}\).
+\(\mathrm{E}\left( Y_{2007}^{P} \right) = \frac{361.659}{e^{- \frac{95.24}{1000}} = 397.797}\).
 
 There is an increase of 1.1\% from 2006 to 2007.
 
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
 \subsection{Reinsurance}\label{reinsurance}
 
-In Section \ref{PolicyDeduct} we introduced the policy deductible, which
-is a contractual arrangement under which an insured transfers part of
-the risk by securing coverage from an insurer in return for an insurance
-premium. Under that policy, when the loss exceeds the deductible, the
-insurer is not required to pay until the insured has paid the fixed
-deductible. We now introduce reinsurance, a mechanism of insurance for
-insurance companies. Reinsurance is a contractual arrangement under
-which an insurer transfers part of the underlying insured risk by
-securing coverage from another insurer (referred to as a reinsurer) in
-return for a reinsurance premium. Although reinsurance involves a
-relationship between three parties: the original insured, the insurer
-(often referred to as cedent or cedant) and the reinsurer, the parties
-of the reinsurance agreement are only the primary insurer and the
-reinsurer. There is no contractual agreement between the original
+In Section \ref{S:PolicyDeduct} we introduced the policy deductible,
+which is a contractual arrangement under which an insured transfers part
+of the risk by securing coverage from an insurer in return for an
+insurance premium. Under that policy, when the loss exceeds the
+deductible, the insurer is not required to pay until the insured has
+paid the fixed deductible. We now introduce reinsurance, a mechanism of
+insurance for insurance companies. Reinsurance is a contractual
+arrangement under which an insurer transfers part of the underlying
+insured risk by securing coverage from another insurer (referred to as a
+reinsurer) in return for a reinsurance premium. Although reinsurance
+involves a relationship between three parties: the original insured, the
+insurer (often referred to as cedent or cedant) and the reinsurer, the
+parties of the reinsurance agreement are only the primary insurer and
+the reinsurer. There is no contractual agreement between the original
 insured and the reinsurer. The reinsurer is not required to pay under
 the reinsurance contract until the insurer has paid a loss to its
 original insured. The amount retained by the primary insurer in the
@@ -4848,15 +4946,20 @@ Reinsurance also allows the primary insurer to benefit from underwriting
 skills, expertize and proficient complex claim file handling of the
 larger reinsurance companies.
 
-Example 3.20 (SOA) In 2005 a risk has a two-parameter Pareto
-distribution with \(\alpha = 2\) and \(\theta = 3000\). In 2006 losses
-inflate by 20\%. Insurance on the risk has a deductible of 600 in each
-year. \(P_{i}\), the premium in year \(i\), equals 1.2 times expected
-claims. The risk is reinsured with a deductible that stays the same in
-each year. \(R_{i}\), the reinsurance premium in year \(i\), equals 1.1
-times the expected reinsured claims.
+\textbf{Example 3.4.6. SOA Exam Question.} In 2005 a risk has a
+two-parameter Pareto distribution with \(\alpha = 2\) and
+\(\theta = 3000\). In 2006 losses inflate by 20\%. Insurance on the risk
+has a deductible of 600 in each year. \(P_{i}\), the premium in year
+\(i\), equals 1.2 times expected claims. The risk is reinsured with a
+deductible that stays the same in each year. \(R_{i}\), the reinsurance
+premium in year \(i\), equals 1.1 times the expected reinsured claims.
 \(\frac{R_{2005}}{P_{2005} = 0.55}\). Calculate
-\(\frac{R_{2006}}{P_{2006}}\). Solution
+\(\frac{R_{2006}}{P_{2006}}\).
+
+Show Example Solution
+
+\hypertarget{toggleExampleLoss.4.6}{}
+\textbf{Solution.}
 
 Let us use the following notation:
 
@@ -4884,21 +4987,21 @@ X_{i} - 600 & X_{i} > 600 \\
 
 \[X_{2005}\sim Pa\left( 2,3000 \right)\]
 
-\[E\left( Y_{2005} \right) = E\left( X_{2005} - 600 \right)_{+} = E\left( X_{2005} \right) - E\left( X_{2005} \land 600 \right)\]
+\[\mathrm{E}\left( Y_{2005} \right) = \mathrm{E}\left( X_{2005} - 600 \right)_{+} = \mathrm{E}\left( X_{2005} \right) - \mathrm{E}\left( X_{2005} \land 600 \right)\]
 
 \(= 3000 - 3000\left( 1 - \frac{3000}{3600} \right) = 2500\)
 
-\[P_{2005} = 1.2E\left( Y_{2005} \right) = 3000\]
+\[P_{2005} = 1.2\mathrm{E}\left( Y_{2005} \right) = 3000\]
 
 Since \(X_{2006} = 1.2X_{2005}\) and Pareto is a scale distribution with
 scale parameter \(\theta\), then
 \(X_{2006}\sim Pa\left( 2,3600 \right)\)
 
-\[E\left( Y_{2006} \right) = E\left( X_{2006} - 600 \right)_{+} = E\left( X_{2006} \right) - E\left( X_{2006} \land 600 \right)\]
+\[\mathrm{E}\left( Y_{2006} \right) = \mathrm{E}\left( X_{2006} - 600 \right)_{+} = \mathrm{E}\left( X_{2006} \right) - \mathrm{E}\left( X_{2006} \land 600 \right)\]
 
 \(= 3600 - 3600\left( 1 - \frac{3600}{4200} \right) = 3085.714\)
 
-\[P_{2006} = 1.2E\left( Y_{2006} \right) = 3702.857\]
+\[P_{2006} = 1.2\mathrm{E}\left( Y_{2006} \right) = 3702.857\]
 
 \[Y_{i}^{R} = \left\{ \begin{matrix}
 0 & X_{i} - 600 \leq d^{R} \\
@@ -4908,23 +5011,24 @@ X_{i} - 600 - d^{R} & X_{i} - 600 > d^{R} \\
 Since \(\frac{R_{2005}}{P_{2005}} = 0.55\), then
 \(R_{2005} = 3000 \times 0.55 = 1650\)
 
-Since \(R_{2005} = 1.1E\left( Y_{2005}^{R} \right)\), then
-\(E\left( Y_{2005}^{R} \right) = \frac{1650}{1.1} = 1500\)
+Since \(R_{2005} = 1.1\mathrm{E}\left( Y_{2005}^{R} \right)\), then
+\(\mathrm{E}\left( Y_{2005}^{R} \right) = \frac{1650}{1.1} = 1500\)
 
-\[E\left( Y_{2005}^{R} \right) = E\left( X_{2005} - 600 - d^{R} \right)_{+} = E\left( X_{2005} \right) - E\left( X_{2005} \land \left( 600 + d^{R} \right) \right)\]
+\[\mathrm{E}\left( Y_{2005}^{R} \right) = \mathrm{E}\left( X_{2005} - 600 - d^{R} \right)_{+} = \mathrm{E}\left( X_{2005} \right) - \mathrm{E}\left( X_{2005} \land \left( 600 + d^{R} \right) \right)\]
 
 \(= 3000 - 3000\left( 1 - \frac{3000}{3600 + d^{R}} \right) = 1500 \Rightarrow d^{R} = 2400\)
 
-\[E\left( Y_{2006}^{R} \right) = E\left( X_{2006} - 600 - d^{R} \right)_{+} = E\left( X_{2006} - 3000 \right)_{+} = E\left( X_{2006} \right) - E\left( X_{2006} \land 3000 \right)\]
+\[\mathrm{E}\left( Y_{2006}^{R} \right) = \mathrm{E}\left( X_{2006} - 600 - d^{R} \right)_{+} = \mathrm{E}\left( X_{2006} - 3000 \right)_{+} = \mathrm{E}\left( X_{2006} \right) - \mathrm{E}\left( X_{2006} \land 3000 \right)\]
 
 \(= 3600 - 3600\left( 1 - \frac{3600}{6600} \right) = 1963.636\)
 
-\[R_{2006} = 1.1E\left( Y_{2006}^{R} \right) = 1.1 \times 1963.636 = 2160\]
+\[R_{2006} = 1.1\mathrm{E}\left( Y_{2006}^{R} \right) = 1.1 \times 1963.636 = 2160\]
 
 Therefore \(\frac{R_{2006}}{P_{2006}} = \frac{2160}{3702.857} = 0.583\)
 
-\section{Maximum Likelihood
-Estimation}\label{maximum-likelihood-estimation}
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\section{Maximum Likelihood Estimation}\label{S:MaxLikeEstimation}
 
 In this section we estimate statistical parameters using the method of
 maximum likelihood. Maximum likelihood estimates in the presence of
@@ -4944,9 +5048,9 @@ maximum-likelihood estimators of the model parameters. We use the delta
 method to derive the asymptotic variances of functions of these
 parameters.
 
-Example 3.21 Consider a random sample of claim amounts: 8,000 10,000
-12,000 15,000. You assume that claim amounts follow an inverse
-exponential distribution, with parameter \(\theta\).
+\textbf{Example 3.5.1. SOA Exam Question.} Consider a random sample of
+claim amounts: 8,000 10,000 12,000 15,000. You assume that claim amounts
+follow an inverse exponential distribution, with parameter \(\theta\).
 
 Calculate the maximum likelihood estimator for \(\theta\).
 
@@ -4957,7 +5061,10 @@ Determine an approximate 95\% confidence interval for \(\theta\).
 Determine an approximate 95\% confidence interval for
 \(\Pr \left( X \leq 9,000 \right).\)
 
-Solution
+Show Example Solution
+
+\hypertarget{toggleExampleLoss.5.1}{}
+\textbf{Solution.}
 
 The probability density function is
 \[f_{X}\left( x \right) = \frac{\theta e^{- \frac{\theta}{x}}}{x^{2}}, \]
@@ -4986,7 +5093,7 @@ Evaluating the second derivative of the loglikelihood function at
 Taking reciprocal of negative expectation of the second derivative of
 \(\ln L \left( \theta \right)\), we obtain an estimate of the variance
 of \(\hat{\theta}\)
-\(\widehat{Var}\left( \hat{\theta} \right) = \left. \ \left\lbrack E\left( \frac{d^{2}\ln L \left( \theta \right)}{d\theta^{2}} \right) \right\rbrack^{- 1} \right|_{\theta = \hat{\theta}} = \frac{{\hat{\theta}}^{2}}{4} = 28,446,222\).
+\(\widehat{Var}\left( \hat{\theta} \right) = \left. \ \left\lbrack \mathrm{E}\left( \frac{d^{2}\ln L \left( \theta \right)}{d\theta^{2}} \right) \right\rbrack^{- 1} \right|_{\theta = \hat{\theta}} = \frac{{\hat{\theta}}^{2}}{4} = 28,446,222\).
 
 It should be noted that as the sample size \(n \rightarrow \infty\), the
 distribution of the maximum likelihood estimator \(\hat{\theta}\)
@@ -5011,9 +5118,11 @@ We use the delta method to approximate the variance of
 The 95\% confidence interval for \(F\left( 9,000 \right)\) is given by
 \[0.57 \pm 1.96\sqrt{0.0329} = \left( 0.214,\ 0.926 \right).\]
 
-Example 3.22 A random sample of size 6 is from a lognormal distribution
-with parameters \(\mu\) and \(\sigma\). The sample values are 200,
-3,000, 8,000, 60,000, 60,000, 160,000.
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\textbf{Example 3.5.2. SOA Exam Question.} A random sample of size 6 is
+from a lognormal distribution with parameters \(\mu\) and \(\sigma\).
+The sample values are 200, 3,000, 8,000, 60,000, 60,000, 160,000.
 
 Calculate the maximum likelihood estimator for \(\mu\) and \(\sigma\).
 
@@ -5025,7 +5134,10 @@ Determine approximate 95\% confidence intervals for \(\mu\) and
 Determine an approximate 95\% confidence interval for the mean of the
 lognormal distribution.
 
-Solution
+Show Example Solution
+
+\hypertarget{toggleExampleLoss.5.2}{}
+\textbf{Solution.}
 
 The probability density function is
 \[f_{X}\left( x \right) = \frac{1}{x \sigma \sqrt{2\pi}}\exp - \frac{1}{2}\left( \frac{\ln x - \mu}{\sigma} \right)^{2},\]
@@ -5061,13 +5173,13 @@ is from a lognormal distribution with parameters \(\mu\) and \(\sigma\),
 then \(\text{lnX}\) is normally distributed with mean \(\mu\) and
 variance \(\sigma^{2}\).
 
-\(E\left( \frac{\partial^{2}\text{lnL}\left( \mu,\sigma \right)}{\partial\mu^{2}} \right) = E\left( \frac{- 6}{\sigma^{2}} \right) = \frac{- 6}{\sigma^{2}}\),
+\(\mathrm{E}\left( \frac{\partial^{2}\text{lnL}\left( \mu,\sigma \right)}{\partial\mu^{2}} \right) = \mathrm{E}\left( \frac{- 6}{\sigma^{2}} \right) = \frac{- 6}{\sigma^{2}}\),
 
-\(E\left( \frac{\partial^{2}\text{lnL}\left( \mu,\sigma \right)}{\partial\mu\partial\sigma} \right) = \frac{- 2}{\sigma^{3}}\sum_{i = 1}^{6}{E\left( \ln x_{i} - \mu \right)} = \frac{- 2}{\sigma^{3}}\sum_{i = 1}^{6}\left\lbrack E\left( \ln x_{i} \right) - \mu \right\rbrack\)=\(\frac{- 2}{\sigma^{3}}\sum_{i = 1}^{6}\left( \mu - \mu \right) = 0\),
+\(\mathrm{E}\left( \frac{\partial^{2}\text{lnL}\left( \mu,\sigma \right)}{\partial\mu\partial\sigma} \right) = \frac{- 2}{\sigma^{3}}\sum_{i = 1}^{6}{\mathrm{E}\left( \ln x_{i} - \mu \right)} = \frac{- 2}{\sigma^{3}}\sum_{i = 1}^{6}\left\lbrack \mathrm{E}\left( \ln x_{i} \right) - \mu \right\rbrack\)=\(\frac{- 2}{\sigma^{3}}\sum_{i = 1}^{6}\left( \mu - \mu \right) = 0\),
 
 and
 
-\(E\left( \frac{\partial^{2}\text{lnL}\left( \mu,\sigma \right)}{\partial\sigma^{2}} \right) = \frac{6}{\sigma^{2}} - \frac{3}{\sigma^{4}}\sum_{i = 1}^{6}{E\left( \ln x_{i} - \mu \right)}^{2} = \frac{6}{\sigma^{2}} - \frac{3}{\sigma^{4}}\sum_{i = 1}^{6}{V\left( \ln x_{i} \right) = \frac{6}{\sigma^{2}} - \frac{3}{\sigma^{4}}\sum_{i = 1}^{6}{\sigma^{2} = \frac{- 12}{\sigma^{2}}}}\).
+\(\mathrm{E}\left( \frac{\partial^{2}\text{lnL}\left( \mu,\sigma \right)}{\partial\sigma^{2}} \right) = \frac{6}{\sigma^{2}} - \frac{3}{\sigma^{4}}\sum_{i = 1}^{6}{\mathrm{E}\left( \ln x_{i} - \mu \right)}^{2} = \frac{6}{\sigma^{2}} - \frac{3}{\sigma^{4}}\sum_{i = 1}^{6}{V\left( \ln x_{i} \right) = \frac{6}{\sigma^{2}} - \frac{3}{\sigma^{4}}\sum_{i = 1}^{6}{\sigma^{2} = \frac{- 12}{\sigma^{2}}}}\).
 
 Using the negatives of these expectations we obtain the Fisher
 information matrix \[\begin{bmatrix}
@@ -5135,6 +5247,8 @@ Since the mean of the lognormal distribution cannot be negative, we
 should replace the negative lower limit in the previous interval by a
 zero.
 
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
 \subsection{Maximum Likelihood Estimators for Grouped
 Data}\label{MLEGrouped}
 
@@ -5154,8 +5268,8 @@ where \(c_{0}\) is the smallest possible observation (often set to zero)
 and \(c_{k}\) is the largest possible observation (often set to
 infinity).
 
-Example 3.23 (SOA) For a group of policies, you are given that losses
-follow the distribution function
+\textbf{Example 3.5.3. SOA Exam Question.} For a group of policies, you
+are given that losses follow the distribution function
 \(F\left( x \right) = 1 - \frac{\theta}{x}\), for
 \(\theta < x < \infty.\) Further, a sample of 20 losses resulted in the
 following:
@@ -5173,7 +5287,10 @@ following:
 
 Calculate the maximum likelihood estimate of \(\theta\).
 
-Solution
+Show Example Solution
+
+\hypertarget{toggleExampleLoss.5.3}{}
+\textbf{Solution.}
 
 The contribution of each of the 9 observations in the first interval to
 the likelihood function is the probability of \(X \leq 10\); that is,
@@ -5194,6 +5311,8 @@ the equation
 \[\frac{- 9}{\left( 10 - \hat{\theta} \right)} + \frac{11}{\hat{\theta}} = 0\]
 and \(\hat{\theta} = 5.5\).
 
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
 \subsection{Maximum Likelihood Estimators for Censored
 Data}\label{maximum-likelihood-estimators-for-censored-data}
 
@@ -5201,7 +5320,7 @@ Another distinguishing feature of data gathering mechanism is censoring.
 While for some event of interest (losses, claims, lifetimes, etc.) the
 complete data maybe available, for others only partial information is
 available; information that the observation exceeds a specific value.
-The limited policy introduced in Section \ref{PolicyLimits} is an
+The limited policy introduced in Section \ref{S:PolicyLimits} is an
 example of right censoring. Any loss greater than or equal to the policy
 limit is recorded at the limit. The contribution of the censored
 observation to the likelihood function is the probability of the random
@@ -5210,10 +5329,16 @@ complete and censored data share the survivor function, for a complete
 point this survivor function is multiplied by the hazard function, but
 for a censored observation it is not.
 
-Example 3.24 (SOA) The random variable has survival function:
+\textbf{Example 3.5.4. SOA Exam Question.} The random variable has
+survival function:
 \[S_{X}\left( x \right) = \frac{\theta^{4}}{\left( \theta^{2} + x^{2} \right)^{2}}.\]
 Two values of \(X\) are observed to be 2 and 4. One other value exceeds
-4. Calculate the maximum likelihood estimate of \(\theta\). Solution
+4. Calculate the maximum likelihood estimate of \(\theta\).
+
+Show Example Solution
+
+\hypertarget{toggleExampleLoss.5.4}{}
+\textbf{Solution.}
 
 The contributions of the two observations 2 and 4 are
 \(f_{X}\left( 2 \right)\) and \(f_{X}\left( 4 \right)\) respectively.
@@ -5240,6 +5365,8 @@ or
 - 4{\hat{\theta}}^{4} + 104{\hat{\theta}}^{2} + 768 = 0,\] which yields
 \({\hat{\theta}}^{2} = 32\) and \(\hat{\theta} = 5.7\).
 
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
 \subsection{Maximum Likelihood Estimators for Truncated
 Data}\label{maximum-likelihood-estimators-for-truncated-data}
 
@@ -5248,18 +5375,18 @@ continuous distribution of the random variable \(X\) when the data is
 incomplete due to truncation. If the values of \(X\) are truncated at
 \(d\), then it should be noted that we would not have been aware of the
 existence of these values had they not exceeded \(d\). The policy
-deductible introduced in Section \ref{PolicyDeduct} is an example of
+deductible introduced in Section \ref{S:PolicyDeduct} is an example of
 left truncation. Any loss less than or equal to the deductible is not
 recorded. The contribution to the likelihood function of an observation
 \(x\) truncated at \(d\) will be a conditional probability and the
 \(f_{X}\left( x \right)\) will be replaced by
 \(\frac{f_{X}\left( x \right)}{S_{X}\left( d \right)}\).
 
-Example 3.25 (SOA) For the single parameter Pareto distribution with
-\(\theta = 2\), maximum likelihood estimation is applied to estimate the
-parameter \(\alpha\). Find the estimated mean of the ground up loss
-distribution based on the maximum likelihood estimate of \(\alpha\) for
-the following data set:
+\textbf{Example 3.5.5. SOA Exam Question.} For the single parameter
+Pareto distribution with \(\theta = 2\), maximum likelihood estimation
+is applied to estimate the parameter \(\alpha\). Find the estimated mean
+of the ground up loss distribution based on the maximum likelihood
+estimate of \(\alpha\) for the following data set:
 
 Ordinary policy deductible of 5, maximum covered loss of 25 (policy
 limit 20)
@@ -5268,7 +5395,10 @@ limit 20)
 
 2 limit payments: 20, 20.
 
-Solution
+Show Example Solution
+
+\hypertarget{toggleExampleLoss.5.5}{}
+\textbf{Solution.}
 
 The contributions of the different observations can be summarized as
 follows:
@@ -5303,72 +5433,19 @@ yields
 The mean of the Pareto only exists for \(\alpha > 1\). Since
 \(\hat{\alpha} = 0.785 < 1\). Then, the mean does not exist.
 
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
 \section{Further Resources and
-Contributors}\label{Resources-loss-severity}
-
-In describing losses, actuaries fit appropriate parametric distribution
-models for the frequency and severity of loss. This involves finding
-appropriate statistical distributions that could efficiently model the
-data in hand. After fitting a distribution model to a data set, the
-model should be validated. Model validation is a crucial step in the
-model building sequence. It assesses how well these statistical
-distributions fit the data in hand and how well can we expect this model
-to perform in the future. If the selected model does not fit the data,
-another distribution is to be chosen. If more than one model seems to be
-a good fit for the data, we then have to make the choice on which model
-to use. It should be noted though that the same data should not serve
-for both purposes (fitting and validating the model). Additional data
-should be used to assess the performance of the model. There are many
-statistical tools for model validation. Alternative goodness of fit
-tests used to determine whether sample data are consistent with the
-candidate model, will be presented in a separate chapter.
-
-\subsubsection*{Further Readings and
-References}\label{further-readings-and-references}
-\addcontentsline{toc}{subsubsection}{Further Readings and References}
-
-\begin{itemize}
-\item
-  Cummins, J. D. and Derrig, R. A. 1991. Managing the Insolvency Risk of
-  Insurance Companies, Springer Science+ Business Media, LLC.
-\item
-  Frees, E. W. and Valdez, E. A. 2008. Hierarchical insurance claims
-  modeling, \emph{Journal of the American Statistical Association}, 103,
-  1457-1469.
-\item
-  Klugman, S. A., Panjer, H. H. and Willmot, G. E. 2008. \emph{Loss
-  Models from Data to Decisions}, Wiley.
-\item
-  Kreer, M., Kizilers, A., Thomas, A. W. and Eg?dio dos Reis, A. D.
-  2015. Goodness-of-fit tests and applications for left-truncated
-  Weibull distributions to non-life insurance, \emph{European Actuarial
-  Journal}, 5, 139-163.
-\item
-  McDonald, J. B. 1984. Some generalized functions for the size
-  distribution of income, \emph{Econometrica} 52, 647-663.
-\item
-  McDonald, J. B. and Xu, Y. J. 1995. A generalization of the beta
-  distribution with applications, \emph{Journal of Econometrics} 66,
-  133-52.
-\item
-  Tevet, D. 2016. Applying generalized linear models to insurance data:
-  Frequency/severity versus premium modeling in: Frees, E. W., Derrig,
-  A. R. and Meyers G. (Eds.) \emph{Predictive Modeling Applications in
-  Actuarial Science} Vol. II Case Studies in Insurance. Cambridge
-  University Press.
-\item
-  Venter, G. 1983. Transformed beta and gamma distributions and
-  aggregate losses. \emph{Proceedings of the Casualty Actuarial Society}
-  70: 156-193.
-\end{itemize}
+Contributors}\label{LM-further-reading-and-resources}
 
 \subsubsection*{Contributors}\label{contributors-1}
 \addcontentsline{toc}{subsubsection}{Contributors}
 
 \begin{itemize}
+\tightlist
 \item
   \textbf{Zeinab Amin}, The American University in Cairo, is the
-  principal author of this chapter. Date: October 27, 2016. Email:
+  principal author of this chapter. Email:
   \href{mailto:zeinabha@aucegypt.edu}{\nolinkurl{zeinabha@aucegypt.edu}}
   for chapter comments and suggested improvements.
 \item
@@ -5377,7 +5454,8 @@ References}\label{further-readings-and-references}
   \href{mailto:iwahiro@bb.mbn.or.jp}{\nolinkurl{iwahiro@bb.mbn.or.jp}} .
 \end{itemize}
 
-\section{Exercises}\label{exercises-1}
+\subsubsection*{Exercises}\label{exercises-1}
+\addcontentsline{toc}{subsubsection}{Exercises}
 
 Here are a set of exercises that guide the viewer through some of the
 theoretical foundations of \textbf{Loss Data Analytics}. Each tutorial
@@ -5386,6 +5464,16 @@ examinations -- typically the Society of Actuaries Exam C.
 
 \href{http://www.ssc.wisc.edu/~jfrees/loss-data-analytics/chapter-3-modeling-loss-severity/loss-data-analytics-severity-problems/}{Severity
 Distribution Guided Tutorials}
+
+\subsubsection*{Further Readings and
+References}\label{further-readings-and-references}
+\addcontentsline{toc}{subsubsection}{Further Readings and References}
+
+Notable contributions include: \citet{cummins1991managing},
+\citet{frees2008hierarchical}, \citet{klugman2012},
+\citet{kreer2015goodness}, \citet{mcdonald1984some},
+\citet{mcdonald1995generalization}, \citet{tevet2016applying}, and
+\citet{venter1983transformed}.
 
 \chapter{Model Selection and Estimation}\label{C:ModelSelection}
 
@@ -13237,8 +13325,8 @@ Guided Tutorials}
 
 \chapter{Portfolio Management including Reinsurance}\label{C:PortMgt}
 
-\emph{Chapter preview}. Define \(S\) to be (random) obligations that
-arise from a collection (portfolio) of insurance contracts
+\emph{Chapter Preview}. Define \(S\) to be (random) obligations that
+arise from a collection (portfolio) of insurance contracts.
 
 \begin{itemize}
 \item
@@ -13248,7 +13336,7 @@ arise from a collection (portfolio) of insurance contracts
 \item
   How much in assets does an insurer need to retain to meet obligations
   arising from the random \(S\)? A study of risk measures in Section
-  \ref{S:RiskMeasure} helps to address this question
+  \ref{S:RiskMeasure} helps to address this question.
 \item
   As with policyholders, insurers also seek mechanisms in order to
   spread risks. A company that sells insurance to an insurance company
@@ -13261,467 +13349,863 @@ In 1998 freezing rains fell on eastern Ontario, south-western Quebec and
 lasted for six days. The event doubled the amount of precipitation in
 the area experienced in any prior ice storm, and resulted in a
 catastrophe that produced excess of 840,000 cases of insurance claims.
-This number is 20\% more than that of the claims caused by the Hurricane
-Andrew - one of the largest natural disasters in the history of North
-America. After all, the catastrophe caused approximately 1.44 billion
-Canadian dollars insurance settlements which is the highest loss burden
-in the history of Canada (Lecomte et al., 1998). More examples of
-similar catastrophic events that caused extremal insurance losses are
-Hurricanes Harvey and Sandy, the 2011 Japanese earthquake and tsunami,
-and so forth.
+This number is 20\(\%\) more than that of the claims caused by the
+Hurricane Andrew - one of the largest natural disasters in the history
+of North America. After all, the catastrophe caused approximately 1.44
+billion Canadian dollars insurance settlements which is the highest loss
+burden in the history of Canada. More examples of similar catastrophic
+events that caused extremal insurance losses are Hurricanes Harvey and
+Sandy, the 2011 Japanese earthquake and tsunami, and so forth.
 
-In the context of insurance, a few heavy losses hitting a portfolio and
+In the context of insurance, a few large losses hitting a portfolio and
 then converting into claims usually represent the greatest part of the
 indemnities paid by insurance companies. The aforementioned losses, also
 called `extremes', are quantitatively modelled by the tails of the
 associated probability distributions. From the quantitative modelling
-standpoint, relying on probabilistic models with improper tails is of
-course daunting. For instance, periods of financial stress may appear
-with higher frequency than the actuaries expect, and insurance losses
-may occur with worse severity. Therefore, studying the probabilistic
-behavior in the tail portion of actuarial models is of utmost importance
-in the modern framework of quantitative risk management. For this
-reason, this section is devoted to the introduction of a few
-mathematical notions that characterize the tail weight of random
-variables (r.v.'s). The applications of these notions will benefit us in
-the construction and selection of appropriate models with desired
-mathematical properties in the tail portion, that are suitable for a
-given task.
+standpoint, relying on probabilistic models with improper tails is
+rather daunting. For instance, periods of financial stress may appear
+with higher frequency than expected, and insurance losses may occur with
+worse severity. Therefore, the study of probabilistic behavior in the
+tail portion of actuarial models is of utmost importance in the modern
+framework of quantitative risk management. For this reason, this section
+is devoted to the introduction of a few mathematical notions that
+characterize the tail weight of random variables (\emph{rv}'s). The
+applications of these notions will benefit us in the construction and
+selection of appropriate models with desired mathematical properties in
+the tail portion, that are suitable for a given task.
 
 Formally, define \(X\) to be the (random) obligations that arise from a
 collection (portfolio) of insurance contracts. We are particularly
-interested in studying the right tail of the distribution of \(X\).
-Speaking plainly, a r.v. is said to be heavier-tailed if higher
-probabilities are assigned to larger values. Unwelcome outcomes are more
-likely to occur for an insurance portfolio that is described by a loss
-r.v. possessing heavier (right) tail. Tail weight can be an absolute or
-a relative concept. Specifically, for the former, we may consider a r.v.
-to be heavy-tailed if certain mathematical properties of the probability
-distribution are met. For the latter, we can say the tail of one
-distribution is heavier than the other if some tail measures are larger.
+interested in studying the right tail of the distribution of \(X\),
+which represents the occurrence of large losses. Speaking plainly, a
+\emph{rv} is said to be heavier-tailed if higher probabilities are
+assigned to larger values. Unwelcome outcomes are more likely to occur
+for an insurance portfolio that is described by a loss \emph{rv}
+possessing heavier (right) tail. Tail weight can be an absolute or a
+relative concept. Specifically, for the former, we may consider a
+\emph{rv} to be heavy-tailed if certain mathematical properties of the
+probability distribution are met. For the latter, we can say the tail of
+one distribution is heavier than the other if some tail measures are
+larger/smaller.
 
 In the statistics and probability literature, there are several
-quantitative approaches have been proposed to compare and classify tail
+quantitative approaches have been proposed to classify and compare tail
 weight. Among most of these approaches, the survival functions serve as
 the building block. In what follows, we are going to introduce two
 simple yet useful tail classification methods, in which the basic idea
-is to study the quantities that are closely related to the survival
-function of \(X\).
+is to study the quantities that are closely related to behavior of the
+survival function of \(X\).
 
-\subsubsection{Classification Based on
+\subsection{Classification Based on
 Moments}\label{classification-based-on-moments}
 
 One possible way of classifying the tail weight of distribution is by
 assessing the existence of raw moments. Since our major interest lies in
 the right tails of distributions, we henceforth assume the
-obligation/loss r.v. \(X\) to be positive. At the outset, let us recall
-that the \(k-\)th raw moment of \(X\), for \(k\in\mathcal{R}_+\), can be
-computed via \[\begin{aligned}
-    \mu_k^{'} &= k \int_0^{\infty} x^{k-1} S(x) dx, \\
-    \end{aligned}\] where \(S(\cdot)\) denotes the survival function of
-\(X\). It is a simple matter to see that the existence of the raw
-moments depends on the asymptotic behavior of the survival function at
-infinity. Namely, the faster the survival function decays to zero, the
-higher the order of finite moment the associated r.v. possesses. Hence
-the maximal order of finite moment, denoted by
-\(k^{\ast}:=\sup\{k\in \mathcal{R}_+|\mu_k^{'}<\infty \}\), can be
+obligation/loss \emph{rv}~\(X\) to be positive. At the outset, let us
+recall that the \(k-\)th raw moment of a continuous \emph{rv}~\(X\), for
+\(k\geq 0\), can be computed via
+
+\begin{eqnarray*}
+    \mu_k' &=& k \int_0^{\infty} x^{k-1} S(x) dx, \\
+\end{eqnarray*}
+
+where \(S(\cdot)\) denotes the survival function of \(X\). It is a
+simple matter to see that the existence of the raw moments depends on
+the asymptotic behavior of the survival function at infinity. Namely,
+the faster the survival function decays to zero, the higher the order of
+finite moment the associated \emph{rv} possesses. Hence the maximal
+order of finite moment, denoted by
+\(k^{\ast}:=\sup\{k\in \mathbf{R}_+:\mu_k'<\infty \}\), can be
 considered as an indicator of tail weight. This observation leads us to
-moment-based tail weight classification, which is defined formally next.
+the moment-based tail weight classification method, which is defined
+formally next.
 
-\textbf{Definition 1.} For a positive loss random variable \(X\), if all
-the positive raw moments exist, namely the maximal order of finite
-moment \(k^{\ast}=\infty\), then \(X\) is said to be light-tailed based
-on the moment-method. If the \(k^{\ast}=a \in (0,\infty)\), then \(X\)
-is said to be heavy-tailed based on the moment-method. Moreover, for two
-positive loss random variables \(X_1\) and \(X_2\) with maximal orders
-of moment \(k^{'}_1\) and \(k^{'}_2\) respectively, we say \(X_1\) has a
-heavier (right) tail than \(X_2\) if \(k^{\ast}_1\leq k^{\ast}_2\).
+\textbf{Definition 10.1.} \emph{For a positive loss random variable
+\(X\), if all the positive raw moments exist, namely the maximal order
+of finite moment \(k^{\ast}=\infty\), then \(X\) is said to be
+light-tailed based on the moment method. If
+\(k^{\ast}=a \in (0,\infty)\), then \(X\) is said to be heavy-tailed
+based on the moment method. Moreover, for two positive loss random
+variables \(X_1\) and \(X_2\) with maximal orders of moment
+\(k^{\ast}_1\) and \(k^{\ast}_2\) respectively, we say \(X_1\) has a
+heavier (right) tail than \(X_2\) if \(k^{\ast}_1\leq k^{\ast}_2\).}
 
-It is noteworthy that the first part of the aforementioned definition is
-an absolute concept of tail weight, while the second part is a relative
-concept that compares the weight of (right) tails between two
-distributions. Next, we are going to present a few examples that
-illustrate the applications of the moment-based method. Some of these
-examples are borrowed from Klugman et al., 2012.
+It is noteworthy that the first part of Definition 10.1 is an absolute
+concept of tail weight, while the second part is a relative concept of
+tail weight which compares the (right) tails between two distributions.
+Next, we are going to present a few examples that illustrate the
+applications of the moment-based method for comparing tail weight. Some
+of these examples are borrowed from \citet{klugman2012}.
 
-\textbf{Example 1.} Let \(X\sim Gamma(\alpha,\theta)\), with
-\(\alpha>0\) and \(\theta>0\), then for all \(k\in \mathcal{R}_+\),
-\[\begin{aligned}
-    \mu_k^{'} &= \int_0^{\infty} x^k \frac{x^{\alpha-1} e^{-x/\theta}}{\Gamma(\alpha) \theta^{\alpha}} dx \\
-    &= \int_0^{\infty} (y\theta)^k  \frac{(y\theta)^{\alpha-1} e^{-y}}{\Gamma(\alpha) \theta^{\alpha}} \theta dy \\
-    &= \frac{\theta^k}{\Gamma(\alpha)} \Gamma(\alpha+k) < \infty.\end{aligned}\]
+\textbf{Example 10.1.} Let \(X\sim Gamma(\alpha,\theta)\), with
+\(\alpha>0\) and \(\theta>0\), then for all \(k>0\),
+
+\begin{eqnarray*}
+    \mu_k' &=& \int_0^{\infty} x^k \frac{x^{\alpha-1} e^{-x/\theta}}{\Gamma(\alpha) \theta^{\alpha}} dx \\
+    &=& \int_0^{\infty} (y\theta)^k  \frac{(y\theta)^{\alpha-1} e^{-y}}{\Gamma(\alpha) \theta^{\alpha}} \theta dy \\
+    &=& \frac{\theta^k}{\Gamma(\alpha)} \Gamma(\alpha+k) < \infty.
+\end{eqnarray*}
 
 Since all the positive moments exist, i.e., \(k^{\ast}=\infty\), in
-accordance with the moment-based classification method in Definition 1,
-the gamma distribution is light-tailed.
+accordance with the moment-based classification method in Definition
+10.1, the gamma distribution is light-tailed.
 
-\textbf{Example 2.} Let \(X\sim Weibull(\theta,\tau)\), with
-\(\theta>0\) and \(\tau>0\), then for all \(k\in \mathcal{R}_+\),
-\[\begin{aligned}
-    \mu_k^{'} &= \int_0^{\infty} x^k \frac{\tau x^{\tau-1} }{\theta^{\tau}} e^{-(x/\theta)^{\tau}}dx \\
-    &= \int_0^{\infty}  \frac{ y^{k/\tau} }{\theta^{\tau}} e^{-y/\theta^{\tau}}dy \\
-    &= \theta^{k} \Gamma(1+k/\tau) < \infty.\end{aligned}\]
+\textbf{Example 10.2.} Let \(X\sim Weibull(\theta,\tau)\), with
+\(\theta>0\) and \(\tau>0\), then for all \(k>0\),
+
+\begin{eqnarray*}
+    \mu_k' &=& \int_0^{\infty} x^k \frac{\tau x^{\tau-1} }{\theta^{\tau}} e^{-(x/\theta)^{\tau}}dx \\
+    &=& \int_0^{\infty}  \frac{ y^{k/\tau} }{\theta^{\tau}} e^{-y/\theta^{\tau}}dy \\
+    &=& \theta^{k} \Gamma(1+k/\tau) < \infty.
+\end{eqnarray*}
 
 Again, due to the existence of all the positive moments, the Weibull
 distribution is light-tailed.
 
 We notice in passing that the gamma and Weibull distributions have been
-used quite intensively in actuarial practice nowadays. Applications of
-these two distributions are vast which include, but are not limited to,
-insurance claim severity modelling, solvency assessment, loss reserving,
-aggregate risk approximation, reliability engineering and failure
-analysis. We have thus far seem two examples of using the moment-based
-method to analyze light-tailed distributions. We document a heavy-tailed
-example in what follows.
+used quite intensively in the actuarial practice nowadays. Applications
+of these two distributions are vast which include, but are not limited
+to, insurance claim severity modelling, solvency assessment, loss
+reserving, aggregate risk approximation, reliability engineering and
+failure analysis. We have thus far seen two examples of using the
+moment-based method to analyze light-tailed distributions. We document a
+heavy-tailed example in what follows.
 
-\textbf{Example 3.} Let \(X\sim Pareto(\alpha,\theta)\), with
-\(\alpha>0\) and \(\theta>0\), then for \(k\in \mathcal{R}_+\)
-\[\begin{aligned}
-    \mu_k^{'} &= \int_0^{\infty} x^k \frac{\alpha \theta^{\alpha}}{(x+\theta)^{\alpha+1}} dx \\
-    &= \alpha \theta^{\alpha} \int_{\theta}^{\infty} (y-\theta)^k {y^{-(\alpha+1)}} dy.\end{aligned}\]
+\textbf{Example 10.3.} Let \(X\sim Pareto(\alpha,\theta)\), with
+\(\alpha>0\) and \(\theta>0\), then for \(k>0\)
 
-Consider a similar integration: \[\begin{aligned}
+\begin{eqnarray*}
+    \mu_k^{'} &=& \int_0^{\infty} x^k \frac{\alpha \theta^{\alpha}}{(x+\theta)^{\alpha+1}} dx \\
+    &=& \alpha \theta^{\alpha} \int_{\theta}^{\infty} (y-\theta)^k {y^{-(\alpha+1)}} dy.
+\end{eqnarray*}
+
+Consider a similar integration:
+
+\begin{eqnarray*}
   g_k:=\int_{\theta}^{\infty} {y^{k-\alpha-1}} dy=\left\{
   \begin{array}{ll}
-    <\infty, & \hbox{for } k<\alpha\\
-    =\infty, & \hbox{for } k\geq \alpha
+    <\infty, & \hbox{for } k<\alpha;\\
+    =\infty, & \hbox{for } k\geq \alpha.
   \end{array}
-\right. .\end{aligned}\] Meanwhile,
+\right.
+\end{eqnarray*}
+
+Meanwhile,
+
 \[\lim_{y\rightarrow \infty} \frac{(y-\theta)^k {y^{-(\alpha+1)}}}{y^{k-\alpha-1}}=\lim_{y\rightarrow \infty}
-(1-\theta/y)^{k}=1.\] Application of the limit comparison theorem for
-improper integrals yields \(\mu_k^{'}\) is finite if and only if \(g_k\)
-is finite. Hence we can conclude that the raw moments of Pareto r.v.'s
-exist only up to \(k<\alpha\), i.e., \(k^{\ast}=\alpha\), and thus the
-distribution is heavy-tailed. What is more, the maximal order of finite
-moments depends only on the shape parameter \(\alpha\) and it is an
-increasing function of \(\alpha\). In other words, based on the moments
-method, the tail weight of the Pareto r.v.'s is solely manipulated by
-\(\alpha\) -- the smaller the value of \(\alpha\), the heavier the tail
-weight becomes. Since \(k^{\ast}<\infty\), the tail of Pareto
-distribution is heavier than those of the gamma and Weibull
-distributions.
+(1-\theta/y)^{k}=1.\]
+
+Application of the limit comparison theorem for improper integrals
+yields \(\mu_k'\) is finite if and only if \(g_k\) is finite. Hence we
+can conclude that the raw moments of Pareto \emph{rv}'s exist only up to
+\(k<\alpha\), i.e., \(k^{\ast}=\alpha\), and thus the distribution is
+heavy-tailed. What is more, the maximal order of finite moment depends
+only on the shape parameter \(\alpha\) and it is an increasing function
+of \(\alpha\). In other words, based on the moment method, the tail
+weight of Pareto \emph{rv}'s is solely manipulated by \(\alpha\) -- the
+smaller the value of \(\alpha\), the heavier the tail weight becomes.
+Since \(k^{\ast}<\infty\), the tail of Pareto distribution is heavier
+than those of the gamma and Weibull distributions.
 
 We are going to conclude this current section by an open discussion on
 the limitations of the moment-based method. Despite its simple
 implementation and intuitive interpretation, there are certain
 circumstances in which the application of the moment-based method is not
 suitable. First, for more complicated probabilistic models, the \(k\)-th
-raw moment may not be straightforward to derive and/or the
-identification of the maximal order of finite moment can be very
-challenging. Second, the moment-based method does not well comply with
-main body of the well established heavy tail theory in literature.
-Specifically, the existence of moment generating functions (MGF's) is
-arguably the most popular method for classifying heavy tail verse light
-tail within the community of academic actuaries. However, for some r.v's
-such as the log normal r.v.'s, their MGF's do not exist even that all
-the positive moments are finite. In these cases, applications of the
-moment-based and the MFG-based methods can lead to different tail weight
-assessment. Third, when we need to compare the tail weight between two
-light-tailed distributions both having all positive moments exist, the
-moment-based method is no longer informative.
+raw moment may not be simple to derive, and thus the identification of
+the maximal order of finite moment can be challenging. Second, the
+moment-based method does not well comply with main body of the well
+established heavy tail theory in literature. Specifically, the existence
+of moment generating functions is arguably the most popular method for
+classifying heavy tail versus light tail within the community of
+academic actuaries. However, for some \emph{rv}'s such as the log normal
+\emph{rv}'s, their moment generating functions do not exist even that
+all the positive moments are finite. In these cases, applications of the
+moment-based methods can lead to different tail weight assessment.
+Third, when we need to compare the tail weight between two light-tailed
+distributions both having all positive moments exist, the moment-based
+method is no longer informative (see, e.g., Examples 10.1 and 10.2).
 
-\subsubsection{Comparison Based on Limiting Tail
+\subsection{Comparison Based on Limiting Tail
 Behavior}\label{comparison-based-on-limiting-tail-behavior}
 
-In order to resolve the shortfalls of the moment-based method discussed
-in the previous section, an alternative approach for comparing tail
-weight is to directly study the limiting behavior of the survival
-functions.
+In order to resolve the aforementioned issues of the moment-based
+classification method, an alternative approach for comparing tail weight
+is to directly study the limiting behavior of the survival functions.
 
-\textbf{Definition 2.} For two r.v.'s \(X\) and \(Y\), and let \[
+\textbf{Definition 10.2.} For two \emph{rv}'s \(X\) and \(Y\), let
+
+\[
 \gamma:=\lim_{t\rightarrow \infty}\frac{S_X(t)}{S_Y(t)}.
 \] We say that
 
 \begin{itemize}
 \tightlist
 \item
-  \(X\) has a heavier right tail than \(Y\) if \(\gamma=\infty\);
+  \emph{\(X\) has a heavier right tail than \(Y\) if
+  \(\gamma=\infty\);}\\
 \item
-  \(X\) and \(Y\) are proportionally equivalent in the right tail, if
-  \(\gamma =c\in \mathcal{R}_+\);
+  \emph{\(X\) and \(Y\) are proportionally equivalent in the right tail,
+  if \(\gamma =c\in \mathbf{R}_+\);}
 \item
-  \(X\) has a lighter right tail than \(Y\) if \(\gamma=0\).
+  \emph{\(X\) has a lighter right tail than \(Y\) if \(\gamma=0\).}
 \end{itemize}
 
-\textbf{Example 4.} Let \(X\sim Pareto(\alpha, \theta)\) and
+\textbf{Example 10.4.} Let \(X\sim Pareto(\alpha, \theta)\) and
 \(Y\sim Weibull(\tau, \theta)\), for \(\alpha>0\), \(\tau>0\), and
-\(\theta>0\), we have \[\begin{aligned}
-    \lim_{t\rightarrow \infty}\frac{S_X(t)}{S_Y(t)} &= \lim_{t\rightarrow \infty}\frac{(1+t/\theta)^{-\alpha}}{\exp\{-(t/\theta)^{\tau}\}} \\
-    &= \lim_{t\rightarrow \infty}\frac{\exp\{t/\theta^{\tau} \}}{(1+t^{1/\tau}/\theta)^{\alpha}} \\
-    &= \lim_{t\rightarrow \infty}\frac{\sum_{i=0}^{\infty}\left(\frac{t}{\theta^{\tau}}\right)^{i}/i!}{(1+t^{1/\tau}/\theta)^{\alpha}}\\
-    &= \lim_{t\rightarrow \infty} \sum_{i=0}^{\infty} \left(t^{-i/\alpha}+\frac{t^{(1/\tau-i/\alpha)}}{\theta} \right)^{-\alpha}/\theta^{\tau i}i!\\
-    &= \infty.
-    \end{aligned}\] Therefore, the Pareto distribution has a heavier
-tail than the Weibull distribution. One may also realize that
-exponentials go to infinity faster than polynomials, thus the
-aforementioned limit must be infinite. For some distributions, the
-survival functions do not admit explicite expressions. In such cases, we
-may find the following alternative formula useful: \[\begin{aligned}
-    \lim_{t\to \infty} \frac{S_X(t)}{S_Y(t)} &= \lim_{t \to \infty} \frac{S_X^{'}(t)}{S_Y^{'}(t)} \\
-    &= \lim_{t \to \infty} \frac{-f_X(t)}{-f_Y(t)} = \lim_{t\to \infty} \frac{f_X(t)}{f_Y(t)}.\end{aligned}\]
+\(\theta>0\), we have
+
+\begin{eqnarray*}
+    \lim_{t\rightarrow \infty}\frac{S_X(t)}{S_Y(t)} &=& \lim_{t\rightarrow \infty}\frac{(1+t/\theta)^{-\alpha}}{\exp\{-(t/\theta)^{\tau}\}} \\
+    &=& \lim_{t\rightarrow \infty}\frac{\exp\{t/\theta^{\tau} \}}{(1+t^{1/\tau}/\theta)^{\alpha}} \\
+    &=& \lim_{t\rightarrow \infty}\frac{\sum_{i=0}^{\infty}\left(\frac{t}{\theta^{\tau}}\right)^{i}/i!}{(1+t^{1/\tau}/\theta)^{\alpha}}\\
+    &=& \lim_{t\rightarrow \infty} \sum_{i=0}^{\infty} \left(t^{-i/\alpha}+\frac{t^{(1/\tau-i/\alpha)}}{\theta} \right)^{-\alpha}/\theta^{\tau i}i!\\
+    &=& \infty.
+\end{eqnarray*}
+
+Therefore, the Pareto distribution has a heavier tail than the Weibull
+distribution. One may also realize that exponentials go to infinity
+faster than polynomials, thus the aforementioned limit must be infinite.
+
+For some distributions of which the survival functions do not admit
+explicit expressions, we may find the following alternative formula
+useful:
+
+\begin{eqnarray*}
+    \lim_{t\to \infty} \frac{S_X(t)}{S_Y(t)} &=& \lim_{t \to \infty} \frac{S_X^{'}(t)}{S_Y^{'}(t)} \\
+    &=& \lim_{t \to \infty} \frac{-f_X(t)}{-f_Y(t)}\\
+ &=& \lim_{t\to \infty} \frac{f_X(t)}{f_Y(t)}.
+\end{eqnarray*}
+
 given that the density functions exist.
 
-\textbf{Example 5.} Let \(X\sim Pareto(\alpha, \theta)\) and
+\textbf{Example 10.5.} Let \(X\sim Pareto(\alpha, \theta)\) and
 \(Y\sim Gamma(\alpha, \theta)\), for \(\alpha>0\) and \(\theta>0\), we
-have \[\begin{aligned}
-    \lim_{t\to \infty} \frac{f_{X}(t)}{f_{Y}(t)} &= \lim_{t \to \infty} \frac{\alpha \theta^{\alpha} (t+ \theta)^{-\alpha-1}}{t^{\tau-1} e^{-t/\lambda} \lambda^{-\tau} \Gamma(\tau)^{-1}} \\
-    &= c \lim_{t\to \infty} \frac{e^{t/\lambda}}{(t+\theta)^{\alpha+1} t^{\tau-1}} \\
-    &= \infty,\end{aligned}\] as exponentials go to infinity faster than
-polynomials.
+have
 
-\section{Measures of Risk}\label{S:RiskMeasure}
+\begin{eqnarray*}
+    \lim_{t\to \infty} \frac{f_{X}(t)}{f_{Y}(t)} &=& \lim_{t \to \infty} \frac{\alpha \theta^{\alpha} (t+ \theta)^{-\alpha-1}}{t^{\tau-1} e^{-t/\lambda} \lambda^{-\tau} \Gamma(\tau)^{-1}} \\
+ &\propto&  \lim_{t\to \infty} \frac{e^{t/\lambda}}{(t+\theta)^{\alpha+1} t^{\tau-1}} \\
+    &=& \infty,
+\end{eqnarray*}
+
+as exponentials go to infinity faster than polynomials.
+
+\section{Risk Measures}\label{S:RiskMeasure}
+
+In this previous section, we studied two methods for classifying the
+weight of distribution tails. We may claim that the risk associated with
+one distribution is more dangerous (asymptotically) than the others if
+the tail is heavier. However, knowing one risk is more dangerous
+(asymptotically) than the others may not provide sufficient information
+for a sophisticated risk management purpose, and in addition, one is
+also interested in quantifying how much more. In fact, the magnitude of
+risk associated with a given loss distribution is an essential input for
+many insurance applications, such as actuarial pricing, reserving,
+hedging, insurance regulatory oversight, and so forth.
+
+The literature on risk measures has been growing rapidly in popularity
+and importance. In the succeeding twp subsections, we introduce two
+indices which have recently earned unprecedented amount of interest
+among theoreticians, practitioners, and regulators. They are namely the
+\emph{Value-at-Risk} (\emph{VaR}) and the \emph{Tail Value-at-Risk}
+(\emph{TVaR}) measures. The economic rationale behind these two popular
+risk measures is similar to that for the tail classification methods
+introduced in the previous section, with which we hope to capture the
+risk of extremal losses represented by the distribution tails. Following
+this is a broader discussion of desirable properties of risk measures.
+
+\subsection{Value-at-Risk}\label{value-at-risk}
+
+At the outset, we offer the formal definition of \emph{VaR}.
+
+\textbf{Definition 10.3.} Consider an insurance loss random variable
+\(X\). The Value-at-Risk measure of \(X\) with confidence level
+\(q\in [0,1]\) is formulated as
+
+\begin{eqnarray}
+VaR_q[X]:=\inf\{x\in \mathbf{R}:F_X(x)\geq q\}.
+\label{eq:Value-at-Risk}
+\end{eqnarray}
+
+Speaking bluntly, the \emph{VaR} measure outputs the smallest value of
+\(X\) such that the associated \emph{cdf} first excesses or equates to
+\(q\). In the fields of probability and statistics, the \emph{VaR} is
+also known as the percentiles.
+
+Here is how we should interpret \emph{VaR} in the lingo of actuarial
+mathematics. \emph{VaR} is a forecast of the `maximal' probable loss for
+a insurance product/portfolio or a risky investment occurring
+\(q\times 100\%\) of times, over a specific time horizon (typically, one
+year). For instance, let \(X\) be the annual loss \emph{rv} of an
+insurance product, \(VaR_{0.95}[X]=100\) million means that there is a
+\(5\%\) chance that the loss will exceed 100 million over a given year.
+Owing to the meaningful interpretation, \emph{VaR} has become the
+industrial standard to measuring financial and insurance risks since
+1990's. Financial conglomerates, regulators, and academics often utilize
+\emph{VaR} to price insurance products, measure risk capital, ensure the
+compliance with regulatory rules, and disclose the financial positions.
+
+Next, we are going to present a few examples about the computation of
+\emph{VaR}.
+
+\textbf{Example 10.6.} Consider an insurance loss \emph{rv}
+\(X\sim Exp(\theta)\) for \(\theta>0\), then the \emph{cdf}~of \(X\) is
+given by \[
+F_X(x)=1-e^{-x/\theta}, \text{ for } x>0.
+\] Since exponential distribution is a continuous distribution, the
+smallest value such that the \emph{cdf}~first exceeds or equates to
+\(q \in [0,1]\) must be at the point \(x_q\) satisfying \[
+q=F_X(x_q)=1-\exp\{-x_q/\theta \}.
+\] Thus \[
+VaR_q[X]=F_X^{-1}(q)=-\theta[\log(1-q)].
+\]
+
+The result reported in Example 10.6 can be generalized to any continuous
+\emph{rv}'s having strictly increasing \emph{cdf} Specifically, the
+\emph{VaR} of any continuous \emph{rv}'s is simply the inverse of the
+corresponding \emph{cdf} Let us consider another example of continuous
+\emph{rv} which has the support from negative infinity to positive
+infinity.
+
+\textbf{Example 10.7.} Consider an insurance loss \emph{rv}
+\(X\sim Normal(\mu,\sigma^2)\) with \(\mu\in \mathbf{R}\) and
+\(\sigma>0\). In this case, one may interpret the negative values of
+\(X\) as profit or revenue. Because normal distribution is a continuous
+distribution, the \emph{VaR} of \(X\) must satisfy
+
+\begin{eqnarray*}
+ q &=& F_X(VaR_q[X])\\
+&=&\Pr\left[(X-\mu)/\sigma\leq (VaR_q[X]-\mu)/\sigma\right]\\
+&=&\Phi((VaR_q[X]-\mu)/\sigma).
+\end{eqnarray*}
+
+Therefore, we have \[
+VaR_q[X]=\Phi^{-1}(q)\ \sigma+\mu.
+\]
+
+In many insurance applications, we have to deal with transformations of
+\emph{rv}'s. For instance, in Example 10.7, the loss
+\emph{rv}~\(X\sim Normal(\mu, \sigma^2)\) can be viewed as a linear
+transformation of a standard normal \emph{rv}~\(Z\sim Normal(0,1)\),
+namely \(X=Z\sigma+\mu\). By setting \(\mu=0\) and \(\sigma=1\), it is
+straightforward for us to check \(VaR_q[Z]=\Phi^{-1}[q].\) A useful
+finding revealed from Example 10.7 is that the \emph{VaR} of a linear
+transformation of the normal \emph{rv}'s is equivalent to the linear
+transformation of the \emph{VaR} of the original \emph{rv}'s. This
+finding can be further generalized to any \emph{rv}'s as long as the
+transformations are strictly increasing. The next example highlights the
+usefulness of the abovementioned finding.
+
+\textbf{Example 10.8.} Consider an insurance loss
+\emph{rv}~\(Y\sim Log-Normal(\mu,\sigma^2)\), for \(\mu\in \mathbf{R}\)
+and \(\sigma>0\). That is \(\log Y\sim Normal(\mu,\sigma^2)\), or
+equivalently let \(X\sim Normal(\mu,\sigma^2)\), then
+\(Y\overset{d}{=}e^{X}\) which is strictly increasing transformation.
+Here, the notation `\(\overset{d}{=}\)' means equality in distribution.
+The \emph{VaR} of \(Y\) is thus given by the exponential transformation
+of the \emph{VaR} of \(X\). Precisely, for \(q\in [0,1]\), \[
+VaR_{q}[Y]= e^{VaR_q[X]}=\exp\{\Phi^{-1}(q)\ \sigma+\mu\}.
+\]
+
+We have thus far seen a number of examples about the \emph{VaR} for
+continuous \emph{rv}'s, let us consider an example concerning the
+\emph{VaR} for a discrete \emph{rv}
+
+\textbf{Example 10.9.} Consider an insurance loss \emph{rv} with the
+following probability distribution: \[
+\Pr[X=x]=\left\{
+                  \begin{array}{ll}
+                    1, & \hbox{with probability $0.75$;} \\
+                    3, & \hbox{with probability $0.20$;} \\
+                    4, & \hbox{with probability $0.05$.}
+                  \end{array}
+                \right.
+\] The corresponding \emph{cdf}~of \(X\) is \[
+F_X(x)=\left\{
+         \begin{array}{ll}
+           0, & \hbox{ $x<1$;} \\
+           0.75, & \hbox{ $1\leq x<3$;} \\
+           0.95, & \hbox{ $3\leq x<4$;} \\
+           1, & \hbox{ $4\leq x$.}
+         \end{array}
+       \right.
+\] By the definition of \emph{VaR}, we thus have, for example,
 
 \begin{itemize}
+\tightlist
 \item
-  A \textbf{risk measure} is a mapping from the r.v. representing the
-  loss associated with the risks to the real line.
+  \emph{\(VaR_{0.6}[X]=1\);}
 \item
-  A risk measure gives a single number that is intended to quantify the
-  risk.
-
-  \begin{itemize}
-  \tightlist
-  \item
-    For example, the standard deviation is a risk measure.
-  \end{itemize}
+  \emph{\(VaR_{0.9}[X]=3\);}
 \item
-  Notation: \(\rho(X)\).
+  \emph{\(VaR_{0.95}[X]=3\);}
 \item
-  We briefly mention:
-
-  \begin{itemize}
-  \item
-    \textbf{VaR}: Value at Risk;
-  \item
-    \textbf{TVaR}: Tail Value at Risk.
-  \end{itemize}
+  \emph{\(VaR_{0.950001}[X]=4\).}
 \end{itemize}
 
-\subsubsection{Value at Risk}\label{value-at-risk}
+Let us now conclude this current subsection by an open discussion of the
+\emph{VaR} measure. Some advantages of utilizing \emph{VaR} include
 
 \begin{itemize}
+\tightlist
 \item
-  Say \(F_X(x)\) represents the cdf of outcomes over a fixed period of
-  time, e.g.~one year, of a portfolio of risks.
+  possessing a practically meaningful interpretation;
 \item
-  We consider positive values of \(X\) as losses.
+  relatively simple to compute for many distributions with closed-form
+  distribution functions;
 \item
-  \textbf{Definition 3.11}: let \(X\) denote a loss r.v., then the
-  \textbf{Value-at-Risk} of \(X\) at the \(100p\%\) level, denoted
-  \(VaR_p(X)\) or \(\pi_p\), is the \(100p\) percentile (or quantile) of
-  the distribution of \(X\).
-\item
-  E.g. for continuous distributions we have \[\begin{aligned}
-  P(X> \pi_p) &= 1-p.\end{aligned}\]
-\item
-  VaR has become the standard risk measure used to evaluate exposure to
-  risk.
-\item
-  \textbf{VaR} is the \textbf{amount of capital} required to ensure,
-  with a \textbf{high degree of certainty}, that the \textbf{enterprise
-  does not become technically insolvent}.
-\item
-  Which degree of certainty?
-
-  \begin{itemize}
-  \item
-    95\(\%\)?
-  \item
-    in Solvency II \(99.5\%\) (or: ruin probability of 1 in 200).
-  \end{itemize}
-\item
-  \textbf{VaR is not subadditive}.
-
-  \begin{itemize}
-  \item
-    Subadditivity of a risk measure \(\rho(.)\) requires
-    \[\begin{aligned}
-    \rho(X+Y) \leq \rho(X)+\rho(Y).\end{aligned}\]
-  \item
-    Intuition behind subadditivity: combining risks is less riskier than
-    holding them separately.
-  \end{itemize}
-\item
-  \textbf{Example:} let \(X\) and \(Y\) be i.i.d. r.v.'s which are
-  \(\text{Bern}(0.02)\) distributed.
-
-  \begin{itemize}
-  \item
-    Then, \(P(X\leq 0) = 0.98\) and \(P(Y\leq 0)=0.98\). Thus,
-    \(F_X^{-1}(0.975)=F_Y^{-1}(0.975)=0\).
-  \item
-    For the sum, \(X+Y\), we have \(P[X+Y=0]=0.98 \cdot 0.98=0.9604\).
-    Thus, \(F_{X+Y}^{-1}(0.975)>0\).
-  \item
-    VaR is not subadditive, since \(\text{VaR}(X+Y)\) in this case is
-    larger than \(\text{VaR}(X)+\text{VaR}(Y)\).
-  \end{itemize}
-\item
-  Another \textbf{drawback of VaR}:
-
-  \begin{itemize}
-  \item
-    it is a single quantile risk measure of a predetermined level \(p\);
-  \item
-    no information about the thickness of the upper tail of the
-    distribution function from \(\text{VaR}_p\) on;
-  \item
-    whereas stakeholders are interested in both frequency and severity
-    of default.
-  \end{itemize}
-\item
-  Therefore: study other risk measures, e.g. \textbf{Tail Value at Risk}
-  (TVaR).
+  no additional assumption is required for the computation of
+  \emph{VaR}.
 \end{itemize}
 
-\subsubsection{Tail Value at Risk}\label{tail-value-at-risk}
+On the other hand, the limitations of \emph{VaR} can be particularly
+pronounced for some risk management practices. We report some of them
+herein:
 
 \begin{itemize}
+\tightlist
 \item
-  \textbf{Definition 3.12:} let \(X\) denote a loss r.v., then the Tail
-  Value at Risk of \(X\) at the \(100p\%\) security level,
-  \(\text{TVaR}(p)\), is the \textbf{expected loss} \textbf{given that
-  the loss exceeds the \(100p\) percentile} (or: quantile) of the
-  distribution of \(X\).
+  the selection of the confidence level \(q\in [0,1]\) is highly
+  subjective, while the \emph{VaR} can be very sensitive to the choice
+  of \(q\) (e.g., in Example 10.9, \(VaR_{0.95}[X]=3\) and
+  \(VaR_{0.950001}[X]=4\));
 \item
-  We have (assume continuous distribution) \[\begin{aligned}
-  \text{TVaR}_p(X) &= E(X|X>\pi_p) \\
-  &= \frac{\int_{\pi_p}^{\infty} x\cdot f(x) dx}{1-F(\pi_p)}.\end{aligned}\]
+  the scenarios/loss information that are above the
+  \((1-p)\times 100\%\) worst event, are completely neglected;
 \item
-  We can rewrite this as \textbf{the usual definition of TVaR}
-  \[\begin{aligned}
-  \text{TVaR}_p(X) &= \frac{\int_{\pi_p}^{\infty} x dF_X(x)}{1-p} \\
-  &= \frac{\int_p^1 \text{VaR}_u(X) du}{1-p},\end{aligned}\] using the
-  substitution \(F_X(x) = u\) and thus \(x=F_X^{-1}(u)\).
-\item
-  From the definition \[\begin{aligned}
-  \text{TVaR}_p(X) &= \frac{\int_p^1 \text{VaR}_u(X) du}{1-p},\end{aligned}\]
-  we understand
-
-  \begin{itemize}
-  \item
-    TVaR is the \textbf{arithmetic average} of the quantiles of \(X\),
-    from level \(p\) on;
-  \item
-    TVaR is averaging high level VaR;
-  \item
-    TVaR \textbf{tells us much more about the tail} of the distribution
-    than does VaR alone.
-  \end{itemize}
-\item
-  Finally, TVaR can also be written as \[\begin{aligned}
-  \text{TVaR}_p(X) &= E(X|X>\pi_p) \\
-  &= \frac{\int_{\pi_p}^{\infty} x f(x)dx}{1-p} \\
-  &= \pi_p + \frac{\int_{\pi_p}^{\infty} (x-\pi_p) f(x) dx}{1-p} \\
-  &= \text{VaR}_p(X) + e(\pi_p),\end{aligned}\] with \(e(\pi_p)\) the
-  mean excess loss function evaluated at the \(100p\)th percentile.
-\item
-  We can understand these connections as follows. (Assume continuous
-  r.v.'s)
-\item
-  The relation \[\begin{aligned}
-  \text{CTE}_p(X) &= \text{TVaR}_{F_X(\pi_p)}(X),\end{aligned}\] then
-  follows immediately by combining the other two expressions.
-\item
-  TVaR is a coherent risk measure, see e.g.
-  \href{http://onderwijsaanbod.kuleuven.be/syllabi/e/D0R57BE.htm\#activetab=doelstellingen_idp1406608}{Foundations
-  of Risk Measurement} course.
-\item
-  Thus, \(\text{TVaR}(X+Y) \leq \text{TVaR}(X)+\text{TVaR}(Y)\).
-\item
-  When using this risk measure, we never encounter a situation where
-  combining risks is viewed as being riskier than keeping them separate.
-\item
-  \textbf{KPW Example 3.18} \emph{(Tail comparisons)} Consider three
-  loss distributions for an insurance company. Losses for the next year
-  are estimated to be on average 100 million with standard deviation
-  223.607 million. You are interested in finding high quantiles of the
-  distribution of losses. Using the normal, Pareto, and Weibull
-  distributions, obtain the VaR at the 90\%, 99\%, and 99.99\% security
-  levels.
-\item
-  \textbf{Solution}
-\item
-  Normal distribution has a lighter tail than the others, and thus
-  smaller quantiles.
-\item
-  Pareto and Weibull with \(\tau<1\) have heavy tails, and thus
-  relatively larger extreme quantiles.
-\item
-  \textbf{Example 3.18} \emph{(Tail comparisons)} Consider three loss
-  distributions for an insurance company. Losses for the next year are
-  estimated to be on average 100 million with standard deviation 223.607
-  million. You are interested in finding high quantiles of the
-  distribution of losses. Using the normal, Pareto, and Weibull
-  distributions, obtain the VaR at the 99\%, 99.9\%, and 99.99\%
-  security levels.
-
-\begin{verbatim}
-> qnorm(c(0.9,0.99,0.999),mu,sigma)
-[1] 386.5639 620.1877 790.9976
-> qpareto(c(0.9,0.99,0.999),alpha,s)
-[1]  226.7830  796.4362 2227.3411
-> qweibull(c(0.9,0.99,0.999),tau,theta)
-[1]  265.0949 1060.3796 2385.8541
-\end{verbatim}
-\item
-  We learn from Example 3.18 that results vary widely depending on the
-  choice of distribution.
-\item
-  Thus, the selection of an \textbf{appropriate loss model} is highly
-  important.
-\item
-  To obtain numerical values of VaR or TVaR:
-
-  \begin{itemize}
-  \item
-    estimate from the data directly;
-  \item
-    or use distributional formulas, and plug in parameter estimates.
-  \end{itemize}
-\item
-  When estimating VaR directly from the data:
-
-  \begin{itemize}
-  \item
-    use R to get quantile from the empirical distribution;
-  \item
-    R has 9 ways to estimate a VaR at level \(p\) from a sample of size
-    \(n\), differing in the way the interpolation between order
-    statistics close to \(np\) .
-  \end{itemize}
-\item
-  When estimating TVaR directly from the data:
-
-  \begin{itemize}
-  \tightlist
-  \item
-    take average of all observations that exceed the threshold
-    (i.e.\(\pi_p\));
-  \end{itemize}
-\item
-  \textbf{Caution:} we need a large number of observations (and a large
-  number of observations \(> \pi_p\)) in order to get reliable
-  estimates.
-\item
-  When not may observations in excess of the threshold are available:
-
-  \begin{itemize}
-  \item
-    construct a loss model;
-  \item
-    calculate values of VaR and TVaR directly from the fitted
-    distribution.
-  \end{itemize}
-\item
-  For example \[\begin{aligned}
-    \text{TVaR}_p(X) &= E(X|X>\pi_p) \\
-  &= \pi_p + \frac{\int_{\pi_p}^{\infty} (x-\pi_p) f(x) dx}{1-p} \\
-  &= \pi_p + \frac{\int_{-\infty}^{\infty} (x-\pi_p) f(x) dx -\int_{-\infty}^{\pi_p} (x-\pi_p) f(x) dx }{1-p} \\
-  &= \pi_p + \frac{E(X)-\int_{-\infty}^{\pi_p} xf(x) dx -\pi_p (1-F(\pi_p))}{1-p} \\
-  &= \pi_p + \frac{E(X) - E[\min{(X,\pi_p)}]}{1-p} = \pi_p + \frac{E(X)-E(X \wedge \pi_p)}{1-p},\end{aligned}\]
-  see Appendix A for those expressions.
+  \emph{VaR} is not a coherent risk measure (specifically, the
+  \emph{VaR} measure does not satisfy the subadditivity axiom, meaning
+  that diversification benefits may not be fully reflected).
 \end{itemize}
+
+\subsection{Tail Value-at-Risk}\label{tail-value-at-risk}
+
+Recall that the \emph{VaR} represents the \((1-p)\times100\%\) chance
+maximal loss. As we mentioned in the previous section, one major
+drawback of the \emph{VaR} measure is that it does not reflect the
+extremal losses occurring beyond the \((1-p)\times100\%\) chance worst
+scenario. For an illustration purpose, let us consider the following
+slightly unrealistic yet inspiring example.
+
+\textbf{Example 10.10.} Consider two loss \emph{rv}'s
+\(X\sim Uniform [0,100]\), and \(Y\sim Exp(31.71)\). We use \emph{VaR}
+at \(95\%\) confidence level to measure the riskiness of \(X\) and
+\(Y\). Simple calculation yields (see, also, Example 10.6), \[
+VaR_{0.95}[X]=VaR_{0.95}[Y]=95,
+\] and thus these two loss distributions have the same level of risk
+according to \(VaR_{0.95}\). However, it is clear that \(Y\) is more
+risky than \(X\) if extremal losses are of major concern since \(X\) is
+bounded above while \(Y\) is unbounded. Simply quantifying risk by using
+\emph{VaR} at a specific confidence level could be misleading and may
+not reflect the true nature of risk.
+
+As a remedy, the \emph{Tail Value-at-Risk} (\emph{TVaR}) was proposed to
+measure the extremal losses that are above a given level of \emph{VaR}
+as an average. We document the definition of \emph{TVaR} in what
+follows. For the sake of simplicity, we are going to confine ourselves
+to continuous positive \emph{rv}'s only, which are more frequently used
+in the context of insurance risk management. We refer the interested
+reader to \citet{hardy2006} for a more comprehensive discussion of
+\emph{TVaR} for both discrete and continuous \emph{rv}'s.
+
+\textbf{Definition 10.4.} Fix \(q\in [0,1]\), the Tail Value-at-Risk of
+a (continuous) \emph{rv} \(X\) is formulated as
+
+\begin{eqnarray*}
+  TVaR_q[X] &:=& \mathrm{E}[X|X>VaR_q[X]],
+\end{eqnarray*}
+
+given that the expectation exists.
+
+In light of Definition 10.4, the computation of \emph{TVaR} typically
+consists of two major components - the VaR and the average of losses
+that are above the VaR. The \emph{TVaR} can be computed via a number of
+formulas. Consider a continuous positive \emph{rv}~\(X\), for notional
+convenience, henceforth let us write \(\pi_q:=VaR_q[X]\). By definition,
+the \emph{TVaR} can be computed via
+
+\begin{eqnarray}
+TVaR_{q}[X]=\frac{1}{(1-q)}\int_{\pi_q}^{\infty}xf_X(x)dx.
+\label{eq:cte-pdf}
+\end{eqnarray}
+
+\textbf{Example 10.11.} Consider an insurance loss
+\emph{rv}~\(X\sim Normal (\mu,\sigma^2)\) with \(\mu\in \mathbf{R}\) and
+\(\sigma>0\). Denoted by \(Z\) the standard normal \emph{rv}, for
+\(q\in[0,1]\), the \emph{TVaR} of \(X\) can be computed via
+
+\begin{eqnarray*}
+  TVaR_q[X] &=& \mathrm{E}[X|X>VaR_q[X]]\\
+&=&\mathrm{E}[\sigma Z+\mu|\sigma Z+\mu>VaR_q[X]]\\
+&=& \sigma\mathrm{E}[Z|Z>(VaR_q[X]-\mu)/\sigma]+\mu\\
+&\overset{(1)}{=}& \sigma\mathrm{E}[Z|Z>VaR_q[Z]]+\mu,
+\end{eqnarray*}
+
+where `\(\overset{(1)}{=}\)' holds because of the results reported in
+Example 10.7. Next, we turn to study
+\(TVaR_q[Z]=\mathrm{E}[Z|Z>VaR_q[Z]]\). Let
+\(\omega(q)=(\Phi^{-1}(q))^2/2\), we have
+
+\begin{eqnarray*}
+  (1-q)\ TVaR_q[Z] &=& \int_{\Phi^{-1}(q)}^{\infty} z \frac{1}{\sqrt{2\pi}} e^{-z^2/2}dz\\
+&=& \int_{\omega(q)}^{\infty}  \frac{1}{\sqrt{2\pi}} e^{-x}dx\\
+&=& \frac{1}{\sqrt{2\pi}} e^{-\omega(q)}\\
+&=& \phi(\Phi^{-1}(q)).
+\end{eqnarray*}
+
+Thus, \[
+TVaR_q[X]=\sigma\frac{\phi(\Phi^{-1}(q))}{1-q}+\mu.
+\]
+
+We mentioned earlier in the previous subsection that the VaR of a
+strictly increasing function of \emph{rv} is equal to the function of
+VaR of the original \emph{rv}. Motivated by the results in Example
+10.11, one can show that the \emph{TVaR} of a strictly increasing linear
+transformation of \emph{rv} is equal to the function of VaR of the
+original \emph{rv} This is due to the linearity property of expectation.
+However, the aforementioned finding can not be extended to non-linear
+functions. The following example of log normal \emph{rv} serves as a
+counter example.
+
+\textbf{Example 10.12.} Consider an insurance loss
+\emph{rv}~\(X\sim Log-Normal (\mu,\sigma^2)\), with
+\(\mu\in \mathbf{R}\) and \(\sigma>0\). Recall that the p.d.f.~of log
+normal distribution is formulated as \[
+f_X(x)=\frac{1}{\sigma\sqrt{2\pi} x}\exp\{-(\ln x-\mu )^2/2\sigma^2 \}, \text{ for } x>0.
+\] Fix \(q\in[0,1]\), then the \emph{TVaR} of \(X\) can be computed via
+
+\begin{eqnarray}
+  TVaR_q[X] &=& \frac{1}{(1-q)} \int_{\pi_q}^{\infty} x f_X(x)dx \nonumber\\
+&=&\frac{1}{(1-q)} \int_{\pi_q}^{\infty} \frac{1}{\sigma \sqrt{2\pi}} \exp\left\{ -\frac{(\log x-\mu)^2}{2\sigma^2}
+\right\}dx\nonumber\\
+&\overset{(1)}{=}&\frac{1}{(1-q)} \int_{\omega(q)}^{\infty} \frac{1}{\sqrt{2\pi}} e^{ -\frac{1}{2}w^2+\sigma w+\mu}dw\nonumber\\
+&=&\frac{e^{\mu+\sigma^2/2}}{(1-q)} \int_{\omega(q)}^{\infty} \frac{1}{\sqrt{2\pi}} e^{ -\frac{1}{2}(w-\sigma)^2}dw\nonumber\\
+&=&\frac{e^{\mu+\sigma^2/2}}{(1-q)} \Phi(\omega(q)-\sigma),
+\label{eq:cte-normal}
+\end{eqnarray}
+
+where `\(\overset{(1)}{=}\)' holds by applying change of variable
+\(w=(\log x-\mu)/\sigma\), and \(\omega(q)=(\log \pi_q-\mu)/\sigma\).
+Evoking the formula of VaR for log normal \emph{rv}~reported in Example
+10.7, we can simplify the expression \eqref{eq:cte-normal} into
+
+\begin{eqnarray*}
+  TVaR_q[X] &=& \frac{e^{\mu+\sigma^2/2}}{(1-q)} \Phi(\Phi^{-1}(q)-\sigma).
+\end{eqnarray*}
+
+Clearly, the \emph{TVaR} of log normal \emph{rv}~is not the exponential
+of the \emph{TVaR} of normal \emph{rv}
+
+For distributions of which the distribution functions are more tractable
+to work with, we may apply integration by parts technique to rewrite
+Equation \eqref{eq:cte-pdf} as
+
+\begin{eqnarray*}
+TVaR_{q}[X]&=&\left[-x S_X(x)\big |_{\pi_q}^{\infty}+\int_{\pi_q}^{\infty}S_X(x)dx\right]\frac{1}{(1-q)}\\
+&=& \pi_q +\frac{1}{(1-q)}\int_{\pi_q}^{\infty}S_X(x)dx.
+\end{eqnarray*}
+
+\textbf{Example 10.13.} Consider an insurance loss
+\emph{rv}~\(X\sim Exp(\theta)\) for \(\theta>0\), we have seen from the
+previous subsection that \[
+\pi_q=-\theta[\log(1-q)].
+\] Let us now consider the \emph{TVaR}:
+
+\begin{eqnarray*}
+  TVaR_q[X] &=& \pi_q+\int_{\pi_q}^{\infty} e^{-x/\theta}dx/(1-q)\\
+&=& \pi_q+\theta e^{-\pi_q/\theta}dx/(1-q)\\
+&=& \pi_q+\theta.
+\end{eqnarray*}
+
+In the SOA exam, we may use the expectation formulas provided in the
+distribution table to compute \emph{TVaR}. Specifically, we have
+
+\begin{eqnarray}
+  TVaR_q[X] &=& \int_{\pi_q}^{\infty} (x-\pi_q+\pi_q)f_X(x)dx/(1-q) \nonumber\\
+&=& \pi_q+\frac{1}{(1-q)}\int_{\pi_q}^{\infty} (x-\pi_q)f_X(x)dx\nonumber\\
+&=& \pi_q+e_X(\pi_q)\nonumber\\
+&=& \pi_q +\frac{\left({\mathrm{E}[X]-\mathrm{E}[X\wedge\pi_q]}\right)}{(1-q)},
+\label{eq:cte-expectation}
+\end{eqnarray}
+
+where \(e_X(d):=\mathrm{E}[X-d|X>d]\) for \(d>0\) denotes the mean
+excess loss function, and for many commonly used parametric
+distributions, the formulas for calculating \(\mathrm{E}[X]\) and
+\(\mathrm{E}[X\wedge\pi_q]\) can be found in the distribution table.
+
+\textbf{Example 10.14.} Consider a loss
+\emph{rv}~\(X\sim Pareto(\theta,\alpha)\) with \(\theta>0\) and
+\(\alpha>0\). The \emph{cdf}~of \(X\) is given by \[
+F_X(x)=1-\left(\frac{\theta}{\theta+x} \right)^{\alpha}, \text{ for } x>0 .
+\]
+
+Fix \(q\in [0,1]\) and set \(F_X(\pi_q)=q\), we readily obtain
+
+\begin{eqnarray}
+\pi_q=\theta\left[(1-q)^{-1/\alpha}-1 \right].
+\label{eq:var-pareto}
+\end{eqnarray}
+
+According to the distribution table provided in the SOA exam C, we know
+\[
+\mathrm{E}[X]=\frac{\theta}{\alpha-1},
+\] and \[
+\mathrm{E}[X\wedge \pi_q]=\frac{\theta}{\alpha-1}\left[
+1-\left(\frac{\theta}{\theta+\pi_q}\right)^{\alpha-1}
+\right].
+\] Evoking equation \eqref{eq:cte-expectation} yields
+
+\begin{eqnarray*}
+  TVaR_q[X] &=& \pi_q+\frac{\theta}{\alpha-1} \frac{(\theta/(\theta+\pi_q))^{\alpha-1}}
+{(\theta/(\theta+\pi_q))^{\alpha}}\\
+&=&\pi_q +\frac{\theta}{\alpha-1}\left( \frac{\pi_q+\theta}{\theta} \right)\\
+&=& \pi_q+\frac{\pi_q+\theta}{\alpha-1},
+\end{eqnarray*}
+
+where \(\pi_q\) is given by \eqref{eq:var-pareto}.
+
+Via change of variable, we can also rewrite Equation \eqref{eq:cte-pdf} as
+
+\begin{eqnarray}
+  TVaR_{q}[X] &=& \frac{1}{(1-q)}\int_{q}^{1} VaR_{\alpha}[X]\ d\alpha.
+  \label{eq:cte-var}
+\end{eqnarray}
+
+What this alternative formula \eqref{eq:cte-var} tells is that \emph{TVaR}
+in fact is the average of \(VaR_{\alpha}[X]\) with varying degree of
+confidence level over \(\alpha\in [q,1]\). Therefore, the \emph{TVaR}
+effectively resolves most of the limitations of \emph{VaR} outlined in
+the previous subsection. First, due to the averaging effect, the
+\emph{TVaR} may be less sensitive to the change of confidence level
+compared with \emph{VaR}. Second, all the extremal losses that are above
+the \((1-q)\times 100\%\) worst probable event are taken in account.
+
+In this respect, it is a simple matter for us to see that for any given
+\(q\in [0,1]\) \[
+TVaR_q[X]\geq VaR_q[X].
+\] Third and perhaps foremost, \emph{TVaR} is a coherent risk measure
+and thus is able to more accurately capture the diversification effects
+of insurance portfolio. Herein, we do not intend to provide the proof of
+the coherent feature for \emph{TVaR}, which is considered to be
+challenging technically.
+
+\subsection{Properties of risk
+measures}\label{properties-of-risk-measures}
+
+To compare the magnitude of risk in a practically convenient manner, we
+aim to seek a function that maps the loss \emph{rv} of interest to a
+numerical value indicating the level of riskiness, which is termed the
+risk measure. Putting mathematically, denoted by \(\mathcal{X}\) a set
+of insurance loss \emph{rv}'s, a risk measure is a functional map
+\(H:\mathcal{X}\rightarrow \mathbf{R}_+\). In principle, risk measures
+can admit an unlimited number of functional formats. Classical examples
+of risk measures include the mean \(\mathrm{E}[X]\), the standard
+deviation \(\mathrm{SD}(X):=\sqrt{\mathrm{Var}(X)}\), the standard
+deviation principle
+
+\begin{equation}
+H_{\mathrm{SD}}(X):=\mathrm{E}[X]+\alpha \mathrm{SD}(X),\text{ for } \alpha\geq 0,
+\label{eq:SD-principle} 
+\end{equation}
+
+and the variance principle \[
+H_{\mathrm{Var}}(X):=\mathrm{E}[X]+\alpha \mathrm{Var}(X),\text{ for } \alpha\geq 0.
+\] It is a simple matter to check that all the aforementioned functions
+are risk measures in which we input the loss \emph{rv} and the functions
+output a numerical value. On a different note, the function
+\(H^{\ast}(X):=\alpha X^{\beta}\) for any real-valued
+\(\alpha,\beta\neq 0\), is not a risk measure since \(H^{\ast}\)
+produces another \emph{rv} rather than a single numerical value.
+
+Since risk measures are scalar measures which aim to use a single
+numerical value to describe the stochastic nature of loss \emph{rv}'s,
+it should not be surprising to us that there is no risk measures can
+capture all the risk information of the associated \emph{rv}'s.
+Therefore, when seeking useful risk measures, it is important for us to
+keep in mind that the measures should be at least
+
+\begin{itemize}
+\tightlist
+\item
+  interpretable practically;\\
+\item
+  computable conveniently; and\\
+\item
+  being able to reflect the most critical information of risk
+  underpinning the loss distribution.
+\end{itemize}
+
+A vast number of risk measures have been developed in the literature of
+actuarial mathematics. Unfortunately, there is no best risk measure that
+can outperform the others, and the selection of appropriate risk measure
+depends mainly on the application questions at hand. In this respect, it
+is imperative to emphasize that `risk' is a subjective concept, and thus
+even given the same problem, there are multifarious approaches to assess
+risk. However, for many risk management applications, there is a wide
+agreement that economically sounded risk measures should satisfy four
+major axioms which we are going to describe them in detail next. Risk
+measures that satisfy these axioms are termed \emph{coherent} risk
+measures.
+
+Consider in what follows a risk measure \(H(\cdot)\), then \(H\) is a
+coherent risk measure if the following axioms are satisfied.
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Axiom 1.} \emph{Subadditivity:} \(H(X+Y)\leq H(X)+H(Y)\). The
+  economic implication of this axiom is that diversification benefits
+  exist if different risks are combined.\\
+\item
+  \textbf{Axiom 2.} \emph{Monotonicity:} if \(\Pr[X\leq Y]=1\), then
+  \(H(X)\leq H(Y)\). Recall that \(X\) and \(Y\) are \emph{rv}'s
+  representing losses, the underlying economic implication is that
+  higher losses essentially leads to a higher level of risk.\\
+\item
+  \textbf{Axiom 3.} \emph{Positive homogeneity:} \(H(cX)=cH(X)\) for any
+  positive constant \(c\). A potential economic implication about this
+  axiom is that risk measure should be independent of the monetary units
+  in which the risk is measured. For example, let \(c\) be the currency
+  exchange rate between the US and Canadian dollars, then the risk of
+  random losses measured in terms of US dollars (i.e., X) and Canadian
+  dollars (i.e., cX) should be different only up to the exchange rate
+  \(c\) (i.e., \(cH(x)=H(cX)\)).\\
+\item
+  \textbf{Axiom 4.} \emph{Translation invariance:} \(H(X+c)=H(X)+c\) for
+  any positive constant \(c\). If the constant \(c\) is interpreted as
+  risk-free cash, this axiom tells that no additional risk is created
+  for adding cash to an insurance portfolio, and injecting risk-free
+  capital of \(c\) can only reduce the risk by the same amount.
+\end{itemize}
+
+Verifying the coherent properties for some risk measures can be quite
+straightforward, but it can be very challenging sometimes. For example,
+it is a simple matter to check that the mean is a coherent risk measure
+since for any pair of \emph{rv}'s \(X\) and \(Y\) having finite means
+and constant \(c>0\),
+
+\begin{itemize}
+\tightlist
+\item
+  validation of \emph{subadditivity}:
+  \(\mathrm{E}[X+Y]=\mathrm{E}[X]+\mathrm{E}[Y]\);
+\item
+  validation of \emph{monotonicity}: if \(\Pr[X\leq Y]=1\), then
+  \(\mathrm{E}[X]\leq \mathrm{E}[Y]\);
+\item
+  validation of \emph{positive homogeneity}:
+  \(\mathrm{E}[cX]=c\mathrm{E}[X]\);
+\item
+  validation of \emph{translation invariance}:
+  \(\mathrm{E}[X+c]=\mathrm{E}[X]+c\)
+\end{itemize}
+
+On a different note, the standard deviation is not a coherent risk
+measure. Specifically, one can check that the standard deviation
+satisfies
+
+\begin{itemize}
+\tightlist
+\item
+  validation of \emph{subadditivity}:
+\end{itemize}
+
+\begin{eqnarray*} 
+\mathrm{SD}[X+Y]&=&\sqrt{\mathrm{Var}(X)+\mathrm{Var}(Y)+2\mathrm{Cov}(X,Y)}\\
+      &\leq& \sqrt{\mathrm{SD}(X)^2+\mathrm{SD}(Y)^2+2\mathrm{SD}(X)\mathrm{SD}(Y)}\\
+      &=& \mathrm{SD}(X)+\mathrm{SD}(Y);
+\end{eqnarray*}
+
+\begin{itemize}
+\tightlist
+\item
+  validation of \emph{positive homogeneity}:
+  \(\mathrm{SD}[cX]=c~\mathrm{SD}[X]\).
+\end{itemize}
+
+However, the standard deviation does not comply with translation
+invariance property as for any positive constant \(c\), \[
+\mathrm{SD}(X+c)=\mathrm{SD}(X)<\mathrm{SD}(X)+c.
+\] Moreover, the standard deviation also does not satisfy the
+monotonicity property. To see this, consider the following two
+\emph{rv}'s
+
+\begin{eqnarray}
+X=\left\{
+    \begin{array}{ll}
+      0, & \hbox{with probability $0.25$;} \\
+      4, & \hbox{with probability $0.75$,}
+    \end{array}
+  \right.
+\label{eq:special-x}
+\end{eqnarray}
+
+and \(Y\) is a degenerate \emph{rv} such that
+
+\begin{eqnarray}
+\Pr[Y = 4] = 1.
+\label{eq:special-y}
+\end{eqnarray}
+
+It is easy to check that \(\Pr[X\leq Y]=1\), but
+\(\mathrm{SD}(X)=\sqrt{4^2\cdot 0.25\cdot 0.75}=\sqrt{3}>\mathrm{SD}(Y)=0\).
+
+We have so far checked that \(\mathrm{E}[\cdot]\) is a coherent risk
+measure, but not \(\mathrm{SD}(\cdot)\). Let us now proceed to study the
+coherent property for the standard deviation principle
+\eqref{eq:SD-principle} which is a linear combination of two coherent and
+incoherent risk measures. To this end, for a given \(\alpha>0\), we
+check the four axioms for \(H_{\mathrm{SD}}(X+Y)\) one by one:
+
+\begin{itemize}
+\tightlist
+\item
+  validation of \emph{subadditivity:}
+\end{itemize}
+
+\begin{eqnarray*}
+  H_{\mathrm{SD}}(X+Y) &=& \mathrm{E}[X+Y]+\alpha \mathrm{SD}(X+Y) \\
+  &\leq& \mathrm{E}[X]+\mathrm{E}[Y]+\alpha [\mathrm{SD}(X) +\mathrm{SD}(Y)]\\
+  &=& H_{\mathrm{SD}}(X)+ H_{\mathrm{SD}}(Y);
+\end{eqnarray*}
+
+\begin{itemize}
+\tightlist
+\item
+  validation of \emph{positive homogeneity:} \[
+  H_{\mathrm{SD}}(cX)=c\mathrm{E}[X]+c\alpha\mathrm{SD}(X)=cH_{\mathrm{SD}}(X);
+  \]
+\item
+  validation of \emph{translation invariance:} \[
+  H_{\mathrm{SD}}(X+c)=\mathrm{E}[X]+c+\alpha\mathrm{SD}(X)=H_{\mathrm{SD}}(X)+c.
+  \]
+\end{itemize}
+
+It only remains to verify the monotonicity property, which may or may
+not be satisfied depending on the value of \(\alpha\). To see this,
+consider again the setup of \eqref{eq:special-x} and \eqref{eq:special-y} in
+which \(\Pr[X\leq Y]=1\). Let \(\alpha=0.1\cdot \sqrt{3}\), then
+\(H_{\mathrm{SD}}(X)=3+0.3=3.3< H_{\mathrm{SD}}(Y)=4\) and the
+monotonicity condition is met. On the other hand, let
+\(\alpha=\sqrt{3}\), then
+\(H_{\mathrm{SD}}(X)=3+3=6> H_{\mathrm{SD}}(Y)=4\) and the monotonicity
+condition is not satisfied. More precisely, by setting
+
+\[
+  H_{\mathrm{SD}}(X) = 3+\alpha\sqrt{3} \leq4= H_{\mathrm{SD}}(Y),
+\]
+
+we find that the monotonicity condition is only satisfied for
+\(0\leq\alpha\leq 1/\sqrt{3}\), and thus the standard deviation
+principle \(H_{\mathrm{SD}}\) is coherent. This result appears to be
+very intuitive to us since the standard deviation principle
+\(H_{\mathrm{SD}}\) is a linear combination two risk measures of which
+one is coherent and the other is incoherent. If
+\(\alpha\leq 1/\sqrt{3}\), then the coherent measure dominates the
+incoherent one, thus the resulting measure \(H_{\mathrm{SD}}\) is
+coherent and vice versa.
 
 \section{Reinsurance}\label{S:Reinsurance}
 
@@ -13763,10 +14247,11 @@ distribution of the risk, as the extreme events are a primary concern of
 the financial stability of the insurer and reinsurer.
 
 This chapter describes the foundational and most basic of reinsurance
-treaties: Section 10.1 for proportional and Section 10.2 for
-non-proportional. Section 10.3 gives a flavor of more complex contracts.
+treaties: Section \ref{S:ProportionalRe} for proportional and Section
+\ref{S:NonProportionalRe} for non-proportional. Section
+\ref{S:AdditionalRe} gives a flavor of more complex contracts.
 
-\subsection{Proportional Reinsurance}\label{proportional-reinsurance}
+\subsection{Proportional Reinsurance}\label{S:ProportionalRe}
 
 The simplest example of a proportional treaty is called \emph{quota
 share}.
@@ -13844,7 +14329,9 @@ Click Here to see the Justification of the Proposition
 
 \hypertarget{toggleProof}{}
 \textbf{Proof of the Proposition}. With
-\(Y_{reinsurer} = S - Y_{insurer}\) and the law of total variation \[
+\(Y_{reinsurer} = S - Y_{insurer}\) and the law of total variation
+
+\[
 \begin{array}{ll}
 Var (Y_{reinsurer}) &= Var (S-Y_{insurer}) \\
 &= Var (S) + Var (Y_{insurer})  - 2 Cov (S,Y_{insurer}) \\
@@ -13892,7 +14379,9 @@ Click Here to see the Optimal Retention Proportions
 Minimizing \(Var ~Y_{insurer}\) subject to \(E ~Y_{insurer} = K\) is a
 constrained optimization problem - we can use the method of Lagrange
 multipliers, a calculus technique, to solve this. To this end, define
-the Lagrangian \[
+the Lagrangian
+
+\[
 \begin{array}{ll}
 L &= Var (Y_{insurer}) - \lambda (E ~Y_{insurer} - K) \\
 &= \sum_{i=1}^n c_i^2 ~Var ~X_i - \lambda (\sum_{i=1}^n c_i ~E ~X_i - K) 
@@ -13967,8 +14456,7 @@ linearly with \(K\).
 
 \begin{center}\includegraphics{LossDataAnalytics_files/figure-latex/unnamed-chunk-8-1} \end{center}
 
-\subsection{Non-Proportional
-Reinsurance}\label{non-proportional-reinsurance}
+\subsection{Non-Proportional Reinsurance}\label{S:NonProportionalRe}
 
 \subsubsection{The Optimality of Stop Loss
 Insurance}\label{the-optimality-of-stop-loss-insurance}
@@ -14218,8 +14706,7 @@ reinsurer.
 
 \begin{center}\includegraphics{LossDataAnalytics_files/figure-latex/unnamed-chunk-9-1} \end{center}
 
-\subsection{Additional Reinsurance
-Treaties}\label{additional-reinsurance-treaties}
+\subsection{Additional Reinsurance Treaties}\label{S:AdditionalRe}
 
 \subsubsection{Surplus Share Proportional
 Treaty}\label{surplus-share-proportional-treaty}
@@ -17648,7 +18135,7 @@ Wisconsin Property Fund example, the method of moments estimates are
 \(\hat{\mu} =7.804\) and \(\hat{\sigma} = 1.683\).
 
 \subsection{Maximum Likelihood
-Estimation}\label{maximum-likelihood-estimation-1}
+Estimation}\label{maximum-likelihood-estimation}
 
 When \(F(\cdot)\) takes a parametric form, the maximum likelihood method
 is widely used for estimating the population parameters

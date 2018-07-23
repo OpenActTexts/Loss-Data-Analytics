@@ -124,7 +124,7 @@
   \postauthor{\par}
   \predate{\centering\large\emph}
   \postdate{\par}
-  \date{2018-07-22}
+  \date{2018-07-23}
 
 \usepackage{booktabs}
 \setcounter{secnumdepth}{2}
@@ -5822,8 +5822,8 @@ More generally, define the \textbf{kernel density estimator} as
 where \(w\) is a probability density function centered about 0. Note
 that equation \eqref{eq:KDF} simply becomes the kernel density estimator
 where \(w(x) = \frac{1}{2}I(-1 < x \le 1)\), also known as the
-\textbf{uniform kernel}. Other popular choices are shown in the table
-below.
+\textbf{uniform kernel}. Other popular choices are shown in
+\protect\hyperlink{tab:41}{Table 4.1}.
 
 \[\begin{matrix}
 \text{Table 4.1: Popular Choices for the Kernel Density Estimator}\\
@@ -5906,7 +5906,7 @@ W(y) =
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
-\textbf{Example 4.1.5. Exam C Question 3.} You study five lives to
+\textbf{Example 4.1.5. SOA Exam Question.} You study five lives to
 estimate the time from the onset of a disease to death. The times to
 death are:
 
@@ -6053,7 +6053,7 @@ small observations.
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
-\textbf{Example 4.1.6. Exam C Question 59.} The graph below shows a
+\textbf{Example 4.1.6. SOA Exam Question.} The graph below shows a
 \(pp\) plot of a fitted distribution compared to a sample.
 
 \begin{figure}
@@ -6128,8 +6128,8 @@ small).
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
-\textbf{Exaxmple 4.1.7. Exam C Question 40 (modified).} A sample of
-claim payments is:
+\textbf{Exaxmple 4.1.7. SOA Exam Question (modified).} A sample of claim
+payments is:
 
 \[\begin{array}{ccccc}
 29 & 64 & 90 & 135 & 182  \\
@@ -6299,7 +6299,7 @@ moments.
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
-\textbf{Exercise 4.1.10. Exam C Question 1.} You are given:
+\textbf{Exercise 4.1.10. SOA Exam Question.} You are given:
 
 \begin{enumerate}
 \def\labelenumi{(\roman{enumi})}
@@ -6383,8 +6383,9 @@ model selection process based on:
 
 In our development, we examine the data graphically, hypothesize a model
 structure, and compare the data to a candidate model in order to
-formulate an improved model. Box (1980) describes this as an
-\emph{iterative process} which is shown in Figure \ref{fig:Iterative}.
+formulate an improved model. \citet{box1980sampling} describes this as
+an \emph{iterative process} which is shown in Figure
+\ref{fig:Iterative}.
 
 \begin{figure}
 
@@ -6417,8 +6418,8 @@ data to it. Third, theoretical properties of the model are also
 important for inferring general relationships based on the behavior of
 the data.
 
-\subsection{Summarizing Model Selection Based on a Training
-Dataset}\label{summarizing-model-selection-based-on-a-training-dataset}
+\subsection{Model Selection Based on a Training
+Dataset}\label{model-selection-based-on-a-training-dataset}
 
 It is common to refer to a dataset used for analysis as an
 \emph{in-sample} or \emph{training} dataset. Techniques available for
@@ -6454,54 +6455,61 @@ additional information.
 \textbf{Likelihood Ratio Tests.} For comparing model fits, if one model
 is a subset of another, then a likelihood ratio test may be employed.
 
-\textbf{Goodness of Fit Statistics.}
+\textbf{Goodness of Fit Statistics.} Generally, models are not proper
+subsets of one another so overall goodness of fit statistics are helpful
+for comparing models. \emph{Information criteria} are one type of
+goodness of statistic. The most widely used examples are Akaike's
+Information Criterion (\emph{AIC}) and the Schwarz Bayesian Criterion
+(\emph{BIC}); they are are widely cited because they can be readily
+generalized to multivariate settings. Section 15.4.4 provides a summary
+of these statistics.
 
-Generally, models are not proper subsets of one another so overall
-goodness of fit statistics, summarized in Section
-@ref\{S:NonparametricModelSelection\}, are useful for model comparison.
-For discrete data, a \textbf{chi-square goodness of fit statistic} is
+For selecting the appropriate distribution, statistics that compare a
+parametric fit to a nonparametric alternative, summarized in Section
+4.1.2.2, are useful for model comparison. For discrete data, a
+\emph{chi-square goodness of fit statistic} (see Section 2.7) is
 generally preferred as it is more intuitive and simpler to explain.
 
-\emph{Information criteria}, such as Akaike's Information Criterion
-(\textbf{AIC}) and the Schwarz Bayesian Criterion (\textbf{BIC}) are
-widely cited because they can be readily generalized to multivariate
-settings.
+\subsection{Model Selection Based on a Test
+Dataset}\label{model-selection-based-on-a-test-dataset}
 
-Finally, a likelihood statistic that we have not yet considered is
-\textbf{Vuong's test}. This statistic is gaining popularity among
-analysts because it is a likelihood based statistic that has the ability
-to compare models that are non-nested.
+Model validation is the process of confirming that the proposed model is
+appropriate, especially in light of the purposes of the investigation.
+An important criticism of the model selection process is that it can be
+susceptible to \emph{data-snooping}, that is, fitting a great number of
+models to a single set of data. By looking at a large number of models,
+we may overfit the data and understate the natural variation in our
+representation.
 
-\subsection{Out of Sample Validation}\label{out-of-sample-validation}
+\textbf{Model Validation Process.} We can respond to this criticism by
+using a technique sometimes known as \textbf{out-of-sample validation}.
+The ideal situation is to have available two sets of data, one for
+training, or model development, and one for testing, or model
+validation. We initially develop one or several models on the first data
+set that we call our \emph{candidate} models. Then, the relative
+performance of the candidate models can be measured on the second set of
+data. In this way, the data used to validate the model is unaffected by
+the procedures used to formulate the model.
 
-\textbf{Model validation} is the process of confirming that the proposed
-model is appropriate, especially in light of the purposes of the
-investigation. An important criticism of the model selection process is
-that it can be susceptible to \emph{data-snooping}, that is, fitting a
-great number of models to a single set of data. By looking at a large
-number of models, we may overfit the data and understate the natural
-variation in our representation.
+The model validation process not only addresses the problem of
+overfitting the data but also supports the goal of \textbf{predictive
+inference}. Particularly in actuarial applications, our goal is to make
+statements about about new experience rather than a dataset at hand. For
+example, we use claims experience from one year to develop a model that
+can be used to price insurance contracts for the following year. As an
+analogy, we can think about the training data set as experience from one
+year that is used to predict the behavior of the next year's test data
+set.
 
-We can respond to this criticism by using a technique called
-\textbf{out-of-sample validation}. The ideal situation is to have
-available two sets of data, one for model development and one for model
-validation. We initially develop one or several models on a first data
-set. The models developed from the first set of data are called our
-\emph{candidate} models. Then, the relative performance of the candidate
-models could be measured on a second set of data. In this way, the data
-used to validate the model is unaffected by the procedures used to
-formulate the model.
-
-Unfortunately, rarely will two sets of data be available to the
-investigator. However, we can implement the validation process by
-splitting the data set into two subsamples. We call these the
-\textbf{model development subsample} and \textbf{validation subsample},
-respectively. Figure \ref{fig:ModelValidation} illustrates this
-splitting of the data.
+\textbf{Random Split of the Data.} Unfortunately, rarely will two sets
+of data be available to the investigator. However, we can implement the
+validation process by splitting the data set into \textbf{training} and
+\textbf{test} subsamples, respectively. Figure \ref{fig:ModelValidation}
+illustrates this splitting of the data.
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.8\linewidth]{Figures/F5ModelValidation} 
+{\centering \includegraphics[width=0.6\linewidth]{LossDataAnalytics_files/figure-latex/ModelValidation-1} 
 
 }
 
@@ -6509,20 +6517,93 @@ splitting of the data.
 \end{figure}
 
 Various researchers recommend different proportions for the allocation.
-Snee (1977) suggests that data-splitting not be done unless the sample
-size is moderately large. The guidelines of Picard and Berk (1990) show
-that the greater the number of parameters to be estimated, the greater
-the proportion of observations needed for the model development
-subsample. As a rule of thumb, for data sets with 100 or fewer
-observations, use about 25-35\% of the sample for out-of-sample
+\citet{snee1977validation} suggests that data-splitting not be done
+unless the sample size is moderately large. The guidelines of
+\citet{picard1990data} show that the greater the number of parameters to
+be estimated, the greater the proportion of observations needed for the
+model development subsample. As a rule of thumb, for data sets with 100
+or fewer observations, use about 25-35\% of the sample for out-of-sample
 validation. For data sets with 500 or more observations, use 50\% of the
 sample for out-of-sample validation.
 
-Because of these criticisms, several variants of the basic out-of-sample
-validation process are used by analysts. Although there is no
-theoretically best procedure, it is widely agreed that model validation
-is an important part of confirming the usefulness and appropriateness of
-a model.
+\textbf{Model Validation Statistics.} Much of the literature supporting
+the establishment of a model validation process is based on regression
+and classification models that you can think of as an
+\emph{input-output} problem (\citet{james2013introduction}). That is, we
+have several inputs \(x_1, \ldots, x_k\) that are related to an output
+\(y\) through a function such as
+\[y = \mathrm{g}\left(x_1, \ldots, x_k\right).\] One uses the training
+sample to develop an estimate of \(\mathrm{g}\), say,
+\(\hat{\mathrm{g}}\), and then calibrate the distance from the observed
+outcomes to the predictions using a criterion of the form
+
+\begin{equation}
+\sum_i \mathrm{d}(y_i,\hat{\mathrm{g}}\left(x_{i1}, \ldots, x_{ik}\right) ) .
+\label{eq:OutSampleCriter}
+\end{equation}
+
+Here, the sum \emph{i} is over the test data. In many regression
+applications, it is common to use squared Euclidean distance of the form
+\(\mathrm{d}(y_i,\mathrm{g}) = (y_i-\mathrm{g})^2\). In actuarial
+applications, Euclidean distance
+\(\mathrm{d}(y_i,\mathrm{g}) = |y_i-\mathrm{g}|\) is often preferred
+because of the skewed nature of the data (large outlying values of \(y\)
+can have a large effect on the measure). The Chapter 4 \emph{Technical
+Supplement A} describes another measure, the \emph{Gini index} that is
+useful in actuarial applications.
+
+\textbf{Selecting a Distribution.} Still, our focus so far has been to
+select a distribution for a data set that can be used for actuarial
+modeling without additional inputs \(x_1, \ldots, x_k\). Even in this
+more fundamental problem, the model validation approach is valuable. If
+we base all inference on only in-sample data, then there is a tendency
+to select more complicated models then needed. For example, we might
+select a four parameter GB2, generalized beta of the second kind,
+distribution when only a two parameter Pareto is needed. Information
+criteria such as \emph{AIC} and \emph{BIC} included penalties for model
+complexity and so provide some protection but using a test sample is the
+best guarantee to achieve parsimonious models. From a quote often
+attributed to Einstein, we want to ``use the simplest model as possible
+but no simpler.''
+
+\subsection{Model Selection Based on
+Cross-Validation}\label{model-selection-based-on-cross-validation}
+
+Although out-of-sample validation is the gold standard in predictive
+modeling, it is not always practical to do so. The main reason is that
+we have limited sample sizes and the out-of-sample model selection
+criterion in equation \eqref{eq:OutSampleCriter} depends on a
+\emph{random} split of the data. This means that different analysts,
+even when working the same data set and same approach to modeling, may
+select different models. This is likely in actuarial applications
+because we work with skewed data sets where there is a large chance of
+getting some very large outcomes and large outcomes may have a great
+influence on the parameter estimates.
+
+\textbf{Cross-Validation Procedure.} Alternatively, one may use
+\textbf{cross-validation}, as follows.
+
+\begin{itemize}
+\item
+  The procedure begins by using a random mechanism to split the data
+  into \emph{K} subsets known as \emph{folds}, where analysts typcially
+  use 5 to 10.
+\item
+  Next, one uses the first \emph{K}-1 subsamples to estimate model
+  parameters. Then, ``predict'' the outcomes for the \emph{K}th
+  subsample and use a measure such as in equation
+  \eqref{eq:OutSampleCriter} to summarize the fit.
+\item
+  Now, repeat this by holding out each of the \emph{K} sub-samples,
+  summarizing with a cumulative out-of-sample statistic.
+\end{itemize}
+
+Repeat these steps for several candidate models and choose the model
+with the lowest cumulative out-of-sample statistic.
+
+Cross-validation is widely used because it retains the predictive flavor
+of the out-of-sample model validation process but, due to the re-use of
+the data, is more stable over random samples.
 
 \section{Estimation using Modified Data}\label{S:ModifiedData}
 
@@ -6614,7 +6695,7 @@ Maximizing the likelihood function (or equivalently, maximizing the
 log-likelihood function) would then produce the maximum likelihood
 estimates for grouped data.
 
-\textbf{Example 4.3.1. Exam C Question 44.} You are given:
+\textbf{Example 4.3.1. SOA Exam Question.} You are given:
 
 \begin{enumerate}
 \def\labelenumi{(\roman{enumi})}
@@ -6922,7 +7003,7 @@ observations.
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
-\textbf{Example 4.3.2. Exam C Question 152.} You are given:
+\textbf{Example 4.3.2. SOA Exam Question.} You are given:
 
 \begin{enumerate}
 \def\labelenumi{(\roman{enumi})}
@@ -6960,8 +7041,8 @@ Maximizing this expression by setting the derivative with respect to
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
-\textbf{Example 4.3.3. Course 4: Fall 2000, Question 22.} You are given
-the following information about a random sample:
+\textbf{Example 4.3.3. SOA Exam Question.} You are given the following
+information about a random sample:
 
 \begin{enumerate}
 \def\labelenumi{(\roman{enumi})}
@@ -7024,7 +7105,7 @@ The corresponding density is
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
-\textbf{Example 4.3.4. Exam C Question 195.} You are given the following
+\textbf{Example 4.3.4. SOA Exam Question.} You are given the following
 information regarding claim sizes for 100 claims:
 
 \[
@@ -7109,8 +7190,8 @@ set} is the number of observations that are active (not censored) at a
 value \emph{less than} \(t_{j}\), denoted as
 \(R_j = \sum_{i=1}^n I(x_i \geq t_{j}) + \sum_{i=1}^n I(u_i \geq t_{j})\).
 
-With this notation, the \textbf{product-limit estimator} of the
-distribution function is
+\textbf{Kaplan-Meier Product Limit Estimator.} With this notation, the
+\textbf{product-limit estimator} of the distribution function is
 
 \begin{equation}
 \hat{F}(x) =
@@ -7127,8 +7208,8 @@ As usual, the corresponding estimate of the survival function is
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
-\textbf{Example 4.3.5. Exam C Question 252.} The following is a sample
-of 10 payments:
+\textbf{Example 4.3.5. SOA Exam Question.} The following is a sample of
+10 payments:
 
 \[\begin{array}{cccccccccc}
 4 &4 &5+ &5+ &5+ &8 &10+ &10+ &12 &15 \\
@@ -7181,8 +7262,8 @@ interest occurs, and let \(s_j\) be the number of recorded events
 With this new definition of the risk set, the product-limit estimator of
 the distribution function is as in equation \eqref{eq:KaplanMeier}.
 
-\citep{greenwood1926} derived the formula for the estimated variance of
-the product-limit estimator to be
+\textbf{Greenwood's Formula}. \citep{greenwood1926} derived the formula
+for the estimated variance of the product-limit estimator to be
 
 \[\widehat{Var}(\hat{F}(x)) = (1-\hat{F}(x))^{2} \sum _{j:t_{j} \leq x} \dfrac{s_j}{R_{j}(R_{j}-s_j)}.\]
 
@@ -7228,7 +7309,7 @@ between the survival function and cumulative hazard function,
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
-\textbf{Example 4.3.6. Exam C Question 135.} For observation \(i\) of a
+\textbf{Example 4.3.6. SOA Exam Question.} For observation \(i\) of a
 survival study:
 
 \begin{itemize}
@@ -7276,7 +7357,7 @@ The Kaplan-Meier estimate is therefore \(\hat{S}(1.6) = \frac{5}{7}\).
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
-\textbf{Exercise 4.3.7. Exam C Question 252. - Continued.}
+\textbf{Exercise 4.3.7. SOA Exam Question. - Continued.}
 
 \begin{enumerate}
 \def\labelenumi{\alph{enumi})}
@@ -7420,7 +7501,7 @@ statement.
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
-\textbf{Exercise 4.4.1. Exam C Question 157.} You are given:
+\textbf{Exercise 4.4.1. SOA Exam Question.} You are given:
 
 \begin{enumerate}
 \def\labelenumi{(\roman{enumi})}
@@ -7455,7 +7536,7 @@ Then
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
-\textbf{Example 4.4.2. Exam C Question 43.} You are given:
+\textbf{Example 4.4.2. SOA Exam Question.} You are given:
 
 \begin{enumerate}
 \def\labelenumi{(\roman{enumi})}
@@ -7520,8 +7601,8 @@ With this, the \textbf{Bayesian prediction} of \(y\) is
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
-\textbf{Example 4.4.3. Exam C Question 190.} For a particular policy,
-the conditional probability of the annual number of claims given
+\textbf{Example 4.4.3. SOA Exam Question.} For a particular policy, the
+conditional probability of the annual number of claims given
 \(\Theta = \theta\), and the probability distribution of \(\Theta\) are
 as follows:
 
@@ -7567,7 +7648,7 @@ Therefore, \(P=\frac{5}{13}2 + \frac{8}{13}1.5 = 1.6923\).
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
-\textbf{Example 4.4.4. Exam C Question 11.} You are given:
+\textbf{Example 4.4.4. SOA Exam Question.} You are given:
 
 \begin{enumerate}
 \def\labelenumi{(\roman{enumi})}
@@ -7621,7 +7702,7 @@ P(X_2>8|X_1=5) &= P(X_2>8|\theta=1) P(\theta=1|X_1=5) + P(X_2>8|\theta=3) P(\the
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
-\textbf{Exercise 4.4.5. Exam C Question 15.} You are given:
+\textbf{Exercise 4.4.5. SOA Exam Question.} You are given:
 
 \begin{enumerate}
 \def\labelenumi{(\roman{enumi})}
@@ -7658,7 +7739,7 @@ P(X_9=1|1,1,1,1,1,1,1,1) &= \int_0^5 P(X_9=1|p) \pi(p|1,1,1,1,1,1,1,1) dp \\
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
-\textbf{Example 4.4.6. Exam C Question 29.} You are given:
+\textbf{Example 4.4.6. SOA Exam Question.} You are given:
 
 \begin{enumerate}
 \def\labelenumi{(\roman{enumi})}
@@ -7768,7 +7849,7 @@ conjugate prior for the Poisson model distribution.
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
-\textbf{Example 4.4.7. Exam C Question 215.} You are given:
+\textbf{Example 4.4.7. SOA Exam Question.} You are given:
 
 \begin{enumerate}
 \def\labelenumi{(\roman{enumi})}
@@ -7816,7 +7897,7 @@ From the first equation,
 \(0.15\theta + 0.15 = \theta + \mu \ \Rightarrow \ \mu = 0.15- 0.85\theta\).
 
 Then the second equation becomes
-\(0.4\theta + 0.2 = 4\theta + 0.15 - 0.85\theta \ \Rightarrow \ \theta=0.01818\)
+\(0.4\theta + 0.2 = 4\theta + 0.15 - 0.85\theta \ \Rightarrow \ \theta=0.01818.\)
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 

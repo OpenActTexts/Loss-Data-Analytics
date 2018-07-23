@@ -25,7 +25,7 @@
 <meta name="author" content="An open text authored by the Actuarial Community">
 
 
-<meta name="date" content="2018-07-22">
+<meta name="date" content="2018-07-23">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -217,8 +217,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="4.2" data-path="C-ModelSelection.html"><a href="C-ModelSelection.html#S:ModelSelection"><i class="fa fa-check"></i><b>4.2</b> Model Selection</a><ul>
 <li class="chapter" data-level="4.2.1" data-path="C-ModelSelection.html"><a href="C-ModelSelection.html#iterative-model-selection"><i class="fa fa-check"></i><b>4.2.1</b> Iterative Model Selection</a></li>
-<li class="chapter" data-level="4.2.2" data-path="C-ModelSelection.html"><a href="C-ModelSelection.html#summarizing-model-selection-based-on-a-training-dataset"><i class="fa fa-check"></i><b>4.2.2</b> Summarizing Model Selection Based on a Training Dataset</a></li>
-<li class="chapter" data-level="4.2.3" data-path="C-ModelSelection.html"><a href="C-ModelSelection.html#out-of-sample-validation"><i class="fa fa-check"></i><b>4.2.3</b> Out of Sample Validation</a></li>
+<li class="chapter" data-level="4.2.2" data-path="C-ModelSelection.html"><a href="C-ModelSelection.html#model-selection-based-on-a-training-dataset"><i class="fa fa-check"></i><b>4.2.2</b> Model Selection Based on a Training Dataset</a></li>
+<li class="chapter" data-level="4.2.3" data-path="C-ModelSelection.html"><a href="C-ModelSelection.html#model-selection-based-on-a-test-dataset"><i class="fa fa-check"></i><b>4.2.3</b> Model Selection Based on a Test Dataset</a></li>
+<li class="chapter" data-level="4.2.4" data-path="C-ModelSelection.html"><a href="C-ModelSelection.html#model-selection-based-on-cross-validation"><i class="fa fa-check"></i><b>4.2.4</b> Model Selection Based on Cross-Validation</a></li>
 </ul></li>
 <li class="chapter" data-level="4.3" data-path="C-ModelSelection.html"><a href="C-ModelSelection.html#S:ModifiedData"><i class="fa fa-check"></i><b>4.3</b> Estimation using Modified Data</a><ul>
 <li class="chapter" data-level="4.3.1" data-path="C-ModelSelection.html"><a href="C-ModelSelection.html#parametric-estimation-using-modified-data"><i class="fa fa-check"></i><b>4.3.1</b> Parametric Estimation using Modified Data</a></li>
@@ -595,7 +596,7 @@ Figure 4.3: Three Quantile Cases
   f_n(x) = \frac{1}{nb} \sum_{i=1}^n w\left(\frac{x-X_i}{b}\right)
   \tag{4.3}
 \end{equation}\]</span>
-<p>where <span class="math inline">\(w\)</span> is a probability density function centered about 0. Note that equation <a href="C-ModelSelection.html#eq:KDF">(4.2)</a> simply becomes the kernel density estimator where <span class="math inline">\(w(x) = \frac{1}{2}I(-1 &lt; x \le 1)\)</span>, also known as the <strong>uniform kernel</strong>. Other popular choices are shown in the table below.</p>
+<p>where <span class="math inline">\(w\)</span> is a probability density function centered about 0. Note that equation <a href="C-ModelSelection.html#eq:KDF">(4.2)</a> simply becomes the kernel density estimator where <span class="math inline">\(w(x) = \frac{1}{2}I(-1 &lt; x \le 1)\)</span>, also known as the <strong>uniform kernel</strong>. Other popular choices are shown in <a href="#tab:41">Table 4.1</a>.</p>
 <p><a id=tab:41></a></p>
 <p><span class="math display">\[\begin{matrix}
 \text{Table 4.1: Popular Choices for the Kernel Density Estimator}\\
@@ -641,7 +642,7 @@ W(y) =
 1 &amp; y \ge 1 \\
 \end{cases}\end{aligned}\]</span></p>
 <hr />
-<p><strong>Example 4.1.5. Exam C Question 3.</strong> You study five lives to estimate the time from the onset of a disease to death. The times to death are:</p>
+<p><strong>Example 4.1.5. SOA Exam Question.</strong> You study five lives to estimate the time from the onset of a disease to death. The times to death are:</p>
 <p><span class="math display">\[\begin{array}{ccccc}
 2 &amp; 3 &amp; 3 &amp; 3 &amp; 7  \\
 \end{array}\]</span></p>
@@ -698,7 +699,7 @@ Figure 4.7: Quantile-Quantile (<span class="math inline">\(qq\)</span>) Plots. T
 </p>
 </div>
 <hr />
-<p><strong>Example 4.1.6. Exam C Question 59.</strong> The graph below shows a <span class="math inline">\(pp\)</span> plot of a fitted distribution compared to a sample.</p>
+<p><strong>Example 4.1.6. SOA Exam Question.</strong> The graph below shows a <span class="math inline">\(pp\)</span> plot of a fitted distribution compared to a sample.</p>
 <p><img src="LossDataAnalytics_files/figure-html/unnamed-chunk-2-1.png" width="40%" style="display: block; margin: auto;" /></p>
 <p>Comment on the two distributions with respect to left tail, right tail, and median probabilities.</p>
 <h5 style="text-align: center;">
@@ -730,7 +731,7 @@ Figure 4.7: Quantile-Quantile (<span class="math inline">\(qq\)</span>) Plots. T
 \end{matrix}\]</span></p>
 <p>The <strong>Kolmogorov-Smirnov statistic</strong> is the maximum absolute difference between the fitted distribution function and the empirical distribution function. Instead of comparing differences between single points, the <strong>Cramer-von Mises statistic</strong> integrates the difference between the empirical and fitted distribution functions over the entire range of values. The <strong>Anderson-Darling statistic</strong> also integrates this difference over the range of values, although weighted by the inverse of the variance. It therefore places greater emphasis on the tails of the distribution (i.e when <span class="math inline">\(F(x)\)</span> or <span class="math inline">\(1-F(x)=S(x)\)</span> is small).</p>
 <hr />
-<p><strong>Exaxmple 4.1.7. Exam C Question 40 (modified).</strong> A sample of claim payments is:</p>
+<p><strong>Exaxmple 4.1.7. SOA Exam Question (modified).</strong> A sample of claim payments is:</p>
 <p><span class="math display">\[\begin{array}{ccccc}
 29 &amp; 64 &amp; 90 &amp; 135 &amp; 182  \\
 \end{array}\]</span></p>
@@ -808,7 +809,7 @@ x &amp; F(x) &amp; F_n(x) &amp; F_n(x-) &amp; \max(|F(x)-F_n(x)|,|F(x)-F_n(x-)|)
 \hat{\theta} = 2.205617 .\]</span> We remark here that a numerical routine is required for these solutions as no analytic solution is available. Furthermore, recall that the maximum likelihood estimates are <span class="math inline">\(\hat{\alpha}_{MLE} = 0.9990936\)</span> and <span class="math inline">\(\hat{\theta}_{MLE} = 2.2821147\)</span>, so the percentile matching provides a better approximation for the Pareto distribution than the method of moments.</p>
 </div>
 <hr />
-<p><strong>Exercise 4.1.10. Exam C Question 1.</strong> You are given:</p>
+<p><strong>Exercise 4.1.10. SOA Exam Question.</strong> You are given:</p>
 <ol style="list-style-type: lower-roman">
 <li>Losses follow a loglogistic distribution with cumulative distribution function: <span class="math display">\[F(x) = \frac{\left(x/\theta\right)^{\gamma}}{1+\left(x/\theta\right)^{\gamma}}\]</span></li>
 <li>The sample of losses is:</li>
@@ -848,7 +849,7 @@ x &amp; F(x) &amp; F_n(x) &amp; F_n(x-) &amp; \max(|F(x)-F_n(x)|,|F(x)-F_n(x-)|)
 </ul>
 <div id="iterative-model-selection" class="section level3">
 <h3><span class="header-section-number">4.2.1</span> Iterative Model Selection</h3>
-<p>In our development, we examine the data graphically, hypothesize a model structure, and compare the data to a candidate model in order to formulate an improved model. Box (1980) describes this as an <em>iterative process</em> which is shown in Figure <a href="C-ModelSelection.html#fig:Iterative">4.8</a>.</p>
+<p>In our development, we examine the data graphically, hypothesize a model structure, and compare the data to a candidate model in order to formulate an improved model. <span class="citation">Box (<a href="#ref-box1980sampling">1980</a>)</span> describes this as an <em>iterative process</em> which is shown in Figure <a href="C-ModelSelection.html#fig:Iterative">4.8</a>.</p>
 <div class="figure" style="text-align: center"><span id="fig:Iterative"></span>
 <img src="Figures/F5Iterative.png" alt="The iterative model specification process." width="80%" />
 <p class="caption">
@@ -858,34 +859,48 @@ Figure 4.8: The iterative model specification process.
 <p>This iterative process provides a useful recipe for structuring the task of specifying a model to represent a set of data. The first step, the model formulation stage, is accomplished by examining the data graphically and using prior knowledge of relationships, such as from economic theory or industry practice. The second step in the iteration is based on the assumptions of the specified model. These assumptions must be consistent with the data to make valid use of the model. The third step is diagnostic checking; the data and model must be consistent with one another before additional inferences can be made. Diagnostic checking is an important part of the model formulation; it can reveal mistakes made in previous steps and provide ways to correct these mistakes.</p>
 <p>The iterative process also emphasizes the skills you need to make analytics work. First, you need a willingness to summarize information numerically and portray this information graphically. Second, it is important to develop an understanding of model properties. You should understand how a probabilistic model behaves in order to match a set of data to it. Third, theoretical properties of the model are also important for inferring general relationships based on the behavior of the data.</p>
 </div>
-<div id="summarizing-model-selection-based-on-a-training-dataset" class="section level3">
-<h3><span class="header-section-number">4.2.2</span> Summarizing Model Selection Based on a Training Dataset</h3>
+<div id="model-selection-based-on-a-training-dataset" class="section level3">
+<h3><span class="header-section-number">4.2.2</span> Model Selection Based on a Training Dataset</h3>
 <p>It is common to refer to a dataset used for analysis as an <em>in-sample</em> or <em>training</em> dataset. Techniques available for selecting a model depend upon whether the outcomes <span class="math inline">\(X\)</span> are discrete, continuous, or a hybrid of the two, although the principles are the same.</p>
 <p><strong>Graphical and other Basic Summary Measures.</strong> Begin by summarizing the data graphically and with statistics that do not rely on a specific parametric form, as summarized in Section <a href="C-ModelSelection.html#S:NonParInf">4.1</a>. Specifically, you will want to graph both the empirical distribution and density functions. Particularly for loss data that contain many zeros and that can be skewed, deciding on the appropriate scale (e.g., logarithmic) may present some difficulties. For discrete data, tables are often preferred. Determine sample moments, such as the mean and variance, as well as selected quantiles, including the minimum, maximum, and the median. For discrete data, the mode (or most frequently occurring value) is usually helpful.</p>
 <p>These summaries, as well as your familiarity of industry practice, will suggest one or more candidate parametric models. Generally, start with the simpler parametric models (for example, one parameter exponential before a two parameter gamma), gradually introducing more complexity into the modeling process.</p>
 <p>Critique the candidate parametric model numerically and graphically. For the graphs, utilize the tools introduced in Section <a href="C-ModelSelection.html#S:ToolsModelSelection">4.1.2</a> such as <span class="math inline">\(pp\)</span> and <span class="math inline">\(qq\)</span> plots. For the numerical assessments, examine the statistical significance of parameters and try to eliminate parameters that do not provide additional information.</p>
 <p><strong>Likelihood Ratio Tests.</strong> For comparing model fits, if one model is a subset of another, then a likelihood ratio test may be employed.</p>
-<p><strong>Goodness of Fit Statistics.</strong></p>
-<p>Generally, models are not proper subsets of one another so overall goodness of fit statistics, summarized in Section @ref{S:NonparametricModelSelection}, are useful for model comparison. For discrete data, a <strong>chi-square goodness of fit statistic</strong> is generally preferred as it is more intuitive and simpler to explain.</p>
-<p><em>Information criteria</em>, such as Akaike’s Information Criterion (<strong>AIC</strong>) and the Schwarz Bayesian Criterion (<strong>BIC</strong>) are widely cited because they can be readily generalized to multivariate settings.</p>
-<p>Finally, a likelihood statistic that we have not yet considered is <strong>Vuong’s test</strong>. This statistic is gaining popularity among analysts because it is a likelihood based statistic that has the ability to compare models that are non-nested.</p>
+<p><strong>Goodness of Fit Statistics.</strong> Generally, models are not proper subsets of one another so overall goodness of fit statistics are helpful for comparing models. <em>Information criteria</em> are one type of goodness of statistic. The most widely used examples are Akaike’s Information Criterion (<em>AIC</em>) and the Schwarz Bayesian Criterion (<em>BIC</em>); they are are widely cited because they can be readily generalized to multivariate settings. Section 15.4.4 provides a summary of these statistics.</p>
+<p>For selecting the appropriate distribution, statistics that compare a parametric fit to a nonparametric alternative, summarized in Section 4.1.2.2, are useful for model comparison. For discrete data, a <em>chi-square goodness of fit statistic</em> (see Section 2.7) is generally preferred as it is more intuitive and simpler to explain.</p>
 </div>
-<div id="out-of-sample-validation" class="section level3">
-<h3><span class="header-section-number">4.2.3</span> Out of Sample Validation</h3>
-<p><strong>Model validation</strong> is the process of confirming that the proposed model is appropriate, especially in light of the purposes of the investigation. An important criticism of the model selection process is that it can be susceptible to <em>data-snooping</em>, that is, fitting a great number of models to a single set of data. By looking at a large number of models, we may overfit the data and understate the natural variation in our representation.</p>
-<p>We can respond to this criticism by using a technique called <strong>out-of-sample validation</strong>. The ideal situation is to have available two sets of data, one for model development and one for model validation. We initially develop one or several models on a first data set. The models developed from the first set of data are called our <em>candidate</em> models. Then, the relative performance of the candidate models could be measured on a second set of data. In this way, the data used to validate the model is unaffected by the procedures used to formulate the model.</p>
-<p>Unfortunately, rarely will two sets of data be available to the investigator. However, we can implement the validation process by splitting the data set into two subsamples. We call these the <strong>model development subsample</strong> and <strong>validation subsample</strong>, respectively. Figure <a href="C-ModelSelection.html#fig:ModelValidation">4.9</a> illustrates this splitting of the data.</p>
-<!-- <center> -->
-<!-- ![Figure 11: Model Validation. A data set of size $n$ is randomly split into two subsamples.](Figures\F5ModelValidation.png){width=80%} -->
-<!-- </center> -->
+<div id="model-selection-based-on-a-test-dataset" class="section level3">
+<h3><span class="header-section-number">4.2.3</span> Model Selection Based on a Test Dataset</h3>
+<p>Model validation is the process of confirming that the proposed model is appropriate, especially in light of the purposes of the investigation. An important criticism of the model selection process is that it can be susceptible to <em>data-snooping</em>, that is, fitting a great number of models to a single set of data. By looking at a large number of models, we may overfit the data and understate the natural variation in our representation.</p>
+<p><strong>Model Validation Process.</strong> We can respond to this criticism by using a technique sometimes known as <strong>out-of-sample validation</strong>. The ideal situation is to have available two sets of data, one for training, or model development, and one for testing, or model validation. We initially develop one or several models on the first data set that we call our <em>candidate</em> models. Then, the relative performance of the candidate models can be measured on the second set of data. In this way, the data used to validate the model is unaffected by the procedures used to formulate the model.</p>
+<p>The model validation process not only addresses the problem of overfitting the data but also supports the goal of <strong>predictive inference</strong>. Particularly in actuarial applications, our goal is to make statements about about new experience rather than a dataset at hand. For example, we use claims experience from one year to develop a model that can be used to price insurance contracts for the following year. As an analogy, we can think about the training data set as experience from one year that is used to predict the behavior of the next year’s test data set.</p>
+<p><strong>Random Split of the Data.</strong> Unfortunately, rarely will two sets of data be available to the investigator. However, we can implement the validation process by splitting the data set into <strong>training</strong> and <strong>test</strong> subsamples, respectively. Figure <a href="C-ModelSelection.html#fig:ModelValidation">4.9</a> illustrates this splitting of the data.</p>
 <div class="figure" style="text-align: center"><span id="fig:ModelValidation"></span>
-<img src="Figures/F5ModelValidation.png" alt="Model Validation. A data set of size n is randomly split into two subsamples." width="80%" />
+<img src="LossDataAnalytics_files/figure-html/ModelValidation-1.png" alt="Model Validation. A data set of size n is randomly split into two subsamples." width="60%" />
 <p class="caption">
 Figure 4.9: Model Validation. A data set of size n is randomly split into two subsamples.
 </p>
 </div>
-<p>Various researchers recommend different proportions for the allocation. Snee (1977) suggests that data-splitting not be done unless the sample size is moderately large. The guidelines of Picard and Berk (1990) show that the greater the number of parameters to be estimated, the greater the proportion of observations needed for the model development subsample. As a rule of thumb, for data sets with 100 or fewer observations, use about 25-35% of the sample for out-of-sample validation. For data sets with 500 or more observations, use 50% of the sample for out-of-sample validation.</p>
-<p>Because of these criticisms, several variants of the basic out-of-sample validation process are used by analysts. Although there is no theoretically best procedure, it is widely agreed that model validation is an important part of confirming the usefulness and appropriateness of a model.</p>
+<p>Various researchers recommend different proportions for the allocation. <span class="citation">Snee (<a href="#ref-snee1977validation">1977</a>)</span> suggests that data-splitting not be done unless the sample size is moderately large. The guidelines of <span class="citation">Picard and Berk (<a href="#ref-picard1990data">1990</a>)</span> show that the greater the number of parameters to be estimated, the greater the proportion of observations needed for the model development subsample. As a rule of thumb, for data sets with 100 or fewer observations, use about 25-35% of the sample for out-of-sample validation. For data sets with 500 or more observations, use 50% of the sample for out-of-sample validation.</p>
+<p><strong>Model Validation Statistics.</strong> Much of the literature supporting the establishment of a model validation process is based on regression and classification models that you can think of as an <em>input-output</em> problem (<span class="citation">James et al. (<a href="#ref-james2013introduction">2013</a>)</span>). That is, we have several inputs <span class="math inline">\(x_1, \ldots, x_k\)</span> that are related to an output <span class="math inline">\(y\)</span> through a function such as <span class="math display">\[y = \mathrm{g}\left(x_1, \ldots, x_k\right).\]</span> One uses the training sample to develop an estimate of <span class="math inline">\(\mathrm{g}\)</span>, say, <span class="math inline">\(\hat{\mathrm{g}}\)</span>, and then calibrate the distance from the observed outcomes to the predictions using a criterion of the form</p>
+<span class="math display" id="eq:OutSampleCriter">\[\begin{equation}
+\sum_i \mathrm{d}(y_i,\hat{\mathrm{g}}\left(x_{i1}, \ldots, x_{ik}\right) ) .
+\tag{4.4}
+\end{equation}\]</span>
+<p>Here, the sum <em>i</em> is over the test data. In many regression applications, it is common to use squared Euclidean distance of the form <span class="math inline">\(\mathrm{d}(y_i,\mathrm{g}) = (y_i-\mathrm{g})^2\)</span>. In actuarial applications, Euclidean distance <span class="math inline">\(\mathrm{d}(y_i,\mathrm{g}) = |y_i-\mathrm{g}|\)</span> is often preferred because of the skewed nature of the data (large outlying values of <span class="math inline">\(y\)</span> can have a large effect on the measure). The Chapter 4 <em>Technical Supplement A</em> describes another measure, the <em>Gini index</em> that is useful in actuarial applications.</p>
+<p><strong>Selecting a Distribution.</strong> Still, our focus so far has been to select a distribution for a data set that can be used for actuarial modeling without additional inputs <span class="math inline">\(x_1, \ldots, x_k\)</span>. Even in this more fundamental problem, the model validation approach is valuable. If we base all inference on only in-sample data, then there is a tendency to select more complicated models then needed. For example, we might select a four parameter GB2, generalized beta of the second kind, distribution when only a two parameter Pareto is needed. Information criteria such as <em>AIC</em> and <em>BIC</em> included penalties for model complexity and so provide some protection but using a test sample is the best guarantee to achieve parsimonious models. From a quote often attributed to Einstein, we want to “use the simplest model as possible but no simpler.”</p>
+</div>
+<div id="model-selection-based-on-cross-validation" class="section level3">
+<h3><span class="header-section-number">4.2.4</span> Model Selection Based on Cross-Validation</h3>
+<p>Although out-of-sample validation is the gold standard in predictive modeling, it is not always practical to do so. The main reason is that we have limited sample sizes and the out-of-sample model selection criterion in equation <a href="C-ModelSelection.html#eq:OutSampleCriter">(4.4)</a> depends on a <em>random</em> split of the data. This means that different analysts, even when working the same data set and same approach to modeling, may select different models. This is likely in actuarial applications because we work with skewed data sets where there is a large chance of getting some very large outcomes and large outcomes may have a great influence on the parameter estimates.</p>
+<p><strong>Cross-Validation Procedure.</strong> Alternatively, one may use <strong>cross-validation</strong>, as follows.</p>
+<ul>
+<li><p>The procedure begins by using a random mechanism to split the data into <em>K</em> subsets known as <em>folds</em>, where analysts typcially use 5 to 10.</p></li>
+<li><p>Next, one uses the first <em>K</em>-1 subsamples to estimate model parameters. Then, “predict” the outcomes for the <em>K</em>th subsample and use a measure such as in equation <a href="C-ModelSelection.html#eq:OutSampleCriter">(4.4)</a> to summarize the fit.</p></li>
+<li><p>Now, repeat this by holding out each of the <em>K</em> sub-samples, summarizing with a cumulative out-of-sample statistic.</p></li>
+</ul>
+<p>Repeat these steps for several candidate models and choose the model with the lowest cumulative out-of-sample statistic.</p>
+<p>Cross-validation is widely used because it retains the predictive flavor of the out-of-sample model validation process but, due to the re-use of the data, is more stable over random samples.</p>
 </div>
 </div>
 <div id="S:ModifiedData" class="section level2">
@@ -922,7 +937,7 @@ F(c_k) - F(c_{k-1}) &amp;   \text{if }\ x \in (c_{k-1}, c_k]\\
 L(\theta) = \ln \mathcal{L}(\theta) = \ln \prod_{j=1}^n f(x_i) = \sum_{j=1}^k n_j \ln \left\{F(c_j) - F(c_{j-1})\right\}
 \end{aligned}\]</span></p>
 <p>Maximizing the likelihood function (or equivalently, maximizing the log-likelihood function) would then produce the maximum likelihood estimates for grouped data.</p>
-<p><strong>Example 4.3.1. Exam C Question 44.</strong> You are given:</p>
+<p><strong>Example 4.3.1. SOA Exam Question.</strong> You are given:</p>
 <ol style="list-style-type: lower-roman">
 <li>Losses follow an exponential distribution with mean <span class="math inline">\(\theta\)</span>.</li>
 <li>A random sample of 20 losses is distributed as follows:</li>
@@ -1094,14 +1109,14 @@ L(\theta) &amp;= \sum_{E} \left\{ \ln f(x_i) - \ln (1-F(C_{Li})) \right\} + \sum
 <p>To simplify the notation, define <span class="math inline">\(\delta_i = \mathrm{I}(X_i \geq C_{Ui})\)</span> to be a binary variable that indicates right-censoring. Let <span class="math inline">\(X_i^{\ast \ast} = \min(X_i, C_{Ui}) - C_{Li}\)</span> be the amount that the observed variable exceeds the lower truncation limit. With this, the log-likelihood is <!-- $$ L(\theta) =  - \sum_{i=1}^n ((1-\delta_i) \ln \theta + \frac{x_i^{\ast \ast}}{\theta} ). (4)$$ --></p>
 <span class="math display" id="eq:EXPloglik">\[\begin{equation} 
   L(\theta) =  - \sum_{i=1}^n ((1-\delta_i) \ln \theta + \frac{x_i^{\ast \ast}}{\theta})
-  \tag{4.4}
+  \tag{4.5}
 \end{equation}\]</span>
 <p>Taking derivatives with respect to the parameter <span class="math inline">\(\theta\)</span> and setting it equal to zero yields the maximum likelihood estimator</p>
 <p><span class="math display">\[\widehat{\theta}  = \frac{1}{n_u} \sum_{i=1}^n  x_i^{\ast \ast},\]</span></p>
 <p>where <span class="math inline">\(n_u = \sum_i (1-\delta_i)\)</span> is the number of uncensored observations.</p>
 </div>
 <hr />
-<p><strong>Example 4.3.2. Exam C Question 152.</strong> You are given:</p>
+<p><strong>Example 4.3.2. SOA Exam Question.</strong> You are given:</p>
 <ol style="list-style-type: lower-roman">
 <li>A sample of losses is: 600 700 900</li>
 <li>No information is available about losses of 500 or less.</li>
@@ -1121,7 +1136,7 @@ L(\theta) &amp;= \sum_{E} \left\{ \ln f(x_i) - \ln (1-F(C_{Li})) \right\} + \sum
 <p><span class="math display">\[L&#39;(\theta) = -3\theta^{-1} + 700\theta^{-2} = 0 \ \Rightarrow \ \hat{\theta} = \frac{700}{3} = 233.33\]</span></p>
 </div>
 <hr />
-<p><strong>Example 4.3.3. Course 4: Fall 2000, Question 22.</strong> You are given the following information about a random sample:</p>
+<p><strong>Example 4.3.3. SOA Exam Question.</strong> You are given the following information about a random sample:</p>
 <ol style="list-style-type: lower-roman">
 <li>The sample size equals five.</li>
 <li>The sample is from a Weibull distribution with <span class="math inline">\(\tau=2\)</span>.</li>
@@ -1153,7 +1168,7 @@ L(\theta) &amp;= \sum_{E} \left\{ \ln f(x_i) - \ln (1-F(C_{Li})) \right\} + \sum
 <p>For other values of <span class="math inline">\(x \in (c_{j-1}, c_j)\)</span>, we can estimate the distribution function with the <strong>ogive</strong> estimator, which linearly interpolates between <span class="math inline">\(F_n(c_{j-1})\)</span> and <span class="math inline">\(F_n(c_j)\)</span>, i.e. the values of the boundaries <span class="math inline">\(F_n(c_{j-1}\)</span> and <span class="math inline">\(F_n(c_j)\)</span> are connected with a straight line. This can formally be expressed as <span class="math display">\[F_n(x) = \frac{c_j-x}{c_j-c_{j-1}} F_n(c_{j-1}) + \frac{x-c_{j-1}}{c_j-c_{j-1}} F_n(c_j) \ \ \ \text{for } c_{j-1} \le x &lt; c_j\]</span></p>
 <p>The corresponding density is <span class="math display">\[f_n(x) = F^{\prime}_n(x) = \frac{F_n(c_j)-F_n(c_{j-1})}{c_j - c_{j-1}} \ \ \  \text{for } c_{j-1} \le x &lt; c_j .\]</span></p>
 <hr />
-<p><strong>Example 4.3.4. Exam C Question 195.</strong> You are given the following information regarding claim sizes for 100 claims:</p>
+<p><strong>Example 4.3.4. SOA Exam Question.</strong> You are given the following information regarding claim sizes for 100 claims:</p>
 <p><span class="math display">\[
 \begin{array}{r|c}
 \hline
@@ -1187,7 +1202,7 @@ L(\theta) &amp;= \sum_{E} \left\{ \ln f(x_i) - \ln (1-F(C_{Li})) \right\} + \sum
 \hat{S}(x) = S_2(5) \times I(X_2^* &gt; x ) .
 \]</span></p>
 <p>Extending this idea, for each observation <span class="math inline">\(i\)</span>, let <span class="math inline">\(u_i\)</span> be the upper censoring limit (<span class="math inline">\(=\infty\)</span> if no censoring). Thus, the recorded value is <span class="math inline">\(x_i\)</span> in the case of no censoring and <span class="math inline">\(u_i\)</span> if there is censoring. Let <span class="math inline">\(t_{1} &lt;\cdots&lt; t_{k}\)</span> be <span class="math inline">\(k\)</span> distinct points at which an uncensored loss occurs, and let <span class="math inline">\(s_j\)</span> be the number of uncensored losses <span class="math inline">\(x_i\)</span>’s at <span class="math inline">\(t_{j}\)</span>. The corresponding <strong>risk set</strong> is the number of observations that are active (not censored) at a value <em>less than</em> <span class="math inline">\(t_{j}\)</span>, denoted as <span class="math inline">\(R_j = \sum_{i=1}^n I(x_i \geq t_{j}) + \sum_{i=1}^n I(u_i \geq t_{j})\)</span>.</p>
-<p>With this notation, the <strong>product-limit estimator</strong> of the distribution function is</p>
+<p><strong>Kaplan-Meier Product Limit Estimator.</strong> With this notation, the <strong>product-limit estimator</strong> of the distribution function is</p>
 <span class="math display" id="eq:KaplanMeier">\[\begin{equation}
 \hat{F}(x) =
 \left\{
@@ -1195,11 +1210,11 @@ L(\theta) &amp;= \sum_{E} \left\{ \ln f(x_i) - \ln (1-F(C_{Li})) \right\} + \sum
 0 &amp; x&lt;t_{1} \\
 1-\prod_{j:t_{j} \leq x}\left( 1-\frac{s_j}{R_{j}}\right) &amp; x \geq t_{1} .
 \end{array}
-\right. \tag{4.5}
+\right. \tag{4.6}
 \end{equation}\]</span>
 <p>As usual, the corresponding estimate of the survival function is <span class="math inline">\(\hat{S}(x) = 1 - \hat{F}(x)\)</span>.</p>
 <hr />
-<p><strong>Example 4.3.5. Exam C Question 252.</strong> The following is a sample of 10 payments:</p>
+<p><strong>Example 4.3.5. SOA Exam Question.</strong> The following is a sample of 10 payments:</p>
 <p><span class="math display">\[\begin{array}{cccccccccc}
 4 &amp;4 &amp;5+ &amp;5+ &amp;5+ &amp;8 &amp;10+ &amp;10+ &amp;12 &amp;15 \\
 \end{array}\]</span></p>
@@ -1230,8 +1245,8 @@ j &amp; t_j &amp; s_j &amp; R_j \\
 <div id="right-censored-left-truncated-empirical-distribution-function" class="section level4">
 <h4><span class="header-section-number">4.3.2.3</span> Right-Censored, Left-Truncated Empirical Distribution Function</h4>
 <p>In addition to right-censoring, we now extend the framework to allow for left-truncated data. As before, for each observation <span class="math inline">\(i\)</span>, let <span class="math inline">\(u_i\)</span> be the upper censoring limit (<span class="math inline">\(=\infty\)</span> if no censoring). Further, let <span class="math inline">\(d_i\)</span> be the lower truncation limit (0 if no truncation). Thus, the recorded value (if it is greater than <span class="math inline">\(d_i\)</span>) is <span class="math inline">\(x_i\)</span> in the case of no censoring and <span class="math inline">\(u_i\)</span> if there is censoring. Let <span class="math inline">\(t_{1} &lt;\cdots&lt; t_{k}\)</span> be <span class="math inline">\(k\)</span> distinct points at which an event of interest occurs, and let <span class="math inline">\(s_j\)</span> be the number of recorded events <span class="math inline">\(x_i\)</span>’s at time point <span class="math inline">\(t_{j}\)</span>. The corresponding risk set is <span class="math display">\[R_j = \sum_{i=1}^n I(x_i \geq t_{j}) + \sum_{i=1}^n I(u_i \geq t_{j}) - \sum_{i=1}^n I(d_i \geq t_{j}).\]</span></p>
-<p>With this new definition of the risk set, the product-limit estimator of the distribution function is as in equation <a href="C-ModelSelection.html#eq:KaplanMeier">(4.5)</a>.</p>
-<p><span class="citation">(Greenwood <a href="#ref-greenwood1926">1926</a>)</span> derived the formula for the estimated variance of the product-limit estimator to be</p>
+<p>With this new definition of the risk set, the product-limit estimator of the distribution function is as in equation <a href="C-ModelSelection.html#eq:KaplanMeier">(4.6)</a>.</p>
+<p><strong>Greenwood’s Formula</strong>. <span class="citation">(Greenwood <a href="#ref-greenwood1926">1926</a>)</span> derived the formula for the estimated variance of the product-limit estimator to be</p>
 <p><span class="math display">\[\widehat{Var}(\hat{F}(x)) = (1-\hat{F}(x))^{2} \sum _{j:t_{j} \leq x} \dfrac{s_j}{R_{j}(R_{j}-s_j)}.\]</span></p>
 <p><code>R</code>‘s <code>survfit</code> method takes a survival data object and creates a new object containing the Kaplan-Meier estimate of the survival function along with confidence intervals. The Kaplan-Meier method (<code>type='kaplan-meier'</code>) is used by default to construct an estimate of the survival curve. The resulting discrete survival function has point masses at the observed event times (discharge dates) <span class="math inline">\(t_j\)</span>, where the probability of an event given survival to that duration is estimated as the number of observed events at the duration <span class="math inline">\(s_j\)</span> divided by the number of subjects exposed or ’at-risk’ just prior to the event duration <span class="math inline">\(R_j\)</span>.</p>
 <p>Two alternate types of estimation are also available for the <code>survfit</code> method. The alternative (<code>type='fh2'</code>) handles ties, in essence, by assuming that multiple events at the same duration occur in some arbitrary order. Another alternative (<code>type='fleming-harrington'</code>) uses the Nelson-Äalen (see <span class="citation">(Aalen <a href="#ref-aalen1978">1978</a>)</span>) estimate of the <strong>cumulative hazard function</strong> to obtain an estimate of the survival function. The estimated cumulative hazard <span class="math inline">\(\hat{H}(x)\)</span> starts at zero and is incremented at each observed event duration <span class="math inline">\(t_j\)</span> by the number of events <span class="math inline">\(s_j\)</span> divided by the number at risk <span class="math inline">\(R_j\)</span>. With the same notation as above, the <strong>Nelson-Äalen</strong> estimator of the distribution function is</p>
@@ -1245,7 +1260,7 @@ j &amp; t_j &amp; s_j &amp; R_j \\
 \right.\end{aligned}\]</span></p>
 <p>Note that the above expression is a result of the Nelson-Äalen estimator of the cumulative hazard function <span class="math display">\[\hat{H}(x)=\sum_{j:t_j\leq x}  \frac{s_j}{R_j} \]</span> and the relationship between the survival function and cumulative hazard function, <span class="math inline">\(\hat{S}_{NA}(x)=e^{-\hat{H}(x)}\)</span>.</p>
 <hr />
-<p><strong>Example 4.3.6. Exam C Question 135.</strong> For observation <span class="math inline">\(i\)</span> of a survival study:</p>
+<p><strong>Example 4.3.6. SOA Exam Question.</strong> For observation <span class="math inline">\(i\)</span> of a survival study:</p>
 <ul>
 <li><span class="math inline">\(d_i\)</span> is the left truncation point</li>
 <li><span class="math inline">\(x_i\)</span> is the observed value if not right censored</li>
@@ -1279,7 +1294,7 @@ j &amp; t_j &amp; s_j &amp; R_j &amp; \hat{S}(t_j) \\
 <p>The Kaplan-Meier estimate is therefore <span class="math inline">\(\hat{S}(1.6) = \frac{5}{7}\)</span>.</p>
 </div>
 <hr />
-<p><strong>Exercise 4.3.7. Exam C Question 252. - Continued.</strong></p>
+<p><strong>Exercise 4.3.7. SOA Exam Question. - Continued.</strong></p>
 <ol style="list-style-type: lower-alpha">
 <li>Using the Nelson-Äalen estimator, calculate the probability that the loss on a policy exceeds 11, <span class="math inline">\(\hat{S}_{NA}(11)\)</span>.</li>
 <li>Calculate Greenwood’s approximation to the variance of the product-limit estimate <span class="math inline">\(\hat{S}(11)\)</span>.</li>
@@ -1336,7 +1351,7 @@ j &amp; t_j &amp; s_j &amp; R_j \\
 <p>We can summarize the distribution using a confidence interval type statement.</p>
 <p><strong>Definition.</strong> <span class="math inline">\([a,b]\)</span> is said to be a <span class="math inline">\(100(1-\alpha)\%\)</span> <strong>credibility interval</strong> for <span class="math inline">\(\boldsymbol \theta\)</span> if <span class="math display">\[\Pr (a \le \theta \le b | \mathbf{x}) \ge 1- \alpha.\]</span></p>
 <hr />
-<p><strong>Exercise 4.4.1. Exam C Question 157.</strong> You are given:</p>
+<p><strong>Exercise 4.4.1. SOA Exam Question.</strong> You are given:</p>
 <ol style="list-style-type: lower-roman">
 <li>In a portfolio of risks, each policyholder can have at most one claim per year.</li>
 <li>The probability of a claim for a policyholder during a year is <span class="math inline">\(q\)</span>.</li>
@@ -1353,7 +1368,7 @@ j &amp; t_j &amp; s_j &amp; R_j \\
 <p>Then <span class="math display">\[P(0.7&lt;q&lt;0.8|1,0)= \int_{0.7}^{0.8} \frac{q^4-q^5}{0.014069}dq = 0.5572\]</span></p>
 </div>
 <hr />
-<p><strong>Example 4.4.2. Exam C Question 43.</strong> You are given:</p>
+<p><strong>Example 4.4.2. SOA Exam Question.</strong> You are given:</p>
 <ol style="list-style-type: lower-roman">
 <li>The prior distribution of the parameter <span class="math inline">\(\Theta\)</span> has probability density function: <span class="math display">\[\pi(\theta) = \frac{1}{\theta^2}, \ \ 1 &lt; \theta &lt; \infty\]</span></li>
 <li>Given <span class="math inline">\(\Theta = \theta\)</span>, claim sizes follow a Pareto distribution with parameters <span class="math inline">\(\alpha=2\)</span> and <span class="math inline">\(\theta\)</span>.</li>
@@ -1393,7 +1408,7 @@ I(\hat{\theta} =\theta) &amp; \text{zero-one loss (for discrete probabilities)} 
 &amp;=  \int  \mathrm{E}(y|\theta) \pi(\theta|x) d\theta .
 \end{aligned}\]</span></p>
 <hr />
-<p><strong>Example 4.4.3. Exam C Question 190.</strong> For a particular policy, the conditional probability of the annual number of claims given <span class="math inline">\(\Theta = \theta\)</span>, and the probability distribution of <span class="math inline">\(\Theta\)</span> are as follows:</p>
+<p><strong>Example 4.4.3. SOA Exam Question.</strong> For a particular policy, the conditional probability of the annual number of claims given <span class="math inline">\(\Theta = \theta\)</span>, and the probability distribution of <span class="math inline">\(\Theta\)</span> are as follows:</p>
 <p><span class="math display">\[\begin{array}{l|ccc}
 \hline
 \text{Number of Claims} &amp; 0 &amp; 1 &amp; 2 \\
@@ -1424,7 +1439,7 @@ a &amp;= VHM = Var(2-5\theta) = 25Var(\theta) = 25(0.02-0.1^2) = 0.25 \\
 <p>Therefore, <span class="math inline">\(P=\frac{5}{13}2 + \frac{8}{13}1.5 = 1.6923\)</span>.</p>
 </div>
 <hr />
-<p><strong>Example 4.4.4. Exam C Question 11.</strong> You are given:</p>
+<p><strong>Example 4.4.4. SOA Exam Question.</strong> You are given:</p>
 <ol style="list-style-type: lower-roman">
 <li>Losses on a company’s insurance policies follow a Pareto distribution with probability density function: <span class="math display">\[f(x|\theta) = \frac{\theta}{(x+\theta)^2}, \ \ 0 &lt; x &lt; \infty\]</span></li>
 <li>For half of the company’s policies <span class="math inline">\(\theta=1\)</span> , while for the other half <span class="math inline">\(\theta=3\)</span>.</li>
@@ -1456,7 +1471,7 @@ P(X_2&gt;8|X_1=5) &amp;= P(X_2&gt;8|\theta=1) P(\theta=1|X_1=5) + P(X_2&gt;8|\th
 \end{aligned}\]</span></p>
 </div>
 <hr />
-<p><strong>Exercise 4.4.5. Exam C Question 15.</strong> You are given:</p>
+<p><strong>Exercise 4.4.5. SOA Exam Question.</strong> You are given:</p>
 <ol style="list-style-type: lower-roman">
 <li>The probability that an insured will have at least one loss during any year is <span class="math inline">\(p\)</span>.</li>
 <li>The prior distribution for <span class="math inline">\(p\)</span> is uniform on <span class="math inline">\([0, 0.5]\)</span>.</li>
@@ -1478,7 +1493,7 @@ P(X_9=1|1,1,1,1,1,1,1,1) &amp;= \int_0^5 P(X_9=1|p) \pi(p|1,1,1,1,1,1,1,1) dp \\
 \end{aligned}\]</span></p>
 </div>
 <hr />
-<p><strong>Example 4.4.6. Exam C Question 29.</strong> You are given:</p>
+<p><strong>Example 4.4.6. SOA Exam Question.</strong> You are given:</p>
 <ol style="list-style-type: lower-roman">
 <li>Each risk has at most one claim each year. <span class="math display">\[\begin{array}{ccc}
 \hline
@@ -1544,7 +1559,7 @@ P(\text{claim} | 3) &amp;= P(\text{claim}|\text{I})P(\text{I} | 3) + P(\text{cla
 <p>where <span class="math inline">\(C\)</span> is a constant. We recognize this to be a gamma distribution with new parameters <span class="math inline">\(\alpha_{new} = \sum_i x_i + \alpha\)</span> and <span class="math inline">\(\theta_{new} = 1/(n + 1/\theta)\)</span>. Thus, the gamma distribution is a conjugate prior for the Poisson model distribution.</p>
 </div>
 <hr />
-<p><strong>Example 4.4.7. Exam C Question 215.</strong> You are given:</p>
+<p><strong>Example 4.4.7. SOA Exam Question.</strong> You are given:</p>
 <ol style="list-style-type: lower-roman">
 <li>The conditional distribution of the number of claims per policyholder is Poisson with mean <span class="math inline">\(\lambda\)</span>.</li>
 <li>The variable <span class="math inline">\(\lambda\)</span> has a gamma distribution with parameters <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\theta\)</span>.</li>
@@ -1570,7 +1585,7 @@ k &amp;= \frac{v}{a} = \frac{1}{\theta} \\
 0.20 &amp;= \frac{2\theta}{2\theta+1}(2) + \frac{1}{2\theta+1}\mu = \frac{4\theta+\mu}{2\theta+1}
 \end{aligned}\]</span></p>
 <p>From the first equation, <span class="math inline">\(0.15\theta + 0.15 = \theta + \mu \ \Rightarrow \ \mu = 0.15- 0.85\theta\)</span>.</p>
-<p>Then the second equation becomes <span class="math inline">\(0.4\theta + 0.2 = 4\theta + 0.15 - 0.85\theta \ \Rightarrow \ \theta=0.01818\)</span></p>
+<p>Then the second equation becomes <span class="math inline">\(0.4\theta + 0.2 = 4\theta + 0.15 - 0.85\theta \ \Rightarrow \ \theta=0.01818.\)</span></p>
 </div>
 <hr />
 </div>
@@ -1621,12 +1636,12 @@ Figure 4.12: Distribution of insurance losses.
 We now sort the set of policies based on relativities (from smallest to largest) and compute the premium and loss distributions. Using notation, the premium distribution is
 <span class="math display" id="eq:EmpPremDF">\[\begin{equation}
 \hat{F}_P(s) =  \frac{ \sum_{i=1}^n
-P(\mathbf{x}_i) \mathrm{I}(R_i \leq s) }{\sum_{i=1}^n P(\mathbf{x}_i)} ,\tag{4.6}
+P(\mathbf{x}_i) \mathrm{I}(R_i \leq s) }{\sum_{i=1}^n P(\mathbf{x}_i)} ,\tag{4.7}
 \end{equation}\]</span>
 and the loss distribution is
 <span class="math display" id="eq:EmpLossDF">\[\begin{equation}
 \hat{F}_{L}(s) =  \frac{ \sum_{i=1}^n y_i \mathrm{I}(R_i
-\leq s) }{\sum_{i=1}^n y_i} ,\tag{4.7}
+\leq s) }{\sum_{i=1}^n y_i} ,\tag{4.8}
 \end{equation}\]</span>
 <p>where <span class="math inline">\(\mathrm{I}(\cdot)\)</span> is the indicator function, returning a 1 if the event is true and zero otherwise. The graph <span class="math inline">\(\left(\hat{F}_P(s),\hat{F}_{L}(s) \right)\)</span> is an <strong>ordered Lorenz curve</strong>.</p>
 <p>The classic Lorenz curve shows the proportion of policyholders on the horizontal axis and the loss distribution function on the vertical axis. The ordered Lorenz curve extends the classical Lorenz curve in two ways, (1) through the ordering of risks and prices by relativities and (2) by allowing prices to vary by observation. We summarize the ordered Lorenz curve in the same way as the classic Lorenz curve using a Gini index, defined as twice the area between the curve and a 45 degree line. The analyst seeks ordered Lorenz curves that approach passing through the southeast corner (1,0); these have greater separation between the loss and premium distributions and therefore larger Gini indices.</p>
@@ -1699,7 +1714,7 @@ Specifically, the Gini index can be calculated as follows. Suppose that the empi
 <span class="math display" id="eq:GiniDefn">\[\begin{eqnarray}
 \widehat{Gini} &amp;=&amp;  2\sum_{j=0}^{n-1} (a_{j+1} - a_j) \left \{
 \frac{a_{j+1}+a_j}{2} - \frac{b_{j+1}+b_j}{2} \right\} \nonumber \\
-&amp;=&amp; 1 - \sum_{j=0}^{n-1} (a_{j+1} - a_j) (b_{j+1}+b_j) .\tag{4.8}
+&amp;=&amp; 1 - \sum_{j=0}^{n-1} (a_{j+1} - a_j) (b_{j+1}+b_j) .\tag{4.9}
 \end{eqnarray}\]</span>
 <p><strong>Example – Loss Distribution: Continued.</strong> In the figure, the Gini index for the left-hand panel is 5.6%. In contrast, the Gini index for the right-hand panel is 14.9%. <span class="math inline">\(~~\Box\)</span></p>
 </div>
@@ -1741,6 +1756,18 @@ Specifically, the Gini index can be calculated as follows. Suppose that the empi
 </div>
 <h3>Bibliography</h3>
 <div id="refs" class="references">
+<div id="ref-box1980sampling">
+<p>Box, George EP. 1980. “Sampling and Bayes’ Inference in Scientific Modelling and Robustness.” <em>Journal of the Royal Statistical Society. Series A (General)</em>. JSTOR, 383–430.</p>
+</div>
+<div id="ref-snee1977validation">
+<p>Snee, Ronald D. 1977. “Validation of Regression Models: Methods and Examples.” <em>Technometrics</em> 19 (4). Taylor &amp; Francis Group: 415–28.</p>
+</div>
+<div id="ref-picard1990data">
+<p>Picard, Richard R., and Kenneth N. Berk. 1990. “Data Splitting.” <em>The American Statistician</em> 44 (2). Taylor &amp; Francis: 140–47.</p>
+</div>
+<div id="ref-james2013introduction">
+<p>James, Gareth, Daniela Witten, Trevor Hastie, and Robert Tibshirani. 2013. <em>An Introduction to Statistical Learning</em>. Vol. 112. Springer.</p>
+</div>
 <div id="ref-kaplan1958">
 <p>Kaplan, Edward L., and Paul Meier. 1958. “Nonparametric Estimation from Incomplete Observations.” <em>Journal of the American Statistical Association</em> 53 (282). Taylor &amp; Francis: 457–81.</p>
 </div>

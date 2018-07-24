@@ -2,11 +2,11 @@
 
 # Model Selection and Estimation {#C:ModelSelection}
 
-*Chapter Preview*. Chapters \@ref(C:Frequency-Modeling) and \@ref(C:Severity) have described how to fit parametric models to frequency and severity data, respectively. This chapter describes selection of models. To compare alternative parametric models, it is helpful to introduce models that summarize data without reference to a specific parametric distribution. Section \@ref(S:NonParInf) describes nonparametric estimation, how we can use it for model comparisons and how it can be used to provide starting values for parametric procedures.
+*Chapter Preview*. Chapters \@ref(C:Frequency-Modeling) and \@ref(C:Severity) have described how to fit parametric models to frequency and severity data, respectively. This chapter describes selection of models. To compare alternative parametric models, it is helpful to introduce models that summarize data without reference to a specific parametric distribution. Section \@ref(S:MS:NonParInf) describes nonparametric estimation, how we can use it for model comparisons and how it can be used to provide starting values for parametric procedures.
 
-The process of model selection is then summarized in Section \@ref(S:ModelSelection). Although our focus is on continuous data, the same process can be used for discrete data or data that come from a hybrid combination of discrete and continuous data. Further, Section \@ref(S:ModifiedData) describes estimation for alternative sampling schemes, included grouped, censored and truncated data, following the introduction provided in Chapter \@ref(C:Severity). The chapter closes with Section \@ref(S:BayesInference) on Bayesian inference, an alternative procedure where the (typically unknown) parameters are treated as random variables.
+The process of model selection is then summarized in Section \@ref(S:MS:ModelSelection). Although our focus is on continuous data, the same process can be used for discrete data or data that come from a hybrid combination of discrete and continuous data. Further, Section \@ref(S:MS:ModifiedData) describes estimation for alternative sampling schemes, included grouped, censored and truncated data, following the introduction provided in Chapter \@ref(C:Severity). The chapter closes with Section \@ref(S:MS:BayesInference) on Bayesian inference, an alternative procedure where the (typically unknown) parameters are treated as random variables.
 
-##  Nonparametric Inference {#S:NonParInf}
+##  Nonparametric Inference {#S:MS:NonParInf}
 
 ***
 
@@ -25,7 +25,7 @@ Consider $X_1, \ldots, X_n$, a **random sample** (with replacement) from an unkn
 ### Nonparametric Estimation
 The population distribution $F(\cdot)$ can be summarized in various ways. These include moments, the distribution function $F(\cdot)$ itself, the quantiles or percentiles associated with the distribution, and the corresponding mass or density function $f(\cdot)$. Summary statistics based on the sample, $X_1, \ldots, X_n$, are known as **nonparametric estimators** of the corresponding summary measures of the distribution. We will examine moment estimators, distribution function estimators, quantile estimators, and density estimators, as well as their statistical properties such as expected value and variance. Using our data observations $x_1, \ldots, x_n$, we can put numerical values to these estimators and compute **nonparametric estimates**. 
 
-#### Moment Estimators {#S:MomentEstimator}
+#### Moment Estimators {#S:MS:MomentEstimator}
 
 The $k$**-th moment**, $\mathrm{E~}[X^k] = \mu^{\prime}_k$, is our first example of a population summary measure. It is estimated with the corresponding sample statistic $$\frac{1}{n} \sum_{i=1}^n X_i^k .$$
 In typical applications, $k$ is a positive integer, although it need not be. For the first moment ($k=1$), the prime symbol ($\prime$) and the $1$ subscript are usually dropped, using $\mu=\mu^{\prime}_1$ to denote the **mean**. The corresponding sample estimator for $\mu$ is called the **sample mean**, denoted with a bar on top of the random variable: 
@@ -98,7 +98,7 @@ plot(PercentilesxExample, main="",xlab="x")
 ***
 
 
-#### Quantiles {#S:QuantileEstimator}
+#### Quantiles {#S:MS:QuantileEstimator}
 
 We have already seen the **median**, which is the number such that approximately half of a data set is below (or above) it. The **first quartile** is the number such that approximately 25\% of the data is below it and the **third quartile** is the number such that approximately 75\% of the data is below it. A $100p$ **percentile** is the number such that $100 \times p$ percent of the data is below it.
 
@@ -347,7 +347,7 @@ Then the kernel density estimate is $$f_n(x) = \frac{1}{5(2)}\left( \frac{3}{4} 
 ***
 
 
-### Tools for Model Selection {#S:ToolsModelSelection}
+### Tools for Model Selection {#S:MS:ToolsModelSelection}
 
 The previous section introduced nonparametric estimators in which there was no parametric form assumed about the underlying distributions. However, in many actuarial applications, analysts seek to employ a parametric fit of a distribution for ease of explanation and the ability to readily extend it to more complex situations such as including explanatory variables in a regression setting. When fitting a parametric distribution, one analyst might try to use a gamma distribution to represent a set of loss data. However, another analyst may prefer to use a Pareto distribution. How does one know which model to select?
 
@@ -462,7 +462,7 @@ The tail of the fitted distribution is too thick on the left, too thin on the ri
 
 ***
 
-#### Statistical Comparison of Distributions
+#### Statistical Comparison of Distributions  {#S:MS:Tools:Stats}
 
 When selecting a model, it is helpful to make the graphical displays presented. However, for reporting results, it can be effective to supplement the graphical displays with selected statistics that summarize model goodness of fit. [Table 4.2] provides three commonly used goodness of fit statistics. Here, $F_n$ is the empirical distribution and $F$ is the fitted distribution. 
 
@@ -532,7 +532,7 @@ The Kolmogorov-Smirnov test statistic is therefore $KS = \max(0.2517, 0.2727, 0.
 The method of moments and percentile matching are nonparametric estimation methods that provide alternatives to maximum likelihood. Generally, maximum likelihood is the preferred technique because it employs data more efficiently. However, methods of moments and percentile matching are useful because they are easier to interpret and therefore allow the actuary or analyst to explain procedures to others. Additionally, the numerical estimation procedure (e.g. if performed in `R`) for the maximum likelihood is iterative and requires starting values to begin the recursive process. Although many problems are robust to the choice of the starting values, for some complex situations, it can be important to have a starting value that is close to the (unknown) optimal value. Method of moments and percentile matching are techniques that can produce desirable estimates without a serious computational investment and can thus be used as a starting value for computing maximum likelihood.
 
 #### Method of Moments
-Under the **method of moments**, we approximate the moments of the parametric distribution using the empirical (nonparametric) moments described in Section \@ref(S:MomentEstimator). We can then algebraically solve for the parameter estimates.
+Under the **method of moments**, we approximate the moments of the parametric distribution using the empirical (nonparametric) moments described in Section \@ref(S:MS:MomentEstimator). We can then algebraically solve for the parameter estimates.
 
 ***
 
@@ -585,7 +585,7 @@ As the above example suggests, there is flexibility with the method of moments. 
 
 #### Percentile Matching
 
-Under percentile matching, we approximate the quantiles or percentiles of the parametric distribution using the empirical (nonparametric) quantiles or percentiles described in Section \@ref(S:QuantileEstimator).
+Under percentile matching, we approximate the quantiles or percentiles of the parametric distribution using the empirical (nonparametric) quantiles or percentiles described in Section \@ref(S:MS:QuantileEstimator).
 
 ***
 
@@ -649,7 +649,7 @@ Solving for each parenthetical expression gives $\frac{2}{3}=(89.2/\theta)^\gamm
 
 
 
-## Model Selection {#S:ModelSelection}
+## Model Selection {#S:MS:ModelSelection}
 
 ***
 
@@ -686,17 +686,17 @@ The iterative process also emphasizes the skills you need to make analytics work
 
 It is common to refer to a dataset used for analysis as an *in-sample* or *training* dataset. Techniques available for selecting a model depend upon whether the outcomes $X$ are discrete, continuous, or a hybrid of the two, although the principles are the same.
 
-**Graphical and other Basic Summary Measures.** Begin by summarizing the data graphically and with statistics that do not rely on a specific parametric form, as summarized in Section \@ref(S:NonParInf). Specifically, you will want to graph both the empirical distribution and density functions. Particularly for loss data that contain many zeros and that can be skewed, deciding on the appropriate scale (e.g., logarithmic) may present some difficulties. For discrete data, tables are often preferred. Determine sample moments, such as the mean and variance, as well as selected quantiles, including the minimum, maximum, and the median. For discrete data, the mode (or most frequently occurring value) is usually helpful.
+**Graphical and other Basic Summary Measures.** Begin by summarizing the data graphically and with statistics that do not rely on a specific parametric form, as summarized in Section \@ref(S:MS:NonParInf). Specifically, you will want to graph both the empirical distribution and density functions. Particularly for loss data that contain many zeros and that can be skewed, deciding on the appropriate scale (e.g., logarithmic) may present some difficulties. For discrete data, tables are often preferred. Determine sample moments, such as the mean and variance, as well as selected quantiles, including the minimum, maximum, and the median. For discrete data, the mode (or most frequently occurring value) is usually helpful.
 
 These summaries, as well as your familiarity of industry practice, will suggest one or more candidate parametric models. Generally, start with the simpler parametric models (for example, one parameter exponential before a two parameter gamma), gradually introducing more complexity into the modeling process.
 
-Critique the candidate parametric model numerically and graphically. For the graphs, utilize the tools introduced in Section \@ref(S:ToolsModelSelection) such as $pp$ and $qq$ plots. For the numerical assessments, examine the statistical significance of parameters and try to eliminate parameters that do not provide additional information.
+Critique the candidate parametric model numerically and graphically. For the graphs, utilize the tools introduced in Section \@ref(S:MS:ToolsModelSelection) such as $pp$ and $qq$ plots. For the numerical assessments, examine the statistical significance of parameters and try to eliminate parameters that do not provide additional information.
 
-**Likelihood Ratio Tests.** For comparing model fits, if one model is a subset of another, then a likelihood ratio test may be employed. 
+**Likelihood Ratio Tests.** For comparing model fits, if one model is a subset of another, then a likelihood ratio test may be employed; see for example Sections \@ref(S:AppA:HT:LRT) and \@ref(S:AppC:MLEModelVal). 
 
-**Goodness of Fit Statistics.** Generally, models are not proper subsets of one another so overall goodness of fit statistics are helpful for comparing models. *Information criteria* are one type of goodness of statistic. The most widely used examples are Akaike's Information Criterion (*AIC*) and the Schwarz Bayesian Criterion (*BIC*); they are are widely cited because they can be readily generalized to multivariate settings. Section 15.4.4 provides a summary of these statistics.
+**Goodness of Fit Statistics.** Generally, models are not proper subsets of one another so overall goodness of fit statistics are helpful for comparing models. *Information criteria* are one type of goodness of statistic. The most widely used examples are Akaike's Information Criterion (*AIC*) and the Schwarz Bayesian Criterion (*BIC*); they are are widely cited because they can be readily generalized to multivariate settings. Section \@ref(S:AppA:HT:IC) provides a summary of these statistics.
 
-For selecting the appropriate distribution, statistics that compare a parametric fit to a nonparametric alternative, summarized in Section 4.1.2.2, are useful for model comparison. For discrete data, a *chi-square goodness of fit statistic* (see Section 2.7) is generally preferred as it is more intuitive and simpler to explain.
+For selecting the appropriate distribution, statistics that compare a parametric fit to a nonparametric alternative, summarized in Section \@ref(S:MS:Tools:Stats), are useful for model comparison. For discrete data, a *chi-square goodness of fit statistic* (see Section 2.7) is generally preferred as it is more intuitive and simpler to explain.
 
 
 ### Model Selection Based on a Test Dataset
@@ -780,7 +780,7 @@ Cross-validation is widely used because it retains the predictive flavor of the 
 
 
 
-## Estimation using Modified Data {#S:ModifiedData}
+## Estimation using Modified Data {#S:MS:ModifiedData}
 
 ***
 
@@ -799,7 +799,7 @@ Basic theory and many applications are based on *individual* observations that a
 
 
 
-#### Parametric Estimation using Grouped Data {#S:GroupedData}
+#### Parametric Estimation using Grouped Data {#S:MS:GroupedData}
 
 Consider a sample of size $n$ observed from the distribution $F(\cdot)$, but in groups so that we only know the group into which each observation fell, not the exact value. This is referred to as **grouped** or **interval-censored** data. For example, we may be looking at two successive years of annual employee records. People employed in the first year but not the second have left sometime during the year. With an exact departure date (individual data), we could compute the amount of time that they were with the firm. Without the departure date (grouped data), we only know that they departed sometime during a year-long interval.
 
@@ -1149,7 +1149,7 @@ Nonparametric estimators provide useful benchmarks, so it is helpful to understa
 
 #### Grouped Data
 
-As we have seen in Section \@ref(S:GroupedData), observations may be grouped (also referred to as interval censored) in the sense that we only observe them as belonging in one of $k$ intervals of the form $(c_{j-1}, c_j]$, for $j=1, \ldots, k$. At the boundaries, the empirical distribution function is defined in the usual way:
+As we have seen in Section \@ref(S:MS:GroupedData), observations may be grouped (also referred to as interval censored) in the sense that we only observe them as belonging in one of $k$ intervals of the form $(c_{j-1}, c_j]$, for $j=1, \ldots, k$. At the boundaries, the empirical distribution function is defined in the usual way:
 $$F_n(c_j) = \frac{\text{number of observations } \le c_j}{n}$$
 
 For other values of $x \in (c_{j-1}, c_j)$, we can estimate the distribution function with the **ogive** estimator, which linearly interpolates between $F_n(c_{j-1})$ and $F_n(c_j)$, i.e. the values of the boundaries $F_n(c_{j-1}$ and $F_n(c_j)$ are connected with a straight line. This can formally be expressed as
@@ -1379,7 +1379,7 @@ $$\begin{aligned}
 *** 
 
 
-## Bayesian Inference {#S:BayesInference}
+## Bayesian Inference {#S:MS:BayesInference}
 
 ***
 
@@ -1751,7 +1751,7 @@ Then the second equation becomes $0.4\theta + 0.2 = 4\theta + 0.15 - 0.85\theta 
 
 ***
 
-## Further Resources and Contributors {#MS-further-reading-and-resources}
+## Further Resources and Contributors {#MS:further-reading-and-resources}
 
 
 #### Exercises {-}

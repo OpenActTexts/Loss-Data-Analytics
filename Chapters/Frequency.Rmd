@@ -13,9 +13,9 @@ We use **claim** to denote the indemnification upon the occurrence of an insured
 
 #### The Importance of Frequency {#S:the-importance-of-frequency}
 
-  Recall from Chapter 1 that setting the price of an insurance good can be a complex problem. In manufacturing, the cost of a good is (relatively) known. In other financial service areas, market prices are available. In insurance, we can generalize the price setting as follows: start with an expected cost. Add "margins" to account for the product's riskiness, expenses incurred in servicing the product, and a profit/surplus allowance for the insurer.
+Recall from Chapter \@ref(C:Intro) that setting the price of an insurance good can be a complex problem. In manufacturing, the cost of a good is (relatively) known. In other financial service areas, market prices are available. In insurance, we can generalize the price setting as follows: start with an expected cost. Add "margins" to account for the product's riskiness, expenses incurred in servicing the product, and a profit/surplus allowance for the insurer.
   
-  That expected cost for insurance can be defined as the expected number of claims times the expected amount per claim, that is, expected *frequency times severity*. The focus on claim count allows the insurer to consider those factors which directly affect the occurrence of a loss, thereby potentially generating a claim. The frequency process can then be modeled.
+That expected cost for insurance can be defined as the expected number of claims times the expected amount per claim, that is, expected *frequency times severity*. The focus on claim count allows the insurer to consider those factors which directly affect the occurrence of a loss, thereby potentially generating a claim. The frequency process can then be modeled.
 
 #### Why Examine Frequency Information {#S:why-examine-frequency-information}
 Insurers and other stakeholders, including governmental organizations, have various motivations for gathering and maintaining frequency datasets. 
@@ -571,23 +571,25 @@ c(r,iter)
 
 *** 
 
-To summarize our discussion of *mle* for the $(a,b,0)$ class of distributions, in Figure \@ref(fig:MLEab0) below we plot the maximum value of the Poisson likelihood, $L(m,\overline{x}/m)$ for the binomial, and $L(r,\overline{x}/r)$ for the negative binomial, for the three samples of size $5$ given in Table 2.1 below. The data was constructed to cover the three orderings of the sample mean and variance. As show in the Figure \@ref(fig:MLEab0), and supported by theory, if $\hat{\mu}<\hat{\sigma}^2$ then the negative binomial will result in a higher maximum likelihood value; if $\hat{\mu}=\hat{\sigma}^2$  the Poisson will have the highest likelihood value; and finally in the case that $\hat{\mu}>\hat{\sigma}^2$ the binomial will give a better fit than the others. So before fitting a frequency data with an $(a,b,0,)$ distribution, it is best to start with examining the ordering of $\hat{\mu}$ and $\hat{\sigma}^2$. We again emphasize that the Poisson is on the **boundary** of the  negative binomial and binomial distributions. So in the case that $\hat{\mu}\geq\hat{\sigma}^2$ ($\hat{\mu}\leq\hat{\sigma}^2$, resp.) the Poisson will yield a better fit than the negative binomial 
+To summarize our discussion of *mle* for the $(a,b,0)$ class of distributions, in Figure \@ref(fig:MLEab0) below we plot the maximum value of the Poisson likelihood, $L(m,\overline{x}/m)$ for the binomial, and $L(r,\overline{x}/r)$ for the negative binomial, for the three samples of size $5$ given in [Table 2.1]. The data was constructed to cover the three orderings of the sample mean and variance. As show in the Figure \@ref(fig:MLEab0), and supported by theory, if $\hat{\mu}<\hat{\sigma}^2$ then the negative binomial will result in a higher maximum likelihood value; if $\hat{\mu}=\hat{\sigma}^2$  the Poisson will have the highest likelihood value; and finally in the case that $\hat{\mu}>\hat{\sigma}^2$ the binomial will give a better fit than the others. So before fitting a frequency data with an $(a,b,0,)$ distribution, it is best to start with examining the ordering of $\hat{\mu}$ and $\hat{\sigma}^2$. We again emphasize that the Poisson is on the **boundary** of the  negative binomial and binomial distributions. So in the case that $\hat{\mu}\geq\hat{\sigma}^2$ ($\hat{\mu}\leq\hat{\sigma}^2$, resp.) the Poisson will yield a better fit than the negative binomial 
 (binomial, resp.), which will also be indicated by $\hat{r}=\infty$ ($\hat{m}=\infty$, resp.).
 
-<!-- \caption{Three Samples of Size $5$} -->
-<!-- \label{tabab0} -->
+<a id=tab:2.1></a>  
+
+[Table 2.1]: \#tab:2.1
+
 $$\begin{matrix}
-\begin{array}{|c|c|c|}
+\begin{array}{c|c|c}
 \hline
 \text{Data} & \text{Mean }(\hat{\mu}) & \text{Variance }(\hat{\sigma}^2) \\
 \hline
-(2,3,6,8,9) & 5.60 & 7.44 \\ \hline
-(2,5,6,8,9) & 6 & 6\\\hline
+(2,3,6,8,9) & 5.60 & 7.44 \\ 
+(2,5,6,8,9) & 6 & 6\\
 (4,7,8,10,11) & 8 & 6\\\hline
 \end{array}
 \end{matrix}$$
 
-Table 2.1: Three Samples of Size $5$
+[Table 2.1] : Three Samples of Size $5$
 
 <!-- \label{MLEab0} -->
 
@@ -700,10 +702,15 @@ version with \((p_0^M=0.6)\).
 <div id="toggleExampleFreq.5.1" style="display: none">
 
 **Solution.** For the Poisson distribution as a member of the (\(a,b\),0) class, we have \(a=0\) and \(b=\lambda=2\). Thus, we may use the recursion \(p_k = \lambda p_{k-1}/k= 2 p_{k-1}/k\) for each type,
-after determining starting probabilities. The calculation of probabilities for $k\leq 3$ is shown in the table below.
+after determining starting probabilities. The calculation of probabilities for $k\leq 3$ is shown in [Table 2.2].
+
+
+<a id=tab:2.2></a>  
+
+[Table 2.2]: \#tab:2.2
 
 $$\begin{matrix}
-\begin{array}{|c|c|c|c|}
+\begin{array}{c|c|c|c}
 \hline
 k & p_k & p_k^T & p_k^M\\\hline
 0 & p_0=e^{-\lambda}=0.135335 & 0 & 0.6\\\hline
@@ -719,7 +726,7 @@ p_3^M=p_2^M\left(\frac{\lambda}{3}\right)=0.083476\\\hline
 \end{array}
 \end{matrix}$$
 
-Table `r chapnum`.2: Calculation of probabilities for $k\leq 3$ 
+[Table 2.2] : Calculation of probabilities for $k\leq 3$ 
 
 </div>
 
@@ -752,21 +759,25 @@ and hence is not a convex function of the variances unless the group means are a
 
 <!-- \phantom{Exercise or example for hazard rate density/survival expectation etc..} -->
 
-**Example  `r chapnum`.6.1. "Exam C" 170**.
+**Example  `r chapnum`.6.1. SOA Exam Question**.
 In a certain town the number of common colds an individual will get in a year follows a Poisson distribution that depends on the individual's age and smoking status. The distribution of the population and the mean number of colds are as follows:
 
+<a id=tab:2.3></a>  
+
+[Table 2.3]: \#tab:2.3
+
 $$\begin{matrix}
-\begin{array}{|l|c|c|}
+\begin{array}{l|c|c}
 \hline
  & \text{Proportion of population} &
 \text{Mean number of colds}\\\hline
-\text{Children} & 0.3 & 3\\\hline
-\text{Adult Non-Smokers} & 0.6 & 1\\\hline
+\text{Children} & 0.3 & 3\\
+\text{Adult Non-Smokers} & 0.6 & 1\\
 \text{Adult Smokers} & 0.1 & 4\\\hline
 \end{array}
 \end{matrix}$$
 
-Table `r chapnum`.3: The distribution of the population and the mean number of colds
+[Table 2.3] : The distribution of the population and the mean number of colds
 
 <!-- \def\labelenumi{\arabic{enumi}.} -->
 1. Calculate the probability that a randomly drawn person has 3 common colds in a year.
@@ -840,32 +851,37 @@ Now, one can directly use the above result to conclude that $N$ is distributed a
 
 In the above we have discussed three basic frequency distributions, along with their ways to enhance the reach of these classes through zero modification/truncation and by looking at mixtures of these distributions. Nevertheless, these classes still remain parametric and hence by their very nature a small subset of the class of all possible frequency distributions (*i.e.* the set of distributions on non-negative integers.) Hence, even though we have talked about methods for estimating the unknown parameters, the *fitted* distribution will not be a good representation of the underlying distribution if the latter is **far** from the class of distribution used for modeling. In fact, it can be shown that the *mle* estimate will converge to a value such that the fitted distribution will be a  certain  *projection* of the underlying distribution on the class of distributions used for modeling. Below we present one testing method - Pearson's chi-square statistic - to check for the *goodness of fit* of the fitted distribution. 
 
-In $1993$, a portfolio of $n=7,483$ automobile insurance policies from a major Singaporean insurance company had the distribution of auto accidents per policyholder as given in Table 2.4.
+In $1993$, a portfolio of $n=7,483$ automobile insurance policies from a major Singaporean insurance company had the distribution of auto accidents per policyholder as given in [Table 2.4].
 
-<!-- \caption{Singaporean Automobile Accident Data} -->
-<!-- \label{tabsing} -->
+<a id=tab:2.4></a>  
+
+[Table 2.4]: \#tab:2.4
+
+
 $$\begin{matrix}
-\begin{array}{|c|c|c|c|c|c|c|}
+\begin{array}{c|c|c|c|c|c|c}
 \hline
 \text{Count }(k) & 0 & 1 & 2 & 3 & 4 & \text{Total}\\
 \hline
-\text{No. of Policies with k accidents }(m_k) & 6,996 & 455 & 28 & 4 & 0 & 7483\\
+\text{No. of Policies with }k\text{ accidents }(m_k) & 6,996 & 455 & 28 & 4 & 0 & 7483\\
 \hline
 \end{array}
 \end{matrix}$$
 
-Table `r chapnum`.4: Singaporean Automobile Accident Data
+[Table 2.4] : Singaporean Automobile Accident Data
 
 If we a fit a Poisson distribution, then the *mle* for $\lambda$, the Poisson mean, is the sample mean which is given by 
 \[
 \overline{N} = \frac{0\cdot 6996 + 1 \cdot 455 + 2 \cdot 28 + 3 \cdot 4 + 4 \cdot 0}{7483} = 0.06989.
 \]
-Now if we use Poisson($\hat{\lambda}_{MLE}$) as the fitted distribution, then a tabular comparison of the fitted counts and observed counts is given by Table 2.5 below, where $\hat{p}_k$ represents the estimated probabilities under the fitted Poisson distribution. 
+Now if we use Poisson($\hat{\lambda}_{MLE}$) as the fitted distribution, then a tabular comparison of the fitted counts and observed counts is given by [Table 2.5] below, where $\hat{p}_k$ represents the estimated probabilities under the fitted Poisson distribution. 
 
-<!-- \caption{Comparison of Observed to Fitted Counts: Singaporean Auto Data} -->
-<!-- \label{tabsing2} -->
+<a id=tab:2.5></a>  
+
+[Table 2.5]: \#tab:2.5
+
 $$\begin{matrix}
-\begin{array}{|c|c|c|}
+\begin{array}{c|c|c}
 \hline
 \text{Count}  & \text{Observed}  & \text{Fitted Counts}\\
 (k) & (m_k) & \text{Using Poisson }(n\hat{p}_k)\\
@@ -881,7 +897,7 @@ $$\begin{matrix}
 \end{array}
 \end{matrix}$$
 
-Table 2.5: Comparison of Observed to Fitted Counts: Singaporean Auto Data
+[Table 2.5] : Comparison of Observed to Fitted Counts: Singaporean Auto Data
 
 While the fit seems *reasonable*, a tabular comparison falls short of a statistic test of the hypothesis that the underlying distribution is indeed Poisson. The *Pearson's chi-square statistic* is a goodness of fit statistical test that can be used for this purpose. To explain this statistic let use suppose that a dataset of size $n$ is grouped into $k$ cells with $m_k/n$ and $\hat{p}_k$, for $k=1\ldots,K$  being the observed and estimated probabilities of an observation belonging to the $k$-th cell, respectively. The Pearson's chi-square test statistic is then given by 
 \[
@@ -967,7 +983,7 @@ where $\phi(\cdot)$ represents the standard normal density.
 
 **Exercises with a Practical Focus:**  
   
-**Exercise 2.11.** (*Course 3: May 2000, Exercise 37.*) You are given:
+**Exercise 2.11. SOA Exam Question.** You are given:
 
 <!-- \def\labelenumi{\arabic{enumi}.} -->
 1.  \(p_k\) denotes the probability that the number of claims equals \(k\)
@@ -977,12 +993,12 @@ where $\phi(\cdot)$ represents the standard normal density.
 Using the corresponding zero-modified claim count distribution with
 \(p_0^M=0.1\), calculate \(p_1^M\).  
 
-**Exercise 2.12.** (*SOA Course C/Exam 4: May 2001, 19.*) During a one-year period, the number of accidents per day was distributed as follows:
+**Exercise 2.12. SOA Exam Question.** During a one-year period, the number of accidents per day was distributed as follows:
 
 <!-- \label{tabsing3} -->
 $$
 \begin{matrix}
-\begin{array}{|c|c|c|c|c|c|c|}
+\begin{array}{c|c|c|c|c|c|c}
 \hline
 \text{No. of Accidents} & 0 & 1 & 2 & 3 & 4 & 5\\
 \hline

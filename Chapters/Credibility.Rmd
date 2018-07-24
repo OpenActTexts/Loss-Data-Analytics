@@ -3,7 +3,7 @@
 
 `r chapnum = 9`
 
-*Chapter Preview.*    This chapter introduces credibility theory which is an important actuarial tool for estimating pure premiums, frequencies, and severities for individual risks or classes of risks.  Credibility theory provides a convenient framework for combining the experience for an individual risk or class with other data to produce more stable and accurate estimates. Several models for calculating credibility estimates will be discussed including limited fluctuation, B&uuml;hlmann, B&uuml;hlmann-Straub, and nonparametric and semiparametric credibility methods.  The chapter will also show a connection between credibility theory and Bayesian estimation which was introduced in Chapter 4.
+*Chapter Preview.*    This chapter introduces credibility theory which is an important actuarial tool for estimating pure premiums, frequencies, and severities for individual risks or classes of risks.  Credibility theory provides a convenient framework for combining the experience for an individual risk or class with other data to produce more stable and accurate estimates. Several models for calculating credibility estimates will be discussed including limited fluctuation, B&uuml;hlmann, B&uuml;hlmann-Straub, and nonparametric and semiparametric credibility methods.  The chapter will also show a connection between credibility theory and Bayesian estimation which was introduced in Chapter \@ref(C:ModelSelection).
 
 ## Introduction to Applications of Credibility Theory
 
@@ -178,7 +178,7 @@ Aggregate losses are the total of all loss amounts for a risk or group of risks.
 S=X_1+X_2+\cdots+X_N.
 \end{equation*}
 
-The random variable $N$ represents the number of losses and random variables $X_1, X_2,\ldots,X_N$ are the individual loss amounts.  In this section it is assumed that $N$ is independent of the loss amounts and that $X_1, X_2,\ldots,X_N$ are iid.
+The random variable $N$ represents the number of losses and random variables $X_1, X_2,\ldots,X_N$ are the individual loss amounts.  In this section it is assumed that $N$ is independent of the loss amounts and that $X_1, X_2,\ldots,X_N$ are *iid*.
 
 The mean and variance of $S$ are
 
@@ -379,7 +379,7 @@ A classification rating plan groups policyholders together into classes based on
  
 In the presentation of B&uuml;hlmann credibility it is convenient to assign a risk parameter $\theta$ to each policyholder.  Losses $X$ for the policyholder will have a common distribution function $F_{\theta}(x)$ with mean $\mu(\theta)=\mathrm{E}(X|\theta)$ and variance $\sigma^2(\theta)=\mathrm{Var}(X|\theta)$.   In the prior sentence *losses* can represent pure premiums, aggegrate losses, number of claims, claim severities, or some other measure of loss. Parameter $\theta$ can be continuous, discrete, or multivariate depending on the model.  
 
-If the policyholder had losses $x_1, \ldots, x_n$ during $n$ observation periods then we want to find E($\mu(\theta)|x_1,\ldots,\ldots, x_n)$, the conditional expectation of $\mu(\theta)$ given $x_1,\ldots, x_n$.  Another way to view this is to consider random variable $X_{n+1}$ which is the observation during period $n+1$.  Finding E$(X_{n+1}|x_1, x_2,\ldots, x_n)$ is equivalent to finding E($\mu(\theta)|x_1, x_2,\ldots, x_n)$ assuming that $X_1,\ldots, X_n, X_{n+1}$ are iid.	
+If the policyholder had losses $x_1, \ldots, x_n$ during $n$ observation periods then we want to find E($\mu(\theta)|x_1,\ldots,\ldots, x_n)$, the conditional expectation of $\mu(\theta)$ given $x_1,\ldots, x_n$.  Another way to view this is to consider random variable $X_{n+1}$ which is the observation during period $n+1$.  Finding E$(X_{n+1}|x_1, x_2,\ldots, x_n)$ is equivalent to finding E($\mu(\theta)|x_1, x_2,\ldots, x_n)$ assuming that $X_1,\ldots, X_n, X_{n+1}$ are *iid*.	
 
 The B&uuml;hlmann credibility-weighted estimate for E($\mu(\theta)|X_1,\ldots, X_n)$ for the policyholder is 
 
@@ -400,14 +400,14 @@ with
 \end{eqnarray*}
 
 
-Random variables $X_j$ are assumed to be iid for $j=1,\ldots,n$.  The quantity $\bar{X}$ is the average of $n$ observations and $\mathrm{E}(\bar{X}|\theta)=\mathrm{E}(X_j|\theta)=\mu(\theta)$.  
+Random variables $X_j$ are assumed to be *iid* for $j=1,\ldots,n$.  The quantity $\bar{X}$ is the average of $n$ observations and $\mathrm{E}(\bar{X}|\theta)=\mathrm{E}(X_j|\theta)=\mu(\theta)$.  
 
 If a policyholder is randomly chosen from the class and there is no loss information about the risk then it's expected loss is $\mu=\mathrm{E}(\mu(\theta))$ where the expectation is taken over all $\theta$'s in the class.  In this situation $Z=0$ and the expected loss is $\hat\mu(\theta)=\mu$ for the risk.  The quantity $\mu$ can also be written as $\mu=\mathrm{E}(X_j)$ or $\mu=\mathrm{E}(\bar{X})$ and is often called the overall mean or collective mean.  Note that E($X_j$) is evaluated with the "law of total expectation": E($X_j$)=E(E($X_j|\theta)$).   
 
 
 
 **Example `r chapnum`.3.1.** 
-The number of claims $X$ for an insured in a class has a Poisson distribution with mean $\theta>0$.  The risk parameter $\theta$ is exponentially distributed within the class with pdf $f(\theta)=e^{-\theta}$.  What is the expected number of claims for an insured chosen at random from the class?
+The number of claims $X$ for an insured in a class has a Poisson distribution with mean $\theta>0$.  The risk parameter $\theta$ is exponentially distributed within the class with *pdf* $f(\theta)=e^{-\theta}$.  What is the expected number of claims for an insured chosen at random from the class?
 
 <h5 style="text-align: center;"><a id="displayTextExampleCred.3.1" href="javascript:toggleEX('toggleExampleCred.3.1','displayTextExampleCred.3.1');"><i><strong>Show Example Solution</strong></i></a> </h5>
 <div id="toggleExampleCred.3.1" style="display: none">
@@ -423,7 +423,7 @@ The number of claims $X$ for an insured in a class has a Poisson distribution wi
 The prior example has risk parameter $\theta$ as a positive real number but the risk parameter can be a categorical variable as shown in the next example.
 
 
-**Example `r chapnum`.3.2.**  For any risk (policyholder) in a population the number of losses $N$ in a year has a Poisson distribution with parameter $\lambda$.  Individual loss amounts $X_i$ for a risk are independent of $N$ and are iid with Pareto distribution $F(x)=1-[\theta/(x+\theta)]^{\alpha}$.  There are three types of risks in the population as follows:
+**Example `r chapnum`.3.2.**  For any risk (policyholder) in a population the number of losses $N$ in a year has a Poisson distribution with parameter $\lambda$.  Individual loss amounts $X_i$ for a risk are independent of $N$ and are *iid* with Pareto distribution $F(x)=1-[\theta/(x+\theta)]^{\alpha}$.  There are three types of risks in the population as follows:
 
 $$\begin{matrix}
 \begin{array}{|c|c|c|c|}
@@ -456,7 +456,7 @@ Although formula \@ref(eq:buhlcred) was introduced using experience rating as an
 When computing the credibility estimate $\hat{\mu}(\theta)=Z\bar{X}+(1-Z)\mu$, how much weight $Z$ should go to experience $\bar{X}$ and how much weight $(1-Z)$ to the overall mean $\mu$?  In B&uuml;hlmann credibility there are three factors that need to be considered:
 
 
-* How much variation is there in a single observation $X_j$ for a selected risk?  With $\bar{X}=(X_1+\cdots+X_n)/n$ and assuming that the observations are iid, it follows that Var($\bar{X}|\theta)$=Var($X_j|\theta)/n$.  For larger Var($\bar{X}|\theta)$ less credibility weight $Z$ should be given to experience $\bar{X}$.  The Expected Value of the Process Variance, abbreviated *EPV*, is the expected value of Var($X_j|\theta$) across all risks:
+* How much variation is there in a single observation $X_j$ for a selected risk?  With $\bar{X}=(X_1+\cdots+X_n)/n$ and assuming that the observations are *iid*, it follows that Var($\bar{X}|\theta)$=Var($X_j|\theta)/n$.  For larger Var($\bar{X}|\theta)$ less credibility weight $Z$ should be given to experience $\bar{X}$.  The Expected Value of the Process Variance, abbreviated *EPV*, is the expected value of Var($X_j|\theta$) across all risks:
 
 \begin{equation*}
 EPV=\mathrm{E}(\mathrm{Var}(X_j|\theta)). 
@@ -531,7 +531,7 @@ In bullet (1) at the beginning of this section we showed E(Var($\bar{X}|\theta)$
 
 
 **Example `r chapnum`.3.5.**
-For any risk in a population the number of losses $N$ in a year has a Poisson distribution with parameter $\lambda$.  Individual loss amounts $X$ for a selected risk are independent of $N$ and are iid with exponential distribution $F(x)=1-e^{x/\beta}$.  There are three types of risks in the population as shown below.  A risk was selected at random from the population and all losses were recorded over a five-year period.  The total amount of losses over the five-year period was 5,000.  Use B&uuml;hlmann credibility to estimate the annual expected aggregate loss for the risk.  
+For any risk in a population the number of losses $N$ in a year has a Poisson distribution with parameter $\lambda$.  Individual loss amounts $X$ for a selected risk are independent of $N$ and are *iid* with exponential distribution $F(x)=1-e^{x/\beta}$.  There are three types of risks in the population as shown below.  A risk was selected at random from the population and all losses were recorded over a five-year period.  The total amount of losses over the five-year period was 5,000.  Use B&uuml;hlmann credibility to estimate the annual expected aggregate loss for the risk.  
 $$\begin{matrix}
 \begin{array}{|c|c|c|c|}
 \hline
@@ -583,11 +583,11 @@ In this section, you learn how to:
 
 ***
 
-With standard B&uuml;hlmann or least-squares credibility as described in the prior section, losses $X_1,\ldots,X_n$ for a policyholder are assumed to be iid.  If the subscripts indicate year 1, year 2 and so on up to year $n$, then the iid assumption means that the policyholder has the same exposure to loss every year.  For commercial insurance this assumption is frequently violated.
+With standard B&uuml;hlmann or least-squares credibility as described in the prior section, losses $X_1,\ldots,X_n$ for a policyholder are assumed to be *iid*.  If the subscripts indicate year 1, year 2 and so on up to year $n$, then the *iid* assumption means that the policyholder has the same exposure to loss every year.  For commercial insurance this assumption is frequently violated.
 
-Consider a commercial policyholder that uses a fleet of vehicles in its business.  In year 1 there are $m_1$ vehicles in the fleet, $m_2$ vehicles in year 2, .., and $m_n$ vehicles in year $n$.  The exposure to loss from ownership and use of this fleet is not constant from year to year.  The annual losses for the fleet are not iid.  
+Consider a commercial policyholder that uses a fleet of vehicles in its business.  In year 1 there are $m_1$ vehicles in the fleet, $m_2$ vehicles in year 2, .., and $m_n$ vehicles in year $n$.  The exposure to loss from ownership and use of this fleet is not constant from year to year.  The annual losses for the fleet are not *iid*.  
 
-Define $Y_{jk}$ to be the loss for  the $k^{th}$ vehicle in the fleet for year $j$.  Then, the total losses for the fleet in year $j$ are $Y_{j1}+\cdots+Y_{jm_j}$ where we are adding up the losses for each of the $m_j$ vehicles.  In the B&uuml;hlmann-Straub model it is assumed that random variables $Y_{jk}$ are iid across all vehicles and years for the policyholder.  With this assumption the means E($Y_{jk}|\theta)=\mu(\theta)$ and variances Var($Y_{jk}|\theta)=\sigma^2(\theta)$ are the same for all vehicles and years.  The quantity $\mu(\theta)$ is the expected loss and $\sigma^2(\theta)$ is the variance in the loss for one year for one vehicle for a policyholder with risk parameter $\theta$.
+Define $Y_{jk}$ to be the loss for  the $k^{th}$ vehicle in the fleet for year $j$.  Then, the total losses for the fleet in year $j$ are $Y_{j1}+\cdots+Y_{jm_j}$ where we are adding up the losses for each of the $m_j$ vehicles.  In the B&uuml;hlmann-Straub model it is assumed that random variables $Y_{jk}$ are *iid* across all vehicles and years for the policyholder.  With this assumption the means E($Y_{jk}|\theta)=\mu(\theta)$ and variances Var($Y_{jk}|\theta)=\sigma^2(\theta)$ are the same for all vehicles and years.  The quantity $\mu(\theta)$ is the expected loss and $\sigma^2(\theta)$ is the variance in the loss for one year for one vehicle for a policyholder with risk parameter $\theta$.
 
 If $X_j$ is the average loss per unit of exposure in year $j$, $X_j=(Y_1+\cdots+Y_{m_j})/m_j$, then E($X_j)=\mu(\theta)$ and Var($X_j)=\sigma^2(\theta)/m_j$ for policyholder with risk parameter $\theta$.  The average loss per vehicle for the entire $n$-year period is
 
@@ -670,7 +670,7 @@ $$\begin{matrix}
 
 
 * The number of claims in a year for each vehicle in the policyholder's fleet is Poisson distributed with the same mean (parameter) $\lambda$.
-* Parameter $\lambda$ is distributed among the policyholders in the population with pdf $f(\lambda)=6\lambda(1-\lambda)$ with $0<\lambda<1$.
+* Parameter $\lambda$ is distributed among the policyholders in the population with *pdf* $f(\lambda)=6\lambda(1-\lambda)$ with $0<\lambda<1$.
 
 The policyholder has 18 vehicles in its fleet in year 4.  Use B&uuml;hlmann-Straub credibility to estimate the expected number of policyholder claims in year 4.
 
@@ -695,7 +695,7 @@ In this section, you learn how to:
 
 ***
 
-Chapter four includes a section on Bayesian inference and it is assumed that the reader is familiar with that material.  This section will compare Bayesian inference and B&uuml;hlmann credibility and show connections between the two models.
+Section \@ref(S:MS:BayesInference) reviews Bayesian inference and it is assumed that the reader is familiar with that material.  This section will compare Bayesian inference and B&uuml;hlmann credibility and show connections between the two models.
 
 A risk with risk parameter $\theta$ has expected loss $\mu(\theta)=E(X|\theta)$ with random variable $X$ representing pure premium, aggegrate loss, number of claims, claim severity, or some other measure of loss.  If the risk had $n$ losses $x_1,\ldots, x_n$ then  E($\mu(\theta)|x_1,\ldots, x_n)$ is the conditional expectation of $\mu(\theta)$.  The B&uuml;hlmann credibility formula $\hat{\mu}(\theta)=Z\bar{X}+(1-Z)\mu$ is a linear function of $\bar{X}=(x_1+\cdots+x_n)/n$ used to estimate $E(\mu(\theta)|x_1,\ldots,x_n)$.  
 
@@ -741,7 +741,7 @@ Because the posterior distribtution is gamma the expected number of claims for t
 \mathrm{E}(\lambda|x_1,\ldots,x_n) = \frac{\alpha+\sum_{j=1}^{n}x_j}{\beta+n}=\frac{\alpha + \textrm{number of claims}}{\beta+\textrm{number of years}}. 
 \end{equation*}
 
-This formula is slightly different from chapter four because $\beta$ is multiplied times $\lambda$ in the exponential of the gamma pdf whereas in chapter four $\lambda$ is divided by parameter $\theta$.
+This formula is slightly different from chapter four because $\beta$ is multiplied times $\lambda$ in the exponential of the gamma *pdf* whereas in chapter four $\lambda$ is divided by parameter $\theta$.
 
 Now we will compute the B&uuml;hlmann credibility estimate for the Gamma-Poisson model.  The variance for a Poisson distribution with parameter $\lambda$ is $\lambda$ so *EPV*=E(Var($X|\lambda$))=E($\lambda$)=$\alpha/\beta$. The mean number claims for the risk is $\lambda$ so *VHM*=Var(E($X|\lambda$))=Var($\lambda$)=$\alpha/\beta^2$.  The credibility parameter is $K$=*EPV*/*VHM*=$(\alpha/\beta)/(\alpha/\beta^2)=\beta$.  The overall mean is E(E($X|\lambda$))=E($\lambda$)=$\alpha/\beta$.  The sample mean is $\bar{X}=(\sum_{j=1}^{n}x_j)/n$.  The credibility-weighted estimate for the expected number of claims for the risk is
 
@@ -754,7 +754,7 @@ For the Gamma-Poisson model the B&uuml;hlmann credibility estimate equals the Ba
 ### Exact Credibility
 For the Gamma-Poisson claims model the B&uuml;hlmann credibility estimate for the expected number of claims exactly matches the Bayesian answer.  The term *exact credibility* is applied in this situation.  Exact credibility may occur if the probability distribution for $X_j$ is in the linear exponential family and the prior distribution is a conjugate prior.  Besides the Gamma-Poisson model other examples include Gamma-Exponential, Normal-Normal, and Beta-Binomial.  More information about exact credibility can be found in [@buhlmanngisler], [@klugman2012], and [@tse].
 
-The beta-binomial model is useful for modeling the probability of an event.  Assume that random variable $X$ is the number of successes in $n$ trials and that $X$ has a binomial distribution Pr($X=x|p)=\binom{n}{x}p^x(1-p)^{n-x}$.  In the beta-binomial model the prior distribution for probability $p$ is a beta distribution with pdf
+The beta-binomial model is useful for modeling the probability of an event.  Assume that random variable $X$ is the number of successes in $n$ trials and that $X$ has a binomial distribution Pr($X=x|p)=\binom{n}{x}p^x(1-p)^{n-x}$.  In the beta-binomial model the prior distribution for probability $p$ is a beta distribution with *pdf*
 
 \begin{equation*}  
 \pi(p)=\frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)}p^{\alpha-1}(1-p)^{\beta-1} , \quad  0<p<1, \alpha>0, \beta>0.
@@ -783,7 +783,7 @@ The probability that a coin toss will yield heads is $p$.  The prior distributio
 <h5 style="text-align: center;"><a id="displayTextExampleCred.5.1" href="javascript:toggleEX('toggleExampleCred.5.1','displayTextExampleCred.5.1');"><i><strong>Show Example Solution</strong></i></a> </h5>
 <div id="toggleExampleCred.5.1" style="display: none">
 
-**Solution** Define random variables $Y_j$ such that $Y_j=1$ if the $j^{th}$ coin toss is heads and $Y_j=0$ if tails for $j=1,\ldots, n$.  Random variables $Y_j$ are iid with Pr$[Y=1|p]=p$ and Pr$[Y=0|p]=1-p$  The number of heads in $n$ tosses can be represented by the random variable $X=Y_1+\cdots+Y_n$.  We want to estimate $p=E[Y_j]$ using B&uuml;hlmann credibility: $\hat{p} = Z\bar{Y} +(1-Z)\mu$.  The overall mean is $\mu=E(E(Y_j|p))=E(p)=\alpha/(\alpha+\beta)$.  The sample mean is $\bar{y}=x/n$.  The credibility is $Z=n/(n+K)$ and K=*EPV*/*VHM*.  With Var$(Y_j|p)=p(1-p)$ it follows that *EPV*=E(Var$(Y_j|p)$)=E($p(1-p)$).  Because E$(Y_j)=p$ then *VHM*=Var$(E(Y_j|p))$=Var($p$).  For the beta distribution
+**Solution** Define random variables $Y_j$ such that $Y_j=1$ if the $j^{th}$ coin toss is heads and $Y_j=0$ if tails for $j=1,\ldots, n$.  Random variables $Y_j$ are *iid* with Pr$[Y=1|p]=p$ and Pr$[Y=0|p]=1-p$  The number of heads in $n$ tosses can be represented by the random variable $X=Y_1+\cdots+Y_n$.  We want to estimate $p=E[Y_j]$ using B&uuml;hlmann credibility: $\hat{p} = Z\bar{Y} +(1-Z)\mu$.  The overall mean is $\mu=E(E(Y_j|p))=E(p)=\alpha/(\alpha+\beta)$.  The sample mean is $\bar{y}=x/n$.  The credibility is $Z=n/(n+K)$ and K=*EPV*/*VHM*.  With Var$(Y_j|p)=p(1-p)$ it follows that *EPV*=E(Var$(Y_j|p)$)=E($p(1-p)$).  Because E$(Y_j)=p$ then *VHM*=Var$(E(Y_j|p))$=Var($p$).  For the beta distribution
 
 \begin{equation*}  
 \mathrm{E}(p)=\frac{\alpha}{\alpha+\beta}, \mathrm{E}(p^2)=\frac{\alpha(\alpha+1)}{(\alpha+\beta)(\alpha+\beta+1)}, \textrm{ and } \mathrm{Var}(p)=\frac{\alpha\beta}{(\alpha+\beta)^2(\alpha+\beta+1)}.
@@ -840,7 +840,7 @@ An empirical mean and second moment for the sizes of individual claim losses can
 Bayesian analysis as described previously requires assumptions about a prior distribution and likelihood.  It is possible to produce estimates without these assumptions and these methods are often referred to as empirical Bayes methods.  B&uuml;hlmann and B&uuml;hlmann-Straub credibility with parameters estimated from the data are included in category of empirical Bayes methods.
 
 
-**B&uuml;hlmann Model** First we will address the simpler B&uuml;hlmann model.  Assume that there are $r$ risks in a population.  For risk $i$ with risk parameter $\theta_i$ the losses for $n$ periods are $X_{i1},\ldots, X_{in}$.  The losses for a risk are iid across periods as assumed in the B&uuml;hlmann model.  For risk $i$ the sample mean is $\bar{X}_i=\sum_{j=1}^{n}X_{ij}/n$ and the unbiased sample process variance is $s_i^2=\sum_{j=1}^{n}(X_{ij}-\bar{X}_i)^2/(n-1)$.  An unbiased estimator for the *EPV* can be calculated by taking the average of $s_i^2$ for the $r$ risks in the population:
+**B&uuml;hlmann Model** First we will address the simpler B&uuml;hlmann model.  Assume that there are $r$ risks in a population.  For risk $i$ with risk parameter $\theta_i$ the losses for $n$ periods are $X_{i1},\ldots, X_{in}$.  The losses for a risk are *iid* across periods as assumed in the B&uuml;hlmann model.  For risk $i$ the sample mean is $\bar{X}_i=\sum_{j=1}^{n}X_{ij}/n$ and the unbiased sample process variance is $s_i^2=\sum_{j=1}^{n}(X_{ij}-\bar{X}_i)^2/(n-1)$.  An unbiased estimator for the *EPV* can be calculated by taking the average of $s_i^2$ for the $r$ risks in the population:
 
 \begin{equation}  
 \widehat{EPV}=\frac{1}{r}\sum_{i=1}^{r} s_i^2 = \frac{1}{r(n-1)} \sum_{i=1}^{r} \sum_{j=1}^{n}(X_{ij}-\bar{X}_i)^2 .
@@ -943,7 +943,7 @@ The process variance is so large that it is not possible to estimate the *VHM*.
 * $m_{ij}$ is the number of exposures for risk $i$ in period $j$ for $j=1,\ldots,n_i$
 
 
-Risk $i$ with risk parameter $\theta_i$ has $m_{ij}$ exposures in period $j$ which means that the losses per exposure random variable can be written as $X_{ij}=(Y_{i1}+\cdots+Y_{im_{ij}})/m_{ij}$.  Random variable $Y_{ik}$ is the loss for one exposure.  For risk $i$ losses $Y_{ik}$ are iid with mean E($Y_{ik}$)=$\mu(\theta_i)$ and process variance Var($Y_{ik}$)=$\sigma^2(\theta_i)$.  It follows that Var($X_{ij})$=$\sigma^2(\theta_i)/m_{i,j}$.  
+Risk $i$ with risk parameter $\theta_i$ has $m_{ij}$ exposures in period $j$ which means that the losses per exposure random variable can be written as $X_{ij}=(Y_{i1}+\cdots+Y_{im_{ij}})/m_{ij}$.  Random variable $Y_{ik}$ is the loss for one exposure.  For risk $i$ losses $Y_{ik}$ are *iid* with mean E($Y_{ik}$)=$\mu(\theta_i)$ and process variance Var($Y_{ik}$)=$\sigma^2(\theta_i)$.  It follows that Var($X_{ij})$=$\sigma^2(\theta_i)/m_{i,j}$.  
 
 Two more important definitions are:
 

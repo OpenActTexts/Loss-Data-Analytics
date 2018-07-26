@@ -124,7 +124,7 @@
   \postauthor{\par}
   \predate{\centering\large\emph}
   \postdate{\par}
-  \date{2018-07-24}
+  \date{2018-07-26}
 
 \usepackage{booktabs}
 \setcounter{secnumdepth}{2}
@@ -3731,20 +3731,22 @@ Show Example Solution
 \hypertarget{toggleExampleLoss.1.1}{}
 \textbf{Solution.} The probability density function of \(X\) is given by
 \[f_{X}\left( x \right) = \frac{\left( x / \theta \right)^{\alpha}}{x\Gamma\left( \alpha \right)} e^{- x / \theta} \]
-for \(x > 0\). For \(\alpha>0\),
-\[\mu_{k}^{\prime} = \mathrm{E}\left( X^{k} \right) = \int_{0}^{\infty}{\frac{1}{\left( \alpha - 1 \right)!\theta^{\alpha}}x^{k + \alpha - 1}e^{- x / \theta} dx} = \frac{\Gamma\left( k + \alpha \right)}{\Gamma\left( \alpha \right)}\theta^{k}\]
-Given \(\Gamma\left( r + 1 \right) = r\Gamma\left( r \right)\), then
-\(\mu_{1}^{\prime} = \mathrm{E}\left( X \right) = \alpha\theta\),
-\(\mu_{2}^{\prime} = \mathrm{E}\left( X^{2} \right) = \left( \alpha + 1 \right)\alpha\theta^{2}\),
-\(\mu_{3}^{\prime} = \mathrm{E}\left( X^{3} \right) = \left( \alpha + 2 \right)\left( \alpha + 1 \right)\alpha\theta^{3}\),
-and \(\mathrm{Var}\left( X \right) = \alpha\theta^{2}\).
+for \(x > 0\). For \(\alpha>0\), the \emph{k}-th raw moment is
+\[\mu_{k}^{\prime} = E\left( X^{k} \right) = \int_{0}^{\infty}{\frac{1}{\left( \alpha - 1 \right)!\theta^{\alpha}}x^{k + \alpha - 1}e^{- x / \theta} dx} = \frac{\Gamma\left( k + \alpha \right)}{\Gamma\left( \alpha \right)}\theta^{k}\]
+Given \(\Gamma\left( r + 1 \right) = r\Gamma\left( r \right)\) and
+\(\Gamma\left( 1 \right) = 1\), then
+\(\mu_{1}^{\prime} = E\left( X \right) = \alpha\theta\),
+\(\mu_{2}^{\prime} = E\left( X^{2} \right) = \left( \alpha + 1 \right)\alpha\theta^{2}\),
+\(\mu_{3}^{\prime} = E\left( X^{3} \right) = \left( \alpha + 2 \right)\left( \alpha + 1 \right)\alpha\theta^{3}\),
+and
+\(\mathrm{Var}\left( X \right) = (\alpha + 1)\alpha\theta^2 - (\alpha\theta)^2 = \alpha\theta^{2}\).
 
-\[\text{Skewness}  = \frac{\mathrm{E}\left\lbrack {(X - \mu_{1}^{\prime})}^{3} \right\rbrack}{{\mathrm{Var}\left( X \right)}^{3/2}} = \frac{\mu_{3}^{\prime} - 3\mu_{2}^{\prime}\mu_{1}^{\prime} + 2{\mu_{1}^{\prime}}^{3}}{{\mathrm{Var}\left( X \right)}^{3/2}} \\
+\[\text{Skewness}  = \frac{E\left\lbrack {(X - \mu_{1}^{\prime})}^{3} \right\rbrack}{{\mathrm{Var}\left( X \right)}^{3/2}} = \frac{\mu_{3}^{\prime} - 3\mu_{2}^{\prime}\mu_{1}^{\prime} + 2{\mu_{1}^{\prime}}^{3}}{{\mathrm{Var}\left( X \right)}^{3/2}} \\
  = \frac{\left( \alpha + 2 \right)\left( \alpha + 1 \right)\alpha\theta^{3} - 3\left( \alpha + 1 \right)\alpha^{2}\theta^{3} + 2\alpha^{3}\theta^{3}}{\left( \alpha\theta^{2} \right)^{3/2}} = \frac{2}{\alpha^{1/2}} = 1\]
 
-Hence, \(\alpha = 4\). Since,
-\(\mathrm{E}\left( X \right) = \alpha\theta = 8\), then \(\theta = 2\)
-and \(\mathrm{Var}\left( X \right) = \alpha\theta^{2} = 16\).
+Hence, \(\alpha = 4\). Since, \(E\left( X \right) = \alpha\theta = 8\),
+then \(\theta = 2\) and finally,
+\(\mathrm{Var}\left( X \right) = \alpha\theta^{2} = 16\).
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
@@ -3771,9 +3773,12 @@ Show Example Solution
 \hypertarget{toggleExampleLoss.1.2}{}
 \textbf{Solution.}
 
-\(F_{X}\left( x \right) = 1 - e^{- \theta x}\). Then,
-\(F_{X}\left( \pi_{0.5} \right) = 1 - e^{- \theta\pi_{0.5}} = 0.5\).
-Thus, \(1 - e^{-\theta / 3} = 0.5\) and \(\theta = 3 \ln 2\).
+The distribution function is
+\(F_{X}\left( x \right) = 1 - e^{- \theta x}\). So,
+\(F_{X}\left( \pi_{0.5} \right) = 1 - e^{- \theta\pi_{0.5}} = 0.5\). As,
+\(\pi_{0.5} = \frac{1}{3}\), we have
+\(F_X\left(\frac{1}{3}\right) = 1 - e^{-\theta / 3} = 0.5\) and
+\(\theta = 3 \ln 2\).
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
@@ -3801,7 +3806,8 @@ Show Example Solution
 \hypertarget{toggleExampleLoss.1.3}{}
 \textbf{Solution.}
 
-\[M_{X}\left( t \right) = \mathrm{E}\left( e^{\text{tX}} \right) = \int_{0}^{\infty}{e^{\text{tx}}be^{- bx} dx} = \int_{0}^{\infty}{be^{- x\left( b - t \right)} dx} = \frac{b}{\left( b - t \right)}.\]
+With \(X \sim Exp \left( \frac{1}{b}\right)\),
+\[M_{X}\left( t \right) = E\left( e^{\text{tX}} \right) = \int_{0}^{\infty}{e^{\text{tx}}be^{- bx} dx} = \int_{0}^{\infty}{be^{- x\left( b - t \right)} dx} = \frac{b}{\left( b - t \right)}.\]
 
 Then,
 \[M_{X}\left( - b^{2} \right) = \frac{b}{\left( b + b^{2} \right)} = \frac{1}{\left( 1 + b \right)} = 0.2.\]
@@ -3809,10 +3815,9 @@ Thus, \(b = 4\).
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
-\textbf{Example 3.1.4. SOA Exam Question.} Let \(X_{1}\), \(X_{2}\), .,
-\(X_{n}\) be independent \(\text{Ga}\left( \alpha_{i},\theta \right)\)
-random variables. Find the distribution of
-\(S = \sum_{i = 1}^{n}X_{i}\).
+\textbf{Example 3.1.4. SOA Exam Question.} Let \(X_{1}, \ldots, X_{n}\)
+be independent \(\text{Ga}\left( \alpha_{i},\theta \right)\) random
+variables. Find the distribution of \(S = \sum_{i = 1}^{n}X_{i}\).
 
 Show Example Solution
 
@@ -3820,8 +3825,10 @@ Show Example Solution
 \textbf{Solution.}
 
 The moment generating function of \(S\) is
-\[M_{S}\left( t \right) = \mathrm{E}\left( e^{\text{tS}} \right) = \mathrm{E}\left( e^{t\sum_{i = 1}^{n}X_{i}} \right) \\
-= \mathrm{E}\left( \prod_{i = 1}^{n}e^{tX_{i}} \right) = \prod_{i = 1}^{n}{\mathrm{E}\left( e^{tX_{i}} \right) = \prod_{i = 1}^{n}{M_{X_{i}}\left( t \right)}} .\]
+\[M_{S}\left( t \right) = \text{E}\left( e^{\text{tS}} \right) = E\left( e^{t\sum_{i = 1}^{n}X_{i}} \right) \\
+= E\left( \prod_{i = 1}^{n}e^{tX_{i}} \right)\] using independence we
+get\\
+\[= \prod_{i = 1}^{n}{E\left( e^{tX_{i}} \right) = \prod_{i = 1}^{n}{M_{X_{i}}\left( t \right)}} .\]
 
 The moment generating function of \(X_{i}\) is
 \(M_{X_{i}}\left( t \right) = \left( 1 - \theta t \right)^{- \alpha_{i}}\).
@@ -3832,9 +3839,9 @@ indicating that
 
 By finding the first and second derivatives of \(M_{S}\left( t \right)\)
 at zero, we can show that
-\(\mathrm{E}\left( S \right) = \left. \ \frac{\partial M_{S}\left( t \right)}{\partial t} \right|_{t = 0} = \alpha\theta\)
+\(E\left( S \right) = \left. \ \frac{\partial M_{S}\left( t \right)}{\partial t} \right|_{t = 0} = \alpha\theta\)
 where \(\alpha = \sum_{i = 1}^{n}\alpha_{i}\), and
-\[\mathrm{E}\left( S^{2} \right) = \left. \ \frac{\partial^{2}M_{S}\left( t \right)}{\partial t^{2}} \right|_{t = 0} = \left( \alpha + 1 \right)\alpha\theta^{2}.\]
+\[E\left( S^{2} \right) = \left. \ \frac{\partial^{2}M_{S}\left( t \right)}{\partial t^{2}} \right|_{t = 0} = \left( \alpha + 1 \right)\alpha\theta^{2}.\]
 Hence, \(\mathrm{Var}\left( S \right) = \alpha\theta^{2}\).
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
@@ -4028,22 +4035,34 @@ and
 follows the Pareto distribution with mean and variance of 40 and 1800
 respectively. Find
 
-The shape and scale parameters.
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\tightlist
+\item
+  The shape and scale parameters.
 
-The 95-th percentile of this distribution.
+  \begin{enumerate}
+  \def\labelenumii{\alph{enumii}.}
+  \setcounter{enumii}{1}
+  \tightlist
+  \item
+    The 95-th percentile of this distribution.
+  \end{enumerate}
+\end{enumerate}
 
 Show Example Solution
 
 \hypertarget{toggleExampleLoss.2.1}{}
 \textbf{Solution.}
 
+\textbf{a.} As, \(X\sim Pa(\alpha,\theta)\), we have
 \(\mathrm{E}\left( X \right) = \frac{\theta}{\alpha - 1} = 40\) and
 \(\mathrm{Var}\left( X \right) = \frac{\alpha\theta^{2}}{\left( \alpha - 1 \right)^{2}\left( \alpha - 2 \right)} = 1800\).
 By dividing the square of the first equation by the second we get
 \(\frac{\alpha - 2}{\alpha} = \frac{40^{2}}{1800}\). Thus,
 \(\alpha = 18.02\) and \(\theta = 680.72\).
 
-The 95-th percentile, \(\pi_{0.95}\), satisfies the equation
+\textbf{b.} The 95-th percentile, \(\pi_{0.95}\), satisfies the equation
 \[F_{X}\left( \pi_{0.95} \right) = 1 - \left( \frac{680.72}{\pi_{0.95} + 680.72} \right)^{18.02} = 0.95.\]
 Thus, \(\pi_{0.95} = 122.96\).
 
@@ -4123,28 +4142,48 @@ lifetime of AIDS patients (in months) from the time of diagnosis is
 described by the Weibull distribution with shape parameter 1.2 and scale
 parameter 33.33.
 
-Find the probability that a randomly selected person from this
-population survives at least 12 months,
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\tightlist
+\item
+  Find the probability that a randomly selected person from this
+  population survives at least 12 months,
 
-A random sample of 10 patients will be selected from this population.
-What is the probability that at most two will die within one year of
-diagnosis.
+  \begin{enumerate}
+  \def\labelenumii{\alph{enumii}.}
+  \setcounter{enumii}{1}
+  \tightlist
+  \item
+    A random sample of 10 patients will be selected from this
+    population. What is the probability that at most two will die within
+    one year of diagnosis.
 
-Find the 99-th percentile of this distribution.
+    \begin{enumerate}
+    \def\labelenumiii{\alph{enumiii}.}
+    \setcounter{enumiii}{2}
+    \tightlist
+    \item
+      Find the 99-th percentile of this distribution.
+    \end{enumerate}
+  \end{enumerate}
+\end{enumerate}
 
 Show Example Solution
 
 \hypertarget{toggleExampleLoss.2.2}{}
 \textbf{Solution.}
 
-Let \(X\) be the lifetime of AIDS patients (in months)
+\textbf{a.} \$Let \(X \sim Wei \left( 1.2,33.33 \right)\) be the
+lifetime of AIDS patients (in months). We have,
 \[{\Pr\left( X \geq 12 \right) = S}_{X}\left( 12 \right) = e^{- \left( \frac{12}{33.33} \right)^{1.2}} = 0.746.\]
-Let \(Y\) be the number of patients who die within one year of
-diagnosis. Then, \(Y\sim Bin\left( 10,\ 0.254 \right)\) and
-\(\Pr\left( Y \leq 2 \right) = 0.514.\) Let \(\pi_{0.99}\) denote the
-99-th percentile of this distribution. Then,
-\[S_{X}\left( \pi_{0.99} \right) = \exp\left\{- \left( \frac{\pi_{0.99}}{33.33} \right)^{1.2}\right\} = 0.01\]
-and \(\pi_{0.99} = 118.99\).
+\textbf{b.} \$Let \(Y\) be the number of patients who die within one
+year of diagnosis. Then, \(Y\sim Bin\left( 10,\ 0.254 \right)\) and
+\(\Pr\left( Y \leq 2 \right) = 0.514.\)
+
+\textbf{c.} \$Let \(\pi_{0.99}\) denote the 99-th percentile of this
+distribution. Then,
+\[S_{X}\left( \pi_{0.99} \right) = \exp\left\{- \left( \frac{\pi_{0.99}}{33.33} \right)^{1.2}\right\} = 0.01.\]
+Solving for \(\pi_{0.99}\), we get \(\pi_{0.99} = 118.99\).
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
@@ -4249,13 +4288,14 @@ Show Example Solution
 \textbf{Solution.}
 
 Let \(X\) and \(Y\) denote the aggregate losses of Eiffel Auto Insurance
-in euro currency and dollars respectively. Then, \(Y = 1.3X\).
+in euro currency and dollars respectively. As \(Y = 1.3X\), we have,
 \[F_{Y}\left( y \right) = \Pr\left( Y \leq y \right) = \Pr\left( 1.3X \leq y \right) = \Pr\left( X \leq \frac{y}{1.3} \right) = F_{X}\left( \frac{y}{1.3} \right).\]
 
 \(X\) follows a lognormal distribution with parameters \(\mu = 8\) and
 \(\sigma = 2\). The probability density function of \(X\) is given by
 \[f_{X}\left( x \right) = \frac{1}{x \sigma \sqrt{2\pi}}\exp \left\{- \frac{1}{2}\left( \frac{\ln x - \mu}{\sigma} \right)^{2}\right\} \ \ \ \text{for } x > 0.\]
-Then, the probability density function of interest \(f_{Y}(y)\) is
+As \(\left| \frac{dx}{dy} \right| = \frac{1}{1.3}\), the probability
+density function of interest \(f_{Y}(y)\) is
 \[f_{Y}\left( y \right) = \frac{1}{1.3}f_{X}\left( \frac{y}{1.3} \right) \\
 = \frac{1}{1.3}\frac{1.3}{y \sigma \sqrt{2\pi}}\exp \left\{- \frac{1}{2}\left( \frac{\ln\left( y/1.3 \right) - \mu}{\sigma} \right)^{2}\right\} \\
 = \frac{1}{y \sigma\sqrt{2\pi}}\exp \left\{- \frac{1}{2}\left( \frac{\ln y - \left( \ln 1.3 + \mu \right)}{\sigma} \right)^{2}\right\}.\]
@@ -4275,7 +4315,8 @@ Show Example Solution
 \hypertarget{toggleExampleLoss.3.2}{}
 \textbf{Solution.}
 
-Let \(X\sim Ga(\alpha,\theta)\) and \(Y = cX\), then
+Let \(X\sim Ga(\alpha,\theta)\) and \(Y = cX\). As
+\(\left| \frac{dx}{dy} \right| = \frac{1}{c}\), then
 \[f_{Y}\left( y \right) = \frac{1}{c}f_{X}\left( \frac{y}{c} \right) = \frac{\left( \frac{y}{c\theta} \right)^{\alpha}}{y\Gamma\left( \alpha \right)}\exp \left( - \frac{y}{c\theta} \right)  .\]
 We can see that \(Y\sim Ga(\alpha,c\theta)\) indicating that gamma is a
 scale distribution and \(\theta\) is a scale parameter.
@@ -4315,7 +4356,11 @@ Show Example Solution
 \hypertarget{toggleExampleLoss.3.3}{}
 \textbf{Solution.}
 
-\[f_{X}(x) = \frac{1}{\theta}e^{- x/ \theta} \ \ \ \, x > 0.\]
+As \(\ X\sim Exp(\theta)\), we have
+\[f_{X}(x) = \frac{1}{\theta}e^{- x/ \theta} \ \ \ \, x > 0.\] Solving
+for \emph{x} yields \(x = y^{1/\tau}\). Taking the derivative, we have
+\[\left| \frac{dx}{dy} \right| = \frac{1}{\tau}{y^{\frac{1}{\tau}} - 1}.\]
+Thus,
 \[f_{Y}\left( y \right) = \frac{1}{\tau}{y^{\frac{1}{\tau} - 1}f}_{X}\left( y^{\frac{1}{\tau}} \right) \\
 = \frac{1}{\tau \theta }y^{\frac{1}{\tau} - 1}e^{- \frac{y^{\frac{1}{\tau}}}{\theta}} = \frac{\alpha}{\beta}\left( \frac{y}{\beta} \right)^{\alpha - 1}e^{- \left( y/ \beta \right)^{\alpha}}.\]
 where \(\alpha = \frac{1}{\tau}\) and \(\beta = \theta^{\tau}\). Then,
@@ -4353,8 +4398,9 @@ Show Example Solution
 \hypertarget{toggleExampleLoss.3.4}{}
 \textbf{Solution.}
 
+We begin with the \emph{cdf} of \(Y\),
 \[F_{Y}\left( y \right) = \Pr\left( Y \leq y \right) = \Pr\left( e^{X} \leq y \right) = \Pr\left( X \leq \ln y \right) = F_{X}\left( \ln y \right).\]
-Then,
+Taking the derivative, we have,
 \[f_{Y}\left( y \right) = \frac{1}{y}f_{X}\left(\ln y \right) = \frac{1}{\text{cy}}. \]
 Since \(0 < x < c\), then \(1 < y < e^{c}\).
 
@@ -4404,14 +4450,19 @@ Show Example Solution
 \hypertarget{toggleExampleLoss.3.5}{}
 \textbf{Solution.}
 
-\[\mathrm{E}\left( X \right) = 0.5\lambda_{1} + 0.5\lambda_{2} = 4\]
+\[\mathrm{E}\left( X \right) = 0.5\lambda_{1} + 0.5\lambda_{2} = 4\] For
+a Poisson random variable \(X\) with parameter \(\lambda\), we have
+\(\mathrm{E~}X^2 = \mathrm{Var}(X) + [\mathrm{E}(X)]^2 = \lambda + \lambda^2\).
+Thus,
 
-\[\mathrm{E}\left( X^{2} \right) = 0.5\left( \lambda_{1} + \lambda_{1}^{2} \right) + 0.5\left( \lambda_{2} + \lambda_{2}^{2} \right) = 13 + 16\]
+\[\mathrm{E}\left( X^{2} \right) = 0.5\left( \lambda_{1} + \lambda_{1}^{2} \right) + 0.5\left( \lambda_{2} + \lambda_{2}^{2} \right) = 13 + 16.\]
 
-Simplifying the two equations we get \(\lambda_{1} + \lambda_{2} = 8\)
-and \(\lambda_{1}^{2} + \lambda_{2}^{2} = 50\). Then, the parameters of
-the two Poisson distributions are 1 and 7.
-\[\Pr\left( X > 2 \right) = 0.5\Pr\left( X_{1} > 2 \right) + 0.5\Pr\left( X_{2} > 2 \right) = 0.05\]
+Substituting the first in the second equation, we get
+\(\lambda_{1} + \lambda_{2} = 8\) and
+\(\lambda_{1}^{2} + \lambda_{2}^{2} = 50\). After further substitution,
+we get that the parameters of the two Poisson distributions are 1 and 7,
+respectively. So,
+\[\Pr\left( X > 2 \right) = 0.5\Pr\left( X_{1} > 2 \right) + 0.5\Pr\left( X_{2} > 2 \right) = 0.05 .\]
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
@@ -4451,20 +4502,23 @@ Show that \(Z\) is a mixture of \(X_{1}\), \(X_{2}\), \(X_{3}\) and
 Show Example Solution
 
 \hypertarget{toggleExampleLoss.3.6}{}
-\textbf{Solution.}
+\textbf{Solution.} Applying the formula for a mixed distribution, we get
 \[f_{Y_{1}}\left( x \right) = af_{X_{1}}\left( x \right) + \left( 1 - a \right)f_{X_{2}}\left( x \right)\]
 
 \[f_{Y_{2}}\left( x \right) = bf_{X_{3}}\left( x \right) + \left( 1 - b \right)f_{X_{4}}\left( x \right)\]
 
 \[f_{Z}\left( x \right) = cf_{Y_{1}}\left( x \right) + \left( 1 - c \right)f_{Y_{2}}\left( x \right)\]
 
+Substituting the first two equations into the third, we get
+
 \[f_{Z}\left( x \right) = c\left\lbrack af_{X_{1}}\left( x \right) + \left( 1 - a \right)f_{X_{2}}\left( x \right) \right\rbrack + \left( 1 - c \right)\left\lbrack bf_{X_{3}}\left( x \right) + \left( 1 - b \right)f_{X_{4}}\left( x \right) \right\rbrack\]
 
-\(= caf_{X_{1}}\left( x \right) + c\left( 1 - a \right)f_{X_{2}}\left( x \right) + \left( 1 - c \right)bf_{X_{3}}\left( x \right) + (1 - c)\left( 1 - b \right)f_{X_{4}}\left( x \right)\).
+\[= caf_{X_{1}}\left( x \right) + c\left( 1 - a \right)f_{X_{2}}\left( x \right) + \left( 1 - c \right)bf_{X_{3}}\left( x \right) + (1 - c)\left( 1 - b \right)f_{X_{4}}\left( x \right)\].
 
 Then, \(Z\) is a mixture of \(X_{1}\), \(X_{2}\), \(X_{3}\) and
 \(X_{4}\), with mixing weights \(\text{ca}\), \(c\left( 1 - a \right)\),
-\(\left( 1 - c \right)b\) and \((1 - c)\left( 1 - b \right)\).
+\(\left( 1 - c \right)b\) and \((1 - c)\left( 1 - b \right)\),
+respectively.
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
@@ -4512,14 +4566,15 @@ Show Example Solution
 \hypertarget{toggleExampleLoss.3.7}{}
 \textbf{Solution.}
 
+As \(q\sim Beta(3,2)\), we have
 \(\mathrm{E}\left( q \right) = \frac{a}{a + b} = \frac{3}{5}\) and
 \(\mathrm{E}\left( q^{2} \right) = \frac{a\left( a + 1 \right)}{\left( a + b \right)\left( a + b + 1 \right)} = \frac{2}{5}\).
 
-\(\mathrm{E}\left( X \right) = \mathrm{E}\left\lbrack \mathrm{E}\left( X\left| q \right.\  \right) \right\rbrack = \mathrm{E}\left( 100q \right) = 100\mathrm{E}\left( q \right) = 60\),
+Now, using the formulas for the unconditional mean and variance, we have
+\[\mathrm{E}\left( X \right) = \mathrm{E}\left\lbrack E\left( X\left| q \right.\  \right) \right\rbrack = \mathrm{E}\left( 100q \right) = 100\mathrm{E}\left( q \right) = 60\]
+\[\mathrm{Var}\left( X \right) = \mathrm{E}\left\lbrack \mathrm{Var}\left( X\left| q \right.\  \right) \right\rbrack + \mathrm{Var}\left\lbrack E\left( X\left| q \right.\  \right) \right\rbrack = \mathrm{E}\left\lbrack 100q\left( 1 - q \right) \right\rbrack + \mathrm{Var}\left( 100q \right)\]
 
-\[\mathrm{Var}\left( X \right) = \mathrm{E}\left\lbrack \mathrm{Var}\left( X\left| q \right.\  \right) \right\rbrack + \mathrm{Var}\left\lbrack \mathrm{E}\left( X\left| q \right.\  \right) \right\rbrack = \mathrm{E}\left\lbrack 100q\left( 1 - q \right) \right\rbrack + \mathrm{Var}\left( 100q \right)\]
-
-\(= 100\mathrm{E}\left( q \right) - 100\mathrm{E}\left( q^{2} \right) + 100^{2}V\left( q \right) = 420\).
+\[= 100\mathrm{E}\left( q \right) - 100\mathrm{E}\left( q^{2} \right) + 100^{2}\mathrm{V}\left( q \right) = 420\].
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
@@ -4554,12 +4609,6 @@ and
 = \mathrm{E}\left( \frac{100}{12} \right) + \mathrm{Var}\left( \theta + 5 \right) = 8.33 + \mathrm{Var}\left( \theta \right) = 33.33. \]
 The unconditional distribution of \(X\) is
 \[f_{X}\left( x \right) = \int_{}^{}{f_{X}\left( x |\theta \right) ~g\left( \theta \right) d \theta} .\]
-
-\begin{figure}
-\centering
-\includegraphics{Figures/Fig3Exer.png}
-\caption{}
-\end{figure}
 
 \[f_{X}\left( x \right) = \left\{ \begin{matrix}
 \int_{0}^{x}{\frac{1}{50}e^{- \frac{\theta}{5}}d\theta = \frac{1}{10}\left( 1 - e^{- \frac{x}{5}} \right)} & 0 \leq x \leq 10, \\
@@ -4689,22 +4738,23 @@ claim. \[Y^{L} = \left( X - 100 \right)_{+} = \left\{ \begin{matrix}
 0 & X \leq 100, \\
 X - 100 & X > 100. \\
 \end{matrix} \right.\ \] The first and second moments of \(Y^{L}\) are
-\[\mathrm{E}\left( Y^{L} \right) = \int_{100}^{\infty}\left( x - 100 \right)f_{X}\left( x \right)dx \\
+\[E\left( Y^{L} \right) = \int_{100}^{\infty}\left( x - 100 \right)f_{X}\left( x \right)dx \\
 = {\int_{100}^{\infty}{S_{X}\left( x \right)}dx = 1000e}^{- \frac{100}{1000}},\]
 and
-\[\mathrm{E}\left\lbrack \left( Y^{L} \right)^{2} \right\rbrack = \int_{100}^{\infty}\left( x - 100 \right)^{2}f_{X}\left( x \right)dx \\
-= 2 \times 1000^{2}e^{- \frac{100}{1000}}.\]
+\[E\left\lbrack \left( Y^{L} \right)^{2} \right\rbrack = \int_{100}^{\infty}\left( x - 100 \right)^{2}f_{X}\left( x \right)dx \\\\
+= 2 \times 1000^{2}e^{- \frac{100}{1000}}.\] So,
 \[\mathrm{Var}\left( Y^{L} \right) = \left( 2 \times 1000^{2}e^{- \frac{100}{1000}} \right) - \left( {1000e}^{- \frac{100}{1000}} \right)^{2} = 990,944.\]
 
-The solution can be simplified if we make use of the relationship
-between \(X\) and \(Y^{P}\). If \(X\) is exponentially distributed with
-mean 1000, then \(Y^{P}\) is also exponentially distributed with the
-same mean. Hence, \(\mathrm{E}\left( Y^{P} \right)\)=1000 and
-\[\mathrm{E}\left\lbrack \left( Y^{P} \right)^{2} \right\rbrack = 2 \times 1000^{2}.\]
+An arguably simpler path to the solution is to make use of the
+relationship between \(X\) and \(Y^{P}\). If \(X\) is exponentially
+distributed with mean 1000, then \(Y^{P}\) is also exponentially
+distributed with the same mean, because of the memoryless property of
+the exponential distribution. Hence, \(E\left( Y^{P} \right)\)=1000 and
+\[E\left\lbrack \left( Y^{P} \right)^{2} \right\rbrack = 2 \times 1000^{2}.\]
 Using the relationship between \(Y^{L}\) and \(Y^{P}\) we find
-\[\mathrm{E}\left( Y^{L} \right) = \ \mathrm{E}\left( Y^{P} \right)S_{X}\left( 100 \right){= 1000e}^{- \frac{100}{1000}}\]
+\[E\left( Y^{L} \right) = \ E\left( Y^{P} \right)S_{X}\left( 100 \right){= 1000e}^{- \frac{100}{1000}}\]
 
-\[\mathrm{E}\left\lbrack \left( Y^{L} \right)^{2} \right\rbrack = \mathrm{E}\left\lbrack \left( Y^{P} \right)^{2} \right\rbrack S_{X}\left( 100 \right) = 2 \times 1000^{2}e^{- \frac{100}{1000}}.\]
+\[E\left\lbrack \left( Y^{L} \right)^{2} \right\rbrack = E\left\lbrack \left( Y^{P} \right)^{2} \right\rbrack S_{X}\left( 100 \right) = 2 \times 1000^{2}e^{- \frac{100}{1000}}.\]
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
@@ -4727,12 +4777,14 @@ Show Example Solution
 \hypertarget{toggleExampleLoss.4.2}{}
 \textbf{Solution.}
 
-\[Y^{P} = \left\{ \begin{matrix}
+We define \(Y^P\) as follows \[Y^{P} = \left\{ \begin{matrix}
 \text{Undefined} & X \leq 4, \\
 X - 4 & X > 4. \\
-\end{matrix} \right.\ \]
+\end{matrix} \right.\ \] So,
+\(E\left( Y^{P} \right) = \frac{\int_{4}^{10}\left( x - 4 \right)0.02xdx}{{1 - F}_{X}\left( 4 \right)} = \frac{2.88}{0.84} = 3.43\).
 
-\(\mathrm{E}\left( Y^{P} \right) = \frac{\int_{4}^{10}\left( x - 4 \right)0.02xdx}{{1 - F}_{X}\left( 4 \right)} = \frac{2.88}{0.84} = 3.43\).
+Note that we divide by \(S_X(4)=1-F_X(4)\), as this is the range where
+the variable \(Y^P\) is defined.
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
@@ -4753,12 +4805,18 @@ Show Example Solution
 \hypertarget{toggleExampleLoss.4.3}{}
 \textbf{Solution.}
 
-The \emph{LER} for the current year is
-\[\frac{\mathrm{E}\left( X \right) - \mathrm{E}\left( Y^{L} \right)}{\mathrm{E}\left( X \right)} = \frac{\theta - \theta e^{- d / \theta}}{\theta} = 1 - e^{- d / \theta} = 0.7.\]
+Let the losses \(X\sim Exp(\theta)\) and the deductible for the coming
+year \(d' = \frac{4}{3}d\), the deductible of the current year. The
+\emph{LER} for the current year is
+\[\frac{E\left( X \right) - E\left( Y^{L} \right)}{E\left( X \right)} = \frac{\theta - \theta e^{- d / \theta}}{\theta} = 1 - e^{- d / \theta} = 0.7.\]
 Then, \(e^{- d / \theta} = 0.3\).
 
 The \emph{LER} for the coming year is
-\[ \frac{\theta - \theta e^{- \frac{\left( \frac{4}{3}d \right)}{\theta}}}{\theta} = 1 - e^{- \frac{\left( \frac{4}{3} d \right)}{\theta}} = 1 - \left( e^{-d /\theta} \right)^{4/3} = 1 - {0.3}^{4/3} = 0.8 .\]
+
+\begin{align*}
+&\frac{\theta - \theta \exp(- \frac{d'}{\theta})}{\theta}=\frac{\theta - \theta \exp(- \frac{\left( \frac{4}{3}d \right)}{\theta})}{\theta} \\
+&= 1 - \exp\left(- \frac{ \frac{4}{3} d }{\theta}\right) = 1 - \left( e^{-d /\theta} \right)^{4/3} = 1 - {0.3}^{4/3} = 0.8 .
+\end{align*}
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
@@ -4815,15 +4873,14 @@ pay under this policy.
 
 Show Example Solution
 
-\hypertarget{toggleExampleLoss.4.4}{}
 \textbf{Solution.}
 
+Define the total amount of bills payed by the insurer as
 \[Y = X \land 1 = \left\{ \begin{matrix}
 X & X \leq 1, \\
 1 & X > 1. \\
-\end{matrix} \right.\ \]
-
-\(\mathrm{E}\left( Y \right) = \mathrm{E}\left( X \land 1 \right) = \int_{0}^{1}\frac{x^{2}(4 - x)}{9}dx + \int_{1}^{3}\frac{x\left( 4 - x \right)}{9}dx = 0.935\).
+\end{matrix} \right.\ \] So
+\(\mathrm{E}\left( Y \right) = \mathrm{E}\left( X \land 1 \right) = \int_{0}^{1}\frac{x^{2}(4 - x)}{9}dx + 1 * \int_{1}^{3}\frac{x\left( 4 - x \right)}{9}dx = 0.935\).
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
@@ -4889,6 +4946,7 @@ Show Example Solution
 \hypertarget{toggleExampleLoss.4.5}{}
 \textbf{Solution.}
 
+We define the amount per loss \(Y^L\) in both years as
 \[Y_{2006}^{L} = \left\{ \begin{matrix}
 0 & X \leq 100, \\
 X - 100 & 100 <  X \leq 600, \\
@@ -4901,21 +4959,25 @@ X - 100 & 100 <  X \leq 600, \\
 500 & X > 571.43. \\
 \end{matrix} \right.\ \]
 
-\[\mathrm{E}\left( Y_{2006}^{L} \right) = \mathrm{E}\left( X \land 600 \right) - \mathrm{E}\left( X \land 100 \right) = 1000\left( {1 - e}^{- \frac{600}{1000}} \right) - 1000\left( {1 - e}^{- \frac{100}{1000}} \right)\]
+So,
 
-\(= 356.026\).
+\[E\left( Y_{2006}^{L} \right) = E\left( X \land 600 \right) - E\left( X \land 100 \right) = 1000\left( {1 - e}^{- \frac{600}{1000}} \right) - 1000\left( {1 - e}^{- \frac{100}{1000}} \right)\]
 
-\[\mathrm{E}\left( Y_{2007}^{L} \right) = 1.05\left\lbrack \mathrm{E}\left( X \land 571.43 \right) - \mathrm{E}\left( X \land 95.24 \right) \right\rbrack\]
+\[= 356.026\].
 
-\(= 1.05\left\lbrack 1000\left( {1 - e}^{- \frac{571.43}{1000}} \right) - 1000\left( {1 - e}^{- \frac{95.24}{1000}} \right) \right\rbrack\)
+\[E\left( Y_{2007}^{L} \right) = 1.05\left\lbrack E\left( X \land 571.43 \right) - E\left( X \land 95.24 \right) \right\rbrack\]
 
-\(\mathbf{=}361.659\).
+\[= 1.05\left\lbrack 1000\left( {1 - e}^{- \frac{571.43}{1000}} \right) - 1000\left( {1 - e}^{- \frac{95.24}{1000}} \right) \right\rbrack\]
 
-\(\mathrm{E}\left( Y_{2006}^{P} \right) = \frac{356.026}{e^{- \frac{100}{1000}} = 393.469}\).
+\[=361.659\].
 
-\(\mathrm{E}\left( Y_{2007}^{P} \right) = \frac{361.659}{e^{- \frac{95.24}{1000}} = 397.797}\).
+\(E\left( Y_{2006}^{P} \right) = \frac{356.026}{e^{- \frac{100}{1000}}} = 393.469\).
 
-There is an increase of 1.1\% from 2006 to 2007.
+\(E\left( Y_{2007}^{P} \right) = \frac{361.659}{e^{- \frac{95.24}{1000}}} = 397.797\).
+
+Because
+\(\frac{E\left( Y_{2007}^{P} \right)}{E\left( Y_{2006}^{P} \right)} -1 = 0.011,\)
+there is an increase of 1.1\% from 2006 to 2007.
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
@@ -4991,7 +5053,7 @@ X_{i} - 600 & X_{i} > 600 \\
 
 \[\mathrm{E}\left( Y_{2005} \right) = \mathrm{E}\left( X_{2005} - 600 \right)_{+} = \mathrm{E}\left( X_{2005} \right) - \mathrm{E}\left( X_{2005} \land 600 \right)\]
 
-\(= 3000 - 3000\left( 1 - \frac{3000}{3600} \right) = 2500\)
+\[= 3000 - 3000\left( 1 - \frac{3000}{3600} \right) = 2500\]
 
 \[P_{2005} = 1.2\mathrm{E}\left( Y_{2005} \right) = 3000\]
 
@@ -5001,7 +5063,7 @@ scale parameter \(\theta\), then
 
 \[\mathrm{E}\left( Y_{2006} \right) = \mathrm{E}\left( X_{2006} - 600 \right)_{+} = \mathrm{E}\left( X_{2006} \right) - \mathrm{E}\left( X_{2006} \land 600 \right)\]
 
-\(= 3600 - 3600\left( 1 - \frac{3600}{4200} \right) = 3085.714\)
+\[= 3600 - 3600\left( 1 - \frac{3600}{4200} \right) = 3085.714\]
 
 \[P_{2006} = 1.2\mathrm{E}\left( Y_{2006} \right) = 3702.857\]
 
@@ -5018,11 +5080,11 @@ Since \(R_{2005} = 1.1\mathrm{E}\left( Y_{2005}^{R} \right)\), then
 
 \[\mathrm{E}\left( Y_{2005}^{R} \right) = \mathrm{E}\left( X_{2005} - 600 - d^{R} \right)_{+} = \mathrm{E}\left( X_{2005} \right) - \mathrm{E}\left( X_{2005} \land \left( 600 + d^{R} \right) \right)\]
 
-\(= 3000 - 3000\left( 1 - \frac{3000}{3600 + d^{R}} \right) = 1500 \Rightarrow d^{R} = 2400\)
+\[= 3000 - 3000\left( 1 - \frac{3000}{3600 + d^{R}} \right) = 1500 \Rightarrow d^{R} = 2400\]
 
 \[\mathrm{E}\left( Y_{2006}^{R} \right) = \mathrm{E}\left( X_{2006} - 600 - d^{R} \right)_{+} = \mathrm{E}\left( X_{2006} - 3000 \right)_{+} = \mathrm{E}\left( X_{2006} \right) - \mathrm{E}\left( X_{2006} \land 3000 \right)\]
 
-\(= 3600 - 3600\left( 1 - \frac{3600}{6600} \right) = 1963.636\)
+\[= 3600 - 3600\left( 1 - \frac{3600}{6600} \right) = 1963.636\]
 
 \[R_{2006} = 1.1\mathrm{E}\left( Y_{2006}^{R} \right) = 1.1 \times 1963.636 = 2160\]
 
@@ -5054,14 +5116,37 @@ parameters.
 claim amounts: 8,000 10,000 12,000 15,000. You assume that claim amounts
 follow an inverse exponential distribution, with parameter \(\theta\).
 
-Calculate the maximum likelihood estimator for \(\theta\).
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\tightlist
+\item
+  Calculate the maximum likelihood estimator for \(\theta\).
 
-Approximate the variance of the maximum likelihood estimator.
+  \begin{enumerate}
+  \def\labelenumii{\alph{enumii}.}
+  \setcounter{enumii}{1}
+  \tightlist
+  \item
+    Approximate the variance of the maximum likelihood estimator.
 
-Determine an approximate 95\% confidence interval for \(\theta\).
+    \begin{enumerate}
+    \def\labelenumiii{\alph{enumiii}.}
+    \setcounter{enumiii}{2}
+    \tightlist
+    \item
+      Determine an approximate 95\% confidence interval for \(\theta\).
 
-Determine an approximate 95\% confidence interval for
-\(\Pr \left( X \leq 9,000 \right).\)
+      \begin{enumerate}
+      \def\labelenumiv{\alph{enumiv}.}
+      \setcounter{enumiv}{3}
+      \tightlist
+      \item
+        Determine an approximate 95\% confidence interval for
+        \(\Pr \left( X \leq 9,000 \right).\)
+      \end{enumerate}
+    \end{enumerate}
+  \end{enumerate}
+\end{enumerate}
 
 Show Example Solution
 
@@ -5070,12 +5155,14 @@ Show Example Solution
 
 The probability density function is
 \[f_{X}\left( x \right) = \frac{\theta e^{- \frac{\theta}{x}}}{x^{2}}, \]
-where \(x > 0\). The likelihood function, \(L\left( \theta \right)\),
-can be viewed as the probability of the observed data, written as a
-function of the model's parameter \(\theta\)
+where \(x > 0\).
+
+\textbf{a.} \$The likelihood function, \(L\left( \theta \right)\), can
+be viewed as the probability of the observed data, written as a function
+of the model's parameter \(\theta\)
 \[L\left( \theta \right) = \prod_{i = 1}^{4}{f_{X_{i}}\left( x_{i} \right)} = \frac{\theta^{4}e^{- \theta\sum_{i = 1}^{4}\frac{1}{x_{i}}}}{\prod_{i = 1}^{4}x_{i}^{2}}.\]
 
-The loglikelihood function, \(\ln L \left( \theta \right)\), is the sum
+The log-likelihood function, \(\ln L \left( \theta \right)\), is the sum
 of the individual logarithms.
 \[\ln L \left( \theta \right) = 4ln\theta - \theta\sum_{i = 1}^{4}\frac{1}{x_{i}} - 2\sum_{i = 1}^{4}\ln x_{i} .\]
 
@@ -5092,10 +5179,10 @@ Evaluating the second derivative of the loglikelihood function at
 \(\hat{\theta} = 10,667\) gives a negative value, indicating
 \(\hat{\theta}\) as the value that maximizes the loglikelihood function.
 
-Taking reciprocal of negative expectation of the second derivative of
-\(\ln L \left( \theta \right)\), we obtain an estimate of the variance
-of \(\hat{\theta}\)
-\(\widehat{Var}\left( \hat{\theta} \right) = \left. \ \left\lbrack \mathrm{E}\left( \frac{d^{2}\ln L \left( \theta \right)}{d\theta^{2}} \right) \right\rbrack^{- 1} \right|_{\theta = \hat{\theta}} = \frac{{\hat{\theta}}^{2}}{4} = 28,446,222\).
+\textbf{b.} \$Taking reciprocal of negative expectation of the second
+derivative of \(\ln L \left( \theta \right)\), we obtain an estimate of
+the variance of \(\hat{\theta}\)
+\(\widehat{Var}\left( \hat{\theta} \right) = \left. \ \left\lbrack E\left( \frac{d^{2}\ln L \left( \theta \right)}{d\theta^{2}} \right) \right\rbrack^{- 1} \right|_{\theta = \hat{\theta}} = \frac{{\hat{\theta}}^{2}}{4} = 28,446,222\).
 
 It should be noted that as the sample size \(n \rightarrow \infty\), the
 distribution of the maximum likelihood estimator \(\hat{\theta}\)
@@ -5104,9 +5191,9 @@ converges to a normal distribution with mean \(\theta\) and variance
 interval in this example is based on the assumption of normality,
 despite the small sample size, only for the purpose of illustration.
 
-The 95\% confidence interval for \(\theta\) is given by
+\textbf{c.} \$The 95\% confidence interval for \(\theta\) is given by
 \[10,667 \pm 1.96\sqrt{28,446,222} = \left( 213.34,\ 21,120.66 \right).\]
-The distribution function of \(X\) is
+\textbf{d.} \$The distribution function of \(X\) is
 \(F\left( x \right) = 1 - e^{- \frac{x}{\theta}}\). Then, the maximum
 likelihood estimate of
 \(g\left( \theta \right) = F\left( 9,000 \right)\) is
@@ -5126,15 +5213,38 @@ The 95\% confidence interval for \(F\left( 9,000 \right)\) is given by
 from a lognormal distribution with parameters \(\mu\) and \(\sigma\).
 The sample values are 200, 3,000, 8,000, 60,000, 60,000, 160,000.
 
-Calculate the maximum likelihood estimator for \(\mu\) and \(\sigma\).
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\tightlist
+\item
+  Calculate the maximum likelihood estimator for \(\mu\) and \(\sigma\).
 
-Estimate the covariance matrix of the maximum likelihood estimator.
+  \begin{enumerate}
+  \def\labelenumii{\alph{enumii}.}
+  \setcounter{enumii}{1}
+  \tightlist
+  \item
+    Estimate the covariance matrix of the maximum likelihood estimator.
 
-Determine approximate 95\% confidence intervals for \(\mu\) and
-\(\sigma\).
+    \begin{enumerate}
+    \def\labelenumiii{\alph{enumiii}.}
+    \setcounter{enumiii}{2}
+    \tightlist
+    \item
+      Determine approximate 95\% confidence intervals for \(\mu\) and
+      \(\sigma\).
 
-Determine an approximate 95\% confidence interval for the mean of the
-lognormal distribution.
+      \begin{enumerate}
+      \def\labelenumiv{\alph{enumiv}.}
+      \setcounter{enumiv}{3}
+      \tightlist
+      \item
+        Determine an approximate 95\% confidence interval for the mean
+        of the lognormal distribution.
+      \end{enumerate}
+    \end{enumerate}
+  \end{enumerate}
+\end{enumerate}
 
 Show Example Solution
 
@@ -5143,9 +5253,10 @@ Show Example Solution
 
 The probability density function is
 \[f_{X}\left( x \right) = \frac{1}{x \sigma \sqrt{2\pi}}\exp - \frac{1}{2}\left( \frac{\ln x - \mu}{\sigma} \right)^{2},\]
-where \(x > 0\). The likelihood function,
-\(L\left( \mu,\sigma \right)\), is the product of the pdf for each data
-point.
+where \(x > 0\).
+
+\textbf{a.} \$The likelihood function, \(L\left( \mu,\sigma \right)\),
+is the product of the pdf for each data point.
 \[L\left( \mu,\sigma \right) = \prod_{i = 1}^{6}{f_{X_{i}}\left( x_{i} \right)} = \frac{1}{\sigma^{6}\left( 2\pi \right)^{3}\prod_{i = 1}^{6}x_{i}}exp - \frac{1}{2}\sum_{i = 1}^{6}\left( \frac{\ln x_{i} - \mu}{\sigma} \right)^{2}.\]
 The loglikelihood function, \(\ln L \left( \mu,\sigma \right)\), is the
 sum of the individual logarithms.
@@ -5155,7 +5266,7 @@ The first partial derivatives are
 \[\frac{\partial lnL\left( \mu,\sigma \right)}{\partial\sigma} = \frac{- 6}{\sigma} + \frac{1}{\sigma^{3}}\sum_{i = 1}^{6}\left( \ln x_{i} - \mu \right)^{2}.\]
 The maximum likelihood estimators of \(\mu\) and \(\sigma\), denoted by
 \(\hat{\mu}\) and \(\hat{\sigma}\), are the solutions to the equations
-\[\frac{1}{{\hat{\sigma}}^{2}}\sum_{i = 1}^{6}\left( lnx_{i} - \hat{\mu} \right) = 0.\]
+\[\frac{1}{{\hat{\sigma}}^{2}}\sum_{i = 1}^{6}\left( \ln x_{i} - \hat{\mu} \right) = 0.\]
 \[\frac{- 6}{\hat{\sigma}} + \frac{1}{{\hat{\sigma}}^{3}}\sum_{i = 1}^{6}\left( \ln x_{i} - \hat{\mu} \right)^{2} = 0.\]
 These yield the estimates
 
@@ -5169,11 +5280,11 @@ The second partial derivatives are
 and
 \(\frac{\partial^{2}\text{lnL}\left( \mu,\sigma \right)}{\partial\sigma^{2}} = \frac{6}{\sigma^{2}} - \frac{3}{\sigma^{4}}\sum_{i = 1}^{6}\left( \ln x_{i} - \mu \right)^{2}\).
 
-To derive the covariance matrix of the mle we need to find the
-expectations of the second derivatives. Since the random variable \(X\)
-is from a lognormal distribution with parameters \(\mu\) and \(\sigma\),
-then \(\text{lnX}\) is normally distributed with mean \(\mu\) and
-variance \(\sigma^{2}\).
+\textbf{b.} \$ To derive the covariance matrix of the MLE we need to
+find the expectations of the second derivatives. Since the random
+variable \(X\) is from a lognormal distribution with parameters \(\mu\)
+and \(\sigma\), then \(\text{lnX}\) is normally distributed with mean
+\(\mu\) and variance \(\sigma^{2}\).
 
 \(\mathrm{E}\left( \frac{\partial^{2}\text{lnL}\left( \mu,\sigma \right)}{\partial\mu^{2}} \right) = \mathrm{E}\left( \frac{- 6}{\sigma^{2}} \right) = \frac{- 6}{\sigma^{2}}\),
 
@@ -5181,7 +5292,7 @@ variance \(\sigma^{2}\).
 
 and
 
-\(\mathrm{E}\left( \frac{\partial^{2}\text{lnL}\left( \mu,\sigma \right)}{\partial\sigma^{2}} \right) = \frac{6}{\sigma^{2}} - \frac{3}{\sigma^{4}}\sum_{i = 1}^{6}{\mathrm{E}\left( \ln x_{i} - \mu \right)}^{2} = \frac{6}{\sigma^{2}} - \frac{3}{\sigma^{4}}\sum_{i = 1}^{6}{V\left( \ln x_{i} \right) = \frac{6}{\sigma^{2}} - \frac{3}{\sigma^{4}}\sum_{i = 1}^{6}{\sigma^{2} = \frac{- 12}{\sigma^{2}}}}\).
+\(\mathrm{E}\left( \frac{\partial^{2}\text{lnL}\left( \mu,\sigma \right)}{\partial\sigma^{2}} \right) = \frac{6}{\sigma^{2}} - \frac{3}{\sigma^{4}}\sum_{i = 1}^{6}{\mathrm{E}\left( \ln x_{i} - \mu \right)}^{2} = \frac{6}{\sigma^{2}} - \frac{3}{\sigma^{4}}\sum_{i = 1}^{6}{\mathrm{V}\left( \ln x_{i} \right) = \frac{6}{\sigma^{2}} - \frac{3}{\sigma^{4}}\sum_{i = 1}^{6}{\sigma^{2} = \frac{- 12}{\sigma^{2}}}}\).
 
 Using the negatives of these expectations we obtain the Fisher
 information matrix \[\begin{bmatrix}
@@ -5200,13 +5311,13 @@ The estimated matrix is given by \[\hat{\Sigma} = \begin{bmatrix}
 0 & 0.4267 \\
 \end{bmatrix}\].
 
-The 95\% confidence interval for \(\mu\) is given by
+\textbf{c.} \$ The 95\% confidence interval for \(\mu\) is given by
 \(9.38 \pm 1.96\sqrt{0.8533} = \left( 7.57,\ 11.19 \right)\).
 
 The 95\% confidence interval for \(\sigma^{2}\) is given by
 \(5.12 \pm 1.96\sqrt{0.4267} = \left( 3.84,\ 6.40 \right)\).
 
-The mean of \emph{X} is
+\textbf{d.} \$ The mean of \emph{X} is
 \(\exp\left( \mu + \frac{\sigma^{2}}{2} \right)\). Then, the maximum
 likelihood estimate of
 \[g\left( \mu,\sigma \right) = \exp\left( \mu + \frac{\sigma^{2}}{2} \right)\]
@@ -5353,7 +5464,8 @@ Thus,
 \[L\left( \theta \right) = \frac{8\theta^{4}}{\left( \theta^{2} + 4 \right)^{3}}\frac{16\theta^{4}}{\left( \theta^{2} + 16 \right)^{3}}\frac{\theta^{4}}{\left( \theta^{2} + 16 \right)^{2}} = \\
 \frac{128\theta^{12}}{\left( \theta^{2} + 4 \right)^{3}\left( \theta^{2} + 16 \right)^{5}},\]
 
-\(\ln L\left( \theta \right) = ln128 + 12ln\theta - 3ln\left( \theta^{2} + 4 \right) - 5ln\left( \theta^{2} + 16 \right)\),
+So,
+\[\ln L\left( \theta \right) = ln128 + 12ln\theta - 3ln\left( \theta^{2} + 4 \right) - 5ln\left( \theta^{2} + 16 \right)\],
 
 and
 

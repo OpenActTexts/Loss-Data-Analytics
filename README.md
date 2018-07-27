@@ -14,22 +14,9 @@ To see our progress, a draft of a few chapters of the book is available at
 * [pdf version](https://github.com/ewfrees/Loss-Data-Analytics/tree/master/Offline/LossDataAnalytics.pdf)
 * [EPUB version](https://github.com/ewfrees/Loss-Data-Analytics/tree/master/Offline/LossDataAnalytics.epub)
 
-We are also experimenting with a [WordPress site](http://www.ssc.wisc.edu/~jfrees/loss-data-analytics/).
+The [Open Actuarial Textbooks Project GitHub Landing Site](https://ewfrees.github.io/) contains supporting material, including **R code**, **overheads**, an **Author Style Guide**, and thoughts on a next project (**Life Contingencies/Actuarial Mathematics**).
 
-# R Codes for Loss Data Analytics
-
-This site provides files that generate *R* codes to support the online text **Loss Data Analytics**. To get an idea of what the files will generate for users, see the [Online Version from R Code Support](https://ewfrees.github.io/LDARcode)
-
-Source code is available at our [GitHub site](https://github.com/ewfrees/LDARCode).
-
-# Overheads for Loss Data Analytics
-
-This site provides chapter summaries in the form of overheads to support the online text **Loss Data Analytics**. Overheads in .pdf format and source code is available at our [GitHub site](https://github.com/ewfrees/LossDataAnalyticsOverheads).
-
-
-# Life Contingencies / Actuarial Mathematics
-
-We are also starting to organize several sets of notes for *Life Contingencies*, also known as *Actuarial Mathematics* and *Long Term Actuarial Mathematics*. See our [GitHub Site](https://github.com/ewfrees/LifeCon).
 
 ## Your Help
-As described in our [License](https://github.com/ewfrees/Loss-Data-Analytics/tree/master/GettingStarted/LICENSE.md), anyone can use these files. Especially at this early stage of the project, if you want to help and would like more info, please write Jed Frees <jfrees@bus.wisc.edu>.
+As described in our [License](https://github.com/ewfrees/Loss-Data-Analytics/tree/master/GettingStarted/LICENSE.md), anyone can use these files. Especially at this early stage of the project, if you want to help and would like more info, please write Jed Frees <jfrees@bus.wisc.edu>. As noted above, the [Open Actuarial Textbooks Project Site](https://sites.google.com/a/wisc.edu/loss-data-analytics/) provides more information about this project.
+

@@ -9,10 +9,12 @@ The goal is to have the actuarial community author our textbooks in a collaborat
 * A subset of the book will be available for offline reading in pdf and EPUB formats.
 * The online text will be available in multiple languages to promote access to a worldwide audience.
 
-To see our progress, a draft of a few chapters of the book is available at 
+To see our progress, a draft of the book is available at 
 * [Online Version](https://ewfrees.github.io/Loss-Data-Analytics/index.html) 
 * [pdf version](https://github.com/ewfrees/Loss-Data-Analytics/tree/master/Offline/LossDataAnalytics.pdf)
 * [EPUB version](https://github.com/ewfrees/Loss-Data-Analytics/tree/master/Offline/LossDataAnalytics.epub)
+
+## Landing Site
 
 The [Open Actuarial Textbooks Project GitHub Landing Site](https://ewfrees.github.io/) contains supporting material, including **R code**, **overheads**, an **Author Style Guide**, and thoughts on a next project (**Life Contingencies/Actuarial Mathematics**).
 

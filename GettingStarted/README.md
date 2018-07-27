@@ -1,10 +1,6 @@
 # Introduction
 
-We are using an *R* package called *bookdown* to produce our books. A major advantage of this approach is that it allows us to automatically produce .html output for interactive use, a .pdf version for offline viewing, and an .epub version for mobile devices. To illustrate, you can check out three versions of our book:
-
-* [Online Version from R Bookdown](http://instruction.bus.wisc.edu/jfrees/UWCAELearn/LossDataAnalytics/index.html) 
-* [R Bookdown - pdf version](http://instruction.bus.wisc.edu/jfrees/UWCAELearn/LossDataAnalytics/LossDataAnalytics.pdf)
-* [R Bookdown - EPUB version](http://instruction.bus.wisc.edu/jfrees/UWCAELearn/LossDataAnalytics/LossDataAnalytics.epub)
+We are using an *R* package called *bookdown* to produce our books. A major advantage of this approach is that it allows us to automatically produce .html output for interactive use, a .pdf version for offline viewing, and an .epub version for mobile devices. You can see these at our [Open Actuarial Textbooks Project GitHub Landing Site](https://ewfrees.github.io/). 
 
 For end users (especially students), you can direct them to these sites and you are done. However, many others will wish to adapt our materials for their own use and (hopefully) contribute improvements to the the project. By downloading/cloning this GitHub site, you have all the source materials needed to replicate the book.
 
@@ -16,17 +12,57 @@ The root directory of our *GitHub* is messy in that it contains many small files
 * *Bibliography* - reference files
 * *Chapters* - the actual content of the chapters
 * *Data* - data sets
-* *Figures*, *Figures4* (the latter is figures for chapter 4)
+* *Figures* (figures that were not generated on the fly using `R`)
 * *GettingStarted* - this file and others to help you start
 
 The other folders are output from the compiled version of the book.
 
-## The First Compile
-Here is a set of procedures needed to compile these files. There are many ways to do so, this is one set that works. This assumes that you are working with *R Studio* in a Windows operating system.
+## Making Changes to a Chapter
+
+You may to make changes to a specific chapter, just to get a feel for things. In this case, you can use the following process to do so using only "markdown", not the more complete bookdown package.
+
+1. Get the latest version of *R-studio* and *R*.
+2. Download the repository.
+3. Create a new directory folder and put in it the *HeaderCode.Rmd* and the .Rmd file for the chapter that you wish to modify (in the "Chapters" folder), for example, "AggregateLossModels.Rmd".
+4. Install the package *markdown*.
+5. Open the chapter .Rmd file in Rstudio and insert the following code at the beginning of the file
+
+``````
+---
+title: Chapter from Loss Data Analytics
+output:
+  html_document:
+    toc: yes
+    toc_depth: '3'
+    number_sections: yes
+---
+
+```{r echo = FALSE}
+INSTALLPACKAGES <- FALSE
+# Remove the hashtag (#) if you want to install packages
+#INSTALLPACKAGES <- TRUE
+```
+
+```{r child = 'HeaderCode.Rmd'}
+```
+
+``````
+
+6. Hit the *knit* button to compile.
+
+The HeaderCode.Rmd file contains some javascript and code to install needed `R` packages. 
+
+Note that in step (5) is the opportunity to install packages. You will want to install these packages the first time that you run this by removing the hashtag (#). You only need to install the packages once.
+
+This procedure should give you a version that you can compile, edit, and disseminate to others.
+
+
+## Making Changes to the Book
+Here is a set of procedures needed to compile the entire book. There are many ways to do so, this is one set that works. This assumes that you are working with *R Studio* in a Windows operating system.
 
 1. Get the latest version of *R-studio* (>1.0) and *R*
-2. install the packages "markdown" and "bookdown". For this book, you also need the packages "VGAM" and "doBy", "pander"", "moments"" (and probably a few others)
-3. install *Miktek 2.9* or above
+2. install the packages *markdown* and *bookdown*. For this book, you also need the packages in the *HeaderCode.Rmd*.
+3. install *Miktek 2.9* or above, needed for pdf/latex.
 
 Note: you need to ensure that *latex/miktek* and *R* are talking to one another. I (Jed) just wound up re-installing miktek. There are probably better ways of doing this but this seems to work.
 
@@ -38,7 +74,7 @@ Note: you need to ensure that *latex/miktek* and *R* are talking to one another.
 
 Hopefully you are done. 
 
-## Making Changes
+## Making Your Changes Public
 
 The next step is to upload your changes to this repository in GitHub and so you will need to learn about GitHub. We recommend the site
 [Happy Git and GitHub for the useR](http://happygitwithr.com/).

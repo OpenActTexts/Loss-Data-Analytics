@@ -25,7 +25,7 @@
 <meta name="author" content="An open text authored by the Actuarial Community">
 
 
-<meta name="date" content="2018-07-26">
+<meta name="date" content="2018-07-28">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -474,23 +474,36 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p><strong>Definition 10.1.</strong> <em>For a positive loss random variable <span class="math inline">\(X\)</span>, if all the positive raw moments exist, namely the maximal order of finite moment <span class="math inline">\(k^{\ast}=\infty\)</span>, then <span class="math inline">\(X\)</span> is said to be light-tailed based on the moment method. If <span class="math inline">\(k^{\ast}=a \in (0,\infty)\)</span>, then <span class="math inline">\(X\)</span> is said to be heavy-tailed based on the moment method. Moreover, for two positive loss random variables <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span> with maximal orders of moment <span class="math inline">\(k^{\ast}_1\)</span> and <span class="math inline">\(k^{\ast}_2\)</span> respectively, we say <span class="math inline">\(X_1\)</span> has a heavier (right) tail than <span class="math inline">\(X_2\)</span> if <span class="math inline">\(k^{\ast}_1\leq k^{\ast}_2\)</span>.</em></p>
 <p>It is noteworthy that the first part of Definition 10.1 is an absolute concept of tail weight, while the second part is a relative concept of tail weight which compares the (right) tails between two distributions. Next, we are going to present a few examples that illustrate the applications of the moment-based method for comparing tail weight. Some of these examples are borrowed from <span class="citation">Klugman, Panjer, and Willmot (<a href="#ref-klugman2012">2012</a>)</span>.</p>
 <!-- \label{exm:gamma}   -->
-<p><strong>Example 10.1.</strong> Let <span class="math inline">\(X\sim Gamma(\alpha,\theta)\)</span>, with <span class="math inline">\(\alpha&gt;0\)</span> and <span class="math inline">\(\theta&gt;0\)</span>, then for all <span class="math inline">\(k&gt;0\)</span>,</p>
+<p><strong>Example 10.1.1. Finiteness of gamma moments.</strong> Let <span class="math inline">\(X\sim Gamma(\alpha,\theta)\)</span>, with <span class="math inline">\(\alpha&gt;0\)</span> and <span class="math inline">\(\theta&gt;0\)</span>, then for all <span class="math inline">\(k&gt;0\)</span>, show that <span class="math inline">\(\mu_k&#39; &lt; \infty\)</span>.</p>
+<h5 style="text-align: center;">
+<a id="displayTextExamplePortMgt.1.1" href="javascript:toggleEX('toggleExamplePortMgt.1.1','displayTextExamplePortMgt.1.1');"><i><strong>Show Example Solution</strong></i></a>
+</h5>
+<div id="toggleExamplePortMgt.1.1" style="display: none">
+<p><strong>Solution.</strong></p>
 <span class="math display">\[\begin{eqnarray*}
     \mu_k&#39; &amp;=&amp; \int_0^{\infty} x^k \frac{x^{\alpha-1} e^{-x/\theta}}{\Gamma(\alpha) \theta^{\alpha}} dx \\
     &amp;=&amp; \int_0^{\infty} (y\theta)^k  \frac{(y\theta)^{\alpha-1} e^{-y}}{\Gamma(\alpha) \theta^{\alpha}} \theta dy \\
     &amp;=&amp; \frac{\theta^k}{\Gamma(\alpha)} \Gamma(\alpha+k) &lt; \infty.
 \end{eqnarray*}\]</span>
 <p>Since all the positive moments exist, i.e., <span class="math inline">\(k^{\ast}=\infty\)</span>, in accordance with the moment-based classification method in Definition 10.1, the gamma distribution is light-tailed.</p>
-<!-- \label{exm:weibull} -->
-<p><strong>Example 10.2.</strong> Let <span class="math inline">\(X\sim Weibull(\theta,\tau)\)</span>, with <span class="math inline">\(\theta&gt;0\)</span> and <span class="math inline">\(\tau&gt;0\)</span>, then for all <span class="math inline">\(k&gt;0\)</span>,</p>
+</div>
+<hr />
+<p><strong>Example 10.1.2. Finiteness of Weibull moments.</strong> Let <span class="math inline">\(X\sim Weibull(\theta,\tau)\)</span>, with <span class="math inline">\(\theta&gt;0\)</span> and <span class="math inline">\(\tau&gt;0\)</span>, then for all <span class="math inline">\(k&gt;0\)</span>, show that <span class="math inline">\(\mu_k&#39; &lt; \infty\)</span>.</p>
+<h5 style="text-align: center;">
+<a id="displayTextExamplePortMgt.1.2" href="javascript:toggleEX('toggleExamplePortMgt.1.2','displayTextExamplePortMgt.1.2');"><i><strong>Show Example Solution</strong></i></a>
+</h5>
+<div id="toggleExamplePortMgt.1.2" style="display: none">
+<p><strong>Solution.</strong></p>
 <span class="math display">\[\begin{eqnarray*}
     \mu_k&#39; &amp;=&amp; \int_0^{\infty} x^k \frac{\tau x^{\tau-1} }{\theta^{\tau}} e^{-(x/\theta)^{\tau}}dx \\
     &amp;=&amp; \int_0^{\infty}  \frac{ y^{k/\tau} }{\theta^{\tau}} e^{-y/\theta^{\tau}}dy \\
     &amp;=&amp; \theta^{k} \Gamma(1+k/\tau) &lt; \infty.
 \end{eqnarray*}\]</span>
+</div>
+<hr />
 <p>Again, due to the existence of all the positive moments, the Weibull distribution is light-tailed.</p>
 <p>We notice in passing that the gamma and Weibull distributions have been used quite intensively in the actuarial practice nowadays. Applications of these two distributions are vast which include, but are not limited to, insurance claim severity modelling, solvency assessment, loss reserving, aggregate risk approximation, reliability engineering and failure analysis. We have thus far seen two examples of using the moment-based method to analyze light-tailed distributions. We document a heavy-tailed example in what follows.</p>
-<p><strong>Example 10.3.</strong> Let <span class="math inline">\(X\sim Pareto(\alpha,\theta)\)</span>, with <span class="math inline">\(\alpha&gt;0\)</span> and <span class="math inline">\(\theta&gt;0\)</span>, then for <span class="math inline">\(k&gt;0\)</span></p>
+<p><strong>Example 10.1.3. Heavy tail nature of the Pareto distribution.</strong> Let <span class="math inline">\(X\sim Pareto(\alpha,\theta)\)</span>, with <span class="math inline">\(\alpha&gt;0\)</span> and <span class="math inline">\(\theta&gt;0\)</span>, then for <span class="math inline">\(k&gt;0\)</span></p>
 <span class="math display">\[\begin{eqnarray*}
     \mu_k^{&#39;} &amp;=&amp; \int_0^{\infty} x^k \frac{\alpha \theta^{\alpha}}{(x+\theta)^{\alpha+1}} dx \\
     &amp;=&amp; \alpha \theta^{\alpha} \int_{\theta}^{\infty} (y-\theta)^k {y^{-(\alpha+1)}} dy.
@@ -508,7 +521,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p><span class="math display">\[\lim_{y\rightarrow \infty} \frac{(y-\theta)^k {y^{-(\alpha+1)}}}{y^{k-\alpha-1}}=\lim_{y\rightarrow \infty}
 (1-\theta/y)^{k}=1.\]</span></p>
 <p>Application of the limit comparison theorem for improper integrals yields <span class="math inline">\(\mu_k&#39;\)</span> is finite if and only if <span class="math inline">\(g_k\)</span> is finite. Hence we can conclude that the raw moments of Pareto <em>rv</em>’s exist only up to <span class="math inline">\(k&lt;\alpha\)</span>, i.e., <span class="math inline">\(k^{\ast}=\alpha\)</span>, and thus the distribution is heavy-tailed. What is more, the maximal order of finite moment depends only on the shape parameter <span class="math inline">\(\alpha\)</span> and it is an increasing function of <span class="math inline">\(\alpha\)</span>. In other words, based on the moment method, the tail weight of Pareto <em>rv</em>’s is solely manipulated by <span class="math inline">\(\alpha\)</span> – the smaller the value of <span class="math inline">\(\alpha\)</span>, the heavier the tail weight becomes. Since <span class="math inline">\(k^{\ast}&lt;\infty\)</span>, the tail of Pareto distribution is heavier than those of the gamma and Weibull distributions.</p>
-<p>We are going to conclude this current section by an open discussion on the limitations of the moment-based method. Despite its simple implementation and intuitive interpretation, there are certain circumstances in which the application of the moment-based method is not suitable. First, for more complicated probabilistic models, the <span class="math inline">\(k\)</span>-th raw moment may not be simple to derive, and thus the identification of the maximal order of finite moment can be challenging. Second, the moment-based method does not well comply with main body of the well established heavy tail theory in literature. Specifically, the existence of moment generating functions is arguably the most popular method for classifying heavy tail versus light tail within the community of academic actuaries. However, for some <em>rv</em>’s such as the log normal <em>rv</em>’s, their moment generating functions do not exist even that all the positive moments are finite. In these cases, applications of the moment-based methods can lead to different tail weight assessment. Third, when we need to compare the tail weight between two light-tailed distributions both having all positive moments exist, the moment-based method is no longer informative (see, e.g., Examples 10.1 and 10.2).</p>
+<hr />
+<p>We are going to conclude this current section by an open discussion on the limitations of the moment-based method. Despite its simple implementation and intuitive interpretation, there are certain circumstances in which the application of the moment-based method is not suitable. First, for more complicated probabilistic models, the <span class="math inline">\(k\)</span>-th raw moment may not be simple to derive, and thus the identification of the maximal order of finite moment can be challenging. Second, the moment-based method does not well comply with main body of the well established heavy tail theory in literature. Specifically, the existence of moment generating functions is arguably the most popular method for classifying heavy tail versus light tail within the community of academic actuaries. However, for some <em>rv</em>’s such as the lognormal <em>rv</em>’s, their moment generating functions do not exist even that all the positive moments are finite. In these cases, applications of the moment-based methods can lead to different tail weight assessment. Third, when we need to compare the tail weight between two light-tailed distributions both having all positive moments exist, the moment-based method is no longer informative (see, e.g., Examples 10.1 and 10.2).</p>
 </div>
 <div id="comparison-based-on-limiting-tail-behavior" class="section level3">
 <h3><span class="header-section-number">10.1.2</span> Comparison Based on Limiting Tail Behavior</h3>
@@ -518,12 +532,18 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 \gamma:=\lim_{t\rightarrow \infty}\frac{S_X(t)}{S_Y(t)}.
 \]</span> We say that</p>
 <ul>
-<li><em><span class="math inline">\(X\)</span> has a heavier right tail than <span class="math inline">\(Y\)</span> if <span class="math inline">\(\gamma=\infty\)</span>;</em><br />
+<li><span class="math inline">\(X\)</span> has a <strong>heavier right tail</strong> than <span class="math inline">\(Y\)</span> if <span class="math inline">\(\gamma=\infty\)</span>;<br />
 </li>
-<li><em><span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are proportionally equivalent in the right tail, if <span class="math inline">\(\gamma =c\in \mathbf{R}_+\)</span>;</em></li>
-<li><em><span class="math inline">\(X\)</span> has a lighter right tail than <span class="math inline">\(Y\)</span> if <span class="math inline">\(\gamma=0\)</span>.</em></li>
+<li><span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are <strong>proportionally equivalent in the right tail</strong> if <span class="math inline">\(\gamma =c\in \mathbf{R}_+\)</span>;</li>
+<li><span class="math inline">\(X\)</span> has a <strong>lighter right tail</strong> than <span class="math inline">\(Y\)</span> if <span class="math inline">\(\gamma=0\)</span>.</li>
 </ul>
-<p><strong>Example 10.4.</strong> Let <span class="math inline">\(X\sim Pareto(\alpha, \theta)\)</span> and <span class="math inline">\(Y\sim Weibull(\tau, \theta)\)</span>, for <span class="math inline">\(\alpha&gt;0\)</span>, <span class="math inline">\(\tau&gt;0\)</span>, and <span class="math inline">\(\theta&gt;0\)</span>, we have</p>
+<p><strong>Example 10.4. Comparison of Pareto to Weibull distributions.</strong> Let <span class="math inline">\(X\sim Pareto(\alpha, \theta)\)</span> and <span class="math inline">\(Y\sim Weibull(\tau, \theta)\)</span>, for <span class="math inline">\(\alpha&gt;0\)</span>, <span class="math inline">\(\tau&gt;0\)</span>, and <span class="math inline">\(\theta&gt;0\)</span>. Show that the Pareto has a heavier right tail than the Weibull.</p>
+<h5 style="text-align: center;">
+<a id="displayTextExamplePortMgt.1.4" 
+href="javascript:toggleEX('toggleExamplePortMgt.1.4','displayTextExamplePortMgt.1.4');"><i><strong>Show Example Solution</strong></i></a>
+</h5>
+<div id="toggleExamplePortMgt.1.4" style="display: none">
+<p><strong>Solution.</strong></p>
 <span class="math display">\[\begin{eqnarray*}
     \lim_{t\rightarrow \infty}\frac{S_X(t)}{S_Y(t)} &amp;=&amp; \lim_{t\rightarrow \infty}\frac{(1+t/\theta)^{-\alpha}}{\exp\{-(t/\theta)^{\tau}\}} \\
     &amp;=&amp; \lim_{t\rightarrow \infty}\frac{\exp\{t/\theta^{\tau} \}}{(1+t^{1/\tau}/\theta)^{\alpha}} \\
@@ -532,6 +552,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
     &amp;=&amp; \infty.
 \end{eqnarray*}\]</span>
 <p>Therefore, the Pareto distribution has a heavier tail than the Weibull distribution. One may also realize that exponentials go to infinity faster than polynomials, thus the aforementioned limit must be infinite.</p>
+</div>
+<hr />
 <p>For some distributions of which the survival functions do not admit explicit expressions, we may find the following alternative formula useful:</p>
 <span class="math display">\[\begin{eqnarray*}
     \lim_{t\to \infty} \frac{S_X(t)}{S_Y(t)} &amp;=&amp; \lim_{t \to \infty} \frac{S_X^{&#39;}(t)}{S_Y^{&#39;}(t)} \\
@@ -539,13 +561,21 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
  &amp;=&amp; \lim_{t\to \infty} \frac{f_X(t)}{f_Y(t)}.
 \end{eqnarray*}\]</span>
 <p>given that the density functions exist.</p>
-<p><strong>Example 10.5.</strong> Let <span class="math inline">\(X\sim Pareto(\alpha, \theta)\)</span> and <span class="math inline">\(Y\sim Gamma(\alpha, \theta)\)</span>, for <span class="math inline">\(\alpha&gt;0\)</span> and <span class="math inline">\(\theta&gt;0\)</span>, we have</p>
+<p><strong>Example 10.1.5. Comparison of Pareto to gamma distributions.</strong> Let <span class="math inline">\(X\sim Pareto(\alpha, \theta)\)</span> and <span class="math inline">\(Y\sim Gamma(\alpha, \theta)\)</span>, for <span class="math inline">\(\alpha&gt;0\)</span> and <span class="math inline">\(\theta&gt;0\)</span>. Show that the Pareto has a heavier right tail than the gamma.</p>
+<h5 style="text-align: center;">
+<a id="displayTextExamplePortMgt.1.5" 
+href="javascript:toggleEX('toggleExamplePortMgt.1.5','displayTextExamplePortMgt.1.5');"><i><strong>Show Example Solution</strong></i></a>
+</h5>
+<div id="toggleExamplePortMgt.1.5" style="display: none">
+<p><strong>Solution.</strong></p>
 <span class="math display">\[\begin{eqnarray*}
     \lim_{t\to \infty} \frac{f_{X}(t)}{f_{Y}(t)} &amp;=&amp; \lim_{t \to \infty} \frac{\alpha \theta^{\alpha} (t+ \theta)^{-\alpha-1}}{t^{\tau-1} e^{-t/\lambda} \lambda^{-\tau} \Gamma(\tau)^{-1}} \\
  &amp;\propto&amp;  \lim_{t\to \infty} \frac{e^{t/\lambda}}{(t+\theta)^{\alpha+1} t^{\tau-1}} \\
     &amp;=&amp; \infty,
 \end{eqnarray*}\]</span>
 <p>as exponentials go to infinity faster than polynomials.</p>
+</div>
+<hr />
 </div>
 </div>
 <div id="S:RiskMeasure" class="section level2">
@@ -560,20 +590,35 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 VaR_q[X]:=\inf\{x\in \mathbf{R}:F_X(x)\geq q\}.
 \tag{10.1}
 \end{eqnarray}\]</span>
-<p>Speaking bluntly, the <em>VaR</em> measure outputs the smallest value of <span class="math inline">\(X\)</span> such that the associated <em>cdf</em> first excesses or equates to <span class="math inline">\(q\)</span>. In the fields of probability and statistics, the <em>VaR</em> is also known as the percentiles.</p>
-<p>Here is how we should interpret <em>VaR</em> in the lingo of actuarial mathematics. <em>VaR</em> is a forecast of the `maximal’ probable loss for a insurance product/portfolio or a risky investment occurring <span class="math inline">\(q\times 100\%\)</span> of times, over a specific time horizon (typically, one year). For instance, let <span class="math inline">\(X\)</span> be the annual loss <em>rv</em> of an insurance product, <span class="math inline">\(VaR_{0.95}[X]=100\)</span> million means that there is a <span class="math inline">\(5\%\)</span> chance that the loss will exceed 100 million over a given year. Owing to the meaningful interpretation, <em>VaR</em> has become the industrial standard to measuring financial and insurance risks since 1990’s. Financial conglomerates, regulators, and academics often utilize <em>VaR</em> to price insurance products, measure risk capital, ensure the compliance with regulatory rules, and disclose the financial positions.</p>
+<p>The <em>VaR</em> measure outputs the smallest value of <span class="math inline">\(X\)</span> such that the associated <em>cdf</em> first excesses or equates to <span class="math inline">\(q\)</span>. In the fields of probability and statistics, the <em>VaR</em> is also known as the percentiles.</p>
+<p>Here is how we should interpret <em>VaR</em> in the lingo of actuarial mathematics. The <em>VaR</em> is a forecast of the `maximal’ probable loss for a insurance product/portfolio or a risky investment occurring <span class="math inline">\(q\times 100\%\)</span> of times, over a specific time horizon (typically, one year). For instance, let <span class="math inline">\(X\)</span> be the annual loss <em>rv</em> of an insurance product, <span class="math inline">\(VaR_{0.95}[X]=100\)</span> million means that there is a <span class="math inline">\(5\%\)</span> chance that the loss will exceed 100 million over a given year. Owing to the meaningful interpretation, <em>VaR</em> has become the industrial standard to measuring financial and insurance risks since 1990’s. Financial conglomerates, regulators, and academics often utilize <em>VaR</em> to price insurance products, measure risk capital, ensure the compliance with regulatory rules, and disclose the financial positions.</p>
 <p>Next, we are going to present a few examples about the computation of <em>VaR</em>.</p>
 <!-- \label{exm:exponential}-->
-<p><strong>Example 10.6.</strong> Consider an insurance loss <em>rv</em> <span class="math inline">\(X\sim Exp(\theta)\)</span> for <span class="math inline">\(\theta&gt;0\)</span>, then the <em>cdf</em> of <span class="math inline">\(X\)</span> is given by <span class="math display">\[
+<p><strong>Example 10.2.1. <em>VaR</em> for the exponential distribution.</strong> Consider an insurance loss <em>rv</em> <span class="math inline">\(X\sim Exp(\theta)\)</span> for <span class="math inline">\(\theta&gt;0\)</span>, then the <em>cdf</em> of <span class="math inline">\(X\)</span> is given by <span class="math display">\[
 F_X(x)=1-e^{-x/\theta}, \text{ for } x&gt;0.
-\]</span> Since exponential distribution is a continuous distribution, the smallest value such that the <em>cdf</em> first exceeds or equates to <span class="math inline">\(q \in [0,1]\)</span> must be at the point <span class="math inline">\(x_q\)</span> satisfying <span class="math display">\[
+\]</span> Give a closed-form expression for the <em>VaR</em>.</p>
+<h5 style="text-align: center;">
+<a id="displayTextExamplePortMgt.2.1" 
+href="javascript:toggleEX('toggleExamplePortMgt.2.1','displayTextExamplePortMgt.2.1');"><i><strong>Show Example Solution</strong></i></a>
+</h5>
+<div id="toggleExamplePortMgt.2.1" style="display: none">
+<p><strong>Solution.</strong></p>
+<p>Because exponential distribution is a continuous distribution, the smallest value such that the <em>cdf</em> first exceeds or equates to <span class="math inline">\(q \in [0,1]\)</span> must be at the point <span class="math inline">\(x_q\)</span> satisfying <span class="math display">\[
 q=F_X(x_q)=1-\exp\{-x_q/\theta \}.
 \]</span> Thus <span class="math display">\[
 VaR_q[X]=F_X^{-1}(q)=-\theta[\log(1-q)].
 \]</span></p>
-<p>The result reported in Example 10.6 can be generalized to any continuous <em>rv</em>’s having strictly increasing <em>cdf</em> Specifically, the <em>VaR</em> of any continuous <em>rv</em>’s is simply the inverse of the corresponding <em>cdf</em> Let us consider another example of continuous <em>rv</em> which has the support from negative infinity to positive infinity.</p>
-<!-- \label{exm:normal} -->
-<p><strong>Example 10.7.</strong> Consider an insurance loss <em>rv</em> <span class="math inline">\(X\sim Normal(\mu,\sigma^2)\)</span> with <span class="math inline">\(\mu\in \mathbf{R}\)</span> and <span class="math inline">\(\sigma&gt;0\)</span>. In this case, one may interpret the negative values of <span class="math inline">\(X\)</span> as profit or revenue. Because normal distribution is a continuous distribution, the <em>VaR</em> of <span class="math inline">\(X\)</span> must satisfy</p>
+</div>
+<hr />
+<p>The result reported in Example 10.6 can be generalized to any continuous <em>rv</em>’s having strictly increasing <em>cdf</em>. Specifically, the <em>VaR</em> of any continuous <em>rv</em>’s is simply the inverse of the corresponding <em>cdf</em> Let us consider another example of continuous <em>rv</em> which has the support from negative infinity to positive infinity.</p>
+<p><strong>Example 10.2.2. <em>VaR</em> for the normal distribution.</strong> Consider an insurance loss <em>rv</em> <span class="math inline">\(X\sim Normal(\mu,\sigma^2)\)</span> with <span class="math inline">\(\mu\in \mathbf{R}\)</span> and <span class="math inline">\(\sigma&gt;0\)</span>. In this case, one may interpret the negative values of <span class="math inline">\(X\)</span> as profit or revenue. Give a closed-form expression for the <em>VaR</em>.</p>
+<h5 style="text-align: center;">
+<a id="displayTextExamplePortMgt.2.2" 
+href="javascript:toggleEX('toggleExamplePortMgt.2.2','displayTextExamplePortMgt.2.2');"><i><strong>Show Example Solution</strong></i></a>
+</h5>
+<div id="toggleExamplePortMgt.2.2" style="display: none">
+<p><strong>Solution.</strong></p>
+<p>Because normal distribution is a continuous distribution, the <em>VaR</em> of <span class="math inline">\(X\)</span> must satisfy</p>
 <span class="math display">\[\begin{eqnarray*}
  q &amp;=&amp; F_X(VaR_q[X])\\
 &amp;=&amp;\Pr\left[(X-\mu)/\sigma\leq (VaR_q[X]-\mu)/\sigma\right]\\
@@ -582,13 +627,24 @@ VaR_q[X]=F_X^{-1}(q)=-\theta[\log(1-q)].
 <p>Therefore, we have <span class="math display">\[
 VaR_q[X]=\Phi^{-1}(q)\ \sigma+\mu.
 \]</span></p>
+</div>
+<hr />
 <p>In many insurance applications, we have to deal with transformations of <em>rv</em>’s. For instance, in Example 10.7, the loss <em>rv</em> <span class="math inline">\(X\sim Normal(\mu, \sigma^2)\)</span> can be viewed as a linear transformation of a standard normal <em>rv</em> <span class="math inline">\(Z\sim Normal(0,1)\)</span>, namely <span class="math inline">\(X=Z\sigma+\mu\)</span>. By setting <span class="math inline">\(\mu=0\)</span> and <span class="math inline">\(\sigma=1\)</span>, it is straightforward for us to check <span class="math inline">\(VaR_q[Z]=\Phi^{-1}[q].\)</span> A useful finding revealed from Example 10.7 is that the <em>VaR</em> of a linear transformation of the normal <em>rv</em>’s is equivalent to the linear transformation of the <em>VaR</em> of the original <em>rv</em>’s. This finding can be further generalized to any <em>rv</em>’s as long as the transformations are strictly increasing. The next example highlights the usefulness of the abovementioned finding.</p>
-<p><strong>Example 10.8.</strong> Consider an insurance loss <em>rv</em> <span class="math inline">\(Y\sim Log-Normal(\mu,\sigma^2)\)</span>, for <span class="math inline">\(\mu\in \mathbf{R}\)</span> and <span class="math inline">\(\sigma&gt;0\)</span>. That is <span class="math inline">\(\log Y\sim Normal(\mu,\sigma^2)\)</span>, or equivalently let <span class="math inline">\(X\sim Normal(\mu,\sigma^2)\)</span>, then <span class="math inline">\(Y\overset{d}{=}e^{X}\)</span> which is strictly increasing transformation. Here, the notation `<span class="math inline">\(\overset{d}{=}\)</span>’ means equality in distribution. The <em>VaR</em> of <span class="math inline">\(Y\)</span> is thus given by the exponential transformation of the <em>VaR</em> of <span class="math inline">\(X\)</span>. Precisely, for <span class="math inline">\(q\in [0,1]\)</span>, <span class="math display">\[
+<p><strong>Example 10.2.3. <em>VaR</em> for transformed variables.</strong> Consider an insurance loss <em>rv</em> <span class="math inline">\(Y\sim lognormal(\mu,\sigma^2)\)</span>, for <span class="math inline">\(\mu\in \mathbf{R}\)</span> and <span class="math inline">\(\sigma&gt;0\)</span>. Give an expression of the <span class="math inline">\(VaR\)</span> of <span class="math inline">\(Y\)</span> in terms of the standard normal inverse <em>cdf</em>.</p>
+<h5 style="text-align: center;">
+<a id="displayTextExamplePortMgt.2.3" 
+href="javascript:toggleEX('toggleExamplePortMgt.2.3','displayTextExamplePortMgt.2.3');"><i><strong>Show Example Solution</strong></i></a>
+</h5>
+<div id="toggleExamplePortMgt.2.3" style="display: none">
+<p><strong>Solution.</strong></p>
+<p>Note that <span class="math inline">\(\log Y\sim Normal(\mu,\sigma^2)\)</span>, or equivalently let <span class="math inline">\(X\sim Normal(\mu,\sigma^2)\)</span>, then <span class="math inline">\(Y\overset{d}{=}e^{X}\)</span> which is strictly increasing transformation. Here, the notation `<span class="math inline">\(\overset{d}{=}\)</span>’ means equality in distribution. The <em>VaR</em> of <span class="math inline">\(Y\)</span> is thus given by the exponential transformation of the <em>VaR</em> of <span class="math inline">\(X\)</span>. Precisely, for <span class="math inline">\(q\in [0,1]\)</span>, <span class="math display">\[
 VaR_{q}[Y]= e^{VaR_q[X]}=\exp\{\Phi^{-1}(q)\ \sigma+\mu\}.
 \]</span></p>
+</div>
+<hr />
 <p>We have thus far seen a number of examples about the <em>VaR</em> for continuous <em>rv</em>’s, let us consider an example concerning the <em>VaR</em> for a discrete <em>rv</em></p>
 <!-- \label{exm:discrete} -->
-<p><strong>Example 10.9.</strong> Consider an insurance loss <em>rv</em> with the following probability distribution: <span class="math display">\[
+<p><strong>Example 10.2.4. <em>VaR</em> for a discrete random variable.</strong> Consider an insurance loss <em>rv</em> with the following probability distribution: <span class="math display">\[
 \Pr[X=x]=\left\{
                   \begin{array}{ll}
                     1, &amp; \hbox{with probability $0.75$;} \\
@@ -596,7 +652,14 @@ VaR_{q}[Y]= e^{VaR_q[X]}=\exp\{\Phi^{-1}(q)\ \sigma+\mu\}.
                     4, &amp; \hbox{with probability $0.05$.}
                   \end{array}
                 \right.
-\]</span> The corresponding <em>cdf</em> of <span class="math inline">\(X\)</span> is <span class="math display">\[
+\]</span> Determine the <em>VaR</em> at <span class="math inline">\(q = 0.6, 0.9, 0.95, 0.95001\)</span>.</p>
+<h5 style="text-align: center;">
+<a id="displayTextExamplePortMgt.2.4" 
+href="javascript:toggleEX('toggleExamplePortMgt.2.4','displayTextExamplePortMgt.2.4');"><i><strong>Show Example Solution</strong></i></a>
+</h5>
+<div id="toggleExamplePortMgt.2.4" style="display: none">
+<p><strong>Solution.</strong></p>
+<p>The corresponding <em>cdf</em> of <span class="math inline">\(X\)</span> is <span class="math display">\[
 F_X(x)=\left\{
          \begin{array}{ll}
            0, &amp; \hbox{ $x&lt;1$;} \\
@@ -605,13 +668,15 @@ F_X(x)=\left\{
            1, &amp; \hbox{ $4\leq x$.}
          \end{array}
        \right.
-\]</span> By the definition of <em>VaR</em>, we thus have, for example,</p>
+\]</span> By the definition of <em>VaR</em>, we thus have then</p>
 <ul>
 <li><em><span class="math inline">\(VaR_{0.6}[X]=1\)</span>;</em></li>
 <li><em><span class="math inline">\(VaR_{0.9}[X]=3\)</span>;</em></li>
 <li><em><span class="math inline">\(VaR_{0.95}[X]=3\)</span>;</em></li>
 <li><em><span class="math inline">\(VaR_{0.950001}[X]=4\)</span>.</em></li>
 </ul>
+</div>
+<hr />
 <p>Let us now conclude this current subsection by an open discussion of the <em>VaR</em> measure. Some advantages of utilizing <em>VaR</em> include</p>
 <ul>
 <li>possessing a practically meaningful interpretation;</li>
@@ -628,7 +693,7 @@ F_X(x)=\left\{
 <div id="tail-value-at-risk" class="section level3">
 <h3><span class="header-section-number">10.2.2</span> Tail Value-at-Risk</h3>
 <p>Recall that the <em>VaR</em> represents the <span class="math inline">\((1-p)\times100\%\)</span> chance maximal loss. As we mentioned in the previous section, one major drawback of the <em>VaR</em> measure is that it does not reflect the extremal losses occurring beyond the <span class="math inline">\((1-p)\times100\%\)</span> chance worst scenario. For an illustration purpose, let us consider the following slightly unrealistic yet inspiring example.</p>
-<p><strong>Example 10.10.</strong> Consider two loss <em>rv</em>’s <span class="math inline">\(X\sim Uniform [0,100]\)</span>, and <span class="math inline">\(Y\sim Exp(31.71)\)</span>. We use <em>VaR</em> at <span class="math inline">\(95\%\)</span> confidence level to measure the riskiness of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>. Simple calculation yields (see, also, Example 10.6), <span class="math display">\[
+<p><strong>Example 10.2.5.</strong> Consider two loss <em>rv</em>’s <span class="math inline">\(X\sim Uniform [0,100]\)</span>, and <span class="math inline">\(Y\sim Exp(31.71)\)</span>. We use <em>VaR</em> at <span class="math inline">\(95\%\)</span> confidence level to measure the riskiness of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>. Simple calculation yields (see, also, Example 10.6), <span class="math display">\[
 VaR_{0.95}[X]=VaR_{0.95}[Y]=95,
 \]</span> and thus these two loss distributions have the same level of risk according to <span class="math inline">\(VaR_{0.95}\)</span>. However, it is clear that <span class="math inline">\(Y\)</span> is more risky than <span class="math inline">\(X\)</span> if extremal losses are of major concern since <span class="math inline">\(X\)</span> is bounded above while <span class="math inline">\(Y\)</span> is unbounded. Simply quantifying risk by using <em>VaR</em> at a specific confidence level could be misleading and may not reflect the true nature of risk.</p>
 <p>As a remedy, the <em>Tail Value-at-Risk</em> (<em>TVaR</em>) was proposed to measure the extremal losses that are above a given level of <em>VaR</em> as an average. We document the definition of <em>TVaR</em> in what follows. For the sake of simplicity, we are going to confine ourselves to continuous positive <em>rv</em>’s only, which are more frequently used in the context of insurance risk management. We refer the interested reader to <span class="citation">Hardy (<a href="#ref-hardy2006">2006</a>)</span> for a more comprehensive discussion of <em>TVaR</em> for both discrete and continuous <em>rv</em>’s.</p>
@@ -643,8 +708,14 @@ VaR_{0.95}[X]=VaR_{0.95}[Y]=95,
 TVaR_{q}[X]=\frac{1}{(1-q)}\int_{\pi_q}^{\infty}xf_X(x)dx.
 \tag{10.2}
 \end{eqnarray}\]</span>
-<!-- \label{exm:cte-normal} -->
-<p><strong>Example 10.11.</strong> Consider an insurance loss <em>rv</em> <span class="math inline">\(X\sim Normal (\mu,\sigma^2)\)</span> with <span class="math inline">\(\mu\in \mathbf{R}\)</span> and <span class="math inline">\(\sigma&gt;0\)</span>. Denoted by <span class="math inline">\(Z\)</span> the standard normal <em>rv</em>, for <span class="math inline">\(q\in[0,1]\)</span>, the <em>TVaR</em> of <span class="math inline">\(X\)</span> can be computed via</p>
+<p><strong>Example 10.2.6. <em>TVaR</em> for a normal distribution.</strong> Consider an insurance loss <em>rv</em> <span class="math inline">\(X\sim Normal (\mu,\sigma^2)\)</span> with <span class="math inline">\(\mu\in \mathbf{R}\)</span> and <span class="math inline">\(\sigma&gt;0\)</span>. Give an expression for <em>TVaR</em>.</p>
+<h5 style="text-align: center;">
+<a id="displayTextExamplePortMgt.2.6" 
+href="javascript:toggleEX('toggleExamplePortMgt.2.6','displayTextExamplePortMgt.2.6');"><i><strong>Show Example Solution</strong></i></a>
+</h5>
+<div id="toggleExamplePortMgt.2.6" style="display: none">
+<p><strong>Solution.</strong></p>
+<p>Let <span class="math inline">\(Z\)</span> be the standard normal <em>rv</em>. For <span class="math inline">\(q\in[0,1]\)</span>, the <em>TVaR</em> of <span class="math inline">\(X\)</span> can be computed via</p>
 <span class="math display">\[\begin{eqnarray*}
   TVaR_q[X] &amp;=&amp; \mathrm{E}[X|X&gt;VaR_q[X]]\\
 &amp;=&amp;\mathrm{E}[\sigma Z+\mu|\sigma Z+\mu&gt;VaR_q[X]]\\
@@ -661,8 +732,20 @@ TVaR_{q}[X]=\frac{1}{(1-q)}\int_{\pi_q}^{\infty}xf_X(x)dx.
 <p>Thus, <span class="math display">\[
 TVaR_q[X]=\sigma\frac{\phi(\Phi^{-1}(q))}{1-q}+\mu.
 \]</span></p>
-<p>We mentioned earlier in the previous subsection that the VaR of a strictly increasing function of <em>rv</em> is equal to the function of VaR of the original <em>rv</em>. Motivated by the results in Example 10.11, one can show that the <em>TVaR</em> of a strictly increasing linear transformation of <em>rv</em> is equal to the function of VaR of the original <em>rv</em> This is due to the linearity property of expectation. However, the aforementioned finding can not be extended to non-linear functions. The following example of log normal <em>rv</em> serves as a counter example.</p>
-<p><strong>Example 10.12.</strong> Consider an insurance loss <em>rv</em> <span class="math inline">\(X\sim Log-Normal (\mu,\sigma^2)\)</span>, with <span class="math inline">\(\mu\in \mathbf{R}\)</span> and <span class="math inline">\(\sigma&gt;0\)</span>. Recall that the p.d.f. of log normal distribution is formulated as <span class="math display">\[
+</div>
+<hr />
+<p>We mentioned earlier in the previous subsection that the <em>VaR</em> of a strictly increasing function of <em>rv</em> is equal to the function of VaR of the original <em>rv</em>. Motivated by the results in Example 10.11, one can show that the <em>TVaR</em> of a strictly increasing linear transformation of <em>rv</em> is equal to the function of VaR of the original <em>rv</em> This is due to the linearity property of expectations. However, the aforementioned finding can not be extended to non-linear functions. The following example of lognormal <em>rv</em> serves as a counter example.</p>
+<p><strong>Example 10.2.7. <em>TVaR</em> of a lognormal distribution.</strong> Consider an insurance loss <em>rv</em> <span class="math inline">\(X\sim lognormal (\mu,\sigma^2)\)</span>, with <span class="math inline">\(\mu\in \mathbf{R}\)</span> and <span class="math inline">\(\sigma&gt;0\)</span>. Show that</p>
+<span class="math display">\[\begin{eqnarray*}
+  TVaR_q[X] &amp;=&amp; \frac{e^{\mu+\sigma^2/2}}{(1-q)} \Phi(\Phi^{-1}(q)-\sigma).
+\end{eqnarray*}\]</span>
+<h5 style="text-align: center;">
+<a id="displayTextExamplePortMgt.2.7" 
+href="javascript:toggleEX('toggleExamplePortMgt.2.7','displayTextExamplePortMgt.2.7');"><i><strong>Show Example Solution</strong></i></a>
+</h5>
+<div id="toggleExamplePortMgt.2.7" style="display: none">
+<p><strong>Solution.</strong></p>
+<p>Recall that the <em>pdf</em> of lognormal distribution is formulated as <span class="math display">\[
 f_X(x)=\frac{1}{\sigma\sqrt{2\pi} x}\exp\{-(\ln x-\mu )^2/2\sigma^2 \}, \text{ for } x&gt;0.
 \]</span> Fix <span class="math inline">\(q\in[0,1]\)</span>, then the <em>TVaR</em> of <span class="math inline">\(X\)</span> can be computed via</p>
 <!-- \label{eqn:cte-normal} -->
@@ -675,18 +758,26 @@ f_X(x)=\frac{1}{\sigma\sqrt{2\pi} x}\exp\{-(\ln x-\mu )^2/2\sigma^2 \}, \text{ f
 &amp;=&amp;\frac{e^{\mu+\sigma^2/2}}{(1-q)} \Phi(\omega(q)-\sigma),
 \tag{10.3}
 \end{eqnarray}\]</span>
-<p>where `<span class="math inline">\(\overset{(1)}{=}\)</span>’ holds by applying change of variable <span class="math inline">\(w=(\log x-\mu)/\sigma\)</span>, and <span class="math inline">\(\omega(q)=(\log \pi_q-\mu)/\sigma\)</span>. Evoking the formula of VaR for log normal <em>rv</em> reported in Example 10.7, we can simplify the expression <a href="C-PortMgt.html#eq:cte-normal">(10.3)</a> into</p>
+<p>where `<span class="math inline">\(\overset{(1)}{=}\)</span>’ holds by applying change of variable <span class="math inline">\(w=(\log x-\mu)/\sigma\)</span>, and <span class="math inline">\(\omega(q)=(\log \pi_q-\mu)/\sigma\)</span>. Evoking the formula of VaR for lognormal <em>rv</em> reported in Example 10.7, we can simplify the expression <a href="C-PortMgt.html#eq:cte-normal">(10.3)</a> into</p>
 <span class="math display">\[\begin{eqnarray*}
   TVaR_q[X] &amp;=&amp; \frac{e^{\mu+\sigma^2/2}}{(1-q)} \Phi(\Phi^{-1}(q)-\sigma).
 \end{eqnarray*}\]</span>
-<p>Clearly, the <em>TVaR</em> of log normal <em>rv</em> is not the exponential of the <em>TVaR</em> of normal <em>rv</em></p>
-<p>For distributions of which the distribution functions are more tractable to work with, we may apply integration by parts technique to rewrite Equation <a href="C-PortMgt.html#eq:cte-pdf">(10.2)</a> as</p>
+</div>
+<hr />
+<p>Clearly, the <em>TVaR</em> of lognormal <em>rv</em> is not the exponential of the <em>TVaR</em> of normal <em>rv</em>.</p>
+<p>For distributions of which the distribution functions are more tractable to work with, we may apply integration by parts technique to rewrite equation <a href="C-PortMgt.html#eq:cte-pdf">(10.2)</a> as</p>
 <span class="math display">\[\begin{eqnarray*}
 TVaR_{q}[X]&amp;=&amp;\left[-x S_X(x)\big |_{\pi_q}^{\infty}+\int_{\pi_q}^{\infty}S_X(x)dx\right]\frac{1}{(1-q)}\\
 &amp;=&amp; \pi_q +\frac{1}{(1-q)}\int_{\pi_q}^{\infty}S_X(x)dx.
 \end{eqnarray*}\]</span>
-<!-- \label{exm:cte-exponential} -->
-<p><strong>Example 10.13.</strong> Consider an insurance loss <em>rv</em> <span class="math inline">\(X\sim Exp(\theta)\)</span> for <span class="math inline">\(\theta&gt;0\)</span>, we have seen from the previous subsection that <span class="math display">\[
+<p><strong>Example 10.2.8. <em>TVaR</em> of an exponential distribution.</strong> Consider an insurance loss <em>rv</em> <span class="math inline">\(X\sim Exp(\theta)\)</span> for <span class="math inline">\(\theta&gt;0\)</span>. Give an expression for the <em>TVaR</em>.</p>
+<h5 style="text-align: center;">
+<a id="displayTextExamplePortMgt.2.8" 
+href="javascript:toggleEX('toggleExamplePortMgt.2.8','displayTextExamplePortMgt.2.8');"><i><strong>Show Example Solution</strong></i></a>
+</h5>
+<div id="toggleExamplePortMgt.2.8" style="display: none">
+<p><strong>Solution.</strong></p>
+<p>We have seen from the previous subsection that <span class="math display">\[
 \pi_q=-\theta[\log(1-q)].
 \]</span> Let us now consider the <em>TVaR</em>:</p>
 <span class="math display">\[\begin{eqnarray*}
@@ -694,7 +785,9 @@ TVaR_{q}[X]&amp;=&amp;\left[-x S_X(x)\big |_{\pi_q}^{\infty}+\int_{\pi_q}^{\inft
 &amp;=&amp; \pi_q+\theta e^{-\pi_q/\theta}dx/(1-q)\\
 &amp;=&amp; \pi_q+\theta.
 \end{eqnarray*}\]</span>
-<p>In the SOA exam, we may use the expectation formulas provided in the distribution table to compute <em>TVaR</em>. Specifically, we have <!-- \label{eqn:cte-expectation} --></p>
+</div>
+<hr />
+<p>It can also be helpful to express the <em>TVaR</em> in terms of limited expected values. Specifically, we have</p>
 <span class="math display" id="eq:cte-expectation">\[\begin{eqnarray}
   TVaR_q[X] &amp;=&amp; \int_{\pi_q}^{\infty} (x-\pi_q+\pi_q)f_X(x)dx/(1-q) \nonumber\\
 &amp;=&amp; \pi_q+\frac{1}{(1-q)}\int_{\pi_q}^{\infty} (x-\pi_q)f_X(x)dx\nonumber\\
@@ -702,8 +795,8 @@ TVaR_{q}[X]&amp;=&amp;\left[-x S_X(x)\big |_{\pi_q}^{\infty}+\int_{\pi_q}^{\inft
 &amp;=&amp; \pi_q +\frac{\left({\mathrm{E}[X]-\mathrm{E}[X\wedge\pi_q]}\right)}{(1-q)},
 \tag{10.4}
 \end{eqnarray}\]</span>
-<p>where <span class="math inline">\(e_X(d):=\mathrm{E}[X-d|X&gt;d]\)</span> for <span class="math inline">\(d&gt;0\)</span> denotes the mean excess loss function, and for many commonly used parametric distributions, the formulas for calculating <span class="math inline">\(\mathrm{E}[X]\)</span> and <span class="math inline">\(\mathrm{E}[X\wedge\pi_q]\)</span> can be found in the distribution table.</p>
-<p><strong>Example 10.14.</strong> Consider a loss <em>rv</em> <span class="math inline">\(X\sim Pareto(\theta,\alpha)\)</span> with <span class="math inline">\(\theta&gt;0\)</span> and <span class="math inline">\(\alpha&gt;0\)</span>. The <em>cdf</em> of <span class="math inline">\(X\)</span> is given by <span class="math display">\[
+<p>where <span class="math inline">\(e_X(d):=\mathrm{E}[X-d|X&gt;d]\)</span> for <span class="math inline">\(d&gt;0\)</span> denotes the <em>mean excess loss function</em>. For many commonly used parametric distributions, the formulas for calculating <span class="math inline">\(\mathrm{E}[X]\)</span> and <span class="math inline">\(\mathrm{E}[X\wedge\pi_q]\)</span> can be found in a table of distributions.</p>
+<p><strong>Example 10.2.9. <em>TVaR</em> of the Pareto distribution.</strong> Consider a loss <em>rv</em> <span class="math inline">\(X\sim Pareto(\theta,\alpha)\)</span> with <span class="math inline">\(\theta&gt;0\)</span> and <span class="math inline">\(\alpha&gt;0\)</span>. The <em>cdf</em> of <span class="math inline">\(X\)</span> is given by <span class="math display">\[
 F_X(x)=1-\left(\frac{\theta}{\theta+x} \right)^{\alpha}, \text{ for } x&gt;0 .
 \]</span></p>
 <p>Fix <span class="math inline">\(q\in [0,1]\)</span> and set <span class="math inline">\(F_X(\pi_q)=q\)</span>, we readily obtain <!-- \label{eqn:var-pareto} --></p>
@@ -725,7 +818,7 @@ F_X(x)=1-\left(\frac{\theta}{\theta+x} \right)^{\alpha}, \text{ for } x&gt;0 .
 &amp;=&amp; \pi_q+\frac{\pi_q+\theta}{\alpha-1},
 \end{eqnarray*}\]</span>
 <p>where <span class="math inline">\(\pi_q\)</span> is given by <a href="C-PortMgt.html#eq:var-pareto">(10.5)</a>.</p>
-<p>Via change of variable, we can also rewrite Equation <a href="C-PortMgt.html#eq:cte-pdf">(10.2)</a> as <!-- \label{eqn:cte-var} --></p>
+<p>Via a change of variables, we can also rewrite equation <a href="C-PortMgt.html#eq:cte-pdf">(10.2)</a> as</p>
 <span class="math display" id="eq:cte-var">\[\begin{eqnarray}
   TVaR_{q}[X] &amp;=&amp; \frac{1}{(1-q)}\int_{q}^{1} VaR_{\alpha}[X]\ d\alpha.
   \tag{10.6}
@@ -845,11 +938,10 @@ H_{\mathrm{SD}}(X+c)=\mathrm{E}[X]+c+\alpha\mathrm{SD}(X)=H_{\mathrm{SD}}(X)+c.
 Y_{insurer} = c S \ \ \text{and} \ \ \ Y_{reinsurer} = (1-c) S.
 \]</span></p>
 <p>Note that <span class="math inline">\(Y_{insurer}+Y_{reinsurer}=S\)</span>.</p>
-<p><strong>Example. Distribution of Losses under Quota Share</strong></p>
-<p>To develop intuition for the effect of quota-share agreement on the distribution of losses, the following is a short <code>R</code> demonstration using simulation. Note the relative shapes of the distributions of total losses, the retained portion (of the insurer), and the reinsurer’s portion.</p>
+<p><strong>Example 10.3.1. Distribution of losses under quota share.</strong> To develop intuition for the effect of quota-share agreement on the distribution of losses, the following is a short <code>R</code> demonstration using simulation. Note the relative shapes of the distributions of total losses, the retained portion (of the insurer), and the reinsurer’s portion.</p>
 <p><img src="LossDataAnalytics_files/figure-html/unnamed-chunk-6-1.png" width="960" style="display: block; margin: auto;" /></p>
 <h6 style="text-align: center;">
-<a id="displayQuotaShare" href="javascript:togglecode('toggleQuotaShare','displayQuotaShare');"><i><strong>Click Here to see the R Code</strong></i></a>
+<a id="displayQuotaShare" href="javascript:togglecode('toggleQuotaShare','displayQuotaShare');"><i><strong>Show the R Code</strong></i></a>
 </h6>
 <div id="toggleQuotaShare" style="display: none">
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">2018</span>)
@@ -869,7 +961,7 @@ S &lt;-<span class="st">  </span><span class="kw">rpareto</span>(nSim, <span cla
 <p>The quota share contract is particularly desirable for the reinsurer. To see this, suppose that an insurer and reinsurer wish to enter a contract to share total losses <span class="math inline">\(S\)</span> such that <span class="math display">\[Y_{insurer}=g(S) \ \ \ \text{and} \ \ \ \ Y_{reinsurer}=S-g(S),\]</span> for some generic function <span class="math inline">\(g(\cdot)\)</span> (known as the <em>retention</em> function). Suppose further that the insurer only cares about the variability of retained claims and is indifferent to the choice of <span class="math inline">\(g\)</span> as long as <span class="math inline">\(Var~Y_{insurer}\)</span> stays the same and equals, say, <span class="math inline">\(Q\)</span>. Then, the following result shows that the quota share reinsurance treaty minimizes the reinsurer’s uncertainty as measured by <span class="math inline">\(Var~Y_{reinsurer}\)</span>.</p>
 <p><strong>Proposition</strong>. Suppose that <span class="math inline">\(Var~Y_{insurer}=Q.\)</span> Then, <span class="math inline">\(Var ((1-c)S) \le Var(g(S))\)</span> for all <span class="math inline">\(g(.)\)</span>.</p>
 <h6 style="text-align: center;">
-<a id="displayProof" href="javascript:togglecode('toggleProof','displayProof');"><i><strong>Click Here to see the Justification of the Proposition</strong></i></a>
+<a id="displayProof" href="javascript:togglecode('toggleProof','displayProof');"><i><strong>Show the Justification of the Proposition</strong></i></a>
 </h6>
 <div id="toggleProof" style="display: none">
 <p><strong>Proof of the Proposition</strong>. With <span class="math inline">\(Y_{reinsurer} = S - Y_{insurer}\)</span> and the law of total variation</p>
@@ -891,7 +983,7 @@ Var (Y_{reinsurer}) &amp;= Var (S-Y_{insurer}) \\
 <p>Now assume <span class="math inline">\(n\)</span> risks in the porfolio, <span class="math inline">\(X_1, \ldots, X_n,\)</span> so that the portfolio sum is <span class="math inline">\(S= X_1 + \cdots + X_n\)</span>. For simplicity, we focus on the case of independent risks. Let us consider a variation of the basic quota share agreement where the amount retained by the insurer may vary with each risk, say <span class="math inline">\(c_i\)</span>. Thus, the insurer’s portion of the portfolio risk is <span class="math inline">\(Y_{insurer} = \sum_{i=1}^n c_i X_i\)</span>. What is the best choice of the proportions <span class="math inline">\(c_i\)</span>?</p>
 <p>To formalize this question, we seek to find those values of <span class="math inline">\(c_i\)</span> that minimize <span class="math inline">\(Var ~Y_{insurer}\)</span> subject to the constraint that <span class="math inline">\(E ~Y_{insurer} = K.\)</span> The requirement that <span class="math inline">\(E ~Y_{insurer} = K\)</span> suggests that the insurers wishes to retain a revenue in at least the amount of the constant <span class="math inline">\(K\)</span>. Subject to this revenue constraint, the insurer wishes to minimize uncertainty of the retained risks as measured by the variance.</p>
 <h6 style="text-align: center;">
-<a id="displayDerivationProof" href="javascript:togglecode('toggleDerivationProof','displayDerivationProof');"><i><strong>Click Here to see the Optimal Retention Proportions</strong></i></a>
+<a id="displayDerivationProof" href="javascript:togglecode('toggleDerivationProof','displayDerivationProof');"><i><strong>Show the Optimal Retention Proportions</strong></i></a>
 </h6>
 <div id="toggleDerivationProof" style="display: none">
 <p><strong>The Optimal Retention Proportions</strong></p>
@@ -909,13 +1001,12 @@ L &amp;= Var (Y_{insurer}) - \lambda (E ~Y_{insurer} - K) \\
 c_i  =  \frac{\lambda}{2} \frac{E ~X_i}{Var ~X_i} .
 \]</span></p>
 </div>
-<p>From the math, it turns out that the constant for the <span class="math inline">\(i\)</span>th risk, <span class="math inline">\(c_i\)</span> is proportional to <span class="math inline">\(\frac{E ~X_i}{Var ~X_i}\)</span>. This is intuitively appealing. Other things being equal, a higher revenue as measured by <span class="math inline">\(E ~X_i\)</span> means a higher value of <span class="math inline">\(c_i\)</span>. In the same way, a higher value of uncertainty as measured by <span class="math inline">\(Var ~X_i\)</span> means a lower value of <span class="math inline">\(c_i\)</span>. The proportional scaling factor is determined by the revenue requirement <span class="math inline">\(E ~Y_{insurer} = K\)</span>.</p>
-<p>The following example helps to develop a feel for this relationship.</p>
+<p>From the math, it turns out that the constant for the <span class="math inline">\(i\)</span>th risk, <span class="math inline">\(c_i\)</span> is proportional to <span class="math inline">\(\frac{E ~X_i}{Var ~X_i}\)</span>. This is intuitively appealing. Other things being equal, a higher revenue as measured by <span class="math inline">\(E ~X_i\)</span> means a higher value of <span class="math inline">\(c_i\)</span>. In the same way, a higher value of uncertainty as measured by <span class="math inline">\(Var ~X_i\)</span> means a lower value of <span class="math inline">\(c_i\)</span>. The proportional scaling factor is determined by the revenue requirement <span class="math inline">\(E ~Y_{insurer} = K\)</span>. The following example helps to develop a feel for this relationship.</p>
+<p><strong>Example 10.3.2. Three Pareto risks.</strong> Consider three risks that have a Pareto distribution. Provide a graph, and supporting code, that give values of <span class="math inline">\(c_1\)</span>, <span class="math inline">\(c_2\)</span>, and <span class="math inline">\(c_3\)</span> for a required revenue <span class="math inline">\(K\)</span>. Note that these values increase linearly with <span class="math inline">\(K\)</span>.</p>
 <h6 style="text-align: center;">
-<a id="displayParetoRisksProp" href="javascript:togglecode('toggleParetoRisksProp','displayParetoRisksProp');"><i><strong>Click Here to see an Example with Three Pareto Risks</strong></i></a>
+<a id="displayParetoRisksProp" href="javascript:togglecode('toggleParetoRisksProp','displayParetoRisksProp');"><i><strong>Show an Example with Three Pareto Risks</strong></i></a>
 </h6>
 <div id="toggleParetoRisksProp" style="display: none">
-<p><strong>Example</strong>. Consider three risks that have a Pareto distribution. The graph, and supporting code, give values of <span class="math inline">\(c_1\)</span>, <span class="math inline">\(c_2\)</span>, and <span class="math inline">\(c_3\)</span> for a required revenue <span class="math inline">\(K\)</span>. Note that these values increase linearly with <span class="math inline">\(K\)</span>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">theta1 =<span class="st"> </span><span class="dv">1000</span>;theta2 =<span class="st"> </span><span class="dv">2000</span>;theta3 =<span class="st"> </span><span class="dv">3000</span>;
 alpha1 =<span class="st"> </span><span class="dv">3</span>;alpha2 =<span class="st"> </span><span class="dv">3</span>;alpha3 =<span class="st"> </span><span class="dv">4</span>;
 <span class="kw">library</span>(actuar)
@@ -955,7 +1046,7 @@ c1Vec &lt;-<span class="st"> </span>c2Vec &lt;-c3Vec &lt;-<span class="st"> </sp
 <h3><span class="header-section-number">10.3.2</span> Non-Proportional Reinsurance</h3>
 <div id="the-optimality-of-stop-loss-insurance" class="section level4">
 <h4><span class="header-section-number">10.3.2.1</span> The Optimality of Stop Loss Insurance</h4>
-<p>Under this arrangement, the insurer sets a retention level <span class="math inline">\(M (&gt;0)\)</span> and pays in full total claims for which <span class="math inline">\(S \le M\)</span>. Thus, the insurer retains an amount <span class="math inline">\(M\)</span> of the risk. Further, for claims for which <span class="math inline">\(S &gt; M\)</span>, the direct insurer pays <span class="math inline">\(M\)</span> and the reinsurer pays the remaining amount <span class="math inline">\(S-M\)</span>. Summarizing, the amounts paid by the direct insurer and the reinsurer are</p>
+<p>Under a <strong>stop loss</strong> arrangement, the insurer sets a retention level <span class="math inline">\(M (&gt;0)\)</span> and pays in full total claims for which <span class="math inline">\(S \le M\)</span>. Thus, the insurer retains an amount <span class="math inline">\(M\)</span> of the risk. Further, for claims for which <span class="math inline">\(S &gt; M\)</span>, the direct insurer pays <span class="math inline">\(M\)</span> and the reinsurer pays the remaining amount <span class="math inline">\(S-M\)</span>. Summarizing, the amounts paid by the direct insurer and the reinsurer are</p>
 <p><span class="math display">\[
 Y_{insurer} =
 \begin{cases}
@@ -975,7 +1066,7 @@ S- M &amp;  \text{for } S &gt;M \\
 <p>The stop loss type of contract is particularly desirable for the insurer. Similar to earlier, suppose that an insurer and reinsurer wish to enter a contract so that <span class="math inline">\(Y_{insurer}=g(S)\)</span> and <span class="math inline">\(Y_{reinsurer}=S-g(S)\)</span> for some generic retention function <span class="math inline">\(g(\cdot)\)</span>. Suppose further that the insurer only cares about the variability of retained claims and is indifferent to the choice of <span class="math inline">\(g\)</span> as long as <span class="math inline">\(Var~Y_{insurer}\)</span> can be minimized. Again, we impose the constraint that <span class="math inline">\(E ~Y_{insurer} = K\)</span>; the insurer needs to retain a revenue <span class="math inline">\(K\)</span>. Subject to this revenue constraint, the insurer wishes to minimize uncertainty of the retained risks (as measured by the variance). Then, the following result shows that the stop loss reinsurance treaty minimizes the reinsurer’s uncertainty as measured by <span class="math inline">\(Var~Y_{reinsurer}\)</span>.</p>
 <p><strong>Proposition</strong>. Suppose that <span class="math inline">\(E~Y_{insurer}=K.\)</span> Then, <span class="math inline">\(Var (S \wedge M) \le Var(g(S))\)</span> for all <span class="math inline">\(g(.)\)</span>.</p>
 <h6 style="text-align: center;">
-<a id="displayProofStopLoss" href="javascript:togglecode('toggleProofStopLoss','displayProofStopLoss');"><i><strong>Click Here to see the Justification of the Proposition</strong></i></a>
+<a id="displayProofStopLoss" href="javascript:togglecode('toggleProofStopLoss','displayProofStopLoss');"><i><strong>Show the Justification of the Proposition</strong></i></a>
 </h6>
 <div id="toggleProofStopLoss" style="display: none">
 <p><strong>Proof of the Proposition</strong>. Add and subtract a constant <span class="math inline">\(M\)</span> and expand the square to get <span class="math display">\[
@@ -1007,7 +1098,7 @@ Var~ g_{SL}(S) &amp;= E (g_{SL}(S) -M)^2 -  (M- K)^2 \\
 </div>
 <div id="excess-of-loss" class="section level4">
 <h4><span class="header-section-number">10.3.2.2</span> Excess of Loss</h4>
-<p>A closely related form of non-proportional reinsurance is the <em>excess of loss</em> coverage. Under this contract, we assume that the total risk <span class="math inline">\(S\)</span> can be thought of as composed as <span class="math inline">\(n\)</span> separate risks <span class="math inline">\(X_1, \ldots, X_n\)</span> and that each of these risks are subject to upper limit, say, <span class="math inline">\(M_i\)</span>. So the insurer retains</p>
+<p>A closely related form of non-proportional reinsurance is the <strong>excess of loss</strong> coverage. Under this contract, we assume that the total risk <span class="math inline">\(S\)</span> can be thought of as composed as <span class="math inline">\(n\)</span> separate risks <span class="math inline">\(X_1, \ldots, X_n\)</span> and that each of these risks are subject to upper limit, say, <span class="math inline">\(M_i\)</span>. So the insurer retains</p>
 <p><span class="math display">\[
 Y_{i,insurer} = X_i \wedge M_i \ \ \ \ Y_{insurer} = \sum_{i=1}^n Y_{i,insurer}
 \]</span> and the reinsurer is responsible for the excess, <span class="math inline">\(Y_{reinsurer}=S - Y_{insurer}\)</span>. The retention limits may vary by risk or may be the same for all risks, <span class="math inline">\(M_i =M\)</span>, for all <span class="math inline">\(i\)</span>.</p>
@@ -1016,7 +1107,7 @@ Y_{i,insurer} = X_i \wedge M_i \ \ \ \ Y_{insurer} = \sum_{i=1}^n Y_{i,insurer}
 <h4><span class="header-section-number">10.3.2.3</span> Optimal Choice for Excess of Loss Retention Limits</h4>
 <p>What is the best choice of the excess of loss retention limits <span class="math inline">\(M_i\)</span>? To formalize this question, we seek to find those values of <span class="math inline">\(M_i\)</span> that minimize <span class="math inline">\(Var ~Y_{insurer}\)</span> subject to the constraint that <span class="math inline">\(E ~Y_{insurer} = K.\)</span> Subject to this revenue constraint, the insurer wishes to minimize uncertainty of the retained risks (as measured by the variance).</p>
 <h6 style="text-align: center;">
-<a id="displayDerivationProofExcess" href="javascript:togglecode('toggleDerivationProofExcess','displayDerivationProofExcess');"><i><strong>Click Here to see the Optimal Retention Proportions</strong></i></a>
+<a id="displayDerivationProofExcess" href="javascript:togglecode('toggleDerivationProofExcess','displayDerivationProofExcess');"><i><strong>Show the Optimal Retention Proportions</strong></i></a>
 </h6>
 <div id="toggleDerivationProofExcess" style="display: none">
 <p><strong>The Optimal Retention Limits</strong></p>
@@ -1048,12 +1139,13 @@ E~(S \wedge M)^2 = 2\int_0^M ~x(1- F(x))dx
 \lambda = 2 (M_i - E ~(X_i \wedge M_i)) .
 \]</span></p>
 </div>
-<p>From the math, it turns out that the retention limit less the expected insurer’s claims, <span class="math inline">\(M_i - E ~(X_i \wedge M_i)\)</span>, is the same for <em>all</em> risks. This is intuitively appealing, ….</p>
+<p>From the math, it turns out that the retention limit less the expected insurer’s claims, <span class="math inline">\(M_i - E ~(X_i \wedge M_i)\)</span>, is the same for <em>all</em> risks. This is intuitively appealing.</p>
+<p><strong>Example 10.3.3. Excess of loss for three Pareto risks.</strong> Consider three risks that have a Pareto distribution, each having a different set of parameters (so they are independent but non-identical). Show numerically that the optimal retention limits <span class="math inline">\(M_1\)</span>, <span class="math inline">\(M_2\)</span>, and <span class="math inline">\(M_3\)</span> resulting retention limit minus expected insurer’s claims, <span class="math inline">\(M_i - E ~(X_i \wedge M_i)\)</span>, is the same for all risks, as we derived theoretically. Further, graphically compare the distribution of total risks to that retained by the insurer and by the reinsurer.</p>
 <h6 style="text-align: center;">
-<a id="displayParetoRisksExcess" href="javascript:togglecode('toggleParetoRisksExcess','displayParetoRisksExcess');"><i><strong>Click Here to see an Example with Three Pareto Risks</strong></i></a>
+<a id="displayParetoRisksExcess" href="javascript:togglecode('toggleParetoRisksExcess','displayParetoRisksExcess');"><i><strong>Show an Example with Three Pareto Risks</strong></i></a>
 </h6>
 <div id="toggleParetoRisksExcess" style="display: none">
-<p><strong>Example</strong>. Consider three risks that have a Pareto distribution, each having a different set of parameters (so they are independent but non-identical). We first optimize the Lagrangian using the <code>R</code> package <code>alabama</code> for <em>Augmented Lagrangian Adaptive Barrier Minimization Algorithm</em>. Then, we show that the optimal retention limits <span class="math inline">\(M_1\)</span>, <span class="math inline">\(M_2\)</span>, and <span class="math inline">\(M_3\)</span> resulting retention limit minus expected insurer’s claims, <span class="math inline">\(M_i - E ~(X_i \wedge M_i)\)</span>, is the same for all risks, as we derived theoretically. Finally, we graphically compare the distribution of total risks to that retained by the insurer and by the reinsurer.</p>
+<p>We first optimize the Lagrangian using the <code>R</code> package <code>alabama</code> for <em>Augmented Lagrangian Adaptive Barrier Minimization Algorithm</em>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">theta1 =<span class="st"> </span><span class="dv">1000</span>;theta2 =<span class="st"> </span><span class="dv">2000</span>;theta3 =<span class="st"> </span><span class="dv">3000</span>;
 alpha1 =<span class="st"> </span><span class="dv">3</span>;   alpha2 =<span class="st"> </span><span class="dv">3</span>;   alpha3 =<span class="st"> </span><span class="dv">4</span>;
 Pmin &lt;-<span class="st"> </span><span class="dv">2000</span>
@@ -1074,14 +1166,16 @@ f &lt;-<span class="st"> </span><span class="cf">function</span>(M){<span class=
 h &lt;-<span class="st"> </span><span class="cf">function</span>(M){<span class="kw">VarFct</span>(M)[<span class="dv">1</span>] <span class="op">-</span><span class="st"> </span>Pmin}
 <span class="kw">library</span>(alabama)
 par0=<span class="kw">rep</span>(<span class="dv">1000</span>,<span class="dv">3</span>)
-op &lt;-<span class="st"> </span><span class="kw">auglag</span>(<span class="dt">par=</span>par0,<span class="dt">fn=</span>f,<span class="dt">hin=</span>h,<span class="dt">control.outer=</span><span class="kw">list</span>(<span class="dt">trace=</span><span class="ot">FALSE</span>))
-M1star =<span class="st"> </span>op<span class="op">$</span>par[<span class="dv">1</span>];M2star =<span class="st"> </span>op<span class="op">$</span>par[<span class="dv">2</span>];M3star =<span class="st"> </span>op<span class="op">$</span>par[<span class="dv">3</span>]
+op &lt;-<span class="st"> </span><span class="kw">auglag</span>(<span class="dt">par=</span>par0,<span class="dt">fn=</span>f,<span class="dt">hin=</span>h,<span class="dt">control.outer=</span><span class="kw">list</span>(<span class="dt">trace=</span><span class="ot">FALSE</span>))</code></pre></div>
+<p>The optimal retention limits <span class="math inline">\(M_1\)</span>, <span class="math inline">\(M_2\)</span>, and <span class="math inline">\(M_3\)</span> resulting retention limit minus expected insurer’s claims, <span class="math inline">\(M_i - E ~(X_i \wedge M_i)\)</span>, is the same for all risks, as we derived theoretically.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">M1star =<span class="st"> </span>op<span class="op">$</span>par[<span class="dv">1</span>];M2star =<span class="st"> </span>op<span class="op">$</span>par[<span class="dv">2</span>];M3star =<span class="st"> </span>op<span class="op">$</span>par[<span class="dv">3</span>]
 M1star <span class="op">-</span><span class="kw">levpareto</span>(M1star,<span class="dt">shape=</span>alpha1, <span class="dt">scale=</span>theta1,<span class="dt">order=</span><span class="dv">1</span>)</code></pre></div>
 <pre><code>[1] 1344.135</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">M2star <span class="op">-</span><span class="kw">levpareto</span>(M2star,<span class="dt">shape=</span>alpha2, <span class="dt">scale=</span>theta2,<span class="dt">order=</span><span class="dv">1</span>)</code></pre></div>
 <pre><code>[1] 1344.133</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">M3star <span class="op">-</span><span class="kw">levpareto</span>(M3star,<span class="dt">shape=</span>alpha3, <span class="dt">scale=</span>theta3,<span class="dt">order=</span><span class="dv">1</span>)</code></pre></div>
 <pre><code>[1] 1344.133</code></pre>
+<p>We graphically compare the distribution of total risks to that retained by the insurer and by the reinsurer.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">2018</span>)
 nSim =<span class="st"> </span><span class="dv">10000</span>
 <span class="kw">library</span>(actuar)
@@ -1096,25 +1190,26 @@ Yreinsur &lt;-<span class="st"> </span>YTotal <span class="op">-</span><span cla
 <span class="kw">plot</span>(<span class="kw">density</span>(YTotal),   <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">10000</span>), <span class="dt">main=</span><span class="st">&quot;Total Loss&quot;</span>, <span class="dt">xlab=</span><span class="st">&quot;Losses&quot;</span>)
 <span class="kw">plot</span>(<span class="kw">density</span>(Yinsur),   <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">10000</span>), <span class="dt">main=</span><span class="st">&quot;Insurer&quot;</span>,    <span class="dt">xlab=</span><span class="st">&quot;Losses&quot;</span>)
 <span class="kw">plot</span>(<span class="kw">density</span>(Yreinsur), <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">10000</span>), <span class="dt">main=</span><span class="st">&quot;Reinsurer&quot;</span>,  <span class="dt">xlab=</span><span class="st">&quot;Losses&quot;</span>)</code></pre></div>
-<p><img src="LossDataAnalytics_files/figure-html/unnamed-chunk-9-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="LossDataAnalytics_files/figure-html/unnamed-chunk-11-1.png" width="768" style="display: block; margin: auto;" /></p>
 </div>
+<hr />
 </div>
 </div>
 <div id="S:AdditionalRe" class="section level3">
 <h3><span class="header-section-number">10.3.3</span> Additional Reinsurance Treaties</h3>
 <div id="surplus-share-proportional-treaty" class="section level4">
 <h4><span class="header-section-number">10.3.3.1</span> Surplus Share Proportional Treaty</h4>
-<p>Another proportional treaty is known as <em>surplus share</em>; this type of contract is common in commercial property insurance.</p>
+<p>Another proportional treaty is known as <strong>surplus share</strong>; this type of contract is common in commercial property insurance.</p>
 <ul>
-<li><p>A surplus share treaty allows the reinsured to limit its exposure on any one risk to a given amount (the <em>retained line</em>).</p></li>
-<li><p>The reinsurer assumes a part of the risk in proportion to the amount that the insured value exceeds the retained line, up to a given limit (expressed as a multiple of the retained line, or number of lines).</p></li>
-<li><p>For example, let the retained line be $100,000 and let the given limit be 4 lines ($400,000). Then, if <span class="math inline">\(S\)</span> is the loss, the reinsurer’s portion is <span class="math inline">\(\min(400000, (S-100000)_+)\)</span>.</p></li>
+<li>A surplus share treaty allows the reinsured to limit its exposure on any one risk to a given amount (the <em>retained line</em>).</li>
+<li>The reinsurer assumes a part of the risk in proportion to the amount that the insured value exceeds the retained line, up to a given limit (expressed as a multiple of the retained line, or number of lines).</li>
 </ul>
+<p>For example, let the retained line be $100,000 and let the given limit be 4 lines ($400,000). Then, if <span class="math inline">\(S\)</span> is the loss, the reinsurer’s portion is <span class="math inline">\(\min(400000, (S-100000)_+)\)</span>.</p>
 </div>
 <div id="layers-of-coverage" class="section level4">
 <h4><span class="header-section-number">10.3.3.2</span> Layers of Coverage</h4>
 <p>One can also extend non-proportional stop loss treaties by introducing additional parties to the contract. For example, instead of simply an insurer and reinsurer or an insurer and a policyholder, think about the situation with all three parties, a policyholder, insurer, and reinsurer, who agree on how to share a risk. More generally, we consider <span class="math inline">\(k\)</span> parties. If <span class="math inline">\(k=4\)</span>, it could be an insurer and three different reinsurers.</p>
-<p><strong>Example</strong></p>
+<p><strong>Example 10.3.4. Layers of coverage for three parties.</strong></p>
 <ul>
 <li><p>Suppose that there are <span class="math inline">\(k=3\)</span> parties. The first party is responsible for the first 100 of claims, the second responsible for claims from 100 to 3000, and the third responsible for claims above 3000.</p></li>
 <li><p>If there are four claims in the amounts 50, 600, 1800 and 4000, then they would be allocated to the parties as follows:</p></li>
@@ -1165,6 +1260,7 @@ Yreinsur &lt;-<span class="st"> </span>YTotal <span class="op">-</span><span cla
 </tr>
 </tbody>
 </table>
+<hr />
 <p>To handle the general situation with <span class="math inline">\(k\)</span> groups, partition the positive real line into <span class="math inline">\(k\)</span> intervals using the cut-points <span class="math display">\[0 = M_0 &lt; M_1 &lt; \cdots &lt; M_{k-1} &lt; M_k = \infty.\]</span></p>
 <p>Note that the <span class="math inline">\(j\)</span>th interval is <span class="math inline">\((M_{j-1}, M_j]\)</span>. Now let <span class="math inline">\(Y_j\)</span> be the amount of risk shared by the <span class="math inline">\(j\)</span>th party. To illustrate, if a loss <span class="math inline">\(x\)</span> is such that <span class="math inline">\(M_{j-1} &lt;x \le M_j\)</span>, then <span class="math display">\[\left(\begin{array}{c}
     Y_1\\ Y_2 \\ \vdots \\ Y_j \\Y_{j+1} \\ \vdots \\Y_k
@@ -1174,33 +1270,29 @@ Yreinsur &lt;-<span class="st"> </span>YTotal <span class="op">-</span><span cla
     \end{array}\right)\]</span></p>
 <p>More succinctly, we can write <span class="math display">\[Y_j = \min(S,M_j) - \min(S,M_{j-1}) .\]</span></p>
 <p>With the expression <span class="math inline">\(Y_j = \min(S,M_j) - \min(S,M_{j-1})\)</span>, we see that the <span class="math inline">\(j\)</span>th party is responsible for claims in the interval <span class="math inline">\((M_{j-1}, M_j].\)</span> With this, it is easy to check that <span class="math inline">\(S = Y_1 + Y_2 + \cdots + Y_k.\)</span> As emphasized in the following example, we also remark that the parties need not be different.</p>
-<p><strong>Example</strong> - Suppose that a policyholder is responsible for the first 500 of claims and all claims in excess of 100,000. The insurer takes claims between 100 and 100,000.</p>
-<ul>
-<li><p>Then, we would use <span class="math inline">\(M_1 = 100\)</span>, <span class="math inline">\(M_2 =100000\)</span>.</p></li>
-<li><p>The policyholder is responsible for <span class="math inline">\(Y_1 =\min(S,100)\)</span> and <span class="math inline">\(Y_3 = S - \min(S,100000) = \max(0, S-100000)\)</span>.</p></li>
-</ul>
-<p>For additional reading, wee the Wisconsin Property Fund site for more info on layers of reinsurance, <a href="https://sites.google.com/a/wisc.edu/local-government-property-insurance-fund/home/reinsurance" class="uri">https://sites.google.com/a/wisc.edu/local-government-property-insurance-fund/home/reinsurance</a>.</p>
+<p><strong>Example 10.3.5.</strong> - Suppose that a policyholder is responsible for the first 500 of claims and all claims in excess of 100,000. The insurer takes claims between 100 and 100,000. - Then, we would use <span class="math inline">\(M_1 = 100\)</span>, <span class="math inline">\(M_2 =100000\)</span>. - The policyholder is responsible for <span class="math inline">\(Y_1 =\min(S,100)\)</span> and <span class="math inline">\(Y_3 = S - \min(S,100000) = \max(0, S-100000)\)</span>.</p>
+<p>For additional reading, see the <a href="https://sites.google.com/a/wisc.edu/local-government-property-insurance-fund/home/reinsurance">Wisconsin Property Fund site</a> for more info on layers of reinsurance.</p>
 </div>
 <div id="portfolio-management-example" class="section level4">
 <h4><span class="header-section-number">10.3.3.3</span> Portfolio Management Example</h4>
 <p>Many other variations of the foundational contracts are possible. For one more illustration, consider the following.</p>
-<p><strong>Example.</strong> You are the Chief Risk Officer of a telecommunications firm. Your firm has several property and liabililty risks; we will consider:</p>
+<p><strong>Example. 10.3.6. Portfolio management.</strong> You are the Chief Risk Officer of a telecommunications firm. Your firm has several property and liabililty risks. We will consider:</p>
 <ul>
-<li><p><span class="math inline">\(X_1\)</span> - buildings, modeled using a gamma distribution with mean 200 and scale parameter 100.</p></li>
-<li><p><span class="math inline">\(X_2\)</span> - motor vehicles, modeled using a gamma distribution with mean 400 and scale parameter 200.</p></li>
-<li><p><span class="math inline">\(X_3\)</span> - directors and executive officers risk, modeled using a Pareto distribution with mean 1000 and scale parameter 1000.</p></li>
-<li><p><span class="math inline">\(X_4\)</span> - cyber risks, modeled using a Pareto distribution with mean 1000 and scale parameter 2000.</p></li>
+<li><span class="math inline">\(X_1\)</span> - buildings, modeled using a gamma distribution with mean 200 and scale parameter 100.</li>
+<li><span class="math inline">\(X_2\)</span> - motor vehicles, modeled using a gamma distribution with mean 400 and scale parameter 200.</li>
+<li><span class="math inline">\(X_3\)</span> - directors and executive officers risk, modeled using a Pareto distribution with mean 1000 and scale parameter 1000.</li>
+<li><span class="math inline">\(X_4\)</span> - cyber risks, modeled using a Pareto distribution with mean 1000 and scale parameter 2000.</li>
 </ul>
 <p>Denote the total risk as <span class="math display">\[S = X_1 + X_2 + X_3 + X_4 .\]</span></p>
 <p>For simplicity, you assume that these risks are independent.</p>
 <p>To manage the risk, you seek some insurance protection. You wish to manage internally small building and motor vehicles amounts, up to <span class="math inline">\(M_1\)</span> and <span class="math inline">\(M_2\)</span>, respectively. You seek insurance to cover all other risks. Specifically, the insurer’s portion is <span class="math display">\[ Y_{insurer} = (X_1 - M_1)_+ + (X_2 - M_2)_+ + X_3 + X_4 ,\]</span> so that your retained risk is <span class="math inline">\(Y_{retained}= S- Y_{insurer} = \min(X_1,M_1) + \min(X_2,M_2)\)</span>. Using deductibles <span class="math inline">\(M_1=\)</span> 100 and <span class="math inline">\(M_2=\)</span> 200:</p>
 <ol style="list-style-type: lower-alpha">
-<li><p>Determine the expected claim amount of (i) that retained, (ii) that accepted by the insurer, and (iii) the total overall amount.</p></li>
-<li><p>Determine the 80th, 90th, 95th, and 99th percentiles for (i) that retained, (ii) that accepted by the insurer, and (iii) the total overall amount.</p></li>
-<li><p>Compare the distributions by plotting the densities for (i) that retained, (ii) that accepted by the insurer, and (iii) the total overall amount.</p></li>
+<li>Determine the expected claim amount of (i) that retained, (ii) that accepted by the insurer, and (iii) the total overall amount.</li>
+<li>Determine the 80th, 90th, 95th, and 99th percentiles for (i) that retained, (ii) that accepted by the insurer, and (iii) the total overall amount.</li>
+<li>Compare the distributions by plotting the densities for (i) that retained, (ii) that accepted by the insurer, and (iii) the total overall amount.</li>
 </ol>
 <h6 style="text-align: center;">
-<a id="displayPortMgtExample" href="javascript:togglecode('togglePortMgtExample','displayPortMgtExample');"><i><strong>R Code for Example Solution</strong></i></a>
+<a id="displayPortMgtExample" href="javascript:togglecode('togglePortMgtExample','displayPortMgtExample');"><i><strong>Show Example Solution with R Code</strong></i></a>
 </h6>
 <div id="togglePortMgtExample" style="display: none">
 <p>In preparation, here is the code needed to set the parameters.</p>
@@ -1251,7 +1343,7 @@ Total    3351.35 4675.04 6464.20 12159.02</code></pre>
 <span class="kw">plot</span>(<span class="kw">density</span>(Yretained), <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">500</span>), <span class="dt">main=</span><span class="st">&quot;Retained Portfolio Risk&quot;</span>, <span class="dt">xlab=</span><span class="st">&quot;Loss (Note the different horizontal scale)&quot;</span>)
 <span class="kw">plot</span>(<span class="kw">density</span>(Yinsurer), <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">15000</span>), <span class="dt">main=</span><span class="st">&quot;Insurer Portfolio Risk&quot;</span>, <span class="dt">xlab=</span><span class="st">&quot;Loss&quot;</span>)
 <span class="kw">plot</span>(<span class="kw">density</span>(S), <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">15000</span>), <span class="dt">main=</span><span class="st">&quot;Total Portfolio Risk&quot;</span>, <span class="dt">xlab=</span><span class="st">&quot;Loss&quot;</span>)</code></pre></div>
-<p><img src="LossDataAnalytics_files/figure-html/unnamed-chunk-15-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="LossDataAnalytics_files/figure-html/unnamed-chunk-17-1.png" width="768" style="display: block; margin: auto;" /></p>
 </div>
 <script type="text/javascript">
 function togglecode(id1,id2) {

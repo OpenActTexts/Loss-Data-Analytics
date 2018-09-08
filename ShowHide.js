@@ -22,3 +22,9 @@ function toggleTheory(id1,id2) {
    if (ele.style.display == "block") {ele.style.display = "none"; text.innerHTML = "Show Theory";}
       else {ele.style.display = "block"; text.innerHTML = "Hide Theory";}}
 </script>
+
+<script language="javascript">
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
+</script>

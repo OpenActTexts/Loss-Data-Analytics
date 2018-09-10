@@ -1,12 +1,7 @@
 #Introduction to Loss Data Analytics {#C:Intro}
 
-*Chapter Preview*. This book introduces readers to methods of analyzing
-insurance data. Section \@ref(S:Intro) begins with a discussion of why the use of
-data is important in the insurance industry. Although obvious, the importance of data is critical - it is the whole premise of the
-book. Next, Section \@ref(S:PredModApps) gives a general overview
-of the purposes of analyzing insurance data which is reinforced in the
-Section \@ref(S:LGPIF) case study. Naturally, there is a huge gap between these broads goals and a case study application; this gap
-is covered through the methods and techniques of data analysis covered
+*Chapter Preview*. This book introduces readers to methods of analyzing insurance data. Section \@ref(S:Intro) begins with a discussion of why the use of data is important in the insurance industry. Section \@ref(S:PredModApps) gives a general overview of the purposes of analyzing insurance data which is reinforced in the
+Section \@ref(S:LGPIF) case study. Naturally, there is a huge gap between the broad goals summarized in the overview and a case study application; this gap is covered through the methods and techniques of data analysis covered
 in the rest of the text.
 
 
@@ -15,9 +10,9 @@ in the rest of the text.
 <hr />
 In this section, you learn how to:
 
-- Summarize the relevance of insurance
-- Describe analytics
-- Identify data generating events associated with the timeline of a typical insurance contract
+- Summarize the importance of insurance to consumers and the economy
+- How to describe analytics
+- To identify data generating events associated with the timeline of a typical insurance contract
 
 <hr />
 
@@ -25,35 +20,25 @@ In this section, you learn how to:
 This book introduces the process of using data to make decisions in an
 insurance context. It does not assume that readers are familiar with
 insurance but introduces insurance concepts as needed. Insurance may not
-be as entertaining as the sports industry nor as widely familiar as the
-agricultural industry but it does affect the financial livelihoods of
-many. By almost any measure, insurance is a major economy activity. On a
-global level, insurance premiums comprised about 6.3% of the world gross
-domestic product (GDP) in 2013, [@III2015]. To illustrate, premiums
-accounted for 17.6% of GDP in Taiwan (the highest in the study) and
-represented 7.5% of GDP in the United States. On a personal level,
+be as entertaining as the sports industry (another industry that depends heavily on data) but it does affect the financial livelihoods of many. By almost any measure, insurance is a major economic activity. On a
+global level, insurance premiums comprised about 6.2% of the world gross
+domestic product (GDP) in 2014, [@III2016]. As examples, premiums
+accounted for 18.9% of GDP in Taiwan (the highest in the study) and
+represented 7.3% of GDP in the United States. On a personal level,
 almost everyone owning a home has insurance to protect themselves in the
 event of a fire, hailstorm, or some other calamitous event. Almost every
-country requires insurance for those driving a car. So, although not
-particulary entertaining nor widely familiar, insurance is an important
-piece of the economy and relevant to individual livelihoods.
+country requires insurance for those driving a car. In sum, although not
+particulary entertaining, insurance plays an important
+role in the economies of nation and the lives of individuals.
 
-Insurance is a data-driven industry. Like other major corporations,
-insurers use data when trying to decide how much to pay employees, how
-many employees to retain, how to market their services, how to forecast
-financial trends, and so on. Although each industry retains its own
-nuances, these represent general areas of activities that are not
-specific to the insurance industry. You will find that the data methods
-and tools introduced in this text relevant for these general areas.
+Insurance is a data-driven industry. Like other major corporations, insurers use data when trying to decide how much to pay employees, how many employees to retain, how to market their services, how to forecast
+financial trends, and so on. These represent general areas of activities that are not
+specific to the insurance industry. Although each industry retains its own
+nuances, you will find that the methods and tools introduced in this text are relevant across industries.
 
-Moreover, when introducing data methods, we will focus on losses that
-potentially arise from obligations in insurance contracts. This could be
-the amount of damage to one's apartment under a renter's insurance
-agreement, the amount needed to compensate someone that you hurt in a
-driving accident, and the like. We will call these *insurance claims* or
+When introducing data methods, we will focus on losses that arise from obligations in insurance contracts. This could be the amount of damage to one's apartment under a renter's insurance agreement, the amount needed to compensate someone that you hurt in a driving accident, and the like. We  call these obligations *insurance claims* or
 *loss amounts*. With this focus, we will be able to introduce generally
-applicable statistical tools in techniques in real-life situations where
-the tools can be used directly.
+applicable statistical tools and techniques in real-life situations.
 
 ### What is Analytics?
 
@@ -61,9 +46,7 @@ Insurance is a data-driven industry and analytics is a key to deriving
 information from data. But what is analytics? Making data-driven
 business decisions has been described as business analytics, business
 intelligence, and data science. These terms, among others, are
-sometimes used interchangeably and sometimes used separately, referring
-to distinct domains of applications. As an example of such distinctions,
-*business intelligence* may focus on processes of collecting data, often
+sometimes used interchangeably and sometimes refer to distinct applications. *Business intelligence* may focus on processes of collecting data, often
 through databases and data warehouses, whereas *business analytics*
 utilizes tools and methods for statistical analyses of data. In contrast
 to these two terms that emphasize business applications, the term *data
@@ -73,7 +56,7 @@ using data to make decisions. This process involves gathering data,
 understanding models of uncertainty, making general inferences, and
 communicating results.
 
-### Short-term Insurance
+### Short and Long-term Insurance
 
 This text will focus on short-term insurance contracts. By short-term,
 we mean contracts where the insurance coverage is typically provided for
@@ -92,13 +75,13 @@ damages to people is known as casualty insurance. In the rest of the
 world, these are both known as nonlife or general insurance, to
 distinguish them from life insurance.
 
-Both life and nonlife insurances are important. To illustrate,
-[@III2015] estimates that direct insurance premiums in the world for
-2013 was 2,608,091 for life and 2,032,850 for nonlife; these figures are
-in millions of US dollars. As noted earlier, the total represents 6.3%
-of the world GDP. Put another way, life accounts for 56.2% of insurance
-premiums and 3.5% of world GDP, nonlife accounts for 43.8% of insurance
-premiums and 2.7% of world GDP. Both life and nonlife represent
+Both life and nonlife insurances are important components of the world economy. The
+@III2016 estimates that direct insurance premiums in the world for
+2014 was 2,654,549 for life and 2,123,699 for nonlife; these figures are
+in *millions of US dollars*. As noted earlier, the total represents 6.2%
+of the world GDP. Put another way, life accounts for 55.5% of insurance
+premiums and 3.4% of world GDP whereas nonlife accounts for 44.5% of insurance
+premiums and 2.8% of world GDP. Both life and nonlife represent
 important economic activities and are worthy of study in their own
 right.
 
@@ -111,11 +94,11 @@ contract.
 
 Further, in life insurance, the benefit amount is often stipulated in
 the contract provisions. In contrast, most short-term contracts provide
-for reimbursement of insured losses which are unknown before the
+for compensation of insured losses which are unknown before the
 accident. (There are usually limits placed on the
-reimbursement amounts.) In a life insurance contract that stretches over many years, the
+compensation amounts.) In a life insurance contract that stretches over many years, the
 time value of money plays a prominent role. In contrast, in a short-term
-nonlife contract, the random amount of reimbursement takes priority.
+nonlife contract, the random amount of compensation takes priority.
 
 In both life and nonlife insurances, the frequency of claims is very
 important. For many life insurance contracts, the insured event (such as
@@ -133,21 +116,20 @@ e.g., six months, will be specified in the situation).
     premium that is agreed upon by both parties to the contract.
 
 -   At the end of the period, the insurer reimburses the insured for a
-    (possibly multivariate) random loss that we will denote as $y$.
+    (possibly multivariate) random loss.
 
 This framework will be developed as we proceed but we first focus on
-integrating this framework with concerns about how the data may arise
-and what we can accomplish with this framework.
+integrating this framework with concerns about how the data may arise.
 
 ### Insurance Processes {#S:InsProcesses}
 
 One way to describe the data arising from operations of a company that
-sells insurance products is to adopt a granular approach. In this
-micro oriented view, we can think specifically about what happens to a
-contract at various stages of its existence. Consider Figure \@ref(fig:StochOperations) that traces a timeline of a typical insurance contract. Throughout the existence of the contract, the company regularly processes events such as premium collection and valuation,
+sells insurance products is to use a granular approach. In this
+micro oriented view, we can think  about what happens to a
+contract at various stages of its existence. Figure \@ref(fig:StochOperations) traces a timeline of a typical insurance contract. Throughout the life of the contract, the company regularly processes events such as premium collection and valuation,
 described in Section \@ref(S:PredModApps); these are marked with an **x** on
-the timeline. Further, non-regular and unanticipated events also occur.
-To illustrate, times $\mathrm{t}_2$ and $\mathrm{t}_4$ mark the
+the timeline. Non-regular and unanticipated events also occur.
+To illustrate, $\mathrm{t}_2$ and $\mathrm{t}_4$ mark the
 event of an insurance claim (some contracts, such as life insurance, can
 have only a single claim). Times $\mathrm{t}_3$ and $\mathrm{t}_5$
 mark the events when a policyholder wishes to alter certain contract
@@ -530,8 +512,7 @@ since 1911.
 ### Fund Claims Variables {#S:OutComes}
 
 At a fundamental level, insurance companies accept premiums in exchange for promises to compensate a policyholder upon the uncertain occurrence
-of an insured event. <a href="#" data-toggle="tooltip" title="Indemnification is the compensation provided by the insurer for incurred hurt, loss, or damage that is covered by the policy." style="color:green;">*Indemnification*</a> is the compensation provided by the insurer for incurred hurt, loss, or damage that is covered by the policy.
-This compensation is also known as a *claim*. The extent of the claim, known as the *severity*, is a key financial expenditure for an insurer. So, knowing only the claim amount summarizes the reimbursement to the policyholder.
+of an insured event. <a href="#" data-toggle="tooltip" title="Indemnification is the compensation provided by the insurer for incurred hurt, loss, or damage that is covered by the policy." style="color:green;">*Indemnification*</a> is the compensation provided by the insurer for incurred hurt, loss, or damage that is covered by the policy. This compensation is also known as a *claim*. The extent of the claim, known as the *severity*, is a key financial expenditure for an insurer. So, knowing only the claim amount summarizes the reimbursement to the policyholder.
 
 Ignoring expenses, an insurer that examines only amounts paid would be
 indifferent to two claims of 100 when compared to one claim of 200, even
@@ -677,20 +658,20 @@ expect that policyholders with larger coverage will have larger claims.
 We will make this vague idea much more precise as we proceed.
 
 
-  --------------------- ----------- ---------- ------------ ---------------
-  Year                      Average    Average      Average       Number of
-                          Frequency   Severity     Coverage   Policyholders
-  --------------------- ----------- ---------- ------------ ---------------
-  2006                        0.951      9,695   32,498,186           1,154
+  ------------------------------------------------------------------
+  Year            Average    Average         Average       Number of
+                Frequency   Severity        Coverage   Policyholders
+  -----------   ---------   --------      ----------   -------------
+  2006              0.951      9,695      32,498,186           1,154
   
-  2007                        1.167      6,544   35,275,949           1,138
+  2007              1.167      6,544      35,275,949           1,138
   
-  2008                        0.974      5,311   37,267,485           1,125
+  2008              0.974      5,311      37,267,485           1,125
   
-  2009                        1.219      4,572   40,355,382           1,112
+  2009              1.219      4,572      40,355,382           1,112
   
-  2010                        1.241     20,452   41,242,070           1,110
-  --------------------- ----------- ---------- ------------ ---------------
+  2010              1.241     20,452      41,242,070           1,110
+  ------------------------------------------------------------------
 
   Table: (\#tab:CoverageBCIM) Building and Contents Claims Summary
 
@@ -795,7 +776,7 @@ Variable 	& Description \\
  &  ~~~~   \text{for automatic smoke alarms in main rooms} \\
 \text{NoClaimCredit}  	& \text{Binary variable to indicate no claims in the past two years} \\
 \text{Fire5 }			& \text{Binary variable to indicate the fire class is below 5} \\
-& ~~~~ \text{(The range of fire class is 0 to 10} \\
+& ~~~~ \text{(The range of fire class is 0 to 10)} \\
 \hline
 \end{array}
 \end{matrix}}$$
@@ -821,15 +802,19 @@ Variable 	& Description \\
   
   Town                          971       0.103     19,831
   
+  *Fire*
+  
   Fire5=0                     2,508       0.502     13,935
   
   Fire5=1                     3,131       1.596     41,421
+  
+  *No Claims Credit*
   
   NoClaimCredit=0             3,786       1.501     31,365
   
   NoClaimCredit=1             1,853       0.310     30,499
   
-  Total                       5,639       1.109     31,206
+  **Total**                   5,639       1.109     31,206
   --------------------- ----------- ----------- ----------
 
  Table: (\#tab:ClaimRateVar) Claims Summary by Entity Type, Fire Class, and No Claim Credit
@@ -888,14 +873,15 @@ policyholders with no alarm credit have on average lower frequency and
 severity than policyholders with the highest (15%, with 24/7 monitoring
 by a fire station or security company) alarm credit. In particular, when
 we look at the entity type School, the frequency is 0.422 and the
-severity 25,257 for no alarm credit, whereas for the highest alarm level
+severity 25,523 for no alarm credit, whereas for the highest alarm level
 it is 2.008 and 85,140. This may simply imply that entities with more
 claims are the ones that are likely to have an alarm system. Summary
 tables do not examine multivariate effects; for example, Table
 \@ref(tab:ClaimRateVar) ignores the effect of size (as we measure through
 coverage amounts) that affect claims.
 
-  --------- ----------- ---------- ---------- ----------- ---------- ----------
+  -----------------------------------------------------------------------------
+                    AC0        AC0        AC0         AC5        AC5        AC5
   Entity          Claim       Avg.       Num.       Claim       Avg.       Num.
   Type        Frequency   Severity   Policies   Frequency   Severity   Policies
   --------- ----------- ---------- ---------- ----------- ---------- ----------
@@ -912,15 +898,17 @@ coverage amounts) that affect claims.
   Town            0.083     25,257        808       0.194      3,937         31
   
   Total           0.318     15,118      2,611       0.431     10,762        239
-  --------- ----------- ---------- ---------- ----------- ---------- ----------
+  -----------------------------------------------------------------------------
 
-  Table: (\#tab:RateAlarmCredit) Claims Summary by Entity Type and Alarm Credit Category
+  Table: (\#tab:RateAlarmCredit) Claims Summary by Entity Type and Alarm Credit (AC) Category
   
    
 
-  --------- ----------- ---------- ---------- ----------- ---------- ----------
+  -----------------------------------------------------------------------------
+                   AC10      AC10        AC10        AC15       AC15       AC15
   Entity          Claim       Avg.       Num.       Claim       Avg.       Num.
   Type        Frequency   Severity   Policies   Frequency   Severity   Policies
+  
   --------- ----------- ---------- ---------- ----------- ---------- ----------
   Village         0.500      8,792         50       0.725     10,544        408
   
@@ -935,9 +923,11 @@ coverage amounts) that affect claims.
   Town            0.091      2,338         44       0.261      9,490         88
   
   Total           0.517     10,194        327       2.093     41,458      2,462
-  --------- ----------- ---------- ---------- ----------- ---------- ----------
+  -----------------------------------------------------------------------------
 
-  : Claims Summary by Entity Type and Alarm Credit Category
+  : Claims Summary by Entity Type and Alarm Credit (AC) Category
+  
+
 
 
 <h5 style="text-align: center;"><a id="display.RateAlarmCredit.1" href="javascript:togglecode('display.RateAlarmCredit.2','display.RateAlarmCredit.1');"><i><strong>R Code for Claims Summary by Entity Type and Alarm Credit
@@ -999,7 +989,7 @@ We have now seen the Fund's two outcome variables, a count variable for
 the number of claims and a continuous variable for the claims amount. We
 have also introduced a continuous rating variable, coverage, discrete
 quantitative variable, (logarithmic) deductibles, two binary rating
-variable, no claims credit and fire class, as well as two categorical
+variables, no claims credit and fire class, as well as two categorical
 rating variables, entity type and alarm credit. Subsequent chapters will
 explain how to analyze and model the distribution of these variables and
 their relationships. Before getting into these technical details, let us
@@ -1035,8 +1025,8 @@ having top alarm systems) would actually wind up paying more.
 
 So, we have the data for thinking about the appropriate rates to charge
 but will need to dig deeper into the analysis. We will explore this
-topic further in Chapter 6 on *premium calculation fundamentals*.
-Selecting appropriate risks is introduced in Chapter 7 on *risk
+topic further in Chapter \@ref(C:PremCalc) on *premium calculation fundamentals*.
+Selecting appropriate risks is introduced in Chapter \@ref(C:RiskClass) on *risk
 classification*.
 
 ####Renewing Insurance {-}
@@ -1046,12 +1036,12 @@ Although property insurance is typically a one-year contract, Table
 typical of general insurance. For renewing policyholders, in addition to
 their rating variables we have their claims history and this claims
 history can be a good predictor of future claims. For example, Table
-\@ref(tab:CoverageBCIM) shows that policyholders without a claim in the last
+\@ref(tab:ClaimRateVar) shows that policyholders without a claim in the last
 two years had much lower claim frequencies than those with at least one
 accident (0.310 compared to 1.501); a lower predicted frequency
 typically results in a lower premium. This is why it is common for
 insurers to use variables such as ${\tt NoClaimCredit}$ in their rating. We
-will explore this topic further in Chapter 8 on *experience rating*.
+will explore this topic further in Chapter \@ref(Credibility) on *experience rating*.
 
 ####Claims Management {-}
 
@@ -1062,8 +1052,8 @@ for the fund to purchase protection against such large unusual events?
 Another unusual feature of the 2010 experience noted earlier was the
 very large frequency of claims (239) for one policyholder. Given that
 there were only 1,377 claims that year, this means that a single
-policyholder had 17.4 % of the claims. This also suggestions
-opportunities for managing claims, the subject of Chapter 9.
+policyholder had 17.4 % of the claims. This also suggests
+opportunities for managing claims, the subject of Chapter \@ref(C:PortMgt).
 
 ####Loss Reserving {-}
 
@@ -1072,7 +1062,7 @@ claims (the opposite of open). However, like many lines of insurance,
 obligations from insured events to buildings such as fire, hail, and the
 like, are not known immediately and may develop over time. Other lines
 of business, including those were there are injuries to people, take
-much longer to develop. Chapter 10 introduces this concern and *loss
+much longer to develop. Chapter \@ref(C:LossReserves) introduces this concern and *loss
 reserving*, the discipline of determining how much the insurance company
 should retain to meet its obligations.
 

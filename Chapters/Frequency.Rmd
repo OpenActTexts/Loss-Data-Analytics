@@ -549,19 +549,19 @@ the rapid convergence seen above is typical of the Newton's method. Hence in thi
 
 
 ``` 
-Newton<-function(x,abserr){
-mu<-mean(x);
-sigma2<-mean(x^2)-mu^2;
-r<-mu^2/(sigma2-mu);
-b<-TRUE;
-iter<-0;
+Newton <- function (x, abserr) {
+mu <- mean(x);
+sigma2 <- mean(x^2) - mu^2;
+r <- mu^2 / (sigma2 - mu);
+b <- TRUE;
+iter <- 0;
 while (b) {
-tr<-r;
-m1<-mean(c(x[x==0],sapply(x[x>0],function(z){sum(1/(tr:(tr-1+z)))})));
-m2<-mean(c(x[x==0],sapply(x[x>0],function(z){sum(1/(tr:(tr-1+z))^2)})));
-r<-tr-(m1-log(1+mu/tr))/(mu/(tr*(tr+mu))-m2);
-b<-!(abs(tr-r)<abserr);
-iter<-iter+1;
+tr <- r;
+m1 <- mean(c(x[x == 0], sapply(x[x > 0], function(z) {sum(1 / (tr:(tr - 1 + z)))})));
+m2 <- mean(c(x[x == 0], sapply(x[x > 0],function(z) {sum(1 / (tr:(tr - 1 + z))^2)})));
+r <- tr - (m1 - log(1 + mu / tr)) / (mu / (tr * (tr + mu)) - m2);
+b <- !(abs(tr - r) < abserr);
+iter <- iter + 1;
 }
 c(r,iter)
 }
@@ -910,10 +910,10 @@ The motivation for the above statistic derives from the fact that
 has a limiting chi-square distribution with $K-1$ degrees of freedom if $p_k$, $k=1,\ldots,K$ are the true cell probabilities. Now suppose that only the summarized data represented by $m_k$, $k=1,\ldots,K$ is available. Further, if $p_k$'s are functions of $s$ parameters, replacing $p_k$'s by any *efficiently* estimated probabilities $\widehat{p}_k$'s results in the statistic continuing to have a limiting chi-square distribution but with degrees of freedom given by $K-1-s$. Such efficient estimates can be derived for example by using the *mle* method (with a multinomial likelihood) or by estimating the $s$ parameters which minimizes the Pearson's chi-square statistic above. For example, the `R` code below does calculate an estimate for $\lambda$ doing the latter and results in the estimate $0.06623153$, close but different from the *mle* of $\lambda$ using the full data:
 
 ```
-m<-c(6996,455,28,4,0);
-op<-m/sum(m);
-g<-function(lam){sum((op-c(dpois(0:3,lam),1-ppois(3,lam)))^2)};
-optim(sum(op*(0:4)),g,method="Brent",lower=0,upper=10)$par
+m <- c(6996, 455, 28, 4, 0);
+op <- m / sum(m);
+g <- function (lam) {sum((op - c(dpois(0:3, lam), 1 - ppois(3, lam)))^2)};
+optim(sum(op * (0:4)), g, method = "Brent", lower = 0, upper = 10)$par
 ```
 
 When one uses the full-data to estimate the probabilities the asymptotic distribution is *in between* chi-square distributions with parameters $K-1$ and $K-1-s$. In practice it is common to ignore this subtlety and assume the limiting chi-square has $K-1-s$ degrees of freedom. Interestingly, this practical shortcut works quite well in the case of the Poisson distribution. 
@@ -1039,61 +1039,71 @@ Here are a set of exercises that guide the viewer through some of the theoretica
 
 
 ```
-likbinm<-function(m){
-  prod((dbinom(x,m,mean(x)/m)))
+likbinm <- function (m) {
+  prod((dbinom(x, m, mean(x) / m)))
 }
-liknbinm<-function(r){
-  prod(dnbinom(x,r,1-mean(x)/(mean(x)+r)))
+liknbinm <- function (r) {
+  prod(dnbinom(x, r, 1 - mean(x) / (mean(x) + r)))
 }
-x<-c(2,5,6,8,9)+2;
-n<-(9:100);
-r<-(1:100);
-ll<-unlist(lapply(n,likbinm));
-n[ll==max(ll[!is.na(ll)])]
-y<-cbind(n,ll);
-z<-cbind(rep("$\\hat{\\sigma}^2<\\hat{\\mu}$",length(n)),rep("Binomial - $L(m,\\overline{x}/m)$",length(n)));
+x <- c(2, 5, 6, 8, 9) + 2;
+n <- (9:100);
+r <- (1:100);
+ll <- unlist(lapply(n, likbinm));
+n[ll == max(ll[!is.na(ll)])]
+y <- cbind(n, ll);
+z <- cbind(rep("$\\hat{\\sigma}^2<\\hat{\\mu}$", length(n)), 
+           rep("Binomial - $L(m,\\overline{x}/m)$", length(n)));
 ll<-unlist(lapply(r,liknbinm));
-ll[is.na(ll)]=0;
-r[ll==max(ll[!is.na(ll)])];
-y<-rbind(y,cbind(r,ll));
-z<-rbind(z,cbind(rep("$\\hat{\\sigma}^2<\\hat{\\mu}$",length(r)),rep("Neg.Binomial - $L(r,\\overline{x}/r)$",length(r))));
-y<-rbind(y,cbind(r,rep(prod(dpois(x,mean(x))),length(r))));
-z<-rbind(z,cbind(rep("$\\hat{\\sigma}^2<\\hat{\\mu}$",length(r)),rep("Poisson - $L(\\overline{x})$",length(r))));
-x<-c(2,5,6,8,9);
-ll<-unlist(lapply(n,likbinm));
-n[ll==max(ll[!is.na(ll)])]
-y<-rbind(y,cbind(n,ll));
-z<-rbind(z,cbind(rep("$\\hat{\\sigma}^2=\\hat{\\mu}$",length(n)),rep("Binomial - $L(m,\\overline{x}/m)$",length(n))));
-ll<-unlist(lapply(r,liknbinm));
-ll[is.na(ll)]=0;
-r[ll==max(ll[!is.na(ll)])];
-y<-rbind(y,cbind(r,ll));
-z<-rbind(z,cbind(rep("$\\hat{\\sigma}^2=\\hat{\\mu}$",length(r)),rep("Neg.Binomial - $L(r,\\overline{x}/r)$",length(r))));
-y<-rbind(y,cbind(r,rep(prod(dpois(x,mean(x))),length(r))));
-z<-rbind(z,cbind(rep("$\\hat{\\sigma}^2=\\hat{\\mu}$",length(r)),rep("Poisson - $L(\\overline{x})$",length(r))));
-x<-c(2,3,6,8,9);
-ll<-unlist(lapply(n,likbinm));
-n[ll==max(ll[!is.na(ll)])]
-y<-rbind(y,cbind(n,ll));
-z<-rbind(z,cbind(rep("$\\hat{\\sigma}^2>\\hat{\\mu}$",length(n)),rep("Binomial - $L(m,\\overline{x}/m)$",length(n))));
-ll<-unlist(lapply(r,liknbinm));
-ll[is.na(ll)]=0;
-r[ll==max(ll[!is.na(ll)])];
-y<-rbind(y,cbind(r,ll));
-z<-rbind(z,cbind(rep("$\\hat{\\sigma}^2>\\hat{\\mu}$",length(r)),rep("Neg.Binomial - $L(r,\\overline{x}/r)$",length(r))));
-y<-rbind(y,cbind(r,rep(prod(dpois(x,mean(x))),length(r))));
-z<-rbind(z,cbind(rep("$\\hat{\\sigma}^2>\\hat{\\mu}$",length(r)),rep("Poisson - $L(\\overline{x})$",length(r))));
-colnames(y)<-c("x","lik");
-colnames(z)<-c("dataset","Distribution");
-dy<-cbind(data.frame(y),data.frame(z));
+ll[is.na(ll)] = 0;
+r[ll == max(ll[!is.na(ll)])];
+y <- rbind(y, cbind(r, ll));
+z <- rbind(z, cbind(rep("$\\hat{\\sigma}^2<\\hat{\\mu}$", length(r)), 
+           rep("Neg.Binomial - $L(r,\\overline{x}/r)$", length(r))));
+y <- rbind(y, cbind(r, rep(prod(dpois(x, mean(x))), length(r))));
+z <- rbind(z, cbind(rep("$\\hat{\\sigma}^2<\\hat{\\mu}$", length(r)), 
+           rep("Poisson - $L(\\overline{x})$", length(r))));
+x <- c(2, 5, 6, 8, 9);
+ll <- unlist(lapply(n, likbinm));
+n[ll == max(ll[!is.na(ll)])]
+y <- rbind(y, cbind(n, ll));
+z <- rbind(z, cbind(rep("$\\hat{\\sigma}^2=\\hat{\\mu}$", length(n)), 
+           rep("Binomial - $L(m,\\overline{x}/m)$", length(n))));
+ll <- unlist(lapply(r, liknbinm));
+ll[is.na(ll)] = 0;
+r[ll == max(ll[!is.na(ll)])];
+y <- rbind(y, cbind(r, ll));
+z <- rbind(z, cbind(rep("$\\hat{\\sigma}^2=\\hat{\\mu}$", length(r)), 
+           rep("Neg.Binomial - $L(r,\\overline{x}/r)$",length(r))));
+y <- rbind(y, cbind(r, rep(prod(dpois(x, mean(x))), length(r))));
+z <- rbind(z,cbind(rep("$\\hat{\\sigma}^2=\\hat{\\mu}$", length(r)), 
+           rep("Poisson - $L(\\overline{x})$", length(r))));
+x <- c(2, 3, 6, 8, 9);
+ll <- unlist(lapply(n, likbinm));
+n[ll == max(ll[!is.na(ll)])]
+y <- rbind(y, cbind(n, ll));
+z <- rbind(z, cbind(rep("$\\hat{\\sigma}^2>\\hat{\\mu}$", length(n)), 
+           rep("Binomial - $L(m,\\overline{x}/m)$", length(n))));
+ll <- unlist(lapply(r, liknbinm));
+ll[is.na(ll)] = 0;
+r[ll == max(ll[!is.na(ll)])];
+y <- rbind(y, cbind(r, ll));
+z <- rbind(z, cbind(rep("$\\hat{\\sigma}^2>\\hat{\\mu}$", length(r)), 
+           rep("Neg.Binomial - $L(r,\\overline{x}/r)$", length(r))));
+y <- rbind(y, cbind(r, rep(prod(dpois(x, mean(x))), length(r))));
+z <- rbind(z, cbind(rep("$\\hat{\\sigma}^2>\\hat{\\mu}$", length(r)), 
+           rep("Poisson - $L(\\overline{x})$", length(r))));
+colnames(y) <- c("x", "lik");
+colnames(z) <- c("dataset", "Distribution");
+dy <- cbind(data.frame(y), data.frame(z));
 
 library(tikzDevice);
 library(ggplot2);
-options(tikzMetricPackages = c("\\usepackage[utf8]{inputenc}","\\usepackage[T1]{fontenc}", "\\usetikzlibrary{calc}", 
-                               "\\usepackage{amssymb}","\\usepackage{amsmath}","\\usepackage[active]{preview}"))
+options(tikzMetricPackages = c("\\usepackage[utf8]{inputenc}","\\usepackage[T1]{fontenc}",                                "\\usetikzlibrary{calc}", "\\usepackage{amssymb}",
+                               "\\usepackage{amsmath}", "\\usepackage[active]{preview}"))
 tikz(file = "plot_test_2.tex", width = 6.25, height = 6.25);
-ggplot(data=dy,aes(x=x,y=lik,col=Distribution)) + geom_point(size=0.25) + facet_grid(dataset~.)+
-  labs(x="m/r",y="Likelihood",title=""); 
+ggplot(data = dy,aes(x = x, y = lik, col = Distribution)) + 
+       geom_point(size = 0.25) + facet_grid(dataset~.) + 
+       labs(x = "m/r",y = "Likelihood",title = ""); 
 dev.off();
 ```
 
@@ -1112,36 +1122,43 @@ dev.off();
 
 
 ```
-likm<-function(m){
-  prod((dbinom(x,m,mean(x)/m)))
+likm <- function (m) {
+  prod((dbinom(x, m, mean(x) / m)))
 }
-x<-c(2,2,2,4,5);
-n<-(5:100);
-ll<-unlist(lapply(n,likm));
-n[ll==max(ll)]
-y<-cbind(n,ll);
-x<-c(2,2,2,4,6);
-ll<-unlist(lapply(n,likm));
-n[ll==max(ll)]
-y<-cbind(y,ll);
-x<-c(2,2,2,4,7);
-ll<-unlist(lapply(n,likm));
-n[ll==max(ll)]
-y<-cbind(y,ll);
-colnames(y)<-c("m","$\\tilde{x}=(2,2,2,4,5)$","$\\tilde{x}=(2,2,2,4,6)$","$\\tilde{x}=(2,2,2,4,7)$");
-dy<-data.frame(y);
+x <- c(2, 2, 2, 4, 5);
+n <- (5:100);
+ll <- unlist(lapply(n, likm));
+n[ll == max(ll)]
+y <- cbind(n,ll);
+x <- c(2, 2, 2, 4, 6);
+ll <- unlist(lapply(n, likm));
+n[ll == max(ll)]
+y <- cbind(y, ll);
+x <- c(2, 2, 2, 4, 7);
+ll <- unlist(lapply(n, likm));
+n[ll == max(ll)]
+y <- cbind(y, ll);
+colnames(y) <- c("m","$\\tilde{x} = (2, 2, 2, 4, 5)$", 
+                 "$\\tilde{x} = (2, 2, 2, 4, 6)$", 
+                 "$\\tilde{x} = (2, 2, 2, 4, 7)$");
+dy <- data.frame(y);
 library(tikzDevice);
 library(ggplot2);
-options(tikzMetricPackages = c("\\usepackage[utf8]{inputenc}","\\usepackage[T1]{fontenc}", "\\usetikzlibrary{calc}", 
-                               "\\usepackage{amssymb}","\\usepackage{amsmath}","\\usepackage[active]{preview}"))
+options(tikzMetricPackages = c("\\usepackage[utf8]{inputenc}","\\usepackage[T1]{fontenc}",                                "\\usetikzlibrary{calc}", "\\usepackage{amssymb}",     
+                               "\\usepackage{amsmath}","\\usepackage[active]{preview}"))
 tikz(file = "plot_test.tex", width = 6.25, height = 3.125);
 ggplot(dy) + 
-  geom_point(aes(x=m, y=(X..tilde.x...2.2.2.4.5..),shape="$\\tilde{x}=(2,2,2,4,5):\\hat{m}=7$"),size=0.75) + 
-  geom_point(aes(x=m, y=(X..tilde.x...2.2.2.4.6..),shape="$\\tilde{x}=(2,2,2,4,6):\\hat{m}=18$"),size=0.75) +
-  geom_point(aes(x=m, y=(X..tilde.x...2.2.2.4.7..),shape="$\\tilde{x}=(2,2,2,4,7):\\hat{m}=\\infty$"),size=0.75) +
-  geom_point(aes(x=c(7),y=dy$X..tilde.x...2.2.2.4.5..[3],colour="$\\hat{m}$",shape="$\\tilde{x}=(2,2,2,4,5):\\hat{m}=7$"),size=0.75)+
-  geom_point(aes(x=c(18),y=dy$X..tilde.x...2.2.2.4.6..[14],colour="$\\hat{m}$",shape="$\\tilde{x}=(2,2,2,4,6):\\hat{m}=18$"),size=0.75)+
-  labs(x="m",y="$L(m,\\overline{x}/m)$",title="MLE for $m$: Non-Robustness of MLE "); 
+  geom_point(aes(x = m, y = (X..tilde.x...2.2.2.4.5..), 
+             shape = "$\\tilde{x} = (2, 2, 2, 4, 5):\\hat{m} = 7$"), size = 0.75) + 
+  geom_point(aes(x = m, y=(X..tilde.x...2.2.2.4.6..), 
+             shape = "$\\tilde{x} = (2, 2, 2, 4, 6):\\hat{m} = 18$"), size = 0.75) +
+  geom_point(aes(x = m, y = (X..tilde.x...2.2.2.4.7..), 
+             shape="$\\tilde{x} = (2, 2, 2, 4, 7):\\hat{m} = \\infty$"),size=0.75) +
+  geom_point(aes(x=c(7),y = dy$X..tilde.x...2.2.2.4.5..[3], colour = "$\\hat{m}$", 
+             shape = "$\\tilde{x} = (2, 2, 2, 4, 5):\\hat{m} = 7$"), size = 0.75) +
+  geom_point(aes(x = c(18),y = dy$X..tilde.x...2.2.2.4.6..[14], colour = "$\\hat{m}$",   
+             shape = "$\\tilde{x} = (2, 2, 2, 4, 6):\\hat{m} = 18$"), size = 0.75) +
+  labs(x = "m", y = "$L(m,\\overline{x}/m)$", title = "MLE for $m$: Non-Robustness of MLE "); 
 dev.off();
 ```
 

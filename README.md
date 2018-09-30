@@ -25,8 +25,8 @@ Prospective contributors should check out our [Style Guide](https://OpenActTexts
 2. Now assume that you are working with an linux terminal, the following steps will let you get started.
     + Install `git` if you haven't (just use the command 'git', the terminal will tell you what to do next)
     + In a local folder that is devoted to your various git projects, do the following with a terminal:
-        + git clone https://github.com/OpenActTexts/Loss-Data-Analytics.git
-        + cd Loss-Data-Analytics
+        + `git clone https://github.com/OpenActTexts/Loss-Data-Analytics.git`
+        + `cd Loss-Data-Analytics`
     + Then follow the document [here](https://gist.github.com/Chaser324/ce0505fbed06b947d962) until the 'submit' step [here](https://gist.github.com/Chaser324/ce0505fbed06b947d962#submitting). After you submit your pull request, relax and someone will take care of your request.
     + You need to work with your own forked repo and doing whatever you want before pulling request, and the following R packages will be required and can be installed by running:
     ```{r}

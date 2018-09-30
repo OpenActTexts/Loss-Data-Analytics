@@ -11,9 +11,13 @@ The goal is to have the actuarial community author our textbooks in a collaborat
 * The online text will be available in multiple languages to promote access to a worldwide audience.
 
 To see our progress, a draft of the book is available at
-* [Online Version](https://ewfrees.github.io/Loss-Data-Analytics/index.html)
-* [pdf version](https://github.com/ewfrees/Loss-Data-Analytics/tree/master/Offline/LossDataAnalytics.pdf)
-* [EPUB version](https://github.com/ewfrees/Loss-Data-Analytics/tree/master/Offline/LossDataAnalytics.epub)
+* [Online Version](https://OpenActTexts.github.io/Loss-Data-Analytics/index.html)
+* [pdf version](https://github.com/OpenActTexts/Loss-Data-Analytics/blob/master/Offline/LossDataAnalytics.pdf)
+* [EPUB version](https://github.com/OpenActTexts/Loss-Data-Analytics/blob/master/Offline/LossDataAnalytics.epub)
+
+Source code is available at our [GitHub site](https://github.com/OpenActTexts/Loss-Data-Analytics).
+
+Prospective contributors should check out our [Style Guide](https://OpenActTexts.github.io/StyleGuideLDA/index.html)
 
 ### How to contribute
 1. In order to contribute to any Github repo in general, and the actuarial open book project in particular, it is strongly recommended that you familiarize yourself with a linux system such as Ubuntu 16.04/18.04. If you have never used linux, there would be some learning curves, but the long term benefit is very clear: as long as you are interested in data science, open source software, and scientific computing, getting used to the linux-based environment is critically important! Why not start right now. If you still need your Windows system etc., you can at least try using [virtualbox](https://www.virtualbox.org/) with a Ubuntu system as the guest operation system.

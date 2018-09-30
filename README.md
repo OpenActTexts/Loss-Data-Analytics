@@ -22,22 +22,22 @@ Prospective contributors should check out our [Style Guide](https://OpenActTexts
 ### How to contribute
 1. In order to contribute to any Github repo in general, and the actuarial open book project in particular, it is strongly recommended that you familiarize yourself with a linux system such as Ubuntu 16.04/18.04. If you have never used linux, there would be some learning curves, but the long term benefit is very clear: as long as you are interested in data science, open source software, and scientific computing, getting used to the linux-based environment is critically important! Why not start right now. If you still need your Windows system etc., you can at least try using [virtualbox](https://www.virtualbox.org/) with a Ubuntu system as the guest operation system.
 
-2. Now assume that you are working with an linux terminal, the following steps will let you get started.
-    + Install `git` if you haven't (just use the command 'git', the terminal will tell you what to do next)
+2. Now assume that you are working with an linux terminal, and the following steps will let you get started.
+    + Install `git` if you haven't (just use the command 'git', and the terminal will tell you what to do next)
     + In a local folder that is devoted to your various git projects, do the following with a terminal:
         + `git clone https://github.com/OpenActTexts/Loss-Data-Analytics.git`
         + `cd Loss-Data-Analytics`
     + Then follow the document [here](https://gist.github.com/Chaser324/ce0505fbed06b947d962) until the 'submit' step [here](https://gist.github.com/Chaser324/ce0505fbed06b947d962#submitting). After you submit your pull request, relax and someone will take care of your request.
-    + You need to work with your own forked repo and doing whatever you want before pulling request, and the following R packages will be required and can be installed by running:
+    + You need to work with your own forked repo and do whatever you want before pulling request, and the following R packages will be required and can be installed by running:
     ```{r}
     install.packages(c("doBy", "ggplot2", "VGAM", "MASS", "actuar", "alabama", "epitools", "pander", "Deducer", "psych", "copula", "GB2", "statmod", "numDeriv"))
     ```
-    + If you are not ready to pull request, you can simply initialize an issue report by clicking [here](https://github.com/OpenActTexts/Loss-Data-Analytics/issues/new). Then relax, and someone will take care it from there.
+    + If you are not ready to make contributions directly by pulling request, you can simply initialize an issue report by clicking [here](https://github.com/OpenActTexts/Loss-Data-Analytics/issues/new). Then relax, and someone will take care it from there.
 
 3. Get yourself started, and it might be much easier than what you have thought. Enjoy gitting!
 
 ## Landing Site
-The [Open Actuarial Textbooks Project GitHub Landing Site](https://ewfrees.github.io/) contains supporting material, including **R code**, **overheads**, an **Author Style Guide**, and thoughts on a next project (**Life Contingencies/Actuarial Mathematics**).
+The [Open Actuarial Textbooks Project GitHub Landing Site](https://OpenActTexts.github.io) contains supporting material, including **R code**, **overheads**, an **Author Style Guide**, and thoughts on a next project (**Life Contingencies/Actuarial Mathematics**).
 
 ## Your Help
-As described in our [License](https://github.com/ewfrees/Loss-Data-Analytics/tree/master/GettingStarted/LICENSE.md), anyone can use these files. Especially at this early stage of the project, if you want to help and would like more info, please write Jed Frees <jfrees@bus.wisc.edu>. As noted above, the [Open Actuarial Textbooks Project Site](https://sites.google.com/a/wisc.edu/loss-data-analytics/) provides more information about this project.
+As described in our [License](https://github.com/ewfrees/Loss-Data-Analytics/tree/master/GettingStarted/LICENSE.md), anyone can use these files. Especially at this early stage of the project, if you want to help and would like more info, please write Jed Frees <jfrees@bus.wisc.edu>. As noted above, the [Open Actuarial Textbooks Project Site](https://OpenActTexts.github.io) provides more information about this project.

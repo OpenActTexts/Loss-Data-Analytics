@@ -41,6 +41,3 @@ Prospective contributors should check out our [Style Guide](https://OpenActTexts
     + If you are not ready to make contributions directly by pulling request, you can simply initialize an issue report by clicking [here](https://github.com/OpenActTexts/Loss-Data-Analytics/issues/new). Then relax, and someone will take care it from there.
 
 3. Get yourself started, and it might be much easier than what you have thought. Enjoy gitting!
-
-## Your Help
-As described in our [License](https://github.com/ewfrees/Loss-Data-Analytics/tree/master/GettingStarted/LICENSE.md), anyone can use these files. Especially at this early stage of the project, if you want to help and would like more info, please write Jed Frees <jfrees@bus.wisc.edu>. As noted above, the [Open Actuarial Textbooks Project Site](https://OpenActTexts.github.io) provides more information about this project.

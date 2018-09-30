@@ -38,6 +38,6 @@ Prospective contributors should check out our [Style Guide](https://OpenActTexts
         + Open the file `Loss-Data-Analytics.Rproj` in RStudio
         + Open the file `index.Rmd` in Rstudio
         + Click the button `Build Book` on the `Build` tab of RStudio
-    + If you are not ready to make contributions directly by pulling request, you can simply initialize an issue report by clicking [here](https://github.com/OpenActTexts/Loss-Data-Analytics/issues/new). Then relax, and someone will take care it from there.
+    + If you are not ready to make contributions directly by pulling request, you can simply initialize an issue report by clicking [here](https://github.com/OpenActTexts/Loss-Data-Analytics/issues/new). Then relax, and someone will take care of it from there.
 
 3. Get yourself started, and it might be much easier than what you have thought. Enjoy gitting!

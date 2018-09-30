@@ -22,7 +22,7 @@ Prospective contributors should check out our [Style Guide](https://OpenActTexts
 ### How to contribute
 1. In order to contribute to any Github repo in general, and the actuarial open book project in particular, it is strongly recommended that you familiarize yourself with a linux system such as Ubuntu 16.04/18.04. If you have never used linux, there would be some learning curves, but the long term benefit is very clear: as long as you are interested in data science, open source software, and scientific computing, getting used to the linux-based environment is critically important! Why not start right now. If you still need your Windows system etc., you can at least try using [virtualbox](https://www.virtualbox.org/) with a Ubuntu system as the guest operation system.
 
-2. Now assume that you are working with an linux terminal, and the following steps will let you get started.
+2. Now assume that you are working with a linux terminal, and the following steps will let you get started.
     + Install `git` if you haven't (just use the command 'git', and the terminal will tell you what to do next)
     + In a local folder that is devoted to your various git projects, do the following with a terminal:
         + `git clone https://github.com/OpenActTexts/Loss-Data-Analytics.git`
@@ -32,6 +32,12 @@ Prospective contributors should check out our [Style Guide](https://OpenActTexts
     ```{r}
     install.packages(c("doBy", "ggplot2", "VGAM", "MASS", "actuar", "alabama", "epitools", "pander", "Deducer", "psych", "copula", "GB2", "statmod", "numDeriv"))
     ```
+    + Use the following steps to knit your local books to check if you are satisfied with whatever you have edited/added.
+        + With the terminal and in your Loss-Data-Analytics folder, do `git checkout [your local branch for development]` and follow the aforementioned [document](https://gist.github.com/Chaser324/ce0505fbed06b947d962) if you haven't done so.
+        + `install.packages("bookdown")` in RStudio
+        + Open the file `Loss-Data-Analytics.Rproj` in RStudio
+        + Open the file `index.Rmd` in Rstudio
+        + Click the button `Build Book` on the `Build` tab of RStudio
     + If you are not ready to make contributions directly by pulling request, you can simply initialize an issue report by clicking [here](https://github.com/OpenActTexts/Loss-Data-Analytics/issues/new). Then relax, and someone will take care it from there.
 
 3. Get yourself started, and it might be much easier than what you have thought. Enjoy gitting!

@@ -19,9 +19,11 @@ In this section, you learn:
 ***
 
 Through insurance contracts, the policyholders effectively transfer their risks to the insurer in exchange for premiums. For the insurer to stay in business, the premium income collected from a pool of policyholders must at least equal the benefit outgo. In general insurance products where a  preium is charged for a single period, say annual, the gross insurance premium based on the equivalence principle is stated as
-\begin{equation}\nonumber
-Gross Prem = E(Losses) + E(Expenses) + Profit.
-\end{equation}
+
+$$
+\text{Gross Premium = Expected Losses + Expected Expenses + Profit}.
+$$
+
 Thus, ignoring the frictional expenses associated with the administrative expenses and the profit, the net or pure premium charged by the insurer should be equal to the expected losses occurring from the risk that is transferred from the policyholder.  
 
 If all policyholders in the insurance pool have identical risk profiles, the insurer simply charges the same premium for all  policyholders because they have the same expected loss. In reality, however, the policyholders are hardly homogeneous. For example, mortality risk in life insurance depends on the characteristics of the policyholder, such as, age, sex and life style. In auto insurance, those characteristics may include age, occupation, the type or use of the car, and the area where the driver resides. The knowledge of these characteristics or variables can enhance the ability of calculating fair premiums for individual policyholders, as they can be used to estimate or predict the expected losses more accurately.  
@@ -45,7 +47,7 @@ If all policyholders in the insurance pool have identical risk profiles, the ins
 
 In order to incorporate relevant risk characteristics of policyholders in the pricing process, insurers maintain some classification system that assigns each policyholder to one of the risk classes based on a relatively small number of risk characteristics that are deemed most relevant. These characteristics used in the classification system are called the *rating factors*, which are *a priori* variables in the sense that they are known before the contract begins (e.g., sex, health status, vehicle type, etc, are known during the underwriting). All policyholders sharing identical risk factors thus are assigned to the same risk class, and are considered homogeneous from the pricing viewpoint; the insurer consequently charge them the same premium or rate.
 
-Regarding the risk factors and premiums, Actuarial Standard of Practice (ASOP No. 12) of Actuarial Standards Board states that the actuary should select risk characteristics that are related to expected outcomes, and that rates within a risk classification system would be considered equitable if differences in rates reflect material differences in expected cost for risk characteristics. In the process of choosing risk factors, ASOP also requires the actuary to  consider the following: relationship of risk characteristics and expected outcomes, causality, objectivity, practicality, applicable law, industry practices, and business practices. 
+Regarding the risk factors and premiums, the *Actuarial Standard of Practice* (ASOP No. 12) of the @ASBStandards states that the actuary should select risk characteristics that are related to expected outcomes, and that rates within a risk classification system would be considered equitable if differences in rates reflect material differences in expected cost for risk characteristics. In the process of choosing risk factors, ASOP also requires the actuary to  consider the following: relationship of risk characteristics and expected outcomes, causality, objectivity, practicality, applicable law, industry practices, and business practices. 
 
 On the quantitative side, an important task for the actuary in building any risk classification is to construct a statistical model that can determine the expected loss given various rating factors of a policyholder. The standard approach is to adopt a regression model which produces the expected loss as the output when the relevant risk factors are given as the inputs. In this chapter we learn the Poisson regression, which can be used when the loss is a count variable, as a prominent example of an insurance pricing tool.  
 
@@ -292,19 +294,13 @@ The Poisson distribution in \@ref(eq:Pois-pmf) is parametrized via its mean. To 
 with $\mathrm{E~}{(Y)}=\mathrm{Var~}{(Y)}=\lambda t$. Here $\lambda$ is known as the rate or intensity per unit period of the Poisson process and $t$ represents the length of time or *exposure*, a known constant value. For given $\lambda$ the Poisson distribution \@ref(eq:Pois-pmf-2) produces a larger expected loss count  as the exposure $t$ gets larger. 
 Clearly, \@ref(eq:Pois-pmf-2) reduces to \@ref(eq:Pois-pmf) when $t=1$, which means that the mean and the rate become the same for the unit  exposure, the case we considered in the previous subsection.  
 
- In principle the exposure does not need to be measured in units of time and may represent different things depending the problem at hand. For example,  
+ In principle, the exposure does not need to be measured in units of time and may represent different things depending the problem at hand. For example:  
  
-1. In health insurance, the rate may be the occurrence of a specific disease per 1,000 people and the exposure is the number of people considered in the unit of 1,000.  
-
+1. In health insurance, the rate may be the occurrence of a specific disease per 1,000 people and the exposure is the number of people considered in the unit of 1,000. 
 2. In auto insurance, the rate may be the number of accidents per year of a driver and the exposure is the length of the observed period for the driver in the unit of year.  
-
 3. For workers compensation that covers lost wages resulting from an employee's work-related injury or illness, the rate may be the probability of injury in the course of employment per dollar and the exposure is the payroll amount in thousand dollars. 
-
 4. In marketing, the rate may be  the number of customers who enter a store per hour and the exposure is the number of hours observed.  
-
 5. In civil engineering, the rate may be  the number of major cracks on the paved road per 10 kms and the exposure is the length of road considered in the unit of 10 kms.  
-
-<!-- %  \item In biology, the rate may be  the number of a specific type of bacteria found per 1 cm$^3$ of sea water and the exposure is the volume of sea water considered in the unit of cubic centimeter.  -->
 6. In credit risk modelling, the rate may be the number of default events per 1000 firms and the exposure is the number of firms under consideration in the unit of 1,000.  
 
 Actuaries may be able to use different exposure bases for a given insurable loss. For example, in auto insurance, both the number of kilometres driven and the number of months coved by insurance can be used as exposure bases. Here the former is more accurate and useful in modelling the losses from car accidents, but more difficult to measure and manage for insurers. Thus, a good exposure base  may not be the theoretically  best one due to various practical constraints. As a rule, an exposure base must be easy to determine, accurately measurable, legally and socially acceptable, and free from potential manipulation by policyholders.  
@@ -331,12 +327,10 @@ Adding $\log m_i$ in \@ref(eq:mean-ft-Pois-7) does not pose a problem in fitting
 
 ### Exercises
 <!-- %=================== -->
-1. Regarding [Table 8.1] answer the followings.  
+1. Regarding [Table 8.1] answer the following.  
 
     (a) Verify the mean values in the table.  
-  
     (b) Verify the number in equation \@ref(eq:coll-prem-avg).  
-  
     (c) Produce the fitted Poisson counts for each smoking status in the table.  
 
 2. In the Poisson regression formulation \@ref(eq:mui-glm), consider using $\mu_i=\mathrm{E~}{(y_i|\mathbf{ x}_i)}=({\mathbf{ x}^{\prime}_i\beta})^2$, for  $i=1, \ldots, n$,  instead of the exponential function.  What potential issue would you have?  

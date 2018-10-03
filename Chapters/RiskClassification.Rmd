@@ -81,6 +81,7 @@ To introduce the Poisson regression, let us consider a hypothetical health insur
 
 
 $$
+{\small
 \begin{matrix}
 \begin{array}{cc|cc|cc}
 \hline
@@ -97,6 +98,7 @@ $$
 \hline
     \end{array}
 \end{matrix}
+}
 $$
 
 [Table 8.1] : Number of visits to doctor's office in last year
@@ -111,7 +113,7 @@ As introduced in Section \@ref(S:poisson-distribution), the probability mass fun
 (\#eq:Pois-pmf)
 \end{equation}  
 
-and $\mathrm{E~}{(Y)}=\mathrm{Var~}{(Y)}=\mu$. In regression contexts, it is common to use $\mu$ for mean parameters instead of the Poisson parameter $\lambda$ although certainly both sets of notation are suitable. As we saw in Section
+and $\mathrm{E~}{(Y)}=\mathrm{Var~}{(Y)}=\mu$. In regression contexts, it is common to use $\mu$ for mean parameters instead of the Poisson parameter $\lambda$ although certainly both symbols are suitable. As we saw in Section
  \@ref(S:estimating-frequency-distributions), the *mle* of the Poisson distribution is given by the sample mean. Thus if we denote the Poisson mean parameter for each level by $\mu_{(1)}$ (smoker) and $\mu_{(2)}$ (non-smoker), we see from [Table 8.1] that $\hat{\mu}_{(1)}=0.0926$ and $\hat{\mu}_{(2)}=0.0746$. This simple example shows the basic idea of risk classification. Depending on the smoking status a policyholder will have a different risk characteristic and it can be incorporated through varying Poisson parameter in computing the fair premium. In this example the ratio of expected loss frequencies is $\hat{\mu}_{(1)}/\hat{\mu}_{(2)}=1.2402$, implying that smokers tend to visit doctor's office 24.02$\%$ times more frequently compared to non-smokers.
 
 It is also informative to note that if the insurer charges the same premium to all policyholders regardless of the smoking status, based on the average characteristic of the portfolio, as was the case for EquitabAll described in Introduction, the expected frequency (or the premium) $\hat{\mu}$ is 0.0792, obtained from the last column of [Table 8.1]. It is easily verified that
@@ -237,9 +239,9 @@ This relative interpretation becomes more powerful when there are many risk fact
 
 ### Poisson Regression
 
-We now describe the Poisson regression in a formal and more general setting. Let us assume that there are $n$ independent policyholders with a set of rating factors characterized by a $k$-variate vector[^1]. The $i$th policyholder's rating factor is thus denoted by vector $\mathbf{ x}_i=(1, x_{i1}, \ldots, x_{ik})^{\prime}$, and the policyholder has recorded the loss count $y_i \in \{0,1,2, \ldots \}$ from the last period of loss observation, for $i=1, \ldots, n$. In the regression literature, the values $x_{i1}, \ldots, x_{ik}$ are generally known as the *explanatory variables*, as these are measurements providing information about the variable of interest $y_i$. In essence, regression analysis is a method to quantify the relationship between a variable of interest and explanatory variables.
+We now describe the Poisson regression in a formal and more general setting. Let us assume that there are $n$ independent policyholders with a set of rating factors characterized by a $k$-variate vector[^8.1]. The $i$th policyholder's rating factor is thus denoted by vector $\mathbf{ x}_i=(1, x_{i1}, \ldots, x_{ik})^{\prime}$, and the policyholder has recorded the loss count $y_i \in \{0,1,2, \ldots \}$ from the last period of loss observation, for $i=1, \ldots, n$. In the regression literature, the values $x_{i1}, \ldots, x_{ik}$ are generally known as the *explanatory variables*, as these are measurements providing information about the variable of interest $y_i$. In essence, regression analysis is a method to quantify the relationship between a variable of interest and explanatory variables.
 
-[^1]: For example, if there are 3 risk factors each of which the number of levels are 2, 3 and 4, respectively, we have $k=(2-1)\times(3-1)\times (4-1)=6$.
+[^8.1]: For example, if there are 3 risk factors each of which the number of levels are 2, 3 and 4, respectively, we have $k=(2-1)\times(3-1)\times (4-1)=6$.
 
 We also assume, for now, that all policyholders have the same one unit period for loss observation, or equal exposure of 1, to keep things simple; we will discuss more details on the exposure in the following subsection. 
 
@@ -371,7 +373,9 @@ From this classification rule, we may create an organized  table or list, such a
 
 [Table 8.2]: \#tab:8.2
 
-$$\begin{matrix}
+$$
+{\small
+\begin{matrix}
 \begin{array}{ccrrc}
  \hline
 \text{Rating} &\text{factors}  &   \text{Exposure} & \text{Claim count} \\
@@ -384,7 +388,9 @@ j=1 & k=1 &  89.1 & 9\\
 2  & 2  & 360.4 & 13 \\
 2   & 3  & 276.7 & 6 \\ \hline
 \end{array}
-\end{matrix}$$
+\end{matrix}
+}
+$$
 
 [Table 8.2] : Loss record of the illustrative auto insurer
 
@@ -406,14 +412,14 @@ We comment that actual loss records used by insurers typically include much more
 
 <!-- %\noindent\textbf{Concept of tariff}\\ -->
 In this subsection, we introduce the multiplicative tariff model, a popular pricing structure that can be naturally used within the Poisson regression framework. The developments here are based on [Table 8.2]. Recall that the loss count of a policyholder is described by the Poisson regression model with rate $\lambda$ and the exposure $m$, so that the expected loss count becomes $m\lambda$. As $m$ is a known constant, we are essentially concerned with modelling $\lambda$, so that it responds to the change in the rating factors. 
- Among other possible functional forms, we commonly choose the multiplicative[^2] relation to model the Poisson rate $\lambda_{jk}$ for rating factor ($j,k$):
+ Among other possible functional forms, we commonly choose the multiplicative[^8.2] relation to model the Poisson rate $\lambda_{jk}$ for rating factor ($j,k$):
  
 \begin{equation}
 \lambda_{jk}= f_0 \times f_{1j} \times f_{2k}, \qquad j=1,2;\, k=1, 2,3.
 (\#eq:multiplicative-tarrif)
 \end{equation}
 
-[^2]: Preferring the multiplicative form to others (e.g., additive one) was already hinted in \@ref(eq:log-lin-mu).
+[^8.2]: Preferring the multiplicative form to others (e.g., additive one) was already hinted in \@ref(eq:log-lin-mu).
 
 Here $\{ f_{1j}, j=1,2\}$ are the parameters associated with the two levels in the first rating factor, car type, and  $\{ f_{2k}, k=1,2,3\}$  associated with the three levels in the age band, the second rating factor. For instance, the Poisson rate for a mid-aged policyholder with a Type B vehicle is given by $\lambda_{22}=f_0 \times f_{12} \times f_{22}$. The first term $f_0$ is some base value to be discussed shortly. Thus these six parameters are understood as numerical representations of the levels within each rating factor, and are to be estimated from the dataset.  
 
@@ -591,14 +597,14 @@ This actual data is a subset of the data used by [@frees2008hierarchical]. The d
 Based on the data description, there are several things to remember before constructing a model. 
 First, there are 3,842 policies with vehicle type A (automobile) and 3,641 policies with other vehicle types. However, age and sex  information is available for the policies of vehicle type A only; the drivers of all other types of vehicles are recorded to be aged 21 or less with sex unspecified, except for one policy, indicating that no driver information has been collected for non-automobile vehicles. Second, type A vehicles are all classified as  private vehicles and all the other types are not.  
 
-When we include these risk factors, we assume all unspecified sex to be male. As the age information is only applicable to type A vehicles, we set the model accordingly. That is, we apply the age variable only to vehicles of type A.  Also we used five vehicle age bands, simplifying the original seven bands, by combining vehicle ages 0,1 and 2; the combined band is marked as level 2[^3] in the data file. Thus our Poisson model has the following explicit form:
+When we include these risk factors, we assume all unspecified sex to be male. As the age information is only applicable to type A vehicles, we set the model accordingly. That is, we apply the age variable only to vehicles of type A.  Also we used five vehicle age bands, simplifying the original seven bands, by combining vehicle ages 0,1 and 2; the combined band is marked as level 2[^8.3] in the data file. Thus our Poisson model has the following explicit form:
 
 \begin{align*}
 \log \mu_i= \mathbf{ x}^{\prime}_i\beta+&\log m_i=\beta_0+\beta_1 I(Sex_i=M)+ \sum_{t=2}^6 \beta_t\, I(Vage_i=t) \\
 &+  \sum_{t=7}^{13} \beta_t \,I(Vtype_i=A)\times I(Age_i=t-7)+\log m_i.
 \end{align*}
 
-[^3]: corresponding to $\texttt{VAgecat1}$
+[^8.3]: corresponding to $\texttt{VAgecat1}$
 
 The fitting result is given in [Table 8.3], for which we have several comments.  
 
@@ -616,7 +622,9 @@ The fitting result is given in [Table 8.3], for which we have several comments.
 [Table 8.3]: \#tab:8.3
 
 
-$$\begin{matrix}
+$$
+{\small 
+\begin{matrix}
 \begin{array}{clcc}
 \hline
 \text{Rating factor} & \text{Level} & \text{Relativity in the tariff} & \text{Note}\\ \hline\hline
@@ -636,7 +644,9 @@ $$\begin{matrix}
   & 5 (56-65) &  1.102\\
   & 6 (65+) & 1.179\\ \hline \hline
 \end{array}
-\end{matrix}$$
+\end{matrix}
+}
+$$
 
 [Table 8.3] : Singapore insurance claims data
 
@@ -730,14 +740,14 @@ In the Poisson regression the varying Poisson mean is determined by parameters $
 (\#eq:ll-Poi-reg)
 \end{align}
 
-To obtain the *mle* of $\beta=(\beta_0, \ldots, \beta_k)^{\prime}$, we differentiate[^4] $l(\beta)$ with respect to vector $\beta$ and set it to zero:
+To obtain the *mle* of $\beta=(\beta_0, \ldots, \beta_k)^{\prime}$, we differentiate[^8.4] $l(\beta)$ with respect to vector $\beta$ and set it to zero:
 
 \begin{equation}
 \frac{\partial}{\partial \beta}l(\beta)\Bigg{|}_{\beta=\mathbf{b}}=\sum^n_{i=1} \left(y_i -m_i \exp(\mathbf{ x}^{\prime}_i \mathbf{ b}) \right)\mathbf{ x}_i=\mathbf{ 0}.
 (\#eq:score-ft-Poi)
 \end{equation}  
 
-[^4]: We use matrix derivative here.
+[^8.4]: We use matrix derivative here.
 
 Numerically solving this equation system gives the *mle* of $\beta$, denoted by $\mathbf{ b}=(b_0, b_1, \ldots, b_k)^{\prime}$.
 Note that, as $\mathbf{ x}_i=(1, x_{i1}, \ldots, x_{ik})^{\prime}$ is a column vector, equation \@ref(eq:score-ft-Poi) is a system of $k+1$ equations with both sides written as column vectors of size $k+1$. If we denote $\hat{\mu}_i=m_i \exp(\mathbf{ x}^{\prime}_i \mathbf{ b})$, we can rewrite \@ref(eq:score-ft-Poi) as

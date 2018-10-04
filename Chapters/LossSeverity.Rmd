@@ -120,7 +120,7 @@ Hence, $\mathrm{Var}\left( S \right) = \alpha\theta^{2}$.
 The probability generating function, denoted by $P_{X}\left( z \right)$, also uniquely characterizes the distribution of $X$. It is defined as
 $$P_{X}\left( z \right) = \mathrm{E}\left( z^{X} \right) = \int_{0}^{\infty}{z^{x}f_{X}\left( x \right) dx}$$ for all $z$ for which the expected value exists.
 
-We can also use the probability generating function to generate moments of $X$. By taking the *k*-th derivative of $P_{X}\left( z \right)$ with respect to $z$ and evaluating it at $z\  = \ 1$, we get $\mathrm{E}\left\lbrack X\left( X - 1 \right)\ldots\left( X - k + 1 \right) \right\rbrack .$
+We can also use the probability generating function to generate moments of $X$. By taking the *k*-th derivative of $P_{X}\left( z \right)$ with respect to $z$ and evaluating it at $z\  = \ 1$, we get $\mathrm{E}\left\lbrack X\left( X - 1 \right)\cdots\left( X - k + 1 \right) \right\rbrack .$
 
 The probability generating function is more useful for discrete *rv*s and was introduced in Section \@ref(S:generating-functions).
 
@@ -132,7 +132,7 @@ In this section we explain the characteristics of distributions suitable for mod
 
 ###Gamma Distribution
 
-Recall that the traditional approach in modelling losses is to fit separate models for claim frequency and claim severity. When frequency and severity are modeled separately it is common for actuaries to use the Poisson distribution for claim count and the gamma distribution to model severity. An alternative approach for modelling losses that has recently gained popularity is to create a single model for pure premium (average claim cost) that will be described in Chapter 4.
+Recall that the traditional approach in modelling losses is to fit separate models for claim frequency and claim severity. When frequency and severity are modeled separately it is common for actuaries to use the Poisson distribution for claim count and the gamma distribution to model severity. An alternative approach for modelling losses that has recently gained popularity is to create a single model for pure premium (average claim cost) that will be described in Chapter \@ref(C:ModelSelection).
 
 The continuous variable $X$ is said to have the gamma distribution with shape parameter $\alpha$ and scale parameter $\theta$ if its probability
 density function is given by
@@ -198,12 +198,12 @@ legend("topright", c("shape=2", "shape=3", "shape=4", "shape=5"), lty=1, col = 1
 
 When $\alpha = 1$ the gamma reduces to an exponential distribution and when $\alpha = \frac{n}{2}$ and $\theta = 2$ the gamma reduces to a chi-square distribution with $n$ degrees of freedom. As we will see in Section \@ref(S:AppA:HT), the chi-square distribution is used extensively in statistical hypothesis testing.
 
-The distribution function of the gamma model is the incomplete gamma function, denoted by $\Gamma\left( \frac{\alpha;x}{\theta} \right)$, and defined as
+The distribution function of the gamma model is the incomplete gamma function, denoted by $\Gamma\left(\alpha; \frac{x}{\theta} \right)$, and defined as
 $$F_{X}\left( x \right) = \Gamma\left( \alpha; \frac{x}{\theta} \right) = \frac{1}{\Gamma\left( \alpha \right)}\int_{0}^{x /\theta}t^{\alpha - 1}e^{- t}\text{dt}$$
-$\alpha  >  0,\ \theta  >  0$.
+$\alpha  >  0,\ \theta  >  0$. For an integer $\alpha$, it can be written as $\Gamma\left( \alpha; \frac{x}{\theta} \right) = 1 - e^{-x/\theta}\sum_{k = 0}^{\alpha-1}\frac{(x/\theta)^k}{k!}$. 
 
 The $k$-th moment of the gamma distributed random variable for any positive $k$ is given by
-$$\mathrm{E}\left( X^{k} \right) = \theta^{k} \frac{\Gamma\left( \alpha + k \right)}{\Gamma\left( \alpha \right)}  \ \ \ \text{for } k > 0 \text{. For } \alpha \text{ an integer, } \Gamma\left( \alpha; \frac{x}{\theta} \right) = 1 - e^{-(\frac{x}{\theta})}\sum_{k = 0}^{\alpha-1}\frac{x^k}{k!}.$$
+$$\mathrm{E}\left( X^{k} \right) = \theta^{k} \frac{\Gamma\left( \alpha + k \right)}{\Gamma\left( \alpha \right)}  \ \ \ \text{for } k > 0.$$
 The mean and variance are given by $\mathrm{E}\left( X \right) = \alpha\theta$ and $\mathrm{Var}\left( X \right) = \alpha\theta^{2}$, respectively.
 
 Since all moments exist for any positive $k$, the gamma distribution is considered a light tailed distribution, which may not be suitable for
@@ -211,9 +211,9 @@ modeling risky assets as it will not provide a realistic assessment of the likel
 
 ###Pareto Distribution
 
-The Pareto distribution, named after the Italian economist Vilfredo Pareto (1843-1923), has many economic and financial applications. It is a positively skewed and heavy-tailed distribution which makes it suitable for modeling income, high-risk insurance claims and severity of large casualty losses. The survival function of the Pareto distribution which decays slowly to zero was first used to describe the distribution of income where a small percentage of the population holds a large proportion of the total wealth. For extreme insurance claims, the tail of the severity distribution (losses in excess of a threshold) can be modelled using a Pareto distribution.
+The Pareto distribution, named after the Italian economist Vilfredo Pareto (1843-1923), has many economic and financial applications. It is a positively skewed and heavy-tailed distribution which makes it suitable for modeling income, high-risk insurance claims and severity of large casualty losses. The survival function of the Pareto distribution which decays slowly to zero was first used to describe the distribution of income where a small percentage of the population holds a large proportion of the total wealth. For extreme insurance claims, the tail of the severity distribution (losses in excess of a threshold) can be modeled using a Pareto distribution.
 
-The continuous variable $X$ is said to have the Pareto distribution with shape parameter $\alpha$ and scale parameter $\theta$ if its pdf is given by
+The continuous variable $X$ is said to have the Pareto distribution with shape parameter $\alpha$ and scale parameter $\theta$ if its *pdf* is given by
 $$f_{X}\left( x \right) = \frac{\alpha\theta^{\alpha}}{\left( x + \theta \right)^{\alpha + 1}} \ \ \  x  >  0,\ \alpha >  0,\ \theta > 0.$$
 The two panels in Figure \@ref(fig:Paretopdf)  demonstrate the effect of the scale and shape parameters on the Pareto density function.
 
@@ -779,7 +779,7 @@ $$E\left( Y^{L} \right) = \ E\left( Y^{P} \right)S_{X}\left( 100 \right){= 1000e
 
 $$E\left\lbrack \left( Y^{L} \right)^{2} \right\rbrack = E\left\lbrack \left( Y^{P} \right)^{2} \right\rbrack S_{X}\left( 100 \right) = 2 \times 1000^{2}e^{- \frac{100}{1000}}.$$
 
-The relationship between $X$ and $Y^P$ can also be used when dealing with the uniform or the Pareto distributions. You can easily show that if $X$ is uniform over the interval $\left(0,\theta\right)$ then $Y^P$ is uniform over the interval $\left(0,\theta-d\right)$ and if $X$ is Pareto with parameters $\alpha$ and $\theta$ then Y^P is Pareto with parameters $\alpha$ and $\theta+d$.
+The relationship between $X$ and $Y^P$ can also be used when dealing with the uniform or the Pareto distributions. You can easily show that if $X$ is uniform over the interval $\left(0,\theta\right)$ then $Y^P$ is uniform over the interval $\left(0,\theta-d\right)$ and if $X$ is Pareto with parameters $\alpha$ and $\theta$ then $Y^P$ is Pareto with parameters $\alpha$ and $\theta+d$.
 </div>
 
 *** 
@@ -934,7 +934,7 @@ $$\mathrm{E}\left\lbrack \left( Y^{L} \right)^{2}
 \right\rbrack = \alpha^{2}\left( 1 + r \right)^{2}  \left\{ \mathrm{E}\left\lbrack \left( X \land \frac{u}{1 + r} \right)^{2} \right\rbrack - \mathrm{E}\left\lbrack \left( X \land \frac{d}{1 + r} \right)^{2} \right\rbrack  \right. \\
 \left. \ \ \ \ \ - 2\left( \frac{d}{1 + r} \right)\left\lbrack \mathrm{E}\left( X \land \frac{u}{1 + r} \right) - \mathrm{E}\left( X \land \frac{d}{1 + r} \right) \right\rbrack \right\} ,$$ respectively.
 
-The formulae given for the first and second moments of $Y^{L}$ are general. Under full coverage, $\alpha = 1$, $r = 0$, $u = \infty$, $d = 0$ and $\mathrm{E}\left( Y^{L} \right)$ reduces to $\mathrm{E}\left( X \right)$. If only an ordinary deductible is imposed, $\alpha = 1$, $r = 0$, $u = \infty$ and $\mathrm{E}\left( Y^{L} \right)$ reduces to $\mathrm{E}\left( X \right) - \mathrm{E}\left( X \land d \right)$. If only a policy limit is imposed $\alpha = 1$, $r = 0$, $d = 0$ and $\mathrm{E}\left( Y^{L} \right)$ reduces to $\mathrm{E}\left( X \land u \right)$.
+The formulas given for the first and second moments of $Y^{L}$ are general. Under full coverage, $\alpha = 1$, $r = 0$, $u = \infty$, $d = 0$ and $\mathrm{E}\left( Y^{L} \right)$ reduces to $\mathrm{E}\left( X \right)$. If only an ordinary deductible is imposed, $\alpha = 1$, $r = 0$, $u = \infty$ and $\mathrm{E}\left( Y^{L} \right)$ reduces to $\mathrm{E}\left( X \right) - \mathrm{E}\left( X \land d \right)$. If only a policy limit is imposed $\alpha = 1$, $r = 0$, $d = 0$ and $\mathrm{E}\left( Y^{L} \right)$ reduces to $\mathrm{E}\left( X \land u \right)$.
 
 
 **Example `r chapnum`.4.5. SOA Exam Question.**
@@ -985,7 +985,7 @@ Because $\frac{E\left( Y_{2007}^{P} \right)}{E\left( Y_{2006}^{P} \right)} -1 = 
 
 In Section \@ref(S:PolicyDeduct) we introduced the policy deductible, which is a contractual arrangement under which an insured transfers part of the risk by securing coverage from an insurer in return for an insurance premium. Under that policy, the insured must pay all losses up to the deductible, and the insurer only pays the amount (if any) above the deductible. We now introduce reinsurance, a mechanism of insurance for insurance companies. Reinsurance is a contractual arrangement under which an insurer transfers part of the underlying insured risk by securing coverage from another insurer (referred to as a reinsurer) in return for a reinsurance premium. Although reinsurance involves a relationship between three parties: the original insured, the insurer (often referred to as cedent or cedant) and the reinsurer, the parties of the reinsurance agreement are only the primary insurer and the reinsurer. There is no contractual agreement between the original insured and the reinsurer. Though many different types of reinsurance contracts exist, a common form is excess of loss coverage. In such contracts, the primary insurer must make all required payments to the insured until the primary insurer's total payments reach a fixed reinsurance deducible. The reinsurer is then only responsible for paying losses above the reinsurance deductible. The maximum amount retained by the primary insurer in the reinsurance agreement (the reinsurance deductible) is called retention.  
 
-Reinsurance arrangements allow insurers with limited financial resources to increase the capacity to write insurance and meet client requests for larger insurance coverage while reducing the impact of potential losses and protecting the insurance company against catastrophic losses. Reinsurance also allows the primary insurer to benefit from underwriting skills, expertize and proficient complex claim file handling of the larger reinsurance companies.
+Reinsurance arrangements allow insurers with limited financial resources to increase the capacity to write insurance and meet client requests for larger insurance coverage while reducing the impact of potential losses and protecting the insurance company against catastrophic losses. Reinsurance also allows the primary insurer to benefit from underwriting skills, expertise and proficient complex claim file handling of the larger reinsurance companies.
 
 
 **Example `r chapnum`.4.6. SOA Exam Question.**
@@ -1137,7 +1137,7 @@ The probability density function is
 $$f_{X}\left( x \right) = \frac{1}{x \sigma \sqrt{2\pi}}\exp - \frac{1}{2}\left( \frac{\ln x - \mu}{\sigma} \right)^{2},$$
 where $x > 0$. 
 
-**a.** The likelihood function, $L\left( \mu,\sigma \right)$, is the product of the pdf for each data point.
+**a.** The likelihood function, $L\left( \mu,\sigma \right)$, is the product of the *pdf* for each data point.
 $$L\left( \mu,\sigma \right) = \prod_{i = 1}^{6}{f_{X_{i}}\left( x_{i} \right)} = \frac{1}{\sigma^{6}\left( 2\pi \right)^{3}\prod_{i = 1}^{6}x_{i}}exp - \frac{1}{2}\sum_{i = 1}^{6}\left( \frac{\ln x_{i} - \mu}{\sigma} \right)^{2}.$$
 The loglikelihood function, $\ln L \left( \mu,\sigma \right)$, is the sum of the individual logarithms.
 $$\ln \left( \mu,\sigma \right) = - 6ln\sigma - 3ln\left( 2\pi \right) - \sum_{i = 1}^{6}\ln x_{i} - \frac{1}{2}\sum_{i = 1}^{6}\left( \frac{\ln x_{i} - \mu}{\sigma} \right)^{2}.$$
@@ -1159,7 +1159,7 @@ $\frac{\partial^{2}\text{lnL}\left( \mu,\sigma \right)}{\partial\mu\partial\sigm
 and
 $\frac{\partial^{2}\text{lnL}\left( \mu,\sigma \right)}{\partial\sigma^{2}} = \frac{6}{\sigma^{2}} - \frac{3}{\sigma^{4}}\sum_{i = 1}^{6}\left( \ln x_{i} - \mu \right)^{2}$.
 
-**b.** To derive the covariance matrix of the MLE we need to find the expectations of the second derivatives. Since the random variable $X$ is from a lognormal distribution with parameters $\mu$ and $\sigma$, then $\text{lnX}$ is normally distributed with mean $\mu$ and variance $\sigma^{2}$.
+**b.** To derive the covariance matrix of the *mle* we need to find the expectations of the second derivatives. Since the random variable $X$ is from a lognormal distribution with parameters $\mu$ and $\sigma$, then $\text{lnX}$ is normally distributed with mean $\mu$ and variance $\sigma^{2}$.
 
 $\mathrm{E}\left( \frac{\partial^{2}\text{lnL}\left( \mu,\sigma \right)}{\partial\mu^{2}} \right) = \mathrm{E}\left( \frac{- 6}{\sigma^{2}} \right) = \frac{- 6}{\sigma^{2}}$,
 
@@ -1353,7 +1353,7 @@ $\frac{\text{dlnL}\left( \alpha \right)}{d \theta} = \frac{8}{\alpha} - \sum_{i 
 
 The maximum likelihood estimator, $\hat{\alpha}$, is the solution to the equation
 $$\frac{8}{\hat{\alpha}} - \sum_{i = 1}^{8}{\ln x_{i}} + 10ln5 - 2ln25 = 0,$$which yields
-$$\hat{\alpha} = \frac{8}{\sum_{i = 1}^{8}{\ln x_{i}} - 10ln5 + 2ln25} = \frac{8}{(ln7 + ln9 + \ldots + ln20) - 10ln5 + 2ln25} = 0.785.$$
+$$\hat{\alpha} = \frac{8}{\sum_{i = 1}^{8}{\ln x_{i}} - 10ln5 + 2ln25} = \frac{8}{(ln7 + ln9 + \cdots + ln20) - 10ln5 + 2ln25} = 0.785.$$
 The mean of the Pareto only exists for $\alpha > 1$. Since $\hat{\alpha} = 0.785 < 1$. Then, the mean does not exist.
 
 </div>

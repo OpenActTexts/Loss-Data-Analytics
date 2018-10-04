@@ -280,12 +280,12 @@ Clearly, \@ref(eq:Pois-pmf-2) reduces to \@ref(eq:Pois-pmf) when $t=1$, which me
  
 1. In health insurance, the rate may be the occurrence of a specific disease per 1,000 people and the exposure is the number of people considered in the unit of 1,000. 
 2. In auto insurance, the rate may be the number of accidents per year of a driver and the exposure is the length of the observed period for the driver in the unit of year.  
-3. For workers compensation that covers lost wages resulting from an employee's work-related injury or illness, the rate may be the probability of injury in the course of employment per dollar and the exposure is the payroll amount in thousand dollars. 
+3. For workers compensation that covers lost wages resulting from an employee's work-related injury or illness, the rate may be the probability of injury in the course of employment per dollar and the exposure is the payroll amount in dollars. 
 4. In marketing, the rate may be  the number of customers who enter a store per hour and the exposure is the number of hours observed.  
 5. In civil engineering, the rate may be  the number of major cracks on the paved road per 10 kms and the exposure is the length of road considered in the unit of 10 kms.  
 6. In credit risk modelling, the rate may be the number of default events per 1000 firms and the exposure is the number of firms under consideration in the unit of 1,000.  
 
-Actuaries may be able to use different exposure bases for a given insurable loss. For example, in auto insurance, both the number of kilometres driven and the number of months covered by insurance can be used as exposure bases. Here the former is more accurate and useful in modelling the losses from car accidents, but more difficult to measure and manage for insurers. Thus, a good exposure base  may not be the theoretically  best one due to various practical constraints. As a rule, an exposure base must be easy to determine, accurately measurable, legally and socially acceptable, and free from potential manipulation by policyholders.  
+Actuaries may be able to use different exposure bases for a given insurable loss. For example, in auto insurance, both the number of kilometers driven and the number of months covered by insurance can be used as exposure bases. Here the former is more accurate and useful in modelling the losses from car accidents, but more difficult to measure and manage for insurers. Thus, a good exposure base  may not be the theoretically  best one due to various practical constraints. As a rule, an exposure base must be easy to determine, accurately measurable, legally and socially acceptable, and free from potential manipulation by policyholders.  
 
 
 
@@ -561,7 +561,7 @@ Residual Deviance: 0.6514 	AIC: 30.37
 
 **Example `r chapnum`.2. Poisson regression for Singapore insurance claims data**  
 
-This actual data is a subset of the data used by [@frees2008hierarchical]. The data is from the General Insurance Association of Singapore, an organisation consisting of non-life insurers in Singapore. The data contains the number of car accidents for $n=7,483$ auto insurance policies with several categorical explanatory variables and the exposure for each policy. The explanatory variables include four risk factors: the type of the vehicle insured (either automobile (A) or other (O), denoted by $\tt{Vtype}$), the age of the vehicle in years ($\tt{Vage}$), gender of the policyholder ($\tt{Sex}$) and  the age of the policyholder (in years, grouped into seven categories, denoted $\tt{Age}$).  
+This actual dataset is a subset of the data used by [@frees2008hierarchical]. The data are from the General Insurance Association of Singapore, an organisation consisting of non-life insurers in Singapore. The data contains the number of car accidents for $n=7,483$ auto insurance policies with several categorical explanatory variables and the exposure for each policy. The explanatory variables include four risk factors: the type of the vehicle insured (either automobile (A) or other (O), denoted by $\tt{Vtype}$), the age of the vehicle in years ($\tt{Vage}$), gender of the policyholder ($\tt{Sex}$) and  the age of the policyholder (in years, grouped into seven categories, denoted $\tt{Age}$).  
 
 Based on the data description, there are several things to remember before constructing a model. 
 First, there are 3,842 policies with vehicle type A (automobile) and 3,641 policies with other vehicle types. However, age and sex  information is available for the policies of vehicle type A only; the drivers of all other types of vehicles are recorded to be aged 21 or less with sex unspecified, except for one policy, indicating that no driver information has been collected for non-automobile vehicles. Second, type A vehicles are all classified as  private vehicles and all the other types are not.  
@@ -695,7 +695,7 @@ The Poisson regression is a special member of a more general regression model cl
 
 ## Technical Supplement -- Estimating Poisson Regression Models {#S:RC:mle-Pois-reg} 
 
-The principles of maximum likelihood estimation (*mle*) are introduced in Sections \@ref(S:parameter-estimation) and \@ref(S:MaxLikeEstimation), defined in Section \@ref(S:AppA:MLE), and theoretically developed in Chapter \@ref(C:AppC). Here we present the *mle* procedure of the Poisson regression here so that the reader can see how the explanatory variables are treated in maximizing the likelihood function in the regression setting. 
+The principles of maximum likelihood estimation (*mle*) are introduced in Sections \@ref(S:parameter-estimation) and \@ref(S:MaxLikeEstimation), defined in Section \@ref(S:AppA:MLE), and theoretically developed in Chapter \@ref(C:AppC). Here we present the *mle* procedure of the Poisson regression so that the reader can see how the explanatory variables are treated in maximizing the likelihood function in the regression setting. 
 
 **Maximum Likelihood Estimation for Individual Data**  
 
@@ -739,7 +739,7 @@ This is an interesting property saying that the average of the individual losses
 
 **Maximum Likelihood Estimation for Grouped Data** 
 
-Sometimes the data is not available at the individual policy level. For example, [Table 8.2] provides collective loss information for each risk class after grouping individual policies. When this is the case, $y_i$ and $m_i$, the quantities needed for the *mle* calculation in \@ref(eq:score-ft-Poi), are unavailable for each $i$. However this does not pose a problem as long as we have the total loss counts and total exposure for each risk class.  
+Sometimes the data are not available at the individual policy level. For example, [Table 8.2] provides collective loss information for each risk class after grouping individual policies. When this is the case, $y_i$ and $m_i$, the quantities needed for the *mle* calculation in \@ref(eq:score-ft-Poi), are unavailable for each $i$. However this does not pose a problem as long as we have the total loss counts and total exposure for each risk class.  
 
 To elaborate, let us assume that there are $K$ different risk classes, and further that, in the $k$th risk class, we have $n_k$ policies with the total exposure $m_{(k)}$ and the average loss count $\bar{y}_{(k)}$, for $k=1, \ldots, K$;  the total loss count for the $k$th risk class is then $n_k\, \bar{y}_{(k)}$. We denote the set of indices of the policies belonging to the $k$th class by $C_k$. As all policies in a given risk class share the same risk characteristics, we may denote 
 $\mathbf{ x}_i=\mathbf{ x}_{(k)}$ for all $i \in C_k$. With this notation, we can rewrite \@ref(eq:score-ft-Poi) as

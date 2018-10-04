@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Loss Data Analytics</title>
   <meta name="description" content="Loss Data Analytics is an interactive, online, freely available text. - The online version will contain many interactive objects (quizzes, computer demonstrations, interactive graphs, video, and the like) to promote deeper learning. - A subset of the book will be available in pdf format for low-cost printing. - The online text will be available in multiple languages to promote access to a worldwide audience.">
-  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
 
   <meta property="og:title" content="Loss Data Analytics" />
   <meta property="og:type" content="book" />
@@ -672,14 +672,14 @@ We can readily extend the two-level case to a multi-level one where <span class=
 <li>In health insurance, the rate may be the occurrence of a specific disease per 1,000 people and the exposure is the number of people considered in the unit of 1,000.</li>
 <li>In auto insurance, the rate may be the number of accidents per year of a driver and the exposure is the length of the observed period for the driver in the unit of year.<br />
 </li>
-<li>For workers compensation that covers lost wages resulting from an employee’s work-related injury or illness, the rate may be the probability of injury in the course of employment per dollar and the exposure is the payroll amount in thousand dollars.</li>
+<li>For workers compensation that covers lost wages resulting from an employee’s work-related injury or illness, the rate may be the probability of injury in the course of employment per dollar and the exposure is the payroll amount in dollars.</li>
 <li>In marketing, the rate may be the number of customers who enter a store per hour and the exposure is the number of hours observed.<br />
 </li>
 <li>In civil engineering, the rate may be the number of major cracks on the paved road per 10 kms and the exposure is the length of road considered in the unit of 10 kms.<br />
 </li>
 <li>In credit risk modelling, the rate may be the number of default events per 1000 firms and the exposure is the number of firms under consideration in the unit of 1,000.</li>
 </ol>
-<p>Actuaries may be able to use different exposure bases for a given insurable loss. For example, in auto insurance, both the number of kilometres driven and the number of months covered by insurance can be used as exposure bases. Here the former is more accurate and useful in modelling the losses from car accidents, but more difficult to measure and manage for insurers. Thus, a good exposure base may not be the theoretically best one due to various practical constraints. As a rule, an exposure base must be easy to determine, accurately measurable, legally and socially acceptable, and free from potential manipulation by policyholders.</p>
+<p>Actuaries may be able to use different exposure bases for a given insurable loss. For example, in auto insurance, both the number of kilometers driven and the number of months covered by insurance can be used as exposure bases. Here the former is more accurate and useful in modelling the losses from car accidents, but more difficult to measure and manage for insurers. Thus, a good exposure base may not be the theoretically best one due to various practical constraints. As a rule, an exposure base must be easy to determine, accurately measurable, legally and socially acceptable, and free from potential manipulation by policyholders.</p>
 <p><strong>Incorporating exposure in Poisson regression</strong><br />
 As exposures affect the Poisson mean, constructing Poisson regressions requires us to carefully separate the rate and exposure in the modelling process. Focusing on the insurance context, let us denote the rate of the loss event of the <span class="math inline">\(i\)</span>th policyholder by <span class="math inline">\(\lambda_i\)</span>, the known exposure (the length of coverage) by <span class="math inline">\(m_i\)</span> and the expected loss count under the given exposure by <span class="math inline">\(\mu_i\)</span>. Then the Poisson regression formulation in <a href="C-RiskClass.html#eq:mean-ft-Pois">(8.13)</a> and <a href="C-RiskClass.html#eq:mean-ft-Pois-2">(8.14)</a> should be revised in light of <a href="C-RiskClass.html#eq:Pois-pmf-2">(8.15)</a> as</p>
 <span class="math display" id="eq:mean-ft-Pois-6">\[\begin{equation}
@@ -885,7 +885,7 @@ Residual Deviance: 0.6514   AIC: 30.37</code></pre></div>
 </div>
 <hr />
 <p><strong>Example 8.2. Poisson regression for Singapore insurance claims data</strong></p>
-<p>This actual data is a subset of the data used by <span class="citation">(Frees and Valdez <a href="#ref-frees2008hierarchical">2008</a>)</span>. The data is from the General Insurance Association of Singapore, an organisation consisting of non-life insurers in Singapore. The data contains the number of car accidents for <span class="math inline">\(n=7,483\)</span> auto insurance policies with several categorical explanatory variables and the exposure for each policy. The explanatory variables include four risk factors: the type of the vehicle insured (either automobile (A) or other (O), denoted by <span class="math inline">\(\tt{Vtype}\)</span>), the age of the vehicle in years (<span class="math inline">\(\tt{Vage}\)</span>), gender of the policyholder (<span class="math inline">\(\tt{Sex}\)</span>) and the age of the policyholder (in years, grouped into seven categories, denoted <span class="math inline">\(\tt{Age}\)</span>).</p>
+<p>This actual dataset is a subset of the data used by <span class="citation">(Frees and Valdez <a href="#ref-frees2008hierarchical">2008</a>)</span>. The data are from the General Insurance Association of Singapore, an organisation consisting of non-life insurers in Singapore. The data contains the number of car accidents for <span class="math inline">\(n=7,483\)</span> auto insurance policies with several categorical explanatory variables and the exposure for each policy. The explanatory variables include four risk factors: the type of the vehicle insured (either automobile (A) or other (O), denoted by <span class="math inline">\(\tt{Vtype}\)</span>), the age of the vehicle in years (<span class="math inline">\(\tt{Vage}\)</span>), gender of the policyholder (<span class="math inline">\(\tt{Sex}\)</span>) and the age of the policyholder (in years, grouped into seven categories, denoted <span class="math inline">\(\tt{Age}\)</span>).</p>
 <p>Based on the data description, there are several things to remember before constructing a model. First, there are 3,842 policies with vehicle type A (automobile) and 3,641 policies with other vehicle types. However, age and sex information is available for the policies of vehicle type A only; the drivers of all other types of vehicles are recorded to be aged 21 or less with sex unspecified, except for one policy, indicating that no driver information has been collected for non-automobile vehicles. Second, type A vehicles are all classified as private vehicles and all the other types are not.</p>
 <p>When we include these risk factors, we assume all unspecified sex to be male. As the age information is only applicable to type A vehicles, we set the model accordingly. That is, we apply the age variable only to vehicles of type A. Also we used five vehicle age bands, simplifying the original seven bands, by combining vehicle ages 0,1 and 2; the combined band is marked as level 2<a href="#fn10" class="footnoteRef" id="fnref10"><sup>10</sup></a> in the data file. Thus our Poisson model has the following explicit form:</p>
 <span class="math display">\[\begin{align*}
@@ -997,7 +997,7 @@ exp(Pois_reg2<span class="ss">$coefficients)</span>
 </div>
 <div id="S:RC:mle-Pois-reg" class="section level2">
 <h2><span class="header-section-number">8.5</span> Technical Supplement – Estimating Poisson Regression Models</h2>
-<p>The principles of maximum likelihood estimation (<em>mle</em>) are introduced in Sections <a href="C-Frequency-Modeling.html#S:parameter-estimation">2.4.1</a> and <a href="C-Severity.html#S:MaxLikeEstimation">3.5</a>, defined in Section <a href="C-AppA.html#S:AppA:MLE">15.2.2</a>, and theoretically developed in Chapter <a href="C-AppC.html#C:AppC">17</a>. Here we present the <em>mle</em> procedure of the Poisson regression here so that the reader can see how the explanatory variables are treated in maximizing the likelihood function in the regression setting.</p>
+<p>The principles of maximum likelihood estimation (<em>mle</em>) are introduced in Sections <a href="C-Frequency-Modeling.html#S:parameter-estimation">2.4.1</a> and <a href="C-Severity.html#S:MaxLikeEstimation">3.5</a>, defined in Section <a href="C-AppA.html#S:AppA:MLE">15.2.2</a>, and theoretically developed in Chapter <a href="C-AppC.html#C:AppC">17</a>. Here we present the <em>mle</em> procedure of the Poisson regression so that the reader can see how the explanatory variables are treated in maximizing the likelihood function in the regression setting.</p>
 <p><strong>Maximum Likelihood Estimation for Individual Data</strong></p>
 <p>In the Poisson regression the varying Poisson mean is determined by parameters <span class="math inline">\(\beta_i\)</span>’s, as shown in <a href="C-RiskClass.html#eq:mean-ft-Pois-7">(8.17)</a>. In this subsection we use the maximum likelihood method to estimate these parameters. Again, we assume that there are <span class="math inline">\(n\)</span> policyholders and the <span class="math inline">\(i\)</span>th policyholder is characterized by <span class="math inline">\(\mathbf{ x}_i=(1, x_{i1}, \ldots, x_{ik})^{\prime}\)</span> with the observed loss count <span class="math inline">\(y_i\)</span>. Then, from <a href="C-RiskClass.html#eq:mean-ft-Pois-6">(8.16)</a> and <a href="C-RiskClass.html#eq:mean-ft-Pois-7">(8.17)</a>, the log-likelihood function of vector <span class="math inline">\(\beta=(\beta_0, \dots, \beta_k)\)</span> is given by</p>
 <span class="math display" id="eq:ll-Poi-reg">\[\begin{align}
@@ -1024,7 +1024,7 @@ n^{-1}\sum_{i=1}^n y_i =\bar{y}=n^{-1}\sum_{i=1}^n \hat{\mu}_i.
 \end{equation}\]</span>
 <p>This is an interesting property saying that the average of the individual losses, <span class="math inline">\(\bar{y}\)</span>, is same as the average of the estimated values. That is, the sample mean is preserved under the fitted Poisson regression model.</p>
 <p><strong>Maximum Likelihood Estimation for Grouped Data</strong></p>
-<p>Sometimes the data is not available at the individual policy level. For example, <a href="#tab:8.2">Table 8.2</a> provides collective loss information for each risk class after grouping individual policies. When this is the case, <span class="math inline">\(y_i\)</span> and <span class="math inline">\(m_i\)</span>, the quantities needed for the <em>mle</em> calculation in <a href="C-RiskClass.html#eq:score-ft-Poi">(8.24)</a>, are unavailable for each <span class="math inline">\(i\)</span>. However this does not pose a problem as long as we have the total loss counts and total exposure for each risk class.</p>
+<p>Sometimes the data are not available at the individual policy level. For example, <a href="#tab:8.2">Table 8.2</a> provides collective loss information for each risk class after grouping individual policies. When this is the case, <span class="math inline">\(y_i\)</span> and <span class="math inline">\(m_i\)</span>, the quantities needed for the <em>mle</em> calculation in <a href="C-RiskClass.html#eq:score-ft-Poi">(8.24)</a>, are unavailable for each <span class="math inline">\(i\)</span>. However this does not pose a problem as long as we have the total loss counts and total exposure for each risk class.</p>
 <p>To elaborate, let us assume that there are <span class="math inline">\(K\)</span> different risk classes, and further that, in the <span class="math inline">\(k\)</span>th risk class, we have <span class="math inline">\(n_k\)</span> policies with the total exposure <span class="math inline">\(m_{(k)}\)</span> and the average loss count <span class="math inline">\(\bar{y}_{(k)}\)</span>, for <span class="math inline">\(k=1, \ldots, K\)</span>; the total loss count for the <span class="math inline">\(k\)</span>th risk class is then <span class="math inline">\(n_k\, \bar{y}_{(k)}\)</span>. We denote the set of indices of the policies belonging to the <span class="math inline">\(k\)</span>th class by <span class="math inline">\(C_k\)</span>. As all policies in a given risk class share the same risk characteristics, we may denote <span class="math inline">\(\mathbf{ x}_i=\mathbf{ x}_{(k)}\)</span> for all <span class="math inline">\(i \in C_k\)</span>. With this notation, we can rewrite <a href="C-RiskClass.html#eq:score-ft-Poi">(8.24)</a> as</p>
 <span class="math display" id="eq:score-ft-Poi-2">\[\begin{align}
 \nonumber \sum^n_{i=1} \left(y_i -m_i \exp(\mathbf{ x}^{\prime}_i \mathbf{ b}) \right)\mathbf{ x}_i &amp;= \sum^K_{k=1}\Big{\{}\sum_{i \in C_k} \left(y_i -m_i \exp(\mathbf{ x}^{\prime}_i \mathbf{ b}) \right)\mathbf{ x}_i  \Big{\}} \\
@@ -1131,11 +1131,11 @@ gitbook.start({
 "facebook": false,
 "twitter": false,
 "google": true,
-"linkedin": false,
 "weibo": false,
 "instapper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"],
+"linkedin": false
 },
 "fontsettings": {
 "theme": "white",
@@ -1159,11 +1159,9 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
-    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
-    script.src = src;
+    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

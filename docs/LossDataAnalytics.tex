@@ -116,16 +116,15 @@
 }
 
 \setlength{\droptitle}{-2em}
-
   \title{Loss Data Analytics}
-    \pretitle{\vspace{\droptitle}\centering\huge}
+  \pretitle{\vspace{\droptitle}\centering\huge}
   \posttitle{\par}
-    \author{An open text authored by the Actuarial Community}
-    \preauthor{\centering\large\emph}
+  \author{An open text authored by the Actuarial Community}
+  \preauthor{\centering\large\emph}
   \postauthor{\par}
-    \date{}
-    \predate{}\postdate{}
-  
+  \date{}
+  \predate{}\postdate{}
+
 \usepackage{booktabs}
 \setcounter{secnumdepth}{2}
 
@@ -154,7 +153,7 @@
 \chapter*{Preface}\label{preface}
 \addcontentsline{toc}{chapter}{Preface}
 
-\emph{Date: 03 October 2018}
+\emph{Date: 04 October 2018}
 
 \subsubsection*{Book Description}\label{book-description}
 \addcontentsline{toc}{subsubsection}{Book Description}
@@ -435,6 +434,8 @@ better. They are:
   Gordon Enderle, University of Wisconsin - Madison
 \item
   Rob Erhardt, Wake Forest University
+\item
+  Runhun Feng, University of Illinois
 \item
   Liang (Jason) Hong, Robert Morris University
 \item
@@ -4174,7 +4175,7 @@ We can also use the probability generating function to generate moments
 of \(X\). By taking the \emph{k}-th derivative of
 \(P_{X}\left( z \right)\) with respect to \(z\) and evaluating it at
 \(z\  = \ 1\), we get
-\(\mathrm{E}\left\lbrack X\left( X - 1 \right)\ldots\left( X - k + 1 \right) \right\rbrack .\)
+\(\mathrm{E}\left\lbrack X\left( X - 1 \right)\cdots\left( X - k + 1 \right) \right\rbrack .\)
 
 The probability generating function is more useful for discrete
 \emph{rv}s and was introduced in Section \ref{S:generating-functions}.
@@ -4195,7 +4196,8 @@ and severity are modeled separately it is common for actuaries to use
 the Poisson distribution for claim count and the gamma distribution to
 model severity. An alternative approach for modelling losses that has
 recently gained popularity is to create a single model for pure premium
-(average claim cost) that will be described in Chapter 4.
+(average claim cost) that will be described in Chapter
+\ref{C:ModelSelection}.
 
 The continuous variable \(X\) is said to have the gamma distribution
 with shape parameter \(\alpha\) and scale parameter \(\theta\) if its
@@ -4251,14 +4253,16 @@ Section \ref{S:AppA:HT}, the chi-square distribution is used extensively
 in statistical hypothesis testing.
 
 The distribution function of the gamma model is the incomplete gamma
-function, denoted by \(\Gamma\left( \frac{\alpha;x}{\theta} \right)\),
+function, denoted by \(\Gamma\left(\alpha; \frac{x}{\theta} \right)\),
 and defined as
 \[F_{X}\left( x \right) = \Gamma\left( \alpha; \frac{x}{\theta} \right) = \frac{1}{\Gamma\left( \alpha \right)}\int_{0}^{x /\theta}t^{\alpha - 1}e^{- t}\text{dt}\]
-\(\alpha > 0,\ \theta > 0\).
+\(\alpha > 0,\ \theta > 0\). For an integer \(\alpha\), it can be
+written as
+\(\Gamma\left( \alpha; \frac{x}{\theta} \right) = 1 - e^{-x/\theta}\sum_{k = 0}^{\alpha-1}\frac{(x/\theta)^k}{k!}\).
 
 The \(k\)-th moment of the gamma distributed random variable for any
 positive \(k\) is given by
-\[\mathrm{E}\left( X^{k} \right) = \theta^{k} \frac{\Gamma\left( \alpha + k \right)}{\Gamma\left( \alpha \right)}  \ \ \ \text{for } k > 0 \text{. For } \alpha \text{ an integer, } \Gamma\left( \alpha; \frac{x}{\theta} \right) = 1 - e^{-(\frac{x}{\theta})}\sum_{k = 0}^{\alpha-1}\frac{x^k}{k!}.\]
+\[\mathrm{E}\left( X^{k} \right) = \theta^{k} \frac{\Gamma\left( \alpha + k \right)}{\Gamma\left( \alpha \right)}  \ \ \ \text{for } k > 0.\]
 The mean and variance are given by
 \(\mathrm{E}\left( X \right) = \alpha\theta\) and
 \(\mathrm{Var}\left( X \right) = \alpha\theta^{2}\), respectively.
@@ -4279,11 +4283,11 @@ which decays slowly to zero was first used to describe the distribution
 of income where a small percentage of the population holds a large
 proportion of the total wealth. For extreme insurance claims, the tail
 of the severity distribution (losses in excess of a threshold) can be
-modelled using a Pareto distribution.
+modeled using a Pareto distribution.
 
 The continuous variable \(X\) is said to have the Pareto distribution
 with shape parameter \(\alpha\) and scale parameter \(\theta\) if its
-pdf is given by
+\emph{pdf} is given by
 \[f_{X}\left( x \right) = \frac{\alpha\theta^{\alpha}}{\left( x + \theta \right)^{\alpha + 1}} \ \ \  x  >  0,\ \alpha >  0,\ \theta > 0.\]
 The two panels in Figure \ref{fig:Paretopdf} demonstrate the effect of
 the scale and shape parameters on the Pareto density function.
@@ -5049,8 +5053,8 @@ The relationship between \(X\) and \(Y^P\) can also be used when dealing
 with the uniform or the Pareto distributions. You can easily show that
 if \(X\) is uniform over the interval \(\left(0,\theta\right)\) then
 \(Y^P\) is uniform over the interval \(\left(0,\theta-d\right)\) and if
-\(X\) is Pareto with parameters \(\alpha\) and \(\theta\) then Y\^{}P is
-Pareto with parameters \(\alpha\) and \(\theta+d\).
+\(X\) is Pareto with parameters \(\alpha\) and \(\theta\) then \(Y^P\)
+is Pareto with parameters \(\alpha\) and \(\theta+d\).
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
@@ -5238,7 +5242,7 @@ and \[\mathrm{E}\left\lbrack \left( Y^{L} \right)^{2}
 \left. \ \ \ \ \ - 2\left( \frac{d}{1 + r} \right)\left\lbrack \mathrm{E}\left( X \land \frac{u}{1 + r} \right) - \mathrm{E}\left( X \land \frac{d}{1 + r} \right) \right\rbrack \right\} ,\]
 respectively.
 
-The formulae given for the first and second moments of \(Y^{L}\) are
+The formulas given for the first and second moments of \(Y^{L}\) are
 general. Under full coverage, \(\alpha = 1\), \(r = 0\), \(u = \infty\),
 \(d = 0\) and \(\mathrm{E}\left( Y^{L} \right)\) reduces to
 \(\mathrm{E}\left( X \right)\). If only an ordinary deductible is
@@ -5331,7 +5335,7 @@ to increase the capacity to write insurance and meet client requests for
 larger insurance coverage while reducing the impact of potential losses
 and protecting the insurance company against catastrophic losses.
 Reinsurance also allows the primary insurer to benefit from underwriting
-skills, expertize and proficient complex claim file handling of the
+skills, expertise and proficient complex claim file handling of the
 larger reinsurance companies.
 
 \textbf{Example 3.4.6. SOA Exam Question.} In 2005 a risk has a
@@ -5537,7 +5541,7 @@ The probability density function is
 where \(x > 0\).
 
 \textbf{a.} The likelihood function, \(L\left( \mu,\sigma \right)\), is
-the product of the pdf for each data point.
+the product of the \emph{pdf} for each data point.
 \[L\left( \mu,\sigma \right) = \prod_{i = 1}^{6}{f_{X_{i}}\left( x_{i} \right)} = \frac{1}{\sigma^{6}\left( 2\pi \right)^{3}\prod_{i = 1}^{6}x_{i}}exp - \frac{1}{2}\sum_{i = 1}^{6}\left( \frac{\ln x_{i} - \mu}{\sigma} \right)^{2}.\]
 The loglikelihood function, \(\ln L \left( \mu,\sigma \right)\), is the
 sum of the individual logarithms.
@@ -5561,10 +5565,10 @@ The second partial derivatives are
 and
 \(\frac{\partial^{2}\text{lnL}\left( \mu,\sigma \right)}{\partial\sigma^{2}} = \frac{6}{\sigma^{2}} - \frac{3}{\sigma^{4}}\sum_{i = 1}^{6}\left( \ln x_{i} - \mu \right)^{2}\).
 
-\textbf{b.} To derive the covariance matrix of the MLE we need to find
-the expectations of the second derivatives. Since the random variable
-\(X\) is from a lognormal distribution with parameters \(\mu\) and
-\(\sigma\), then \(\text{lnX}\) is normally distributed with mean
+\textbf{b.} To derive the covariance matrix of the \emph{mle} we need to
+find the expectations of the second derivatives. Since the random
+variable \(X\) is from a lognormal distribution with parameters \(\mu\)
+and \(\sigma\), then \(\text{lnX}\) is normally distributed with mean
 \(\mu\) and variance \(\sigma^{2}\).
 
 \(\mathrm{E}\left( \frac{\partial^{2}\text{lnL}\left( \mu,\sigma \right)}{\partial\mu^{2}} \right) = \mathrm{E}\left( \frac{- 6}{\sigma^{2}} \right) = \frac{- 6}{\sigma^{2}}\),
@@ -5825,7 +5829,7 @@ The maximum likelihood estimator, \(\hat{\alpha}\), is the solution to
 the equation
 \[\frac{8}{\hat{\alpha}} - \sum_{i = 1}^{8}{\ln x_{i}} + 10ln5 - 2ln25 = 0,\]which
 yields
-\[\hat{\alpha} = \frac{8}{\sum_{i = 1}^{8}{\ln x_{i}} - 10ln5 + 2ln25} = \frac{8}{(ln7 + ln9 + \ldots + ln20) - 10ln5 + 2ln25} = 0.785.\]
+\[\hat{\alpha} = \frac{8}{\sum_{i = 1}^{8}{\ln x_{i}} - 10ln5 + 2ln25} = \frac{8}{(ln7 + ln9 + \cdots + ln20) - 10ln5 + 2ln25} = 0.785.\]
 The mean of the Pareto only exists for \(\alpha > 1\). Since
 \(\hat{\alpha} = 0.785 < 1\). Then, the mean does not exist.
 
@@ -11166,7 +11170,7 @@ example:
   For workers compensation that covers lost wages resulting from an
   employee's work-related injury or illness, the rate may be the
   probability of injury in the course of employment per dollar and the
-  exposure is the payroll amount in thousand dollars.
+  exposure is the payroll amount in dollars.
 \item
   In marketing, the rate may be the number of customers who enter a
   store per hour and the exposure is the number of hours observed.\\
@@ -11182,7 +11186,7 @@ example:
 
 Actuaries may be able to use different exposure bases for a given
 insurable loss. For example, in auto insurance, both the number of
-kilometres driven and the number of months covered by insurance can be
+kilometers driven and the number of months covered by insurance can be
 used as exposure bases. Here the former is more accurate and useful in
 modelling the losses from car accidents, but more difficult to measure
 and manage for insurers. Thus, a good exposure base may not be the
@@ -11642,8 +11646,8 @@ Show R Code
 \textbf{Example 8.2. Poisson regression for Singapore insurance claims
 data}
 
-This actual data is a subset of the data used by
-\citep{frees2008hierarchical}. The data is from the General Insurance
+This actual dataset is a subset of the data used by
+\citep{frees2008hierarchical}. The data are from the General Insurance
 Association of Singapore, an organisation consisting of non-life
 insurers in Singapore. The data contains the number of car accidents for
 \(n=7,483\) auto insurance policies with several categorical explanatory
@@ -11859,8 +11863,8 @@ The principles of maximum likelihood estimation (\emph{mle}) are
 introduced in Sections \ref{S:parameter-estimation} and
 \ref{S:MaxLikeEstimation}, defined in Section \ref{S:AppA:MLE}, and
 theoretically developed in Chapter \ref{C:AppC}. Here we present the
-\emph{mle} procedure of the Poisson regression here so that the reader
-can see how the explanatory variables are treated in maximizing the
+\emph{mle} procedure of the Poisson regression so that the reader can
+see how the explanatory variables are treated in maximizing the
 likelihood function in the regression setting.
 
 \textbf{Maximum Likelihood Estimation for Individual Data}
@@ -11924,7 +11928,7 @@ regression model.
 
 \textbf{Maximum Likelihood Estimation for Grouped Data}
 
-Sometimes the data is not available at the individual policy level. For
+Sometimes the data are not available at the individual policy level. For
 example, \protect\hyperlink{tab:8.2}{Table 8.2} provides collective loss
 information for each risk class after grouping individual policies. When
 this is the case, \(y_i\) and \(m_i\), the quantities needed for the

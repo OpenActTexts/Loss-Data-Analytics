@@ -131,7 +131,7 @@ In this sub-section we will study three important frequency distributions used i
 
 <!-- \phantom{It is useful to get an example here of a discrete distribution with three point support and derive its mgf/pgf/moments etc..} -->
 
-#### binomial Distribution {#S:binomial-distribution}
+#### Binomial Distribution {#S:binomial-distribution}
 We begin with the binomial distribution which arises from any finite sequence of identical and independent experiments with binary outcomes. The most canonical of such experiments is the (biased or unbiased) coin tossing experiment with the outcome being heads or tails. So if $N$ denotes the number of heads in a sequence of $m$ independent coin tossing experiments with an identical coin which turns heads up with probability $q$, then the distribution of $N$ is called the binomial distribution with parameters $(m,q)$, with $m$ a positive integer and $q\in[0,1]$. Note that when $q=0$ (resp., $q=1$) then the distribution is degenerate with $N=0$ (resp., $N=m$) with probability $1$. Clearly, its support when $q\in(0,1)$ equals $\{0,1,\ldots,m\}$ with *pmf* given by [^2]
 
 [^2]: In the following we will suppress the reference to $N$ and denote the *pmf* by the sequence $\{p_k\}_{k\geq 0}$, instead of the function $p_N(\cdot)$.
@@ -192,7 +192,7 @@ This, in particular, implies that
 \]
 Note that interestingly for the Poisson distribution $\mathrm{Var}~{N}=\mathrm{E}~{N}$.
 
-#### negative binomial Distribution {#S:negative-binomial-distribution}
+#### Negative binomial Distribution {#S:negative-binomial-distribution}
 The third important count distribution is the negative binomial distribution. Recall that the binomial distribution arose as the distribution of the number of *successes* in $m$ independent repetition of an experiment with binary outcomes. If we instead consider the number of *successes* until we observe the $r$-th *failure* in independent repetitions of an experiment with binary outcomes, then its distribution is a negative binomial distribution. A particular case, when $r=1$, is the geometric distribution. In the following we will allow the parameter $r$ to be any positive real, and unfortunately when $r$ in not an integer the above random experiment would not be applicable. To then motivate the distribution more generally, and in the process explain its name, we recall the binomial series, *i.e.*
 \[
 (1+x)^s= 1 + s x + \frac{s(s-1)}{2!}x^2 + \ldots..., \quad s\in\mathbb{R}; \vert x \vert<1.
@@ -398,7 +398,7 @@ Note that the sample mean can be computed also as
 \]
 It is noteworthy that in the case of the Poisson, the exact distribution of $\hat{\lambda}_{\rm MLE}$ is available in closed form - it is a scaled Poisson - when the underlying distribution is a Poisson. This is so as the sum of independent Poisson random variables is a Poisson as well. Of course, for large sample size one can use the ordinary Central Limit Theorem (CLT) to derive a normal approximation. Note that the latter approximation holds even if the underlying distribution is any distribution with a finite second moment.  
 
-**MLE - binomial Distribution:** Unlike the case of the Poisson distribution, the parameter space in the case of the binomial is $2$-dimensional. Hence the optimization problem is a bit more challenging. We begin by observing that the likelihood is given by
+**MLE - Binomial distribution:** Unlike the case of the Poisson distribution, the parameter space in the case of the binomial is $2$-dimensional. Hence the optimization problem is a bit more challenging. We begin by observing that the likelihood is given by
 \[
 L(m,q)= \left(\prod_{i=1}^n \binom{m}{x_i}\right) q^{\sum_{i=1}^n x_i} (1-q)^{nm-\sum_{i=1}^n x_i},
 \]
@@ -488,7 +488,7 @@ We note that if the underlying distribution is the binomial distribution with pa
 knitr::include_graphics("Figures/figure2.2.png")
 ```
 
-**MLE - negative binomial Distribution:** The case of the negative binomial distribution is similar to that of the binomial distribution in the sense that we have two parameters and the MLEs are not be available in closed form. A difference between them is that unlike the binomial parameter $m$ which takes positive integral values, the parameter $r$ of the negative binomial can assume any positive real value. This makes the optimization problem a tad more complex. We begin by observing that the likelihood can be expressed in the following form:
+**MLE - Negative binomial Distribution:** The case of the negative binomial distribution is similar to that of the binomial distribution in the sense that we have two parameters and the MLEs are not be available in closed form. A difference between them is that unlike the binomial parameter $m$ which takes positive integral values, the parameter $r$ of the negative binomial can assume any positive real value. This makes the optimization problem a tad more complex. We begin by observing that the likelihood can be expressed in the following form:
 \[
 L(r,\beta)=\left(\prod_{i=1}^n \binom{r+x_i-1}{x_i}\right) (1+\beta)^{-n(r+\overline{x})} \beta^{n\overline{x}}.  
 \]
@@ -542,7 +542,7 @@ the rapid convergence seen above is typical of the Newton's method. Hence in thi
 
 
 
-*R Implementation of Newton's Method - negative binomial MLE for $r$*  
+*R Implementation of Newton's Method - Negative binomial MLE for $r$*  
 
 <h5 style="text-align: center;"><a id="displayCodeFreq.1" href="javascript:togglecode('toggleCodeFreq.1','displayCodeFreq.1');"><i><strong>Show R Code</strong></i></a> </h5>
 <div id="toggleCodeFreq.1" style="display: none">
@@ -606,7 +606,7 @@ $$\begin{matrix}
 <!-- ll<-unlist(lapply(n,likbinm)); -->
 <!-- n[ll==max(ll[!is.na(ll)])] -->
 <!-- y<-cbind(n,ll); -->
-<!-- z<-cbind(rep("$\\hat{\\sigma}^2<\\hat{\\mu}$",length(n)),rep("binomial - $L(m,\\overline{x}/m)$",length(n))); -->
+<!-- z<-cbind(rep("$\\hat{\\sigma}^2<\\hat{\\mu}$",length(n)),rep("Binomial - $L(m,\\overline{x}/m)$",length(n))); -->
 <!-- ll<-unlist(lapply(r,liknbinm)); -->
 <!-- ll[is.na(ll)]=0; -->
 <!-- r[ll==max(ll[!is.na(ll)])]; -->
@@ -618,7 +618,7 @@ $$\begin{matrix}
 <!-- ll<-unlist(lapply(n,likbinm)); -->
 <!-- n[ll==max(ll[!is.na(ll)])] -->
 <!-- y<-rbind(y,cbind(n,ll)); -->
-<!-- z<-rbind(z,cbind(rep("$\\hat{\\sigma}^2=\\hat{\\mu}$",length(n)),rep("binomial - $L(m,\\overline{x}/m)$",length(n)))); -->
+<!-- z<-rbind(z,cbind(rep("$\\hat{\\sigma}^2=\\hat{\\mu}$",length(n)),rep("Binomial - $L(m,\\overline{x}/m)$",length(n)))); -->
 <!-- ll<-unlist(lapply(r,liknbinm)); -->
 <!-- ll[is.na(ll)]=0; -->
 <!-- r[ll==max(ll[!is.na(ll)])]; -->
@@ -1051,7 +1051,7 @@ r<-(1:100);
 ll<-unlist(lapply(n,likbinm));
 n[ll==max(ll[!is.na(ll)])]
 y<-cbind(n,ll);
-z<-cbind(rep("$\\hat{\\sigma}^2<\\hat{\\mu}$",length(n)),rep("binomial - $L(m,\\overline{x}/m)$",length(n)));
+z<-cbind(rep("$\\hat{\\sigma}^2<\\hat{\\mu}$",length(n)),rep("Binomial - $L(m,\\overline{x}/m)$",length(n)));
 ll<-unlist(lapply(r,liknbinm));
 ll[is.na(ll)]=0;
 r[ll==max(ll[!is.na(ll)])];
@@ -1063,7 +1063,7 @@ x<-c(2,5,6,8,9);
 ll<-unlist(lapply(n,likbinm));
 n[ll==max(ll[!is.na(ll)])]
 y<-rbind(y,cbind(n,ll));
-z<-rbind(z,cbind(rep("$\\hat{\\sigma}^2=\\hat{\\mu}$",length(n)),rep("binomial - $L(m,\\overline{x}/m)$",length(n))));
+z<-rbind(z,cbind(rep("$\\hat{\\sigma}^2=\\hat{\\mu}$",length(n)),rep("Binomial - $L(m,\\overline{x}/m)$",length(n))));
 ll<-unlist(lapply(r,liknbinm));
 ll[is.na(ll)]=0;
 r[ll==max(ll[!is.na(ll)])];
@@ -1075,7 +1075,7 @@ x<-c(2,3,6,8,9);
 ll<-unlist(lapply(n,likbinm));
 n[ll==max(ll[!is.na(ll)])]
 y<-rbind(y,cbind(n,ll));
-z<-rbind(z,cbind(rep("$\\hat{\\sigma}^2>\\hat{\\mu}$",length(n)),rep("binomial - $L(m,\\overline{x}/m)$",length(n))));
+z<-rbind(z,cbind(rep("$\\hat{\\sigma}^2>\\hat{\\mu}$",length(n)),rep("Binomial - $L(m,\\overline{x}/m)$",length(n))));
 ll<-unlist(lapply(r,liknbinm));
 ll[is.na(ll)]=0;
 r[ll==max(ll[!is.na(ll)])];

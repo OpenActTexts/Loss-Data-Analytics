@@ -31,15 +31,15 @@ Prospective contributors should check out our [Style Guide](https://OpenActTexts
     + Then follow the document [here](https://gist.github.com/Chaser324/ce0505fbed06b947d962) until the 'submit' step [here](https://gist.github.com/Chaser324/ce0505fbed06b947d962#submitting). After you submit your pull request, relax and someone will take care of your request.
     + You need to work with your own forked repo and do whatever you want before pulling request.
     + If you choose to build the book, the following R packages will be required and can be installed by running:
-    ```{r}
-    install.packages(c("doBy", "ggplot2", "VGAM", "MASS", "actuar", "alabama", "epitools", "pander", "Deducer", "psych", "copula", "GB2", "statmod", "numDeriv"))
-    ```
-        + Use the following steps to knit your local books to check if you are satisfied with whatever you have edited/added.
-            + With the terminal and in your Loss-Data-Analytics folder, do `git checkout [your local branch for development]` and follow the aforementioned [document](https://gist.github.com/Chaser324/ce0505fbed06b947d962) if you haven't done so.
-            + `install.packages("bookdown")` in RStudio
-            + Open the file `Loss-Data-Analytics.Rproj` in RStudio
-            + Open the file `index.Rmd` in Rstudio
-            + Click the button `Build Book` on the `Build` tab of RStudio
+      ```{r}
+      install.packages(c("doBy", "ggplot2", "VGAM", "MASS", "actuar", "alabama", "epitools", "pander", "Deducer", "psych", "copula", "GB2", "statmod", "numDeriv"))
+      ```
+    + Use the following steps to knit your local books to check if you are satisfied with whatever you have edited/added.
+        + With the terminal and in your Loss-Data-Analytics folder, do `git checkout [your local branch for development]` and follow the aforementioned [document](https://gist.github.com/Chaser324/ce0505fbed06b947d962) if you haven't done so.
+        + `install.packages("bookdown")` in RStudio
+        + Open the file `Loss-Data-Analytics.Rproj` in RStudio
+        + Open the file `index.Rmd` in Rstudio
+        + Click the button `Build Book` on the `Build` tab of RStudio
     + If you are not ready to make contributions directly by pulling request, you can simply initialize an issue report by clicking [here](https://github.com/OpenActTexts/Loss-Data-Analytics/issues/new). Then relax, and someone will take care of it from there.
 
 3. Get yourself started, and it might be much easier than what you have thought. Enjoy gitting!

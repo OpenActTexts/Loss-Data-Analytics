@@ -694,7 +694,7 @@ Critique the candidate parametric model numerically and graphically. For the gra
 
 **Likelihood Ratio Tests.** For comparing model fits, if one model is a subset of another, then a likelihood ratio test may be employed; see for example Sections \@ref(S:AppA:HT:LRT) and \@ref(S:AppC:MLEModelVal). 
 
-**Goodness of Fit Statistics.** Generally, models are not proper subsets of one another so overall goodness of fit statistics are helpful for comparing models. *Information criteria* are one type of goodness of statistic. The most widely used examples are Akaike's Information Criterion (*AIC*) and the Schwarz Bayesian Criterion (*BIC*); they are are widely cited because they can be readily generalized to multivariate settings. Section \@ref(S:AppA:HT:IC) provides a summary of these statistics.
+**Goodness of Fit Statistics.** Generally, models are not proper subsets of one another so overall goodness of fit statistics are helpful for comparing models. *Information criteria* are one type of goodness of statistic. The most widely used examples are Akaike's Information Criterion (*AIC*) and the Schwarz Bayesian Criterion (*BIC*); they are widely cited because they can be readily generalized to multivariate settings. Section \@ref(S:AppA:HT:IC) provides a summary of these statistics.
 
 For selecting the appropriate distribution, statistics that compare a parametric fit to a nonparametric alternative, summarized in Section \@ref(S:MS:Tools:Stats), are useful for model comparison. For discrete data, a *chi-square goodness of fit statistic* (see Section 2.7) is generally preferred as it is more intuitive and simpler to explain.
 
@@ -705,7 +705,7 @@ Model validation is the process of confirming that the proposed model is appropr
 
 **Model Validation Process.** We can respond to this criticism by using a technique sometimes known as **out-of-sample validation**. The ideal situation is to have available two sets of data, one for training, or model development, and one for testing, or model validation. We initially develop one or several models on the first data set that we call our *candidate* models. Then, the relative performance of the candidate models can be measured on the second set of data. In this way, the data used to validate the model is unaffected by the procedures used to formulate the model.
 
-The model validation process not only addresses the problem of overfitting the data but also supports the goal of **predictive inference**. Particularly in actuarial applications, our goal is to make statements about about new experience rather than a dataset at hand. For example, we use claims experience from one year to develop a model that can be used to price insurance contracts for the following year. As an analogy, we can think about the training data set as experience from one year that is used to predict the behavior of the next year's test data set.
+The model validation process not only addresses the problem of overfitting the data but also supports the goal of **predictive inference**. Particularly in actuarial applications, our goal is to make statements about new experience rather than a dataset at hand. For example, we use claims experience from one year to develop a model that can be used to price insurance contracts for the following year. As an analogy, we can think about the training data set as experience from one year that is used to predict the behavior of the next year's test data set.
 
 **Random Split of the Data.** Unfortunately, rarely will two sets of data be available to the investigator. However, we can implement the validation process by splitting the data set into **training** and **test** subsamples, respectively. Figure \@ref(fig:ModelValidation) illustrates this splitting of the data.
  
@@ -1202,7 +1202,7 @@ It can be useful to calibrate parametric likelihood methods with nonparametric m
 
 To begin, first note that the empirical distribution function $F_n(x)$ is an **unbiased** estimator of the distribution function $F(x)$ (in the ``usual'' case in the absence of censoring). This is because $F_n(x)$ is the average of indicator variables that are also unbiased, that is, $\mathrm{E~} I(X \le x) = \Pr(X \le x) = F(x)$. Now suppose the the random outcome is censored on the right by a limiting amount, say, $C_U$, so that we record the smaller of the two, $X^* = \min(X, C_U)$. For values of $x$ that are smaller than $C_U$, the indicator variable still provides an unbiased estimator of the distribution function before we reach the censoring limit. That is,  $\mathrm{E~} I(X^* \le x) =  F(x)$ because $I(X^* \le x) =  I(X \le x)$ for $x < C_U$. In the same way, $\mathrm{E~} I(X^* > x) =  1 -F(x) = S(x)$.
 
-Now consider two random variables that have different censoring limits. For illustration, suppose that we observe $X_1^* = \min(X_1, 5)$ and $X_2^* = \min(X_2, 10)$ where $X_1$ and $X_2$ are independent draws from the same distribution. For $x \le 5$, the empirical distribution function $F_2(x)$ is an unbiased estimator of $F(x)$. However, for $5 < x  \le 10$, the first observation cannot be used for the distribution function because of the censoring limitation. Instead, the strategy developed by [@kaplan1958] is to use $S_n(5)$ as an estimator of $S(5)$ and then to use the second observation to estimate the conditional survivor function $\Pr(X > x | X >5) = \frac{S(x)}{S(5)}$. Specifically, for $5 < x  \le 10$, the estimator of the survival function is 
+Now consider two random variables that have different censoring limits. For illustration, suppose that we observe $X_1^* = \min(X_1, 5)$ and $X_2^* = \min(X_2, 10)$ where $X_1$ and $X_2$ are independent draws from the same distribution. For $x \le 5$, the empirical distribution function $F_2(x)$ is an unbiased estimator of $F(x)$. However, for $5 < x  \le 10$, the first observation cannot be used for the distribution function because of the censoring limitation. Instead, the strategy developed by [@kaplan1958] is to use $S_n(5)$ as an estimator of $S(5)$ and then to use the second observation to estimate the survival function conditional on survival to time 5, $\Pr(X > x | X >5) = \frac{S(x)}{S(5)}$. Specifically, for $5 < x  \le 10$, the estimator of the survival function is 
 $$
 \hat{S}(x) = S_2(5) \times I(X_2^* > x ) .
 $$
@@ -1411,7 +1411,7 @@ The distribution of outcomes given an assumed value of $\boldsymbol \theta$ is k
 **Joint Distribution.** The distribution of outcomes and model parameters is, unsurprisingly, known as the joint distribution and denoted as $f(x , \boldsymbol \theta) = f(x|\boldsymbol \theta )\pi(\boldsymbol \theta)$.
 
 **Marginal Outcome Distribution.** The distribution of outcomes can be expressed as
-$$f(x) = f(x | \boldsymbol \theta)\pi(\boldsymbol \theta) d\boldsymbol \theta.$$
+$$f(x) = f(x | \boldsymbol \theta)~\pi(\boldsymbol \theta) .$$
 This is analogous to a frequentist mixture distribution.
 
 **Posterior Distribution of Parameters.** After outcomes have been observed (hence the terminology "posterior"), one can use Bayes theorem to write the distribution as
@@ -1480,7 +1480,7 @@ $$P(\Theta>2|3) = \int_2^\infty 32(3+\theta)^{-3}d\theta = \left. -16(3+\theta)^
 
 In classical decision analysis, the loss function $l(\hat{\theta}, \theta)$ determines the penalty paid for using the estimate $\hat{\theta}$ instead of the true $\theta$.
 
-The **Bayes estimate** is that value that minimizes the expected loss $\mathrm{E~}[ l(\hat{\theta}, \theta)]$.
+The **Bayes estimate** is the value that minimizes the expected loss $\mathrm{E~}[ l(\hat{\theta}, \theta)]$.
 
 Some important special cases include:
 
@@ -1496,7 +1496,7 @@ I(\hat{\theta} =\theta) & \text{zero-one loss (for discrete probabilities)} & \t
 
 For new data $y$, the predictive distribution is $$f(y|x) = \int f(y|\theta) \pi(\theta|x) d\theta .$$
 
-With this, the **Bayesian prediction** of $y$ is
+Using squared error loss for the loss function, the **Bayesian prediction** of $y$ is
 
 $$\begin{aligned}
 \mathrm{E}(y|x) &=  \int y f(y|x) dy = \int y \left(\int f(y|\theta) \pi(\theta|x) d\theta \right) dy \\

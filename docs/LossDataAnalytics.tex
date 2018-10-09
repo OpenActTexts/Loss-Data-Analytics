@@ -116,15 +116,16 @@
 }
 
 \setlength{\droptitle}{-2em}
-  \title{Loss Data Analytics}
-  \pretitle{\vspace{\droptitle}\centering\huge}
-  \posttitle{\par}
-  \author{An open text authored by the Actuarial Community}
-  \preauthor{\centering\large\emph}
-  \postauthor{\par}
-  \date{}
-  \predate{}\postdate{}
 
+  \title{Loss Data Analytics}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{An open text authored by the Actuarial Community}
+    \preauthor{\centering\large\emph}
+  \postauthor{\par}
+    \date{}
+    \predate{}\postdate{}
+  
 \usepackage{booktabs}
 \setcounter{secnumdepth}{2}
 
@@ -153,7 +154,7 @@
 \chapter*{Preface}\label{preface}
 \addcontentsline{toc}{chapter}{Preface}
 
-\emph{Date: 04 October 2018}
+\emph{Date: 09 October 2018}
 
 \subsubsection*{Book Description}\label{book-description}
 \addcontentsline{toc}{subsubsection}{Book Description}
@@ -342,6 +343,17 @@ leadership role in developing \emph{Loss Data Analytics}.
 \begin{itemize}
 \tightlist
 \item
+  \textbf{Lei (Larry) Hua} is an Associate Professor of Actuarial
+  Science at Northern Illinois University. He earned a PhD degree in
+  Statistics from the University of British Columbia. He is an Associate
+  of the Society of Actuaries. His research work focuses on multivariate
+  dependence modeling for non-Gaussian phenomena and innovative
+  applications for financial and insurance industries.
+\end{itemize}
+
+\begin{itemize}
+\tightlist
+\item
   \textbf{Noriszura Ismail} is a Professor and Head of Actuarial Science
   Program, Universiti Kebangsaan Malaysia (UKM). She specializes in Risk
   Modelling and Applied Statistics. She obtained her BSc and MSc
@@ -449,7 +461,7 @@ better. They are:
 \item
   Samuel Kolins, Lebonan Valley College
 \item
-  Andrew Soon-Yong Kwon, Zurich Re
+  Andrew Kwon-Nakamura, Zurich North America
 \item
   Ambrose Lo, University of Iowa
 \item
@@ -524,10 +536,10 @@ code.
 
 Freely available, interactive textbooks represent a new venture in
 actuarial education and we need your input. Although a lot of effort has
-gone into the development, we expect hiccoughs. Please let either your
-instructor know about opportunities for improvement or write us through
-the discussion features in the online text or contact chapter
-contributors directly.
+gone into the development, we expect hiccoughs. Please let your
+instructor know about opportunities for improvement, write us through
+the discussion features in the online text, or contact chapter
+contributors directly with suggested improvements.
 
 \chapter{Introduction to Loss Data Analytics}\label{C:Intro}
 
@@ -4001,7 +4013,7 @@ Chapter \ref{C:AggLossModels}.
 In this section we define the basic distributional quantities: moments,
 percentiles and generating functions.
 
-\subsection{Moments}\label{moments}
+\subsection{Moments}\label{S:Chap3Moments}
 
 Let \(X\) be a continuous random variable with probability density
 function \(f_{X}\left( x \right)\). The \emph{k}-th raw moment of \(X\),
@@ -5879,23 +5891,26 @@ Notable contributions include: \citet{cummins1991managing},
 
 \emph{Chapter Preview}. Chapters \ref{C:Frequency-Modeling} and
 \ref{C:Severity} have described how to fit parametric models to
-frequency and severity data, respectively. This chapter describes
+frequency and severity data, respectively. This chapter begins with the
 selection of models. To compare alternative parametric models, it is
-helpful to introduce models that summarize data without reference to a
-specific parametric distribution. Section \ref{S:MS:NonParInf} describes
-nonparametric estimation, how we can use it for model comparisons and
-how it can be used to provide starting values for parametric procedures.
-
-The process of model selection is then summarized in Section
+helpful to summarize data without reference to a specific parametric
+distribution. Section \ref{S:MS:NonParInf} describes nonparametric
+estimation, how we can use it for model comparisons and how it can be
+used to provide starting values for parametric procedures. The process
+of model selection is then summarized in Section
 \ref{S:MS:ModelSelection}. Although our focus is on continuous data, the
 same process can be used for discrete data or data that come from a
-hybrid combination of discrete and continuous data. Further, Section
-\ref{S:MS:ModifiedData} describes estimation for alternative sampling
-schemes, included grouped, censored and truncated data, following the
-introduction provided in Chapter \ref{C:Severity}. The chapter closes
-with Section \ref{S:MS:BayesInference} on Bayesian inference, an
-alternative procedure where the (typically unknown) parameters are
-treated as random variables.
+hybrid combination of discrete and continuous data.
+
+Model selection and estimation are fundamental aspects of statistical
+modeling. To provide a flavor as to how they can be adapted to
+alternative sampling schemes, Section \ref{S:MS:ModifiedData} describes
+estimation for grouped, censored and truncated data (following the
+Section \ref{S:MaxLikeEstimation} introduction). To see how they can be
+adapted to alternative models, the chapter closes with Section
+\ref{S:MS:BayesInference} on Bayesian inference, an alternative
+procedure where the (typically unknown) parameters are treated as random
+variables.
 
 \section{Nonparametric Inference}\label{S:MS:NonParInf}
 
@@ -5921,70 +5936,108 @@ In this section, you learn how to:
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
-Consider \(X_1, \ldots, X_n\), a \textbf{random sample} (with
-replacement) from an unknown underlying population distribution
-\(F(\cdot)\). As independent draws from the same distribution, we say
-that \(X_1, \ldots, X_n\) are \emph{independently and identically
-distributed (iid)} random variables. Now say we have a data sample,
-\(x_1, \dots, x_n\), which represents a realization of
-\(X_1, \ldots, X_n\). Note that \(x_1, \ldots, x_n\) is non-random; it
-is simply a particular set of data values, i.e.~an observation of the
-random variables \(X_1, \ldots, X_n\). Using this sample, we will try to
-estimate the population distribution function \(F(\cdot)\). We first
-proceed with a \textbf{nonparametric} analysis, in which we do not
-assume or rely on any explicit parametric distributional forms for
-\(F(\cdot)\).
-
 \subsection{Nonparametric Estimation}\label{nonparametric-estimation}
 
-The population distribution \(F(\cdot)\) can be summarized in various
-ways. These include moments, the distribution function \(F(\cdot)\)
-itself, the quantiles or percentiles associated with the distribution,
-and the corresponding mass or density function \(f(\cdot)\). Summary
-statistics based on the sample, \(X_1, \ldots, X_n\), are known as
-\textbf{nonparametric estimators} of the corresponding summary measures
-of the distribution. We will examine moment estimators, distribution
-function estimators, quantile estimators, and density estimators, as
-well as their statistical properties such as expected value and
-variance. Using our data observations \(x_1, \ldots, x_n\), we can put
-numerical values to these estimators and compute \textbf{nonparametric
-estimates}.
+In Section \ref{S:basic-frequency-distributions} for frequency and
+Section \ref{S:BasicQuantities} for severity, we learned how to
+summarize a distribution by computing means, variances,
+quantiles/percentiles, and so on. To approximate these summary measures
+using a dataset, one strategy is to:
+
+\begin{enumerate}
+\def\labelenumi{\roman{enumi}.}
+\tightlist
+\item
+  assume a parametric form for a distribution, such as a negative
+  binomial for frequency or a gamma distribution for severity,
+\item
+  estimate the parameters of that distribution, and then
+\item
+  use the distribution with the estimated parameters to calculate the
+  desired summary measure.
+\end{enumerate}
+
+This is the \textbf{parametric} approach. Another strategy is to
+estimate the desired summary measure directly from the observations
+\emph{without} reference to a parametric model. Not surprisingly, this
+is known as the \textbf{nonparametric} approach.
+
+Let us start by considering the most basic type of sampling scheme and
+assume that observations are realizations from a set of random variables
+\(X_1, \ldots, X_n\) that are \emph{identically and independently
+distributed (iid)} draws from an unknown underlying population
+distribution \(F(\cdot)\). An equivalent way of saying this is that
+\(X_1, \ldots, X_n\), is a \emph{random sample} (with replacement) from
+\(F(\cdot)\). To see how this works, we now describe nonparametric
+estimators of many important measures that summarize a distribution.
 
 \subsubsection{Moment Estimators}\label{S:MS:MomentEstimator}
 
-The \(k\)\textbf{-th moment}, \(\mathrm{E~}[X^k] = \mu^{\prime}_k\), is
-our first example of a population summary measure. It is estimated with
-the corresponding sample statistic \[\frac{1}{n} \sum_{i=1}^n X_i^k .\]
-In typical applications, \(k\) is a positive integer, although it need
-not be. For the first moment (\(k=1\)), the prime symbol (\(\prime\))
-and the \(1\) subscript are usually dropped, using
-\(\mu=\mu^{\prime}_1\) to denote the \textbf{mean}. The corresponding
-sample estimator for \(\mu\) is called the \textbf{sample mean}, denoted
-with a bar on top of the random variable:
-\[\bar{X} =\frac{1}{n} \sum_{i=1}^n X_i .\]
+We learned how to define moments in Section \ref{S:generating-functions}
+for frequency and Section \ref{S:Chap3Moments} for severity. In
+particular, the \(k\)-th moment, \(\mathrm{E~}[X^k] = \mu^{\prime}_k\),
+summarizes many aspects of the distribution for different choices of
+\emph{k}. Here, \(\mu^{\prime}_k\) is sometimes called the \emph{k}th
+\emph{population} moment to distinguish it from the \emph{k}th sample
+moment, \[
+\frac{1}{n} \sum_{i=1}^n X_i^k ,
+\] which is the corresponding nonparametric estimator. In typical
+applications, \(k\) is a positive integer, although it need not be.
 
-Sometimes, \(\mu^{\prime}_k\) is called the \(k\)-th \emph{raw} moment
-to distinguish it from the \(k\)\textbf{-th central moment},
-\(\mathrm{E~} [(X-\mu)^k] = \mu_k\), which is estimated as
-\[\frac{1}{n} \sum_{i=1}^n \left(X_i - \bar{X}\right)^k .\] The second
-central moment (\(k=2\)) is an important case for which we typically
-assign a new symbol, \(\sigma^2 = \mathrm{E~} [(X-\mu)^2]\), known as
-the \textbf{variance}. The corresponding sample estimator for
-\(\sigma^2\) is called the \textbf{sample variance}.
+An important special case is the first moment where \emph{k=1}. In this
+case, the prime symbol (\(\prime\)) and the \(1\) subscript are usually
+dropped and one uses \(\mu=\mu^{\prime}_1\) to denote the population
+mean, or simply the \emph{mean}. The corresponding sample estimator for
+\(\mu\) is called the \emph{sample mean}, denoted with a bar on top of
+the random variable: \[
+\bar{X} =\frac{1}{n} \sum_{i=1}^n X_i .
+\] Another type of summary measure of interest is the the \(k\)\emph{-th
+central moment}, \(\mathrm{E~} [(X-\mu)^k] = \mu_k\). (Sometimes,
+\(\mu^{\prime}_k\) is called the \(k\)-th \emph{raw} moment to
+distinguish it from the central moment \(\mu_k\).). A nonparametric, or
+sample, estimator of \(\mu_k\) is \[
+\frac{1}{n} \sum_{i=1}^n \left(X_i - \bar{X}\right)^k .
+\] The second central moment (\(k=2\)) is an important case for which we
+typically assign a new symbol, \(\sigma^2 = \mathrm{E~} [(X-\mu)^2]\),
+known as the \emph{variance}. Properties of sample moment estimator of
+the variance such as \(n^{-1}\sum_{i=1}^n \left(X_i - \bar{X}\right)^2\)
+have been studied extensively and so it is natural that many variations
+have been proposed. The most widely used variation is one where the
+effective sample size is reduced by one, and so we define \[
+s^2 = \frac{1}{n-1} \sum_{i=1}^n \left(X_i - \bar{X}\right)^2.
+\] Here, the statistic \(s^2\) known as the \emph{sample variance}.
+Dividing by \emph{n-1} instead of \emph{n} matters little when you have
+a sample size \emph{n} in the thousands as is common in insurance
+applications. Still, the resulting estimator is unbiased in the sense
+that \(\mathrm{E~} s^2 = \sigma^2\), a desirable property particularly
+when interpreting results of an analysis.
 
 \subsubsection{Empirical Distribution
 Function}\label{empirical-distribution-function}
 
-To estimate the distribution function nonparametrically, we define the
-\textbf{empirical distribution function} to be
+We have seen how to compute nonparametric estimators of the \emph{k}th
+moment \(\mathrm{E~} X^k\). In the same way, for any known function
+\(\mathrm{g}(\cdot)\), we can estimate \(\mathrm{E~} \mathrm{g}(X)\)
+using \(n^{-1}\sum_{i=1}^n \mathrm{g}(X_i)\). This is sometimes known as
+the \emph{analog principle}.
 
-\[\begin{aligned}
-F_n(x) &=  \frac{\text{number of observations less than or equal to }x}{n} \\
-&=  \frac{1}{n} \sum_{i=1}^n I\left(X_i \le x\right).
-\end{aligned}\]
-
-Here, the notation \(I(\cdot)\) is the indicator function; it returns 1
-if the event \((\cdot)\) is true and 0 otherwise.
+Now suppose that we fix a value of \emph{x} and consider the function
+\(\mathrm{g}(X) = I(X \le x)\). Here, the notation \(I(\cdot)\) is the
+indicator function; it returns 1 if the event \((\cdot)\) is true and 0
+otherwise. For this choice of \(\mathrm{g}(\cdot)\), the expected value
+is \(\mathrm{E~} I(X \le x) = \Pr(X \le x) = F(x)\), the distribution
+function evaluated at a fixed point \emph{x}. Using the analog
+principle, we define the nonparametric estimator of the distribution
+function \[
+\begin{aligned}
+F_n(x)
+&=  \frac{1}{n} \sum_{i=1}^n I\left(X_i \le x\right) \\
+&=  \frac{\text{number of observations less than or equal to }x}{n} . 
+\end{aligned}
+\] As a nonparametric estimator, \(F_n(\cdot)\) is based on only
+observations and does not assume a parametric family for the
+distribution, it is also known as the \textbf{empirical distribution
+function}.
 
 \textbf{Example 4.1.1. Toy Data Set}. To illustrate, consider a
 fictitious, or ``toy,'' data set of \(n=10\) observations. Determine the
@@ -6000,8 +6053,8 @@ X_i& 10 &15 &15 &15 &20 &23 &23 &23 &23 &30\\
 Show Example Solution
 
 \hypertarget{toggleExampleSelect.1.1}{}
-You should check that the sample mean is \(\bar{x} = 19.7\) and that the
-sample variance is \(34.45556\). The corresponding empirical
+You should check that the sample mean is \(\bar{X} = 19.7\) and that the
+sample variance is \(s^2 =34.45556\). The corresponding empirical
 distribution function is
 
 \[\begin{aligned}
@@ -6039,25 +6092,27 @@ plot(PercentilesxExample, main="",xlab="x")
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
-\subsubsection{Quantiles}\label{S:MS:QuantileEstimator}
+\subsubsection{Quartiles, Percentiles and
+Quantiles}\label{S:MS:QuantileEstimator}
 
-We have already seen the \textbf{median}, which is the number such that
+We have already seen the \emph{median}, which is the number such that
 approximately half of a data set is below (or above) it. The
 \textbf{first quartile} is the number such that approximately 25\% of
-the data is below it and the \textbf{third quartile} is the number such
+the data is below it and the \emph{third quartile} is the number such
 that approximately 75\% of the data is below it. A \(100p\)
 \textbf{percentile} is the number such that \(100 \times p\) percent of
 the data is below it.
 
 To generalize this concept, consider a distribution function
-\(F(\cdot)\), which may or may not be from a continuous variable, and
-let \(q\) be a fraction so that \(0<q<1\). We want to define a quantile,
-say \(q_F\), to be a number such that \(F(q_F) \approx q\). Notice that
-when \(q = 0.5\), \(q_F\) is the median; when \(q = 0.25\), \(q_F\) is
-the first quartile, and so on.
+\(F(\cdot)\), which may or may not be continuous, and let \(q\) be a
+fraction so that \(0<q<1\). We want to define a quantile, say \(q_F\),
+to be a number such that \(F(q_F) \approx q\). Notice that when
+\(q = 0.5\), \(q_F\) is the median; when \(q = 0.25\), \(q_F\) is the
+first quartile, and so on. So, a quantile generalizes the concepts of
+median, quartiles, and percentiles.
 
 To be precise, for a given \(0<q<1\), define the \(q\)\textbf{th
-quantile} \(q_F\) to be any number that satisfies
+quantile} \(q_F\) to be \emph{any} number that satisfies
 
 \begin{equation} 
   F(q_F-) \le q \le F(q_F)
@@ -6094,7 +6149,7 @@ value of \(q\) shown in this panel, we still have a unique value of the
 quantile \(q_F\). Even though there are many values of \(q\) such that
 \(F(q_F-) \le q \le F(q_F)\), for a particular value of \(q\), there is
 only one solution to equation \eqref{eq:Quantile}. The right panel depicts
-a situation in which the quantile can not be uniquely determined for the
+a situation in which the quantile cannot be uniquely determined for the
 \(q\) shown as there is a range of \(q_F\)'s satisfying equation
 \eqref{eq:Quantile}.
 
@@ -6138,12 +6193,14 @@ corresponds to the 99th and the 99.99th percentiles.
 
 By taking a weighted average between data observations, smoothed
 empirical quantiles can handle cases such as the right panel in Figure
-\ref{fig:Quantile2}. The \(q\)th \textbf{smoothed empirical quantile} is
-defined as \[\hat{\pi}_q = (1-h) X_{(j)} + h X_{(j+1)}\] where
-\(j=\lfloor(n+1)q\rfloor\), \(h=(n+1)q-j\), and
-\(X_{(1)}, \ldots, X_{(n)}\) are the ordered values (the \textbf{order
-statistics}) corresponding to \(X_1, \ldots, X_n\). Note that this is a
-linear interpolation between \(X_{(j)}\) and \(X_{(j+1)}\).
+\ref{fig:Quantile2}. The \(q\)th \emph{smoothed empirical quantile} is
+defined as \[
+\hat{\pi}_q = (1-h) X_{(j)} + h X_{(j+1)}
+\] where \(j=\lfloor(n+1)q\rfloor\), \(h=(n+1)q-j\), and
+\(X_{(1)}, \ldots, X_{(n)}\) are the ordered values (known as the
+\emph{order statistics}) corresponding to \(X_1, \ldots, X_n\). Note
+that \(\hat{\pi}_q\) is simply a linear interpolation between
+\(X_{(j)}\) and \(X_{(j+1)}\).
 
 \textbf{Example 4.1.3. Toy Data Set: Continued.} Determine the 50th and
 20th smoothed percentiles.
@@ -6164,13 +6221,14 @@ Now take \(n=10\) and \(q=0.2\). In this case,
 
 \subsubsection{Density Estimators}\label{density-estimators}
 
-When the random variable is discrete, estimating the probability mass
-function \(f(x) = \Pr(X=x)\) is straightforward. We simply use the
-empirical average, defined to be
+\textbf{Discrete Variable.} When the random variable is discrete,
+estimating the probability mass function \(f(x) = \Pr(X=x)\) is
+straightforward. We simply use the sample average, defined to be
 \[f_n(x) = \frac{1}{n} \sum_{i=1}^n I(X_i = x).\]
 
-For a continuous random variable, consider a discretized formulation in
-which the domain of \(F(\cdot)\) is partitioned by constants
+\textbf{Continuous Variable within a Group.} For a continuous random
+variable, consider a discretized formulation in which the domain of
+\(F(\cdot)\) is partitioned by constants
 \(\{c_0 < c_1 < \cdots < c_k\}\) into intervals of the form
 \([c_{j-1}, c_j)\), for \(j=1, \ldots, k\). The data observations are
 thus ``grouped'' by the intervals into which they fall. Then, we might
@@ -6180,10 +6238,11 @@ such as
 where \(n_j\) is the number of observations (\(X_i\)) that fall into the
 interval \([c_{j-1}, c_j)\).
 
-Extending this notion to instances where we observe individual data,
-note that we can always create arbitrary groupings and use this formula.
-More formally, let \(b>0\) be a small positive constant, known as a
-\textbf{bandwidth}, and define a density estimator to be
+\textbf{Continuous Variable (not grouped).} Extending this notion to
+instances where we observe individual data, note that we can always
+create arbitrary groupings and use this formula. More formally, let
+\(b>0\) be a small positive constant, known as a \textbf{bandwidth}, and
+define a density estimator to be
 
 \begin{equation} 
   f_n(x) = \frac{1}{2nb} \sum_{i=1}^n I(x-b < X_i \le x + b)
@@ -6193,6 +6252,8 @@ More formally, let \(b>0\) be a small positive constant, known as a
 Show A Snippet of Theory
 
 \hypertarget{Theorykerneldensity}{}
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
 The idea is that the estimator \(f_n(x)\) in equation \eqref{eq:KDF} is
 the average over \(n\) \emph{iid} realizations of a random variable with
 mean
@@ -6212,17 +6273,20 @@ smoothness of \(F(\cdot)\), in particular, twice differentiability at
 \(F\). Because of this, the density estimator \(f_n\) is said to be
 \emph{nonparametric}.
 
-More generally, define the \textbf{kernel density estimator} as
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+More generally, define the \textbf{kernel density estimator} of the
+\emph{pdf} at \emph{x} as
 
 \begin{equation} 
-  f_n(x) = \frac{1}{nb} \sum_{i=1}^n w\left(\frac{x-X_i}{b}\right)
+  f_n(x) = \frac{1}{nb} \sum_{i=1}^n w\left(\frac{x-X_i}{b}\right) ,
   \label{eq:kernelDens}
 \end{equation}
 
 where \(w\) is a probability density function centered about 0. Note
 that equation \eqref{eq:KDF} simply becomes the kernel density estimator
 where \(w(x) = \frac{1}{2}I(-1 < x \le 1)\), also known as the
-\textbf{uniform kernel}. Other popular choices are shown in
+\emph{uniform kernel}. Other popular choices are shown in
 \protect\hyperlink{tab:41}{Table 4.1}.
 
 \[\begin{matrix}
@@ -6290,19 +6354,21 @@ legend("topright", c("b=0.3255 (default)", "b=0.1", "b=1.0"), lty=c(1,3,1),
 Nonparametric density estimators, such as the kernel estimator, are
 regularly used in practice. The concept can also be extended to give
 smooth versions of an empirical distribution function. Given the
-definition of the kernel density estimator, the kernel estimator of the
-distribution function can be found as \[\begin{aligned}
+definition of the kernel density estimator, the \emph{kernel estimator
+of the distribution function} can be found as \[\begin{aligned}
 \hat{F}_n(x) = \frac{1}{n} \sum_{i=1}^n W\left(\frac{x-X_i}{b}\right).\end{aligned}\]
 
 where \(W\) is the distribution function associated with the kernel
 density \(w\). To illustrate, for the uniform kernel, we have
-\(w(y) = \frac{1}{2}I(-1 < y \le 1)\), so \[\begin{aligned}
+\(w(y) = \frac{1}{2}I(-1 < y \le 1)\), so \[
+\begin{aligned}
 W(y) =
 \begin{cases}
 0 &            y<-1\\
 \frac{y+1}{2}& -1 \le y < 1 \\
 1 & y \ge 1 \\
-\end{cases}\end{aligned}\]
+\end{cases}\end{aligned} .
+\]
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
@@ -6344,7 +6410,8 @@ Then the kernel density estimate is
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
-\subsection{Tools for Model Selection}\label{S:MS:ToolsModelSelection}
+\subsection{Tools for Model Selection and
+Diagnostics}\label{S:MS:ToolsModelSelection}
 
 The previous section introduced nonparametric estimators in which there
 was no parametric form assumed about the underlying distributions.
@@ -6354,7 +6421,7 @@ to readily extend it to more complex situations such as including
 explanatory variables in a regression setting. When fitting a parametric
 distribution, one analyst might try to use a gamma distribution to
 represent a set of loss data. However, another analyst may prefer to use
-a Pareto distribution. How does one know which model to select?
+a Pareto distribution. How does one know which model to \textbf{select}?
 
 Nonparametric tools can be used to corroborate the selection of
 parametric models. Essentially, the approach is to compute selected
@@ -6364,7 +6431,9 @@ nonparametric does not assume a specific distribution and is merely a
 function of the data, it is used as a benchmark to assess how well the
 parametric distribution/model represents the data. This comparison may
 alert the analyst to deficiencies in the parametric model and sometimes
-point ways to improving the parametric specification.
+point ways to improving the parametric specification. Procedures geared
+towards assessing the validity of a model are known as \textbf{model
+diagnostics}.
 
 \subsubsection{Graphical Comparison of
 Distributions}\label{graphical-comparison-of-distributions}
@@ -6380,8 +6449,9 @@ distribution and the light purple is for the fitted Pareto distribution.
 Because the Pareto is much closer to the empirical distribution function
 than the gamma, this provides evidence that the Pareto is the better
 model for this data set. The right panel gives similar information for
-the density function and provides a consistent message. Based on these
-figures, the Pareto distribution is the clear choice for the analyst.
+the density function and provides a consistent message. Based (only) on
+these figures, the Pareto distribution is the clear choice for the
+analyst.
 
 \begin{figure}
 
@@ -6448,7 +6518,7 @@ small observations.
 
 }
 
-\caption{Quantile-Quantile ($qq$) Plots. The horizontal axes gives the empirical quantiles at each observation. The right-hand panels they are graphed on a logarithmic basis. The vertical axis gives the quantiles from the fitted distributions; Gamma quantiles are in the upper panels, Pareto quantiles are in the lower panels.}\label{fig:QQPlot}
+\caption{Quantile-Quantile ($qq$) Plots. The horizontal axes gives the empirical quantiles at each observation. The right-hand panels they are graphed on a logarithmic basis. The vertical axis gives the quantiles from the fitted distributions; gamma quantiles are in the upper panels, Pareto quantiles are in the lower panels.}\label{fig:QQPlot}
 \end{figure}
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
@@ -6496,10 +6566,12 @@ When selecting a model, it is helpful to make the graphical displays
 presented. However, for reporting results, it can be effective to
 supplement the graphical displays with selected statistics that
 summarize model goodness of fit. \protect\hyperlink{tab:42}{Table 4.2}
-provides three commonly used goodness of fit statistics. Here, \(F_n\)
-is the empirical distribution and \(F\) is the fitted distribution.
+provides three commonly used goodness of fit statistics. In this table,
+\(F_n\) is the empirical distribution, \(F\) is the fitted or
+hypothesized distribution, and \(F_i = F(x_i)\).
 
-\[\begin{matrix}
+\[
+\begin{matrix}
 \text{Table 4.2: Three Goodness of Fit Statistics} \\
 \begin{array}{l|cc}
 \hline
@@ -6512,18 +6584,18 @@ is the empirical distribution and \(F\) is the fitted distribution.
 \text{Anderson-Darling} & n \int \frac{(F_n(x) - F(x))^2}{F(x)(1-F(x))} f(x) dx & -n-\frac{1}{n} \sum_{i=1}^n (2i-1) \log\left(F_i(1-F_{n+1-i})\right)^2 \\
 \hline
 \end{array} \\
-\text{where } F_i \text{ is defined to be } F(x_i).
-\end{matrix}\]
+\end{matrix}
+\]
 
-The \textbf{Kolmogorov-Smirnov statistic} is the maximum absolute
+The \emph{Kolmogorov-Smirnov statistic} is the maximum absolute
 difference between the fitted distribution function and the empirical
 distribution function. Instead of comparing differences between single
-points, the \textbf{Cramer-von Mises statistic} integrates the
-difference between the empirical and fitted distribution functions over
-the entire range of values. The \textbf{Anderson-Darling statistic} also
-integrates this difference over the range of values, although weighted
-by the inverse of the variance. It therefore places greater emphasis on
-the tails of the distribution (i.e when \(F(x)\) or \(1-F(x)=S(x)\) is
+points, the \emph{Cramer-von Mises statistic} integrates the difference
+between the empirical and fitted distribution functions over the entire
+range of values. The \emph{Anderson-Darling statistic} also integrates
+this difference over the range of values, although weighted by the
+inverse of the variance. It therefore places greater emphasis on the
+tails of the distribution (i.e when \(F(x)\) or \(1-F(x)=S(x)\) is
 small).
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
@@ -6567,7 +6639,8 @@ The Kolmogorov-Smirnov test statistic is therefore
 The method of moments and percentile matching are nonparametric
 estimation methods that provide alternatives to maximum likelihood.
 Generally, maximum likelihood is the preferred technique because it
-employs data more efficiently. However, methods of moments and
+employs data more efficiently. (See Appendix Chapter \ref{C:AppC} for
+precise definitions of efficiency.) However, methods of moments and
 percentile matching are useful because they are easier to interpret and
 therefore allow the actuary or analyst to explain procedures to others.
 Additionally, the numerical estimation procedure (e.g.~if performed in
@@ -6577,8 +6650,8 @@ are robust to the choice of the starting values, for some complex
 situations, it can be important to have a starting value that is close
 to the (unknown) optimal value. Method of moments and percentile
 matching are techniques that can produce desirable estimates without a
-serious computational investment and can thus be used as a starting
-value for computing maximum likelihood.
+serious computational investment and can thus be used as a
+\emph{starting value} for computing maximum likelihood.
 
 \subsubsection{Method of Moments}\label{method-of-moments}
 
@@ -6654,14 +6727,14 @@ problem. You will also find that matching moments is possible for a few
 problems where the data are censored or truncated, but in general, this
 is a more difficult scenario. Finally, for distributions where the
 moments do not exist or are infinite, method of moments is not
-available. As an alternative for the infinite moment situation, one can
-use the percentile matching technique.
+available. As an alternative, one can use the percentile matching
+technique.
 
 \subsubsection{Percentile Matching}\label{percentile-matching}
 
-Under percentile matching, we approximate the quantiles or percentiles
-of the parametric distribution using the empirical (nonparametric)
-quantiles or percentiles described in Section
+Under \textbf{percentile matching}, we approximate the quantiles or
+percentiles of the parametric distribution using the empirical
+(nonparametric) quantiles or percentiles described in Section
 \ref{S:MS:QuantileEstimator}.
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
@@ -6700,7 +6773,7 @@ moments.
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
-\textbf{Exercise 4.1.10. SOA Exam Question.} You are given:
+\textbf{Example 4.1.10. SOA Exam Question.} You are given:
 
 \begin{enumerate}
 \def\labelenumi{(\roman{enumi})}
@@ -6734,7 +6807,7 @@ have \(12(0.8)=9.6\) so the estimate is
 \(\hat{\pi}_{0.8} = 0.4(200)+0.6(210)=206\).
 
 Using the loglogistic cumulative distribution, we need to solve the
-following two equations for parameters \(\theta\) and \(gamma\):
+following two equations for parameters \(\theta\) and \(\gamma\):
 \[0.4=\frac{(89.2/\theta)^\gamma}{1+(89.2/\theta)^\gamma} \ \ \ \text{and} \ \ \ \   0.8=\frac{(206/\theta)^\gamma}{1+(206+\theta)^\gamma}\]
 
 Solving for each parenthetical expression gives
@@ -6744,6 +6817,18 @@ Taking the ratio of the second equation to the first gives
 Then \(4^{1/2.1407}=206/\theta \Rightarrow \theta=107.8\)
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+Like the method of moments, percentile matching is almost too flexible
+in the sense that many estimators can be based on percentile matches;
+for example, one actuary can base estimation on the 25th and 95th
+percentiles whereas another actuary uses the 20th and 80th percentiles.
+In general these estimators will differ and there is no compelling
+reason to prefer one over the other. Also as with the method of moments,
+percentile matching is appealing because it provides a technique that
+can be readily applied in selected situations and has an intuitive
+basis. Although most actuarial applications use maximum likelihood
+estimators, it can be convenient to have alternative approaches such as
+method of moments and percentile matching available.
 
 \section{Model Selection}\label{S:MS:ModelSelection}
 
@@ -6766,11 +6851,11 @@ In this section, you learn how to:
 
 This section underscores the idea that model selection is an iterative
 process in which models are cyclically (re)formulated and tested for
-appropriateness before using them for inference. After summarizing the
-process of selecting a model based on the dataset at hand, we describe
-model selection process based on:
+appropriateness before using them for inference. After an overview, we
+describe the model selection process based on:
 
 \begin{itemize}
+\tightlist
 \item
   an in-sample or training dataset,
 \item
@@ -6798,17 +6883,26 @@ an \emph{iterative process} which is shown in Figure
 \end{figure}
 
 This iterative process provides a useful recipe for structuring the task
-of specifying a model to represent a set of data. The first step, the
-model formulation stage, is accomplished by examining the data
-graphically and using prior knowledge of relationships, such as from
-economic theory or industry practice. The second step in the iteration
-is based on the assumptions of the specified model. These assumptions
-must be consistent with the data to make valid use of the model. The
-third step is diagnostic checking; the data and model must be consistent
-with one another before additional inferences can be made. Diagnostic
-checking is an important part of the model formulation; it can reveal
-mistakes made in previous steps and provide ways to correct these
-mistakes.
+of specifying a model to represent a set of data.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  The first step, the model formulation stage, is accomplished by
+  examining the data graphically and using prior knowledge of
+  relationships, such as from economic theory or industry practice.
+\item
+  The second step in the iteration is fitting based on the assumptions
+  of the specified model. These assumptions must be consistent with the
+  data to make valid use of the model.
+\item
+  The third step is \emph{diagnostic checking}; the data and model must
+  be consistent with one another before additional inferences can be
+  made. Diagnostic checking is an important part of the model
+  formulation; it can reveal mistakes made in previous steps and provide
+  ways to correct these mistakes.
+\end{enumerate}
 
 The iterative process also emphasizes the skills you need to make
 analytics work. First, you need a willingness to summarize information
@@ -6855,54 +6949,55 @@ additional information.
 
 \textbf{Likelihood Ratio Tests.} For comparing model fits, if one model
 is a subset of another, then a likelihood ratio test may be employed;
-see for example Sections \ref{S:AppA:HT:LRT} and
-\ref{S:AppC:MLEModelVal}.
+the general approach to likelihood ratio testing is described in
+Sections \ref{S:AppA:HT:LRT} and \ref{S:AppC:MLEModelVal}.
 
 \textbf{Goodness of Fit Statistics.} Generally, models are not proper
 subsets of one another so overall goodness of fit statistics are helpful
 for comparing models. \emph{Information criteria} are one type of
 goodness of statistic. The most widely used examples are Akaike's
 Information Criterion (\emph{AIC}) and the Schwarz Bayesian Criterion
-(\emph{BIC}); they are are widely cited because they can be readily
+(\emph{BIC}); they are widely cited because they can be readily
 generalized to multivariate settings. Section \ref{S:AppA:HT:IC}
 provides a summary of these statistics.
 
 For selecting the appropriate distribution, statistics that compare a
 parametric fit to a nonparametric alternative, summarized in Section
 \ref{S:MS:Tools:Stats}, are useful for model comparison. For discrete
-data, a \emph{chi-square goodness of fit statistic} (see Section 2.7) is
-generally preferred as it is more intuitive and simpler to explain.
+data, a \emph{goodness of fit} statistic (as described in Section
+\ref{S:goodness-of-fit}) is generally preferred as it is more intuitive
+and simpler to explain.
 
 \subsection{Model Selection Based on a Test
 Dataset}\label{model-selection-based-on-a-test-dataset}
 
-Model validation is the process of confirming that the proposed model is
-appropriate, especially in light of the purposes of the investigation.
-An important criticism of the model selection process is that it can be
-susceptible to \emph{data-snooping}, that is, fitting a great number of
-models to a single set of data. By looking at a large number of models,
-we may overfit the data and understate the natural variation in our
+\textbf{Model validation} is the process of confirming that the proposed
+model is appropriate, especially in light of the purposes of the
+investigation. An important limitation of the model selection process
+based only on insample data is that it can be susceptible to
+\emph{data-snooping}, that is, fitting a great number of models to a
+single set of data. By looking at a large number of models, we may
+overfit the data and understate the natural variation in our
 representation.
 
-\textbf{Model Validation Process.} We can respond to this criticism by
-using a technique sometimes known as \textbf{out-of-sample validation}.
-The ideal situation is to have available two sets of data, one for
-training, or model development, and one for testing, or model
-validation. We initially develop one or several models on the first data
-set that we call our \emph{candidate} models. Then, the relative
-performance of the candidate models can be measured on the second set of
-data. In this way, the data used to validate the model is unaffected by
-the procedures used to formulate the model.
+Selecting a model based only on insample data also does not support the
+goal of \textbf{predictive inference}. Particularly in actuarial
+applications, our goal is to make statements about \emph{new} experience
+rather than a dataset at hand. For example, we use claims experience
+from one year to develop a model that can be used to price insurance
+contracts for the following year. As an analogy, we can think about the
+training data set as experience from one year that is used to predict
+the behavior of the next year's test data set.
 
-The model validation process not only addresses the problem of
-overfitting the data but also supports the goal of \textbf{predictive
-inference}. Particularly in actuarial applications, our goal is to make
-statements about about new experience rather than a dataset at hand. For
-example, we use claims experience from one year to develop a model that
-can be used to price insurance contracts for the following year. As an
-analogy, we can think about the training data set as experience from one
-year that is used to predict the behavior of the next year's test data
-set.
+We can respond to these criticisms by using a technique sometimes known
+as \textbf{out-of-sample validation}. The ideal situation is to have
+available two sets of data, one for training, or model development, and
+one for testing, or model validation. We initially develop one or
+several models on the first data set that we call our \emph{candidate}
+models. Then, the relative performance of the candidate models can be
+measured on the second set of data. In this way, the data used to
+validate the model is unaffected by the procedures used to formulate the
+model.
 
 \textbf{Random Split of the Data.} Unfortunately, rarely will two sets
 of data be available to the investigator. However, we can implement the
@@ -6916,7 +7011,7 @@ illustrates this splitting of the data.
 
 }
 
-\caption{Model Validation. A data set of size n is randomly split into two subsamples.}\label{fig:ModelValidation}
+\caption{Model Validation. A data set is randomly split into two subsamples.}\label{fig:ModelValidation}
 \end{figure}
 
 Various researchers recommend different proportions for the allocation.
@@ -6924,10 +7019,7 @@ Various researchers recommend different proportions for the allocation.
 unless the sample size is moderately large. The guidelines of
 \citet{picard1990data} show that the greater the number of parameters to
 be estimated, the greater the proportion of observations needed for the
-model development subsample. As a rule of thumb, for data sets with 100
-or fewer observations, use about 25-35\% of the sample for out-of-sample
-validation. For data sets with 500 or more observations, use 50\% of the
-sample for out-of-sample validation.
+model development subsample.
 
 \textbf{Model Validation Statistics.} Much of the literature supporting
 the establishment of a model validation process is based on regression
@@ -6952,8 +7044,9 @@ applications, Euclidean distance
 \(\mathrm{d}(y_i,\mathrm{g}) = |y_i-\mathrm{g}|\) is often preferred
 because of the skewed nature of the data (large outlying values of \(y\)
 can have a large effect on the measure). The Chapter 4 \emph{Technical
-Supplement A} describes another measure, the \emph{Gini index} that is
-useful in actuarial applications.
+Supplement A} describes another measure, the \emph{Gini index}, that is
+useful in actuarial applications particularly when there is a large
+proportion of zeros in claims data (corresponding to no claims).
 
 \textbf{Selecting a Distribution.} Still, our focus so far has been to
 select a distribution for a data set that can be used for actuarial
@@ -6966,8 +7059,8 @@ distribution when only a two parameter Pareto is needed. Information
 criteria such as \emph{AIC} and \emph{BIC} included penalties for model
 complexity and so provide some protection but using a test sample is the
 best guarantee to achieve parsimonious models. From a quote often
-attributed to Einstein, we want to ``use the simplest model as possible
-but no simpler.''
+attributed to Albert Einstein, we want to ``use the simplest model as
+possible but no simpler.''
 
 \subsection{Model Selection Based on
 Cross-Validation}\label{model-selection-based-on-cross-validation}
@@ -6987,9 +7080,10 @@ influence on the parameter estimates.
 \textbf{cross-validation}, as follows.
 
 \begin{itemize}
+\tightlist
 \item
   The procedure begins by using a random mechanism to split the data
-  into \emph{K} subsets known as \emph{folds}, where analysts typcially
+  into \emph{K} subsets known as \emph{folds}, where analysts typically
   use 5 to 10.
 \item
   Next, one uses the first \emph{K}-1 subsamples to estimate model
@@ -7038,13 +7132,13 @@ of observations that are ``\emph{modified}'' due to two common types of
 limitations: \textbf{censoring} and \textbf{truncation}. For example, it
 is common to think about an insurance deductible as producing data that
 are truncated (from the left) or policy limits as yielding data that are
-censoreed (from the right). This viewpoint is from the primary insurer
+censored (from the right). This viewpoint is from the primary insurer
 (the seller of the insurance). However, as we will see in Chapter 10, a
 reinsurer (an insurer of an insurance company) may not observe claims
 smaller than an amount, only that a claim exists, an example of
 censoring from the left. So, in this section, we cover the full gamut of
 alternatives. Specifically, this section will address parametric
-estmation methods for three alternatives to individual, complete, and
+estimation methods for three alternatives to individual, complete, and
 unmodified data: \textbf{interval-censored} data available only in
 groups, data that are limited or \textbf{censored}, and data that may
 not be observed due to \textbf{truncation}.
@@ -7109,7 +7203,9 @@ estimates for grouped data.
   A random sample of 20 losses is distributed as follows:
 \end{enumerate}
 
-\[\begin{array}{l|c}
+\[
+{\small
+\begin{array}{l|c}
 \hline
 \text{Loss Range} & \text{Frequency} \\
 \hline 
@@ -7117,7 +7213,9 @@ estimates for grouped data.
 (1000,2000] & 6 \\
 (2000,\infty) & 7 \\
 \hline
-\end{array}\]
+\end{array}
+}
+\]
 
 Calculate the maximum likelihood estimate of \(\theta\).
 
@@ -7185,7 +7283,7 @@ a type of missing data. An outcome is potentially truncated when the
 availability of an observation depends on the outcome.
 
 In insurance, it is common for observations to be
-\textbf{left-truncated} at \(C_L\) when tfhe amount is \[\begin{aligned}
+\textbf{left-truncated} at \(C_L\) when the amount is \[\begin{aligned}
 Y &=
 \left\{
 \begin{array}{ll}
@@ -7195,7 +7293,7 @@ X- C_L & X \geq C_L.
 \right.\end{aligned}\]
 
 In other words, if \(X\) is less than the threshold \(C_L\), then it is
-not observed. FOr example, \(C_L\) may represent the deductible
+not observed. For example, \(C_L\) may represent the deductible
 associated with an insurance coverage. If the insured loss is less than
 the deductible, then the insurer does not observe or record the loss at
 all. If the loss exceeds the deductible, then the excess \(X-C_L\) is
@@ -7296,7 +7394,7 @@ Information\tabularnewline
 \endhead
 right censoring & \(X_U^{\ast}= \min(X, C_U)\) &
 \(\delta_U= \mathrm{I}(X \geq C_U)\)\tabularnewline
-left censoring & \(X_L^{\ast}= \max(y, C_L)\) &
+left censoring & \(X_L^{\ast}= \max(X, C_L)\) &
 \(\delta_L= \mathrm{I}(X \leq C_L)\)\tabularnewline
 interval censoring & &\tabularnewline
 right truncation & \(X\) & observe \(X\) if \(X < C_U\)\tabularnewline
@@ -7342,7 +7440,9 @@ contribution by dividing by the probability that the variable was
 observed. To summarize, we have the following contributions to the
 likelihood function for six types of outcomes:
 
-\[\begin{array}{lc}
+\[
+{\small
+\begin{array}{lc}
 \hline
 \text{Outcome} & \text{Likelihood Contribution} \\
 \hline 
@@ -7353,7 +7453,9 @@ likelihood function for six types of outcomes:
 \text{left-truncation} & f(x)/(1-F(C_L)) \\
 \text{interval-censoring} & F(C_U)-F(C_L) \\
 \hline
-\end{array}\]
+\end{array}
+}
+\]
 
 For known outcomes and censored data, the likelihood is
 \[\mathcal{L}(\theta) = \prod_{E} f(x_i) \prod_{R} \{1-F(C_{Ui})\} \prod_{L}
@@ -7466,11 +7568,13 @@ Show Example Solution
 \hypertarget{toggleExampleSelect.3.3}{}
 \textbf{Solution.} The likelihood function is
 
-\[\begin{aligned} 
+\[
+\begin{aligned} 
 \mathcal{L}(\theta) &= f(20) f(30) f(45) [1-F(50)]^2 \\
 &= \frac{2(20/\theta)^2 e^{-(20/\theta)^2}}{20} \frac{2(30/\theta)^2 e^{-(30/\theta)^2}}{30} \frac{2(45/\theta)^2 e^{-(45/\theta)^2}}{45}(e^{-(50/\theta)^2})^2 \\
 &\propto \frac{1}{\theta^6} e^{-8325/\theta^2}
-\end{aligned}\]
+\end{aligned}
+\]
 
 The natural logarithm of the above expression is
 \(-6\ln\theta - \frac{8325}{\theta^2}\). Maximizing this expression by
@@ -7499,7 +7603,7 @@ empirical distribution function is defined in the usual way:
 For other values of \(x \in (c_{j-1}, c_j)\), we can estimate the
 distribution function with the \textbf{ogive} estimator, which linearly
 interpolates between \(F_n(c_{j-1})\) and \(F_n(c_j)\), i.e.~the values
-of the boundaries \(F_n(c_{j-1}\) and \(F_n(c_j)\) are connected with a
+of the boundaries \(F_n(c_{j-1})\) and \(F_n(c_j)\) are connected with a
 straight line. This can formally be expressed as
 \[F_n(x) = \frac{c_j-x}{c_j-c_{j-1}} F_n(c_{j-1}) + \frac{x-c_{j-1}}{c_j-c_{j-1}} F_n(c_j) \ \ \ \text{for } c_{j-1} \le x < c_j\]
 
@@ -7512,6 +7616,7 @@ The corresponding density is
 information regarding claim sizes for 100 claims:
 
 \[
+{\small
 \begin{array}{r|c}
 \hline
 \text{Claim Size} &  \text{Number of Claims} \\
@@ -7526,6 +7631,7 @@ information regarding claim sizes for 100 claims:
 \text{over  } 100,000 & 1 \\
 \hline
 \end{array}
+}
 \]
 
 Using the ogive, calculate the estimate of the probability that a
@@ -7577,7 +7683,7 @@ However, for \(5 < x \le 10\), the first observation cannot be used for
 the distribution function because of the censoring limitation. Instead,
 the strategy developed by \citep{kaplan1958} is to use \(S_n(5)\) as an
 estimator of \(S(5)\) and then to use the second observation to estimate
-the conditional survivor function
+the survival function conditional on survival to time 5,
 \(\Pr(X > x | X >5) = \frac{S(x)}{S(5)}\). Specifically, for
 \(5 < x \le 10\), the estimator of the survival function is \[
 \hat{S}(x) = S_2(5) \times I(X_2^* > x ) .
@@ -7601,9 +7707,9 @@ value \emph{less than} \(t_{j}\), denoted as
 \left\{
 \begin{array}{ll}
 0 & x<t_{1} \\
-1-\prod_{j:t_{j} \leq x}\left( 1-\frac{s_j}{R_{j}}\right) & x \geq t_{1} .
+1-\prod_{j:t_{j} \leq x}\left( 1-\frac{s_j}{R_{j}}\right) & x \geq t_{1} 
 \end{array}
-\right. \label{eq:KaplanMeier}
+\right. .\label{eq:KaplanMeier}
 \end{equation}
 
 As usual, the corresponding estimate of the survival function is
@@ -7627,7 +7733,7 @@ Show Example Solution
 
 \hypertarget{toggleExampleSelect.3.5}{}
 \textbf{Solution.} There are four event times (non-censored
-observations). For each time \(t_j\), we can calcuate the number of
+observations). For each time \(t_j\), we can calculate the number of
 events \(s_j\) and the risk set \(R_j\) as the following:
 
 \[\begin{array}{cccc}
@@ -7695,14 +7801,16 @@ the number of events \(s_j\) divided by the number at risk \(R_j\). With
 the same notation as above, the \textbf{Nelson-Äalen} estimator of the
 distribution function is
 
-\[\begin{aligned}
+\[
+\begin{aligned}
 \hat{F}_{NA}(x) &=
 \left\{
 \begin{array}{ll}
 0 & x<t_{1} \\
-1- \exp \left(-\sum_{j:t_{j} \leq x}\frac{s_j}{R_j} \right) & x \geq t_{1} .
+1- \exp \left(-\sum_{j:t_{j} \leq x}\frac{s_j}{R_j} \right) & x \geq t_{1} 
 \end{array}
-\right.\end{aligned}\]
+\right. .\end{aligned}
+\]
 
 Note that the above expression is a result of the Nelson-Äalen estimator
 of the cumulative hazard function
@@ -7727,14 +7835,18 @@ survival study:
 
 You are given:
 
-\[\begin{array}{c|cccccccccc}
+\[
+{\small
+\begin{array}{c|cccccccccc}
 \hline
 \text{Observation } (i) & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10\\ \hline
 d_i & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1.3 & 1.5 & 1.6\\
 x_i & 0.9 & - & 1.5 & - & - & 1.7 & - & 2.1 & 2.1 & - \\
 u_i & - & 1.2 & - & 1.5 & 1.6 & - & 1.7 & - & - & 2.3 \\
 \hline
-\end{array}\]
+\end{array}
+}
+\]
 
 Calculate the Kaplan-Meier product-limit estimate, \(\hat{S}(1.6)\)
 
@@ -7760,7 +7872,7 @@ The Kaplan-Meier estimate is therefore \(\hat{S}(1.6) = \frac{5}{7}\).
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
-\textbf{Exercise 4.3.7. SOA Exam Question. - Continued.}
+\textbf{Example 4.3.7. SOA Exam Question. - Continued.}
 
 \begin{enumerate}
 \def\labelenumi{\alph{enumi})}
@@ -7777,7 +7889,7 @@ Show Example Solution
 
 \hypertarget{toggleExampleSelect.3.7}{}
 \textbf{Solution.} As before, there are four event times (non-censored
-observations). For each time \(t_j\), we can calcuate the number of
+observations). For each time \(t_j\), we can calculate the number of
 events \(s_j\) and the risk set \(R_j\) as the following:
 
 \[\begin{array}{cccc}
@@ -7884,7 +7996,7 @@ denoted as
 
 \textbf{Marginal Outcome Distribution.} The distribution of outcomes can
 be expressed as
-\[f(x) = f(x | \boldsymbol \theta)\pi(\boldsymbol \theta) d\boldsymbol \theta.\]
+\[f(x) = \int f(x | \boldsymbol \theta)\pi(\boldsymbol \theta) ~d \boldsymbol \theta.\]
 This is analogous to a frequentist mixture distribution.
 
 \textbf{Posterior Distribution of Parameters.} After outcomes have been
@@ -7904,7 +8016,7 @@ statement.
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
-\textbf{Exercise 4.4.1. SOA Exam Question.} You are given:
+\textbf{Example 4.4.1. SOA Exam Question.} You are given:
 
 \begin{enumerate}
 \def\labelenumi{(\roman{enumi})}
@@ -7977,12 +8089,14 @@ In classical decision analysis, the loss function
 \(l(\hat{\theta}, \theta)\) determines the penalty paid for using the
 estimate \(\hat{\theta}\) instead of the true \(\theta\).
 
-The \textbf{Bayes estimate} is that value that minimizes the expected
+The \textbf{Bayes estimate} is the value that minimizes the expected
 loss \(\mathrm{E~}[ l(\hat{\theta}, \theta)]\).
 
 Some important special cases include:
 
-\[\begin{array}{cll}
+\[
+{\small
+\begin{array}{cll}
 \hline
 \text{Loss function } l(\hat{\theta}, \theta) & \text{Descriptor} & \text{Bayes Estimate} \\
 \hline 
@@ -7990,17 +8104,22 @@ Some important special cases include:
 |\hat{\theta}- \theta| & \text{absolute deviation loss} & \text{median of } \pi(\theta|x) \\
 I(\hat{\theta} =\theta) & \text{zero-one loss (for discrete probabilities)} & \text{mode of } \pi(\theta|x) \\
 \hline
-\end{array}\]
+\end{array}
+}
+\]
 
 For new data \(y\), the predictive distribution is
 \[f(y|x) = \int f(y|\theta) \pi(\theta|x) d\theta .\]
 
-With this, the \textbf{Bayesian prediction} of \(y\) is
+Using squared error loss for the loss function, the \textbf{Bayesian
+prediction} of \(y\) is
 
-\[\begin{aligned}
+\[
+\begin{aligned}
 \mathrm{E}(y|x) &=  \int y f(y|x) dy = \int y \left(\int f(y|\theta) \pi(\theta|x) d\theta \right) dy \\
-&=  \int  \mathrm{E}(y|\theta) \pi(\theta|x) d\theta .
-\end{aligned}\]
+&=  \int  \mathrm{E}(y|\theta) \pi(\theta|x) ~d\theta .
+\end{aligned}
+\]
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
@@ -8009,19 +8128,27 @@ conditional probability of the annual number of claims given
 \(\Theta = \theta\), and the probability distribution of \(\Theta\) are
 as follows:
 
-\[\begin{array}{l|ccc}
+\[
+{\small
+\begin{array}{l|ccc}
 \hline
 \text{Number of Claims} & 0 & 1 & 2 \\
 \text{Probability} & 2\theta & \theta & 1-3\theta \\
 \hline
-\end{array}\]
+\end{array}
+}
+\]
 
-\[\begin{array}{l|cc}
+\[
+{\small
+\begin{array}{l|cc}
 \hline
 \theta & 0.05 & 0.30 \\
 \text{Probability} & 0.80 & 0.20 \\
 \hline
-\end{array}\]
+\end{array}
+}
+\]
 
 Two claims are observed in Year 1. Calculate the Bayesian estimate
 (Bühlmann credibility estimate) of the number of claims in Year 2.
@@ -8105,7 +8232,7 @@ P(X_2>8|X_1=5) &= P(X_2>8|\theta=1) P(\theta=1|X_1=5) + P(X_2>8|\theta=3) P(\the
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
-\textbf{Exercise 4.4.5. SOA Exam Question.} You are given:
+\textbf{Example 4.4.5. SOA Exam Question.} You are given:
 
 \begin{enumerate}
 \def\labelenumi{(\roman{enumi})}
@@ -8148,7 +8275,9 @@ P(X_9=1|1,1,1,1,1,1,1,1) &= \int_0^5 P(X_9=1|p) \pi(p|1,1,1,1,1,1,1,1) dp \\
 \def\labelenumi{(\roman{enumi})}
 \tightlist
 \item
-  Each risk has at most one claim each year. \[\begin{array}{ccc}
+  Each risk has at most one claim each year. \[
+  {\small
+  \begin{array}{ccc}
   \hline
   \text{Type of Risk} & \text{Prior Probability} & \text{Annual Claim Probability} \\
   \hline
@@ -8156,7 +8285,9 @@ P(X_9=1|1,1,1,1,1,1,1,1) &= \int_0^5 P(X_9=1|p) \pi(p|1,1,1,1,1,1,1,1) dp \\
   \text{II} & 0.2 & 0.2 \\
   \text{III} & 0.1 & 0.4 \\ 
   \hline
-  \end{array}\]
+  \end{array}
+  }
+  \]
 \end{enumerate}
 
 One randomly chosen risk has three claims during Years 1-6. Calculate
@@ -19444,6 +19575,20 @@ fGB2_ex = gb2density(exp(x))*exp(x)
 lines(x,fGB2_ex, col="green")
 \end{verbatim}
 
+\subsubsection*{Contributors}\label{contributors-7}
+\addcontentsline{toc}{subsubsection}{Contributors}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Lei (Larry) Hua}, Northern Illinois University, and
+  \textbf{Edward W. (Jed) Frees}, University of Wisconsin-Madison, are
+  the principal authors of the initial version of this chapter. Email:
+  \href{mailto:lhua@niu.edu}{\nolinkurl{lhua@niu.edu}} or
+  \href{mailto:jfrees@bus.wisc.edu}{\nolinkurl{jfrees@bus.wisc.edu}} for
+  chapter comments and suggested improvements.
+\end{itemize}
+
 \chapter{Appendix B: Iterated Expectations}\label{C:AppB}
 
 This appendix introduces the laws related to iterated expectations. In
@@ -19798,6 +19943,20 @@ Note that the later is the variance for a Bernoulli with outcomes
 Based on the Law of Total Variance, the unconditional variance of \(N\)
 is given by
 \[\mathrm{Var}[N]= \alpha \lambda_1+ (1-\alpha) \lambda_2 + (\lambda_1-\lambda_2)^2 \alpha (1-\alpha).\]
+
+\subsubsection*{Contributors}\label{contributors-8}
+\addcontentsline{toc}{subsubsection}{Contributors}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Lei (Larry) Hua}, Northern Illinois University, and
+  \textbf{Edward W. (Jed) Frees}, University of Wisconsin-Madison, are
+  the principal authors of the initial version of this chapter. Email:
+  \href{mailto:lhua@niu.edu}{\nolinkurl{lhua@niu.edu}} or
+  \href{mailto:jfrees@bus.wisc.edu}{\nolinkurl{jfrees@bus.wisc.edu}} for
+  chapter comments and suggested improvements.
+\end{itemize}
 
 \chapter{Appendix C: Maximum Likelihood Theory}\label{C:AppC}
 
@@ -20265,6 +20424,20 @@ relative to the critical value from the chi-square distribution, then we
 reject the reduced model in favor of the larger one. Details regarding
 the critical value and alternative methods based on information criteria
 are given in Appendix \ref{C:AppA}.
+
+\subsubsection*{Contributors}\label{contributors-9}
+\addcontentsline{toc}{subsubsection}{Contributors}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Lei (Larry) Hua}, Northern Illinois University, and
+  \textbf{Edward W. (Jed) Frees}, University of Wisconsin-Madison, are
+  the principal authors of the initial version of this chapter. Email:
+  \href{mailto:lhua@niu.edu}{\nolinkurl{lhua@niu.edu}} or
+  \href{mailto:jfrees@bus.wisc.edu}{\nolinkurl{jfrees@bus.wisc.edu}} for
+  chapter comments and suggested improvements.
+\end{itemize}
 
 \bibliography{Bibliography/LDAReferenceB.bib}
 

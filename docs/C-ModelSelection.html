@@ -223,7 +223,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.4.1" data-path="C-Severity.html"><a href="C-Severity.html#S:PolicyDeduct"><i class="fa fa-check"></i><b>3.4.1</b> Policy Deductibles</a></li>
 <li class="chapter" data-level="3.4.2" data-path="C-Severity.html"><a href="C-Severity.html#S:PolicyLimits"><i class="fa fa-check"></i><b>3.4.2</b> Policy Limits</a></li>
 <li class="chapter" data-level="3.4.3" data-path="C-Severity.html"><a href="C-Severity.html#coinsurance"><i class="fa fa-check"></i><b>3.4.3</b> Coinsurance</a></li>
-<li class="chapter" data-level="3.4.4" data-path="C-Severity.html"><a href="C-Severity.html#reinsurance"><i class="fa fa-check"></i><b>3.4.4</b> Reinsurance</a></li>
+<li class="chapter" data-level="3.4.4" data-path="C-Severity.html"><a href="C-Severity.html#S:Chap3Reinsurance"><i class="fa fa-check"></i><b>3.4.4</b> Reinsurance</a></li>
 </ul></li>
 <li class="chapter" data-level="3.5" data-path="C-Severity.html"><a href="C-Severity.html#S:MaxLikeEstimation"><i class="fa fa-check"></i><b>3.5</b> Maximum Likelihood Estimation</a><ul>
 <li class="chapter" data-level="3.5.1" data-path="C-Severity.html"><a href="C-Severity.html#maximum-likelihood-estimators-for-complete-data"><i class="fa fa-check"></i><b>3.5.1</b> Maximum Likelihood Estimators for Complete Data</a></li>
@@ -496,7 +496,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>estimate the parameters of that distribution, and then</li>
 <li>use the distribution with the estimated parameters to calculate the desired summary measure.</li>
 </ol>
-<p>This is the <strong>parametric</strong> approach. Another strategy is to estimate the desired summary measure directly from the observations <em>without</em> reference to a parametric model. Not surprisingly, this is known as the <strong>nonparametric</strong> approach.</p>
+<p>This is the <strong>parametric</strong> approach. Another strategy is to estimate the desired summary measure directly from the observations <em>without</em> reference to a parametric model. Not surprisingly, this is known as the <a href="#" class="tooltip" style="color:green"><strong>nonparametric</strong><span style="font-size:8pt"> An approach to inference that does not rely on references to a parametric model.</span></a> approach.</p>
 <p>Let us start by considering the most basic type of sampling scheme and assume that observations are realizations from a set of random variables <span class="math inline">\(X_1, \ldots, X_n\)</span> that are <em>identically and independently distributed (iid)</em> draws from an unknown underlying population distribution <span class="math inline">\(F(\cdot)\)</span>. An equivalent way of saying this is that <span class="math inline">\(X_1, \ldots, X_n\)</span>, is a <em>random sample</em> (with replacement) from <span class="math inline">\(F(\cdot)\)</span>. To see how this works, we now describe nonparametric estimators of many important measures that summarize a distribution.</p>
 <div id="S:MS:MomentEstimator" class="section level4">
 <h4><span class="header-section-number">4.1.1.1</span> Moment Estimators</h4>
@@ -968,7 +968,7 @@ Figure 4.9: Model Validation. A data set is randomly split into two subsamples.
 <hr />
 <div id="parametric-estimation-using-modified-data" class="section level3">
 <h3><span class="header-section-number">4.3.1</span> Parametric Estimation using Modified Data</h3>
-<p>Basic theory and many applications are based on <em>individual</em> observations that are “<em>complete</em>” and “<em>unmodified</em>,” as we have seen in the previous section. Chapter 3 introduced the concept of observations that are “<em>modified</em>” due to two common types of limitations: <strong>censoring</strong> and <strong>truncation</strong>. For example, it is common to think about an insurance deductible as producing data that are truncated (from the left) or policy limits as yielding data that are censored (from the right). This viewpoint is from the primary insurer (the seller of the insurance). However, as we will see in Chapter 10, a reinsurer (an insurer of an insurance company) may not observe claims smaller than an amount, only that a claim exists, an example of censoring from the left. So, in this section, we cover the full gamut of alternatives. Specifically, this section will address parametric estimation methods for three alternatives to individual, complete, and unmodified data: <strong>interval-censored</strong> data available only in groups, data that are limited or <strong>censored</strong>, and data that may not be observed due to <strong>truncation</strong>.</p>
+<p>Basic theory and many applications are based on <em>individual</em> observations that are “<em>complete</em>” and “<em>unmodified</em>,” as we have seen in the previous section. Section <a href="C-Severity.html#S:MaxLikeEstimation">3.5</a> introduced the concept of observations that are “<em>modified</em>” due to two common types of limitations: <strong>censoring</strong> and <strong>truncation</strong>. For example, it is common to think about an insurance deductible as producing data that are truncated (from the left) or policy limits as yielding data that are censored (from the right). This viewpoint is from the primary insurer (the seller of the insurance). However, as we will see in Chapter <a href="C-PortMgt.html#C:PortMgt">10</a>, a reinsurer (an insurer of an insurance company) may not observe claims smaller than an amount, only that a claim exists, an example of censoring from the left. So, in this section, we cover the full gamut of alternatives. Specifically, this section will address parametric estimation methods for three alternatives to individual, complete, and unmodified data: <strong>interval-censored</strong> data available only in groups, data that are limited or <strong>censored</strong>, and data that may not be observed due to <strong>truncation</strong>.</p>
 <div id="S:MS:GroupedData" class="section level4">
 <h4><span class="header-section-number">4.3.1.1</span> Parametric Estimation using Grouped Data</h4>
 <p>Consider a sample of size <span class="math inline">\(n\)</span> observed from the distribution <span class="math inline">\(F(\cdot)\)</span>, but in groups so that we only know the group into which each observation fell, not the exact value. This is referred to as <strong>grouped</strong> or <strong>interval-censored</strong> data. For example, we may be looking at two successive years of annual employee records. People employed in the first year but not the second have left sometime during the year. With an exact departure date (individual data), we could compute the amount of time that they were with the firm. Without the departure date (grouped data), we only know that they departed sometime during a year-long interval.</p>
@@ -1025,35 +1025,41 @@ L(\theta) = \ln \mathcal{L}(\theta) = \ln \prod_{j=1}^n f(x_i) = \sum_{j=1}^k n_
 </div>
 <div id="censored-data" class="section level4">
 <h4><span class="header-section-number">4.3.1.2</span> Censored Data</h4>
-<p><strong>Censoring</strong> occurs when we observe only a limited value of an observation. The most common form is <strong>right-censoring</strong>, in which we record the smaller of the “true” dependent variable and a censoring variable. Using notation, let <span class="math inline">\(X\)</span> represent an outcome of interest, such as the loss due to an insured event. Let <span class="math inline">\(C_U\)</span> denote the censoring time, such as <span class="math inline">\(C_U=5\)</span>. With right-censored observations, we observe <span class="math inline">\(X\)</span> if it is below censoring point <span class="math inline">\(C_U\)</span>; otherwise if <span class="math inline">\(X\)</span> is higher than the censoring point, we only observe the censored <span class="math inline">\(C_U\)</span>. Therefore, we record <span class="math inline">\(X_U^{\ast}= \min(X, C_U)\)</span>. We also observe whether or not censoring has occurred. Let <span class="math inline">\(\delta_U= \mathrm{I}(X \geq C_U)\)</span> be a binary variable that is 1 if censoring occurs, <span class="math inline">\(y \geq C_U\)</span>, and 0 otherwise.</p>
-<p>For example, <span class="math inline">\(C_U\)</span> may represent the upper limit of coverage of an insurance policy. The loss may exceed the amount <span class="math inline">\(C_U\)</span>, but the insurer only has <span class="math inline">\(C_U\)</span> in its records as the amount paid out and does not have the amount of the actual loss <span class="math inline">\(X\)</span> in its records.</p>
-<!-- Suppose $X$ represents a loss due to an insured event and that $u$ is a known censoring point. -->
-<!-- * If observations are censored from the **right** (or from above), then we observe $X$ if it is below censoring point $u$, otherwise if $X$ is higher than the censoring point, we only observe the censored $u$. Therefore, we observe $$Y = \min(X,u).$$ -->
-<!-- In this case, $u$ may represent the upper limit of coverage for an insurer. The loss may exceed the amount $u$, but the insurer does not have the amount of the actual loss in its records because $u$ was the amount paid out. -->
-<p>Similarly, with <strong>left-censoring</strong>, we only observe <span class="math inline">\(X\)</span> if <span class="math inline">\(X\)</span> is above censoring point (e.g. time or loss amount) <span class="math inline">\(C_L\)</span>; otherwise we observe <span class="math inline">\(C_L\)</span>. Thus, we record <span class="math inline">\(X_L^{\ast}= \max(X, C_L)\)</span> along with the censoring indicator <span class="math inline">\(\delta_L= \mathrm{I}(X \leq C_L)\)</span>.</p>
-<p>For example, suppose a reinsurer will cover insurer losses greater than <span class="math inline">\(C_L\)</span>. Let <span class="math inline">\(Y = X_L^{\ast} - C_L\)</span> represent the amount that the <em>reinsurer</em> is responsible for. If the policyholder loss <span class="math inline">\(X &lt; C_L\)</span>, then the insurer will pay the entire claim and <span class="math inline">\(Y =0\)</span>, no loss for the reinsurer. If the loss <span class="math inline">\(X \ge C_L\)</span>, then <span class="math inline">\(Y = X-C_L\)</span> represents the reinsurer’s retained claims. If a loss occurs, the reinsurer knows the actual amount if it exceeds the limit <span class="math inline">\(C_L\)</span>, otherwise it only knows that it had a loss of <span class="math inline">\(0\)</span>.</p>
-<p>As another example of a left-censored observation, suppose we are conducting a study and interviewing a person about an event in the past. The subject may recall that the event occurred before <span class="math inline">\(C_L\)</span>, but not the exact date.</p>
+<p><strong>Censoring</strong> occurs when we record only a limited value of an observation. The most common form is <strong>right-censoring</strong>, in which we record the <em>smaller</em> of the “true” dependent variable and a censoring variable. Using notation, let <span class="math inline">\(X\)</span> represent an outcome of interest, such as the loss due to an insured event or time until an event. Let <span class="math inline">\(C_U\)</span> denote the censoring amount. With right-censored observations, we record <span class="math inline">\(X_U^{\ast}= \min(X, C_U) = X \wedge C_U\)</span>. We also record whether or not censoring has occurred. Let <span class="math inline">\(\delta_U= \mathrm{I}(X \leq C_U)\)</span> be a binary variable that is 0 if censoring occurs and 1 if it does not.</p>
+<p>For an example that we saw in Section <a href="C-Severity.html#S:PolicyLimits">3.4.2</a>, <span class="math inline">\(C_U\)</span> may represent the upper limit of coverage of an insurance policy (we used <span class="math inline">\(u\)</span> for the upper limit in that section). The loss may exceed the amount <span class="math inline">\(C_U\)</span>, but the insurer only has <span class="math inline">\(C_U\)</span> in its records as the amount paid out and does not have the amount of the actual loss <span class="math inline">\(X\)</span> in its records.</p>
+<p>Similarly, with <strong>left-censoring</strong>, we record the <em>larger</em> of a variable of interest and a censoring variable. If <span class="math inline">\(C_L\)</span> is used to represent the censoring amount, we record <span class="math inline">\(X_L^{\ast}= \max(X, C_L)\)</span> along with the censoring indicator <span class="math inline">\(\delta_L= \mathrm{I}(X \geq C_L)\)</span>.</p>
+<p>As an example, you got a brief introduction to reinsurance, insurance for insurers, in Section <a href="C-Severity.html#S:Chap3Reinsurance">3.4.4</a> and will see more in Chapter <a href="C-PortMgt.html#C:PortMgt">10</a>. Suppose a reinsurer will cover insurer losses greater than <span class="math inline">\(C_L\)</span>; this means that the reinsurer is responsible for the excess of <span class="math inline">\(X_L^{\ast}\)</span> over <span class="math inline">\(C_L\)</span>. Using notation, this is <span class="math inline">\(Y = X_L^{\ast} - C_L\)</span>. To see this, first consider the case where the policyholder loss <span class="math inline">\(X &lt; C_L\)</span>. Then, the insurer will pay the entire claim and <span class="math inline">\(Y =C_L- C_L=0\)</span>, no loss for the reinsurer. For the second case, if the loss <span class="math inline">\(X \ge C_L\)</span>, then <span class="math inline">\(Y = X-C_L\)</span> represents the reinsurer’s retained claims. Put another way, if a loss occurs, the reinsurer records the actual amount if it exceeds the limit <span class="math inline">\(C_L\)</span> and otherwise it only records that it had a loss of <span class="math inline">\(0\)</span>.</p>
 </div>
 <div id="truncated-data" class="section level4">
 <h4><span class="header-section-number">4.3.1.3</span> Truncated Data</h4>
-<p>We just saw that censored observations are still available for study, although in a limited form. In contrast, <strong>truncated</strong> outcomes are a type of missing data. An outcome is potentially truncated when the availability of an observation depends on the outcome.</p>
-<p>In insurance, it is common for observations to be <strong>left-truncated</strong> at <span class="math inline">\(C_L\)</span> when the amount is <span class="math display">\[\begin{aligned}
+<p>Censored observations are recorded for study, although in a limited form. In contrast, <strong>truncated</strong> outcomes are a type of missing data. An outcome is potentially truncated when the availability of an observation depends on the outcome.</p>
+<p>In insurance, it is common for observations to be <strong>left-truncated</strong> at <span class="math inline">\(C_L\)</span> when the amount is <span class="math display">\[
+\begin{aligned}
 Y &amp;=
 \left\{
-\begin{array}{ll}
+\begin{array}{cl}
 \text{we do not observe }X &amp; X &lt; C_L \\
-X- C_L &amp; X \geq C_L.
+X &amp; X \geq C_L
 \end{array}
-\right.\end{aligned}\]</span></p>
-<p>In other words, if <span class="math inline">\(X\)</span> is less than the threshold <span class="math inline">\(C_L\)</span>, then it is not observed. For example, <span class="math inline">\(C_L\)</span> may represent the deductible associated with an insurance coverage. If the insured loss is less than the deductible, then the insurer does not observe or record the loss at all. If the loss exceeds the deductible, then the excess <span class="math inline">\(X-C_L\)</span> is the claim that the insurer covers.</p>
-<p>Similarly for <strong>right-truncated</strong> data, if <span class="math inline">\(X\)</span> exceeds a threshold <span class="math inline">\(C_U\)</span>, then it is not observed. In this case, the amount is <span class="math display">\[\begin{aligned}
+\right.\end{aligned} .
+\]</span></p>
+<p>In other words, if <span class="math inline">\(X\)</span> is less than the threshold <span class="math inline">\(C_L\)</span>, then it is not observed.</p>
+<p>For an example we saw in Section <a href="C-Severity.html#S:PolicyDeduct">3.4.1</a>, <span class="math inline">\(C_L\)</span> may represent the deductible of an insurance policy (we used <span class="math inline">\(d\)</span> for the deductible in that section). If the insured loss is less than the deductible, then the insurer may not observe or record the loss at all. If the loss exceeds the deductible, then the excess <span class="math inline">\(X-C_L\)</span> is the claim that the insurer covers. In Section <a href="C-Severity.html#S:PolicyDeduct">3.4.1</a>, we defined the per payment loss to be <span class="math display">\[
+Y^{P} = \left\{ \begin{matrix}
+\text{Undefined} &amp; X \le d \\
+X - d &amp; X &gt; d 
+\end{matrix} \right. ,
+\]</span> so that if a loss exceeds a deductible, we record the excess amount <span class="math inline">\(X-d\)</span>. This is very important when considering amounts that the insurer will pay. However, for estimation purposes of this section, it matters little if we substract a known constant such as <span class="math inline">\(C_L=d\)</span>. So, for our truncated variable <span class="math inline">\(Y\)</span>, we use the simpler convention and do not subract <span class="math inline">\(d\)</span>.</p>
+<p>Similarly for <strong>right-truncated</strong> data, if <span class="math inline">\(X\)</span> exceeds a threshold <span class="math inline">\(C_U\)</span>, then it is not observed. In this case, the amount is <span class="math display">\[
+\begin{aligned}
 Y &amp;=
 \left\{
-\begin{array}{ll}
-X &amp; X &lt; C_U \\
-\text{we do not observe }X &amp; X \geq C_U.
+\begin{array}{cl}
+X &amp; X \leq C_U \\
+\text{we do not observe }X &amp; X &gt; C_U.
 \end{array}
-\right.\end{aligned}\]</span></p>
+\right.\end{aligned}
+\]</span></p>
 <p>Classic examples of truncation from the right include <span class="math inline">\(X\)</span> as a measure of distance to a star. When the distance exceeds a certain level <span class="math inline">\(C_U\)</span>, the star is no longer observable.</p>
 <p>Figure <a href="C-ModelSelection.html#fig:CensorTrunc">4.10</a> compares truncated and censored observations. Values of <span class="math inline">\(X\)</span> that are greater than the “upper” censoring limit <span class="math inline">\(C_U\)</span> are not observed at all (right-censored), while values of <span class="math inline">\(X\)</span> that are smaller than the “lower” truncation limit <span class="math inline">\(C_L\)</span> are observed, but observed as <span class="math inline">\(C_L\)</span> rather than the actual value of <span class="math inline">\(X\)</span> (left-truncated).</p>
 <div class="figure" style="text-align: center"><span id="fig:CensorTrunc"></span>
@@ -1064,7 +1070,7 @@ Figure 4.10: Censoring and Truncation
 </div>
 <hr />
 <h5 style="text-align: center;">
-<a id="displayTextExampleMort.4f" href="javascript:toggleEX('toggleExampleMort','displayTextExampleMort.4f');"><i><strong>Show Example</strong></i></a>
+<a id="displayTextExampleMort.4f" href="javascript:toggleEX('toggleExampleMort','displayTextExampleMort.4f');"><i><strong>Show Mortality Study Example </strong></i></a>
 </h5>
 <div id="toggleExampleMort" style="display: none">
 <p><strong>Example – Mortality Study.</strong> Suppose that you are conducting a two-year study of mortality of high-risk subjects, beginning January 1, 2010 and finishing January 1, 2012. Figure <a href="C-ModelSelection.html#fig:Mortality">4.11</a> graphically portrays the six types of subjects recruited. For each subject, the beginning of the arrow represents that the the subject was recruited and the arrow end represents the event time. Thus, the arrow represents exposure time.</p>
@@ -1090,19 +1096,19 @@ Figure 4.11: Timeline for Several Subjects on Test in a Mortality Study
 <tr class="header">
 <th align="center">Limitation Type</th>
 <th align="center">Limited Variable</th>
-<th align="center">Censoring Information</th>
+<th align="center">Recording Information</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td align="center">right censoring</td>
 <td align="center"><span class="math inline">\(X_U^{\ast}= \min(X, C_U)\)</span></td>
-<td align="center"><span class="math inline">\(\delta_U= \mathrm{I}(X \geq C_U)\)</span></td>
+<td align="center"><span class="math inline">\(\delta_U= \mathrm{I}(X \leq C_U)\)</span></td>
 </tr>
 <tr class="even">
 <td align="center">left censoring</td>
 <td align="center"><span class="math inline">\(X_L^{\ast}= \max(X, C_L)\)</span></td>
-<td align="center"><span class="math inline">\(\delta_L= \mathrm{I}(X \leq C_L)\)</span></td>
+<td align="center"><span class="math inline">\(\delta_L= \mathrm{I}(X \geq C_L)\)</span></td>
 </tr>
 <tr class="odd">
 <td align="center">interval censoring</td>
@@ -1112,30 +1118,35 @@ Figure 4.11: Timeline for Several Subjects on Test in a Mortality Study
 <tr class="even">
 <td align="center">right truncation</td>
 <td align="center"><span class="math inline">\(X\)</span></td>
-<td align="center">observe <span class="math inline">\(X\)</span> if <span class="math inline">\(X &lt; C_U\)</span></td>
+<td align="center">observe <span class="math inline">\(X\)</span> if <span class="math inline">\(X \leq C_U\)</span></td>
 </tr>
 <tr class="odd">
 <td align="center">left truncation</td>
 <td align="center"><span class="math inline">\(X\)</span></td>
-<td align="center">observe <span class="math inline">\(X\)</span> if <span class="math inline">\(X &lt; C_L\)</span></td>
+<td align="center">observe <span class="math inline">\(X\)</span> if <span class="math inline">\(X \geq C_L\)</span></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div id="parametric-estimation-using-censored-and-truncated-data" class="section level4">
 <h4><span class="header-section-number">4.3.1.4</span> Parametric Estimation using Censored and Truncated Data</h4>
-<p>For simplicity, we assume fixed censoring times and a continuous outcome <span class="math inline">\(X\)</span>. To begin, consider the case of right-censored data where we record <span class="math inline">\(X_U^{\ast}= \min(X, C_U)\)</span> and censoring indicator <span class="math inline">\(\delta_U= \mathrm{I}(X \geq C_U)\)</span>. If censoring occurs so that <span class="math inline">\(\delta_U=1\)</span>, then <span class="math inline">\(X \geq C_U\)</span> and the likelihood is <span class="math inline">\(\Pr(X \geq C_U) = 1-F(C_U)\)</span>. If censoring does not occur so that <span class="math inline">\(\delta_U=0\)</span>, then <span class="math inline">\(X &lt; C_U\)</span> and the likelihood is <span class="math inline">\(f(x)\)</span>. Summarizing, we have the likelihood of a single observation as</p>
-<p><span class="math display">\[\begin{aligned}
+<p>For simplicity, we assume non-random censoring amounts and a continuous outcome <span class="math inline">\(X\)</span>. To begin, consider the case of right-censored data where we record <span class="math inline">\(X_U^{\ast}= \min(X, C_U)\)</span> and censoring indicator <span class="math inline">\(\delta= \mathrm{I}(X \leq C_U)\)</span>. If censoring occurs so that <span class="math inline">\(\delta=0\)</span>, then <span class="math inline">\(X \geq C_U\)</span> and the likelihood is <span class="math inline">\(\Pr(X \geq C_U) = 1-F(C_U)\)</span>. If censoring does not occur so that <span class="math inline">\(\delta=1\)</span>, then <span class="math inline">\(X &lt; C_U\)</span> and the likelihood is <span class="math inline">\(f(x)\)</span>. Summarizing, we have the likelihood of a single observation as</p>
+<p><span class="math display">\[
+\begin{aligned}
 \left\{
 \begin{array}{ll}
-f(x) &amp; \text{if } \delta = 0 \\
-1-F(C_U) &amp; \text{if }\delta=1
+1-F(C_U) &amp; \text{if }\delta=0 \\
+f(x) &amp; \text{if } \delta = 1 
 \end{array}
-\right. = \left( f(x)\right)^{1-\delta} \left(1-F(C_U)\right)^{\delta} .
-\end{aligned}\]</span></p>
-<p>The right-hand expression allows us to present the likelihood more compactly. Now, for an <em>iid</em> sample of size <span class="math inline">\(n\)</span>, <span class="math inline">\(\{ (x_{U1},\delta_1), \ldots,(x_{Un}, \delta_n) \}\)</span>, the likelihood is</p>
-<p><span class="math display">\[\mathcal{L}(\theta) = \prod_{i=1}^n \left( f(x_i)\right)^{1-\delta_i} \left(1-F(C_{Ui})\right)^{\delta_i} = \prod_{\delta_i=0} f(x_i) \prod_{\delta_i=1} \{1-F(C_{Ui})\},\]</span></p>
-<p>with potential censoring times <span class="math inline">\(\{ C_{U1}, \ldots,C_{Un} \}\)</span>. Here, the notation “<span class="math inline">\(\prod_{\delta_i=0}\)</span>” means to take the product over uncensored observations, and similarly for “<span class="math inline">\(\prod_{\delta_i=1}\)</span>.”</p>
+\right. = \left\{ f(x)\right\}^{\delta} \left\{1-F(C_U)\right\}^{1-\delta} .
+\end{aligned}
+\]</span></p>
+<p>The right-hand expression allows us to present the likelihood more compactly. Now, for an <em>iid</em> sample of size <span class="math inline">\(n\)</span>, the likelihood is</p>
+<p><span class="math display">\[
+\mathcal{L} = 
+\prod_{i=1}^n \left\{ f(x_i)\right\}^{\delta_i} \left\{1-F(C_{Ui})\right\}^{1-\delta_i} = \prod_{\delta_i=1} f(x_i) \prod_{\delta_i=0} \{1-F(C_{Ui})\},
+\]</span></p>
+<p>with potential censoring times <span class="math inline">\(\{ C_{U1}, \ldots,C_{Un} \}\)</span>. Here, the notation “<span class="math inline">\(\prod_{\delta_i=1}\)</span>” means to take the product over uncensored observations, and similarly for “<span class="math inline">\(\prod_{\delta_i=0}\)</span>.”</p>
 <p>On the other hand, truncated data are handled in likelihood inference via conditional probabilities. Specifically, we adjust the likelihood contribution by dividing by the probability that the variable was observed. To summarize, we have the following contributions to the likelihood function for six types of outcomes:</p>
 <p><span class="math display">\[
 {\small
@@ -1155,10 +1166,10 @@ f(x) &amp; \text{if } \delta = 0 \\
 \]</span></p>
 <p>For known outcomes and censored data, the likelihood is <span class="math display">\[\mathcal{L}(\theta) = \prod_{E} f(x_i) \prod_{R} \{1-F(C_{Ui})\} \prod_{L}
 F(C_{Li}) \prod_{I} (F(C_{Ui})-F(C_{Li})),\]</span> where “<span class="math inline">\(\prod_{E}\)</span>” is the product over observations with <em>E</em>xact values, and similarly for <em>R</em>ight-, <em>L</em>eft- and <em>I</em>nterval-censoring.</p>
-<p>For right-censored and left-truncated data, the likelihood is <span class="math display">\[\mathcal{L}(\theta) = \prod_{E} \frac{f(x_i)}{1-F(C_{Li})} \prod_{R} \frac{1-F(C_{Ui})}{1-F(C_{Li})},\]</span> and similarly for other combinations. To get further insights, consider the following.</p>
+<p>For right-censored and left-truncated data, the likelihood is <span class="math display">\[\mathcal{L} = \prod_{E} \frac{f(x_i)}{1-F(C_{Li})} \prod_{R} \frac{1-F(C_{Ui})}{1-F(C_{Li})},\]</span> and similarly for other combinations. To get further insights, consider the following.</p>
 <hr />
 <h5 style="text-align: center;">
-<a id="displayTextExampleEXP.4f" href="javascript:toggleEX('toggleExampleEXP','displayTextExampleEXP.4f');"><i><strong>Show Example</strong></i></a>
+<a id="displayTextExampleEXP.4f" href="javascript:toggleEX('toggleExampleEXP','displayTextExampleEXP.4f');"><i><strong>Show Special Case - Exponential Distribution</strong></i></a>
 </h5>
 <div id="toggleExampleEXP" style="display: none">
 <p><strong>Special Case: Exponential Distribution.</strong> Consider data that are right-censored and left-truncated, with random variables <span class="math inline">\(X_i\)</span> that are exponentially distributed with mean <span class="math inline">\(\theta\)</span>. With these specifications, recall that <span class="math inline">\(f(x) = \theta^{-1} \exp(-x/\theta)\)</span> and <span class="math inline">\(F(x) = 1-\exp(-x/\theta)\)</span>.</p>
@@ -1227,8 +1238,10 @@ L(\theta) &amp;= \sum_{E} \left\{ \ln f(x_i) - \ln (1-F(C_{Li})) \right\} + \sum
 <p>Nonparametric estimators provide useful benchmarks, so it is helpful to understand the estimation procedures for grouped, censored, and truncated data.</p>
 <div id="grouped-data" class="section level4">
 <h4><span class="header-section-number">4.3.2.1</span> Grouped Data</h4>
-<p>As we have seen in Section <a href="C-ModelSelection.html#S:MS:GroupedData">4.3.1.1</a>, observations may be grouped (also referred to as interval censored) in the sense that we only observe them as belonging in one of <span class="math inline">\(k\)</span> intervals of the form <span class="math inline">\((c_{j-1}, c_j]\)</span>, for <span class="math inline">\(j=1, \ldots, k\)</span>. At the boundaries, the empirical distribution function is defined in the usual way: <span class="math display">\[F_n(c_j) = \frac{\text{number of observations } \le c_j}{n}\]</span></p>
-<p>For other values of <span class="math inline">\(x \in (c_{j-1}, c_j)\)</span>, we can estimate the distribution function with the <strong>ogive</strong> estimator, which linearly interpolates between <span class="math inline">\(F_n(c_{j-1})\)</span> and <span class="math inline">\(F_n(c_j)\)</span>, i.e. the values of the boundaries <span class="math inline">\(F_n(c_{j-1})\)</span> and <span class="math inline">\(F_n(c_j)\)</span> are connected with a straight line. This can formally be expressed as <span class="math display">\[F_n(x) = \frac{c_j-x}{c_j-c_{j-1}} F_n(c_{j-1}) + \frac{x-c_{j-1}}{c_j-c_{j-1}} F_n(c_j) \ \ \ \text{for } c_{j-1} \le x &lt; c_j\]</span></p>
+<p>As we have seen in Section <a href="C-ModelSelection.html#S:MS:GroupedData">4.3.1.1</a>, observations may be grouped (also referred to as interval censored) in the sense that we only observe them as belonging in one of <span class="math inline">\(k\)</span> intervals of the form <span class="math inline">\((c_{j-1}, c_j]\)</span>, for <span class="math inline">\(j=1, \ldots, k\)</span>. At the boundaries, the empirical distribution function is defined in the usual way: <span class="math display">\[
+F_n(c_j) = \frac{\text{number of observations } \le c_j}{n}.
+\]</span></p>
+<p>For other values of <span class="math inline">\(x \in (c_{j-1}, c_j)\)</span>, we can estimate the distribution function with the <em>ogive</em> estimator, which linearly interpolates between <span class="math inline">\(F_n(c_{j-1})\)</span> and <span class="math inline">\(F_n(c_j)\)</span>, i.e. the values of the boundaries <span class="math inline">\(F_n(c_{j-1})\)</span> and <span class="math inline">\(F_n(c_j)\)</span> are connected with a straight line. This can formally be expressed as <span class="math display">\[F_n(x) = \frac{c_j-x}{c_j-c_{j-1}} F_n(c_{j-1}) + \frac{x-c_{j-1}}{c_j-c_{j-1}} F_n(c_j) \ \ \ \text{for } c_{j-1} \le x &lt; c_j\]</span></p>
 <p>The corresponding density is <span class="math display">\[f_n(x) = F^{\prime}_n(x) = \frac{F_n(c_j)-F_n(c_{j-1})}{c_j - c_{j-1}} \ \ \  \text{for } c_{j-1} \le x &lt; c_j .\]</span></p>
 <hr />
 <p><strong>Example 4.3.4. SOA Exam Question.</strong> You are given the following information regarding claim sizes for 100 claims:</p>
@@ -1261,9 +1274,10 @@ L(\theta) &amp;= \sum_{E} \left\{ \ln f(x_i) - \ln (1-F(C_{Li})) \right\} + \sum
 </div>
 <div id="right-censored-empirical-distribution-function" class="section level4">
 <h4><span class="header-section-number">4.3.2.2</span> Right-Censored Empirical Distribution Function</h4>
-<p>It can be useful to calibrate parametric likelihood methods with nonparametric methods that do not rely on a parametric form of the distribution. The product-limit estimator due to <span class="citation">(Kaplan and Meier <a href="#ref-kaplan1958">1958</a>)</span> is a well-known estimator of the distribution in the presence of censoring.</p>
-<p>To begin, first note that the empirical distribution function <span class="math inline">\(F_n(x)\)</span> is an <strong>unbiased</strong> estimator of the distribution function <span class="math inline">\(F(x)\)</span> (in the ``usual’’ case in the absence of censoring). This is because <span class="math inline">\(F_n(x)\)</span> is the average of indicator variables that are also unbiased, that is, <span class="math inline">\(\mathrm{E~} I(X \le x) = \Pr(X \le x) = F(x)\)</span>. Now suppose the the random outcome is censored on the right by a limiting amount, say, <span class="math inline">\(C_U\)</span>, so that we record the smaller of the two, <span class="math inline">\(X^* = \min(X, C_U)\)</span>. For values of <span class="math inline">\(x\)</span> that are smaller than <span class="math inline">\(C_U\)</span>, the indicator variable still provides an unbiased estimator of the distribution function before we reach the censoring limit. That is, <span class="math inline">\(\mathrm{E~} I(X^* \le x) = F(x)\)</span> because <span class="math inline">\(I(X^* \le x) = I(X \le x)\)</span> for <span class="math inline">\(x &lt; C_U\)</span>. In the same way, <span class="math inline">\(\mathrm{E~} I(X^* &gt; x) = 1 -F(x) = S(x)\)</span>.</p>
-<p>Now consider two random variables that have different censoring limits. For illustration, suppose that we observe <span class="math inline">\(X_1^* = \min(X_1, 5)\)</span> and <span class="math inline">\(X_2^* = \min(X_2, 10)\)</span> where <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span> are independent draws from the same distribution. For <span class="math inline">\(x \le 5\)</span>, the empirical distribution function <span class="math inline">\(F_2(x)\)</span> is an unbiased estimator of <span class="math inline">\(F(x)\)</span>. However, for <span class="math inline">\(5 &lt; x \le 10\)</span>, the first observation cannot be used for the distribution function because of the censoring limitation. Instead, the strategy developed by <span class="citation">(Kaplan and Meier <a href="#ref-kaplan1958">1958</a>)</span> is to use <span class="math inline">\(S_n(5)\)</span> as an estimator of <span class="math inline">\(S(5)\)</span> and then to use the second observation to estimate the survival function conditional on survival to time 5, <span class="math inline">\(\Pr(X &gt; x | X &gt;5) = \frac{S(x)}{S(5)}\)</span>. Specifically, for <span class="math inline">\(5 &lt; x \le 10\)</span>, the estimator of the survival function is <span class="math display">\[
+<p>It can be useful to calibrate parametric estimators with nonparametric methods that do not rely on a parametric form of the distribution. The product-limit estimator due to <span class="citation">(Kaplan and Meier <a href="#ref-kaplan1958">1958</a>)</span> is a well-known estimator of the distribution function in the presence of censoring.</p>
+<p><strong>Motivation for the Kaplan-Meier Product Limit Estimator.</strong> To explain why the product-limit works so well with censored observations, let us first return to the “usual” case without censoring. Here, the empirical distribution function <span class="math inline">\(F_n(x)\)</span> is an <em>unbiased</em> estimator of the distribution function <span class="math inline">\(F(x)\)</span>. This is because <span class="math inline">\(F_n(x)\)</span> is the average of indicator variables each of which are unbiased, that is, <span class="math inline">\(\mathrm{E~} I(X_i \le x) = \Pr(X_i \le x) = F(x)\)</span>.</p>
+<p>Now suppose the the random outcome is censored on the right by a limiting amount, say, <span class="math inline">\(C_U\)</span>, so that we record the smaller of the two, <span class="math inline">\(X^* = \min(X, C_U)\)</span>. For values of <span class="math inline">\(x\)</span> that are smaller than <span class="math inline">\(C_U\)</span>, the indicator variable still provides an unbiased estimator of the distribution function before we reach the censoring limit. That is, <span class="math inline">\(\mathrm{E~} I(X^* \le x) = F(x)\)</span> because <span class="math inline">\(I(X^* \le x) = I(X \le x)\)</span> for <span class="math inline">\(x &lt; C_U\)</span>. In the same way, <span class="math inline">\(\mathrm{E~} I(X^* &gt; x) = 1 -F(x) = S(x)\)</span>. But, for <span class="math inline">\(x&gt;C_U\)</span>, <span class="math inline">\(I(X^* \le x)\)</span> is in general not an unbiased estimator of <span class="math inline">\(F(x)\)</span>.</p>
+<p>As an alternative, consider <em>two</em> random variables that have different censoring limits. For illustration, suppose that we observe <span class="math inline">\(X_1^* = \min(X_1, 5)\)</span> and <span class="math inline">\(X_2^* = \min(X_2, 10)\)</span> where <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span> are independent draws from the same distribution. For <span class="math inline">\(x \le 5\)</span>, the empirical distribution function <span class="math inline">\(F_2(x)\)</span> is an unbiased estimator of <span class="math inline">\(F(x)\)</span>. However, for <span class="math inline">\(5 &lt; x \le 10\)</span>, the first observation cannot be used for the distribution function because of the censoring limitation. Instead, the strategy developed by <span class="citation">(Kaplan and Meier <a href="#ref-kaplan1958">1958</a>)</span> is to use <span class="math inline">\(S_2(5)\)</span> as an estimator of <span class="math inline">\(S(5)\)</span> and then to use the second observation to estimate the survival function conditional on survival to time 5, <span class="math inline">\(\Pr(X &gt; x | X &gt;5) = \frac{S(x)}{S(5)}\)</span>. Specifically, for <span class="math inline">\(5 &lt; x \le 10\)</span>, the estimator of the survival function is <span class="math display">\[
 \hat{S}(x) = S_2(5) \times I(X_2^* &gt; x ) .
 \]</span></p>
 <p>Extending this idea, for each observation <span class="math inline">\(i\)</span>, let <span class="math inline">\(u_i\)</span> be the upper censoring limit (<span class="math inline">\(=\infty\)</span> if no censoring). Thus, the recorded value is <span class="math inline">\(x_i\)</span> in the case of no censoring and <span class="math inline">\(u_i\)</span> if there is censoring. Let <span class="math inline">\(t_{1} &lt;\cdots&lt; t_{k}\)</span> be <span class="math inline">\(k\)</span> distinct points at which an uncensored loss occurs, and let <span class="math inline">\(s_j\)</span> be the number of uncensored losses <span class="math inline">\(x_i\)</span>’s at <span class="math inline">\(t_{j}\)</span>. The corresponding <strong>risk set</strong> is the number of observations that are active (not censored) at a value <em>less than</em> <span class="math inline">\(t_{j}\)</span>, denoted as <span class="math inline">\(R_j = \sum_{i=1}^n I(x_i \geq t_{j}) + \sum_{i=1}^n I(u_i \geq t_{j})\)</span>.</p>

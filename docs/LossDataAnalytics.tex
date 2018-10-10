@@ -154,7 +154,7 @@
 \chapter*{Preface}\label{preface}
 \addcontentsline{toc}{chapter}{Preface}
 
-\emph{Date: 09 October 2018}
+\emph{Date: 10 October 2018}
 
 \subsubsection*{Book Description}\label{book-description}
 \addcontentsline{toc}{subsubsection}{Book Description}
@@ -5317,7 +5317,7 @@ years.
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
-\subsection{Reinsurance}\label{reinsurance}
+\subsection{Reinsurance}\label{S:Chap3Reinsurance}
 
 In Section \ref{S:PolicyDeduct} we introduced the policy deductible,
 which is a contractual arrangement under which an insured transfers part
@@ -5960,7 +5960,8 @@ using a dataset, one strategy is to:
 This is the \textbf{parametric} approach. Another strategy is to
 estimate the desired summary measure directly from the observations
 \emph{without} reference to a parametric model. Not surprisingly, this
-is known as the \textbf{nonparametric} approach.
+is known as the \textbf{nonparametric}{ An approach to inference that
+does not rely on references to a parametric model.} approach.
 
 Let us start by considering the most basic type of sampling scheme and
 assume that observations are realizations from a set of random variables
@@ -7127,13 +7128,14 @@ Data}\label{parametric-estimation-using-modified-data}
 
 Basic theory and many applications are based on \emph{individual}
 observations that are ``\emph{complete}'' and ``\emph{unmodified},'' as
-we have seen in the previous section. Chapter 3 introduced the concept
-of observations that are ``\emph{modified}'' due to two common types of
-limitations: \textbf{censoring} and \textbf{truncation}. For example, it
-is common to think about an insurance deductible as producing data that
-are truncated (from the left) or policy limits as yielding data that are
-censored (from the right). This viewpoint is from the primary insurer
-(the seller of the insurance). However, as we will see in Chapter 10, a
+we have seen in the previous section. Section \ref{S:MaxLikeEstimation}
+introduced the concept of observations that are ``\emph{modified}'' due
+to two common types of limitations: \textbf{censoring} and
+\textbf{truncation}. For example, it is common to think about an
+insurance deductible as producing data that are truncated (from the
+left) or policy limits as yielding data that are censored (from the
+right). This viewpoint is from the primary insurer (the seller of the
+insurance). However, as we will see in Chapter \ref{C:PortMgt}, a
 reinsurer (an insurer of an insurance company) may not observe claims
 smaller than an amount, only that a claim exists, an example of
 censoring from the left. So, in this section, we cover the full gamut of
@@ -7238,77 +7240,94 @@ where \(p=e^{-1000/\theta}\). Maximizing this expression with respect to
 
 \subsubsection{Censored Data}\label{censored-data}
 
-\textbf{Censoring} occurs when we observe only a limited value of an
+\textbf{Censoring} occurs when we record only a limited value of an
 observation. The most common form is \textbf{right-censoring}, in which
-we record the smaller of the ``true'' dependent variable and a censoring
-variable. Using notation, let \(X\) represent an outcome of interest,
-such as the loss due to an insured event. Let \(C_U\) denote the
-censoring time, such as \(C_U=5\). With right-censored observations, we
-observe \(X\) if it is below censoring point \(C_U\); otherwise if \(X\)
-is higher than the censoring point, we only observe the censored
-\(C_U\). Therefore, we record \(X_U^{\ast}= \min(X, C_U)\). We also
-observe whether or not censoring has occurred. Let
-\(\delta_U= \mathrm{I}(X \geq C_U)\) be a binary variable that is 1 if
-censoring occurs, \(y \geq C_U\), and 0 otherwise.
+we record the \emph{smaller} of the ``true'' dependent variable and a
+censoring variable. Using notation, let \(X\) represent an outcome of
+interest, such as the loss due to an insured event or time until an
+event. Let \(C_U\) denote the censoring amount. With right-censored
+observations, we record \(X_U^{\ast}= \min(X, C_U) = X \wedge C_U\). We
+also record whether or not censoring has occurred. Let
+\(\delta_U= \mathrm{I}(X \leq C_U)\) be a binary variable that is 0 if
+censoring occurs and 1 if it does not.
 
-For example, \(C_U\) may represent the upper limit of coverage of an
-insurance policy. The loss may exceed the amount \(C_U\), but the
-insurer only has \(C_U\) in its records as the amount paid out and does
-not have the amount of the actual loss \(X\) in its records.
+For an example that we saw in Section \ref{S:PolicyLimits}, \(C_U\) may
+represent the upper limit of coverage of an insurance policy (we used
+\(u\) for the upper limit in that section). The loss may exceed the
+amount \(C_U\), but the insurer only has \(C_U\) in its records as the
+amount paid out and does not have the amount of the actual loss \(X\) in
+its records.
 
-Similarly, with \textbf{left-censoring}, we only observe \(X\) if \(X\)
-is above censoring point (e.g.~time or loss amount) \(C_L\); otherwise
-we observe \(C_L\). Thus, we record \(X_L^{\ast}= \max(X, C_L)\) along
-with the censoring indicator \(\delta_L= \mathrm{I}(X \leq C_L)\).
+Similarly, with \textbf{left-censoring}, we record the \emph{larger} of
+a variable of interest and a censoring variable. If \(C_L\) is used to
+represent the censoring amount, we record \(X_L^{\ast}= \max(X, C_L)\)
+along with the censoring indicator \(\delta_L= \mathrm{I}(X \geq C_L)\).
 
-For example, suppose a reinsurer will cover insurer losses greater than
-\(C_L\). Let \(Y = X_L^{\ast} - C_L\) represent the amount that the
-\emph{reinsurer} is responsible for. If the policyholder loss
-\(X < C_L\), then the insurer will pay the entire claim and \(Y =0\), no
-loss for the reinsurer. If the loss \(X \ge C_L\), then \(Y = X-C_L\)
-represents the reinsurer's retained claims. If a loss occurs, the
-reinsurer knows the actual amount if it exceeds the limit \(C_L\),
-otherwise it only knows that it had a loss of \(0\).
-
-As another example of a left-censored observation, suppose we are
-conducting a study and interviewing a person about an event in the past.
-The subject may recall that the event occurred before \(C_L\), but not
-the exact date.
+As an example, you got a brief introduction to reinsurance, insurance
+for insurers, in Section \ref{S:Chap3Reinsurance} and will see more in
+Chapter \ref{C:PortMgt}. Suppose a reinsurer will cover insurer losses
+greater than \(C_L\); this means that the reinsurer is responsible for
+the excess of \(X_L^{\ast}\) over \(C_L\). Using notation, this is
+\(Y = X_L^{\ast} - C_L\). To see this, first consider the case where the
+policyholder loss \(X < C_L\). Then, the insurer will pay the entire
+claim and \(Y =C_L- C_L=0\), no loss for the reinsurer. For the second
+case, if the loss \(X \ge C_L\), then \(Y = X-C_L\) represents the
+reinsurer's retained claims. Put another way, if a loss occurs, the
+reinsurer records the actual amount if it exceeds the limit \(C_L\) and
+otherwise it only records that it had a loss of \(0\).
 
 \subsubsection{Truncated Data}\label{truncated-data}
 
-We just saw that censored observations are still available for study,
-although in a limited form. In contrast, \textbf{truncated} outcomes are
-a type of missing data. An outcome is potentially truncated when the
-availability of an observation depends on the outcome.
+Censored observations are recorded for study, although in a limited
+form. In contrast, \textbf{truncated} outcomes are a type of missing
+data. An outcome is potentially truncated when the availability of an
+observation depends on the outcome.
 
 In insurance, it is common for observations to be
-\textbf{left-truncated} at \(C_L\) when the amount is \[\begin{aligned}
+\textbf{left-truncated} at \(C_L\) when the amount is \[
+\begin{aligned}
 Y &=
 \left\{
-\begin{array}{ll}
+\begin{array}{cl}
 \text{we do not observe }X & X < C_L \\
-X- C_L & X \geq C_L.
+X & X \geq C_L
 \end{array}
-\right.\end{aligned}\]
+\right.\end{aligned} .
+\]
 
 In other words, if \(X\) is less than the threshold \(C_L\), then it is
-not observed. For example, \(C_L\) may represent the deductible
-associated with an insurance coverage. If the insured loss is less than
-the deductible, then the insurer does not observe or record the loss at
-all. If the loss exceeds the deductible, then the excess \(X-C_L\) is
-the claim that the insurer covers.
+not observed.
+
+For an example we saw in Section \ref{S:PolicyDeduct}, \(C_L\) may
+represent the deductible of an insurance policy (we used \(d\) for the
+deductible in that section). If the insured loss is less than the
+deductible, then the insurer may not observe or record the loss at all.
+If the loss exceeds the deductible, then the excess \(X-C_L\) is the
+claim that the insurer covers. In Section \ref{S:PolicyDeduct}, we
+defined the per payment loss to be \[
+Y^{P} = \left\{ \begin{matrix}
+\text{Undefined} & X \le d \\
+X - d & X > d 
+\end{matrix} \right. ,
+\] so that if a loss exceeds a deductible, we record the excess amount
+\(X-d\). This is very important when considering amounts that the
+insurer will pay. However, for estimation purposes of this section, it
+matters little if we substract a known constant such as \(C_L=d\). So,
+for our truncated variable \(Y\), we use the simpler convention and do
+not subract \(d\).
 
 Similarly for \textbf{right-truncated} data, if \(X\) exceeds a
 threshold \(C_U\), then it is not observed. In this case, the amount is
-\[\begin{aligned}
+\[
+\begin{aligned}
 Y &=
 \left\{
-\begin{array}{ll}
-X & X < C_U \\
-\text{we do not observe }X & X \geq C_U.
+\begin{array}{cl}
+X & X \leq C_U \\
+\text{we do not observe }X & X > C_U.
 \end{array}
-\right.\end{aligned}\]
+\right.\end{aligned}
+\]
 
 Classic examples of truncation from the right include \(X\) as a measure
 of distance to a star. When the distance exceeds a certain level
@@ -7332,7 +7351,7 @@ value of \(X\) (left-truncated).
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
-Show Example
+Show Mortality Study Example
 
 \hypertarget{toggleExampleMort}{}
 \textbf{Example -- Mortality Study.} Suppose that you are conducting a
@@ -7388,51 +7407,56 @@ To summarize, for outcome \(X\) and constants \(C_L\) and \(C_U\),
 
 \begin{longtable}[]{@{}ccc@{}}
 \toprule
-Limitation Type & Limited Variable & Censoring
+Limitation Type & Limited Variable & Recording
 Information\tabularnewline
 \midrule
 \endhead
 right censoring & \(X_U^{\ast}= \min(X, C_U)\) &
-\(\delta_U= \mathrm{I}(X \geq C_U)\)\tabularnewline
+\(\delta_U= \mathrm{I}(X \leq C_U)\)\tabularnewline
 left censoring & \(X_L^{\ast}= \max(X, C_L)\) &
-\(\delta_L= \mathrm{I}(X \leq C_L)\)\tabularnewline
+\(\delta_L= \mathrm{I}(X \geq C_L)\)\tabularnewline
 interval censoring & &\tabularnewline
-right truncation & \(X\) & observe \(X\) if \(X < C_U\)\tabularnewline
-left truncation & \(X\) & observe \(X\) if \(X < C_L\)\tabularnewline
+right truncation & \(X\) & observe \(X\) if
+\(X \leq C_U\)\tabularnewline
+left truncation & \(X\) & observe \(X\) if \(X \geq C_L\)\tabularnewline
 \bottomrule
 \end{longtable}
 
 \subsubsection{Parametric Estimation using Censored and Truncated
 Data}\label{parametric-estimation-using-censored-and-truncated-data}
 
-For simplicity, we assume fixed censoring times and a continuous outcome
-\(X\). To begin, consider the case of right-censored data where we
-record \(X_U^{\ast}= \min(X, C_U)\) and censoring indicator
-\(\delta_U= \mathrm{I}(X \geq C_U)\). If censoring occurs so that
-\(\delta_U=1\), then \(X \geq C_U\) and the likelihood is
+For simplicity, we assume non-random censoring amounts and a continuous
+outcome \(X\). To begin, consider the case of right-censored data where
+we record \(X_U^{\ast}= \min(X, C_U)\) and censoring indicator
+\(\delta= \mathrm{I}(X \leq C_U)\). If censoring occurs so that
+\(\delta=0\), then \(X \geq C_U\) and the likelihood is
 \(\Pr(X \geq C_U) = 1-F(C_U)\). If censoring does not occur so that
-\(\delta_U=0\), then \(X < C_U\) and the likelihood is \(f(x)\).
+\(\delta=1\), then \(X < C_U\) and the likelihood is \(f(x)\).
 Summarizing, we have the likelihood of a single observation as
 
-\[\begin{aligned}
+\[
+\begin{aligned}
 \left\{
 \begin{array}{ll}
-f(x) & \text{if } \delta = 0 \\
-1-F(C_U) & \text{if }\delta=1
+1-F(C_U) & \text{if }\delta=0 \\
+f(x) & \text{if } \delta = 1 
 \end{array}
-\right. = \left( f(x)\right)^{1-\delta} \left(1-F(C_U)\right)^{\delta} .
-\end{aligned}\]
+\right. = \left\{ f(x)\right\}^{\delta} \left\{1-F(C_U)\right\}^{1-\delta} .
+\end{aligned}
+\]
 
 The right-hand expression allows us to present the likelihood more
-compactly. Now, for an \emph{iid} sample of size \(n\),
-\(\{ (x_{U1},\delta_1), \ldots,(x_{Un}, \delta_n) \}\), the likelihood
+compactly. Now, for an \emph{iid} sample of size \(n\), the likelihood
 is
 
-\[\mathcal{L}(\theta) = \prod_{i=1}^n \left( f(x_i)\right)^{1-\delta_i} \left(1-F(C_{Ui})\right)^{\delta_i} = \prod_{\delta_i=0} f(x_i) \prod_{\delta_i=1} \{1-F(C_{Ui})\},\]
+\[
+\mathcal{L} = 
+\prod_{i=1}^n \left\{ f(x_i)\right\}^{\delta_i} \left\{1-F(C_{Ui})\right\}^{1-\delta_i} = \prod_{\delta_i=1} f(x_i) \prod_{\delta_i=0} \{1-F(C_{Ui})\},
+\]
 
 with potential censoring times \(\{ C_{U1}, \ldots,C_{Un} \}\). Here,
-the notation ``\(\prod_{\delta_i=0}\)'' means to take the product over
-uncensored observations, and similarly for ``\(\prod_{\delta_i=1}\).''
+the notation ``\(\prod_{\delta_i=1}\)'' means to take the product over
+uncensored observations, and similarly for ``\(\prod_{\delta_i=0}\).''
 
 On the other hand, truncated data are handled in likelihood inference
 via conditional probabilities. Specifically, we adjust the likelihood
@@ -7464,13 +7488,13 @@ the product over observations with \emph{E}xact values, and similarly
 for \emph{R}ight-, \emph{L}eft- and \emph{I}nterval-censoring.
 
 For right-censored and left-truncated data, the likelihood is
-\[\mathcal{L}(\theta) = \prod_{E} \frac{f(x_i)}{1-F(C_{Li})} \prod_{R} \frac{1-F(C_{Ui})}{1-F(C_{Li})},\]
+\[\mathcal{L} = \prod_{E} \frac{f(x_i)}{1-F(C_{Li})} \prod_{R} \frac{1-F(C_{Ui})}{1-F(C_{Li})},\]
 and similarly for other combinations. To get further insights, consider
 the following.
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
-Show Example
+Show Special Case - Exponential Distribution
 
 \hypertarget{toggleExampleEXP}{}
 \textbf{Special Case: Exponential Distribution.} Consider data that are
@@ -7597,11 +7621,12 @@ As we have seen in Section \ref{S:MS:GroupedData}, observations may be
 grouped (also referred to as interval censored) in the sense that we
 only observe them as belonging in one of \(k\) intervals of the form
 \((c_{j-1}, c_j]\), for \(j=1, \ldots, k\). At the boundaries, the
-empirical distribution function is defined in the usual way:
-\[F_n(c_j) = \frac{\text{number of observations } \le c_j}{n}\]
+empirical distribution function is defined in the usual way: \[
+F_n(c_j) = \frac{\text{number of observations } \le c_j}{n}.
+\]
 
 For other values of \(x \in (c_{j-1}, c_j)\), we can estimate the
-distribution function with the \textbf{ogive} estimator, which linearly
+distribution function with the \emph{ogive} estimator, which linearly
 interpolates between \(F_n(c_{j-1})\) and \(F_n(c_j)\), i.e.~the values
 of the boundaries \(F_n(c_{j-1})\) and \(F_n(c_j)\) are connected with a
 straight line. This can formally be expressed as
@@ -7655,35 +7680,40 @@ Thus, the probability that a claim is between 2000 and 6000 is
 \subsubsection{Right-Censored Empirical Distribution
 Function}\label{right-censored-empirical-distribution-function}
 
-It can be useful to calibrate parametric likelihood methods with
-nonparametric methods that do not rely on a parametric form of the
-distribution. The product-limit estimator due to \citep{kaplan1958} is a
-well-known estimator of the distribution in the presence of censoring.
+It can be useful to calibrate parametric estimators with nonparametric
+methods that do not rely on a parametric form of the distribution. The
+product-limit estimator due to \citep{kaplan1958} is a well-known
+estimator of the distribution function in the presence of censoring.
 
-To begin, first note that the empirical distribution function \(F_n(x)\)
-is an \textbf{unbiased} estimator of the distribution function \(F(x)\)
-(in the ``usual'' case in the absence of censoring). This is because
-\(F_n(x)\) is the average of indicator variables that are also unbiased,
-that is, \(\mathrm{E~} I(X \le x) = \Pr(X \le x) = F(x)\). Now suppose
-the the random outcome is censored on the right by a limiting amount,
-say, \(C_U\), so that we record the smaller of the two,
+\textbf{Motivation for the Kaplan-Meier Product Limit Estimator.} To
+explain why the product-limit works so well with censored observations,
+let us first return to the ``usual'' case without censoring. Here, the
+empirical distribution function \(F_n(x)\) is an \emph{unbiased}
+estimator of the distribution function \(F(x)\). This is because
+\(F_n(x)\) is the average of indicator variables each of which are
+unbiased, that is, \(\mathrm{E~} I(X_i \le x) = \Pr(X_i \le x) = F(x)\).
+
+Now suppose the the random outcome is censored on the right by a
+limiting amount, say, \(C_U\), so that we record the smaller of the two,
 \(X^* = \min(X, C_U)\). For values of \(x\) that are smaller than
 \(C_U\), the indicator variable still provides an unbiased estimator of
 the distribution function before we reach the censoring limit. That is,
 \(\mathrm{E~} I(X^* \le x) = F(x)\) because
 \(I(X^* \le x) = I(X \le x)\) for \(x < C_U\). In the same way,
-\(\mathrm{E~} I(X^* > x) = 1 -F(x) = S(x)\).
+\(\mathrm{E~} I(X^* > x) = 1 -F(x) = S(x)\). But, for \(x>C_U\),
+\(I(X^* \le x)\) is in general not an unbiased estimator of \(F(x)\).
 
-Now consider two random variables that have different censoring limits.
-For illustration, suppose that we observe \(X_1^* = \min(X_1, 5)\) and
-\(X_2^* = \min(X_2, 10)\) where \(X_1\) and \(X_2\) are independent
-draws from the same distribution. For \(x \le 5\), the empirical
-distribution function \(F_2(x)\) is an unbiased estimator of \(F(x)\).
-However, for \(5 < x \le 10\), the first observation cannot be used for
-the distribution function because of the censoring limitation. Instead,
-the strategy developed by \citep{kaplan1958} is to use \(S_n(5)\) as an
-estimator of \(S(5)\) and then to use the second observation to estimate
-the survival function conditional on survival to time 5,
+As an alternative, consider \emph{two} random variables that have
+different censoring limits. For illustration, suppose that we observe
+\(X_1^* = \min(X_1, 5)\) and \(X_2^* = \min(X_2, 10)\) where \(X_1\) and
+\(X_2\) are independent draws from the same distribution. For
+\(x \le 5\), the empirical distribution function \(F_2(x)\) is an
+unbiased estimator of \(F(x)\). However, for \(5 < x \le 10\), the first
+observation cannot be used for the distribution function because of the
+censoring limitation. Instead, the strategy developed by
+\citep{kaplan1958} is to use \(S_2(5)\) as an estimator of \(S(5)\) and
+then to use the second observation to estimate the survival function
+conditional on survival to time 5,
 \(\Pr(X > x | X >5) = \frac{S(x)}{S(5)}\). Specifically, for
 \(5 < x \le 10\), the estimator of the survival function is \[
 \hat{S}(x) = S_2(5) \times I(X_2^* > x ) .

@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Loss Data Analytics</title>
   <meta name="description" content="Loss Data Analytics is an interactive, online, freely available text. - The online version will contain many interactive objects (quizzes, computer demonstrations, interactive graphs, video, and the like) to promote deeper learning. - A subset of the book will be available in pdf format for low-cost printing. - The online text will be available in multiple languages to promote access to a worldwide audience.">
-  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
 
   <meta property="og:title" content="Loss Data Analytics" />
   <meta property="og:type" content="book" />
@@ -522,12 +522,16 @@ F_n(x)
 \end{aligned}
 \]</span> As a nonparametric estimator, <span class="math inline">\(F_n(\cdot)\)</span> is based on only observations and does not assume a parametric family for the distribution, it is also known as the <strong>empirical distribution function</strong>.</p>
 <p><strong>Example 4.1.1. Toy Data Set</strong>. To illustrate, consider a fictitious, or “toy,” data set of <span class="math inline">\(n=10\)</span> observations. Determine the empirical distribution function.</p>
-<p><span class="math display">\[\begin{array}{c|cccccccccc}
+<p><span class="math display">\[
+{\small
+\begin{array}{c|cccccccccc}
 \hline
 i &amp;1&amp;2&amp;3&amp;4&amp;5&amp;6&amp;7&amp;8&amp;9&amp;10 \\
 X_i&amp; 10 &amp;15 &amp;15 &amp;15 &amp;20 &amp;23 &amp;23 &amp;23 &amp;23 &amp;30\\
 \hline
-\end{array}\]</span></p>
+\end{array}
+}
+\]</span></p>
 <h5 style="text-align: center;">
 <a id="displayTextExampleSelect.1.1" href="javascript:toggleEX('toggleExampleSelect.1.1','displayTextExampleSelect.1.1');"><i><strong>Show Example Solution</strong></i></a>
 </h5>
@@ -1280,8 +1284,8 @@ F_n(c_j) = \frac{\text{number of observations } \le c_j}{n}.
 <p>As an alternative, consider <em>two</em> random variables that have different censoring limits. For illustration, suppose that we observe <span class="math inline">\(X_1^* = \min(X_1, 5)\)</span> and <span class="math inline">\(X_2^* = \min(X_2, 10)\)</span> where <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span> are independent draws from the same distribution. For <span class="math inline">\(x \le 5\)</span>, the empirical distribution function <span class="math inline">\(F_2(x)\)</span> is an unbiased estimator of <span class="math inline">\(F(x)\)</span>. However, for <span class="math inline">\(5 &lt; x \le 10\)</span>, the first observation cannot be used for the distribution function because of the censoring limitation. Instead, the strategy developed by <span class="citation">(Kaplan and Meier <a href="#ref-kaplan1958">1958</a>)</span> is to use <span class="math inline">\(S_2(5)\)</span> as an estimator of <span class="math inline">\(S(5)\)</span> and then to use the second observation to estimate the survival function conditional on survival to time 5, <span class="math inline">\(\Pr(X &gt; x | X &gt;5) = \frac{S(x)}{S(5)}\)</span>. Specifically, for <span class="math inline">\(5 &lt; x \le 10\)</span>, the estimator of the survival function is <span class="math display">\[
 \hat{S}(x) = S_2(5) \times I(X_2^* &gt; x ) .
 \]</span></p>
-<p>Extending this idea, for each observation <span class="math inline">\(i\)</span>, let <span class="math inline">\(u_i\)</span> be the upper censoring limit (<span class="math inline">\(=\infty\)</span> if no censoring). Thus, the recorded value is <span class="math inline">\(x_i\)</span> in the case of no censoring and <span class="math inline">\(u_i\)</span> if there is censoring. Let <span class="math inline">\(t_{1} &lt;\cdots&lt; t_{k}\)</span> be <span class="math inline">\(k\)</span> distinct points at which an uncensored loss occurs, and let <span class="math inline">\(s_j\)</span> be the number of uncensored losses <span class="math inline">\(x_i\)</span>’s at <span class="math inline">\(t_{j}\)</span>. The corresponding <strong>risk set</strong> is the number of observations that are active (not censored) at a value <em>less than</em> <span class="math inline">\(t_{j}\)</span>, denoted as <span class="math inline">\(R_j = \sum_{i=1}^n I(x_i \geq t_{j}) + \sum_{i=1}^n I(u_i \geq t_{j})\)</span>.</p>
-<p><strong>Kaplan-Meier Product Limit Estimator.</strong> With this notation, the <strong>product-limit estimator</strong> of the distribution function is</p>
+<p><strong>Kaplan-Meier Product Limit Estimator.</strong> Extending this idea, for each observation <span class="math inline">\(i\)</span>, let <span class="math inline">\(u_i\)</span> be the upper censoring limit (<span class="math inline">\(=\infty\)</span> if no censoring). Thus, the recorded value is <span class="math inline">\(x_i\)</span> in the case of no censoring and <span class="math inline">\(u_i\)</span> if there is censoring. Let <span class="math inline">\(t_{1} &lt;\cdots&lt; t_{k}\)</span> be <span class="math inline">\(k\)</span> distinct points at which an uncensored loss occurs, and let <span class="math inline">\(s_j\)</span> be the number of uncensored losses <span class="math inline">\(x_i\)</span>’s at <span class="math inline">\(t_{j}\)</span>. The corresponding <strong>risk set</strong> is the number of observations that are active (not censored) at a value <em>less than</em> <span class="math inline">\(t_{j}\)</span>, denoted as <span class="math inline">\(R_j = \sum_{i=1}^n I(x_i \geq t_{j}) + \sum_{i=1}^n I(u_i \geq t_{j})\)</span>.</p>
+<p>With this notation, the <strong>product-limit estimator</strong> of the distribution function is</p>
 <span class="math display" id="eq:KaplanMeier">\[\begin{equation}
 \hat{F}(x) =
 \left\{
@@ -1714,7 +1718,7 @@ k &amp;= \frac{v}{a} = \frac{1}{\theta} \\
 <h2>Technical Supplement A. Gini Statistic</h2>
 <div id="ts-a.1.-the-classic-lorenz-curve" class="section level3 unnumbered">
 <h3>TS A.1. The Classic Lorenz Curve</h3>
-<p>In welfare economics, it is common to compare distributions via the <strong>Lorenz curve</strong>, developed by Max Otto Lorenz <span class="citation">(Lorenz <a href="#ref-lorenz1905methods">1905</a>)</span>. A Lorenz curve is a graph of the proportion of a population on the horizontal axis and a distribution function of interest on the vertical axis. It is typically used to represent income distributions. When the income distribution is perfectly aligned with the population distribution, the Lorenz curve results in a 45 degree line that is known as the <strong>line of equality</strong>. The area between the Lorenz curve and the line of equality is a measure of the discrepancy between the income and population distributions. Two times this area is known as the <strong>Gini index</strong>, introduced by Corrado Gini in 1912.</p>
+<p>In welfare economics, it is common to compare distributions via the <strong>Lorenz curve</strong>, developed by Max Otto Lorenz <span class="citation">(Lorenz <a href="#ref-lorenz1905methods">1905</a>)</span>. A Lorenz curve is a graph of the proportion of a population on the horizontal axis and a distribution function of interest on the vertical axis. It is typically used to represent income distributions. When the income distribution is perfectly aligned with the population distribution, the Lorenz curve results in a 45 degree line that is known as the <em>line of equality</em>. The area between the Lorenz curve and the line of equality is a measure of the discrepancy between the income and population distributions. Two times this area is known as the <strong>Gini index</strong>, introduced by Corrado Gini in 1912.</p>
 <p><strong>Example – Classic Lorenz Curve.</strong> For an insurance example, Figure <a href="C-ModelSelection.html#fig:ClassicLorenz">4.12</a> shows a distribution of insurance losses. This figure is based on a random sample of 2000 losses. The left-hand panel shows a right-skewed histogram of losses. The right-hand panel provides the corresponding Lorenz curve, showing again a skewed distribution. For example, the arrow marks the point where 60 percent of the policyholders have 30 percent of losses. The 45 degree line is the line of equality; if each policyholder has the same loss, then the loss distribution would be at this line. The Gini index, twice the area between the Lorenz curve and the 45 degree line, is 37.6 percent for this data set.</p>
 <div class="figure" style="text-align: center"><span id="fig:ClassicLorenz"></span>
 <img src="LossDataAnalytics_files/figure-html/ClassicLorenz-1.png" alt="Distribution of insurance losses." width="90%" />
@@ -1801,6 +1805,7 @@ and the loss distribution is
 <a id="displayLorenz.1" href="javascript:toggleEX('toggleLorenz','displayLorenz.1');"><i><strong>Show Example Solution</strong></i></a>
 </h5>
 <div id="toggleLorenz" style="display: none">
+<hr />
 <div class="figure" style="text-align: center"><span id="fig:LorenzVsOrdered"></span>
 <img src="LossDataAnalytics_files/figure-html/LorenzVsOrdered-1.png" alt="Lorenz versus Ordered Lorenz Curve" width="90%" />
 <p class="caption">
@@ -1809,6 +1814,7 @@ Figure 4.13: Lorenz versus Ordered Lorenz Curve
 </div>
 <p>Figure <a href="C-ModelSelection.html#fig:LorenzVsOrdered">4.13</a> compares the Lorenz curve to the ordered version based on this data. The left-hand panel shows the Lorenz curve. The horizontal axis is the cumulative proportion of policyholders (0, 0.2, 0.4, and so forth) and the vertical axis is the cumulative proportion of losses (0, 4/25, 9/25, and so forth). This figure shows little separation between the distributions of losses and policyholders.</p>
 <p>The right-hand panel shows the ordered Lorenz curve. Because observations are sorted by relativities, the first point after the origin (reading from left to right) is (8/25, 6/25). The second point is (13/25, 10/25), with the pattern continuing. For the ordered Lorenz curve, the horizontal axis uses premium weights, the vertical axis uses loss weights, and both axes are ordered by relativities. From the figure, we see that there is greater separation between losses and premiums when viewed through this relativity.</p>
+<hr />
 </div>
 </div>
 <div id="gini-index" class="section level4 unnumbered">
@@ -1828,30 +1834,81 @@ Specifically, the Gini index can be calculated as follows. Suppose that the empi
 <ol style="list-style-type: decimal">
 <li>Use an in-sample data set to estimate several competing models.</li>
 <li>Designate an out-of-sample, or validation, data set of the form <span class="math inline">\(\{(y_i, \mathbf{x}_i), i=1,\ldots,n\}\)</span>.</li>
-<li>Establish one of the models as the base model. Use this estimated model and explanatory variables from the validation sample to form premiums of the form <span class="math inline">\(P(\mathbf{x}_i))\)</span>.</li>
-<li>Use an estimated competing model and validation sample explanatory variables to form scores of the form <span class="math inline">\(S(\mathbf{x}_i))\)</span>.</li>
+<li>Establish one of the models as the base model. Use this estimated model and explanatory variables from the validation sample to form premiums of the form <span class="math inline">\(P(\mathbf{x}_i)\)</span>.</li>
+<li>Pick one of the competing models. Use this estimated model and explanatory variables from the validation sample to form scores of the form <span class="math inline">\(S(\mathbf{x}_i)\)</span>.</li>
 <li>From the premiums and scores, develop relativities <span class="math inline">\(R_i =S(\mathbf{x}_i)/P(\mathbf{x}_i)\)</span>.</li>
 <li>Use the validation sample outcomes <span class="math inline">\(y_i\)</span> to compute the Gini statistic.</li>
 </ol>
-<p><strong>Example – Out-of-Sample Validation.</strong></p>
-<p>Suppose that we have experience from 25 states. For each state, we have available 500 observations that can be used to predict future losses. For this illustration, we have generated losses using a gamma distrbution with common shape parameter equal to 5 and a scale parameter that varies by state, from a low of 20 to 66.</p>
-<p>Determine the ordered Lorenz curve and the corresponding Gini statistic to compare the two rate procedures.</p>
+<p><strong>Example – Out-of-Sample Validation</strong></p>
+<p>Suppose that we have experience from 25 states and that, for each state, we have available 500 observations that can be used to predict future losses. For simplicity, assume that the analyst knows that these losses were generated by a gamma distribution with a common shape parameter equal to 5. Unknown to the analyst, the scale parameters vary by state, from a low of 20 to 66. To compute base premiums, the analyst assumes a scale parameter that is common to all states that is to be estimated from the data. As an alternative, the analyst allows the scale parameters to vary by state and will again use the data to estimate these parameters.</p>
+<p>An out of sample validation set of 200 from each state is available. Determine the ordered Lorenz curve and the corresponding Gini statistic to compare the two rate procedures.</p>
 <h5 style="text-align: center;">
 <a id="displayLorenzeExample" href="javascript:toggleEX('toggleExampleLor','displayLorenzeExample');"><i><strong>Show Example Solution</strong></i></a>
 </h5>
 <div id="toggleExampleLor" style="display: none">
-<p>For our base premium, we simply use the maximum likelihood estimate assuming a common distribution among all states. For the gamma distribution, this turns out to be simply the average which for our simulation is <strong>P</strong>=219.96. You can think of this common premium as based on a <em>community rating</em> principle. As an alternative, we use averages that are state-specific. Because this illustration uses means that vary by states, we anticipate this alternative rating procedure to be preferred to the community rating procedure. (Recall for the gamma distribution that the mean equals the shape times the scale or, 5 times the scale parameter, for our example.)</p>
-<p>Out of sample claims were generated from the same gamma distribution, with 200 observations for each state. In the following, we have the ordered Lorenz curve.</p>
-<p><img src="LossDataAnalytics_files/figure-html/unnamed-chunk-5-1.png" width="50%" style="display: block; margin: auto;" /></p>
-<p>For these data, the Gini index is 0.187 with a standard error equal to 0.00381.</p>
+<hr />
+<p>Recall for the gamma distribution that the mean equals the shape times the scale or, 5 times the scale parameter, for our example. So, you can check that the maximum likelihood estimates are simple the average experience.</p>
+<p>For our base premium, we assume a common distribution among all states. For these simulated data, the average is <strong>P</strong>=219.96. You can think of this common premium as based on a <em>community rating</em> principle.</p>
+<p>As an alternative, we use averages that are state-specific; these averages form our scores <strong>S</strong>. Because this illustration uses means that vary by states, we anticipate this alternative rating procedure to be preferred to the community rating procedure.</p>
+<p>Out of sample claims were generated from the same gamma distribution, with 200 observations for each state. The following <code>R</code> code shows how to calculate the ordered Lorenz curve.</p>
+<h5 style="text-align: center;">
+<a id="displayGiniCode.4" href="javascript:togglecode('toggleGiniCode.4','displayGiniCode.4');"><i><strong>Show R Code</strong></i></a>
+</h5>
+<div id="toggleGiniCode.4" style="display: none">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">GiniCalc &lt;-<span class="st"> </span><span class="cf">function</span>(Claims,PIx,Sx){
+   y   &lt;-<span class="st"> </span>Claims<span class="op">/</span><span class="kw">mean</span>(Claims)
+   PIx &lt;-<span class="st"> </span>PIx<span class="op">/</span><span class="kw">mean</span>(PIx)
+   Sx  &lt;-<span class="st"> </span>Sx<span class="op">/</span><span class="kw">mean</span>(Sx)
+   Rx  &lt;-<span class="st"> </span>Sx<span class="op">/</span>PIx       <span class="co">#Relativity</span>
+   n   &lt;-<span class="st"> </span><span class="kw">length</span>(PIx)
+   origorder &lt;-<span class="st"> </span>(<span class="dv">1</span><span class="op">:</span>n)
+   PSRmat &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">cbind</span>(PIx,Sx,Rx,y,origorder))
+   PSRmatOrder &lt;-<span class="st"> </span>PSRmat[<span class="kw">order</span>(Rx),]  <span class="co">#  Sort by relativity</span>
+<span class="co">#  PREMIUM, LOSS DFs</span>
+   DFPrem &lt;-<span class="st"> </span><span class="kw">cumsum</span>(PSRmatOrder<span class="op">$</span>PIx)<span class="op">/</span>n
+   DFLoss &lt;-<span class="st"> </span><span class="kw">cumsum</span>(PSRmatOrder<span class="op">$</span>y)<span class="op">/</span>n
+<span class="co">#  GINI CALC</span>
+   DFPremdiff &lt;-<span class="st"> </span>DFPrem[<span class="dv">2</span><span class="op">:</span>n]<span class="op">-</span>DFPrem[<span class="dv">1</span><span class="op">:</span>(n<span class="op">-</span><span class="dv">1</span>)]
+   DFPremavg  &lt;-<span class="st"> </span>(DFPrem[<span class="dv">2</span><span class="op">:</span>n]<span class="op">+</span>DFPrem[<span class="dv">1</span><span class="op">:</span>(n<span class="op">-</span><span class="dv">1</span>)])<span class="op">/</span><span class="dv">2</span>
+   DFLossavg  &lt;-<span class="st"> </span>(DFLoss[<span class="dv">2</span><span class="op">:</span>n]<span class="op">+</span>DFLoss[<span class="dv">1</span><span class="op">:</span>(n<span class="op">-</span><span class="dv">1</span>)])<span class="op">/</span><span class="dv">2</span>
+   (Gini &lt;-<span class="st"> </span><span class="dv">2</span><span class="op">*</span><span class="kw">crossprod</span>(DFPremdiff,DFPremavg<span class="op">-</span>DFLossavg)) 
+<span class="co">#  STANDARD ERROR CALC</span>
+   h1 &lt;-<span class="st"> </span><span class="fl">0.5</span><span class="op">*</span><span class="st"> </span>(PSRmatOrder<span class="op">$</span>PIx<span class="op">*</span>DFLoss <span class="op">+</span><span class="st"> </span>PSRmatOrder<span class="op">$</span>y<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>DFPrem) ) <span class="co">#  PROJECTION CALC</span>
+   h1bar   &lt;-<span class="st"> </span><span class="kw">mean</span>(h1) 
+   sigmah  &lt;-<span class="st"> </span><span class="kw">var</span>(h1)
+   sigmahy &lt;-<span class="st"> </span><span class="kw">cov</span>(h1,PSRmatOrder<span class="op">$</span>y)
+   sigmahpi &lt;-<span class="st"> </span><span class="kw">cov</span>(h1,PSRmatOrder<span class="op">$</span>PIx)
+   sigmay  &lt;-<span class="st"> </span><span class="kw">var</span>(y)
+   sigmapi &lt;-<span class="st"> </span><span class="kw">var</span>(PIx)
+   sigmaypi &lt;-<span class="st"> </span><span class="kw">cov</span>(PSRmatOrder<span class="op">$</span>y,PSRmatOrder<span class="op">$</span>PIx)
+   temp1=<span class="st"> </span><span class="dv">4</span><span class="op">*</span>sigmah <span class="op">+</span><span class="st"> </span>h1bar<span class="op">^</span><span class="dv">2</span><span class="op">*</span>sigmay <span class="op">+</span><span class="st"> </span>h1bar<span class="op">^</span><span class="dv">2</span><span class="op">*</span>sigmapi <span class="op">-</span>
+<span class="st">           </span><span class="dv">4</span><span class="op">*</span>h1bar<span class="op">*</span>sigmahy <span class="op">-</span><span class="st"> </span><span class="dv">4</span><span class="op">*</span>h1bar<span class="op">*</span>sigmahpi <span class="op">+</span>
+<span class="st">           </span><span class="dv">2</span><span class="op">*</span>h1bar<span class="op">^</span><span class="dv">2</span><span class="op">*</span>sigmaypi
+   sigmaGini  &lt;-<span class="st"> </span><span class="dv">4</span><span class="op">*</span>temp1
+   stderrGini &lt;-<span class="st"> </span><span class="kw">sqrt</span>(sigmaGini<span class="op">/</span>n) 
+   check &lt;-<span class="st"> </span><span class="kw">var</span>(PIx<span class="op">-</span>Sx)
+   Gini  &lt;-<span class="st"> </span>Gini<span class="op">*</span>(check <span class="op">!=</span><span class="st"> </span><span class="dv">0</span>)
+   stderrGini &lt;-<span class="st"> </span>stderrGini<span class="op">*</span>(check <span class="op">!=</span><span class="st"> </span><span class="dv">0</span>)
+   Retmat &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">cbind</span>(DFPrem,DFLoss)) 
+   RetmatGini&lt;-<span class="kw">list</span>(Retmat,Gini,stderrGini)
+     <span class="kw">return</span>(RetmatGini)
+}
+temp=<span class="kw">GiniCalc</span>(<span class="dt">Claims=</span>Outy,<span class="dt">PIx=</span>Flatpred,<span class="dt">Sx=</span>Predvec)
+Results=temp[[<span class="dv">1</span>]]
+Gini &lt;-<span class="st"> </span>temp[[<span class="dv">2</span>]];<span class="co">#Gini</span>
+stderrorGini &lt;-<span class="st"> </span>temp[[<span class="dv">3</span>]];<span class="co">#Standard Error</span></code></pre></div>
+</div>
+<p><img src="LossDataAnalytics_files/figure-html/unnamed-chunk-6-1.png" width="50%" style="display: block; margin: auto;" /></p>
+<p>For these data, the Gini index is 0.187 with a standard error equal to 0.00381. This suggests that the state-specific alternative procedure is strongly preferred to the base community rating procedure.</p>
+<hr />
 </div>
 <div id="discussion" class="section level4 unnumbered">
 <h4>Discussion</h4>
-<p>In insurance claims modeling, standard out-of-sample validation measures are not the most informative due to the high proportions of zeros (corresponding to no claim) and the skewed fat-tailed distribution of the positive values. The Gini index can be motivated by the economics of insurance. Intuitively, the Gini index measures the negative covariance between a policy’s “profit” (<span class="math inline">\(P-y\)</span>, premium minus loss) and the rank of the relativity (<strong>R</strong>, score divided by premium). That is, the close approximation</p>
-<p><span class="math display">\[\widehat{Gini} \approx - \frac{2}{n} \widehat{Cov} \left( (P-y), rank(R) \right) .\]</span></p>
-<p>This observation leads an insurer to seek an ordering that produces to a large Gini index. Thus, the Gini index and associated ordered Lorenz curve are useful for identifying profitable blocks of insurance business.</p>
+<p>In insurance claims modeling, standard out-of-sample validation measures are not the most informative due to the high proportions of zeros (corresponding to no claim) and the skewed fat-tailed distribution of the positive values. In contrast, the Gini index works well with many zeros (see the demonstration in <span class="citation">(Frees, Meyers, and Cummings <a href="#ref-frees2014insurance">2014</a>)</span>). Moreover, the Gini index can be motivated by the economics of insurance. Intuitively, the Gini index measures the negative covariance between a policy’s “profit” (<span class="math inline">\(P-y\)</span>, premium minus loss) and the rank of the relativity (<strong>R</strong>, score divided by premium). That is, the close approximation</p>
+<p><span class="math display">\[\widehat{Gini} \approx - \frac{2}{n} \widehat{Cov} \left\{ (P-y), rank(R) \right\} .\]</span></p>
+<p>This observation leads an insurer to seek a score and resulting relativity that produces to a large Gini index. In this way, the Gini index and associated ordered Lorenz curve are useful for identifying profitable blocks of insurance business.</p>
 <p>Unlike classical measures of association, the Gini index assumes that a premium base <strong>P</strong> is currently in place and seeks to assess vulnerabilities of this structure. This approach is more akin to hypothesis testing (when compared to goodness of fit) where one identifies a “null hypothesis” as the current state of the world and uses decision-making criteria/statistics to compare this with an “alternative hypothesis.”</p>
-<p>The insurance version of the Gini statistic was developed by <span class="citation">(Frees, Meyers, and Cummings <a href="#ref-frees2011summarizing">2011</a>)</span> and <span class="citation">(Frees, Meyers, and Cummings <a href="#ref-frees2014insurance">2014</a>)</span> where you can find formulas for the standard errors and other additional background information.</p>
+<p>Properties of the insurance version of the Gini statistic were developed by <span class="citation">(Frees, Meyers, and Cummings <a href="#ref-frees2011summarizing">2011</a>)</span> and <span class="citation">(Frees, Meyers, and Cummings <a href="#ref-frees2014insurance">2014</a>)</span>. In these articles you can find formulas for the standard errors and other additional background information.</p>
 
 </div>
 </div>
@@ -1883,11 +1940,11 @@ Specifically, the Gini index can be calculated as follows. Suppose that the empi
 <div id="ref-lorenz1905methods">
 <p>Lorenz, Max O. 1905. “Methods of Measuring the Concentration of Wealth.” <em>Publications of the American Statistical Association</em> 9 (70). Taylor &amp; Francis: 209–19.</p>
 </div>
-<div id="ref-frees2011summarizing">
-<p>Frees, Edward W., Glenn Meyers, and A. David Cummings. 2011. “Summarizing Insurance Scores Using a Gini Index.” <em>Journal of the American Statistical Association</em> 106 (495). Taylor &amp; Francis: 1085–98.</p>
-</div>
 <div id="ref-frees2014insurance">
 <p>Frees, Edward W., Glenn Meyers, and A. David Cummings. 2011. “Summarizing Insurance Scores Using a Gini Index.” <em>Journal of the American Statistical Association</em> 106 (495). Taylor &amp; Francis: 1085–98.</p> 2014. “Insurance Ratemaking and a Gini Index.” <em>Journal of Risk and Insurance</em> 81 (2). Wiley Online Library: 335–66.</p>
+</div>
+<div id="ref-frees2011summarizing">
+<p>Frees, Edward W., Glenn Meyers, and A. David Cummings. 2011. “Summarizing Insurance Scores Using a Gini Index.” <em>Journal of the American Statistical Association</em> 106 (495). Taylor &amp; Francis: 1085–98.</p>
 </div>
 </div>
 <div id="disqus_thread"></div>
@@ -1934,11 +1991,11 @@ gitbook.start({
 "facebook": false,
 "twitter": false,
 "google": true,
-"linkedin": false,
 "weibo": false,
 "instapper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"],
+"linkedin": false
 },
 "fontsettings": {
 "theme": "white",
@@ -1962,11 +2019,9 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
-    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
-    script.src = src;
+    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

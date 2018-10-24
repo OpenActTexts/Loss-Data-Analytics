@@ -32,7 +32,7 @@ iii. use the distribution with the estimated parameters  to calculate the desire
 This is the **parametric** approach. Another strategy is to estimate the desired summary measure directly from the observations *without* reference to a parametric model. Not surprisingly, this is known as the 
 <a href="#" class="tooltip" style="color:green">**nonparametric**<span style="font-size:8pt"> An approach to inference that does not rely on references to a parametric model.</span></a> approach.
 
-Let us start by considering the most basic type of sampling scheme and assume that observations are realizations from a set of random variables $X_1, \ldots, X_n$ that are *identically and independently distributed (iid)* draws from an unknown underlying population distribution $F(\cdot)$. An equivalent way of saying this is that $X_1, \ldots, X_n$, is a *random sample* (with replacement) from $F(\cdot)$. To see how this works, we now describe nonparametric estimators of many important measures that summarize a distribution.
+Let us start by considering the most basic type of sampling scheme and assume that observations are realizations from a set of random variables $X_1, \ldots, X_n$ that are <a href="#" class="tooltip" style="color:green">*iid*<span style="font-size:8pt"> identically and independently distributed</span></a> draws from an unknown population distribution $F(\cdot)$. An equivalent way of saying this is that $X_1, \ldots, X_n$, is a *random sample* (with replacement) from $F(\cdot)$. To see how this works, we now describe nonparametric estimators of many important measures that summarize a distribution.
 
 
 #### Moment Estimators {#S:MS:MomentEstimator}
@@ -249,7 +249,7 @@ where $n_j$ is the number of observations ($X_i$) that fall into the interval $[
 
 ***
 
-The idea is that the estimator $f_n(x)$ in equation \@ref(eq:KDF) is the average over $n$ *iid* realizations of a random variable with mean
+The idea is that the estimator $f_n(x)$ in equation \@ref(eq:KDF) is the average over $n$ <a href="#" class="tooltip" style="color:green">*iid*<span style="font-size:8pt"> identically and independently distributed</span></a> realizations of a random variable with mean
 
 $$\begin{aligned}
 \mathrm{E~ } \frac{1}{2b} I(x-b < X \le x + b) &=  \frac{1}{2b}\left(F(x+b)-F(x-b)\right) \\
@@ -264,7 +264,7 @@ as $b\rightarrow  0$. That is, $f_n(x)$ is an asymptotically unbiased estimator 
 
 </div>
 
-More generally, define the **kernel density estimator** of the *pdf* at *x* as 
+More generally, define the **kernel density estimator** of the <a href="#" class="tooltip" style="color:green">*pdf*<span style="font-size:8pt"> probability density function</span></a> at *x* as 
 
 
 \begin{equation} 
@@ -278,7 +278,9 @@ where $w$ is a probability density function centered about 0. Note that equation
 
 <a id=tab:41></a>
 
-$$\begin{matrix}
+$$
+{\small
+\begin{matrix}
 \text{Table 4.1: Popular Choices for the Kernel Density Estimator}\\
 \begin{array}{l|cc}
 \hline
@@ -289,7 +291,9 @@ $$\begin{matrix}
 \text{Epanechnikov} & \frac{3}{4}(1-x^2) \times I(|x| \le 1) \\
 \text{Gaussian} & \phi(x) \\
 \hline
-\end{array}\end{matrix}$$
+\end{array}\end{matrix}
+}
+$$
 
 Here, $\phi(\cdot)$ is the standard normal density function. As we will see in the following example, the choice of bandwidth $b$ comes with a *bias-variance tradeoff* between matching local distributional features and reducing the volatility. 
 
@@ -349,7 +353,7 @@ $$
 
 ***
 
-**Example `r chapnum`.1.5. SOA Exam Question.** 
+**Example `r chapnum`.1.5. Actuarial Exam Question.** 
 You study five lives to estimate the time from the onset of a disease to death. The times to death are:
 
 $$\begin{array}{ccccc}
@@ -393,7 +397,7 @@ The previous section introduced nonparametric estimators in which there was no p
 
 Nonparametric tools can be used to corroborate the selection of parametric models. Essentially, the approach is to compute selected summary measures under a fitted parametric model and to compare it to the corresponding quantity under the nonparametric model. As the nonparametric does not assume a specific distribution and is merely a function of the data, it is used as a benchmark to assess how well the parametric distribution/model represents the data. This comparison may alert the analyst to deficiencies in the parametric model and sometimes point ways to improving the parametric specification. Procedures geared towards assessing the validity of a model are known as **model diagnostics**. 
 
-#### Graphical Comparison of Distributions
+#### Graphical Comparison of Distributions {#S:MS:GraphComparison}
 
 We have already seen the technique of overlaying graphs for comparison purposes. To reinforce the application of this technique, Figure \@ref(fig:ComparisonCDFPDF) compares the empirical distribution to two parametric fitted distributions. The left panel shows the distribution functions of claims distributions. The dots forming an "S-shaped" curve represent the empirical distribution function at each observation. The thick blue curve gives corresponding values for the fitted gamma distribution and the light purple is for the fitted Pareto distribution. Because the Pareto is much closer to the empirical distribution function than the gamma, this provides evidence that the Pareto is the better model for this data set. The right panel gives similar information for the density function and provides a consistent message. Based (only) on these figures, the Pareto distribution is the clear choice for the analyst.
 
@@ -449,8 +453,7 @@ plot(Fn(ClaimData$Claim), Fpareto_ex, xlab="Empirical DF", ylab="Pareto DF", cex
 abline(0,1)
 ```
 
-A $pp$ plot is useful in part because no artificial scaling is required, such as with the overlaying of densities in Figure \@ref(fig:ComparisonCDFPDF), in which we switched to the log scale to better visualize the data. Furthermore, $pp$ plots are available in multivariate settings where more than one outcome variable is available. However, a limitation of the $pp$ plot is that, because they plot *cumulative* distribution functions, it can sometimes be difficult to detect *where* a fitted parametric distribution is deficient. As an alternative, it is common to use a **quantile-quantile ($qq$) plot**, as demonstrated in Figure \@ref(fig:QQPlot).
-
+A $pp$ plot is useful in part because no artificial scaling is required, such as with the overlaying of densities in Figure \@ref(fig:ComparisonCDFPDF), in which we switched to the log scale to better visualize the data. The Chapter `r chapnum` *Technical Supplement A.1* expresses a $pp$ plot as a classic Lorenz curve, thus providing an important tool for assessing  income inequality. Furthermore, $pp$ plots are available in multivariate settings where more than one outcome variable is available. However, a limitation of the $pp$ plot is that, because it is a plot *cumulative* distribution functions, it can sometimes be difficult to detect *where* a fitted parametric distribution is deficient. As an alternative, it is common to use a **quantile-quantile ($qq$) plot**, as demonstrated in Figure \@ref(fig:QQPlot).
 
 
 The $qq$ plot compares two fitted models through their quantiles. As with $pp$ plots, we compare the nonparametric to a parametric fitted model. Quantiles may be evaluated at each point of the data set, or on a grid (e.g., at $0, 0.001, 0.002, \ldots, 0.999, 1.000$), depending on the application. In Figure \@ref(fig:QQPlot), for each point on the aforementioned grid, the horizontal axis displays the empirical quantile and the vertical axis displays the corresponding fitted parametric quantile (gamma for the upper two panels, Pareto for the lower two). Quantiles are plotted on the original scale in the left panels and on the log scale in the right panels to allow us to see where a fitted distribution is deficient. The straight line represents equality between the empirical distribution and fitted distribution. From these plots, we again see that the Pareto is an overall better fit than the gamma. Furthermore, the lower-right panel suggests that the Pareto distribution does a good job with large observations, but provides a poorer fit for small observations.
@@ -475,7 +478,7 @@ abline(0,1)
 
 ***
 
-**Example `r chapnum`.1.6. SOA Exam Question.** 
+**Example `r chapnum`.1.6. Actuarial Exam Question.** 
 The graph below shows a $pp$ plot of a fitted distribution compared to a sample. 
 
 
@@ -532,7 +535,7 @@ The *Kolmogorov-Smirnov statistic* is the maximum absolute difference between th
 
 ***
 
-**Exaxmple  `r chapnum`.1.7. SOA Exam Question (modified).**
+**Exaxmple  `r chapnum`.1.7. Actuarial Exam Question (modified).**
 A sample of claim payments is: 
 
 $$\begin{array}{ccccc}
@@ -654,7 +657,7 @@ We remark here that a numerical routine is required for these solutions as no an
 
 ***
 
-**Example `r chapnum`.1.10. SOA Exam Question.** 
+**Example `r chapnum`.1.10. Actuarial Exam Question.** 
 You are given: 
 
 (i) Losses follow a loglogistic distribution with cumulative distribution function: 
@@ -734,7 +737,7 @@ Critique the candidate parametric model numerically and graphically. For the gra
 
 **Likelihood Ratio Tests.** For comparing model fits, if one model is a subset of another, then a likelihood ratio test may be employed; the general approach to likelihood ratio testing is described in Sections \@ref(S:AppA:HT:LRT) and \@ref(S:AppC:MLEModelVal). 
 
-**Goodness of Fit Statistics.** Generally, models are not proper subsets of one another so overall goodness of fit statistics are helpful for comparing models. *Information criteria* are one type of goodness of statistic. The most widely used examples are Akaike's Information Criterion (*AIC*) and the Schwarz Bayesian Criterion (*BIC*); they are widely cited because they can be readily generalized to multivariate settings. Section \@ref(S:AppA:HT:IC) provides a summary of these statistics.
+**Goodness of Fit Statistics.** Generally, models are not proper subsets of one another so overall goodness of fit statistics are helpful for comparing models. *Information criteria* are one type of goodness of statistic. The most widely used examples are Akaike's Information Criterion (*AIC*) and the (Schwarz) Bayesian Information Criterion (*BIC*); they are widely cited because they can be readily generalized to multivariate settings. Section \@ref(S:AppA:HT:IC) provides a summary of these statistics.
 
 For selecting the appropriate distribution, statistics that compare a parametric fit to a nonparametric alternative, summarized in Section \@ref(S:MS:Tools:Stats), are useful for model comparison. For discrete data, a *goodness of fit* statistic (as described in Section \@ref(S:goodness-of-fit)) is generally preferred as it is more intuitive and simpler to explain.
 
@@ -795,7 +798,7 @@ One uses the training sample to develop an estimate of $\mathrm{g}$, say, $\hat{
 
 Here, the sum *i* is over the test data. In many regression applications, it is common to use squared Euclidean distance of the form $\mathrm{d}(y_i,\mathrm{g}) = (y_i-\mathrm{g})^2$. In actuarial applications, Euclidean distance $\mathrm{d}(y_i,\mathrm{g}) = |y_i-\mathrm{g}|$ is often preferred because of the skewed nature of the data (large outlying values of $y$ can have a large effect on the measure). The Chapter `r chapnum` *Technical Supplement A* describes another measure, the *Gini index*, that is useful in actuarial applications particularly when there is a large proportion of zeros in claims data (corresponding to no claims).
 
-**Selecting a Distribution.** Still, our focus so far has been to select a distribution for a data set that can be used for actuarial modeling without additional inputs $x_1, \ldots, x_k$. Even in this more fundamental problem, the model validation approach is valuable. If we base all inference on only in-sample data, then there is a tendency to select more complicated models then needed. For example, we might select a four parameter GB2, generalized beta of the second kind, distribution when only a two parameter Pareto is needed. Information criteria such as *AIC* and *BIC* included penalties for model complexity and so provide some protection but using a test sample is the best guarantee to achieve parsimonious models. From a quote often attributed to Albert Einstein, we want to "use the simplest model as possible but no simpler."
+**Selecting a Distribution.** Still, our focus so far has been to select a distribution for a data set that can be used for actuarial modeling without additional inputs $x_1, \ldots, x_k$. Even in this more fundamental problem, the model validation approach is valuable. If we base all inference on only in-sample data, then there is a tendency to select more complicated models then needed. For example, we might select a four parameter GB2, generalized beta of the second kind, distribution when only a two parameter Pareto is needed. Information criteria such as <a href="#" class="tooltip" style="color:green">*AIC*<span style="font-size:8pt"> Akaike's information criterion</span></a> and <a href="#" class="tooltip" style="color:green">*BIC*<span style="font-size:8pt"> Bayesian information criterion</span></a> included penalties for model complexity and so provide some protection but using a test sample is the best guarantee to achieve parsimonious models. From a quote often attributed to Albert Einstein, we want to "use the simplest model as possible but no simpler."
 
 
 ### Model Selection Based on Cross-Validation
@@ -867,7 +870,7 @@ L(\theta) = \ln \mathcal{L}(\theta) = \ln \prod_{j=1}^n f(x_i) = \sum_{j=1}^k n_
 Maximizing the likelihood function (or equivalently, maximizing the log-likelihood function) would then produce the maximum likelihood estimates for grouped data.
 
 
-**Example `r chapnum`.3.1. SOA Exam Question.** 
+**Example `r chapnum`.3.1. Actuarial Exam Question.** 
 You are given:
 
 (i) Losses follow an exponential distribution with mean $\theta$.
@@ -909,12 +912,12 @@ where $p=e^{-1000/\theta}$. Maximizing this expression with respect to $p$ is eq
 
 #### Censored Data
 
-**Censoring** occurs when we record only a limited value of an observation. The most common form is **right-censoring**, in which we record the *smaller* of the "true" dependent variable and a censoring variable. Using notation, let $X$ represent an outcome of interest, such as the loss due to an insured event or time until an event. Let $C_U$ denote the censoring amount. With right-censored observations, we record $X_U^{\ast}= \min(X, C_U) = X \wedge C_U$. We also record whether or not censoring has occurred. Let $\delta_U= \mathrm{I}(X \leq C_U)$ be a binary variable that is 0 if censoring occurs and 1 if it does not. 
+**Censoring** occurs when we record only a limited value of an observation. The most common form is **right-censoring**, in which we record the *smaller* of the "true" dependent variable and a censoring variable. Using notation, let $X$ represent an outcome of interest, such as the loss due to an insured event or time until an event. Let $C_U$ denote the censoring amount. With right-censored observations, we record $X_U^{\ast}= \min(X, C_U) = X \wedge C_U$. We also record whether or not censoring has occurred. Let $\delta_U= I(X \leq C_U)$ be a binary variable that is 0 if censoring occurs and 1 if it does not. 
 
 For an example that we saw in Section \@ref(S:PolicyLimits), $C_U$ may represent the upper limit of coverage of an insurance policy (we used $u$ for the upper limit in that section). The loss may exceed the amount $C_U$, but the insurer only has $C_U$ in its records as the amount paid out and does not have the amount of the actual loss $X$ in its records.
 
 
-Similarly, with **left-censoring**, we record the *larger* of a variable of interest and a censoring variable. If $C_L$ is used to represent the censoring amount, we record $X_L^{\ast}= \max(X, C_L)$ along with the censoring indicator $\delta_L= \mathrm{I}(X \geq C_L)$. 
+Similarly, with **left-censoring**, we record the *larger* of a variable of interest and a censoring variable. If $C_L$ is used to represent the censoring amount, we record $X_L^{\ast}= \max(X, C_L)$ along with the censoring indicator $\delta_L= I(X \geq C_L)$. 
 
 As an example, you got a brief introduction to reinsurance, insurance for insurers, in Section \@ref(S:Chap3Reinsurance) and will see more in Chapter \@ref(C:PortMgt). Suppose a reinsurer will cover insurer losses greater than $C_L$; this means that the reinsurer is responsible for the excess of $X_L^{\ast}$ over $C_L$. Using notation, this is $Y = X_L^{\ast} - C_L$. To see this, first consider the case where the policyholder loss $X < C_L$. Then, the insurer will pay the entire claim and $Y =C_L- C_L=0$, no loss for the reinsurer. For the second case, if the loss $X \ge C_L$, then $Y = X-C_L$ represents the reinsurer's retained claims. Put another way, if a loss occurs, the reinsurer records the actual amount if it exceeds the limit $C_L$ and otherwise it only records that it had a loss of $0$. 
 
@@ -1042,8 +1045,8 @@ To summarize, for outcome $X$ and constants $C_L$ and $C_U$,
 
     Limitation Type          Limited Variable              Recording Information
   -------------------- ---------------------------- ------------------------------------
-  right censoring       $X_U^{\ast}= \min(X, C_U)$   $\delta_U= \mathrm{I}(X \leq C_U)$
-  left censoring        $X_L^{\ast}= \max(X, C_L)$   $\delta_L= \mathrm{I}(X \geq C_L)$
+  right censoring       $X_U^{\ast}= \min(X, C_U)$   $\delta_U= I(X \leq C_U)$
+  left censoring        $X_L^{\ast}= \max(X, C_L)$   $\delta_L= I(X \geq C_L)$
   interval censoring                            
   right truncation                 $X$                   observe $X$ if $X \leq C_U$
   left truncation                  $X$                   observe $X$ if $X \geq C_L$
@@ -1052,7 +1055,7 @@ To summarize, for outcome $X$ and constants $C_L$ and $C_U$,
 
 #### Parametric Estimation using Censored and Truncated Data
 
-For simplicity, we assume non-random censoring amounts and a continuous outcome $X$. To begin, consider the case of right-censored data where we record $X_U^{\ast}= \min(X, C_U)$ and censoring indicator $\delta= \mathrm{I}(X \leq C_U)$. If censoring occurs so that $\delta=0$, then $X \geq C_U$ and the likelihood is $\Pr(X \geq C_U) = 1-F(C_U)$. If censoring does not occur so that $\delta=1$, then $X < C_U$ and the likelihood is $f(x)$. Summarizing, we have the likelihood of a single observation as 
+For simplicity, we assume non-random censoring amounts and a continuous outcome $X$. To begin, consider the case of right-censored data where we record $X_U^{\ast}= \min(X, C_U)$ and censoring indicator $\delta= I(X \leq C_U)$. If censoring occurs so that $\delta=0$, then $X \geq C_U$ and the likelihood is $\Pr(X \geq C_U) = 1-F(C_U)$. If censoring does not occur so that $\delta=1$, then $X < C_U$ and the likelihood is $f(x)$. Summarizing, we have the likelihood of a single observation as 
 
 $$
 \begin{aligned}
@@ -1111,13 +1114,14 @@ and similarly for other combinations. To get further insights, consider the foll
 
 For this special case, the log-likelihood is
 
-$$\begin{aligned}
+$$
+\begin{aligned}
 L(\theta) &= \sum_{E} \left\{ \ln f(x_i) - \ln (1-F(C_{Li})) \right\} + \sum_{R}\left\{ \ln (1-F(C_{Ui}))- \ln (1-\mathrm{F}(C_{Li})) \right\}\\
 &= \sum_{E} (-\ln \theta -(x_i-C_{Li})/\theta ) -\sum_{R} (C_{Ui}-C_{Li})/\theta .
-\end{aligned}$$
+\end{aligned}
+$$
 
-To simplify the notation, define $\delta_i = \mathrm{I}(X_i \geq C_{Ui})$ to be a binary variable that indicates right-censoring. Let $X_i^{\ast \ast} = \min(X_i, C_{Ui}) - C_{Li}$ be the amount that the observed variable exceeds the lower truncation limit. With this, the log-likelihood is 
-<!-- $$ L(\theta) =  - \sum_{i=1}^n ((1-\delta_i) \ln \theta + \frac{x_i^{\ast \ast}}{\theta} ). (4)$$ -->
+To simplify the notation, define $\delta_i = I(X_i \geq C_{Ui})$ to be a binary variable that indicates right-censoring. Let $X_i^{\ast \ast} = \min(X_i, C_{Ui}) - C_{Li}$ be the amount that the observed variable exceeds the lower truncation limit. With this, the log-likelihood is 
 
 \begin{equation} 
   L(\theta) =  - \sum_{i=1}^n ((1-\delta_i) \ln \theta + \frac{x_i^{\ast \ast}}{\theta})
@@ -1135,7 +1139,7 @@ where $n_u = \sum_i (1-\delta_i)$ is the number of uncensored observations.
 ***
 
 
-**Example `r chapnum`.3.2. SOA Exam Question.**
+**Example `r chapnum`.3.2. Actuarial Exam Question.**
 You are given:
 
 (i) A sample of losses is: 600 700 900 
@@ -1169,7 +1173,7 @@ $$L'(\theta) = -3\theta^{-1} + 700\theta^{-2} = 0 \ \Rightarrow \ \hat{\theta} =
 
 
 
-**Example `r chapnum`.3.3. SOA Exam Question.**
+**Example `r chapnum`.3.3. Actuarial Exam Question.**
 You are given the following information about a random sample:
 
 (i)  The sample size equals five.
@@ -1218,7 +1222,7 @@ $$f_n(x) = F^{\prime}_n(x) = \frac{F_n(c_j)-F_n(c_{j-1})}{c_j - c_{j-1}} \ \ \  
 
 ***
 
-**Example `r chapnum`.3.4. SOA Exam Question.** 
+**Example `r chapnum`.3.4. Actuarial Exam Question.** 
 You are given the following information regarding claim sizes for 100 claims:
 
 $$
@@ -1287,7 +1291,7 @@ As usual, the corresponding estimate of the survival function is $\hat{S}(x) = 1
 
 ***
 
-**Example `r chapnum`.3.5. SOA Exam Question.**
+**Example `r chapnum`.3.5. Actuarial Exam Question.**
 The following is a sample of 10 payments: 
 
 $$\begin{array}{cccccccccc}
@@ -1357,7 +1361,7 @@ and the relationship between the survival function and cumulative hazard functio
 
 ***
 
-**Example `r chapnum`.3.6. SOA Exam Question.** 
+**Example `r chapnum`.3.6. Actuarial Exam Question.** 
 For observation $i$ of a survival study:
 
 * $d_i$ is the left truncation point
@@ -1407,7 +1411,7 @@ The Kaplan-Meier estimate is therefore $\hat{S}(1.6) = \frac{5}{7}$.
 
 ***
 
-**Example `r chapnum`.3.7. SOA Exam Question. - Continued.** 
+**Example `r chapnum`.3.7. Actuarial Exam Question. - Continued.** 
 
 a) Using the Nelson-&Auml;alen estimator, calculate the probability that the loss on a policy exceeds 11, $\hat{S}_{NA}(11)$. 
 b) Calculate Greenwood's approximation to the variance of the product-limit estimate $\hat{S}(11)$.
@@ -1459,41 +1463,113 @@ In this section, you learn how to:
 
 ***
 
+
+### Introduction to Bayesian Inference {#S:IntroBayes}
+
 Up to this point, our inferential methods have focused on the **frequentist** setting, in which samples are repeatedly drawn from a population. The vector of parameters $\boldsymbol \theta$ is fixed yet unknown, whereas the outcomes $X$ are realizations of random variables.
 
 In contrast, under the **Bayesian** framework, we view both the model parameters and the data as random variables. We are uncertain about the parameters $\boldsymbol \theta$ and use probability tools to reflect this uncertainty. 
 
-There are several advantages of the Bayesian approach. First, we can describe the entire distribution of parameters conditional on the data. This allows us, for example, to provide probability statements regarding the likelihood of parameters. Second, this approach allows analysts to blend prior information known from other sources with the data in a coherent manner. This topic is developed in detail in the credibility chapter. Third, the Bayesian approach provides a unified approach for estimating parameters. Some non-Bayesian methods, such as least squares, require a separate approach to estimate variance components. In contrast, in Bayesian methods, all parameters can be treated in a similar fashion. This is convenient for explaining results to consumers of the data analysis. Fourth, Bayesian analysis is particularly useful for forecasting future responses.
+To get a sense of the Bayesian framework, begin by recalling Bayes’ rule
+
+$$
+p(parameters|data) = \frac{p(data|parameters) \times p(parameters)}{p(data)}
+$$
+
+
+where
+
+- $p(parameters)$ is the distribution of the parameters, known as the *prior* distribution.
+- $p(data | parameters)$ is the sampling distribution. In a frequentist context, it is used for
+making inferences about the parameters and is known as the *likelihood*.
+- $p(parameters | data)$ is the distribution of the parameters having observed the data, known as
+the *posterior* distribution.
+- $p(data)$ is the marginal distribution of the data. It is generally obtained by integrating (or
+summing) the joint distribution of data and parameters over parameter values. This is often
+the difficult step in Bayesian inference.
+
+
+**Why Bayes?** There are several advantages of the Bayesian approach. First, we can describe the entire distribution of parameters conditional on the data. This allows us, for example, to provide probability statements regarding the likelihood of parameters. Second, the Bayesian approach provides a unified approach for estimating parameters. Some non-Bayesian methods, such as least squares, require a separate approach to estimate variance components. In contrast, in Bayesian methods, all parameters can be treated in a similar fashion. This is convenient for explaining results to consumers of the data analysis. Third, this approach allows analysts to blend prior information known from other sources with the data in a coherent manner. This topic is developed in detail in the credibility chapter.  Fourth, Bayesian analysis is particularly useful for forecasting future responses.
+
+**Poisson - Gamma Special Case.** To develop intuition, we consider the Poisson-Gamma case that holds a prominent position in actuarial applications. The idea is to consider a set of random variables $X_1, \ldots, X_n$ where each $X_i$ could represent the number of claims for the *i*th policyholder (you can use $N$ to represent the number of claims if you like). Assume that $X_i$ has a Poisson distribution with parameter $\lambda$, analogous the likelihood that we first saw in Chapter \@ref(C:Frequency-Modeling). In a non-Bayesian (or frequentist) context, the parameter $\lambda$ is viewed as an unknown quantity that is not random (it is said to be "fixed"). In the Bayesian context, the unknown parameter $\lambda$ is viewed as uncertain and is modeled as a random variable. In this special case, we use the gamma distribution to reflect this uncertainty, the prior distribution.
+
+Think of the following two-stage sampling scheme to motivate our probabilistic set-up.
+
+1. In the first stage, the parameter $\lambda$ is drawn from a gamma distribution. 
+2. In the second stage, for that value of  $\lambda$, there are $n$ draws from the same (identical) Poisson distribution that are independent, conditional on that  $\lambda$.
+
+From this simple set-up, some important conclusions emerge.
+
+- The distribution of $X_i$ is no longer Poisson. For this special case, it turns out to be a negative binomial distribution (see the following "Snippet of Theory").
+- The random variables $X_1, \ldots, X_n$ are not independent. This is because they share the common random variable $\lambda$. 
+- As in the frequentist context, the goal is to make statments about likely values of parameters such as $\lambda$ given the observed data $X_1, \ldots, X_n$. However, because now both the parameter and the data are random variables, we can use the language of conditional probability to make such statements. As we will see in Section \@ref(S:PosteriorDistribution), it turns out that the distribution of $\lambda$ given the data $X_1, \ldots, X_n$ is also be gamma (with updated parameters), a result that simplifies the task of inferring likely values of the parameter $\lambda$.
+
+<h5 style="text-align: center;"><a id="displayTheory.2" href="javascript:toggleTheory('TheoryBayesPoisson','displayTheory.2');"><i><strong>Show A Snippet of Theory</strong></i></a> </h5><div id="TheoryBayesPoisson" style="display: none">
+
+***
+
+Let us demonstrate that the distribution of $X$ is negative binomial. We assume that the distribution of $X$ given $\lambda$ is Poisson, so that 
+$$
+\Pr(X = x|\lambda) = \frac{\lambda^x}{\Gamma(x+1)} e^{-\lambda} ,
+$$
+using notation $\Gamma(x+1) = x!$ for integer $x$. Assume that $\lambda$ is a draw from a gamma distribution parameters, say, $\alpha$ and $\theta$, so this has <a href="#" class="tooltip" style="color:green">*pdf*<span style="font-size:8pt"> probability density function</span></a>
+$$
+f(\lambda) = \frac{\lambda^{\alpha-1}}{\theta^{\alpha}\Gamma(\alpha)}\exp(-\lambda/\theta).
+$$
+We know that a *pdf* integrates to one. To make the development easier, define the reciprocal parameter $\theta_r = 1/\theta$ and so we have
+$$
+\int_0^{\infty} f(\lambda) ~d\lambda =1 ~~~ ==> ~~~ \theta_r^{-\alpha} \Gamma(\alpha) = \int_0^{\infty} \lambda^{\alpha-1} \exp\left(-\lambda\theta_r\right) ~
+d\lambda .
+$$
+From Appendix Chapter \@ref(C:AppB) on iterated expectations, we have that the <a href="#" class="tooltip" style="color:green">*pmf*<span style="font-size:8pt"> probability mass function</span></a> of $X$ can be computed in an iterated fashion as
+
+
+$$
+\begin{aligned}
+\Pr(X = x) 
+&=  \mathrm{E} \left\{\Pr(X = x|\lambda)\right\}\\
+&=  \int_0^{\infty} \Pr(X = x|\lambda) f(\lambda) ~d\lambda \\
+&=  \int_0^{\infty} \frac{\lambda^x}{\Gamma(x+1)} e^{-\lambda} \frac{\lambda^{\alpha-1}}{\theta^{\alpha}\Gamma(\alpha)}\exp(-\lambda/\theta) ~d\lambda\\
+&=  \frac{1}{\theta^{\alpha}\Gamma(x+1)\Gamma(\alpha)} \int_0^{\infty} \lambda^{x+\alpha-1} \exp\left(-\lambda(1+\frac{1}{\theta})\right) ~d\lambda \\
+&=  \frac{1}{\theta^{\alpha}\Gamma(x+1)\Gamma(\alpha)} \Gamma(x+\alpha)\left(1+\frac{1}{\theta}\right)^{-(x+\alpha)} \\
+&=  \frac{\Gamma(x+\alpha)}{\Gamma(x+1)\Gamma(\alpha)}\left(\frac{1}{1+\theta}\right)^{\alpha} \left(\frac{\theta}{1+\theta}\right)^{x} .\\
+\end{aligned} 
+$$
+Here, we used the gamma distribution equality with the substitution $\theta_r = 1 + 1/\theta$. As can be seen from Section \@ref(S:negative-binomial-distribution), this is a negative binomial distribution with parameter $r = \alpha$ and $\beta = \theta$.
+
+***
+
+</div>
 
 ### Bayesian Model
+
+With the intuition developed in the preceding Section \@ref(S:IntroBayes), we now restate the Bayesian model with a bit more precision using mathematical notation. 
+
 As stated earlier, under the Bayesian perspective, the model parameters and data are both viewed as random. Our uncertainty about the parameters of the underlying data generating process is reflected in the use of probability tools.
 
 **Prior Distribution.**
-Specifically, think about $\boldsymbol \theta$ as a random vector and let $\pi(\boldsymbol \theta)$ denote the distribution of possible outcomes. This is knowledge that we have before outcomes are observed and is called the prior distribution. Typically, the prior distribution is a regular distribution and so integrates or sums to one, depending on whether $\boldsymbol \theta$ is continuous or discrete. However, we may be very uncertain (or have no clue) about the distribution of $\boldsymbol \theta$; the Bayesian machinery allows the following situation
+Specifically, think about parameters $\boldsymbol \theta$ as a random vector and let $\pi(\boldsymbol \theta)$ denote the distribution of possible outcomes. This is knowledge that we have before outcomes are observed and is called the prior distribution. Typically, the prior distribution is a regular distribution and so integrates or sums to one, depending on whether $\boldsymbol \theta$ is continuous or discrete. However, we may be very uncertain (or have no clue) about the distribution of $\boldsymbol \theta$; the Bayesian machinery allows the following situation
 $$\int \pi(\theta) d\theta = \infty,$$
 in which case $\pi(\cdot)$ is called an **improper prior**.
 
 **Model Distribution.**
-The distribution of outcomes given an assumed value of $\boldsymbol \theta$ is known as the model distribution and denoted as $f(x | \boldsymbol \theta) = f_{X|\boldsymbol \theta} (x|\boldsymbol \theta )$. This is the usual frequentist mass or density function.
+The distribution of outcomes given an assumed value of $\boldsymbol \theta$ is known as the model distribution and denoted as $f(x | \boldsymbol \theta) = f_{X|\boldsymbol \theta} (x|\boldsymbol \theta )$. This is the usual frequentist mass or density function. This is simply the likelihood in the frequentist context and so it is also convenient to use this as a descriptor for the model distribution.
+
 
 **Joint Distribution.** The distribution of outcomes and model parameters is, unsurprisingly, known as the joint distribution and denoted as $f(x , \boldsymbol \theta) = f(x|\boldsymbol \theta )\pi(\boldsymbol \theta)$.
 
 **Marginal Outcome Distribution.** The distribution of outcomes can be expressed as
 $$f(x) = \int f(x | \boldsymbol \theta)\pi(\boldsymbol \theta) ~d \boldsymbol \theta.$$
-This is analogous to a frequentist mixture distribution.
+This is analogous to a frequentist mixture distribution. In the mixture distribution, we combined (or "mixed") different subpopulations. In the Bayesian context, the marginal distribution is a combination of different realizations of parameters (in some literatures, you can think about this as combining different "states of nature").
 
 **Posterior Distribution of Parameters.** After outcomes have been observed (hence the terminology "posterior"), one can use Bayes theorem to write the distribution as
 $$\pi(\boldsymbol \theta | x) =\frac{f(x , \boldsymbol \theta)}{f(x)} =\frac{f(x|\boldsymbol \theta )\pi(\boldsymbol \theta)}{f(x)}$$
-The idea is to update your knowledge of the distribution of $\boldsymbol \theta$ ($\pi(\boldsymbol \theta)$) with the data $x$.
-
-We can summarize the distribution using a confidence interval type statement.
-
-**Definition.** $[a,b]$ is said to be a $100(1-\alpha)\%$ **credibility interval** for $\boldsymbol \theta$  if
+The idea is to update your knowledge of the distribution of $\boldsymbol \theta$ ($\pi(\boldsymbol \theta)$) with the data $x$. Making statements about potential values of parameters is an important aspect of statistical inference. For example, we can summarize the distribution using a confidence interval type statement based on the *posterior* distribution. For example, the interval $[a,b]$ is said to be a $100(1-\alpha)\%$ *credibility* interval for $\boldsymbol \theta$  if
 $$\Pr (a \le \theta \le b | \mathbf{x}) \ge 1- \alpha.$$
 
 ***
 
-**Example `r chapnum`.4.1. SOA Exam Question.** 
+**Example `r chapnum`.4.1. Actuarial Exam Question.** 
 You are given: 
 
 (i) In a portfolio of risks, each policyholder can have at most one claim per year. 
@@ -1513,13 +1589,13 @@ To get the exact posterior density, we integrate the above function over its ran
 
 $$\int_{0.6}^{0.8} q^4-q^5 dq = \frac{q^5}{5} - \left. \frac{q^6}{6} \right|_{0.6}^{0.8} = 0.014069 \ \Rightarrow \ \pi(q|1,0)=\frac{q^4-q^5}{0.014069}$$
 
-Then $$P(0.7<q<0.8|1,0)= \int_{0.7}^{0.8} \frac{q^4-q^5}{0.014069}dq = 0.5572$$
+Then $$\Pr(0.7<q<0.8|1,0)= \int_{0.7}^{0.8} \frac{q^4-q^5}{0.014069}dq = 0.5572$$
 
 </div>
 
 ***
 
-**Example `r chapnum`.4.2. SOA Exam Question.**
+**Example `r chapnum`.4.2. Actuarial Exam Question.**
 You are given:
 
 (i) The prior distribution of the parameter $\Theta$ has probability density function: $$\pi(\theta) = \frac{1}{\theta^2}, \ \ 1 < \theta < \infty$$
@@ -1538,7 +1614,7 @@ $$\pi(\theta|3) =  \frac{f(3|\theta)\pi(\theta)}{\int_1^\infty f(3|\theta)\pi(\t
 
 Then 
 
-$$P(\Theta>2|3) = \int_2^\infty 32(3+\theta)^{-3}d\theta = \left. -16(3+\theta)^{-2} \right|_2^\infty = \frac{16}{25} = 0.64$$
+$$\Pr(\Theta>2|3) = \int_2^\infty 32(3+\theta)^{-3}d\theta = \left. -16(3+\theta)^{-2} \right|_2^\infty = \frac{16}{25} = 0.64$$
 
 </div>
 
@@ -1548,9 +1624,7 @@ $$P(\Theta>2|3) = \int_2^\infty 32(3+\theta)^{-3}d\theta = \left. -16(3+\theta)^
 
 In classical decision analysis, the loss function $l(\hat{\theta}, \theta)$ determines the penalty paid for using the estimate $\hat{\theta}$ instead of the true $\theta$.
 
-The **Bayes estimate** is the value that minimizes the expected loss $\mathrm{E~}[ l(\hat{\theta}, \theta)]$.
-
-Some important special cases include:
+The **Bayes estimate** is the value that minimizes the expected loss $\mathrm{E~}[ l(\hat{\theta}, \theta)]$. Some important special cases include:
 
 $$
 {\small
@@ -1566,20 +1640,25 @@ I(\hat{\theta} =\theta) & \text{zero-one loss (for discrete probabilities)} & \t
 }
 $$
 
-For new data $y$, the predictive distribution is $$f(y|x) = \int f(y|\theta) \pi(\theta|x) d\theta .$$
+Minimizing expected loss is a rigorous method for providing a single "best guess" about a likely value of a parameter, comparable to a frequentist estimator of the unknown (fixed) parameter. 
 
-Using squared error loss for the loss function, the **Bayesian prediction** of $y$ is
+For another type of statistical inference, it is often of interest to "predict" the value of a random outcome that is yet to be observed. Specifically, for new data $y$, the **predictive distribution** is $$f(y|x) = \int f(y|\theta) \pi(\theta|x) d\theta .$$
+It is also sometimes called a "posterior" distribution as the distribution of the new data is conditional on a base set of data.
+
+Using squared error loss for the loss function, the **Bayesian prediction** of $Y$ is
 
 $$
 \begin{aligned}
-\mathrm{E}(y|x) &=  \int y f(y|x) dy = \int y \left(\int f(y|\theta) \pi(\theta|x) d\theta \right) dy \\
-&=  \int  \mathrm{E}(y|\theta) \pi(\theta|x) ~d\theta .
+\mathrm{E}(Y|X) &=  \int ~y f(y|X) dy = \int y \left(\int f(y|\theta) \pi(\theta|X) d\theta \right) dy \\
+&=  \int  \mathrm{E}(Y|\theta) \pi(\theta|X) ~d\theta .
 \end{aligned}
 $$
+As we will see in the following examples, for some situations, the distribution of parameters is discrete, not continuous. In these cases, one simply replaces the integrals with sums instead of integrals in the formulas for the predictive distribution and the Bayesian prediction. Having a discrete set of possible outcomes allow us to think of them as alternative "states of nature," a helpful interpretation.
+
 
 ***
 
-**Example `r chapnum`.4.3. SOA Exam Question.** 
+**Example `r chapnum`.4.3. Actuarial Exam Question.** 
 For a particular policy, the conditional probability of the annual number of claims given $\Theta = \theta$, and the probability distribution of $\Theta$ are as follows: 
 
 $$
@@ -1604,36 +1683,54 @@ $$
 }
 $$
 
-Two claims are observed in Year 1. Calculate the Bayesian estimate (B&uuml;hlmann credibility estimate) of the number of claims in Year 2.
+Two claims are observed in Year 1. Calculate the Bayesian prediction of the number of claims in Year 2.
 
 <h5 style="text-align: center;"><a id="displayTextExampleSelect.4.3" href="javascript:toggleEX('toggleExampleSelect.4.3','displayTextExampleSelect.4.3');"><i><strong>Show Example Solution</strong></i></a> </h5>
 <div id="toggleExampleSelect.4.3" style="display: none">
 
 **Solution.**
-Note that $\mathrm{E}(\theta) = 0.05(0.8) + 0.3(0.2) = 0.1$ and $\mathrm{E}(\theta^2) = 0.05^2(0.8) + 0.3^2(0.2)=0.02$
+Start with the posterior distribution of the parameter
+$$
+\Pr(\theta|X) = \frac{\Pr(X|\theta)\Pr(\theta)}{\sum_{\theta}\Pr(X|\theta)\Pr(\theta)}
+$$
+so
+$$
+\begin{aligned} 
+\Pr(\theta=0.05|X=2) &= \frac{\Pr(X=2|\theta=0.05)\Pr(\theta=0.05)}
+{\Pr(X=2|\theta=0.05)\Pr(\theta=0.05)+\Pr(X=2|\theta=0.3)\Pr(\theta=0.3)}\\
+&=\frac{(1-3\times 0.05)(0.8)}{(1-3\times 0.05)(0.8)+(1-3\times 0.3)(0.2)}= \frac{68}{70}.
+\end{aligned} 
+$$
 
-We also have $\mu(\theta) = 0(2\theta) + 1(\theta) + 2(1-3\theta) = 2-5\theta$ and $v(\theta) = 0^2(2\theta) + 1^2(\theta) + 2^2(1-3\theta) - (2-5\theta)^2 = 9\theta-25\theta^2$.
+Thus, $\Pr(\theta=0.3|X=1)= 1 - \Pr(\theta=0.05|X=1) = \frac{2}{70}$.
 
-Thus 
+From the model distribution, we have 
+$$
+E(X|\theta) = 0 \times 2\theta + 1 \times \theta + 2 \times (1-3\theta) = 2 - 5 \theta.
+$$
+Thus,
 
-$$\begin{aligned}
-\mu &=  E(2-5\theta) = 2-5(0.1) = 1.5 \\
-v   &=  EVPV = E(9\theta - 25\theta^2)=9(0.1)-25(0.02)=0.4 \\
-a &= VHM = Var(2-5\theta) = 25Var(\theta) = 25(0.02-0.1^2) = 0.25 \\
-\Rightarrow k &= \frac{v}{a} = \frac{0.4}{0.25} = 1.6 \\
-\Rightarrow Z &= \frac{1}{1+1.6} = \frac{5}{13}
-\end{aligned}$$
+$$
+\begin{aligned}
+E(Y|X)
+&=   \sum_{\theta}  \mathrm{E}(Y|\theta) \pi(\theta|X) \\
+&= \mathrm{E}(Y|\theta=0.05) \pi(\theta=0.05|X)+\mathrm{E}(Y|\theta=0.3) \pi(\theta=0.3|X)\\
+&= ( 2 - 5 (0.05))\frac{68}{70} + ( 2 - 5 (0.3))\frac{2}{70} = 1.714.
+\end{aligned}
+$$
 
-Therefore, $P=\frac{5}{13}2 + \frac{8}{13}1.5 = 1.6923$. 
 
 </div>
 
 ***
 
-**Example `r chapnum`.4.4. SOA Exam Question.** 
+**Example `r chapnum`.4.4. Actuarial Exam Question.** 
 You are given:
 
-(i) Losses on a company's insurance policies follow a Pareto distribution with probability density function: $$f(x|\theta) = \frac{\theta}{(x+\theta)^2}, \ \ 0 < x < \infty$$
+(i) Losses on a company's insurance policies follow a Pareto distribution with probability density function: 
+$$
+f(x|\theta) = \frac{\theta}{(x+\theta)^2}, \ \ 0 < x < \infty
+$$
 (ii) For half of the company's policies $\theta=1$ , while for the other half $\theta=3$.
 
 For a randomly selected policy, losses in Year 1 were 5. Calculate the posterior probability that losses for this policy in Year 2 will exceed 8.
@@ -1642,39 +1739,47 @@ For a randomly selected policy, losses in Year 1 were 5. Calculate the posterior
 <div id="toggleExampleSelect.4.4" style="display: none">
 
 **Solution.**
-We are given the prior distribution of $\theta$ as $P(\theta=1)=P(\theta=3)=\frac{1}{2}$, the conditional distribution $f(x|\theta)$, and the fact that we observed $X_1=5$. The goal is to find the predictive probability $P(X_2>8|X_1=5)$.
+We are given the prior distribution of $\theta$ as $\Pr(\theta=1)=\Pr(\theta=3)=\frac{1}{2}$, the conditional distribution $f(x|\theta)$, and the fact that we observed $X_1=5$. The goal is to find the predictive probability $\Pr(X_2>8|X_1=5)$.
 
 The posterior probabilities are
 
-$$\begin{aligned}
-P(\theta=1|X_1=5) &= \frac{f(5|\theta=1)P(\theta=1)}{f(5|\theta=1)P(\theta=1) + f(5|\theta=3)P(\theta=3)} \\
+$$
+\begin{aligned}
+\Pr(\theta=1|X_1=5) &= \frac{f(5|\theta=1)\Pr(\theta=1)}{f(5|\theta=1)\Pr(\theta=1) + f(5|\theta=3)\Pr(\theta=3)} \\
 &= \frac{\frac{1}{36}(\frac{1}{2})}{\frac{1}{36}(\frac{1}{2})+\frac{3}{64}(\frac{1}{2})} = \frac{\frac{1}{72}}{\frac{1}{72} + \frac{3}{128}} = \frac{16}{43}
-\end{aligned}$$
+\end{aligned}
+$$
 
-$$\begin{aligned}
-P(\theta=3|X_1=5) &= \frac{f(5|\theta=3)P(\theta=3)}{f(5|\theta=1)P(\theta=1) + f(5|\theta=3)P(\theta=3)} \\
-&= 1-P(\theta=1|X_1=5) = \frac{27}{43}
-\end{aligned}$$
+$$
+\begin{aligned}
+\Pr(\theta=3|X_1=5) &= \frac{f(5|\theta=3)\Pr(\theta=3)}{f(5|\theta=1)\Pr(\theta=1) + f(5|\theta=3)\Pr(\theta=3)} \\
+&= 1-\Pr(\theta=1|X_1=5) = \frac{27}{43}
+\end{aligned}
+$$
 
 Note that the conditional probability that losses exceed 8 is
 
-$$\begin{aligned}
-P(X_2>8|\theta) &= \int_8^\infty f(x|\theta)dx \\
+$$
+\begin{aligned}
+\Pr(X_2>8|\theta) &= \int_8^\infty f(x|\theta)dx \\
 &= \int_8^\infty \frac{\theta}{(x+\theta)^2}dx = \left. -\frac{\theta}{x+\theta} \right|_8^\infty = \frac{\theta}{8 + \theta}
-\end{aligned}$$
+\end{aligned}
+$$
 
 The predictive probability is therefore 
 
-$$\begin{aligned}
-P(X_2>8|X_1=5) &= P(X_2>8|\theta=1) P(\theta=1|X_1=5) + P(X_2>8|\theta=3) P(\theta=3 | X_1=5) \\
+$$
+\begin{aligned}
+\Pr(X_2>8|X_1=5) &= \Pr(X_2>8|\theta=1) \Pr(\theta=1|X_1=5) + \Pr(X_2>8|\theta=3) \Pr(\theta=3 | X_1=5) \\
 &= \frac{1}{8+1}\left( \frac{16}{43}\right) + \frac{3}{8+3} \left( \frac{27}{43}\right) = 0.2126
-\end{aligned}$$
+\end{aligned}
+$$
 
 </div>
 
 ***
 
-**Example `r chapnum`.4.5. SOA Exam Question.** 
+**Example `r chapnum`.4.5. Actuarial Exam Question.** 
 You are given:
 
 (i) The probability that an insured will have at least one loss during any year is $p$. 
@@ -1689,14 +1794,14 @@ Calculate the posterior probability that the insured will have at least one loss
 **Solution.**
 The posterior probability density is 
 $$\begin{aligned}
-\pi(p|1,1,1,1,1,1,1,1) &\propto Pr(1,1,1,1,1,1,1,1|p)\ \pi(p) = p^8(2) \propto p^8 \\ 
+\pi(p|1,1,1,1,1,1,1,1) &\propto \Pr(1,1,1,1,1,1,1,1|p)\ \pi(p) = p^8(2) \propto p^8 \\ 
 \Rightarrow \pi(p|1,1,1,1,1,1,1,1) &= \frac{p^8}{\int_0^5 p^8 dp} = \frac{p^8}{(0.5^9)/9} = 9(0.5^{-9})p^8
 \end{aligned}$$
 
 Thus, the posterior probability that the insured will have at least one loss during Year 9 is
 
 $$\begin{aligned}
-P(X_9=1|1,1,1,1,1,1,1,1) &= \int_0^5 P(X_9=1|p) \pi(p|1,1,1,1,1,1,1,1) dp \\
+\Pr(X_9=1|1,1,1,1,1,1,1,1) &= \int_0^5 \Pr(X_9=1|p) \pi(p|1,1,1,1,1,1,1,1) dp \\
 &= \int_0^5 p(9)(0.5^{-9})p^8 dp = 9(0.5^{-9})(0.5^{10})/10 = 0.45
 \end{aligned}$$
 
@@ -1704,7 +1809,7 @@ P(X_9=1|1,1,1,1,1,1,1,1) &= \int_0^5 P(X_9=1|p) \pi(p|1,1,1,1,1,1,1,1) dp \\
 
 ***
 
-**Example `r chapnum`.4.6. SOA Exam Question.** 
+**Example `r chapnum`.4.6. Actuarial Exam Question.** 
 You are given:
 
 (i) Each risk has at most one claim each year. 
@@ -1731,26 +1836,26 @@ One randomly chosen risk has three claims during Years 1-6. Calculate the poster
 The probabilities are from a binomial distribution with 6 trials in which 3 successes were observed. 
 
 $$\begin{aligned} 
-P(3|\text{I}) &= {6 \choose 3} (0.1^3)(0.9^3) = 0.01458 \\
-P(3|\text{II}) &= {6 \choose 3} (0.2^3)(0.8^3) = 0.08192 \\
-P(3|\text{III}) &= {6 \choose 3} (0.4^3)(0.6^3) = 0.27648
+\Pr(3|\text{I}) &= {6 \choose 3} (0.1^3)(0.9^3) = 0.01458 \\
+\Pr(3|\text{II}) &= {6 \choose 3} (0.2^3)(0.8^3) = 0.08192 \\
+\Pr(3|\text{III}) &= {6 \choose 3} (0.4^3)(0.6^3) = 0.27648
 \end{aligned}$$
 
 The probability of observing three successes is 
-$$\begin{aligned} P(3) &= P(3|\text{I})P(\text{I}) + P(3|\text{II})P(\text{II}) + P(3|\text{III})P(\text{III}) \\
+$$\begin{aligned} \Pr(3) &= \Pr(3|\text{I})\Pr(\text{I}) + \Pr(3|\text{II})\Pr(\text{II}) + \Pr(3|\text{III})\Pr(\text{III}) \\
 &=  0.7(0.01458) + 0.2(0.08192) + 0.1(0.27648) = 0.054238
 \end{aligned}$$
 
 The three posterior probabilities are
 $$\begin{aligned}
-P(\text{I}|3) &= \frac{P(3|\text{I})P(\text{I})}{P(3)} = \frac{0.7(0.01458)}{0.054238} = 0.18817 \\
-P(\text{II}|3) &= \frac{P(3|\text{II})P(\text{II})}{P(3)} = \frac{0.2(0.08192)}{0.054238} = 0.30208 \\
-P(\text{III}|3) &= \frac{P(3|\text{III})P(\text{III})}{P(3)} = \frac{0.1(0.27648)}{0.054238} = 0.50975 
+\Pr(\text{I}|3) &= \frac{\Pr(3|\text{I})\Pr(\text{I})}{\Pr(3)} = \frac{0.7(0.01458)}{0.054238} = 0.18817 \\
+\Pr(\text{II}|3) &= \frac{\Pr(3|\text{II})\Pr(\text{II})}{\Pr(3)} = \frac{0.2(0.08192)}{0.054238} = 0.30208 \\
+\Pr(\text{III}|3) &= \frac{\Pr(3|\text{III})\Pr(\text{III})}{\Pr(3)} = \frac{0.1(0.27648)}{0.054238} = 0.50975 
 \end{aligned}$$
 
 The posterior probability of a claim is then 
 $$\begin{aligned} 
-P(\text{claim} | 3) &= P(\text{claim}|\text{I})P(\text{I} | 3) + P(\text{claim} | \text{II})P(\text{II} | 3) + P(\text{claim} | \text{III}) P(\text{III} | 3) \\ 
+\Pr(\text{claim} | 3) &= \Pr(\text{claim}|\text{I})\Pr(\text{I} | 3) + \Pr(\text{claim} | \text{II})\Pr(\text{II} | 3) + \Pr(\text{claim} | \text{III}) \Pr(\text{III} | 3) \\ 
 &= 0.1(0.18817) + 0.2(0.30208) + 0.4(0.50975) = 0.28313
 \end{aligned}$$
 
@@ -1758,52 +1863,53 @@ P(\text{claim} | 3) &= P(\text{claim}|\text{I})P(\text{I} | 3) + P(\text{claim} 
 
 ***
 
-### Posterior Distribution
-How can we calculate the posterior distribution $\pi(\boldsymbol \theta | x) =\frac{f(x|\boldsymbol \theta )\pi(\boldsymbol \theta)}{f(x)}$?
+### Posterior Distribution {#S:PosteriorDistribution}
 
-* **By hand:** we can do this in special cases
-* **Simulation:** use modern computational techniques such as Markov Chain Monte Carlo (MCMC) simulation
-* **Normal approximation:** !!! Theorem 12.39 of **KPW** provides a justification
-* **Conjugate distributions:** classical approach. Although this approach is available only for a limited number of distributions, it has the appeal that it provides closed-form expressions for the distributions, allowing for easy interpretations of results. We focus on this approach. 
+In the Bayesian framework, the key to statistical inference is understanding the posterior distribution of the parameters. This is not only interesting in its own right but also provides a pivotal component to the predictive distribution.
 
-To relate the prior and posterior distributions of the parameters, we have
+In this chapter, we used small examples that can be done by hand in order to focus on the foundations. For practical implementation, analysts rely heavily on simulation methods using modern computational methods such as Markov Chain Monte Carlo (MCMC) simulation. We will get an exposure to simulation techniques in Chapter 6 but more intensive techniques such as MCMC requires yet more background. See @hartman2016 for an introduction to computational Bayesian methods from an actuarial perspective.
+
+Another approach for computing posterior distribution involves the use of so-called **conjugate distributions.** Although this approach is available only for a limited number of distributions, it has the appeal that it provides closed-form expressions for the distributions, allowing for easy interpretations of results.
+
+To relate the prior and posterior distributions of the parameters, we have the relationship
 
 $$\begin{array}{ccc}
 \pi(\boldsymbol \theta | x) & = & \frac{f(x|\boldsymbol \theta )\pi(\boldsymbol \theta)}{f(x)}  \\
  & \propto  & f(x|\boldsymbol \theta ) \pi(\boldsymbol \theta) \\
-\text{Posterior} & \text{is proportional to} & \text{likelihood} \times \text{prior} \\
+\text{Posterior} & \text{is proportional to} & \text{likelihood} \times \text{prior} .
 \end{array}$$
 
-For **conjugate distributions**, the posterior and the prior come from the same family of distributions. The following illustration looks at the Poisson-gamma special case, the most well-known in actuarial applications.
+For conjugate distributions, the posterior and the prior come from the same family of distributions. The following illustration looks at the Poisson-gamma special case, the most well-known in actuarial applications.
 
-***
+**Special Case -- Poisson-Gamma - Continued.** Assume a Poisson($\lambda$) model distribution and that $\lambda$ follows a gamma($\alpha, \theta$) prior distribution. Then, the posterior distribution of $\lambda$ given the data follows a gamma distribution with new parameters $\alpha_{post} = \sum_i x_i + \alpha$ and $\theta_{post} = 1/(n + 1/\theta)$.
 
-<h5 style="text-align: center;"><a id="displayTextExampleConj.4f" href="javascript:toggleEX('toggleExampleConj','displayTextExampleConj.4f');"><i><strong>Show Example</strong></i></a> </h5>
+
+<h5 style="text-align: center;"><a id="displayTextExampleConj.4f" href="javascript:toggleEX('toggleExampleConj','displayTextExampleConj.4f');"><i><strong>Show Special Case Details</strong></i></a> </h5>
 <div id="toggleExampleConj" style="display: none">
 
-**Special Case -- Poisson-Gamma** Assume a Poisson($\lambda$) model distribution so that
-$$f(\mathbf{x} | \lambda) = \prod_{i=1}^n \frac{\lambda^{x_i} e^{-\lambda}}{x_i!}$$
-Assume $\lambda$ follows a gamma($\alpha, \theta$) prior distribution so that
+**Special Case -- Poisson-Gamma - Continued.** The model distribution is
+$$f(\mathbf{x} | \lambda) = \prod_{i=1}^n \frac{\lambda^{x_i} e^{-\lambda}}{x_i!} .$$
+The prior distribution is
 $$\pi(\lambda) = \frac{\left(\lambda/\theta\right)^{\alpha} \exp(-\lambda/\theta)}{\lambda \Gamma(\alpha)}.$$
-The posterior distribution is proportional to
+Thus, the posterior distribution is proportional to
 $$\begin{aligned}
 \pi(\lambda | \mathbf{x}) &\propto f(\mathbf{x}|\theta ) \pi(\lambda) \\
-&= C \lambda^{\sum_i x_i + \alpha +1} \exp(-\lambda(n+1/\theta))
+&= C \lambda^{\sum_i x_i + \alpha -1} \exp(-\lambda(n+1/\theta))
 \end{aligned}$$
 
-where $C$ is a constant. We recognize this to be a gamma distribution with new parameters $\alpha_{new} = \sum_i x_i + \alpha$ and $\theta_{new} = 1/(n + 1/\theta)$. Thus, the gamma distribution is a conjugate prior for the Poisson model distribution. 
+where $C$ is a constant. We recognize this to be a gamma distribution with new parameters $\alpha_{post} = \sum_i x_i + \alpha$ and $\theta_{post} = 1/(n + 1/\theta)$. Thus, the gamma distribution is a conjugate prior for the Poisson model distribution. 
 
 </div>
 
 ***
 
-**Example `r chapnum`.4.7. SOA Exam Question.** 
+**Example `r chapnum`.4.7. Actuarial Exam Question.** 
 You are given:
 
 (i) The conditional distribution of the number of claims per policyholder is Poisson with mean $\lambda$.
 (ii) The variable $\lambda$ has a gamma distribution with parameters $\alpha$ and $\theta$.
-(iii) For policyholders with 1 claim in Year 1, the credibility estimate for the number of claims in Year 2 is 0.15.
-(iv) For policyholders with an average of 2 claims per year in Year 1 and Year 2, the credibility estimate for the number of claims in Year 3 is 0.20.
+(iii) For policyholders with 1 claim in Year 1, the Bayes prediction for the number of claims in Year 2 is 0.15.
+(iv) For policyholders with an average of 2 claims per year in Year 1 and Year 2, the Bayes prediction for the number of claims in Year 3 is 0.20.
 
 Calculate $\theta$.
 
@@ -1811,31 +1917,37 @@ Calculate $\theta$.
 <div id="toggleExampleSelect.4.7" style="display: none">
 
 **Solution.**
-Since the conditional distribution of the number of claims per policyholder,  $E(X|\lambda)=Var(X|\lambda)=\lambda$
-
-Thus, 
-
+Since the conditional distribution of the number of claims per policyholder,  $E(X|\lambda)=Var(X|\lambda)=\lambda$, the Bayes prediction is
 $$\begin{aligned}
-\mu &= v = E(\lambda) = \alpha\theta \\
-a &= Var(\lambda) = \alpha\theta^2 \\
-k &= \frac{v}{a} = \frac{1}{\theta} \\
-\Rightarrow Z &= \frac{n}{n+1/\theta} = \frac{n\theta}{n\theta+1}
+\mathrm{E}(X_2|X_1)
+&= \int \mathrm{E}(X_2|\lambda) \pi(\lambda|X_1) d\lambda = \alpha_{new} \theta_{new}
 \end{aligned}$$
+because the posterior distribution is gamma with parameters $\alpha_{new}$ and $\theta_{new}$.
 
-Using the credibility estimates given, 
-
-$$\begin{aligned}
-0.15 &= \frac{\theta}{\theta + 1}(1) + \frac{1}{\theta + 1}\mu = \frac{\theta + \mu}{\theta + 1} \\
-0.20 &= \frac{2\theta}{2\theta+1}(2) + \frac{1}{2\theta+1}\mu = \frac{4\theta+\mu}{2\theta+1}
-\end{aligned}$$
-
-From the first equation, $0.15\theta + 0.15 = \theta + \mu \ \Rightarrow \ \mu = 0.15- 0.85\theta$.
-
-Then the second equation becomes $0.4\theta + 0.2 = 4\theta + 0.15 - 0.85\theta \ \Rightarrow \ \theta=0.01818.$
+For year 1, we have
+$$
+0.15 = (X_1 + \alpha) \times \frac{1}{n+1/\theta} = (1 + \alpha) \times \frac{1}{1+1/\theta},
+$$
+so $0.15(1+1/\theta)= 1 + \alpha.$ For year 2, we have
+$$
+0.2 = (X_1+X_2 + \alpha) \times \frac{1}{n+1/\theta} = (4 + \alpha) \times \frac{1}{2+1/\theta},
+$$
+so $0.2(2+1/\theta)= 4 + \alpha.$ Equating these yields
+$$
+0.2(2+1/\theta)=3 + 0.15(1+1/\theta)
+$$
+resulting in $\theta = 1/55 = 0.018182$. 
 
 </div>
 
 ***
+
+Closed-form expressions means that results can be readily interpreted and easily computed; hence, conjugate distributions are useful in actuarial practice. Two other special cases used extensively are:
+
+- The uncertainty of parameters is summarized using a beta distribution and the outcomes have a (conditional on the parameter) binomial distribution.
+- The uncertainty of parameters is summarized using a normal distribution and the outcomes are conditionally normally distributed.
+
+Additional results on conjugate distributions are summarized in the Appendix Chapter \@ref(C:AppB).
 
 ## Further Resources and Contributors {#MS:further-reading-and-resources}
 

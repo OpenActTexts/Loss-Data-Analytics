@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="C-AppC.html">
-
+<link rel="prev" href="C-AggLossModels.html">
+<link rel="next" href="C-PremCalc.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -483,322 +483,229 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="bibliography" class="section level1 unnumbered">
-<h1>Bibliography</h1>
+<div id="C:Simulation" class="section level1">
+<h1><span class="header-section-number">Chapter 6</span> Simulation</h1>
+<p>Simulation is a computer-based, computationally intensive, method of solving difficult problems, such as analyzing business processes. Instead of creating physical processes and experimenting with them in order to understand their operational characteristics, a simulation study is based on a computer representation - it considers various hypothetical conditions as inputs and summarizes the results. Through simulation, a vast number of hypothetical conditions can be quickly and inexpensively examined. Performing the same analysis with a physical system is not only expensive and time-consuming but, in many cases, impossible. A drawback of simulation is that computer models are not perfect representations of business processes.</p>
+<p>There are three basic steps for producing a simulation study:</p>
+<ul>
+<li><p>Generating approximately independent realizations that are uniformly distributed</p></li>
+<li><p>Transforming the uniformly distributed realizations to observations from a probability distribution of interest</p></li>
+<li><p>With the generated observations as inputs, designing a structure to produce interesting and reliable results.</p></li>
+</ul>
+<p>Designing the structure can be a difficult step, where the degree of difficulty depends on the problem being studied. There are many resources, including this tutorial, to help the actuary with the first two steps.</p>
+<div id="generating-independent-uniform-observations" class="section level2">
+<h2><span class="header-section-number">6.1</span> Generating Independent Uniform Observations</h2>
+<p>We begin with a historically prominent method.</p>
+<p><strong>Linear Congruential Generator.</strong> To generate a sequence of random numbers, start with <span class="math inline">\(B_0\)</span>, a starting value that is known as a “seed.” Update it using the recursive relationship <span class="math display">\[B_{n+1} = a B_n + c  \text{ modulo }m, ~~ n=0, 1, 2, \ldots .\]</span> This algorithm is called a <em>linear congruential generator</em>. The case of <span class="math inline">\(c=0\)</span> is called a <em>multiplicative</em> congruential generator; it is particularly useful for really fast computations.</p>
+<p>For illustrative values of <span class="math inline">\(a\)</span> and <span class="math inline">\(m\)</span>, Microsoft’s Visual Basic uses <span class="math inline">\(m=2^{24}\)</span>, <span class="math inline">\(a=1,140,671,485\)</span>, and <span class="math inline">\(c = 12,820,163\)</span> (see <a href="http://support.microsoft.com/kb/231847" class="uri">http://support.microsoft.com/kb/231847</a>). This is the engine underlying the random number generation in Microsoft’s Excel program.</p>
+<p>The sequence used by the analyst is defined as <span class="math inline">\(U_n=B_n/m.\)</span> The analyst may interpret the sequence {<span class="math inline">\(U_{i}\)</span>} to be (approximately) identically and independently uniformly distributed on the interval (0,1). To illustrate the algorithm, consider the following.</p>
+<p><strong>Example.</strong> Take <span class="math inline">\(m=15\)</span>, <span class="math inline">\(a=3\)</span>, <span class="math inline">\(c=2\)</span> and <span class="math inline">\(B_0=1\)</span>. Then we have:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">step <span class="math inline">\(n\)</span></th>
+<th align="left"><span class="math inline">\(B_n\)</span></th>
+<th align="center"><span class="math inline">\(U_n\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">0</td>
+<td align="left"><span class="math inline">\(B_0=1\)</span></td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">1</td>
+<td align="left"><span class="math inline">\(B_1 =\mod(3 \times 1 +2) = 5\)</span></td>
+<td align="center"><span class="math inline">\(U_1 = \frac{5}{15}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">2</td>
+<td align="left"><span class="math inline">\(B_2 =\mod(3 \times 5 +2) = 2\)</span></td>
+<td align="center"><span class="math inline">\(U_2 = \frac{2}{15}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">3</td>
+<td align="left"><span class="math inline">\(B_3 =\mod(3 \times 2 +2) = 8\)</span></td>
+<td align="center"><span class="math inline">\(U_3 = \frac{8}{15}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">4</td>
+<td align="left"><span class="math inline">\(B_4 =\mod(3 \times 8 +2) = 11\)</span></td>
+<td align="center"><span class="math inline">\(U_4 = \frac{11}{15}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Sometimes computer generated random results are known as <em>pseudo</em>-random numbers to reflect the fact that they are machine generated and can be replicated. That is, despite the fact that {<span class="math inline">\(U_{i}\)</span>} appears to be i.i.d, it can be reproduced by using the same seed number (and the same algorithm). The ability to replicate results can be a tremendous tool as you use simulation while trying to uncover patterns in a business process.</p>
+<p>The linear congruential generator is just one method of producing pseudo-random outcomes. It is easy to understand and is (still) widely used. The linear congruential generator does have limitations, including the fact that it is possible to detect long-run patterns over time in the sequences generated (recall that we can interpret “independence” to mean a total lack of functional patterns). Not surprisingly, advanced techniques have been developed that address some of this method’s drawbacks.</p>
+</div>
+<div id="inverse-transform" class="section level2">
+<h2><span class="header-section-number">6.2</span> Inverse Transform</h2>
+<p>With the sequence of uniform random numbers, we next transform them to a distribution of interest. Let <span class="math inline">\(F\)</span> represent a distribution function of interest. Then, use the <em>inverse transform</em> <span class="math display">\[X_i=F^{-1}\left( U_i \right) .\]</span> The result is that the sequence {<span class="math inline">\(X_{i}\)</span>} is approximately i.i.d. with distribution function <span class="math inline">\(F\)</span>.</p>
+<p>To interpret the result, recall that a distribution function, <span class="math inline">\(F\)</span>, is monotonically increasing and so the inverse function, <span class="math inline">\(F^{-1}\)</span>, is well-defined. The inverse distribution function (also known as the <em>quantile function</em>), is defined as <span class="math display">\[\begin{aligned}
+F^{-1}(y) = \inf_x \{ F(x) \ge y \} ,\end{aligned}\]</span> where “<span class="math inline">\(\inf\)</span>” stands for “infimum”, or the greatest lower bound.</p>
+<p><strong>Inverse Transform Visualization.</strong> Here is a graph to help you visualize the inverse transform. When the random variable is continuous, the distribution function is strictly increasing and we can readily identify a unique inverse at each point of the distribution.</p>
+<div class="figure" style="text-align: center"><span id="fig:InverseDF"></span>
+<img src="LossDataAnalytics_files/figure-html/InverseDF-1.png" alt="Inverse of a Distribution Function" width="60%" />
+<p class="caption">
+Figure 6.1: Inverse of a Distribution Function
+</p>
+</div>
+<p>The inverse transform result is available when the underlying random variable is continuous, discrete or a mixture. Here is a series of examples to illustrate its scope of applications.</p>
+<p><strong>Exponential Distribution Example.</strong> Suppose that we would like to generate observations from an exponential distribution with scale parameter <span class="math inline">\(\theta\)</span> so that <span class="math inline">\(F(x) = 1 - e^{-x/\theta}\)</span>. To compute the inverse transform, we can use the following steps: <span class="math display">\[\begin{aligned}
+ y = F(x) &amp;\Leftrightarrow  y = 1-e^{-x/\theta} \\
+  &amp;\Leftrightarrow -\theta \ln(1-y) = x = F^{-1}(y) .\end{aligned}\]</span> Thus, if <span class="math inline">\(U\)</span> has a uniform (0,1) distribution, then <span class="math inline">\(X = -\theta \ln(1-U)\)</span> has an exponential distribution with parameter <span class="math inline">\(\theta\)</span>.</p>
+<p><em>Some Numbers.</em> Take <span class="math inline">\(\theta = 10\)</span> and generate three random numbers to get</p>
+<table>
+<tbody>
+<tr class="odd">
+<td align="left"><span class="math inline">\(U\)</span></td>
+<td align="right">0.26321364</td>
+<td align="right">0.196884752</td>
+<td align="right">0.897884218</td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(X = -10\ln(1-U)\)</span></td>
+<td align="right">1.32658423</td>
+<td align="right">0.952221285</td>
+<td align="right">9.909071325</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Pareto Distribution Example.</strong> Suppose that we would like to generate observations from a Pareto distribution with parameters <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\theta\)</span> so that <span class="math inline">\(F(x) = 1 - \left(\frac{\theta}{x+\theta} \right)^{\alpha}\)</span>. To compute the inverse transform, we can use the following steps: <span class="math display">\[\begin{aligned}
+ y = F(x) &amp;\Leftrightarrow 1-y = \left(\frac{\theta}{x+\theta} \right)^{\alpha} \\
+  &amp;\Leftrightarrow \left(1-y\right)^{-1/\alpha} = \frac{x+\theta}{\theta} = \frac{x}{\theta} +1 \\
+    &amp;\Leftrightarrow \theta \left((1-y)^{-1/\alpha} - 1\right) = x = F^{-1}(y) .\end{aligned}\]</span> Thus, <span class="math inline">\(X = \theta \left((1-U)^{-1/\alpha} - 1\right)\)</span> has a Pareto distribution with parameters <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\theta\)</span>.</p>
+<p><strong>Inverse Transform Justification.</strong> Why does the random variable <span class="math inline">\(X = F^{-1}(U)\)</span> have a distribution function “<span class="math inline">\(F\)</span>”?</p>
+<p>This is easy to establish in the continuous case. Because <span class="math inline">\(U\)</span> is a Uniform random variable on (0,1), we know that <span class="math inline">\(\Pr(U \le y) = y\)</span>, for <span class="math inline">\(0 \le y \le 1\)</span>. Thus, <span class="math display">\[\begin{aligned}
+\Pr(X \le x) &amp;= \Pr(F^{-1}(U) \le x) \\
+ &amp;= \Pr(F(F^{-1}(U)) \le F(x)) \\
+&amp;= \Pr(U \le F(x)) = F(x)\end{aligned}\]</span> as required. The key step is that $ F(F^{-1}(u)) = u$ for each <span class="math inline">\(u\)</span>, which is clearly true when <span class="math inline">\(F\)</span> is strictly increasing.</p>
+<p><strong>Bernoulli Distribution Example.</strong> Suppose that we wish to simulate random variables from a Bernoulli distribution with parameter <span class="math inline">\(p=0.85\)</span>. A graph of the cumulative distribution function shows that the quantile function can be written as</p>
+<div class="figure" style="text-align: center"><span id="fig:BinaryDF"></span>
+<img src="LossDataAnalytics_files/figure-html/BinaryDF-1.png" alt="Distribution Function of a Binary Random Variable" width="50%" />
+<p class="caption">
+Figure 6.2: Distribution Function of a Binary Random Variable
+</p>
+</div>
+<!-- ![image](BinaryDF.eps){width=".6\textwidth"} -->
+<p><span class="math display">\[\begin{aligned}
+F^{-1}(y) = \left\{ \begin{array}{cc}
+              0 &amp; 0&lt;y \leq 0.85 \\
+              1 &amp; 0.85 &lt; y  \leq  1.0 .
+            \end{array} \right.\end{aligned}\]</span></p>
+<p>Thus, with the inverse transform we may define <span class="math display">\[\begin{aligned}
+X = \left\{ \begin{array}{cc}
+              0 &amp; 0&lt;U \leq 0.85  \\
+              1 &amp;  0.85 &lt; U  \leq  1.0
+            \end{array} \right.\end{aligned}\]</span> <em>Some Numbers.</em> Generate three random numbers to get</p>
+<table>
+<tbody>
+<tr class="odd">
+<td align="left"><span class="math inline">\(U\)</span></td>
+<td align="right">0.26321364</td>
+<td align="right">0.196884752</td>
+<td align="right">0.897884218</td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(X =F^{-1}(U)\)</span></td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">1</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Discrete Distribution Example.</strong> Consider the time of a machine failure in the first five years. The distribution of failure times is given as:</p>
+<table>
+<tbody>
+<tr class="odd">
+<td align="left">Time (<span class="math inline">\(x\)</span>)</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">5</td>
+</tr>
+<tr class="even">
+<td align="left">probability</td>
+<td align="right">0.1</td>
+<td align="right">0.2</td>
+<td align="right">0.1</td>
+<td align="right">0.4</td>
+<td align="right">0.2</td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\(F(x)\)</span></td>
+<td align="right">0.1</td>
+<td align="right">0.3</td>
+<td align="right">0.4</td>
+<td align="right">0.8</td>
+<td align="right">1.0</td>
+</tr>
+</tbody>
+</table>
+<div class="figure" style="text-align: center"><span id="fig:DiscreteDF"></span>
+<img src="LossDataAnalytics_files/figure-html/DiscreteDF-1.png" alt="Distribution Function of a Discrete Random Variable" width="80%" />
+<p class="caption">
+Figure 6.3: Distribution Function of a Discrete Random Variable
+</p>
+</div>
+<p>Using the graph of the distribution function, with the inverse transform we may define <span class="math display">\[\begin{aligned}
+X = \left\{ \begin{array}{cc}
+              1 &amp;   0&lt;U  \leq 0.1  \\
+              2 &amp;  0.1 &lt; U  \leq  0.3\\
+              3 &amp;  0.3 &lt; U  \leq  0.4\\
+              4 &amp;  0.4 &lt; U  \leq  0.8  \\
+              5 &amp;  0.8 &lt; U  \leq  1.0     .
+            \end{array} \right.\end{aligned}\]</span></p>
+<p>For general discrete random variables there may not be an ordering of outcomes. For example, a person could own one of five types of life insurance products and we might use the following algorithm to generate random outcomes:</p>
+<p><span class="math display">\[\begin{aligned}
+X = \left\{ \begin{array}{cc}
+  \textrm{whole life} &amp;   0&lt;U  \leq 0.1  \\
+ \textrm{endowment} &amp;  0.1 &lt; U  \leq  0.3\\
+\textrm{term life} &amp;  0.3 &lt; U  \leq  0.4\\
+  \textrm{universal life} &amp;  0.4 &lt; U  \leq  0.8  \\
+  \textrm{variable life} &amp;  0.8 &lt; U  \leq  1.0 .
+            \end{array} \right.\end{aligned}\]</span></p>
+<p>Another analyst may use an alternative procedure such as:</p>
+<p><span class="math display">\[\begin{aligned}
+X = \left\{ \begin{array}{cc}
+  \textrm{whole life} &amp;   0.9&lt;U&lt;1.0  \\
+ \textrm{endowment} &amp;  0.7 \leq U &lt; 0.9\\
+\textrm{term life} &amp;  0.6 \leq U &lt; 0.7\\
+  \textrm{universal life} &amp;  0.2 \leq U &lt; 0.6  \\
+  \textrm{variable life} &amp;  0 \leq U &lt; 0.2 .
+            \end{array} \right.\end{aligned}\]</span></p>
+<p>Both algorithms produce (in the long-run) the same probabilities, e.g., <span class="math inline">\(\Pr(\textrm{whole life})=0.1\)</span>, and so forth. So, neither is incorrect. You should be aware that there is “more than one way to skin a cat.” (What an old expression!) Similarly, you could use an alterative algorithm for ordered outcomes (such as failure times 1, 2, 3, 4, or 5, above).</p>
+<p><strong>Mixed Distribution Example.</strong> Consider a random variable that is 0 with probability 70% and is exponentially distributed with parameter <span class="math inline">\(\theta= 10,000\)</span> with probability 30%. In practice, this might correspond to a 70% chance of having no insurance claims and a 30% chance of a claim - if a claim occurs, then it is exponentially distributed. The distribution function is given as</p>
+<p><span class="math display">\[\begin{aligned}
+F(y) = \left\{ \begin{array}{cc}
+              0 &amp;  x&lt;0  \\
+              1 - 0.3 \exp(-x/10000) &amp; x \ge 0 .
+            \end{array} \right.\end{aligned}\]</span></p>
+<div class="figure" style="text-align: center"><span id="fig:MixedDF"></span>
+<img src="LossDataAnalytics_files/figure-html/MixedDF-1.png" alt="Distribution Function of a Hybrid Random Variable" width="60%" />
+<p class="caption">
+Figure 6.4: Distribution Function of a Hybrid Random Variable
+</p>
+</div>
+<!-- ![image](MixedDF.eps){width=".6\textwidth"} -->
+<p>From the graph, we can see that the inverse transform for generating random variables with this distribution function is</p>
+<p><span class="math display">\[\begin{aligned}
+X = F^{-1}(U) = \left\{ \begin{array}{cc}
+              0 &amp;  0&lt; U  \leq  0.7  \\
+              -1000 \ln (\frac{1-U}{0.3}) &amp; 0.7 &lt; U &lt; 1 .
+            \end{array} \right.\end{aligned}\]</span></p>
+<p>As you have seen, for the discrete and mixed random variables, the key is to draw a graph of the distribution function that allows you to visualize potential values of the inverse function.</p>
+</div>
+<div id="how-many-simulated-values" class="section level2">
+<h2><span class="header-section-number">6.3</span> How Many Simulated Values?</h2>
+<p>There are many topics to be described in the study of simulation (and fortunately many good sources to help you). The best way to appreciate simulation is to experience it. One topic that inevitably comes up is the number of simulated trials needed to rid yourself of sampling variability so that you may focus on patterns of interest.</p>
+<p>How many simulated values are recommended? 100? 1,000,000? We can use the central limit theorem to respond to this question. Suppose that we wish to use simulation to calculate <span class="math inline">\(\mathrm{E~}h(X)\)</span>, where <span class="math inline">\(h(\cdot)\)</span> is some known function. Then, based on <span class="math inline">\(R\)</span> simulations (replications), we get $ X_1,,X_R$. From this simulated sample, we calculate a sample average <span class="math display">\[\overline{h}_R=\frac{1}{R}\sum_{i=1}^{R} h(X_i)\]</span> and a sample standard deviation <span class="math display">\[s_{h,R}^2 = \frac{1}{R} \sum_{i=1}^{R}\left( h(X_i) -\overline{h}_R
+\right) ^2.\]</span> So, <span class="math inline">\(\overline{h}_R\)</span> is your best estimate of <span class="math inline">\(\mathrm{E~}h(X)\)</span> and <span class="math inline">\(s_{h,R}^2\)</span> provides an indication of the uncertainty of your estimate. As one criterion for your confidence in the result, suppose that you wish to be within 1% of the mean with 95% certainty. According to the central limit theorem, your estimate should be approximately normally distributed. Thus, you should continue your simulation until <span class="math display">\[\frac{.01\overline{h}_R}{s_{h,R}/\sqrt{R}}\geq 1.96\]</span> or equivalently <span class="math display">\[R \geq 38,416\frac{s_{h,R}^2}{\overline{h}_R^2}.\]</span> This criterion is a direct application of the approximate normality (recall that 1.96 is the 97.5th percentile of the standard normal curve). Note that <span class="math inline">\(\overline{h}_R\)</span> and <span class="math inline">\(s_{h,R}\)</span> are not known in advance, so you will have to come up with estimates as you go (sequentially), either by doing a little pilot study in advance or by interrupting your procedure intermittently to see if the criterion is satisfied.</p>
 
-<div id="refs" class="references">
-<div>
-<p>Aalen, Odd. 1978. “Nonparametric Inference for a Family of Counting Processes.” <em>The Annals of Statistics</em> 6 (4). Institute of Mathematical Statistics: 701–26.</p>
 </div>
-<div>
-<p>Abbott, Dean. 2014. <em>Applied Predictive Analytics: Principles and Techniques for the Professional Data Analyst</em>. Hoboken, NJ: Wiley.</p>
 </div>
-<div>
-<p>Abdullah, Mohammad F., and Kamsuriah Ahmad. 2013. “The Mapping Process of Unstructured Data to Structured Data.” In <em>2013 International Conference on Research and Innovation in Information Systems (Icriis)</em>, 151–55.</p>
-</div>
-<div>
-<p>Actuarial Standards Board. 2018. “Actuarial Standards of Practice.” In. American Academy of Actuaries. <a href="http://www.actuarialstandardsboard.org/standards-of-practice/" class="uri">http://www.actuarialstandardsboard.org/standards-of-practice/</a>.</p>
-</div>
-<div>
-<p>Aggarwal, Charu C. 2015. <em>Data Mining: The Textbook</em>. New York, NY: Springer.</p>
-</div>
-<div>
-<p>Agresti, Alan. 1996. <em>An Introduction to Categorical Data Analysis</em>. Vol. 135. Wiley New York.</p>
-</div>
-<div>
-<p>Albers, Michael J. 2017. <em>Introduction to Quantitative Data Analysis in the Behavioral and Social Sciences</em>. Hoboken, NJ: John Wiley &amp; Sons, Inc.</p>
-</div>
-<div>
-<p>Bailey, Robert A., and J. Simon LeRoy. 1960. “Two Studies in Automobile Ratemaking.” <em>Proceedings of the Casualty Actuarial Society Casualty Actuarial Society</em> XLVII (I).</p>
-</div>
-<div>
-<p>Bandyopadhyay, Prasanta S., and Malcolm R. Forster, eds. 2011. <em>Philosophy of Statistics</em>. Handbook of the Philosophy of Science 7. North Holland.</p>
-</div>
-<div>
-<p>Billingsley, Patrick. 2008. <em>Probability and Measure</em>. John Wiley &amp; Sons.</p>
-</div>
-<div>
-<p>Bishop, Christopher M. 2007. <em>Pattern Recognition and Machine Learning</em>. New York, NY: Springer.</p>
-</div>
-<div>
-<p>Bishop, Yvonne M., Stephen E. Fienberg, and Paul W. Holland. 1975. <em>Discrete Multivariate Analysis: Theory and Practice</em>. Cambridge [etc.]: MIT.</p>
-</div>
-<div>
-<p>Blomqvist, Nils. 1950. “On a Measure of Dependence Between Two Random Variables.” <em>The Annals of Mathematical Statistic</em>, 593–600.</p>
-</div>
-<div>
-<p>Bluman, Allan. 2012. <em>Elementary Statistics: A Step by Step Approach</em>. New York, NY: McGraw-Hill.</p>
-</div>
-<div>
-<p>Bowers, Newton L., Hans U. Gerber, James C. Hickman, Donald A. Jones, and Cecil J. Nesbitt. 1986. <em>Actuarial Mathematics</em>. Society of Actuaries Itasca, Ill.</p>
-</div>
-<div>
-<p>Box, George EP. 1980. “Sampling and Bayes’ Inference in Scientific Modelling and Robustness.” <em>Journal of the Royal Statistical Society. Series A (General)</em>. JSTOR, 383–430.</p>
-</div>
-<div>
-<p>Breiman, Leo. 2001. “Statistical Modeling: The Two Cultures.” <em>Statistical Science</em> 16 (3): 199–231.</p>
-</div>
-<div>
-<p>Breiman, Leo, Jerome Friedman, Charles J. Stone, and R.A. Olshen. 1984. <em>Classification and Regression Trees</em>. Raton Boca, FL: Chapman; Hall/CRC.</p>
-</div>
-<div>
-<p>Buhlmann, Hans. 1967. “The Complement of Credibility.” ASTIN Bulletin, 199–207.</p>
-</div>
-<div>
-<p>Buhlmann, Hans, and Alois Gisler. 2005. <em>A Course in Credibility Theory and Its Applications</em>. ACTEX Publications.</p>
-</div>
-<div>
-<p>Buttrey, Samuel E., and Lyn R. Whitaker. 2017. <em>A Data Scientist’s Guide to Acquiring, Cleaning, and Managing Data in R</em>. Hoboken, NJ: Wiley.</p>
-</div>
-<div>
-<p>Chen, Min, Shiwen Mao, Yin Zhang, and Victor CM Leung. 2014. <em>Big Data: Related Technologies, Challenges and Future Prospects</em>. New York, NY: Springer.</p>
-</div>
-<div>
-<p>Clarke, Bertrand, Ernest Fokoue, and Hao Helen Zhang. 2009. <em>Principles and Theory for Data Mining and Machine Learning</em>. New York, NY: Springer-Verlag.</p>
-</div>
-<div>
-<p>Cummins, J. David, and Richard A. Derrig. 2012. <em>Managing the Insolvency Risk of Insurance Companies: Proceedings of the Second International Conference on Insurance Solvency</em>. Vol. 12. Springer Science &amp; Business Media.</p>
-</div>
-<div>
-<p>Dabrowska, Dorota M. 1988. “Kaplan-Meier Estimate on the Plane.” <em>The Annals of Statistics</em>, 1475–89.</p>
-</div>
-<div>
-<p>Daroczi, Gergely. 2015. <em>Mastering Data Analysis with R</em>. Birmingham, UK: Packt Publishing.</p>
-</div>
-<div>
-<p>De Jong, Piet, and Gillian Z. Heller. 2008. <em>Generalized Linear Models for Insurance Data</em>. Cambridge University Press Cambridge.</p>
-</div>
-<div>
-<p>Dickson, David C. M., Mary Hardy, and Howard R. Waters. 2013. <em>Actuarial Mathematics for Life Contingent Risks</em>. Cambridge University Press.</p>
-</div>
-<div>
-<p>Dobson, Annette J, and Adrian Barnett. 2008. <em>An Introduction to Generalized Linear Models</em>. CRC press.</p>
-</div>
-<div>
-<p>Earnix. 2013. “2013 Insurance Predictive Modeling Survey.” In. Earnix; Insurance Services Office, Inc. <a href="http://earnix.com/2013-insurance-predictive-modeling-survey/3594/" class="uri">http://earnix.com/2013-insurance-predictive-modeling-survey/3594/</a>.</p>
-</div>
-<div>
-<p>Faraway, Julian J. 2016. <em>Extending the Linear Model with R: Generalized Linear, Mixed Effects and Nonparametric Regression Models</em>. Vol. 124. CRC press.</p>
-</div>
-<div>
-<p>Fechner, G. T. 1897. “Kollektivmasslehre.” <em>Wilhelm Englemann, Leipzig</em>.</p>
-</div>
-<div>
-<p>Forte, Rui Miguel. 2015. <em>Mastering Predictive Analytics with R</em>. Birmingham, UK: Packt Publishing.</p>
-</div>
-<div>
-<p>Frees, Edward W. 2009. <em>Regression Modeling with Actuarial and Financial Applications</em>. Cambridge University Press.</p>
-</div>
-<div>
-<p>Frees, Edward W. 2009a. <em>Regression Modeling with Actuarial and Financial Applications</em>. Cambridge University Press.</p>
-</div>
-<div>
-<p>———. 2009b. <em>Regression Modeling with Actuarial and Financial Applications</em>. Cambridge University Press.</p>
-</div>
-<div>
-<p>Frees, Edward W., and Emiliano A. Valdez. 1998. “Understanding Relationships Using Copulas.” <em>North American Actuarial Journal</em> 2 (01): 1–25.</p>
-</div>
-<div>
-<p>———. 2008. “Hierarchical Insurance Claims Modeling.” <em>Journal of the American Statistical Association</em> 103 (484). Taylor &amp; Francis: 1457–69.</p>
-</div>
-<div>
-<p>Frees, Edward W., Glenn Meyers, and A. David Cummings. 2011. “Summarizing Insurance Scores Using a Gini Index.” <em>Journal of the American Statistical Association</em> 106 (495). Taylor &amp; Francis: 1085–98.</p>
-</div>
-<div>
-<p>———. 2014. “Insurance Ratemaking and a Gini Index.” <em>Journal of Risk and Insurance</em> 81 (2). Wiley Online Library: 335–66.</p>
-</div>
-<div>
-<p>Gan, Guojun. 2011. <em>Data Clustering in C++: An Object-Oriented Approach</em>. Data Mining and Knowledge Discovery Series. Boca Raton, FL, USA: Chapman &amp; Hall/CRC Press. doi:<a href="https://doi.org/10.1201/b10814">10.1201/b10814</a>.</p>
-</div>
-<div>
-<p>Gan, Guojun, Chaoqun Ma, and Jianhong Wu. 2007. <em>Data Clustering: Theory, Algorithms, and Applications</em>. Philadelphia, PA: SIAM Press. doi:<a href="https://doi.org/10.1137/1.9780898718348">10.1137/1.9780898718348</a>.</p>
-</div>
-<div>
-<p>Gelman, Andrew. 2004. “Exploratory Data Analysis for Complex Models.” <em>Journal of Computational and Graphical Statistics</em> 13 (4): 755–79.</p>
-</div>
-<div>
-<p>Genest, Christian, and Josh Mackay. 1986. “The Joy of Copulas: Bivariate Distributions with Uniform Marginals.” <em>The American Statistician</em> 40: 280–83.</p>
-</div>
-<div>
-<p>Genest, Christian, and Johanna Nešlohva. 2007. “A Primer on Copulas for Count Data.” <em>Journal of the Royal Statistical Society</em>, 475–515.</p>
-</div>
-<div>
-<p>Good, I. J. 1983. “The Philosophy of Exploratory Data Analysis.” <em>Philosophy of Science</em> 50 (2): 283–95.</p>
-</div>
-<div>
-<p>Gorman, Mark, and Stephen Swenson. 2013. “Building Believers: How to Expand the Use of Predictive Analytics in Claims.” In. SAS. <a href="http://www.sas.com/resources/whitepaper/wp_59831.pdf" class="uri">http://www.sas.com/resources/whitepaper/wp_59831.pdf</a>.</p>
-</div>
-<div>
-<p>Greenwood, Major. 1926. “The Errors of Sampling of the Survivorship Tables.” In <em>Reports on Public Health and Statistical Subjects</em>. Vol. 33. London: Her Majesty’s Stationary Office.</p>
-</div>
-<div>
-<p>Hardy, Mary R. 2006. “An Introduction to Risk Measures for Actuarial Applications.” CAS; SOA.</p>
-</div>
-<div>
-<p>Hartman, Brian. 2016. “Bayesian Computational Methods.” <em>Predictive Modeling Applications in Actuarial Science: Volume 2, Case Studies in Insurance</em>. Cambridge University Press.</p>
-</div>
-<div>
-<p>Hashem, Ibrahim Abaker Targio, Ibrar Yaqoob, Nor Badrul Anuar, Salimah Mokhtar, Abdullah Gani, and Samee Ullah Khan. 2015. “The Rise of ‘Big Data’ on Cloud Computing: Review and Open Research Issues.” <em>Information Systems</em> 47: 98–115.</p>
-</div>
-<div>
-<p>Hettmansperger, T. P. 1984. <em>Statistical Inference Based on Ranks</em>. Wiley.</p>
-</div>
-<div>
-<p>Hofert, Marius, Ivan Kojadinovic, Martin Mächler, and Jun Yan. 2018. <em>Elements of Copula Modeling with R</em>. Springer.</p>
-</div>
-<div>
-<p>Hougaard, P. 2000. <em>Analysis of Multivariate Survival Data</em>. Springer New York.</p>
-</div>
-<div>
-<p>Hox, Joop J., and Hennie R. Boeije. 2005. “Data Collection, Primary Versus Secondary.” In <em>Encyclopedia of Social Measurement</em>, 593–99. Elsevier.</p>
-</div>
-<div>
-<p>Igual, Laura, and Santi Segu. 2017. <em>Introduction to Data Science. a Python Approach to Concepts, Techniques and Applications</em>. New York, NY: Springer.</p>
-</div>
-<div>
-<p>Inmon, W.H., and Dan Linstedt. 2014. <em>Data Architecture: A Primer for the Data Scientist: Big Data, Data Warehouse and Data Vault</em>. Cambridge, MA: Morgan Kaufmann.</p>
-</div>
-<div>
-<p>Insurance Information Institute. 2016. “International Insurance Fact Book.” In. Insurance Information Institute. <a href="http://www.iii.org/sites/default/files/docs/pdf/international_insurance_factbook_2016.pdf" class="uri">http://www.iii.org/sites/default/files/docs/pdf/international_insurance_factbook_2016.pdf</a>.</p>
-</div>
-<div>
-<p>James, Gareth, Daniela Witten, Trevor Hastie, and Robert Tibshirani. 2013. <em>An Introduction to Statistical Learning</em>. Vol. 112. Springer.</p>
-</div>
-<div>
-<p>Janert, Philipp K. 2010. <em>Data Analysis with Open Source Tools</em>. Sebastopol, CA: O’Reilly Media.</p>
-</div>
-<div>
-<p>Joe, Harry. 2014. <em>Dependence Modeling with Copulas</em>. CRC Press.</p>
-</div>
-<div>
-<p>Jong, Piet de, and Gillian Z. Heller. 2008. <em>Generalized Linear Models for Insurance Data</em>. Cambridge, UK: Cambridge University Press.</p>
-</div>
-<div>
-<p>Judd, Charles M., Gary H. McClelland, and Carey S. Ryan. 2017. <em>Data Analysis. a Model Comparison Approach to Regression, ANOVA and Beyond</em>. 3rd ed. New York, NY: Routledge.</p>
-</div>
-<div>
-<p>Kaplan, Edward L., and Paul Meier. 1958. “Nonparametric Estimation from Incomplete Observations.” <em>Journal of the American Statistical Association</em> 53 (282). Taylor &amp; Francis: 457–81.</p>
-</div>
-<div>
-<p>Kendall, Maurice G. 1938. “A New Measure of Rank Correlation.” <em>Biometrika</em>, 81–93.</p>
-</div>
-<div>
-<p>Klugman, Stuart A., Harry H. Panjer, and Gordon E. Willmot. 2012. <em>Loss Models: From Data to Decisions</em>. John Wiley &amp; Sons.</p>
-</div>
-<div>
-<p>Kreer, Markus, Ayşe Kizilersü, Anthony W Thomas, and Alfredo D Egídio dos Reis. 2015. “Goodness-of-Fit Tests and Applications for Left-Truncated Weibull Distributions to Non-Life Insurance.” <em>European Actuarial Journal</em> 5 (1). Springer: 139–63.</p>
-</div>
-<div>
-<p>Kubat, Miroslav. 2017. <em>An Introduction to Machine Learning</em>. 2nd ed. New York, NY: Springer.</p>
-</div>
-<div>
-<p>Lee Rodgers, J, and W. A Nicewander. 1998. “Thirteen Ways to Look at the Correlation Coeffeicient.” <em>The American Statistician</em> 42 (01): 59–66.</p>
-</div>
-<div>
-<p>Levin, Bruce, James Reeds, and others. 1977. “Compound Multinomial Likelihood Functions Are Unimodal: Proof of a Conjecture of Ij Good.” <em>The Annals of Statistics</em> 5 (1). Institute of Mathematical Statistics: 79–87.</p>
-</div>
-<div>
-<p>Lorenz, Max O. 1905. “Methods of Measuring the Concentration of Wealth.” <em>Publications of the American Statistical Association</em> 9 (70). Taylor &amp; Francis: 209–19.</p>
-</div>
-<div>
-<p>Mailund, Thomas. 2017. <em>Beginning Data Science in R: Data Analysis, Visualization, and Modelling for the Data Scientist</em>. Apress.</p>
-</div>
-<div>
-<p>McCullagh, Peter, and John A. Nelder. 1989. <em>Generalized Linear Models</em>. Vol. 37. CRC press.</p>
-</div>
-<div>
-<p>McDonald, James B. 1984. “Some Generalized Functions for the Size Distribution of Income.” <em>Econometrica: Journal of the Econometric Society</em>. JSTOR, 647–63.</p>
-</div>
-<div>
-<p>McDonald, James B, and Yexiao J Xu. 1995. “A Generalization of the Beta Distribution with Applications.” <em>Journal of Econometrics</em> 66 (1-2). Elsevier: 133–52.</p>
-</div>
-<div>
-<p>Miles, Matthew, Michael Hberman, and Johnny Sdana. 2014. <em>Qualitative Data Analysis: A Methods Sourcebook</em>. 3rd ed. Thousand Oaks, CA: Sage.</p>
-</div>
-<div>
-<p>Mirkin, Boris. 2011. <em>Core Concepts in Data Analysis: Summarization, Correlation and Visualization</em>. London, UK: Springer.</p>
-</div>
-<div>
-<p>Mitchell, Tom M. 1997. <em>Machine Learning</em>. McGraw-Hill.</p>
-</div>
-<div>
-<p>Mohri, Mehryar, Afshin Rostamizadeh, and Ameet Talwalkar. 2012. <em>Foundations of Machine Learning</em>. Cambridge, MA: MIT Press.</p>
-</div>
-<div>
-<p>NAIC Glossary. 2018. “Glossary of Insurance Terms.” In. National Association of Insurance Commissioners. <a href="https://www.naic.org/consumer_glossary.htm" class="uri">https://www.naic.org/consumer_glossary.htm</a>.</p>
-</div>
-<div>
-<p>Nelson, Roger B. 1997. <em>An Introduction to Copulas</em>. Lecture Notes in Statistics 139.</p>
-</div>
-<div>
-<p>Ohlsson, Esbjörn, and Björn Johansson. 2010. <em>Non-Life Insurance Pricing with Generalized Linear Models</em>. Vol. 21. Springer.</p>
-</div>
-<div>
-<p>Olkin, Ingram, A John Petkau, and James V Zidek. 1981. “A Comparison of N Estimators for the Binomial Distribution.” <em>Journal of the American Statistical Association</em> 76 (375). Taylor &amp; Francis: 637–42.</p>
-</div>
-<div>
-<p>Olson, Jack E. 2003. <em>Data Quality: The Accuracy Dimension</em>. San Francisco, CA: Morgan Kaufmann.</p>
-</div>
-<div>
-<p>O’Leary, D. E. 2013. “Artificial Intelligence and Big Data.” <em>IEEE Intelligent Systems</em> 28 (2): 96–99.</p>
-</div>
-<div>
-<p>Picard, Richard R., and Kenneth N. Berk. 1990. “Data Splitting.” <em>The American Statistician</em> 44 (2). Taylor &amp; Francis: 140–47.</p>
-</div>
-<div>
-<p>Pries, Kim H., and Robert Dunnigan. 2015. <em>Big Data Analytics: A Practical Guide for Managers</em>. Boca Raton, FL: CRC Press.</p>
-</div>
-<div>
-<p>Samuel, A. L. 1959. “Some Studies in Machine Learning Using the Game of Checkers.” <em>IBM Journal of Research and Development</em> 3 (3): 210–29.</p>
-</div>
-<div>
-<p>Shmueli, Galit. 2010. “To Explain or to Predict?” <em>Statistical Science</em> 25 (3): 289–310.</p>
-</div>
-<div>
-<p>Snee, Ronald D. 1977. “Validation of Regression Models: Methods and Examples.” <em>Technometrics</em> 19 (4). Taylor &amp; Francis Group: 415–28.</p>
-</div>
-<div>
-<p>Spearman, C. 1904. “The Proof and Measurement of Association Between Two Things.” <em>The American Journal of Psychology</em> 15 (01): 72–101.</p>
-</div>
-<div>
-<p>Tevet, Dan. 2016. “Applying Generalized Linear Models to Insurance Data.” <em>Predictive Modeling Applications in Actuarial Science: Volume 2, Case Studies in Insurance</em>. Cambridge University Press, 39.</p>
-</div>
-<div>
-<p>Tse, Yiu-Kuen. 2009. <em>Nonlife Actuarial Models: Theory, Methods and Evaluation</em>. Cambridge University Press.</p>
-</div>
-<div>
-<p>Tukey, John W. 1962. “The Future of Data Analysis.” <em>The Annals of Mathematical Statistics</em> 33 (1). Institute of Mathematical Statistics: 1–67.</p>
-</div>
-<div>
-<p>Venter, Gary. 1983. “Transformed Beta and Gamma Distributions and Aggregate Losses.” In <em>Proceedings of the Casualty Actuarial Society</em>, 70:289–308. 133 &amp; 134.</p>
-</div>
-<div>
-<p>Venter, Gary G. 2002. “Tails of Copulas.” In <em>Proceedings of the Casualty Actuarial Society</em>, 89:68–113. 171.</p>
-</div>
-<div>
-<p>Yule, G. Udny. 1900. “On the Association of Attributes in Statistics: With Illustrations from the Material of the Childhood Society.” <em>Philosophical Transactions of the Royal Society of London. Series A, Containing Papers of a Mathematical or Physical Character</em>, 257–319.</p>
-</div>
-<div>
-<p>———. 1912. “On the Methods of Measuring Association Between Two Attributes.” <em>Journal of the Royal Statistical Society</em>, 579–652.</p>
-</div>
-</div>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <div id="disqus_thread"></div>
 <script>
 
@@ -824,8 +731,8 @@ s.setAttribute('data-timestamp', +new Date());
           </div>
         </div>
       </div>
-<a href="C-AppC.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="C-AggLossModels.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="C-PremCalc.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -855,7 +762,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/rstudio/bookdown-demo/edit/master/Chapters/Bibliography.Rmd",
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/Chapters/Simulation28Jan2017.Rmd",
 "text": "Edit"
 },
 "download": ["LossDataAnalytics.pdf", "LossDataAnalytics.epub"],

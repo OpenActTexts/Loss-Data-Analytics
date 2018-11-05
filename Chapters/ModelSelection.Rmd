@@ -453,7 +453,7 @@ plot(Fn(ClaimData$Claim), Fpareto_ex, xlab="Empirical DF", ylab="Pareto DF", cex
 abline(0,1)
 ```
 
-A $pp$ plot is useful in part because no artificial scaling is required, such as with the overlaying of densities in Figure \@ref(fig:ComparisonCDFPDF), in which we switched to the log scale to better visualize the data. The Chapter `r chapnum` *Technical Supplement A.1* expresses a $pp$ plot as a classic Lorenz curve, thus providing an important tool for assessing  income inequality. Furthermore, $pp$ plots are available in multivariate settings where more than one outcome variable is available. However, a limitation of the $pp$ plot is that, because it is a plot *cumulative* distribution functions, it can sometimes be difficult to detect *where* a fitted parametric distribution is deficient. As an alternative, it is common to use a **quantile-quantile ($qq$) plot**, as demonstrated in Figure \@ref(fig:QQPlot).
+A $pp$ plot is useful in part because no artificial scaling is required, such as with the overlaying of densities in Figure \@ref(fig:ComparisonCDFPDF), in which we switched to the log scale to better visualize the data. The Chapter `r chapnum` *Technical Supplement A.1* introduces a variation of the $pp$ plot known as a *Lorenz curve*; this is an important tool for assessing  income inequality. Furthermore, $pp$ plots are available in multivariate settings where more than one outcome variable is available. However, a limitation of the $pp$ plot is that, because it is a plot *cumulative* distribution functions, it can sometimes be difficult to detect *where* a fitted parametric distribution is deficient. As an alternative, it is common to use a **quantile-quantile ($qq$) plot**, as demonstrated in Figure \@ref(fig:QQPlot).
 
 
 The $qq$ plot compares two fitted models through their quantiles. As with $pp$ plots, we compare the nonparametric to a parametric fitted model. Quantiles may be evaluated at each point of the data set, or on a grid (e.g., at $0, 0.001, 0.002, \ldots, 0.999, 1.000$), depending on the application. In Figure \@ref(fig:QQPlot), for each point on the aforementioned grid, the horizontal axis displays the empirical quantile and the vertical axis displays the corresponding fitted parametric quantile (gamma for the upper two panels, Pareto for the lower two). Quantiles are plotted on the original scale in the left panels and on the log scale in the right panels to allow us to see where a fitted distribution is deficient. The straight line represents equality between the empirical distribution and fitted distribution. From these plots, we again see that the Pareto is an overall better fit than the gamma. Furthermore, the lower-right panel suggests that the Pareto distribution does a good job with large observations, but provides a poorer fit for small observations.
@@ -515,6 +515,7 @@ When selecting a model, it is helpful to make the graphical displays presented. 
 
 
 $$
+{\small
 \begin{matrix}
 \text{Table 4.2: Three Goodness of Fit Statistics} \\
 \begin{array}{l|cc}
@@ -529,6 +530,7 @@ $$
 \hline
 \end{array} \\
 \end{matrix}
+}
 $$
 
 The *Kolmogorov-Smirnov statistic* is the maximum absolute difference between the fitted distribution function and the empirical distribution function. Instead of comparing differences between single points, the *Cramer-von Mises statistic* integrates the difference between the empirical and fitted distribution functions over the entire range of values. The *Anderson-Darling statistic* also integrates this difference over the range of values, although weighted by the inverse of the variance. It therefore places greater emphasis on the tails of the distribution (i.e when $F(x)$ or $1-F(x)=S(x)$ is small). 
@@ -1457,9 +1459,9 @@ $$\begin{aligned}
 
 In this section, you learn how to:
 
-- Describe the Bayes model as an alternative to the frequentist approach and summarize the five components of this modeling approach.
-- Describe the Bayesian decision framework and its role in determining Bayesian predictions.
-- Determine posterior predictions.
+- Describe the Bayesian model as an alternative to the frequentist approach and summarize the five components of this modeling approach.
+- Summarize posterior distributions of parameters and use these posterior distributions to predict new outcomes.
+- Use conjugate distributions to determine posterior distributions of parameters.
 
 ***
 
@@ -1473,36 +1475,35 @@ In contrast, under the **Bayesian** framework, we view both the model parameters
 To get a sense of the Bayesian framework, begin by recalling Bayes’ rule
 
 $$
-p(parameters|data) = \frac{p(data|parameters) \times p(parameters)}{p(data)}
+\Pr(parameters|data) = \frac{\Pr(data|parameters) \times \Pr(parameters)}{\Pr(data)}
 $$
 
 
 where
 
-- $p(parameters)$ is the distribution of the parameters, known as the *prior* distribution.
-- $p(data | parameters)$ is the sampling distribution. In a frequentist context, it is used for
+- $\Pr(parameters)$ is the distribution of the parameters, known as the *prior* distribution.
+- $\Pr(data | parameters)$ is the sampling distribution. In a frequentist context, it is used for
 making inferences about the parameters and is known as the *likelihood*.
-- $p(parameters | data)$ is the distribution of the parameters having observed the data, known as
+- $\Pr(parameters | data)$ is the distribution of the parameters having observed the data, known as
 the *posterior* distribution.
-- $p(data)$ is the marginal distribution of the data. It is generally obtained by integrating (or
-summing) the joint distribution of data and parameters over parameter values. This is often
-the difficult step in Bayesian inference.
+- $\Pr(data)$ is the marginal distribution of the data. It is generally obtained by integrating (or
+summing) the joint distribution of data and parameters over parameter values. 
 
 
 **Why Bayes?** There are several advantages of the Bayesian approach. First, we can describe the entire distribution of parameters conditional on the data. This allows us, for example, to provide probability statements regarding the likelihood of parameters. Second, the Bayesian approach provides a unified approach for estimating parameters. Some non-Bayesian methods, such as least squares, require a separate approach to estimate variance components. In contrast, in Bayesian methods, all parameters can be treated in a similar fashion. This is convenient for explaining results to consumers of the data analysis. Third, this approach allows analysts to blend prior information known from other sources with the data in a coherent manner. This topic is developed in detail in the credibility chapter.  Fourth, Bayesian analysis is particularly useful for forecasting future responses.
 
-**Poisson - Gamma Special Case.** To develop intuition, we consider the Poisson-Gamma case that holds a prominent position in actuarial applications. The idea is to consider a set of random variables $X_1, \ldots, X_n$ where each $X_i$ could represent the number of claims for the *i*th policyholder (you can use $N$ to represent the number of claims if you like). Assume that $X_i$ has a Poisson distribution with parameter $\lambda$, analogous the likelihood that we first saw in Chapter \@ref(C:Frequency-Modeling). In a non-Bayesian (or frequentist) context, the parameter $\lambda$ is viewed as an unknown quantity that is not random (it is said to be "fixed"). In the Bayesian context, the unknown parameter $\lambda$ is viewed as uncertain and is modeled as a random variable. In this special case, we use the gamma distribution to reflect this uncertainty, the prior distribution.
+**Poisson - Gamma Special Case.** To develop intuition, we consider the Poisson-Gamma case that holds a prominent position in actuarial applications. The idea is to consider a set of random variables $X_1, \ldots, X_n$ where each $X_i$ could represent the number of claims for the *i*th policyholder. Assume that $X_i$ has a Poisson distribution with parameter $\lambda$, analogous to the likelihood that we first saw in Chapter \@ref(C:Frequency-Modeling). In a non-Bayesian (or frequentist) context, the parameter $\lambda$ is viewed as an unknown quantity that is not random (it is said to be "fixed"). In the Bayesian context, the unknown parameter $\lambda$ is viewed as uncertain and is modeled as a random variable. In this special case, we use the gamma distribution to reflect this uncertainty, the prior distribution.
 
 Think of the following two-stage sampling scheme to motivate our probabilistic set-up.
 
 1. In the first stage, the parameter $\lambda$ is drawn from a gamma distribution. 
-2. In the second stage, for that value of  $\lambda$, there are $n$ draws from the same (identical) Poisson distribution that are independent, conditional on that  $\lambda$.
+2. In the second stage, for that value of  $\lambda$, there are $n$ draws from the same (identical) Poisson distribution that are independent, conditional on  $\lambda$.
 
 From this simple set-up, some important conclusions emerge.
 
-- The distribution of $X_i$ is no longer Poisson. For this special case, it turns out to be a negative binomial distribution (see the following "Snippet of Theory").
+- The distribution of $X_i$ is no longer Poisson. For a special case, it turns out to be a negative binomial distribution (see the following "Snippet of Theory").
 - The random variables $X_1, \ldots, X_n$ are not independent. This is because they share the common random variable $\lambda$. 
-- As in the frequentist context, the goal is to make statments about likely values of parameters such as $\lambda$ given the observed data $X_1, \ldots, X_n$. However, because now both the parameter and the data are random variables, we can use the language of conditional probability to make such statements. As we will see in Section \@ref(S:PosteriorDistribution), it turns out that the distribution of $\lambda$ given the data $X_1, \ldots, X_n$ is also be gamma (with updated parameters), a result that simplifies the task of inferring likely values of the parameter $\lambda$.
+- As in the frequentist context, the goal is to make statments about likely values of parameters such as $\lambda$ given the observed data $X_1, \ldots, X_n$. However, because now both the parameter and the data are random variables, we can use the language of conditional probability to make such statements. As we will see in Section \@ref(S:ConjugateDistributions), it turns out that the distribution of $\lambda$ given the data $X_1, \ldots, X_n$ is also gamma (with updated parameters), a result that simplifies the task of inferring likely values of the parameter $\lambda$.
 
 <h5 style="text-align: center;"><a id="displayTheory.2" href="javascript:toggleTheory('TheoryBayesPoisson','displayTheory.2');"><i><strong>Show A Snippet of Theory</strong></i></a> </h5><div id="TheoryBayesPoisson" style="display: none">
 
@@ -1512,7 +1513,7 @@ Let us demonstrate that the distribution of $X$ is negative binomial. We assume 
 $$
 \Pr(X = x|\lambda) = \frac{\lambda^x}{\Gamma(x+1)} e^{-\lambda} ,
 $$
-using notation $\Gamma(x+1) = x!$ for integer $x$. Assume that $\lambda$ is a draw from a gamma distribution parameters, say, $\alpha$ and $\theta$, so this has <a href="#" class="tooltip" style="color:green">*pdf*<span style="font-size:8pt"> probability density function</span></a>
+using notation $\Gamma(x+1) = x!$ for integer $x$. Assume that $\lambda$ is a draw from a gamma distribution with fixed parameters, say, $\alpha$ and $\theta$, so this has <a href="#" class="tooltip" style="color:green">*pdf*<span style="font-size:8pt"> probability density function</span></a>
 $$
 f(\lambda) = \frac{\lambda^{\alpha-1}}{\theta^{\alpha}\Gamma(\alpha)}\exp(-\lambda/\theta).
 $$
@@ -1541,9 +1542,11 @@ Here, we used the gamma distribution equality with the substitution $\theta_r = 
 
 </div>
 
+In this chapter, we use small examples that can be done by hand in order to focus on the foundations. For practical implementation, analysts rely heavily on simulation methods using modern computational methods such as Markov Chain Monte Carlo (*MCMC*) simulation. We will get an exposure to simulation techniques in Chapter \@ref(C:Simulation) but more intensive techniques such as *MCMC* requires yet more background. See @hartman2016 for an introduction to computational Bayesian methods from an actuarial perspective.
+
 ### Bayesian Model
 
-With the intuition developed in the preceding Section \@ref(S:IntroBayes), we now restate the Bayesian model with a bit more precision using mathematical notation. 
+With the intuition developed in the preceding Section \@ref(S:IntroBayes), we now restate the Bayesian model with a bit more precision using mathematical notation. For simplicity, this summary assumes both the outcomes and parameters are continuous random variables. In the examples, we sometimes ask the viewer to apply these same principles to discrete versions. Conceptually both the continuous and discrete cases are the same; mechanically, one replaces a <a href="#" class="tooltip" style="color:green">*pdf*<span style="font-size:8pt"> probability density function</span></a> by a <a href="#" class="tooltip" style="color:green">*pmf*<span style="font-size:8pt"> probability mass function</span></a> and an integral by a sum. 
 
 As stated earlier, under the Bayesian perspective, the model parameters and data are both viewed as random. Our uncertainty about the parameters of the underlying data generating process is reflected in the use of probability tools.
 
@@ -1564,8 +1567,32 @@ This is analogous to a frequentist mixture distribution. In the mixture distribu
 
 **Posterior Distribution of Parameters.** After outcomes have been observed (hence the terminology "posterior"), one can use Bayes theorem to write the distribution as
 $$\pi(\boldsymbol \theta | x) =\frac{f(x , \boldsymbol \theta)}{f(x)} =\frac{f(x|\boldsymbol \theta )\pi(\boldsymbol \theta)}{f(x)}$$
-The idea is to update your knowledge of the distribution of $\boldsymbol \theta$ ($\pi(\boldsymbol \theta)$) with the data $x$. Making statements about potential values of parameters is an important aspect of statistical inference. For example, we can summarize the distribution using a confidence interval type statement based on the *posterior* distribution. For example, the interval $[a,b]$ is said to be a $100(1-\alpha)\%$ *credibility* interval for $\boldsymbol \theta$  if
+The idea is to update your knowledge of the distribution of $\boldsymbol \theta$ ($\pi(\boldsymbol \theta)$) with the data $x$. Making statements about potential values of parameters is an important aspect of statistical inference. 
+
+### Bayesian Inference
+
+#### Summarizing the Posterior Distribution of Parameters
+
+One way to summarize a distribution is to use a confidence interval type statement. To summarize the *posterior* distribution of parameters, the interval $[a,b]$ is said to be a $100(1-\alpha)\%$ *credibility* interval for $\boldsymbol \theta$  if
 $$\Pr (a \le \theta \le b | \mathbf{x}) \ge 1- \alpha.$$
+
+For another approach to summarization, we can look to classical decision analysis. In this set-up, the loss function $l(\hat{\theta}, \theta)$ determines the penalty paid for using the estimate $\hat{\theta}$ instead of the true $\theta$. The **Bayes estimate** is the value that minimizes the expected loss $\mathrm{E~}[ l(\hat{\theta}, \theta)]$. Some important special cases include:
+
+$$
+{\small
+\begin{array}{cll}
+\hline
+\text{Loss function } l(\hat{\theta}, \theta) & \text{Descriptor} & \text{Bayes Estimate} \\
+\hline 
+(\hat{\theta}- \theta)^2 & \text{squared error loss} & \mathrm{E}(\theta|X) \\
+|\hat{\theta}- \theta| & \text{absolute deviation loss} & \text{median of } \pi(\theta|x) \\
+I(\hat{\theta} =\theta) & \text{zero-one loss (for discrete probabilities)} & \text{mode of } \pi(\theta|x) \\
+\hline
+\end{array}
+}
+$$
+
+Minimizing expected loss is a rigorous method for providing a single "best guess" about a likely value of a parameter, comparable to a frequentist estimator of the unknown (fixed) parameter. 
 
 ***
 
@@ -1620,27 +1647,7 @@ $$\Pr(\Theta>2|3) = \int_2^\infty 32(3+\theta)^{-3}d\theta = \left. -16(3+\theta
 
 ***
 
-### Decision Analysis
-
-In classical decision analysis, the loss function $l(\hat{\theta}, \theta)$ determines the penalty paid for using the estimate $\hat{\theta}$ instead of the true $\theta$.
-
-The **Bayes estimate** is the value that minimizes the expected loss $\mathrm{E~}[ l(\hat{\theta}, \theta)]$. Some important special cases include:
-
-$$
-{\small
-\begin{array}{cll}
-\hline
-\text{Loss function } l(\hat{\theta}, \theta) & \text{Descriptor} & \text{Bayes Estimate} \\
-\hline 
-(\hat{\theta}- \theta)^2 & \text{squared error loss} & \mathrm{E}(\theta|X) \\
-|\hat{\theta}- \theta| & \text{absolute deviation loss} & \text{median of } \pi(\theta|x) \\
-I(\hat{\theta} =\theta) & \text{zero-one loss (for discrete probabilities)} & \text{mode of } \pi(\theta|x) \\
-\hline
-\end{array}
-}
-$$
-
-Minimizing expected loss is a rigorous method for providing a single "best guess" about a likely value of a parameter, comparable to a frequentist estimator of the unknown (fixed) parameter. 
+#### Bayesian Predictive Distribution
 
 For another type of statistical inference, it is often of interest to "predict" the value of a random outcome that is yet to be observed. Specifically, for new data $y$, the **predictive distribution** is $$f(y|x) = \int f(y|\theta) \pi(\theta|x) d\theta .$$
 It is also sometimes called a "posterior" distribution as the distribution of the new data is conditional on a base set of data.
@@ -1653,7 +1660,7 @@ $$
 &=  \int  \mathrm{E}(Y|\theta) \pi(\theta|X) ~d\theta .
 \end{aligned}
 $$
-As we will see in the following examples, for some situations, the distribution of parameters is discrete, not continuous. In these cases, one simply replaces the integrals with sums instead of integrals in the formulas for the predictive distribution and the Bayesian prediction. Having a discrete set of possible outcomes allow us to think of them as alternative "states of nature," a helpful interpretation.
+As noted earlier, for some situations the distribution of parameters is discrete, not continuous. Having a discrete set of possible parameters allow us to think of them as alternative "states of nature," a helpful interpretation.
 
 
 ***
@@ -1863,13 +1870,10 @@ $$\begin{aligned}
 
 ***
 
-### Posterior Distribution {#S:PosteriorDistribution}
+### Conjugate Distributions {#S:ConjugateDistributions}
 
-In the Bayesian framework, the key to statistical inference is understanding the posterior distribution of the parameters. This is not only interesting in its own right but also provides a pivotal component to the predictive distribution.
 
-In this chapter, we used small examples that can be done by hand in order to focus on the foundations. For practical implementation, analysts rely heavily on simulation methods using modern computational methods such as Markov Chain Monte Carlo (MCMC) simulation. We will get an exposure to simulation techniques in Chapter 6 but more intensive techniques such as MCMC requires yet more background. See @hartman2016 for an introduction to computational Bayesian methods from an actuarial perspective.
-
-Another approach for computing posterior distribution involves the use of so-called **conjugate distributions.** Although this approach is available only for a limited number of distributions, it has the appeal that it provides closed-form expressions for the distributions, allowing for easy interpretations of results.
+In the Bayesian framework, the key to statistical inference is understanding the posterior distribution of the parameters. As described in Section \@ref(S:IntroBayes), modern data analysis using Bayesian methods utilize computationally intensive techniques such as <a href="#" class="tooltip" style="color:green">*MCMC*<span style="font-size:8pt"> Markov Chain Monte Carlo</span></a> simulation. Another approach for computing posterior distributions are based on **conjugate distributions.** Although this approach is available only for a limited number of distributions, it has the appeal that it provides closed-form expressions for the distributions, allowing for easy interpretations of results.
 
 To relate the prior and posterior distributions of the parameters, we have the relationship
 

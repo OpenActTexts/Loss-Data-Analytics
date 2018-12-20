@@ -3,141 +3,164 @@
 # Aggregate Loss Models {#C:AggLossModels}
 
 
-*Chapter Preview*. This chapter introduces probability models for describing the aggregate claims that arise from a portfolio of insurance contracts. We presents two standard modeling approaches, the individual risk model and the collective risk model. Further, we discuss strategies for computing the distribution of the aggregate claims. Finally, we examine the effects of individual policy modifications on the aggregate loss distribution.
+*Chapter Preview*. This chapter introduces probability models for describing the aggregate (total) claims that arise from a portfolio of insurance contracts. We present two standard modeling approaches, the individual risk model and the collective risk model. Further, we discuss strategies for computing the distribution of the aggregate claims, including exact methods for special cases, recursion, and simulation. Finally, we examine the effects of individual policy modifications such as deductibles, coinsurance, and inflation, on the frequency and severity distributions, and thus the aggregate loss distribution.
 
 ## Introduction
 
-The objective of this chapter is to build a probability model to describe the aggregate claims by an insurance system occurring in a fixed time period. The insurance system could be a single policy, a group insurance contract, a business line, or an entire book of an insurance's business. In the chapter, aggregate claims refers to either the number or the amount of claims from a portfolio of insurance contracts. However, the modeling framework is readily to apply in the more general setup.
+The objective of this chapter is to build a probability model to describe the aggregate claims by an insurance system occurring in a fixed time period. The insurance system could be a single policy, a group insurance contract, a business line, or an entire book of an insurer's business. In this chapter, *aggregate claims* refer to either the number or the amount of claims from a portfolio of insurance contracts. However, the modeling framework can be readily applied in the more general setup.
 
-Consider an insurance portfolio of $n$ individual contracts, and let $S$ denote the aggregate losses of the portfolio in a given time period. There are two approaches to modeling the aggregate losses $S$, the individual risk model and the collective risk model. The individual risk model emphasizes the loss from each individual contract and represents the aggregate losses as:
+Consider an insurance portfolio of $n$ individual contracts, and let $S$ denote the aggregate losses of the portfolio in a given time period. There are two approaches to modeling the aggregate losses $S$, the individual risk model and the collective risk model. The *individual risk model* emphasizes the loss from each individual contract and represents the aggregate losses as:
 $$\begin{aligned}
-S=X_1 +X_2 +\cdots+X_n,
+S_n=X_1 +X_2 +\cdots+X_n,
 \end{aligned}$$
-where $X_i~(i=1,\ldots,n)$ is interpreted as the loss amount from the $i$th contract. It is worth stressing that $n$ denotes the number of contracts in the portfolio and thus is a fixed number rather than a random variable. For the individual risk model, one usually assumes $X_{i}$'s are independent, i.e., $X_{i}\perp X_{j}$ $\forall$ $i,j$. Because of different contract features such as coverage and exposure, $X_{i}$'s are not necessarily identically
+where $X_i~(i=1,\ldots,n)$ is interpreted as the loss amount from the $i$th contract. It is worth stressing that $n$ denotes the number of contracts in the portfolio and thus is a fixed number rather than a random variable. For the individual risk model, one usually assumes $X_{i}$'s are independent. Because of different contract features such as coverage and exposure, $X_{i}$'s are not necessarily identically
 distributed. A notable feature of the distribution of each $X_i$ is the probability mass at zero corresponding to the event of no claims.
 
-The collective risk model represents the aggregate losses in terms of a frequency distribution and a severity distribution:
+The *collective risk model* represents the aggregate losses in terms of a frequency distribution and a severity distribution:
 $$\begin{aligned}
-S=X_1 +X_2 +\cdots+X_N.
+S_N=X_1 +X_2 +\cdots+X_N.
 \end{aligned}$$
-Here one thinks of a random number of claims $N$ that may represent either the number of losses or the number of payments. In contrast, in the individual risk model, we use a fixed number of contracts $n$. We think of $X_1, X_2, \ldots, X_N$ as representing the amount of each loss. Each loss may or may not corresponding to a unique contract. For instance, there may be multiple claims arising from a single contract. It is natural to think about $X_i>0$ because if $X_i=0$ then no claim has occurred. Typically we assume that conditional on $N=n$, $X_{1},X_{2},\cdots ,X_{n}$ are *iid* random variables. The distribution of $N$ is known as the frequency distribution, and the common distribution of $X$ is known as the severity distribution. We further assume $N$ and $X$ are independent. With the collective risk model, we may decompose the aggregate losses into the frequency ($N$) process and the severity ($X$) process. This flexibility allows the analyst to comment on these two separate components. For example, sales growth due to lower underwriting standards could lead to higher frequency of losses but might not affect severity. Similarly, inflation or other economic forces could have an impact on severity but not on frequency.
+Here, one thinks of a random number of claims $N$ that may represent either the number of losses or the number of payments. In contrast, in the individual risk model, we use a fixed number of contracts $n$. We think of $X_1, X_2, \ldots, X_N$ as representing the amount of each loss. Each loss may or may not correspond to a unique contract. For instance, there may be multiple claims arising from a single contract. It is natural to think about $X_i>0$ because if $X_i=0$ then no claim has occurred. Typically we assume that conditional on $N=n$, $X_{1},X_{2},\ldots ,X_{n}$ are *iid* random variables. The distribution of $N$ is known as the *frequency distribution*, and the common distribution of $X$ is known as the *severity distribution*. We further assume $N$ and $X$ are independent. With the collective risk model, we may decompose the aggregate losses into the frequency ($N$) process and the severity ($X$) model. This flexibility allows the analyst to comment on these two separate components. For example, sales growth due to lower underwriting standards could lead to higher frequency of losses but might not affect severity. Similarly, inflation or other economic forces could have an impact on severity but not on frequency.
 
 
 ## Individual Risk Model
 
-As noted earlier, for the individual risk model, we think of $X_i$ as the loss from $i^{th}$ contract and interpret
+As noted earlier, for the *individual risk model*, we think of $X_i$ as the loss from $i$th contract and interpret
 \begin{eqnarray*}
 S_n=X_1 +X_2 +\cdots+X_n
 \end{eqnarray*}
-to be the aggregate loss from all contracts in a portfolio or group of contracts. Under the independence assumption on $X_i's$, it is straightforward to show
+to be the aggregate loss from all contracts in a portfolio or group of contracts. Here, the $X_i$'s are not necessarily identically distributed and we have 
+$$\begin{aligned}
+    {\rm E}(S_n) &= \sum_{i=1}^{n} {\rm E}(X_i)~.
+\end{aligned}$$
+
+Under the independence assumption on $X_i$'s (which implies $\mathrm{Cov}\left( X_i, X_j \right) = 0$ for all $i \neq j$), it can further be shown that
  $$\begin{aligned}
-    {\rm E}(S_n) &= \sum_{i=1}^{n} {\rm E}(X_i),~~~~
-    {\rm Var}(S_n) = \sum_{i=1}^{n} {\rm Var}(X_i)\\
-    P_{S_n}(z) &= \prod_{i=1}^{n}P_{X_i}(z), ~~~~
-    M_{S_n}(t) = \prod_{i=1}^{n}M_{X_i}(t) \\
+    {\rm Var}(S_n) &= \sum_{i=1}^{n} {\rm Var}(X_i) \\
+    P_{S_n}(z) &= \prod_{i=1}^{n}P_{X_i}(z) \\
+    M_{S_n}(t) &= \prod_{i=1}^{n}M_{X_i}(t), 
  \end{aligned}$$
-where $P_S(\cdot)$ and $M_S(\cdot)$ are probability generating function and moment generating function of $S$, respectively. The distribution of each $X_i$ contains mass at zero, corresponding to the event of no claim. One strategy to incorporate the zero mass in the distribution is using the two-part framework:
+where $P_{S_n}(\cdot)$ and $M_{S_n}(\cdot)$ are the probability generating function (*pgf*) and the moment generating function (*mgf*) of $S_n$, respectively. The distribution of each $X_i$ contains a probability mass at zero, corresponding to the event of no claims from the $i$th contract. One strategy to incorporate the zero mass in the distribution is to use the two-part framework:
 $$\begin{aligned}
 X_i = I_i\times B_i = \left\{\begin{array}{ll}
-                               0 & I_i=0 \\
-                               B_i & I_i=1
+                               0~, & \text{if }~ I_i=0 \\
+                               B_i~, & \text{if }~ I_i=1
                              \end{array}
              \right.
 \end{aligned}$$
-Here $I_i$ is a Bernoulli variable indicating whether or not a loss occurs for the $i$th contract, and $B_i$, a r.v. with nonnegative support, represents the amount of losses of the contract given loss occurrence. Assume that $I_1 ,\ldots,I_n ,B_1 ,\ldots,B_n$ are mutually independent. Denote ${\rm Pr} (I_i =1)=q_i$, $\mu_i={\rm E}(B_i)$, and $\sigma_i^2={\rm Var}(B_i)$. One can show
+Here, $I_i$ is a Bernoulli variable indicating whether or not a loss occurs for the $i$th contract, and $B_i$ is a random variable with nonnegative support representing the amount of losses of the contract given loss occurrence. Assume that $I_1 ,\ldots,I_n ,B_1 ,\ldots,B_n$ are mutually independent. Denote ${\rm Pr} (I_i =1)=q_i$, $\mu_i={\rm E}(B_i)$, and $\sigma_i^2={\rm Var}(B_i)$. It can be shown (see *Technical Supplement B.1* for details) that 
 $$\begin{aligned}
-\mathrm{E}(S_n)& =\sum_{i=1}^n ~q_i  ~\mu _j \\
-\mathrm{Var}(S_n) & =\sum_{i=1}^n \left( q_i \sigma _i^2+q_i (1-q_j)\mu_i^2 \right)\\
+\mathrm{E}(S_n)& =\sum_{i=1}^n ~q_i  ~\mu _i \\
+\mathrm{Var}(S_n) & =\sum_{i=1}^n \left( q_i \sigma _i^2+q_i (1-q_i)\mu_i^2 \right)\\
 P_{S_n}(z) & =\prod_{i=1}^n \left( 1-q_i+q_i P_{B_i}(z) \right)\\
 M_{S_n}(t) & =\prod_{i=1}^n \left( 1-q_i+q_i M_{B_i}(t) \right)
 \end{aligned}$$
-A special case of the above model is when $B_i$ follows a degenerate distribution with $\mu_i=b_i$ and $\sigma^2_i=0$. One example is term life insurance or a pure endowment insurance where $b_i$ represents the amount of insurance of the $i$th contract.
+A special case of the above model is when $B_i$ follows a degenerate distribution with $\mu_i=b_i$ and $\sigma^2_i=0$. One example is term life insurance or a pure endowment insurance where $b_i$ represents the insurance benefit amount of the $i$th contract.
 
-Another strategy to accommodate zero mass in the distribution of $X_i$ is a collective risk model, i.e. $X_i=Z_{i1}+\cdots+Z_{iN_i}$ where $X_i=0$ when $N_i=0$. The collective risk model will be discussed in detail in the next section.  
+Another strategy to accommodate the zero mass in the loss from each contract is to consider them in aggregate on the portfolio level, as in the *collective risk model*. Here, the aggregate loss is $S_{N} = X_1 + \cdots X_N$, where $N$ is a random variable representing the number of non-zero claims that occurred out of the entire group of contracts. Thus, not every contract in the portfolio may be represented in this sum, and $S_N=0$ when $N=0$. The collective risk model will be discussed in detail in the next section. 
 
-**Example `r chapnum`.2.1. SOA Exam Question.**
+***
+
+**Example `r chapnum`.2.1. Actuarial Exam Question.**
 An insurance company sold 300 fire insurance policies as follows:   
 
-$$\begin{matrix}
+$$
+{\small 
+\begin{matrix}
 	\begin{array}{c c c} \hline
 		\text{Number of} & \text{Policy} & \text{Probability of}\\
-		\text{Policies} &  \text{Maximum} &  \text{Claim Per Policy}\\ \hline
+		\text{Policies} &  \text{Maximum} &  \text{Claim Per Policy}\\ 
+		& (M_i) & (q_i) \\ \hline
 		100 & 400 & 0.05\\
 		200 & 300 & 0.06\\ \hline
 	\end{array}
-\end{matrix}$$    
+\end{matrix}
+}
+$$    
 
 You are given:  
-(i) The claim amount for each policy is uniformly distributed between $0$ and the policy maximum.  
+(i) The claim amount for each policy, $X_i$, is uniformly distributed between $0$ and the policy maximum $M_i$.  
 (ii) The probability of more than one claim per policy is $0$.  
 (iii) Claim occurrences are independent.    
 
-Calculate the mean $\mathrm{E~}S_n$ and variance $\mathrm{Var~}S_n$ of the aggregate claims. How would these results change if every claim is equal to the policy maximum?  
+Calculate the mean, $\mathrm{E~}(S_{300})$, and variance, $\mathrm{Var~}(S_{300})$, of the aggregate claims. How would these results change if every claim is equal to the policy maximum?  
 
 <h5 style="text-align: center;"><a id="displayTextExampleAggLoss.2.1" href="javascript:toggleEX('toggleExampleAggLoss.2.1','displayTextExampleAggLoss.2.1');"><i><strong>Show Example Solution</strong></i></a> </h5>
 <div id="toggleExampleAggLoss.2.1" style="display: none">
 
 **Solution.**
-The aggregate claims are $S_{300} = X_1+\cdots+X_{300}$. Policy claims amounts are uniformly distributed on $(0,PolMax)$, so the mean claim amount is $PolMax/2$ and the variance is$PolMax^2/12$. Thus, for policy $i=1,...,300$, we have
-$$\begin{matrix}
+The aggregate claims are $S_{300} = X_1+\cdots+X_{300}$, where $X_1, \ldots, X_{300}$ are independent but not identically distributed. Policy claims amounts are uniformly distributed on $(0,M_i)$, so the mean claim amount is $M_i/2$ and the variance is$M_i^2/12$. Thus, for policy $i=1,\ldots,300$, we have
+$$
+{\small 
+\begin{matrix}
 	\begin{array}{ccccc} \hline
 		\text{Number of} & \text{Policy} & \text{Probability of} & \text{Mean} & \text{Variance}\\
 		\text{Policies} &  \text{Maximum} &  \text{Claim Per Policy} & \text{Amount} & \text{Amount}\\
-		& & (q_{i}) & (\mu_{i}) & (\sigma_{i}^2) \\ \hline
+		& (M_i) & (q_{i}) & (\mu_{i}) & (\sigma_{i}^2) \\ \hline
 		100 & 400 & 0.05 & 200 & 400^2/12\\
 		200 & 300 & 0.06 & 150 & 300^2/12 \\ \hline
 	\end{array}
-\end{matrix}$$  
+\end{matrix}
+}
+$$  
 
 The mean of the aggregate claims is
-$$\mathrm{E~} S_{300} = \sum_{i=1}^{300} q_i \mu_i = 100\left\{0.05(200)\right\} + 200\left\{0.06 (150) \right\} = 1,000+1,824 =
-2,824$$  
+$$\mathrm{E~} (S_{300}) = \sum_{i=1}^{300} q_i \mu_i = 100\left\{0.05(200)\right\} + 200\left\{0.06 (150) \right\} = 2,800$$  
 
 The variance of the aggregate claims is
 \begin{eqnarray*}
-	\mathrm{Var~}S_{300} &=& \sum_{i=1}^{300} \left( q_i \sigma _i^2+q_i (1-q_i
-	)\mu_i^2 \right) \\
+	\mathrm{Var~}(S_{300}) &=& \sum_{i=1}^{300} \left( q_i \sigma _i^2+q_i (1-q_i)\mu_i^2 \right) ~~~~ \text{since } X_i \text{'s are independent} \\
 	&=& 100\left\{ 0.05 \left(\frac{400^2}{12}\right) +0.05 (1-0.05 )200^2 \right\}+
 	200\left\{
 	0.06 \left(\frac{300^2}{12}\right) +0.06 (1-0.06 )150^2 \right\}\\
-	&=& 600,466.67 .
+	&=& 600,467.
 \end{eqnarray*}
 
 </div>
 
 ***   
 
-*Follow-Up.* Now suppose everybody receives the policy maximum if a claim occurs. What is the expected aggregate loss and variance of the aggregate loss? Each policy claim amount $B_i$ is now fixed at $PolMax$ instead of random, so $\sigma_i^2 = \mathrm{Var~} B_i = 0$ and $\mu_i = PolMax$.
+*Follow-Up.* Now suppose everybody receives the policy maximum $M_i$ if a claim occurs. What is the expected aggregate loss $\mathrm{E~}(\tilde{S})$ and variance of the aggregate loss $\mathrm{Var~}(\tilde{S})$? 
+
+Each policy claim amount $X_i$ is now deterministic and fixed at $M_i$ instead of a randomly distributed amount, so $\sigma_i^2 = \mathrm{Var~} (X_i) = 0$ and $\mu_i = M_i$. Again, the probability of a claim occurring for each policy is $q_i$. Under these circumstances, the expected aggregate loss is
 $$\begin{aligned}
-\mathrm{E~}S^X &= \sum_{i=1}^{300} q_i \mu_i = 100 \left\{0.05(400) \right\} + 200 \left\{ 0.06(300) \right\} = 5,648
+\mathrm{E~}(\tilde{S}) &= \sum_{i=1}^{300} q_i \mu_i = 100 \left\{0.05(400) \right\} + 200 \left\{ 0.06(300) \right\} = 5,600
 \end{aligned}$$  
+
+The variance of the aggregate loss is
 $$\begin{aligned}
-\mathrm{Var~}S^X &= \sum_{i=1}^{300} \left( q_i \sigma _i^2+q_i (1-q_i
+\mathrm{Var~}(\tilde{S}) &= \sum_{i=1}^{300} \left( q_i \sigma _i^2+q_i (1-q_i
 )\mu_i^2 \right) = \sum_{i=1}^{300} \left( q_i (1-q_i) \mu_i^2 \right) \\
 &= 100 \left\{(0.05) (1-0.05) 400^2\right\} +
 200 \left\{(0.06) (1-0.06)300^2\right\} \\
-&= 76,000 + 101,520 = 177,520
+&= 1,775,200
 \end{aligned}$$
 
 *** 
 
-The individual risk model can also be used for claim frequency. If $X_i$ denotes the number of claims from the $i$th contract, and $S_n$ is interpreted as the total number of claims from the portfolio. In this case, the above two-part framework still applies. Assume $X_i$ belongs to the $(a,b,0)$ class with pmf denoted by $p_{ik}$. Let $X_i^{T}$ denote the associated zero-truncated distribution in the $(a,b,1)$ class with the pmf $p_{ik}^T=p_{ik}/(1-p_{i0})$ for $k=1,2,\ldots$. Using the relationship between their generating functions:
+The individual risk model can also be used for claim frequency. If $X_i$ denotes the number of claims from the $i$th contract, then $S_n$ is interpreted as the total number of claims from the portfolio. In this case, the above two-part framework still applies since there is a probability mass at zero for contracts that do not experience any claims. Assume $X_i$ belongs to the $(a,b,0)$ class with *pmf* denoted by $p_{ik} = \Pr(X_i=k)$ for $k=0,1,\ldots$ (see Section \@ref(S:the-a-b-0-class)). Let $X_i^{T}$ denote the associated zero-truncated distribution in the $(a,b,1)$ class with *pmf* $p_{ik}^T=p_{ik}/(1-p_{i0})$ for $k=1,2,\ldots$ (see Section \@ref(S:zero-truncation-or-modification)). Using the relationship between their probability generating functions (see *Technical Supplement B.2* for details):
 $$\begin{aligned}
 P_{X_i}(z) = p_{i0} +(1-p_{i0}) P_{X_i^{T}}(z),
 \end{aligned}$$
-we can write $X_i=I_i\times B_i$ with $q_i={\rm Pr}(I_i=1)={\rm Pr}(X_i>0)=1-p_{i0}$ and $B_i=X_i^T$.  
+we can write $X_i=I_i\times B_i$ with $q_i={\rm Pr}(I_i=1)={\rm Pr}(X_i>0)=1-p_{i0}$ and $B_i=X_i^T$. Notice that in this case, we have a zero-modified distribution since the $I_i$ variable covers the modified probability mass at zero with $q_i = \Pr(I_i=1)$, while the $B_i=X_i^T$ covers the discrete non-zero frequency portion. See Section \@ref(S:zero-truncation-or-modification) for the relationship between zero-truncated and zero-modified distributions.
+
+*** 
 
 **Example `r chapnum`.2.2.**
 An insurance company sold a portfolio of 100 independent homeowners insurance policies, each of which has claim frequency following a zero-modified Poisson distribution, as follows:  
 
-$$\begin{matrix}
+$$
+{\small 
+\begin{matrix}
 	\begin{array}{cccc} \hline
 		\text{Type of} & \text{Number of}  & \text{Probability of} & \lambda \\
 		\text{Policy} & \text{Policies}  &  \text{At Least 1 Claim} &  \\ \hline
 		\text{Low-risk} & 40 & 0.03 & 1 \\
 		\text{High-risk} & 60 & 0.05 & 2 \\ \hline
 	\end{array}
-\end{matrix}$$
+\end{matrix}
+}
+$$
 Find the expected value and variance of the claim frequency for the entire portfolio.  
 
 <h5 style="text-align: center;"><a id="displayTextExampleAggLoss.2.2" href="javascript:toggleEX('toggleExampleAggLoss.2.2','displayTextExampleAggLoss.2.2');"><i><strong>Show Example Solution</strong></i></a> </h5>
@@ -153,130 +176,135 @@ $$\begin{aligned}
 \end{aligned}$$
 Let the portfolio claim frequency be $S_n = \sum_{i=1}^n N_i$. Using the formulas above, the expected claim frequency of the portfolio is
 $$\begin{aligned}
-	\mathrm{E~} S_n &= \sum_{i=1}^{100} q_i \mu_i \\
+	\mathrm{E~} (S_n) &= \sum_{i=1}^{100} q_i \mu_i \\
 	& = 40\left[0.03 \left(\frac{1}{1-e^{-1}} \right) \right] + 60 \left[0.05 \left( \frac{2}{1-e^{-2}} \right) \right] \\
 	&= 40(0.03)(1.5820) + 60(0.05)(2.3130) = 8.8375
 \end{aligned}$$
 The variance of the claim frequency of the portfolio is
 $$\begin{aligned}
-	\mathrm{Var~}S_n &= \sum_{i=1}^{100} \left( q_i \sigma _i^2+q_i (1-q_i
+	\mathrm{Var~}(S_n) &= \sum_{i=1}^{100} \left( q_i \sigma _i^2+q_i (1-q_i
 	)\mu_i^2 \right) \\
 	&= 40 \left[ 0.03 \left(\frac{1-2e^{-1}}{(1-e^{-1})^2} \right) + 0.03(0.97)(1.5820^2) \right] + 60 \left[0.05 \left( \frac{2[1-3e^{-2}]}{ (1-e^{-2})^2} \right) + 0.05(0.95)(2.3130^2) \right] \\
 	&= 23.7214
 \end{aligned}$$
-Note that equivalently, we could have calculated the mean and variance of an individual policy directly using the relationship between the zero-modified and zero-truncated Poisson distributions.  
+Note that equivalently, we could have calculated the mean and variance of an individual policy directly using the relationship between the zero-modified and zero-truncated Poisson distributions (see Section \@ref(S:the-a-b-0-class)). 
 
 </div>
 
 *** 
 
-To understand the distribution of the aggregate loss, one could use central limit theorem to approximate the distribution of $S_n$. Denote $\mu_S={\rm E}(S)$ and $\sigma^2_S={\rm Var}(S)$, the cdf of $S_n$ is:
+To understand the distribution of the aggregate loss, one could use the central limit theorem to approximate the distribution of $S_n$ for large $n$. Denote $\mu_{S_n}={\rm E}(S_n)$ and $\sigma^2_{S_n}={\rm Var}(S_n)$ and let $Z\sim N(0,1)$, a standard normal random variable with *cdf* $\Phi$. Then the *cdf* of $S_n$ can be approximated as follows:
 $$\begin{aligned}
- F_{S_n}(s)={\rm Pr}({S_n}\leq s) = \Phi \left(\frac{s-\mu_S}{\sigma_S}\right).
+ F_{S_n}(s) &= {\rm Pr}({S_n}\leq s) = \Pr \left( \frac{S_n - \mu_{S_n}}{\sigma_{S_n}} \leq \frac{s-\mu_{S_n}}{\sigma_{S_n}} \right) \\
+ &\approx \Pr\left( Z \leq \frac{s-\mu_{S_n}}{\sigma_{S_n}} \right) = \Phi \left(\frac{s-\mu_S}{\sigma_S}\right).
 \end{aligned}$$  
 
+*** 
 
-**Example `r chapnum`.2.3. SOA Exam Question - Follow-Up.**
-As in the original example earlier, an insurance company sold 300 fire insurance policies, with claim amounts uniformly distributed between 0 and the policy maximum. Using the normal approximation, calculate the probability that the aggregate claim amount exceeds $\$3,500$. 
+**Example `r chapnum`.2.3. Actuarial Exam Question - Follow-Up.**
+As in the Example `r chapnum`.2.1 earlier, an insurance company sold 300 fire insurance policies, with claim amounts $X_i$ uniformly distributed between 0 and the policy maximum $M_i$. Using the normal approximation, calculate the probability that the aggregate claim amount $S_{300}$ exceeds $\$3,500$. 
 
 <h5 style="text-align: center;"><a id="displayTextExampleAggLoss.2.3" href="javascript:toggleEX('toggleExampleAggLoss.2.3','displayTextExampleAggLoss.2.3');"><i><strong>Show Example Solution</strong></i></a> </h5>
 <div id="toggleExampleAggLoss.2.3" style="display: none">
 
 **Solution.**
-We have seen earlier that $\mathrm{E~} S_{300}=2,824$ and $\mathrm{Var~}S_{300} = 600,466.67$. Then
+We have seen earlier that $\mathrm{E}(S_{300})=2,800$ and $\mathrm{Var}(S_{300}) = 600,467$. Then
 $$\begin{aligned}
 {\rm Pr}(S_{300} > 3,500) &= 1 - {\rm Pr}(S_{300} \leq 3,500) \\
-&= 1- \Phi \left( \frac{3,500-2,824}{\sqrt{600,466.67}} \right) = 1 - \Phi \left( 0.87237 \right) \\
-&= 1 - 0.8085 = 0.1915
+&\approx 1- \Phi \left( \frac{3,500-2,800}{\sqrt{600,467}} \right) = 1 - \Phi \left( 0.90334 \right) \\
+&= 1 - 0.8168 = 0.1832
 \end{aligned}$$
 
 </div>
 
 *** 
 
-For small $n$, the distribution of $S_n$ is likely skewed, and the normal approximation would be a poor choice. To examine the aggregate loss distribution, we go back to the basics and first principles. Specifically, the distribution can be derived recursively. Define $S_k=X_1 + \cdots + X_k, k=1,\ldots,n$, we have:
+For small $n$, the distribution of $S_n$ is likely skewed, and the normal approximation would be a poor choice. To examine the aggregate loss distribution, we go back to the basics and first principles. Specifically, the distribution can be derived recursively. Define $S_k=X_1 + \cdots + X_k, k=1,\ldots,n$.
+
 For $k=1$:
 $$F_{S_1}(s) = {\rm Pr}(S_1\leq s) = {\rm Pr}(X_1\leq s) = F_{X_1}(s).$$
-For $k=2,\ldots,n$,
+For $k=2,\ldots,n$:
    $$\begin{aligned}
     F_{S_k}(s)&={\Pr}(X_1+\cdots+X_k\leq s) ={\Pr}(S_{k-1}+X_k\leq s) \\
     &={\rm E}_{X_k}\left[{\rm Pr}(S_{k-1}\leq s-X_k|X_k)\right]= {\rm E}_{X_k}\left[F_{S_{k-1}}(s-X_k)\right].
    \end{aligned}$$
 
-There are some simple cases where the $S_n$ has a closed form. Examples include  
-
-$$\begin{matrix}
-\text{Table of Closed Form Partial Sum Distributions}\\
-	\begin{array}{c|c} \hline
-		\text{Distribution of} & \text{Distribution of}   \\
-		X_i   &  S_n  \\ \hline
-N(\mu_i,\sigma_i^2) & N(\sum_{i=1}^{n}\mu_i,\sum_{i=1}^{n}\sigma_i^2) \\
-Exponential(\theta)& Gamma(n,\theta)\\  
-Gamma(\alpha_i,\theta)& Gamma(\sum_{i=1}^n\alpha_i,\theta)\\  
-Poisson(\lambda_i)& Poisson(\sum_{i=1}^{n}\lambda_i)\\  
-Bin(q,m_i)& Bin(q,\sum_{i=1}^n m_i)\\  
- Geometric(\beta)& NegBin(\beta,n)\\  
-NegBin(\beta,r_i)& NegBin(\beta,\sum_{i=1}^n r_i)\\  
-\hline
-	\end{array}
-\end{matrix}$$
-
-
-A special case is when $X_i's$ are identically distributed. Let $F_X(x)={\Pr}(X\leq x)$ be the common distribution of $X_i$ $(i=1,\ldots,n)$, we define
+A special case is when $X_i$'s are identically distributed. Let $F_X(x)={\Pr}(X\leq x)$ be the common distribution of $X_i, ~i=1,\ldots,n$. We define
 $$F^{*n}_X(x)={\Pr}(X_1+\cdots+X_n\leq x)$$
-the $n$-fold convolution of $F_X$.  
-
-**Example `r chapnum`.2.4. Gamma Distribution.**
-For an easy case, assume that $X_i \sim$ gamma with parameters $(\alpha, \theta)$. As we know, the moment generating function (*mgf*) is $M_{X}(t) = (1 - \theta t)^{- \alpha}$. Thus, the *mgf* of the sum $S_n = X_1 + \cdots + X_n$ is
-\begin{eqnarray*}
-M_{S_n}(t) = \mathrm{E~} \exp(t(X_1 + \cdots + X_n)) = (1 - \theta t)^{-n \alpha} ,
-\end{eqnarray*}
-Thus, $S_n$ has a gamma distribution with parameters $(n \alpha, \theta)$. This makes it easy to compute $F^{\ast n}(x) = \Pr(S_n \le x).$ This property is known as ``closed under convolution''.  
-
-
-*** 
-
-**Example `r chapnum`.2.5. Negative Binomial Distribution.** 
-Assume $X_i \sim NegBin(\beta, r_i)$. The probability generating function (*pgf*) is $P_X(z) = \left[1-\beta(z-1) \right]^{-r}$. Thus, the *pgf* of the sum $S_n =X_1+\cdots+X_n$ is
-
-$$\begin{aligned}
-P_{S_n}(z) &= \mathrm{E~}\left[ z^{S_n} \right] = \mathrm{E~}\left[ z^{X_1+\cdots+X_n} \right] = \mathrm{E~}\left[ z^{X_1} z^{X_2} \cdots z^{X_n} \right] = \mathrm{E~}\left[z^{X_1}\right] \cdots \mathrm{E~}\left[z^{X_n}\right] \\
-&= \prod_{i=1}^n P_{X_i}(z) = \prod_{i=1}^n \left[1-\beta(z-1) \right]^{-r_i} = \left[1-\beta(z-1) \right]^{-\sum_{i=1}^n r_i}
-\end{aligned}$$
-
-Thus, $S_n$ has a negative binomial distribution with parameters $(\beta, \sum_{i=1}^n r_i)$.  
-
-
-***   
-
-More generally, we can compute $F^{\ast n}$ recursively. Begin the recursion at $n=1$ using $F^{\ast 1} \left(x \right) =F(x)$. Next, for $n=2$, we have
+the $n$-fold convolution of $F_X$. More generally, we can compute $F_X^{\ast n}$ recursively. Begin the recursion at $k=1$ using $F_X^{\ast 1} \left(x \right) =F_X(x)$. Next, for $k=2$, we have
 
 \begin{eqnarray*}
-F^{\ast 2} \left(x \right) &=& \Pr(X_1 + X_2 \le x) = \mathrm{E}_{X_2} \Pr(X_1 \le x - X_2|X_2)\\
-&=& \mathrm{E}_X F(x - X)\\
+F_X^{\ast 2} \left(x \right) &=& \Pr(X_1 + X_2 \le x) = \mathrm{E}_{X_2} \left[ \Pr(X_1 \le x - X_2|X_2) \right] \\
+&=& \mathrm{E}_{X_2} \left[ F(x - X_2) \right] \\
 &=&\left\{\begin{array}{ll}
-\int_{0}^{x} F(x-y) f(y) dy & \text{continuous}\\
-\sum_{y \le x} F(x-y) f(y) & \text{discrete}\\
+\int_{0}^{x} F(x-y) f(y) dy & \text{for continuous } X_i \text{'s} \\
+\sum_{y \le x} F(x-y) f(y) & \text{for discrete } X_i \text{'s} \\
 \end{array}\right.
 \end{eqnarray*}
 
 Recall $F(0) = 0$.  
 
-Similarly, let $S_n = X_1 + X_2 + \cdots + X_n$
+Similarly for $k=n$, we have $S_n = X_1 + X_2 + \cdots + X_n$ and
 
 \begin{eqnarray*}
 F^{\ast n}\left(x\right) &=& \Pr(S_n \le x) = \Pr(S_{n-1} + X_n \le x)\\
-&=&\mathrm{E}_{X_n}\Pr(S_{n-1} \le x - X_n|X_n)\\
-&=&\mathrm{E}_X F^{\ast(n-1)}(x - X)\\
+&=&\mathrm{E}_{X_n} \left[ \Pr(S_{n-1} \le x - X_n|X_n) \right] \\
+&=&\mathrm{E}_X \left[ F^{\ast(n-1)}(x - X) \right] \\
 &=& 
 \left\{\begin{array}{ll}
-\int_{0}^{x} F^{\ast(n-1)}(x-y)f(y)dy & \text{continuous}\\
-\sum_{y \le x} F^{\ast(n-1)}(x-y)f(y) & \text{discrete}\\
+\int_{0}^{x} F^{\ast(n-1)}(x-y)f(y)dy & \text{for continuous } X_i \text{'s} \\
+\sum_{y \le x} F^{\ast(n-1)}(x-y)f(y) & \text{for discrete } X_i \text{'s} \\
 \end{array}\right.
 \end{eqnarray*}  
 
+When $X_i$'s are independent and belong to the same family of distributions, there are some simple cases where $S_n$ has a closed form. This makes it easy to compute $\Pr(S_n \le x)$. This property is known as *closed under convolution*, meaning the distribution of the sum of independent random variables belongs to the same family of distributions as that of the component variables, just with different parameters. Examples include:
 
-**Example `r chapnum`.2.6. SOA Exam Question (modified).**
+$$
+{\small
+\begin{matrix}
+\text{Table of Closed Form Partial Sum Distributions}\\
+	\begin{array}{l|l|l} \hline
+		\text{Distribution of } X_i & \text{Abbreviation} & \text{Distribution of } S_n   \\ \hline
+\text{Normal with mean } \mu_i \text{ and variance } \sigma_i^2 & N(\mu_i,\sigma_i^2) & N\left(\sum_{i=1}^{n}\mu_i,~\sum_{i=1}^{n}\sigma_i^2\right) \\
+\text{Exponential with mean } \theta & Exp(\theta) & Gam(n,\theta)\\  
+\text{Gamma with shape } \alpha_i \text{ and scale } \theta & Gam(\alpha_i,\theta) & Gam\left(\sum_{i=1}^n\alpha_i,\theta\right) \\  
+\text{Poisson with mean (and variance) } \lambda_i  & Poi(\lambda_i)& Poi\left(\sum_{i=1}^{n}\lambda_i\right)\\  
+\text{Binomial with } m_i \text{ trials and } q \text{ success probability} & Bin(m_i, q)& Bin\left(\sum_{i=1}^n m_i, q\right)\\  
+\text{Geometric with mean } \beta & Geo(\beta) & NB(\beta,n)\\  
+\text{Negative binomial with mean } r_i \beta~ \text{ and variance } ~r_i \beta (1+\beta) & NB(\beta,r_i)& NB\left(\beta,\sum_{i=1}^n r_i\right)\\  
+\hline
+	\end{array}
+\end{matrix}
+}
+$$
+
+*** 
+
+**Example `r chapnum`.2.4. Gamma Distribution.**
+Assume that $X_1,\ldots,X_n$ are independent random variables with $X_i \sim Gam(\alpha_i, \theta)$. The *mgf* of $X_i$ is $M_{X_i}(t) = (1 - \theta t)^{- \alpha_i}$. Thus, the *mgf* of the sum $S_n = X_1 + \cdots + X_n$ is
+$$\begin{aligned}
+M_{S_n}(t) &= \prod_{i=1}^n M_{X_i}(t) ~~~~ \text{from the independence of } X_i \text{'s} \\
+&= \prod_{i=1}^n (1 - \theta t)^{- \alpha_i} = (1-\theta t)^{-\sum_{i=1}^n \alpha_i }~ ,
+\end{aligned}$$
+
+which is the *mgf* of a gamma random variable with parameters $(\sum_{i=1}^n \alpha_i, \theta)$. Thus, $S_n \sim Gam(\sum_{i=1}^n \alpha_i, \theta)$. 
+
+*** 
+
+**Example `r chapnum`.2.5. Negative Binomial Distribution.** 
+Assume that $X_1,\ldots, X_n$ are independent random variables with $X_i \sim NB(\beta, r_i)$. The *pgf* of $X_i$ is $P_{X_i}(z) = \left[1-\beta(z-1) \right]^{-r_i}$. Thus, the *pgf* of the sum $S_n =X_1+\cdots+X_n$ is
+
+$$\begin{aligned}
+P_{S_n}(z) &= \mathrm{E~}\left[ z^{S_n} \right] = \mathrm{E~}\left[ z^{X_1+\cdots+X_n} \right] = \mathrm{E~}\left[ z^{X_1} z^{X_2} \cdots z^{X_n} \right] \\
+&= \mathrm{E~}\left[z^{X_1}\right] \cdots \mathrm{E~}\left[z^{X_n}\right] ~~~~ \text{under the independence of } X_i \text{'s} \\
+&= \prod_{i=1}^n P_{X_i}(z) = \prod_{i=1}^n \left[1-\beta(z-1) \right]^{-r_i} = \left[1-\beta(z-1) \right]^{-\sum_{i=1}^n r_i} ~,
+\end{aligned}$$
+
+which is the *pgf* of a negative binomial random variable with parameters $(\beta, \sum_{i=1}^n r_i)$. Thus, $S_n \sim NB(\beta, \sum_{i=1}^n r_i)$. 
+
+***   
+
+**Example `r chapnum`.2.6. Actuarial Exam Question (modified).**
 The annual number of doctor visits for each individual in a family of 4 has geometric distribution with mean 1.5. The annual numbers of visits for the family members are mutually independent. An insurance pays 100 per doctor visit beginning with the 4th visit per family. Calculate the probability that the family will receive an insurance payment this year.   
 
 <h5 style="text-align: center;"><a id="displayTextExampleAggLoss.2.6"
@@ -284,7 +312,7 @@ href="javascript:toggleEX('toggleExampleAggLoss.2.6','displayTextExampleAggLoss.
 <div id="toggleExampleAggLoss.2.6" style="display: none">
 
 **Solution.**
-Let $X_i \sim Geometric(\beta=1.5)$ be the number of doctor visits for one individual in the family and $S_4 = X_1 + X_2 + X_3 + X_4$ be the number of doctor visits for the family. The sum of 4 independent geometric distributions each with mean 1.5 follows a negative binomial distribution, i.e. $S_4 \sim NegBin(\beta=1.5, r=4)$.  
+Let $X_i \sim Geo(\beta=1.5)$ be the number of doctor visits for one individual in the family and $S_4 = X_1 + X_2 + X_3 + X_4$ be the number of doctor visits for the family. The sum of 4 independent geometric random variables each with mean $\beta=1.5$ follows a negative binomial distribution, i.e. $S_4 \sim NB(\beta=1.5, r=4)$.  
 
 If the insurance pays 100 per visit beginning with the 4th visit for the family, then the family will not receive an insurance payment if they have less than 4 claims. This probability is
 $$\begin{aligned}
@@ -301,27 +329,30 @@ $$\begin{aligned}
 
 ### Moments and Distribution
 
-Under the collective risk model $S=X_1+\cdots+X_N$, $\{X_i\}$ are *iid*, and independent of $N$. Let $\mu = {\rm E}\left( X_{i}\right)$ and $\sigma ^{2} = {\rm Var}\left(X_{i}\right)$ $\forall$ $i$. Using the law of iterated expectations, the mean is
+Under the collective risk model $S_N=X_1+\cdots+X_N$, $\{X_i\}$ are *iid*, and independent of $N$. Let $\mu = {\rm E}\left( X_{i}\right)$ and $\sigma ^{2} = {\rm Var}\left(X_{i}\right)$ for all $i$. Using the law of iterated expectations, the mean of the aggregate loss is
 \begin{eqnarray*}
-{\rm E}(S)={\rm E}_N[{\rm E}_S(S|N)] = {\rm E}_N[N\mu] = \mu {\rm E}(N).
+{\rm E}(S_N)={\rm E}_N[{\rm E}_S(S|N)] = {\rm E}_N(N\mu) = \mu {\rm E}(N).
 \end{eqnarray*}
-Using the law of total variation, the variance is
+Using the law of total variance, the variance of the aggregate loss is
 $$\begin{aligned}
-{\rm Var}(S) &= {\rm E}_N[{\rm Var}_S(S|N)] + {\rm Var}_N[{\rm E}_S(S|N)] \\
-&={\rm E}_N[N\sigma^2] + {\rm Var}_N[N\mu] \\
+{\rm Var}(S_N) &= {\rm E}_N[{\rm Var}(S_N|N)] + {\rm Var}_N[{\rm E}(S_N|N)] \\
+&= \mathrm{E}_N \left[ \mathrm{Var}(X_1+\cdots+X_N) \right] + \mathrm{Var}_N\left[ \mathrm{E}(X_1+\cdots+X_N) \right] \\
+&= \mathrm{E}_N \left[ \mathrm{Var}(X_1)+\cdots+ \mathrm{Var}(X_N) + 2\mathrm{Cov}(X_1, X_2) + \cdots + \mathrm{Cov}(X_{N-1}, X_N) \right] + \mathrm{Var}_N\left[ \mathrm{E}(X_1) + \cdots + \mathrm{E}(X_N) \right]  \\
+&={\rm E}_N[N\sigma^2] + {\rm Var}_N[N\mu] ~~~~ \text{since } \mathrm{Cov}(X_i, X_j)=0 \text{ for all } i\neq j \text{ by independence} \\
 &=\sigma^2{\rm E}[N] + \mu^2{\rm Var}[N]
 \end{aligned}$$  
 
 **Special Case: Poisson Distributed Frequency.**
-If $N \sim Poisson (\lambda)$, then
-\begin{eqnarray*}
-\mathrm{E~}N &=& \mathrm{Var~}N = \lambda\\
-\mathrm{Var~}S &=& \lambda (\sigma^2 + \mu^2) = \lambda ~\mathrm{E~} X^2 .
-\end{eqnarray*}  
+If $N \sim Poi (\lambda)$, then
+$$\begin{aligned}
+\mathrm{E}(N) &= \mathrm{Var}(N) = \lambda\\
+\mathrm{E}(S) &= \lambda \mathrm{E}(X)\\
+\mathrm{Var}(S) &= \lambda (\sigma^2 + \mu^2) = \lambda ~\mathrm{E} (X^2) .
+\end{aligned}$$
 
 ***
 
-**Example `r chapnum`.3.1. SOA Exam Question.**
+**Example `r chapnum`.3.1. Actuarial Exam Question.**
 The number of accidents follows a Poisson distribution with mean 12. Each accident generates 1, 2, or 3 claimants with probabilities 1/2, 1/3, and 1/6 respectively.  
 
 Calculate the variance in the total number of claimants.  
@@ -331,90 +362,96 @@ Calculate the variance in the total number of claimants.
 <div id="toggleExampleAggLoss.3.1" style="display: none">
 
 **Solution.**
-$$\mathrm{E~}X^2 = 1^2 \left( \frac{1}{2}\right) + 2^2\left(\frac{1}{3} \right) + 3^2\left(\frac{1}{6}\right)
-= \frac{10}{3}$$
-$$\mathrm{Var~}S = \lambda \ \mathrm{E~}X^2 = 12\left(\frac{10}{3}\right) = 40$$  
+$$\begin{aligned} 
+& \mathrm{E}(X^2) = 1^2 \left( \frac{1}{2}\right) + 2^2\left(\frac{1}{3} \right) + 3^2\left(\frac{1}{6}\right)
+= \frac{10}{3} \\
+\Rightarrow &\mathrm{Var}(S_N) = \lambda \ \mathrm{E}(X^2) = 12\left(\frac{10}{3}\right) = 40
+\end{aligned}$$  
 
-Alternatively, using the general approach, $\mathrm{Var~}S = \sigma^2 \mathrm{E~}N + \mu^2 \mathrm{Var~}N$, where
+Alternatively, using the general approach, $\mathrm{Var}(S_N) = \sigma^2 \mathrm{E}(N) + \mu^2 \mathrm{Var}(N)$, where
 
-$$\mathrm{E~}N = \mathrm{Var~}N = 12$$
-
-$$\mu = \mathrm{E~}X = 1\left(\frac{1}{2}\right) + 2\left(\frac{1}{3}\right) + 3\left(\frac{1}{6}\right)
-= \frac{5}{3}$$
-
-$$\sigma^2 = \mathrm{E~}X^2 - (\mathrm{E~}X)^2 = \frac{10}{3} - \frac{25}{9}
-= \frac{5}{9}$$
-
-$$\Rightarrow \ \mathrm{Var~}S = \left(\frac{5}{9}\right)\left(12\right) + \left(\frac{5}{3}\right)^2\left(12\right) = 40 .$$
+$$\begin{aligned}
+\mathrm{E}(N) &= \mathrm{Var}(N) = 12 \\
+\mu &= \mathrm{E}(X) = 1\left(\frac{1}{2}\right) + 2\left(\frac{1}{3}\right) + 3\left(\frac{1}{6}\right)
+= \frac{5}{3} \\
+\sigma^2 &= \mathrm{E}(X^2) - [\mathrm{E}(X)]^2 = \frac{10}{3} - \frac{25}{9}
+= \frac{5}{9} \\
+\Rightarrow \ \mathrm{Var}(S) &= \left(\frac{5}{9}\right)\left(12\right) + \left(\frac{5}{3}\right)^2\left(12\right) = 40 .
+\end{aligned}$$
 </div>
 
 *** 
 
-In general, the moments of $S$ can be derived from its moment generating function (*mgf*). Because $\{X_i\}$ are *iid*, we denote the *mgf* of $X$ as $M_{X}(t) = \mathrm{E~}(e^{tX})$. Using the law of iterated expectations, the *mgf* of $S$ is
+In general, the moments of $S_N$ can be derived from its moment generating function (*mgf*). Because $X_i$'s are *iid*, we denote the *mgf* of $X$ as $M_{X}(t) = \mathrm{E~}(e^{tX})$. Using the law of iterated expectations, the *mgf* of $S_N$ is
 
-\begin{eqnarray*}
-M_{S}(t) &=& \mathrm{E}(e^{St})=\mathrm{E}[\mathrm{E}(e^{St}|N)]\\
-&=& \mathrm{E~}[(M_{X}(t))^N]
-\end{eqnarray*}
+$$\begin{aligned}
+M_{S_N}(t) &= \mathrm{E}(e^{t S_N})=\mathrm{E}_N[~\mathrm{E}(e^{tS_N}|N)~]\\
+&= \mathrm{E}_N \left[ ~\mathrm{E}\left( e^{t(X_1+\cdots+X_N)}\right) ~\right] = 
+\mathrm{E}_N \left[ \mathrm{E}(e^{tX_1})\cdots\mathrm{E}(e^{tX_N}) \right] ~~~~ \text{since } X_i \text{'s are independent} \\
+&= \mathrm{E}_N[~(M_{X}(t))^N~]
+\end{aligned}$$
 
-where we use the relation $\mathrm{E}[e^{t(X_1+\cdots+X_n)}] = \mathrm{E}(e^{tX_1})\cdots\mathrm{E}(e^{tX_n}) = (M_{X}(t))^n$. Now, recall that the probability generating function (*pgf*) of $N$ is $P(z) = \mathrm{E}(z^N)$. Denote $M_{X}(t)=z$, it is shown
+Now, recall that the probability generating function (*pgf*) of $N$ is $P_N(z) = \mathrm{E}(z^N)$. Denote $M_{X}(t)=z$. Substituting into the expression for the *mgf* of $S_N$ above, it is shown
 
-\begin{eqnarray*}
-M_{S}(t) = \mathrm{E~}(z^N)  = P_{N}(z) = P_{N}[M_{X}(t)].
-\end{eqnarray*}
+$$\begin{aligned}
+M_{S_N}(t) = \mathrm{E~}(z^N)  = P_{N}(z) = P_{N}[M_{X}(t)].
+\end{aligned}$$
 
-Similarly, if $S$ a discrete, one can show the *pgf* of $S$ is:
-\begin{eqnarray*}
-P_{S}(z) = P_{N}[P_{X}(z)].
-\end{eqnarray*}  
+Similarly, if $S_N$ is discrete, one can show the *pgf* of $S_N$ is:
+$$\begin{aligned}
+P_{S_N}(z) = P_{N}[P_{X}(z)].
+\end{aligned}$$
 
-To get $\mathrm{E~}S = M_{S}'(0)$, we use the chain rule
+To get $\mathrm{E}(S_N) = M_{S_N}'(0)$, we use the chain rule
 \[
-M_{S}'(t) = \frac{\partial}{\partial t} P_{N}(M_{X}(t)) = P_{N}'(M_{X}(t)) M_{X}'(t)\\
+M_{S_N}'(t) = \frac{\partial}{\partial t} P_{N}(M_{X}(t)) = P_{N}'(M_{X}(t)) M_{X}'(t)\\
 \]
-and recall $M_{X}(0) = 1, M_{X}'(0) = \mathrm{E~}X = \mu, P_{N}'(1) = \mathrm{E~}N$. So,
-\begin{eqnarray*}
-\mathrm{E~}S = M_{S}'(0) = P_{N}'(M_{X}'(0)) M_{X}'(0) = \mu {\rm E}(X)
-\end{eqnarray*}
-Similarly, one could use relation
-\[
-\mathrm{E~}S^2 = M_{S}''(0)
-\]
-to get
-\[\mathrm{Var~}S = \sigma^2 \mathrm{E~}N + \mu^2 \mathrm{Var~}N.\]  
+and recall $M_{X}(0) = 1, M_{X}'(0) = \mathrm{E}(X) = \mu, P_{N}'(1) = \mathrm{E}(N)$. So,
+$$\begin{aligned}
+\mathrm{E}(S_N) = M_{S_N}'(0) = P_{N}'(M_{X}(0)) M_{X}'(0) = \mu {\rm E}(N)
+\end{aligned}$$
+
+Similarly, one could use relation $\mathrm{E}(S_N^2) = M_{S_N}''(0)$ to get
+\[\mathrm{Var}(S_N) = \sigma^2 \mathrm{E}(N) + \mu^2 \mathrm{Var}(N).\]  
 
 **Special Case. Poisson Frequency.** 
-Let $N \sim Poisson (\lambda)$. Thus, the *pgf* of $N$ is $P_N (z) =\exp[\lambda(z-1)]$, and the *mgf* of $S$ is
-\begin{eqnarray*}
-M_{S}(t) &=&\exp[\lambda(M_{X}(t) - 1)].
-\end{eqnarray*}
-Taking derivatives yield
-\begin{eqnarray*}
-M_{S}(t) &=&\exp(\lambda(M_{X}(t) - 1))\\
-M_{S}'(t) &=&\exp(\lambda(M_{X}(t) - 1)) \lambda M_{X}'(t)\\
-&=& M_{S}(t) \lambda M_{X}'(t)\\
-M_{S}''(t) &=& M_{S}(t) \lambda M_{X}''(t) + \{M_{S}(t) \lambda M_{X}'(t)\} \lambda M_{X}'(t)
-\end{eqnarray*}
+Let $N \sim Poi (\lambda)$. Thus, the *pgf* of $N$ is $P_N (z) = e^{\lambda(z-1)}$ and the *mgf* of $S_N$ is
+$$\begin{aligned}
+M_{S_N}(t) &= P_N[M_X(t)] = e^{\lambda(M_{X}(t) - 1)}.
+\end{aligned}$$
+
+Taking derivatives yields
+$$\begin{aligned}
+M_{S_N}'(t) &= e^{\lambda(M_{X}(t) - 1)}~ \lambda~ M_{X}'(t) = M_{S_N}(t) ~\lambda ~M_{X}'(t)\\
+M_{S_N}''(t) &= M_{S}(t) ~\lambda~ M_{X}''(t) + [~M_{S}(t)~\lambda~ M_{X}'(t)~] ~\lambda~ M_{X}'(t)
+\end{aligned}$$
+
 Evaluating these at $t=0$ yields
-\begin{eqnarray*}
-M_{S}''(0) &=& \lambda \mathrm{E}(X^2) + \lambda^2 \mu^2\\
-\mathrm{Var~}S &=& \lambda \mathrm{E}(X^2) + \lambda^2 \mu^2 - (\lambda \mu)^2\\
-&=& \lambda \mathrm{E}(X^2).
-\end{eqnarray*}
+$$\begin{aligned}
+\mathrm{E}(S_N) &= M_{S_N}'(0) =  \lambda \mathrm{E}(X) = \lambda \mu
+\end{aligned}$$ and
+
+$$\begin{aligned} M_{S_N}''(0) &= \lambda \mathrm{E}(X^2) + \lambda^2 \mu^2\\
+\Rightarrow \mathrm{Var}(S_N) &= \lambda \mathrm{E}(X^2) + \lambda^2 \mu^2 - (\lambda \mu)^2 = \lambda~ \mathrm{E}(X^2).
+\end{aligned}$$
 
 *** 
 
-**Example `r chapnum`.3.2. SOA Exam Question.**
+**Example `r chapnum`.3.2. Actuarial Exam Question.**
 You are the producer of a television quiz show that gives cash prizes. The number of prizes, $N$, and prize amount, $X$, have the following distributions:  
 
-$$\begin{matrix}
+$$
+{\small 
+\begin{matrix}
 \begin{array}{ccccc}\hline
     n & \Pr(N=n) & & x & \Pr(X=x)\\ \hline
     1 & 0.8 & & 0 & 0.2 \\
     2 & 0.2 & & 100 & 0.7 \\
        &       & & 1000 & 0.1\\\hline
   \end{array}
-\end{matrix}$$   
+\end{matrix}
+}
+$$   
 
 Your budget for prizes equals the expected aggregate cash prizes plus the standard deviation of aggregate cash prizes. Calculate your budget. 
 
@@ -423,44 +460,49 @@ Your budget for prizes equals the expected aggregate cash prizes plus the standa
 
 **Solution.**
 We need to calculate the mean and standard deviation of the aggregate (sum) of cash prizes. The moments of the frequency distribution $N$ are
-\begin{eqnarray*}
-\mathrm{E~}N &=& 1 (0.8) + 2 (0.2) =1.2\\
-\mathrm{E~}N^2 &=&  1^2 (0.8) + 2^2 (0.2) =1.6\\
-\mathrm{Var~}N &=& \mathrm{E~}N^2 - \left( \mathrm{E~}N \right)^2= 0.16
-\end{eqnarray*}
+$$\begin{aligned}
+\mathrm{E}(N) &= 1 (0.8) + 2 (0.2) =1.2\\
+\mathrm{E}(N^2) &=  1^2 (0.8) + 2^2 (0.2) =1.6\\
+\mathrm{Var}(N) &= \mathrm{E}(N^2) - \left[ \mathrm{E}(N) \right]^2= 0.16
+\end{aligned}$$
+
 The moments of the severity distribution $X$ are
-\begin{eqnarray*}
-\mathrm{E~}X &=& 0 (0.2) + 100 (0.7) + 1000 (0.1) = 170 = \mu\\
-\mathrm{E~}X^2 &=& 0^2 (0.2) + 100^2 (0.7) + 1000^2 (0.1) = 107,000\\
-\mathrm{Var~}X &=& \mathrm{E~}X^2 - \left( \mathrm{E~}X \right)^2=78,100 = \sigma^2
-\end{eqnarray*}
+$$\begin{aligned}
+\mathrm{E}(X) &= 0 (0.2) + 100 (0.7) + 1000 (0.1) = 170 = \mu\\
+\mathrm{E}(X^2) &= 0^2 (0.2) + 100^2 (0.7) + 1000^2 (0.1) = 107,000\\
+\mathrm{Var}(X) &= \mathrm{E}(X^2) - \left[ \mathrm{E}(X) \right]^2=78,100 = \sigma^2
+\end{aligned}$$
+
 Thus, the mean and variance of the aggregate cash prize are
-\begin{eqnarray*}
-\mathrm{E~}S  &=& \mu \mathrm{E~}N = 170 (1.2) = 204 \\
-\mathrm{Var~}S &=& \sigma^2 \mathrm{E~}N + \mu^2 \mathrm{Var~}N\\
-&=& 78,100 (1.2) + 170^2 (0.16) = 98,344
-\end{eqnarray*}
+$$\begin{aligned}
+\mathrm{E}(S_N)  &= \mu \mathrm{E}(N) = 170 (1.2) = 204 \\
+\mathrm{Var}(S_N) &= \sigma^2 \mathrm{E}(N) + \mu^2 \mathrm{Var}(N)\\
+&= 78,100 (1.2) + 170^2 (0.16) = 98,344
+\end{aligned}$$
+
 This gives the following required budget
-\begin{eqnarray*}
-Budget &=& \mathrm{E~}S + \sqrt{\mathrm{Var~}S} \\
-&=& 204 + \sqrt{98,344} = 517.60 .
-\end{eqnarray*}
+$$\begin{aligned}
+Budget &= \mathrm{E}(S_N) + \sqrt{\mathrm{Var}(S_N)} \\
+&= 204 + \sqrt{98,344} = 517.60 .
+\end{aligned}$$
 
 
 </div>
 
 *** 
 
-The distribution of $S$ is called a compound distribution, and it can be derived based on the convolution of $F_X$ as follows:
-\begin{eqnarray*}
-F_{S}(s) &=& \Pr \left(X_1 + \cdots + X_N \le s \right) \\
-&=&  \mathrm{E} \left[ \Pr \left(X_1 + \cdots + X_N  \le s|N=n \right) \right]\\
-&=&  \mathrm{E} \left[ F_{X}^{\ast N}(s) \right] \\
-&=&  p_0 + \sum_{n=1}^{\infty }p_n F_{X}^{\ast n}(s)
-\end{eqnarray*}  
+The distribution of $S_N$ is called a *compound distribution*, and it can be derived based on the convolution of $F_X$ as follows:
+$$\begin{aligned}
+F_{S_N}(s) &= \Pr \left(X_1 + \cdots + X_N \le s \right) \\
+&=  \mathrm{E} \left[ \Pr \left(X_1 + \cdots + X_N  \le s|N=n \right) \right]\\
+&=  \mathrm{E} \left[ F_{X}^{\ast N}(s) \right] \\
+&=  p_0 + \sum_{n=1}^{\infty }p_n F_{X}^{\ast n}(s)
+\end{aligned}$$  
 
-**Example `r chapnum`.3.3. SOA Exam Question.**
-The number of claims in a period has a geometric distribution with mean $4$. The amount of each claim $X$ follows $\Pr(X=x) = 0.25, \ x=1,2,3,4.$ The number of claims and the claim amounts are independent. Let $S$ denote the aggregate claim amount in the period. Calculate $F_{S}(3)$.
+***
+
+**Example `r chapnum`.3.3. Actuarial Exam Question.**
+The number of claims in a period has a geometric distribution with mean $4$. The amount of each claim $X$ follows $\Pr(X=x) = 0.25, \ x=1,2,3,4$, i.e. a discrete uniform distribution on $\{1,2,3,4\}$. The number of claims and the claim amounts are independent. Let $S_N$ denote the aggregate claim amount in the period. Calculate $F_{S_N}(3)$.
 
 <h5 style="text-align: center;"><a id="displayTextExampleAggLoss.3.3" href="javascript:toggleEX('toggleExampleAggLoss.3.3','displayTextExampleAggLoss.3.3');"><i><strong>Show Example Solution</strong></i></a> </h5>
 <div id="toggleExampleAggLoss.3.3" style="display: none">
@@ -469,11 +511,11 @@ The number of claims in a period has a geometric distribution with mean $4$. The
 **Solution.**
 By definition, we have
 $$\begin{aligned}
-F_{S}\left(3 \right) &= {\rm Pr}\left(\sum_{i=1}^N X_i \leq 3\right) = \sum_{n=0}^\infty {\rm Pr}\left(\sum_{i=1}^n X_i\leq 3|N=n\right){\rm Pr}(N=n) \\
+F_{S_N}\left(3 \right) &= {\rm Pr}\left(\sum_{i=1}^N X_i \leq 3\right) = \sum_{n=0}^\infty {\rm Pr}\left(\sum_{i=1}^n X_i\leq 3|N=n\right){\rm Pr}(N=n) \\
 &= \sum_n F^{\ast n} \left(3 \right) p_n = \sum_{n=0}^3 F^{\ast n}(3) p_n \\
 &= p_0 + F^{\ast 1}(3) \ p_1 + F^{\ast 2}(3) \ p_2 + F^{\ast 3}(3) \ p_3
 \end{aligned}$$
-Because $N$ has a geometric distribution with mean 4, we know that
+Because $N \sim Geo(\beta=4)$, we know that
 $$\begin{aligned}
 p_n &= \frac{1}{1+\beta}
 \left(\frac{\beta}{1+ \beta} \right)^n = \frac{1}{5} \left(\frac{4}{5} \right)^n
@@ -500,7 +542,7 @@ $$\begin {matrix}
 
 Finally,
 $$\begin{aligned}
-F_{S}(3) &= p_0 + F^{\ast 1}(3) \ p_1 + F^{\ast 2}(3) \ p_2 + F^{\ast 3}(3) \ p_3 \\
+F_{S_N}(3) &= p_0 + F^{\ast 1}(3) \ p_1 + F^{\ast 2}(3) \ p_2 + F^{\ast 3}(3) \ p_3 \\
 &= \frac{1}{5} + \frac{3}{4}\left(\frac{4}{25} \right) + \frac{3}{16} \left( \frac{16}{125} \right) + \frac{1}{64} \left( \frac{64}{625}\right) = 0.3456\\
 \end{aligned}$$
 
@@ -509,12 +551,16 @@ F_{S}(3) &= p_0 + F^{\ast 1}(3) \ p_1 + F^{\ast 2}(3) \ p_2 + F^{\ast 3}(3) \ p_
 ***
 
 
-When $\mathrm{E}(N)$, one may also use the central limit theorem to approximate the distribution of $S$ as in the individual risk model. That is, $\frac{S - \mathrm{E}(S)}{\sqrt{\mathrm{Var}(S)}}$ approximately follows $N(0,1)$.  
+When $\mathrm{E}(N)$ and $\mathrm{Var}(N)$ are known, one may also use the central limit theorem to approximate the distribution of $S_N$ as in the individual risk model. That is, $\frac{S_N - \mathrm{E}(S_N)}{\sqrt{\mathrm{Var}(S_N)}}$ approximately follows the standard normal distribution $N(0,1)$. 
 
-**Example `r chapnum`.3.4. SOA Exam Question..**
+***
+
+**Example `r chapnum`.3.4. Actuarial Exam Question..**
 You are given:
 
-$$\begin{matrix}
+$$
+{\small 
+\begin{matrix}
   \begin{array}{ c | c  c }
     \hline
       & \text{Mean} & \text{Standard Deviation}\\ \hline
@@ -522,7 +568,9 @@ $$\begin{matrix}
     \text{Individual Losses} & 10,000 & 3,937\\
     \hline
   \end{array}
-\end{matrix}$$
+\end{matrix}
+}
+$$
 Using the normal approximation, determine the probability that the aggregate loss will exceed 150$\%$ of the expected loss.  
 
 
@@ -531,17 +579,18 @@ Using the normal approximation, determine the probability that the aggregate los
 
 **Solution.**
 To use the normal approximation, we must first find the mean and variance of the aggregate loss $S$
-\begin{eqnarray*}
-\mathrm{E~}S &=& \mu \ \mathrm{E~}N = 10,000(8) = 80,000\\
-\mathrm{Var~}S &=& \sigma^2 \ \mathrm{E~}N + \mu^2 \ \mathrm{Var~}N\\
-&=& 3937^2(8) + 10000^2 (3^2) = 1,023,999,752\\
-\sqrt{\mathrm{Var~}S} &=& 31,999.996 \approx 32,000
-\end{eqnarray*}
-Then under the normal approximation, aggregate loss $S$ is approximately normal with mean 80,000 and standard deviation 32,000. The probability that $S$ will exceed 150$\%$ of the expected aggregate loss is therefore
 $$\begin{aligned}
-\Pr(S>1.5 \mathrm{E~}S) &= \Pr \left( \frac{S - \mathrm{E~} S}{\sqrt{\mathrm{Var~}S}} > \frac{1.5 \mathrm{E~}S - \mathrm{E~} S}{\sqrt{\mathrm{Var~}S}} \right) \\
-&= \Pr \left( N(0,1) > \frac{0.5 \mathrm{E~}S}{\sqrt{\mathrm{Var~}S} } \right) \\
-&= \Pr \left( N(0,1) > \frac{0.5(80,000)}{32,000} \right) = \Pr( N(0,1) > 1.25) \\
+\mathrm{E}(S_N) &= \mu \ \mathrm{E}(N) = 10,000(8) = 80,000\\
+\mathrm{Var}(S_N) &= \sigma^2 \ \mathrm{E}(N) + \mu^2 \ \mathrm{Var}(N)\\
+&= 3937^2(8) + 10000^2 (3^2) = 1,023,999,752\\
+\sqrt{\mathrm{Var}(S_N)} &= 31,999.996 \approx 32,000
+\end{aligned}$$
+
+Then under the normal approximation, aggregate loss $S_N$ is approximately normal with mean 80,000 and standard deviation 32,000. The probability that $S_N$ will exceed 150$\%$ of the expected aggregate loss is therefore
+$$\begin{aligned}
+\Pr(S_N>1.5 \mathrm{E}(S_N)~) &= \Pr \left( \frac{S_N - \mathrm{E} (S_N)}{\sqrt{\mathrm{Var}(S_N)}} > \frac{1.5 ~\mathrm{E}(S_N) - \mathrm{E} (S_N)}{\sqrt{\mathrm{Var}(S_N)}} \right) \\
+&\approx \Pr \left( Z > \frac{0.5~ \mathrm{E}(S_N)}{\sqrt{\mathrm{Var}(S_N)} } \right), ~~~~ \text{where } Z\sim N(0,1) \\
+&= \Pr \left( Z > \frac{0.5(80,000)}{32,000} \right) = \Pr( Z > 1.25) \\
 &= 1-\Phi(1.25) = 0.1056
 \end{aligned}$$
 
@@ -550,38 +599,39 @@ $$\begin{aligned}
 
 *** 
 
-**Example `r chapnum`.3.5. SOA Exam Question.**
+**Example `r chapnum`.3.5. Actuarial Exam Question.**
 For an individual over $65$:  
 	(i) The number of pharmacy claims is a Poisson random variable with mean $25$.  
 	(ii) The amount of each pharmacy claim is uniformly distributed between $5$ and $95$.  
 	(iii) The amounts of the claims and the number of claims are mutually independent.  
-Determine the probability that aggregate claims for this individual will exceed $2000$ using the normal approximation.
+Estimate the probability that aggregate claims for this individual will exceed $2000$ using the normal approximation.
 
 
 <h5 style="text-align: center;"><a id="displayTextExampleAggLoss.3.5" href="javascript:toggleEX('toggleExampleAggLoss.3.5','displayTextExampleAggLoss.3.5');"><i><strong>Show Example Solution</strong></i></a> </h5>
 <div id="toggleExampleAggLoss.3.5" style="display: none">
 
 **Solution.**
-We have claim frequency $N \sim Poisson (\lambda = 25)$ and claim severity $X \sim U \left(5, 95 \right)$. To use the normal approximation, we need to find the mean and variance of the aggregate claims $S$. Note  
+We have claim frequency $N \sim Poi(\lambda = 25)$ and claim severity $X \sim U \left(5, 95 \right)$. To use the normal approximation, we need to find the mean and variance of the aggregate claims $S_N$. Note  
 
 $$\begin{matrix}
 \begin{array}{lll}
-\mathrm{E~} N = 25 & & \mathrm{Var~} N = 25\\
-\mathrm{E~}X = \frac{5+95}{2} = 50 = \mu & & \mathrm{Var~}X = \frac{(95-5)^2}{12} = 675 = \sigma^2\\
+\mathrm{E} (N) = 25 & & \mathrm{Var} (N) = 25\\
+\mathrm{E}(X) = \frac{5+95}{2} = 50 = \mu & & \mathrm{Var}(X) = \frac{(95-5)^2}{12} = 675 = \sigma^2\\
 \end{array}
 \end{matrix}$$
-Then for $S$,
-\begin{eqnarray*}
-\mathrm{E~}S &=& \mu \ \mathrm{E~} N = 50(25) = 1,250\\
-\mathrm{Var~}S &=& \sigma^2 \ \mathrm{E~}N + \mu^2 \ \mathrm{Var~}N\\
-&=& 675 (25) + 50^2 (25) = 79,375
-\end{eqnarray*}  
 
-Using the normal approximation, $S$ is approximately normal with mean 1,250 and variance 79,375. The probability that $S$ exceeds 2,000 is
+Then for $S_N$,
 $$\begin{aligned}
-\Pr(S>2,000) &= \Pr \left(\frac{S - \mathrm{E~} S}{\sqrt{\mathrm{Var~} S}} > \frac{2,000- \mathrm{E~} S}{\sqrt{\mathrm{Var~} S}} \right) \\
-&= \Pr\left( N(0,1) > \frac{2,000-1,250}{\sqrt{79,375}} \right) \\
-&= \Pr (N(0,1) > 2.662) = 1-\Phi(2.662) = 0.003884
+\mathrm{E}(S_N) &= \mu \ \mathrm{E} (N) = 50(25) = 1,250\\
+\mathrm{Var}(S_N) &= \sigma^2 \ \mathrm{E}(N) + \mu^2 \ \mathrm{Var}(N)\\
+&= 675 (25) + 50^2 (25) = 79,375
+\end{aligned}$$  
+
+Using the normal approximation, $S_N$ is approximately normal with mean 1,250 and variance 79,375. The probability that $S_N$ exceeds 2,000 is
+$$\begin{aligned}
+\Pr(S_N>2,000) &= \Pr \left(\frac{S_N - \mathrm{E} (S_N)}{\sqrt{\mathrm{Var} (S_N)}} > \frac{2,000- \mathrm{E} (S_N)}{\sqrt{\mathrm{Var} (S_N)}} \right) \\
+&= \Pr\left( Z > \frac{2,000-1,250}{\sqrt{79,375}} \right), ~~~~ \text{where } Z\sim N(0,1) \\
+&= \Pr (Z > 2.662) = 1-\Phi(2.662) = 0.003884
 \end{aligned}$$
 
 </div>
@@ -590,35 +640,42 @@ $$\begin{aligned}
 
 ### Stop-loss Insurance
 
-Insurance on the aggregate loss $S$, subjected to a deductible $d$, is called \textit{net stop-loss insurance}. The quantity
+Recall the coverage modifications on the individual policy level in Section \@ref(S:CoverageModifications). Insurance on the aggregate loss $S_N$, subjected to a deductible $d$, is called \textit{net stop-loss insurance}. The expected value of the amount of the aggregate loss in excess of the deductible,
+
 \begin{eqnarray*}
 \mathrm{E}[(S-d)_+]
 \end{eqnarray*}
-is known as the *net stop-loss premium*.
+is known as the *net stop-loss premium*. 
 
 To calculate the net stop-loss premium, we have
 
 \begin{eqnarray*}
-\mathrm{E}(S-d)_+  & =& \int_{d}^{\infty} \left(1-F_S(s) \right) ds\\
+\mathrm{E}(S_N-d)_+ 
 &=&
 \left\{\begin{array}{ll}
-\int_{d}^{\infty}(s-d) f_{S}(s) ds& \text{continuous}\\
- \sum_{s>d}(s-d) f_{S}(s) ds & \text{discrete}\\
+\int_{d}^{\infty}(s-d) f_{S_N}(s) ds& \text{for continuous } S_N\\
+ \sum_{s>d}(s-d) f_{S_N}(s) & \text{for discrete } S_N\\
  \end{array}\right.\\
-&=& \mathrm{E}(S) - \mathrm{E}(S\wedge d)\\
+&=& \mathrm{E}(S_N) - \mathrm{E}(S_N\wedge d)\\
 \end{eqnarray*}  
 
-**Example `r chapnum`.3.6. SOA Exam Question.**
-In a given week, the number of projects that require you to work overtime has a geometric distribution with $\beta=2$. For each project, the distribution of the number of overtime hours in the week is as follows:  
+***
 
-$$\begin{matrix}
+**Example `r chapnum`.3.6. Actuarial Exam  Question.**
+In a given week, the number of projects that require you to work overtime has a geometric distribution with $\beta=2$. For each project, the distribution of the number of overtime hours in the week, $X$, is as follows:  
+
+$$
+{\small 
+\begin{matrix}
 \begin{array}{ccc} \hline
     x &  & f(x)\\ \hline
     5 &  & 0.2 \\
     10 & & 0.3 \\
     20 & & 0.5\\ \hline
   \end{array}
-\end{matrix}$$  
+\end{matrix}
+}
+$$  
 
 The number of projects and the number of overtime hours are independent. You will get paid for overtime hours in excess of 15 hours in the week. Calculate the expected number of overtime hours for which you will get paid in the week. 
 
@@ -626,126 +683,142 @@ The number of projects and the number of overtime hours are independent. You wil
 <div id="toggleExampleAggLoss.3.6" style="display: none">
 
 **Solution.**
-The number of projects in a week requiring overtime work has distribution $N \sim Geometric(\beta=2)$, while the number of overtime hours worked per project has distribution $X$ as described above. The aggregate number of overtime hours in a week is $S$ and we are therefore looking for
-$$\mathrm{E~}(S-15)_+ = \mathrm{E~}S - \mathrm{E~}(S \wedge 15).$$
+The number of projects in a week requiring overtime work has distribution $N \sim Geo(\beta=2)$, while the number of overtime hours worked per project has distribution $X$ as described above. The aggregate number of overtime hours in a week is $S_N$ and we are therefore looking for
+$$\mathrm{E}(S_N-15)_+ = \mathrm{E}(S_N) - \mathrm{E}(S_N \wedge 15).$$
 
-To find $\mathrm{E~}S = \mathrm{E~}X \ \mathrm{E~}N$, we have
-\begin{eqnarray*}
-\mathrm{E~}X &=& 5(0.2) + 10(0.3)+ 20(0.5)= 14 \\
-\mathrm{E~}N &=& 2 \\
-\Rightarrow \ \mathrm{E~}S &=& \mathrm{E~}X \ \mathrm{E~}N = 14(2) = 28
-\end{eqnarray*}
+To find $\mathrm{E}(S_N) = \mathrm{E}(X) ~\mathrm{E}(N)$, we have
+$$\begin{aligned}
+&\mathrm{E}(X) = 5(0.2) + 10(0.3)+ 20(0.5)= 14 \\
+&\mathrm{E}(N) = 2 \\
+\Rightarrow \ &\mathrm{E}(S) = \mathrm{E}(X) ~ \mathrm{E}(N) = 14(2) = 28
+\end{aligned}$$
 
-To find $\mathrm{E~} (S \wedge 15) = 0 \Pr (S=0) + 5 \Pr(S=5) + 10 \Pr(S=10) + 15 \Pr(S \geq 15)$, we have
-\begin{eqnarray*}
-\Pr(S=0) &=& \Pr(N=0) = \frac{1}{1+\beta} = \frac{1}{3} \\
-\Pr(S=5) &=& \Pr(X=5, \ N=1) = 0.2 \left(\frac{2}{9} \right)= \frac{0.4}{9}\\
-\Pr(S=10) &=& \Pr(X=10, \ N=1) + \Pr(X_1=X_2=5, N=2) \\
-&=& 0.3 \left(\frac{2}{9} \right) + (0.2)(0.2) \left( \frac{4}{27} \right)= 0.0726 \\
-\Pr(S \geq 15) &=& 1 - \left(\frac{1}{3} + \frac{0.4}{9} + 0.0726 \right) = 0.5496\\
-\Rightarrow \mathrm{E~}(S \wedge 15) &=& 0 \Pr (S=0) + 5 \Pr(S=5) + 10 \Pr(S=10) + 15 \Pr(S \geq 15) \\
-&=& 0 \left( \frac{1}{3} \right) + 5
+To find $\mathrm{E} (S_N \wedge 15) = 0 \Pr (S_N=0) + 5 \Pr(S_N=5) + 10 \Pr(S_N=10) + 15 \Pr(S_N \geq 15)$, we have
+$$\begin{aligned}
+\Pr(S_N=0) &= \Pr(N=0) = \frac{1}{1+\beta} = \frac{1}{3} \\
+\Pr(S_N=5) &= \Pr(X=5, \ N=1) = 0.2 \left(\frac{2}{9} \right)= \frac{0.4}{9}\\
+\Pr(S_N=10) &= \Pr(X=10, \ N=1) + \Pr(X_1=X_2=5, N=2) \\
+&= 0.3 \left(\frac{2}{9} \right) + (0.2)(0.2) \left( \frac{4}{27} \right)= 0.0726 \\
+\Pr(S_N \geq 15) &= 1 - \left(\frac{1}{3} + \frac{0.4}{9} + 0.0726 \right) = 0.5496\\
+\Rightarrow \mathrm{E}(S_N \wedge 15) &= 0 \Pr (S_N=0) + 5 \Pr(S_N=5) + 10 \Pr(S_N=10) + 15 \Pr(S_N \geq 15) \\
+&= 0 \left( \frac{1}{3} \right) + 5
 \left( \frac{0.4}{9} \right) + 10 (0.0726) + 15 (0.5496) = 9.193\\
-\end{eqnarray*}
+\end{aligned}$$
 Therefore,
-\begin{eqnarray*}
-\mathrm{E~}(S-15)_+ &=& \mathrm{E~}S - \mathrm{E~}(S \wedge 15) \\
-&=& 28 - 9.193 = 18.807
-\end{eqnarray*}
+$$\begin{aligned}
+\mathrm{E}(S_N-15)_+ &= \mathrm{E}(S_N) - \mathrm{E}(S_N \wedge 15) \\
+&= 28 - 9.193 = 18.807
+\end{aligned}$$
 
 </div>
 
 *** 
 
 **Recursive Net Stop-Loss Premium Calculation**. For the discrete case, this can be computed recursively as
-\begin{eqnarray*}
-\mathrm{E~}\left[ S-(j+1)h \right] _{+}=\mathrm{E~}\left[ ( S-jh )_{+} \right] -h \left( 1-F_S(jh)
+$$\begin{aligned}
+\mathrm{E}\left[ \left( S_N-(j+1)h \right) _{+} \right]=\mathrm{E}\left[ ( S_N-jh )_{+} \right] -h \left( 1-F_{S_N}(jh)
 \right) .
-\end{eqnarray*}
-This assumes that the support of $S$ is equally spaced over units of $h$.
+\end{aligned}$$
+This assumes that the support of $S_N$ is equally spaced over units of $h$.
 
-To establish this, we assume that $h=1$. Now, on the left-hand side, we have $\mathrm{E~}\left[ S-(j+1) \right] _{+}=\mathrm{E~}S - \mathrm{E~}S\wedge (j+1)$. We can write
-\begin{eqnarray*}
-\mathrm{E~}S\wedge (j+1) = \sum_{x=0}^{j}xf_S(x) + (j+1)\Pr(S \ge j+1).
-\end{eqnarray*}
-Similarly
-\begin{eqnarray*}
-\mathrm{E~}S\wedge j = \sum_{x=0}^{j}xf_S(x) + j\Pr(S\ge j+1).
-\end{eqnarray*}
+To establish this, we assume that $h=1$. We have 
+$$\begin{aligned}
+\mathrm{E}\left[ \left( S_N-(j+1) \right) _{+} \right] &=\mathrm{E}(S_N) - \mathrm{E}[S_N\wedge (j+1)] \ ,\ \text{ and } \\
+\mathrm{E}\left[ \left( S_N - j \right)_+ \right] &=\mathrm{E}(S_N) - \mathrm{E}[S_N\wedge j]
+\end{aligned}$$
+
+Thus, 
+$$\begin{aligned}
+\mathrm{E}\left[ \left(S_N-(j+1) \right) _{+}\right] - \mathrm{E}\left[ ( S_N-j )_{+} \right] 
+&= \left\{\mathrm{E}(S_N) - \mathrm{E}(S_N\wedge (j+1)) \right\}   -  \left\{\mathrm{E}(S_N) - \mathrm{E}(S_N\wedge j) \right\} \\
+&= \mathrm{E}\left(S_N \wedge j \right) - \mathrm{E}\left[ S \wedge (j+1) \right]
+\end{aligned}$$
+
+We can write
+$$\begin{aligned}
+\mathrm{E}\left[S_N\wedge (j+1)\right] &= \sum_{x=0}^{j}xf_{S_N}(x) + (j+1)~\Pr(S_N \ge j+1) \\
+&= \sum_{x=0}^{j-1}x f_{S_N}(x) + j~\Pr(S_N=j) + (j+1)~\Pr(S_N \ge j+1)
+\end{aligned}$$
+
+Similarly,
+$$\begin{aligned}
+\mathrm{E}(S_N\wedge j) = \sum_{x=0}^{j-1}xf_{S_N}(x) + j~\Pr(S_N\ge j)
+\end{aligned}$$
+
 With these, expressions, we have
-\begin{eqnarray*}
-\mathrm{E~}\left[ S-(j+1) \right] _{+} &-& \mathrm{E~}\left[ ( S-j )_{+} \right]  \\
-&=&\left\{\mathrm{E~}S - \mathrm{E~}S\wedge (j+1) \right\}
--\left\{\mathrm{E~}S - \mathrm{E~}S\wedge j \right\} \\
-&=&\left\{ \sum_{x=0}^{j}xf_S(x) + j\Pr(S\ge j+1) \right\}
-- \left\{ \sum_{x=0}^{j}xf_S(x) + (j+1)\Pr(S \ge j+1) \right\} \\
-&=& -\Pr(S\ge j+1) = -\{1 - F_{S}(j)\},
-\end{eqnarray*}
+$$\begin{aligned}
+\mathrm{E}\left[ \left( S_N-(j+1) \right) _{+} \right] - \mathrm{E~}\left[ ( S_N-j )_{+} \right] 
+&= \mathrm{E}\left(S_N \wedge j \right) - \mathrm{E}\left[ S \wedge (j+1) \right] \\
+&= \left\{ \sum_{x=0}^{j-1}xf_{S_N}(x) + j~\Pr(S_N\ge j) \right\}
+- \left\{ \sum_{x=0}^{j-1}x f_{S_N}(x) + j~\Pr(S_N=j) + (j+1)~\Pr(S_N \ge j+1) \right\} \\
+&= j~\left[\Pr(S_N \geq j) - \Pr(S_N=j) \right]- (j+1)~\Pr(S_N \ge j+1) \\
+&= j~\Pr( S_N > j) - (j+1)~\Pr(S_N \ge j+1) ~~~~ \text{ (note } \Pr(S_N > j) = \Pr(S_N \geq j+1) \text{)} \\
+&= -\Pr(S_N\ge j+1) = -\left[1 - F_{S_N}(j)\right],
+\end{aligned}$$
 as required.  
 
 ***  
 
-
-
-**Exercise `r chapnum`.3.7. Exam M, Fall 2005, 19 - Continued.**
-Recall that the goal of this question was to calculate $\mathrm{E~}(S-15)_+$. Note that the support of $S$ is equally spaced over units of 5, so this question can also be done recursively, using steps of $h=5$:  
+**Example `r chapnum`.3.7. Actuarial Exam  Question - Continued.**
+Recall that the goal of this question was to calculate $\mathrm{E~}(S_N-15)_+$. Note that the support of $S_N$ is equally spaced over units of 5, so this question can also be done recursively, using the expression above with steps of $h=5$:  
 
 * Step 1:  
 	$$\begin{aligned}
-	\mathrm{E~}(S-5)_+ &= \mathrm{E~}S - 5 [1-\Pr(S \leq 0) ]\\ %\Pr (S\geq 5) \\
+	\mathrm{E~}(S_N-5)_+ &= \mathrm{E}(S_N) - 5 [1-\Pr(S_N \leq 0) ]\\ %\Pr (S_N\geq 5) \\
 	&= 28 - 5 \left(1 - \frac{1}{3}\right) = \frac{74}{3}=24.6667
 	\end{aligned}$$  
 	
 * Step 2:  
 	$$\begin{aligned}
-	\mathrm{E~}(S-10)_+ &= \mathrm{E~}(S-5)_+ - 5 [1-\Pr(S \leq 5)]\\ %\Pr (S\ge 10) \\
+	\mathrm{E~}(S_N-10)_+ &= \mathrm{E~}(S_N-5)_+ - 5 [1-\Pr(S_N \leq 5)]\\ %\Pr (S_N\ge 10) \\
 	&= \frac{74}{3} - 5\left( 1 - \frac{1}{3} - \frac{0.4}{9}\right) = 21.555
 	\end{aligned}$$  
 	
 * Step 3:
 	$$\begin{aligned}
-	\mathrm{E~}(S-15)_+ &= \mathrm{E~}(S-10)_+ - 5 [1-\Pr(S \leq 10)] \\ %\Pr (S\ge 15) \\
-	&= \mathrm{E~}(S-10)_+ - 5\Pr (S\ge 15) \\
-	&= 21.555 - 5 (0.5496) = 18.887
+	\mathrm{E~}(S_N-15)_+ &= \mathrm{E~}(S_N-10)_+ - 5 [1-\Pr(S_N \leq 10)] \\ %\Pr (S_N\ge 15) \\
+	&= \mathrm{E~}(S_N-10)_+ - 5\Pr (S_N\ge 15) \\
+	&= 21.555 - 5 (0.5496) = 18.807
 	\end{aligned}$$  
 
- 
 ***
 
 ### Analytic Results
 
 
-There are few combinations of claim frequency and severity distributions that result in an easy-to-compute distribution for aggregate losses. This section gives some simple examples. Analysts view these examples as too simple to be used in practice.  
+There are a few combinations of claim frequency and severity distributions that result in an easy-to-compute distribution for aggregate losses. This section provides some simple examples. Although these examples are computationally convenient, they are generally too simple to be used in practice.  
+
+***
 
 **Example `r chapnum`.3.8.**
 One has a closed-form expression for the aggregate loss distribution by assuming a geometric frequency distribution and an exponential severity distribution.
 
-Assume that claim count $N$ is geometric with parameter $\beta$ such that $\mathrm{E}(N)=\beta$, and that claim amount $X$ is exponential with parameter $\theta$ such that $\mathrm{E}(X)=\theta$. Recall that the *pgf* of $N$ and the *mgf* of $X$ are:
+Assume that claim count $N$ is geometric with mean $\mathrm{E}(N)=\beta$, and that claim amount $X$ is exponential with $\mathrm{E}(X)=\theta$. Recall that the *pgf* of $N$ and the *mgf* of $X$ are:
 $$\begin{aligned}
-P_N (z) &=\frac{1}{1- \beta (z-1)},\\
-M_{X}(t) &=\frac{1}{1-\theta t}.
+P_N (z) &=\frac{1}{1- \beta (z-1)}\\
+M_{X}(t) &=\frac{1}{1-\theta t}
 \end{aligned}$$
-Thus, the *mgf* of aggregate loss $S$ is
+Thus, the *mgf* of aggregate loss $S_N$ can be expressed two ways (for details, see *Technical Supplement B.3*)
 \begin{eqnarray}
-M_{S}(t) &=& P_N [M_{X}(t)] = \frac{1}{1 - \beta \left( \frac{1}{1-\theta t} + 1\right)} \nonumber\\
-&=& 1+ \frac{1}{1+\beta} ([1-\theta(1+\beta)z]^{-1}-1)...(1)\\
+M_{S_N}(t) &=& P_N [M_{X}(t)] = \frac{1}{1 - \beta \left( \frac{1}{1-\theta t} - 1\right)} \nonumber\\
+&=& 1+ \frac{\beta}{1+\beta} \left([1-\theta(1+\beta)t]^{-1}-1 \right)\\
 &=& \frac{1}{1+\beta}(1) +\frac{\beta}{1+\beta}
-\left( \frac{1}{1-\theta (1+\beta)t}\right)...(2)
+\left( \frac{1}{1-\theta (1+\beta)t}\right)
 \end{eqnarray}
 
-From (1), we note that $S$ is equivalent to the compound distribution of $S=X^{*}_1+\cdots+X^{*}_{N^{*}}$, where $N^{*}$ is a Bernoulli with mean $\beta/(1+\beta)$ and $x^{*}$ is an exponential with mean $\theta(1+\beta)$. To see this, we examine the *mgf* of $S$:
+From (`r chapnum`.1), we note that $S_N$ is equivalent to the compound distribution of $S_N=X^{*}_1+\cdots+X^{*}_{N^{*}}$, where $N^{*}$ is a Bernoulli with mean $\beta/(1+\beta)$ and $X^{*}$ is an exponential with mean $\theta(1+\beta)$. To see this, we examine the *mgf* of $S$:
 $$\begin{aligned}
-M_{S}(t) = P_N [M_{X}(t)] = P_{N^{*}} [M_{X^{*}}(t)],
+M_{S_N}(t) = P_N [M_{X}(t)] = P_{N^{*}} [M_{X^{*}}(t)],
 \end{aligned}$$
 where
 $$\begin{aligned}
-P_{N^*} (z) &=1+ \color{blue}{\frac{\beta}{1+ \beta}} (z-1),\\
-M_{X^*} (t) &=\frac{1}{1- {\color{blue}{\theta(1+\beta)}} t}.
+P_{N^*} (z) &=1+ \frac{\beta}{1+ \beta} (z-1),\\
+M_{X^*} (t) &=\frac{1}{1- {{\theta(1+\beta)}} t}.
 \end{aligned}$$
 
-From (2), we note that $S$ is also equivalent to a 2-point mixture of 0 and $X^{*}$. Specifically,
+From (`r chapnum`.2), we note that $S_N$ is also equivalent to a 2-point mixture of 0 and $X^{*}$. Specifically,
 \begin{eqnarray*}
-S &=&
+S_N &=&
 \left\{
 \begin{array}{cl}
 0 & {\rm with~ probability ~Pr}(N^*=0) = 1/(1+\beta) \\
@@ -753,29 +826,29 @@ Y^{*} & {\rm with~ probability ~Pr}(N^*=1) = \beta/(1+\beta)
 \end{array}
 \right..
 \end{eqnarray*}
-The distribution function of $S$ is:
+The distribution function of $S_N$ is:
 \begin{eqnarray*}
-\Pr(S=0) &=& \frac{1}{1+\beta}\\
-\Pr(S>s) &=& \Pr(X^*>s) =\frac{\beta}{1+\beta} \exp\left( -\frac{s}{
+\Pr(S_N=0) &=& \frac{1}{1+\beta}\\
+\Pr(S_N>s) &=& \Pr(X^*>s) =\frac{\beta}{1+\beta} \exp\left( -\frac{s}{
 \theta (1+\beta)}\right)
 \end{eqnarray*}
 with *pdf*
 \begin{eqnarray*}
-f_{S}(s) = \frac{\beta}{\theta (1+\beta)^2}\exp\left( -\frac{s}{
+f_{S_N}(s) = \frac{\beta}{\theta (1+\beta)^2}\exp\left( -\frac{s}{
 \theta (1+\beta)}\right).
 \end{eqnarray*}
 
 ***  
 
 **Example `r chapnum`.3.9.**
-Consider a collective risk model with an exponential severity and an arbitrary frequency distribution. Recall that if If $X_i\sim Exponential(\theta)$, then the sum of *iid* exponential, $S_n=X_1+\cdots+X_n$, has a Gamma distribution, i.e. $S_n\sim Gamma(n,\theta)$. This has cdf:
+Consider a collective risk model with an exponential severity and an arbitrary frequency distribution. Recall that if $X_i\sim Exp(\theta)$, then the sum of *iid* exponential, $S_n=X_1+\cdots+X_n$, has a gamma distribution, i.e. $S_n\sim Gam(n,\theta)$. This has cdf:
 \begin{eqnarray*}
 F_{X}^{\ast n}(s) &=& \Pr (S_n \le s) = \int_{0}^{s} \frac{1}{\Gamma(n)\theta^n}s^{n-1}\exp\left(-\frac{s}{\theta}\right) ds\\
 &=& 1-\sum_{j=0}^{n-1}\frac{1}{j!}\left( \frac{s}{\theta}\right)^j e^{-s/\theta } .
 \end{eqnarray*}
-The last equality is derived by integration by parts.
+The last equality is derived by applying integration by parts $n-1$ times.
 
-For the aggregate loss distribution, we can interchange order of summations to get
+For the aggregate loss distribution, we can interchange the order of summations in the second line below to get
 \begin{eqnarray*}
 F_{S}\left(s\right) &=& p_{0}+\sum_{n=1}^{\infty }p_n F_{X}^{\ast n}\left(s\right)\\
 &=& 1 - \sum_{n=1}^{\infty }p_n \sum_{j=0}^{n-1}\frac{1}{j!}
@@ -783,30 +856,30 @@ F_{S}\left(s\right) &=& p_{0}+\sum_{n=1}^{\infty }p_n F_{X}^{\ast n}\left(s\righ
 &=& 1-e^{-s/\theta}\sum_{j=0}^{\infty} \frac{1}{j!}
 \left( \frac{s}{\theta} \right)^j \overline{P}_j
 \end{eqnarray*}
-where $\overline{P}_j =p_{j+1}+p_{j+2}+\cdots = \Pr (N>j),$ the ``survival function'' of the claims count distribution. 
+where $\overline{P}_j =p_{j+1}+p_{j+2}+\cdots = \Pr (N>j)$ is the ``survival function'' of the claims count distribution. 
 
 ***
 
 ### Tweedie Distribution
 
-In this section, we examine a particular compound distribution where the number of claims is a Poisson distribution and the amount of claims is a Gamma distribution. This specification leads to what is known as a Tweedie distribution. The Tweedie distribution has a mass probability at zero and a continuous component for positive values. Because of this feature, it is widely used in insurance claims modeling, where the zero mass is interpreted as no claims and the positive component as the amount of claims.
+In this section, we examine a particular compound distribution where the number of claims has a Poisson distribution and the amount of claims has a gamma distribution. This specification leads to what is known as a *Tweedie distribution*. The Tweedie distribution has a mass probability at zero and a continuous component for positive values. Because of this feature, it is widely used in insurance claims modeling, where the zero mass is interpreted as no claims and the positive component as the amount of claims.
 
-Specifically, consider the collective risk model $S=X_1+\cdots+X_N$. Suppose that $N$ has a Poisson distribution with mean $\lambda$, and each $X_i$ has a Gamma distribution shape parameter $\alpha$ and scale parameter $\gamma$. The Tweedie distribution is derived as the Poisson sum of gamma variables. To understand the distribution of $S$, we first examine the mass probability at zero. It is straightforward to see that the aggregate loss is zero when there is no claims occurred, thus:
-$$f_S(0)={\rm Pr}(S=0)= {\rm Pr}(N=0)=e^{-\lambda}.$$
-In addition, one notes that that $S$ conditional on $N_i=n$, denoted by $S_n=X_1+\cdots+X_n$, follows a gamma distribution with shape $n\alpha$ and scale $\gamma_i$. Thus, for $s>0$, the density of a Tweedie distribution can be calculated as
+Specifically, consider the collective risk model $S_N=X_1+\cdots+X_N$. Suppose that $N$ has a Poisson distribution with mean $\lambda$, and each $X_i$ has a gamma distribution shape parameter $\alpha$ and scale parameter $\gamma$. The Tweedie distribution is derived as the Poisson sum of gamma variables. To understand the distribution of $S_N$, we first examine the mass probability at zero. The aggregate loss is zero when no claims occurred, i.e.
+$${\rm Pr}(S_N=0)= {\rm Pr}(N=0)=e^{-\lambda}.$$
+In addition, note that $S_N$ conditional on $N=n$, denoted by $S_n=X_1+\cdots+X_n$, follows a gamma distribution with shape $n\alpha$ and scale $\gamma$. Thus, for $s>0$, the density of a Tweedie distribution can be calculated as
 $$\begin{aligned}
-f_S(s)&=\sum_{n=1}^{\infty} p_n f_{S_n}(s)\\
-&=\sum_{n=1}^{\infty}e^{-\lambda_i}\frac{(\lambda_i)^n}{n!}\frac{1}{\gamma^{n\alpha}}y^{n\alpha-1}e^{-y\gamma}
+f_{S_n}(s)&=\sum_{n=1}^{\infty} p_n f_{S_n}(s)\\
+&=\sum_{n=1}^{\infty}e^{-\lambda}\frac{(\lambda)^n}{n!}\frac{\gamma^{na}}{\Gamma(n\alpha)}s^{n\alpha-1}e^{-s\gamma}
 \end{aligned}$$
 Thus, the Tweedie distribution can be thought of a mixture of zero and a positive valued distribution, which makes it a convenient tool for modeling insurance claims and for calculating pure premiums. The mean and variance of the Tweedie compound Poisson model are:
-$${\rm E} (S)=\lambda\frac{\alpha}{\gamma}~~~~{\rm and}~~~~{\rm Var} (S)=\lambda\frac{\alpha(1+\alpha)}{\gamma^2}.$$
+$${\rm E} (S_N)=\lambda\frac{\alpha}{\gamma}~~~~{\rm and}~~~~{\rm Var} (S)=\lambda\frac{\alpha(1+\alpha)}{\gamma^2}.$$
 
-As another important feature, the Tweedie distribution is a special case of exponential dispersion models, a class of models used to describe the random component in generalized linear models. To see this, we consider the following reparameterizations:
+As another important feature, the Tweedie distribution is a special case of *exponential dispersion* models, a class of models used to describe the random component in generalized linear models. To see this, we consider the following reparameterization:
 \begin{equation*}
-\lambda=\frac{\mu^{2-p}}{\phi(2-p)},~~~~\alpha=\frac{2-p}{p-1},~~~~\gamma=\phi(p-1)\mu^{p-1}
+\lambda=\frac{\mu^{2-p}}{\phi(2-p)},~~~~\alpha=\frac{2-p}{p-1},~~~~\frac{1}{\gamma}=\phi(p-1)\mu^{p-1}
 \end{equation*}
-With the above relationships, one can show that the distribution of $S$ is
-$$f_S(s)=\exp\left[\frac{1}{\phi}\left(\frac{-s}{(p-1)\mu^{p-1}}-\frac{\mu^{2-p}}{2-p}\right)+C(s;\phi)\right]$$
+With the above relationships, one can show that the distribution of $S_N$ is
+$$f_{S_N}(s)=\exp\left[\frac{1}{\phi}\left(\frac{-s}{(p-1)\mu^{p-1}}-\frac{\mu^{2-p}}{2-p}\right)+C(s;\phi)\right]$$
 where
 \begin{equation*}
 C(s;\phi/\omega_i)=\left\{\begin{array}{ll}
@@ -814,43 +887,43 @@ C(s;\phi/\omega_i)=\left\{\begin{array}{ll}
                    \displaystyle \ln \sum\limits_{n\ge 1} \left\{\frac{(1/\phi)^{1/(p-1)}y^{(2-p)/(p-1)}}{(2-p)(p-1)^{(2-p)/(p-1)}}\right\}^{n}\frac{1}{n!\Gamma(n(2-p)/(p-1))s} & {\rm if}~ y>0
                   \end{array}\right.
 \end{equation*}
-Hence, the distribution of $S$ belongs to the exponential family with parameters $\mu$, $\phi$, and $p\in(1,2)$, and we have
-$${\rm E} (S)=\mu~~~~{\rm and}~~~~{\rm Var} (S)=\phi\mu^{p}$$
-It is also worth mentioning the two limiting cases of the Tweedie model: $p\rightarrow 1$ results in the Poisson distribution and $p\rightarrow 2$ results in the gamma distribution. The Tweedie compound Poisson model accommodates the situations in between.
-
+Hence, the distribution of $S_N$ belongs to the exponential family with parameters $\mu$, $\phi$, and $1 < p < 2$, and we have
+$${\rm E} (S_N)=\mu~~~~{\rm and}~~~~{\rm Var} (S_N)=\phi\mu^{p}.$$
+This allows us to use the Tweedie distribution with generalized linear models to model claims. It is also worth mentioning the two limiting cases of the Tweedie model: $p\rightarrow 1$ results in the Poisson distribution and $p\rightarrow 2$ results in the gamma distribution. Thus, the Tweedie model accommodates the situations in between the gamma and Poisson distributions, which makes intuitive sense as it is the Poisson sum of gamma random variables. 
 
 
 ## Computing the Aggregate Claims Distribution
 
 
-Computing the distribution of aggregate losses is a difficult, yet important, problem. As we have seen, for both individual risk model and collective risk model, computing the distribution involves the evaluation of a $n$-fold convolution. To make the problem tractable, one strategy is to use a distribution that is easy to evaluate to approximate the aggregate loss distribution. For instance, normal distribution is a natural choice based on central limit theorem where parameters of the normal distribution can be estimated by matching the moments. This approach has its strength and limitations. The main advantage is the ease of computation. The disadvantage are: first, the size and direction of approximation error are unknown; second, the approximation may fail to capture some special features of the aggregate loss such as mass point at zero.
+Computing the distribution of aggregate losses is a difficult, yet important, problem. As we have seen, for both individual risk model and collective risk model, computing the distribution frequently involves the evaluation of a $n$-fold convolution. To make the problem tractable, one strategy is to use a distribution that is easy to evaluate to approximate the aggregate loss distribution. For instance, normal distribution is a natural choice based on central limit theorem where parameters of the normal distribution can be estimated by matching the moments. This approach has its strength and limitations. The main advantage is the ease of computation. The disadvantage are: first, the size and direction of approximation error are unknown; second, the approximation may fail to capture some special features of the aggregate loss such as mass point at zero.
 
 This section discusses two practical approaches to computing the distribution of aggregate loss, the recursive method and the simulation.
 
 ### Recursive Method
 
-The recursive method applies to compound models where the frequency component $N$ belongs to either $(a,b,0)$ or $(a,b,1)$ class and the severity component $X$ has a discrete distribution. For continuous $X$, a common practice is to first discretize the severity distribution and then the recursive method is ready to apply.
+The recursive method applies to compound models where the frequency component $N$ belongs to either $(a,b,0)$ or $(a,b,1)$ class (see Sections \@ref(S:the-a-b-0-class) and \@ref(S:zero-truncation-or-modification)) and the severity component $X$ has a discrete distribution. For continuous $X$, a common practice is to first discretize the severity distribution, after which the recursive method is ready to apply.
 
-Assume that $N$ is in the $(a,b,1)$ class so that $p_{k}=\left( a+\frac{b}{k} \right) p_{k-1}, k = 2,3,\ldots$. Further assume that the support of $X$ is $\{0,1,\ldots,m\}$, discrete and finite. Then, the probability function of $S$ is:
+Assume that $N$ is in the $(a,b,1)$ class so that $p_{k}=\left( a+\frac{b}{k} \right) p_{k-1}, k = 2,3,\ldots$. Further assume that the support of $X$ is $\{0,1,\ldots,m\}$, discrete and finite. Then, the probability function of $S_N$ is:
 $$\begin{aligned}
-f_{S}(s)&=\Pr (S=s) \\
+f_{S_N}(s)&=\Pr (S=s) \\
 &=\frac{1}{1-af_{X}(0)}\left\{ \left[ p_1 -(a+b)p_{0}\right]
-f_X (s)+\sum_{x=1}^{s\wedge m}\left( a+\frac{bx}{s} \right) f_X (x)f_{S}(s-x)\right\}.
+f_X (s)+\sum_{x=1}^{s\wedge m}\left( a+\frac{bx}{s} \right) f_X (x)f_{S_N}(s-x)\right\}.
 \end{aligned}$$
 If $N$ is in the $(a,b,0)$ class, then $p_1=(a+b)p_0$ and so
 \[
-f_S(s)=\frac{1}{1-af_X (0)}\left\{ \sum_{x=1}^{s\wedge m}\left( a+\frac{bx
-}{s}\right) f_X (x)f_{S}(s-x)\right\}.
+f_{S_N}(s)=\frac{1}{1-af_X (0)}\left\{ \sum_{x=1}^{s\wedge m}\left( a+\frac{bx
+}{s}\right) f_X (x)f_{S_N}(s-x)\right\}.
 \]
-*Special Case*: If $N \sim$ Poisson with mean $\lambda$, then $a=0$ and $b=\lambda$, thus
+**Special Case: Poisson Frequency.** If $N \sim Poi(\lambda)$, then $a=0$ and $b=\lambda$, and thus
 \[
-f_{S}(s)=\frac{\lambda }{s}\left\{ \sum_{x=1}^{s \wedge
-m} x f_X (x) f_S (s-x)\right\} .
+f_{S_N}(s)=\frac{\lambda }{s}\left\{ \sum_{x=1}^{s \wedge
+m} x f_X (x) f_{S_N} (s-x)\right\} .
 \]
 
+***
 
-**Example `r chapnum`.4.1. SOA Exam Question.**
-The number of claims in a period $N$ has a geometric distribution with mean 4. The amount of each claim $X$ follows ${\rm Pr} (X = x) = 0.25$, for $x = 1,2,3,4$. The number of claims and the claim amount are independent. $S$ is the aggregate claim amount in the period. Calculate $F_S(3)$. 
+**Example `r chapnum`.4.1. Actuarial Exam Question.**
+The number of claims in a period $N$ has a geometric distribution with mean 4. The amount of each claim $X$ follows ${\rm Pr} (X = x) = 0.25$, for $x = 1,2,3,4$. The number of claims and the claim amount are independent. $S_N$ is the aggregate claim amount in the period. Calculate $F_{S_N}(3)$. 
 
 <h5 style="text-align: center;"><a id="displayTextExampleAggLoss.4.1" href="javascript:toggleEX('toggleExampleAggLoss.4.1','displayTextExampleAggLoss.4.1');"><i><strong>Show Example Solution</strong></i></a> </h5>
 <div id="toggleExampleAggLoss.4.1" style="display: none">
@@ -858,24 +931,24 @@ The number of claims in a period $N$ has a geometric distribution with mean 4. T
 **Solution.**
 The severity distribution $X$ follows
 $$f_X (x) = \frac{1}{4}, \ \ x=1, 2, 3, 4.$$
-The frequency distribution $N$ is geometric with mean 4, which is a member of the $(a,b,0)$ class with $b=0$, $a=\frac{\beta}{1+\beta} = \frac{4}{5}$, and $p_0 = \frac{1}{1+\beta} = \frac{1}{5}$. Thus, we can use the recursive method
-\begin{eqnarray*}
-f_S (x) &=& 1 \sum_{y=1}^{x\wedge m} (a+0) f_X (y) f_S (x-y) \\
-&=& \frac{4}{5} \sum_{y=1}^{x\wedge m} f_X (y) f_S (x-y)
-\end{eqnarray*}
+The frequency distribution $N$ is geometric with mean 4, which is a member of the $(a,b,0)$ class with $b=0$, $a=\frac{\beta}{1+\beta} = \frac{4}{5}$, and $p_0 = \frac{1}{1+\beta} = \frac{1}{5}$. The support of severity component $X$ is $\{1,\ldots,m=4 \}$, discrete and finite. Thus, we can use the recursive method
+$$\begin{aligned}
+f_{S_N} (x) &= 1 \sum_{y=1}^{x\wedge m} (a+0) f_X (y) f_{S_N} (x-y) \\
+&= \frac{4}{5} \sum_{y=1}^{x\wedge m} f_X (y) f_{S_N} (x-y)
+\end{aligned}$$
 Specifically, we have
-\begin{eqnarray*}
-f_S (0) &=& \Pr(N=0) = p_0=\frac{1}{5}\\
-f_S (1) &=& \frac{4}{5}\sum_{y=1}^{1} f_X (y) f_S (1-y) = \frac{4}{5} f_X(1) f_S(0)\\
-&=& \frac{4}{5}\left( \frac{1}{4}\right)\left(\frac{1}{5} \right) = \frac{1}{25}\\
-f_S (2) &=&  \frac{4}{5}\sum_{y=1}^{2} f_X (y) f_S (2-y) = \frac{4}{5} \left[ f_X(1)f_S(1) + f_X(2) f_S(0) \right] \\
-&=& \frac{4}{5}\left[ \frac{1}{4} \left( \frac{1}{25} + \frac{1}{5}\right) \right] =
+$$\begin{aligned}
+f_{S_N} (0) &= \Pr(N=0) = p_0=\frac{1}{5}\\
+f_{S_N} (1) &= \frac{4}{5}\sum_{y=1}^{1} f_X (y) f_{S_N} (1-y) = \frac{4}{5} f_X(1) f_{S_N}(0)\\
+&= \frac{4}{5}\left( \frac{1}{4}\right)\left(\frac{1}{5} \right) = \frac{1}{25}\\
+f_{S_N} (2) &=  \frac{4}{5}\sum_{y=1}^{2} f_X (y) f_{S_N} (2-y) = \frac{4}{5} \left[ f_X(1)f_{S_N}(1) + f_X(2) f_{S_N}(0) \right] \\
+&= \frac{4}{5}\left[ \frac{1}{4} \left( \frac{1}{25} + \frac{1}{5}\right) \right] =
 \frac{4}{5}\left( \frac{6}{100}\right) = \frac{6}{125}\\
-f_S (3) &=& \frac{4}{5} \left[ f_X(1) f_S(2) + f_X(2)f_S(1) + f_X(3) f_S(0) \right]\\
-&=& \frac{4}{5}\left[ \frac{1}{4} \left( \frac{1}{25} + \frac{1}{5} +
+f_{S_N} (3) &= \frac{4}{5} \left[ f_X(1) f_{S_N}(2) + f_X(2)f_{S_N}(1) + f_X(3) f_{S_N}(0) \right]\\
+&= \frac{4}{5}\left[ \frac{1}{4} \left( \frac{1}{25} + \frac{1}{5} +
 \frac{6}{125}\right) \right] = \frac{1}{5}\left( \frac{5+25+6}{125}\right) = 0.0576\\
-\Rightarrow \ F_S (3) &=& f_S (0)+f_S (1)+f_S (2)+f_S (2)+f_S (3) = 0.3456
-\end{eqnarray*}
+\Rightarrow \ F_{S_N} (3) &= f_{S_N} (0)+f_{S_N} (1)+f_{S_N} (2) +f_{S_N} (3) = 0.3456
+\end{aligned}$$
 
 </div>
 
@@ -883,62 +956,110 @@ f_S (3) &=& \frac{4}{5} \left[ f_X(1) f_S(2) + f_X(2)f_S(1) + f_X(3) f_S(0) \rig
 
 ### Simulation
 
-The distribution of aggregate loss can be evaluated using Monte Carlo simulation. The idea is one can calculate the empirical distribution of $S$ using a random sample. Blow we summarize the simulation procedures for the aggregate loss models.  
+The distribution of aggregate loss can be evaluated using Monte Carlo simulation. The idea is that one can calculate the empirical distribution of $S_N$ using a random sample. The expected value and variance of the aggregate loss can also be estimated using the sample mean and sample variance of the simulated values. Below we summarize the simulation procedures for the aggregate loss models. Let $m$ be the size of the generated random sample of aggregate losses.
 
 1. Individual Risk Model $S_n=X_1+\cdots+X_n$    
 
-   * For each $X_i$, $i=1,\ldots,n$, generate random sample of size $m$, denoted by $x_{ij}~(j=1,\ldots,m)$;  
-   
-   * Calculate the aggregate loss $s_j=x_{1j}+\ldots+x_{nj}$ for $j=1,\ldots,m$;  
-   
-   * We obtain a random sample of $S$, i.e. $\{s_1,\ldots,s_m\}$.  
+    + Let $j=1,\ldots,m$ be a counter. Start by setting $j=1$.
+    + Generate each individual loss realization $x_{ij}$ for $i=1,\ldots,n$. For example, this can be done using the inverse transformation method (Section 6.2).
+    + Calculate the aggregate loss $s_j = x_{1j} + \cdots + x_{nj}$.
+    + Repeat the above two steps for $j=2,\ldots,m$ to obtain a size-$m$ sample of $S_n$, i.e. $\{s_1,\ldots,s_m\}$.
 
-2. Collective Risk Model $S=Y_1+\cdots+Y_N$  
+2. Collective Risk Model $S_N=X_1+\cdots+X_N$  
 
-   * Generate the number of claims $n_j$ from frequency distribution $N$;  
-   
-   * Given $n_j$, generate the amount of claims for each claim independently from $Y$, denoted by $y_{1},\ldots,y_{n_j}$;  
-   
-   * Calculate the aggregate loss $s_j=y_{1j}+\ldots+y_{n_j}$;  
-   
-   * Repeat the above three steps for $j=1,\ldots,m$;  
-   
-   * We obtain a random sample of $S$, i.e. $\{s_1,\ldots,s_m\}$.  
+    + Let $j=1, \ldots, m$ be a counter. Start by setting $j=1$.
+    + Generate the number of claims $n_j$ from the frequency distribution $N$.
+    + Given $n_j$, generate the amount of each claim independently from severity distribution $X$, denoted by $x_{1j},\ldots,x_{n_j j}$.
+    + Calculate the aggregate loss $s_j = x_{1j} + \cdots + x_{n_j j}$.
+    + Repeat the above three steps for $j=2,\ldots,m$ to obtain a size-$m$ sample of $S_N$, i.e. $\{s_1,\ldots, s_m\}$.
 
 Given the random sample of $S$, the empirical distribution can be calculated as
 $$\hat{F}_S(s)=\frac{1}{m}\sum_{i=1}^{m}I(s_i\leq s),$$
-where $I(\cdot)$ is an indicator function. The empirical distribution $\hat{F}_S(s)$ will converge to ${F}_S(s)$ almost surely as $m\rightarrow \infty$.
+where $I(\cdot)$ is an indicator function. The empirical distribution $\hat{F}_S(s)$ will converge to ${F}_S(s)$ almost surely as the sample size $m\rightarrow \infty$.
 
-The above procedure assumes that the parameters of the frequency and severity distributions are known. In practice, one would need to estimate these parameters from the data. For instance, the assumptions in the collective risk model suggest a two-stage estimation where a model is developed for the number of claims $N$ from the data on claim counts and a model is developed for the severity of claims $X$ from the data on the amount of claims.
+The above procedure assumes that the probability distributions, including the parameter values, of the frequency and severity distributions are known. In practice, one would need to first assume these distributions, estimate their parameters from the data, and then assess the quality of model fit using various model validation tools (see Chapter \@ref(C:ModelSelection)). For instance, the assumptions in the collective risk model suggest a two-stage estimation where one model is developed for the number of claims $N$ from the data on claim counts, and another model is developed for the severity of claims $X$ from the data on the amount of claims.
+
+***
+
+**Example `r chapnum`.4.2.**
+Recall Example `r chapnum`.3.5 with an individual's claim frequency $N \sim Poi(\lambda=25)$ and claim severity $X \sim U(5,95)$. Using a simulated sample of 10000 observations, estimate the mean and variance of the aggregate loss $S_N$. In addition, use the simulated sample to estimate the probability that aggregate claims for this individual will exceed 2000 and compare with the normal approximation estimates from Example `r chapnum`.3.5.
+
+<h5 style="text-align: center;"><a id="displayTextExampleAggLoss.4.2" href="javascript:toggleEX('toggleExampleAggLoss.4.2','displayTextExampleAggLoss.4.2');"><i><strong>Show Example Solution</strong></i></a> </h5>
+<div id="toggleExampleAggLoss.4.2" style="display: none">
+
+**Solution.**
+We follow the algorithm for the collective risk model, where we first simulate frequencies $n_1,\ldots,n_{10000}$, and conditional on $n_j,~j=1,\ldots,10000$, simulate each individual loss $x_{ij},~i=1,\ldots n_j$. 
+
+```{r, warning=FALSE, message=FALSE}
+set.seed(4321)  # For reproducibility of results
+m <- 10000      # Number of observations to simulate
+lambda <- 25    # Parameter for frequency distribution N
+a <- 5; b <- 95 # Parameters for severity distribution X
+S <- rep(NA, m) # Initalize an empty vector to store S observations
+
+n <- rpois(m, lambda) # Generate m=10000 observations of N from Poisson
+for(j in 1:m){ 
+  n_j <- n[j] # Given each n_j (j=1,...,m), generate n_j observations of X from uniform
+  x_j <- runif(n_j, min=a, max=b)
+  s_j <- sum(x_j) # Calculate the aggregate loss s_j
+  S[j] <- s_j # Store s_j in the vector of observations
+}
+mean(S) # Compare to theoretical value of 1,250
+var(S)  # Compare to theoretical value of 79,375
+mean(S>2000) # Proportion of simulated observations s_j that are > 2000
+# Compare to normal approximation method of 0.003884
+```
+
+Using simulation, we estimate the mean and variance of the aggregate claims to be approximately `r round(mean(S),0)` and `r round(var(S),0)` respectively, compared to the theoretical values of 1,250 and 79,375. In addition, we estimate the probability that aggregate losses exceed 2000 to be `r mean(S>2000)`, compared to the normal approximation estimate of 0.003884. 
+
+We can assess the appropriateness of the normal approximation by comparing the empirical distribution of the simulated aggregate losses to the density of the normal distribution used for the normal approximation, $N(\mu=1,250~, ~\sigma^2=79,375)$:
+
+```{r, warning=FALSE, message=FALSE, echo=FALSE, out.width='70%', fig.asp=.70, fig.align='center'}
+hist(S, freq=F, col="lightgray", 
+     main="Distribution of Simulated Aggregate Losses", xlab="Aggregate Loss S")
+
+x <- seq(0,2500,by=0.01)
+fnorm = dnorm(x, mean=1250, sd=sqrt(79375))
+lines(x, fnorm, col="blue", lwd=2.5)
+legend("topright", c("Normal density"), lty=1, cex=0.6, col = c("blue"))
+```
+
+The simulated losses are slightly more right-skewed than the normal distribution, with a longer right tail. This explains why the normal approximation estimate of $\Pr(S_N > 2000)$ is lower than the simulated estimate. 
+
+</div>
+
+*** 
 
 ## Effects of Coverage Modifications
 
 ### Impact of Exposure on Frequency
 
-This section focuses on an individual risk model for claim counts. Consider the number of claims from a group of $n$ policies:
+This section focuses on an individual risk model for claim counts. Recall the individual risk model involves a fixed $n$ number of contracts and independent loss random variables $X_i$. Consider the number of claims from a group of $n$ policies:
 $$S=X_1+\cdots+X_n$$
-where we assume $X_i$ are *iid* representing the number of claims from policy $i$. In this case, the exposure for the portfolio is $b$ using policy as exposure base. The *pgf* of $S$ is
+where we assume $X_i$ are *iid* representing the number of claims from policy $i$. In this case, the exposure for the portfolio is $n$, using policy as exposure base. The *pgf* of $S$ is
 $$\begin{aligned}
-P_S(z)&={\rm E}(z^S)={\rm E}\left(z^{\sum_{i=1}^nX_i}\right)\\
+P_{S}(z)&={\rm E}(z^S)={\rm E}\left(z^{\sum_{i=1}^nX_i}\right)\\
 &=\prod_{i=1}^n{\rm E}(z^{X_i})=[P_X(z)]^n
 \end{aligned}$$
 
-***Special Case** Poisson. If $X_i\sim Poisson(\lambda)$, its *pgf* is $P_X(z)=e^{\lambda(z-1)}$. Then the *pgf* of $S$ is
-  $$P_S(z)=[e^{\lambda(z-1)}]^n=e^{n\lambda(z-1)}.$$
-So $S\sim Poisson(n\lambda)$.  
+**Special Case: Poisson.** If $X_i\sim Poi(\lambda)$, its *pgf* is $P_X(z)=e^{\lambda(z-1)}$. Then the *pgf* of $S$ is
+  $$P_{S}(z)=[e^{\lambda(z-1)}]^n=e^{n\lambda(z-1)}.$$
+So $S\sim Poi(n\lambda)$. That is, the sum of $n$ independent Poisson random variables each with mean $\lambda$ has a Poisson distribution with mean $n\lambda$. 
 
 ***
 
-**Special Case** Negative binomial. If $X_i\sim NegBin(\beta,r)$, its *pgf* is $P_X(z)=[1-\beta(z-1)]^{-r}$. Then the *pgf* of $S$ is
-  $$P_S(z)=[[1-\beta(z-1)]^{-r}]^n=[1-\beta(z-1)]^{-nr}.$$
-So $S\sim NB(\beta,nr)$.  
+**Special Case: Negative Binomial.** If $X_i\sim NB(\beta,r)$, its *pgf* is $P_X(z)=[1-\beta(z-1)]^{-r}$. Then the *pgf* of $S$ is
+  $$P_{S}(z)=[[1-\beta(z-1)]^{-r}]^n=[1-\beta(z-1)]^{-nr}.$$
+So $S\sim NB(\beta,nr)$.
 
 ***
 
 **Example `r chapnum`.5.1.**
 Assume that the number of claims for each vehicle is Poisson with mean $\lambda$. Given the following data on the observed number of claims for each household, calculate the MLE of $\lambda$.  
 
-$$\begin{matrix}
+$$
+{\small 
+\begin{matrix}
 \begin{array}{c|c|c}
   \hline
   \text{Household ID} & \text{Number of vehicles} & \text{Number of claims} \\
@@ -950,15 +1071,17 @@ $$\begin{matrix}
   5 & 1 & 1 \\
   \hline
 \end{array}
-\end{matrix}$$  
+\end{matrix}
+}
+$$  
 
 <h5 style="text-align: center;"><a id="displayTextExampleAggLoss.5.1" href="javascript:toggleEX('toggleExampleAggLoss.5.1','displayTextExampleAggLoss.5.1');"><i><strong>Show Example Solution</strong></i></a> </h5>
 <div id="toggleExampleAggLoss.5.1" style="display: none">
 
 **Solution.**
-Each of the 5 households has number of exposures $b_j$ (number of vehicles) and number of claims $S_j$, $j=1,...,5$. Note for each household, the number of claims $S_j \sim Poisson (b_j \lambda)$. The likelihood function is  
+Each of the 5 households has number of exposures $n_j$ (number of vehicles) and number of claims $S_j$, $j=1,...,5$. Note for each household, the number of claims $S_j \sim Poi (n_j \lambda)$. The likelihood function is  
 $$\begin{aligned}
-L(\lambda) &= \prod_{j=1}^5 \Pr(S_j=s_j) = \prod_{j=1}^5 \frac{e^{-b_j\lambda} (b_j \lambda)^{s_j}}{s_j!} \\
+L(\lambda) &= \prod_{j=1}^5 \Pr(S_j=s_j) = \prod_{j=1}^5 \frac{e^{-n_j\lambda} (n_j \lambda)^{s_j}}{s_j!} \\
 &= \left(\frac{e^{-2\lambda} (2 \lambda)^{0}}{0!} \right)
 \left(\frac{e^{-1\lambda} (1 \lambda)^{2}}{2!} \right)
 \left(\frac{e^{-3\lambda} (3 \lambda)^{2}}{2!} \right)
@@ -970,24 +1093,20 @@ Taking the log-likehood, we have
 $$\begin{aligned}
 l(\lambda) = \log L(\lambda) = -8\lambda + 5\log(\lambda)
 \end{aligned}$$
-Setting the first derivative of the log-likehood to 0, we have
-$$\begin{aligned}
-&l'(\lambda) = -8 + \frac{5}{\lambda} = 0 \\
-\Rightarrow \ & 8 = \frac{5}{\hat{\lambda}} \ \Rightarrow \ \hat{\lambda} = \frac{5}{8}
-\end{aligned}$$
+Setting the first derivative of the log-likehood to 0, we get $\hat{\lambda} = \frac{5}{8}$
 
 </div>
 
 *** 
 
-If the exposure of the portfolio change from $n_1$ to $n_2$, we can establish the following relation between the aggregate claim counts:
-$$P_{S_2}(z)=[P_X(z)]^{n_2}=[P_X(z)^{n_1}]^{n_2/n_1}=P_{S_1}(z)^{n_2/n_1}.$$
+If the exposure of the portfolio changes from $n_1$ to $n_2$, we can establish the following relation between the aggregate claim counts:
+$$P_{S_{n_2}}(z)=[P_X(z)]^{n_2}=[P_X(z)^{n_1}]^{n_2/n_1}=P_{S_{n_1}}(z)^{n_2/n_1}.$$
 
-### Impact of Deductibles on Claim Frequency
+### Impact of Deductibles on Claim Frequency{#S:MS:DedImpactClmFreq}
 
-This section examine the effect of deductible on claim frequency. Intuitively, there will be fewer claims filed when a policy deductible is imposed because a loss below deductible might not result in a claim. Even if an insured does file a claim, this may not result in a payment by the policy, since the claim may be denied or the loss amount may ultimately be determined to be below deductible. Let $N^L$ denote the number of loss (i.e. the number of claims with no deductible), and $N^P$ denote the number of payments when a deductible $d$ is imposed. Our goal is to identify the distribution of $N^P$ given the distribution of $N^L$.  We show below that the relationship between $N^L$ and $N^P$ can be established within an aggregate risk model framework.
+This section examines the effect of deductibles on claim frequency. Intuitively, there will be fewer claims filed when a policy deductible is imposed because a loss below the deductible level may not result in a claim. Even if an insured does file a claim, this may not result in a payment by the policy, since the claim may be denied or the loss amount may ultimately be determined to be below deductible. Let $N^L$ denote the number of losses (i.e. the number of claims with no deductible), and $N^P$ denote the number of payments when a deductible $d$ is imposed. Our goal is to identify the distribution of $N^P$ given the distribution of $N^L$.  We show below that the relationship between $N^L$ and $N^P$ can be established within an aggregate risk model framework.
 
-Note that sometimes changes in deductible will affect policyholder behavior. We assume that this is not the case, i.e. the distribution of losses for both frequency and severity remain unchanged when the deductible changes.
+Note that sometimes changes in deductibles will affect policyholder claim behavior. We assume that this is not the case, i.e. the underlying distributions of losses for both frequency and severity remain unchanged when the deductible changes.
 
 Given there are $N^L$ losses, let $X_1,X_2\ldots,X_{N^L}$ be the associated amount of losses. For $j=1,\ldots,N^L$, define
 \begin{eqnarray*}
@@ -1001,53 +1120,54 @@ I_j&=&
 \end{eqnarray*}
 
 Then we establish
-$$N^P=I_1+I_2+\cdots+I_{N_L}.$$
+$$N^P=I_1+I_2+\cdots+I_{N_L},$$
 
+that is, the total number of payments is equal to the number of losses above the deductible level. Given that $I_j$'s are independent Bernoulli random variables with probability of success $v=\Pr(X>d)$, the sum of a *fixed number* of such variables is then a binomial random variable. Thus, conditioning on $N^L$, $N^P$ has a binomial distribution, i.e. $N^P | N^L \sim Bin(N^L, v)$, where $v=\Pr(X>d)$. This implies that
+$$\begin{aligned}
+\mathrm{E}\left(z^{N^P}|N^L\right)&= \left[ 1+v(z-1)\right]^{N^L}
+\end{aligned}$$
 
-Note that conditioning on $N^L$, the distribution of $N^P \sim Binomial (N^L, v)$, where $v=\Pr(X>d)$. Thus, given $N^L$,
-\begin{eqnarray*}
-\mathrm{E}\left(z^{N^P}|N^L\right)&=&\left[ 1+v(z-1)\right]^{N^L}
-\end{eqnarray*}
 So the *pgf* of $N^P$ is
-\begin{eqnarray*}
-P_{N^P}(z)&=&\mathrm{E}_{N^P}\left(z^{N^P}\right)=\mathrm{E}_{N^L}\left[\mathrm{E}_{N^P}\left(z^{N^P}|N^L\right)\right]\\
-&=&\mathrm{E}_{N^L}\left[(1+v(z-1))^{N^L}\right]\\
-&=&P_{N^L}\left(1+v(z-1)\right)
-\end{eqnarray*}
-Thus, we can write the *pgf* of $N^P$ as the *pgf* of $N^L$, evaluated at a new argument $z^* =  1+v(z-1)$, that is, $P_{N^P}(z)=P_{N^L}(z^*)$.  
+$$\begin{aligned}
+P_{N^P}(z)&= \mathrm{E}_{N^P}\left(z^{N^P}\right)=\mathrm{E}_{N^L}\left[\mathrm{E}_{N^P}\left(z^{N^P}|N^L\right)\right]\\
+&= \mathrm{E}_{N^L}\left[(1+v(z-1))^{N^L}\right]\\
+&= P_{N^L}\left(1+v(z-1)\right)
+\end{aligned}$$
+
+Thus, we can write the *pgf* of $N^P$ as the *pgf* of $N^L$, evaluated at a new argument $z^* =  1+v(z-1)$. That is, $P_{N^P}(z)=P_{N^L}(z^*)$.  
 
 **Special Cases:**  
 
-* $N^L\sim Poisson (\lambda)$. The *pgf* of $N^L$ is $P_{N^L}=\exp(\lambda(z-1))$. Thus the *pgf* of $N^P$ is
-\begin{eqnarray*}
-P_{N^P}(z)&=&\exp\left( \lambda(1+v(z-1)-1)\right)\\
-&=&\exp(\lambda v(z-1))\sim Poisson (\lambda v)
-\end{eqnarray*}  
+* $N^L\sim Poi (\lambda)$. The *pgf* of $N^L$ is $P_{N^L}=e^{\lambda(z-1)}$. Thus the *pgf* of $N^P$ is
+$$\begin{aligned}
+P_{N^P}(z) &= e^{ \lambda(1+v(z-1)-1)} \\
+&= e^{\lambda v(z-1)} ,
+\end{aligned}$$  
+So $N^P \sim Poi(\lambda v)$. This means the number of payments has the same distribution as the number of losses, but with the expected number of payments equal to $\lambda v = \lambda \Pr(X>d)$. 
 
-So the payment number has the same distribution as the loss number but with the expected number of payments equal to $\lambda v = \lambda \Pr(X>d)$.  
+* $N^L \sim NB(\beta, r)$. The *pgf* of $N^L$ is $P_{N^{L}}\left( z\right) =\left[ 1-\beta \left( z-1\right)\right]^{-r}$. Thus the *pgf* of $N^P$ is
+$$\begin{aligned}
+P_{N^P}(z)&= \left( 1-\beta (1+v(z-1)-1)\right)^{-r}\\
+&= \left( 1-\beta v(z-1)\right)^{-r},
+\end{aligned}$$
+So $N^P \sim NB(\beta v, r)$. This means the number of payments has the same distribution as the number of losses, but with parameters $\beta v$ and $r$.  
 
-* $N^L \sim NegBin(\beta, r)$. The *pgf* of $N^L$ is $P_{N^{L}}\left( z\right) =\left[ 1-\beta \left( z-1\right)\right]^{-r}$.
-\begin{eqnarray*}
-P_{N^P}(z)&=&\left( 1-\beta (1+v(z-1)-1)\right)^{-r}\\
-&=&\left( 1-\beta v(z-1)\right)^{-r} \:\:\:\sim NegBin(\beta v, r)
-\end{eqnarray*}  
-
-So the payment number has the same distribution as the loss number but with parameters $\beta v$ and $r$.  
+***
 
 **Example `r chapnum`.5.2.**
-Suppose that loss amounts $X_i\sim Pareto(\alpha=4,\ \theta=150)$. You are given that the loss frequency is $N^L\sim Poisson(\lambda)$ and the payment frequency distribution $N^{P_1}\sim Poisson (0.4)$ with $d_1=30$. Find the distribution of $N^{P_2}$ with $d_2=100$.  
+Suppose that loss amounts $X_i\sim Pareto(\alpha=4,\ \theta=150)$. You are given that the loss frequency is $N^L\sim Poi(\lambda)$ and the payment frequency distribution is $N^{P}_1\sim Poi(0.4)$ at deductible level $d_1=30$. Find the distribution of the payment frequency $N^{P}_2$ when the deductible level is $d_2=100$. 
 
 
 <h5 style="text-align: center;"><a id="displayTextExampleAggLoss.5.2" href="javascript:toggleEX('toggleExampleAggLoss.5.2','displayTextExampleAggLoss.5.2');"><i><strong>Show Example Solution</strong></i></a> </h5>
 <div id="toggleExampleAggLoss.5.2" style="display: none">
 
 **Solution.**
-Because the loss frequency $N^L$ is Poisson, we can relate the means of the loss distribution $N^L$ and the first payment distribution $N^{P_1}$ as $0.4 = v_1 \lambda$, where
+Because the loss frequency $N^L$ is Poisson, we can relate the means of the loss distribution $N^L$ and the first payment distribution $N^{P}_1$ (under deductible $d_1=30$) through $0.4 = \lambda v_1$, where
 $$\begin{aligned}
 &v_1 = \Pr(X > 30) = \left( \frac{150}{30+150}\right)^4=\left( \frac{5}{6}\right)^4 \\
 \Rightarrow \ & \lambda = 0.4 \left( \frac{6}{5} \right)^4
 \end{aligned}$$
-With this, we can assess the second payment distribution $N^{P_2}$ as being Poisson with mean $\lambda_2 = \lambda v_2$, where
+With this, we can assess the second payment distribution $N^{P}_2$ (under deductible $d_2=100$) as being Poisson with mean $\lambda_2 = \lambda v_2$, where
 $$\begin{aligned}
 & v_2 = \Pr(X>100)=\left( \frac{150}{100+150}\right)^4=\left( \frac{3}{5}\right)^4 \\
 \Rightarrow \ & \lambda_2 = \lambda v_2 = 0.4\left( \frac{6}{5} \right)^4 \left( \frac{3}{5} \right)^4 = 0.1075
@@ -1057,20 +1177,19 @@ $$\begin{aligned}
 
 *** 
 
-<!-- %Repeat with the negative binomial distribution. -->
 **Example `r chapnum`.5.3. Follow-Up.**
-Now suppose instead that the loss frequency is $N^L \sim NegBin(\beta,\ r)$ and for deductible $d_1=30$, the payment frequency $N^{P_1}$ is negative binomial with mean $0.4$. Find the mean of the payment frequency $N^{P_2}$ with deductible $d_2=100$.  
+Now suppose instead that the loss frequency is $N^L \sim NB(\beta,\ r)$ and for deductible $d_1=30$, the payment frequency $N^{P}_1$ is negative binomial with mean $0.4$. Find the mean of the payment frequency $N^{P}_2$ for deductible $d_2=100$.  
 
 <h5 style="text-align: center;"><a id="displayTextExampleAggLoss.5.3" href="javascript:toggleEX('toggleExampleAggLoss.5.3','displayTextExampleAggLoss.5.3');"><i><strong>Show Example Solution</strong></i></a> </h5>
 <div id="toggleExampleAggLoss.5.3" style="display: none">
 
 **Solution.**
-Because the loss frequency $N^L$ is negative binomial, we can relate the parameter $\beta$ of the $N^L$ distribution and the parameter $\beta_1$ of the first payment distribution $N^{P_1}$ using $\beta_1 = \beta v_1$, where $$v_1 = \Pr(X > 30) = \left( \frac{5}{6} \right)^4$$ Thus, the mean of $N^{P_1}$ and the mean of $N^L$ are related
+Because the loss frequency $N^L$ is negative binomial, we can relate the parameter $\beta$ of the $N^L$ distribution and the parameter $\beta_1$ of the first payment distribution $N^{P}_1$ using $\beta_1 = \beta v_1$, where $$v_1 = \Pr(X > 30) = \left( \frac{5}{6} \right)^4$$ Thus, the mean of $N^{P}_1$ and the mean of $N^L$ are related via
 $$\begin{aligned}
 &0.4 =  r \beta_1 = r \left(\beta v_1\right) \\
 \Rightarrow \ & r\beta = \frac{0.4}{v_1} = 0.4 \left(\frac{6}{5} \right)^4
 \end{aligned}$$
-Note that $v_2 = \Pr(X > 100) = \left( \frac{3}{5}\right)^4$ as in the original question. Then the second payment frequency distribution is $N^{P_2} \sim NegBin(\beta v_2, \ r)$ with mean
+Note that $v_2 = \Pr(X > 100) = \left( \frac{3}{5}\right)^4$ as in the original example. Then the second payment frequency distribution under deductible $d_2=100$ is $N^{P}_2 \sim NegBin(\beta v_2, \ r)$ with mean
 $$\begin{aligned}
 r (\beta v_2) = (r \beta) v_2 = 0.4 \left( \frac{6}{5}\right)^4 \left( \frac{3}{5} \right)^4 = 0.1075
 \end{aligned}$$
@@ -1079,34 +1198,33 @@ r (\beta v_2) = (r \beta) v_2 = 0.4 \left( \frac{6}{5}\right)^4 \left( \frac{3}{
 
 ***
 
-Next we examine the more general case where $N^L$ is a zero-modified distribution. Recall that a modified distribution is defined in terms of an unmodified one. That is,
+Next, we examine the more general case where $N^L$ is a zero-modified distribution. Recall that a zero-modified distribution can be defined in terms of an unmodified one (as was shown in Section \@ref(S:zero-truncation-or-modification)). That is,
 $$\begin{aligned}
-p_k^M = c~p_k^0, {~\rm for~} k=1,2,3,\ldots,  {~\rm with~}c = \frac{1-p_0^M}{1-p_0^0}.
+p_k^M = c~p_k^0, {~\rm for~} k=1,2,3,\ldots,  {~\rm with~}c = \frac{1-p_0^M}{1-p_0^0},
 \end{aligned}$$
-In the case that $p_0^M=0$, we call this a ``truncated'' distribution at zero, or $ZT$. For other arbitrary values of $p_0^M$, this is a zero-modified, or $ZM$, distribution. The *pgf* for the modified distribution is shown as
-\begin{eqnarray*}
-P^M(z) = 1-c+c~P^0(z).
-\end{eqnarray*}
-
-
-
-When $N^L$ follows a zero-modified distribution, the distribution of $N^P$ is established using the same relation $P_{N^P}(z)=P_{N^L}\left(1+v(z-1)\right)$.  
+where $p^0_k$ is the *pmf* of the unmodified distribution. In the case that $p_0^M=0$, we call this a *zero-truncated* distribution, or $ZT$. For other arbitrary values of $p_0^M$, this is a zero-modified, or $ZM$, distribution. The *pgf* for the modified distribution is shown as
+$$\begin{aligned}
+P^M(z) &= 1-c+c~P^0(z),
+\end{aligned}$$
+expressed in terms of the *pgf* of the unmodified distribution, $P^0(z)$. When $N^L$ follows a zero-modified distribution, the distribution of $N^P$ is established using the same relation from earlier, $P_{N^P}(z)=P_{N^L}\left(1+v(z-1)\right)$.
 
 **Special Cases:**
 
-* $N^{L}$ is a ZM-Poisson with parameters $\lambda$ and $p_0^{M}$. The *pgf* of $N^L$ is
-$$P_{N^{L}}(z)=1-\cfrac{1-p_0^{M}}{1-\exp(-\lambda)}+\cfrac{1-p_0^{M}}{1-\exp(-\lambda)}\exp[\lambda(z-1)].$$
+* $N^{L}$ is a ZM-Poisson random variable with parameters $\lambda$ and $p_0^{M}$. The *pgf* of $N^L$ is
+$$P_{N^{L}}(z)=1-\cfrac{1-p_0^{M}}{1-e^{-\lambda}}+\cfrac{1-p_0^{M}}{1-e^{-\lambda}}\left( e^{\lambda(z-1)} \right).$$
 Thus the *pgf* of $N^P$ is
-$$P_{N^{L}}(z)=1-\cfrac{1-p_0^{M}}{1-\exp(-\lambda)}+\cfrac{1-p_0^{M}}{1-\exp(-\lambda)}\exp[\lambda v(z-1)].$$
+$$P_{N^{P}}(z)=1-\cfrac{1-p_0^{M}}{1-e^{-\lambda}}+\cfrac{1-p_0^{M}}{1-e^{-\lambda}}\left( e^{\lambda v(z-1)} \right).$$
 So the number of payments is also a ZM-Poisson distribution with parameters $\lambda v$ and $p_0^{M}$. The probability at zero can be evaluated using
 ${\rm Pr}(N^P=0) = P_{N^P}(0)$.  
 
-* $N^{L}$ is a ZM-NegBin with parameters $\beta$, $r$, and $p_0^{M}$. The *pgf* of $N^L$ is
+* $N^{L}$ is a ZM-negative binomial random variable with parameters $\beta$, $r$, and $p_0^{M}$. The *pgf* of $N^L$ is
 $$P_{N^{L}}(z)=1-\cfrac{1-p_0^{M}}{1-(1+\beta)^{-r}}+\cfrac{1-p_0^{M}}{1-(1+\beta)^{-r}}\left[ 1-\beta \left( z-1\right)\right]^{-r}.$$
 Thus the *pgf* of $N^P$ is
-$$P_{N^{L}}(z)=1-\cfrac{1-p_0^{M}}{1-(1+\beta)^{-r}}+\cfrac{1-p_0^{M}}{1-(1+\beta)^{-r}}\left[ 1-\beta v\left( z-1\right)\right]^{-r}.$$
-So the number of payments is also a ZM-NegBin distribution with parameters $\beta v$, $r$, and $p_0^{M}$. Similarly, the probability at zero can be evaluated using
+$$P_{N^{P}}(z)=1-\cfrac{1-p_0^{M}}{1-(1+\beta)^{-r}}+\cfrac{1-p_0^{M}}{1-(1+\beta)^{-r}}\left[ 1-\beta v\left( z-1\right)\right]^{-r}.$$
+So the number of payments is also a ZM-negative binomial distribution with parameters $\beta v$, $r$, and $p_0^{M}$. Similarly, the probability at zero can be evaluated using
 ${\rm Pr}(N^P=0) = P_{N^P}(0)$.
+
+***
 
 **Example `r chapnum`.5.4.**
 Aggregate losses are modeled as follows:  
@@ -1115,7 +1233,7 @@ Aggregate losses are modeled as follows:
 (iii) There is a deductible of $d=30$ on each loss.  
 (iv) The number of losses and the amounts of the losses are mutually independent.  
 
-Calculate $\mathrm{E~} N^P$ and $\mathrm{Var~} N^P$.  
+Calculate $\mathrm{E}(N^P)$ and $\mathrm{Var}(N^P)$.  
 
 <h5 style="text-align: center;"><a id="displayTextExampleAggLoss.5.4" href="javascript:toggleEX('toggleExampleAggLoss.5.4','displayTextExampleAggLoss.5.4');"><i><strong>Show Example Solution</strong></i></a> </h5>
 <div id="toggleExampleAggLoss.5.4" style="display: none">
@@ -1127,9 +1245,9 @@ $$v = \Pr(X>30) = \left( \frac{1}{1+(30/50)} \right)^3 = 0.2441$$
 
 Thus, $N^P$ follows a ZM-Poisson distribution with parameters $\lambda^\ast = \lambda v= 0.7324$ and $p_0^M = 0.5$. Finally,
 $$\begin{aligned}
-\mathrm{E~} N^P &= (1-p_0^M) \frac{\lambda^\ast}{1-e^{-\lambda^\ast}} = 0.5 \left( \frac{0.7324}{1-e^{-0.7324}} \right) \\
+\mathrm{E} (N^P) &= (1-p_0^M) \frac{\lambda^\ast}{1-e^{-\lambda^\ast}} = 0.5 \left( \frac{0.7324}{1-e^{-0.7324}} \right) \\
 &= 0.7053 \\
-\mathrm{Var~} N^P &= (1-p_0^M) \left( \frac{\lambda^\ast[1-(\lambda^\ast + 1) e^{-\lambda^\ast}]}{(1-e^{-\lambda^\ast})^2} \right) + p_0^M(1-p_0^M) \left(\frac{\lambda^\ast}{1-e^{-\lambda^\ast}} \right)^2 \\
+\mathrm{Var} (N^P) &= (1-p_0^M) \left( \frac{\lambda^\ast[1-(\lambda^\ast + 1) e^{-\lambda^\ast}]}{(1-e^{-\lambda^\ast})^2} \right) + p_0^M(1-p_0^M) \left(\frac{\lambda^\ast}{1-e^{-\lambda^\ast}} \right)^2 \\
 &= 0.5 \left( \frac{0.7324(1-1.7324 e^{-0.7324})}{(1-e^{-0.7324})^2} \right) + 0.5^2 \left( \frac{0.7324}{1-e^{-0.7324}} \right)^2 \\
 &= 0.7244
 \end{aligned}$$
@@ -1141,37 +1259,35 @@ $$\begin{aligned}
 
 ### Impact of Policy Modifications on Aggregate Claims
 
+In this section, we examine how a change in the deductible affects the aggregate payments from an insurance portfolio. We assume that the presence of policy limits ($u$), coinsurance ($\alpha$), and inflation ($r$) have no effect on the underlying distribution of frequency of payments made by an insurer. As in the previous section, we further assume that deductible changes do not impact the underlying distributions of losses for both frequency and severity.
 
-In this section, we examine how the change in deductibles affect aggregate payments from an insurance portfolio. We assume that policy limits, coinsurance, and inflation have no effect on the frequency of payments made by an insurer. As in the previous section, we further assume that deductible changes do not impact the distribution of losses for both frequency and severity.
-
-Recall the notation $N^L$ for the number of losses. With ground-up loss $X$ and policy deductible $d$, we use
-$N^P = I(X_1>d) + \cdots + I(X_{N^L}>d)$ for the number of payments.
-Also, define the amount of payment on a per-loss basis as
+Recall the notation $N^L$ for the number of losses. With ground-up loss amount $X$ and policy deductible $d$, we use
+$N^P$ for the number of payments (as defined in the previous section \@ref(S:MS:DedImpactClmFreq)). Also, define the amount of payment on a per-loss basis as
 \begin{eqnarray*}
     X^{L}&=\left\{
-      \begin{array}{cc}
-        0 & X<\cfrac{d}{1+r} \\
-        \alpha[(1+r)X-d] & \cfrac{d}{1+r}\leq X<\cfrac{u}{1+r} \\
-        \alpha(u-d) &  X \ge \cfrac{u}{1+r}\\
+      \begin{array}{ll}
+        0 ~, & \text{if } ~X<\cfrac{d}{1+r} \\
+        \alpha[(1+r)X-d]~, & \text{if } ~\cfrac{d}{1+r}\leq X<\cfrac{u}{1+r} \\
+        \alpha(u-d)~, &  \text{if } ~X \ge \cfrac{u}{1+r}\\
       \end{array}
 \right.,
 \end{eqnarray*}
 and the the amount of payment on a per-payment basis as
 \begin{eqnarray*}
     X^{P}&=\left\{
-      \begin{array}{cc}
-        {\rm Undefined} & X<\cfrac{d}{1+r} \\
-        \alpha[(1+r)X-d] & \cfrac{d}{1+r}\leq X<\cfrac{u}{1+r} \\
-        \alpha(u-d) &  X \ge \cfrac{u}{1+r}\\
+      \begin{array}{ll}
+        {\rm undefined} ~, & \text{if }~ X<\cfrac{d}{1+r} \\
+        \alpha[(1+r)X-d]~, & \text{if }~ \cfrac{d}{1+r}\leq X<\cfrac{u}{1+r} \\
+        \alpha(u-d)~, &  \text{if } ~ X \ge \cfrac{u}{1+r}\\
       \end{array}
 \right..
 \end{eqnarray*}
-In the above, $r$, $u$, $\alpha$ represents the inflation rate, policy limit, and coinsurance, respectively. Hence, aggregate costs (payment amounts) can be expressed either on a per loss or per
-payment basis:
-\begin{eqnarray*}
-S &=& X^L_1 + \cdots + X^L_{N^L} \\
-&=&X^P_1 + \cdots + X^P_{N^P} .
-\end{eqnarray*}
+In the above, $r$, $u$, and $\alpha$ represent the inflation rate, policy limit, and coinsurance, respectively. Hence, aggregate costs (payment amounts) can be expressed either on a per loss or per payment basis:
+$$\begin{aligned}
+S &= X^L_1 + \cdots + X^L_{N^L} \\
+&=X^P_1 + \cdots + X^P_{N^P} ~.
+\end{aligned}$$
+
 The fundamentals regarding collective risk models are ready to apply. For instance, we have:
 $$\begin{aligned}
   {\rm E}(S) &= {\rm E}\left(N^L\right) {\rm E}\left(X^L\right) = {\rm E}\left(N^P\right) {\rm E}\left(X^P\right)\\
@@ -1180,11 +1296,14 @@ $$\begin{aligned}
   M_S(z)&=P_{N^L}\left[M_{X^L}(z)\right]=P_{N^P}\left[M_{X^P}(z)\right]
 \end{aligned}$$  
 
-**Example `r chapnum`.5.5. SOA Exam Question.**
-A group dental policy
-has a negative binomial claim count distribution with mean 300 and variance 800. Ground-up severity is given by the following table:  
+***
 
-$$\begin{matrix}
+**Example `r chapnum`.5.5. Actuarial Exam Question.**
+A group dental policy has a negative binomial claim count distribution with mean 300 and variance 800. Ground-up severity is given by the following table:  
+
+$$
+{\small 
+\begin{matrix}
   \begin{array}{ c | c }
     \hline
       \text{Severity} & \text{Probability}\\ \hline
@@ -1194,9 +1313,11 @@ $$\begin{matrix}
     200 & 0.25\\
     \hline
   \end{array}
-\end{matrix}$$  
+\end{matrix}
+}
+$$  
 
-You expect severity to increase 50\% with no change in frequency. You decide to impose a per claim deductible of 100. Calculate the expected total claim payment after these changes.  
+You expect severity to increase 50\% with no change in frequency. You decide to impose a per claim deductible of 100. Calculate the expected total claim payment $S$ after these changes.  
 
 <h5 style="text-align: center;"><a id="displayTextExampleAggLoss.5.5" href="javascript:toggleEX('toggleExampleAggLoss.5.5','displayTextExampleAggLoss.5.5');"><i><strong>Show Example Solution</strong></i></a> </h5>
 <div id="toggleExampleAggLoss.5.5" style="display: none">
@@ -1204,7 +1325,7 @@ You expect severity to increase 50\% with no change in frequency. You decide to 
 **Solution.**
 The cost per loss with a 50\% increase in severity and a 100 deductible per claim is
 \begin{eqnarray*}
-Y^L &=&
+X^L &=&
 \left\{
 \begin{array}{cc}
 0 & 1.5x<100 \\
@@ -1214,14 +1335,14 @@ Y^L &=&
 \end{eqnarray*}
 This has expectation
 $$\begin{aligned}
-\mathrm{E~}Y^L &= \frac{1}{4} \left[ \left(1.5(40)-100\right)_+ +
+\mathrm{E}(X^L) &= \frac{1}{4} \left[ \left(1.5(40)-100\right)_+ +
 \left(1.5(80)-100\right)_+ + \left(1.5(120)-100\right)_+ +
 \left(1.5(200)-100\right)_+ \right]  \\
 &= \frac{1}{4}\left[ (60-100)_+ + (120-100)_+ + (180-100)_+ + (300-100)_+\right] \\
 &= \frac{1}{4}\left[ 0 + 20 + 80 + 200 \right] = 75
 \end{aligned}$$
 Thus, the expected aggregate loss is
-$$\mathrm{E~}S=(\mathrm{E~}N) \left( \mathrm{E~}Y^L \right)= 300 (75) = 22,500
+$$\mathrm{E}(S)=\mathrm{E}(N) ~ \mathrm{E} \left(X^L \right)= 300 (75) = 22,500
 .$$
 
 </div>
@@ -1229,7 +1350,7 @@ $$\mathrm{E~}S=(\mathrm{E~}N) \left( \mathrm{E~}Y^L \right)= 300 (75) = 22,500
 *** 
 
 **Example `r chapnum`.5.6. Follow-Up.**
-What is $\mathrm{Var~}S$?  
+What is the variance of the total claim payment, $\mathrm{Var~}S$?  
 
 
 <h5 style="text-align: center;"><a id="displayTextExampleAggLoss.5.6" href="javascript:toggleEX('toggleExampleAggLoss.5.6','displayTextExampleAggLoss.5.6');"><i><strong>Show Example Solution</strong></i></a> </h5>
@@ -1237,17 +1358,17 @@ What is $\mathrm{Var~}S$?
 
 **Solution.** On a per loss basis, we have
 $$\begin{aligned}
-\mathrm{Var~}S &= \left(\mathrm{E~}N \right) \left( \mathrm{Var~} Y^L \right) + \left[ \mathrm{E~} Y^L \right]^2 \left(\mathrm{Var~} N \right)
+\mathrm{Var}(S) &= \mathrm{E}(N) ~ \mathrm{Var}\left(  X^L \right) + \left[ \mathrm{E} \left(X^L\right) \right]^2 ~ \mathrm{Var} (N)
 \end{aligned}$$
-where $\mathrm{E~}N = 300$ and $\mathrm{Var~} N = 800$. We find
+where $\mathrm{E}(N) = 300$ and $\mathrm{Var}(N) = 800$. We find
 $$\begin{aligned}
-&\mathrm{E} \left[ (Y^L)^2 \right] = \frac{1}{4} \left[ 0^2 + 20^2 + 80^2 + 200^2 \right] = 11,700 \\
-\Rightarrow \ & \mathrm{Var~} Y^L = \mathrm{E} \left[ (Y^L)^2 \right] - \left( \mathrm{E~}Y^L \right)^2 = 11,700 - 75^2 = 6,075
+&\mathrm{E} \left[ (X^L)^2 \right] = \frac{1}{4} \left[ 0^2 + 20^2 + 80^2 + 200^2 \right] = 11,700 \\
+\Rightarrow \ & \mathrm{Var}(X^L) = \mathrm{E} \left[ (X^L)^2 \right] - \left[ \mathrm{E}(X^L) \right]^2 = 11,700 - 75^2 = 6,075
 \end{aligned}$$
 Thus, the variance of the aggregate claim payment is
-\begin{eqnarray*}
-\mathrm{Var~}S &=& 300(6,075) + 75^2 (800) = 6,322,500
-\end{eqnarray*}
+$$\begin{aligned}
+\mathrm{Var}(S) &= 300(6,075) + 75^2 (800) = 6,322,500
+\end{aligned}$$
 
 
 </div>
@@ -1255,32 +1376,31 @@ Thus, the variance of the aggregate claim payment is
 *** 
 
 *Alternative Method: Using the Per Payment Basis.* Previously, we calculated the expected total claim payment by multiplying the expected number of losses by the expected payment *per loss*. Recall that we can also multiply the expected number of payments by the expected payment *per payment*. In this case, we have
-\[S=Y_1^P + \cdots + Y_{N_P}^P \]
+\[S=X_1^P + \cdots + X_{N_P}^P \]
 The probability of a payment is
-\[v=\Pr(1.5X \ge 100)=\Pr(X \ge 66.\bar{6})=\frac{3}{4} .\]
-Thus, the number of payments, $N^P$ has a negative binomial distribution
+\[\Pr(1.5X \ge 100)=\Pr(X \ge 66.\bar{6})=\frac{3}{4} .\]
+Thus, the number of payments, $N^P$ has a negative binomial distribution (see negative binomial special case in Section \@ref(S:MS:DedImpactClmFreq))
 with mean
-$$\mathrm{E~}N^P=300 \left(\frac{3}{4} \right)=225$$
+$$\mathrm{E}(N^P) =  \mathrm{E}(N^L)~\Pr(1.5X \geq 100) = 300 \left(\frac{3}{4} \right)=225$$
 The cost per payment is
 \begin{eqnarray*}
-Y^P &=&
+X^P &=&
 \left\{
-\begin{array}{cc}
-\text{undefined} & 1.5x<100 \\
-1.5x-100 & 1.5x\ge 100\\
+\begin{array}{ll}
+\text{undefined}~, & \text{if }~ 1.5x<100 \\
+1.5x-100~, & \text{if } ~ 1.5x\ge 100\\
 \end{array}
 \right.
 \end{eqnarray*}
 This has expectation
-$$\mathrm{E~}Y^P=\frac{\mathrm{E~}Y^L}{\Pr(1.5X > 100)}=
-\frac{\mathrm{E~}Y^L}{v}=\frac{75}{(3/4)}=100$$
+$$\mathrm{E}(X^P)=\frac{\mathrm{E}(X^L)}{\Pr(1.5X > 100)}=\frac{75}{(3/4)}=100$$
 Thus, as before, the expected aggregate loss is
-$$\mathrm{E~}S=\left(\mathrm{E~}Y^P\right) \left(\mathrm{E~}N^P\right) =
+$$\mathrm{E}(S)=\mathrm{E}(X^P) ~ \mathrm{E}(N^P) =
 100(225)=22,500$$
 
 ***
 
-**Example `r chapnum`.5.7. SOA Exam Question.**
+**Example `r chapnum`.5.7. Actuarial Exam Question.**
 A company insures a fleet of vehicles. Aggregate losses have a compound Poisson distribution. The expected number of losses is 20. Loss amounts, regardless of vehicle type, have exponential distribution with $\theta=200$. To reduce the cost of the insurance, two modifications are to be made:  
 (i) A certain type of vehicle will not be insured. It is estimated that this will reduce loss frequency by 20$\%$.  
 (ii) A deductible of 100 per loss will be imposed.  
@@ -1294,34 +1414,35 @@ Calculate the expected aggregate amount paid by the insurer after the modificati
 **Solution.**
 On a per loss basis, we have a 100 deductible. Thus, the expectation per loss is
 $$\begin{aligned}
-\mathrm{E~} Y^L &= E[(X-100)_+] = E(X) - E(X\wedge 100) \\
+\mathrm{E}( X^L) &= E[(X-100)_+] = E(X) - E(X\wedge 100) \\
 &= 200 - 200(1-e^{-100/200}) = 121.31
 \end{aligned}$$
 Loss frequency has been reduced by 20$\%$, resulting in an expected number of losses
-$$\mathrm{E~}N^L = 0.8(20) = 16$$
+$$\mathrm{E}(N^L) = 0.8(20) = 16$$
 Thus, the expected aggregate amount paid after the modifications is
-$$\mathrm{E~}S = \left(\mathrm{E~}Y^L \right) \left( \mathrm{E~} N^L\right) = 121.31(16) = 1,941$$
+$$\mathrm{E}(S) = \mathrm{E}(X^L)~ \mathrm{E} (N^L) = 121.31(16) = 1,941$$
 
 </div>
 
 ***  
 
-*Alternative Method: Using the Per Payment Basis.* We can also use the per payment basis to find the expected aggregate amount paid after the modifications. For the per payment severity,
+*Alternative Method: Using the Per Payment Basis.* We can also use the per payment basis to find the expected aggregate amount paid after the modifications. With the deductible of 100, the probability that a payment occurs is $\Pr(X > 100) = e^{-100/200}$. For the per payment severity, plugging in the expression for $\mathrm{E}(X^L)$ from the original example, we have
 $$\begin{aligned}
-\mathrm{E~} Y^P = \frac{\mathrm{E~} Y^L}{\Pr(X > 100)} = \frac{200 - 200(1-e^{-100/200})}{e^{-100/200}} = 200
+\mathrm{E} (X^P) = \frac{\mathrm{E} (X^L)}{\Pr(X > 100)} = \frac{200 - 200(1-e^{-100/200})}{e^{-100/200}} = 200
 \end{aligned}$$
-This is not surprising -- recall that the exponential distribution is memoryless, so the expected claim amounts paid in excess of 100 is still exponential with mean 200. Now we look at the payment frequency. With the deductible of 100, the probability that a payment occurs is $\Pr(X > 100) = e^{-100/200}$ Thus,
-$$\mathrm{E~} N^P = 16 e^{-100/200} = 9.7$$
-Putting this together, we produce the same answer using the per payment basis as the per loss basis from earlier
-$$\mathrm{E~}S = \left( \mathrm{E~} Y^P \right) \left( \mathrm{E~} N^P \right) = 200(9.7) = 1,941$$
+This is not surprising -- recall that the exponential distribution is memoryless, so the expected claim amount paid in excess of 100 is still exponential with mean 200. 
 
+Now we look at the payment frequency 
+$$\mathrm{E} (N^P) = \mathrm{E}(N^L)~\Pr(X>100) = 16 ~e^{-100/200} = 9.7$$
+Putting this together, we produce the same answer using the per payment basis as the per loss basis from earlier
+$$\mathrm{E}(S) = \mathrm{E} (X^P)~ \mathrm{E} (N^P)= 200(9.7) = 1,941$$
 
 ***  
 
 ## Further Resources and Contributors {#AL-further-reading-and-resources}
 
 
-#### Exercises {-}
+#### Exercises 
 
 Here are a set of exercises that guide the viewer through some of the theoretical foundations of **Loss Data Analytics**. Each tutorial is based on one or more questions from the professional actuarial examinations, typically the Society of Actuaries Exam C.
 
@@ -1330,7 +1451,100 @@ Here are a set of exercises that guide the viewer through some of the theoretica
 </p>
 
 
-####Contributors {-}
+#### Contributors {-}
 
 - **Peng Shi** and **Lisa Gao**, University of Wisconsin-Madison, are the principal authors of the initial version of this chapter. Email: pshi@bus.wisc.edu for chapter comments and suggested improvements.
 
+##Technical Supplement B. Aggregate Loss Models {-}
+
+###TS B.1. Individual Risk Model Properties {-}
+
+For the expected value of the aggregate loss under the individual risk model,
+
+$$\begin{aligned}
+\mathrm{E}(S_n) &=\sum_{i=1}^n ~ \mathrm{E}(X_i) = \sum_{i=1}^n ~ \mathrm{E}(I_i \times B_i) = \sum_{i=1}^n ~ \mathrm{E}(I_i) ~~ \mathrm{E}(B_i) ~~~~ \text{from the independence of } I_i \text{'s and } B_i \text{'s} \\
+&= \sum_{i=1}^n \Pr(I_i=1) ~ \mu_i ~~~~ \text{since the expectation of an indicator variable is the probability it equals } 1 \\
+&= \sum_{i=1}^n ~ q_i ~ \mu_i
+\end{aligned}$$
+
+For the variance of the aggregate loss under the individual risk model,
+
+$$\begin{aligned}
+\mathrm{Var}(S_n) &= \sum_{i=1}^n \mathrm{Var}(X_i) ~~~~ \text{from the independence of } X_i \text{'s} \\
+&= \sum_{i=1}^n ~ \left( ~ \mathrm{E}\left[ \mathrm{Var}(X_i | I_i) \right] + \mathrm{Var}\left[ \mathrm{E}(X_i|I_i) \right] ~ \right) ~~~~ \text{from the conditional variance formulas}  \\
+&= \sum_{i=1}^n \left( q_i ~ \sigma_i^2 ~ + ~ q_i ~ (1-q_i) ~ \mu_i^2 \right)
+\end{aligned}$$
+
+To see this, note that
+$$\begin{aligned}
+\mathrm{E}\left[ \mathrm{Var}(X_i | I_i) \right] &= \mathrm{Var}(X_i|I_i=0) ~ \Pr(I_i=0) + \mathrm{Var}(X_i|I_i=1) ~ \Pr(I_i=1) \\
+&= q_i ~ \sigma_i^2 + (1-q_i) ~ (0) = q_i ~ \sigma_i^2, 
+\end{aligned}$$
+
+and 
+$$\begin{aligned}
+\mathrm{Var}\left[ \mathrm{E}(X_i|I_i) \right] &= q_i ~ (1-q_i) ~ \mu_i^2~,
+\end{aligned}$$
+
+using the Bernoulli variance shortcut since $\mathrm{E}(X_i|I_i) = 0$ when $I_i=0$ (probability $\Pr(I_i=0) = 1-q_i$) and $\mathrm{E}(X_i|I_i) = \mu_i$ when $I_i=1$ (probability $\Pr(I_i=1)= q_i$).
+
+For the probability generating function of the aggregate loss under the individual risk model,
+
+$$\begin{aligned}
+P_{S_n}(z) &= \prod_{i=1}^n ~ P_{X_i}(z) ~~~~ \text{from the independence of } X_i \text{'s} \\
+&= \prod_{i=1}^n ~ \mathrm{E}(z^{~X_i}) = \prod_{i=1}^n ~ \mathrm{E}(z^{~I_i \times B_i}) = \mathrm{E} \left[ \mathrm{E}(z^{~I_i \times B_i} | I_i) \right] ~~~~ \text{from the law of iterated expectations} \\
+&= \prod_{i=1}^n \left[ ~ E\left(z^{~I_i \times B_i} | I_i=0\right) ~ \Pr(I_i=0) + E\left(z^{~I_i \times B_i} | I_i=1\right) ~ \Pr(I_i=1) ~ \right] \\
+&= \prod_{i=1}^n ~ \left[ ~ (1) ~ (1-q_i) + P_{B_i}(z) ~ q_i ~ \right] = \prod_{i=1}^n \left(~ 1-q_i + q_i ~ P_{B_i}(z) ~\right)
+\end{aligned}$$
+
+Lastly, for the moment generating function of the aggregate loss under the individual risk model,
+
+$$\begin{aligned}
+M_{S_n}(t) &= \prod_{i=1}^n ~ M_{X_i}(t) ~~~~ \text{from the independence of } X_i \text{'s} \\
+&= \prod_{i=1}^n ~ \mathrm{E}(e^{t~X_i}) = \prod_{i=1}^n ~ \mathrm{E}\left(e^{~t~(I_i \times B_i)} \right) = \prod_{i=1}^n ~ \mathrm{E} \left[ \mathrm{E} \left( e^{~t~(I_i \times B_i)} | I_i \right) \right] ~~~~ \text{from the law of iterated expectations} \\
+&= \prod_{i=1}^n ~ \left[~ \mathrm{E}\left(e^{~t~(I_i \times B_i)} | I_i=0 \right) ~ \Pr(I_i=0) + \mathrm{E}\left( e^{~t~(I_i \times B_i)} | I_i=1 \right) ~ \Pr(I_i=1) ~\right] \\
+&= \prod_{i=1}^n ~ \left[ ~ (1) ~ (1-q_i) + M_{B_i}(t) ~ q_i ~ \right] = \prod_{i=1}^n \left(~ 1-q_i + q_i ~ M_{B_i}(t) ~\right)
+\end{aligned}$$
+
+***
+
+###TS B.2. Relationship Between Probability Generating Functions of $X_i$ and $X_i^T$ {-}
+
+Let $X_i$ belong to the $(a,b,0)$ class with *pmf* $p_{ik} = \Pr(X_i = k)$ for $k=0,1,\ldots$ and $X_i^T$ be the associated zero-truncated distribution in the $(a,b,1)$ class with *pmf* $p_{ik}^T = p_{ik}/(1-p_{i0})$ for $k=1,2,\ldots$. Then the relationship between the *pgf* of $X_i$ and the *pgf* of $X_i^T$ is shown by
+
+$$\begin{aligned}
+P_{X_i}(z) &= \mathrm{E~}(z^{X_i}) = \mathrm{E}\left[  \mathrm{E}\left( z^{X_i} | X_i \right) \right] ~~~~ \text{from the law of iterated expectations} \\ 
+&= \mathrm{E}\left( z^{X_i} | X_i=0 \right)~ \Pr(X_i=0) + \mathrm{E}\left( z^{X_i} | X_i>0 \right) ~ \Pr(X_i>0) \\
+&= (1)~ p_{i0} + \mathrm{E}(z^{X_i^T}) ~ (1-p_{i0}) ~~~~ \text{since } (X_i | X_i>0) \text{ is the zero-truncated random variable } X_i^T \\
+&= p_{i0} +(1-p_{i0}) P_{X_i^{T}}(z)
+\end{aligned}$$
+
+***
+
+###TS B.3. Example `r chapnum`.3.8 Moment Generating Function of Aggregate Loss $S_N$ {-}
+
+For $N\sim Geo(\beta)$ and $X\sim Exp(\theta)$, we have
+
+$$\begin{aligned}
+P_N (z) &=\frac{1}{1- \beta (z-1)}\\
+M_{X}(t) &=\frac{1}{1-\theta t}
+\end{aligned}$$
+
+Thus, the *mgf* of aggregate loss $S_N$ is
+$$\begin{aligned}
+M_{S_N}(t) &= P_N [M_{X}(t)] = \frac{1}{1 - \beta \left( \frac{1}{1-\theta t} - 1\right)} \\
+&= \frac{1}{1 - \beta \left( \frac{\theta t}{1-\theta t} \right)} + 1 - 1 
+= 1+ \frac{\beta \left( \frac{\theta t}{1-\theta t} \right)}{1 - \beta \left( \frac{\theta t}{1-\theta t} \right)} \\
+&= 1 + \frac{\beta \theta t}{(1-\theta t) - \beta \theta t} = 1+ \frac{\beta \theta t}{1-\theta t (1+\beta)} \cdot \frac{1+\beta}{1+\beta} \\
+&= 1 + \frac{\beta}{1+\beta} \left[ \frac{\theta (1+\beta) t}{1-\theta(1+\beta)t} \right] \\
+&= 1 + \frac{\beta}{1+\beta} \left[ \frac{1}{1-\theta(1+\beta)t} - 1 \right], \\
+\end{aligned}$$
+which gives the expression (`r chapnum`.1). For the alternate expression of the *mgf* (`r chapnum`.2), we continue from where we just left off:
+
+$$\begin{aligned}
+M_{S_N}(t) &=  1 + \frac{\beta}{1+\beta} \left[ \frac{\theta (1+\beta) t}{1-\theta(1+\beta)t} \right] \\
+&= \frac{1+\beta}{1+\beta} +  \frac{\beta}{1+\beta} \left[ \frac{\theta (1+\beta) t}{1-\theta(1+\beta)t} \right] \\
+&= \frac{1}{1+\beta} + \frac{\beta}{1+\beta} + \frac{\beta}{1+\beta} \left[ \frac{\theta (1+\beta) t}{1-\theta(1+\beta)t} \right]  \\
+&= \frac{1}{1+\beta} + \frac{\beta}{1+\beta}\left[1 + \frac{\theta (1+\beta) t}{1-\theta (1+\beta)t} \right] \\
+&= \frac{1}{1+\beta} +\frac{\beta}{1+\beta} \left[ \frac{1}{1-\theta (1+\beta)t}\right]
+\end{aligned}$$

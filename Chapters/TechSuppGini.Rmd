@@ -2,7 +2,7 @@
 
 ### TS A.1. The Classic Lorenz Curve {-}
 
-In welfare economics, it is common to compare distributions via the **Lorenz curve**, developed by Max Otto Lorenz [@lorenz1905methods]. A Lorenz curve is a graph of the proportion of a population on the horizontal axis and a distribution function of interest on the vertical axis. It is typically used to represent income distributions. When the income distribution is perfectly aligned with the population distribution, the Lorenz curve results in a 45 degree line that is known as the **line of equality**. The area between the Lorenz curve and the line of equality is a measure of the discrepancy between the income and population distributions. Two times this area is known as the **Gini index**, introduced by Corrado Gini in 1912. 
+In welfare economics, it is common to compare distributions via the **Lorenz curve**, developed by Max Otto Lorenz [@lorenz1905methods]. A Lorenz curve is a graph of the proportion of a population on the horizontal axis and a distribution function of interest on the vertical axis. It is typically used to represent income distributions. When the income distribution is perfectly aligned with the population distribution, the Lorenz curve results in a 45 degree line that is known as the *line of equality*. Because the graph compares two distribution functions, one can also think of a Lorenz curve as a type of $pp$ plot that was introduced in Section \@ref(S:MS:GraphComparison). The area between the Lorenz curve and the line of equality is a measure of the discrepancy between the income and population distributions. Two times this area is known as the **Gini index**, introduced by Corrado Gini in 1912. 
 
 
 ```{r echo=FALSE}  
@@ -63,17 +63,20 @@ The classic Lorenz curve shows the proportion of policyholders on the horizontal
 
 Suppose we have $n=5$ policyholders with experience as:
 
-Variable        $i$              1   2   3  4  5  Sum
-----------   ------------------  -   -   -  -  -  ---
+
+Variable      $i$                1   2   3  4  5  Sum
+----------   -----------------   -   -   -  -  -  ---
 Loss         $y_i$               5   5   5  4  6   25
 Premium      $P(\mathbf{x}_i)$   4   2   6  5  8   25
 Relativity   $R(\mathbf{x}_i)$   5   4   3  2  1 
-----------   ------------------  -   -   -  -  -  ---
+----------   -----------------   -   -   -  -  -  ---
+
 
 Determine the Lorenz curve and the ordered Lorenz curve.
 
 <h5 style="text-align: center;"><a id="displayLorenz.1" href="javascript:toggleEX('toggleLorenz','displayLorenz.1');"><i><strong>Show Example Solution</strong></i></a> </h5><div id="toggleLorenz" style="display: none">
 
+***
 
 ```{r, LorenzVsOrdered, fig.cap='Lorenz versus Ordered Lorenz Curve', out.width='90%', fig.asp=0.5, fig.align='center', echo=FALSE}
 # EXAMPLE
@@ -105,7 +108,9 @@ mtext("Loss Distn", side=2, line=-0.5, at=1.1,   las=1, cex=1.0)
 Figure \@ref(fig:LorenzVsOrdered) compares the Lorenz curve to the ordered version based on this data. The left-hand panel shows the Lorenz curve. The horizontal axis is the cumulative proportion of policyholders (0, 0.2, 0.4, and so forth) and the vertical axis is the cumulative proportion of losses (0, 4/25, 9/25, and so forth). This figure shows little separation between the distributions of losses and policyholders.
 
 The right-hand panel shows the ordered Lorenz curve. Because observations are sorted by relativities, the first point after the origin (reading from left to right) is (8/25, 6/25). The second
-point is (13/25, 10/25), with the pattern continuing. For the ordered Lorenz curve, the horizontal axis uses premium weights, the vertical axis uses loss weights, and both axes are ordered by relativities. From the figure, we see that there is greater separation between losses and premiums when viewed through this relativity. 
+point is (13/25, 10/25), with the pattern continuing. For the ordered Lorenz curve, the horizontal axis uses premium weights, the vertical axis uses loss weights, and both axes are ordered by relativities. From the figure, we see that there is greater separation between losses and premiums when viewed through this relativity.
+
+***
 
 </div>
 
@@ -127,12 +132,12 @@ The Gini statistics based on an ordered Lorenz curve can be used for out-of-samp
 
 1.  Use an in-sample data set to estimate several competing models.
 2.  Designate an out-of-sample, or validation, data set of the form $\{(y_i, \mathbf{x}_i), i=1,\ldots,n\}$.
-3.  Establish one of the models as the base model. Use this estimated model and explanatory variables from the validation sample to form premiums of the form $P(\mathbf{x}_i))$.
-4.  Use an estimated competing model and validation sample explanatory variables to form scores of the form $S(\mathbf{x}_i))$.
+3.  Establish one of the models as the base model. Use this estimated model and explanatory variables from the validation sample to form premiums of the form $P(\mathbf{x}_i)$.
+4.  Pick one of the competing models. Use this estimated model and explanatory variables from the validation sample to form scores of the form $S(\mathbf{x}_i)$.
 5.  From the premiums and scores, develop relativities $R_i =S(\mathbf{x}_i)/P(\mathbf{x}_i)$.
 6.  Use the validation sample outcomes $y_i$ to compute the Gini statistic.
 
-**Example -- Out-of-Sample Validation.**
+**Example -- Out-of-Sample Validation**
 
 ```{r, warning=FALSE, message=FALSE, echo=FALSE} 
 set.seed(2017)
@@ -153,60 +158,76 @@ Flatpred <- Predvec*0+1
 Outy     <- as.vector(OutClaims)
 ```
 
-Suppose that we have experience from `r Nstate` states. For each state, we have available `r NInsamp` observations that can be used to predict future losses. For this illustration, we have generated losses using a gamma distrbution with common shape parameter equal to 5 and a scale parameter that varies by state, from a low of 20 to `r 18+2*(Nstate-1)`. 
+Suppose that we have experience from `r Nstate` states and that, for each state, we have available `r NInsamp` observations that can be used to predict future losses. For simplicity, assume that the analyst knows that these losses were generated by a gamma distribution with a common shape parameter equal to 5. Unknown to the analyst, the scale parameters vary by state, from a low of 20 to `r 18+2*(Nstate-1)`. To compute base premiums, the analyst assumes a scale parameter that is common to all states that is to be estimated from the data. As an alternative, the analyst allows the scale parameters to vary by state and will again use the data to estimate these parameters.
 
-Determine the ordered Lorenz curve and the corresponding Gini statistic to compare the two rate procedures.
+An out of sample validation set of `r NOutsamp` from each state is available. Determine the ordered Lorenz curve and the corresponding Gini statistic to compare the two rate procedures.
 
 <h5 style="text-align: center;"><a id="displayLorenzeExample" href="javascript:toggleEX('toggleExampleLor','displayLorenzeExample');"><i><strong>Show Example Solution</strong></i></a> </h5><div id="toggleExampleLor" style="display: none">
 
-For our base premium, we simply use the maximum likelihood estimate assuming a common distribution among all states. For the gamma distribution, this turns out to be simply the average which for our simulation is **P**=`r round(mean(InClaims),digits=2)`. You can think of this common premium as based on a *community rating* principle. As an alternative, we use averages that are state-specific. Because this illustration uses means that vary by states, we anticipate this alternative rating procedure to be preferred to the community rating procedure. (Recall for the gamma distribution that the mean equals the shape times the scale or, 5 times the scale parameter, for our example.) 
-
-Out of sample claims were generated from the same gamma distribution, with `r NOutsamp` observations for each state. In the following, we have the ordered Lorenz curve.
+***
 
 
-```{r, fig.cap='', out.width='50%', fig.asp=1, fig.align='center', echo=FALSE} 
+Recall for the gamma distribution that the mean equals the shape times the scale or, 5 times the scale parameter, for our example. So, you can check that the maximum likelihood estimates are simple the average experience.
+
+For our base premium, we assume a common distribution among all states. For these simulated data, the average is **P**=`r round(mean(InClaims),digits=2)`. You can think of this common premium as based on a *community rating* principle. 
+
+As an alternative, we use averages that are state-specific; these averages form our scores **S**. Because this illustration uses means that vary by states, we anticipate this alternative rating procedure to be preferred to the community rating procedure. 
+
+Out of sample claims were generated from the same gamma distribution, with `r NOutsamp` observations for each state. The following `R` code shows how to calculate the ordered Lorenz curve.
+
+
+<h5 style="text-align: center;"><a id="displayGiniCode.4" href="javascript:togglecode('toggleGiniCode.4','displayGiniCode.4');"><i><strong>Show R Code</strong></i></a> </h5>
+<div id="toggleGiniCode.4" style="display: none">
+
+```{r echo=TRUE} 
 GiniCalc <- function(Claims,PIx,Sx){
-   y = Claims/mean(Claims)
-   PIx = PIx/mean(PIx)
-   Sx = Sx/mean(Sx)
-   Rx = Sx/PIx       #Ratio Gini
-   n = length(PIx)
-   origorder = (1:n)
+   y   <- Claims/mean(Claims)
+   PIx <- PIx/mean(PIx)
+   Sx  <- Sx/mean(Sx)
+   Rx  <- Sx/PIx       #Relativity
+   n   <- length(PIx)
+   origorder <- (1:n)
    PSRmat <- data.frame(cbind(PIx,Sx,Rx,y,origorder))
    PSRmatOrder <- PSRmat[order(Rx),]  #  Sort by relativity
 #  PREMIUM, LOSS DFs
-   DFPrem = cumsum(PSRmatOrder$PIx)/n
-   DFLoss = cumsum(PSRmatOrder$y)/n
+   DFPrem <- cumsum(PSRmatOrder$PIx)/n
+   DFLoss <- cumsum(PSRmatOrder$y)/n
 #  GINI CALC
-   DFPremdiff = DFPrem[2:n]-DFPrem[1:(n-1)]
-   DFPremavg  = (DFPrem[2:n]+DFPrem[1:(n-1)])/2
-   DFLossavg  = (DFLoss[2:n]+DFLoss[1:(n-1)])/2
-   (Gini = 2*crossprod(DFPremdiff,DFPremavg-DFLossavg)) 
+   DFPremdiff <- DFPrem[2:n]-DFPrem[1:(n-1)]
+   DFPremavg  <- (DFPrem[2:n]+DFPrem[1:(n-1)])/2
+   DFLossavg  <- (DFLoss[2:n]+DFLoss[1:(n-1)])/2
+   (Gini <- 2*crossprod(DFPremdiff,DFPremavg-DFLossavg)) 
 #  STANDARD ERROR CALC
-   h1 = 0.5* (PSRmatOrder$PIx*DFLoss + PSRmatOrder$y*(1-DFPrem) ) #  PROJECTION CALC
-   h1bar = mean(h1) 
-   sigmah = var(h1)
-   sigmahy = cov(h1,PSRmatOrder$y)
-   sigmahpi = cov(h1,PSRmatOrder$PIx)
-   sigmay = var(y)
-   sigmapi = var(PIx)
-   sigmaypi = cov(PSRmatOrder$y,PSRmatOrder$PIx)
+   h1 <- 0.5* (PSRmatOrder$PIx*DFLoss + PSRmatOrder$y*(1-DFPrem) ) #  PROJECTION CALC
+   h1bar   <- mean(h1) 
+   sigmah  <- var(h1)
+   sigmahy <- cov(h1,PSRmatOrder$y)
+   sigmahpi <- cov(h1,PSRmatOrder$PIx)
+   sigmay  <- var(y)
+   sigmapi <- var(PIx)
+   sigmaypi <- cov(PSRmatOrder$y,PSRmatOrder$PIx)
    temp1= 4*sigmah + h1bar^2*sigmay + h1bar^2*sigmapi -
            4*h1bar*sigmahy - 4*h1bar*sigmahpi +
            2*h1bar^2*sigmaypi
-   sigmaGini = 4*temp1
-   stderrGini = sqrt(sigmaGini/n) 
-   check = var(PIx-Sx)
-   Gini = Gini*(check != 0)
-   stderrGini = stderrGini*(check != 0)
+   sigmaGini  <- 4*temp1
+   stderrGini <- sqrt(sigmaGini/n) 
+   check <- var(PIx-Sx)
+   Gini  <- Gini*(check != 0)
+   stderrGini <- stderrGini*(check != 0)
    Retmat <- data.frame(cbind(DFPrem,DFLoss)) 
    RetmatGini<-list(Retmat,Gini,stderrGini)
      return(RetmatGini)
 }
 temp=GiniCalc(Claims=Outy,PIx=Flatpred,Sx=Predvec)
 Results=temp[[1]]
-Gini = temp[[2]];#Gini
-stderrorGini = temp[[3]];#Standard Error
+Gini <- temp[[2]];#Gini
+stderrorGini <- temp[[3]];#Standard Error
+
+```
+
+</div>
+
+```{r, fig.cap='', out.width='50%', fig.asp=1, fig.align='center', echo=FALSE} 
 plot(Results[,1],Results[,2], xlab="", ylab="",type="l",cex = 0.3)
 abline(0,1)
 mtext("Loss Distn", side=2, line=-1.4, at=1.1,   las=1, cex=1.2)
@@ -215,20 +236,22 @@ text(0.4, 0.6, "Line of Equality", cex=1)
 text(0.7, 0.3, "Ordered Lorenz Curve", cex=1)
 ```
 
-For these data, the Gini index is `r round(Gini,digits=3)` with a standard error equal to `r round(stderrorGini,digit=5)`.
+For these data, the Gini index is `r round(Gini,digits=3)` with a standard error equal to `r round(stderrorGini,digit=5)`. This suggests that the state-specific alternative procedure is strongly preferred to the base community rating procedure.
+
+***
 
 </div>
 
 #### Discussion {-}
 
 In insurance claims modeling, standard out-of-sample validation measures are not the most informative due to the high proportions of zeros (corresponding
-to no claim) and the skewed fat-tailed distribution of the positive values. The Gini index can be motivated by the economics of insurance. Intuitively, the Gini index measures the negative covariance between a policy's "profit" ($P-y$, premium minus loss) and the rank of the relativity (**R**, score divided by premium). That is, the close approximation
+to no claim) and the skewed fat-tailed distribution of the positive values. In contrast, the Gini index works well with many zeros (see the demonstration in [@frees2014insurance]). Moreover, the Gini index can be motivated by the economics of insurance. Intuitively, the Gini index measures the negative covariance between a policy's "profit" ($P-y$, premium minus loss) and the rank of the relativity (**R**, score divided by premium). That is, the close approximation
 
-$$\widehat{Gini} \approx - \frac{2}{n} \widehat{Cov} \left( (P-y), rank(R) \right) .$$
+$$\widehat{Gini} \approx - \frac{2}{n} \widehat{Cov} \left\{ (P-y), rank(R) \right\} .$$
 
-This observation leads an insurer to seek an ordering that produces to a large Gini index. Thus, the Gini index and associated ordered Lorenz curve are useful for identifying profitable blocks of insurance business.
+This observation leads an insurer to seek a score and resulting relativity that produces to a large Gini index. In this way, the Gini index and associated ordered Lorenz curve are useful for identifying profitable blocks of insurance business.
 
 Unlike classical measures of association, the Gini index assumes that a premium base **P** is currently in place and seeks to assess vulnerabilities of this structure. This approach is more akin to hypothesis testing (when compared to goodness of fit) where one identifies a "null hypothesis" as the current state of the world and uses decision-making criteria/statistics to compare this with an "alternative hypothesis."
 
-The insurance version of the Gini statistic was developed by [@frees2011summarizing] and [@frees2014insurance] where you can find formulas for the standard errors and other additional background information.
+Properties of the insurance version of the Gini statistic were developed by [@frees2011summarizing] and [@frees2014insurance]. In these articles you can find formulas for the standard errors and other additional background information.
 

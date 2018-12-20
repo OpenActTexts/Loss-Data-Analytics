@@ -215,4 +215,124 @@ Note that the later is the variance for a Bernoulli with outcomes $\lambda_1$ an
 
 Based on the Law of Total Variance, the unconditional variance of $N$ is given by
     $$\mathrm{Var}[N]= \alpha \lambda_1+ (1-\alpha) \lambda_2 + (\lambda_1-\lambda_2)^2 \alpha (1-\alpha).$$
+    
+## Conjugate Distributions {#S:ConjugateDistributions}
+
+As described in Section \@ref(S:IntroBayes), for conjugate distributions the posterior and the prior come from the same family of distributions. In insurance applications, this broadly occurs in a "family of distribution familes" known as the linear exponential family which we introduce first.
+
+
+### Linear Exponential Family
+
+**Definition.** The distribution of the *linear exponential family* is
+\begin{equation}
+f( x; \gamma ,\theta ) =
+\exp \left( \frac{x\gamma -b(\gamma )}{\theta} +S\left( x,\theta \right) \right).
+\end{equation}
+Here, $x$ is a dependent variable and $\gamma$ is the parameter of interest. The quantity $\theta$ is a scale parameter. The term $b(\gamma)$ depends only on the parameter $\gamma$, not the dependent variable. The statistic $S\left(x,\theta \right)$ is a function of the dependent variable and the scale parameter, not the parameter $\gamma$.
+
+The dependent variable $x$ may be discrete, continuous or a hybrid combination of the two. Thus, $f\left( .\right)$ may be interpreted to be a density or mass function, depending on the application. The following table provides several examples, including the normal, binomial and Poisson distributions.
+    
+
+$$
+{\small
+\begin{matrix}
+\text{Selected Distributions of the Linear Exponential Family}\\
+\begin{array}{l|ccccc}
+\hline
+             &             & \text{Density or} & & & \\
+\text{Distribution} & \text{Parameters} & \text{Mass Function} & \text{Components} \\
+\hline \text{General} & \gamma,~ \theta & 
+\exp \left( \frac{x\gamma -b(\gamma )}{\theta} +S\left( x,\theta \right) \right) & 
+\gamma,~ \theta, b(\gamma), S(x, \theta)\\
+ \text{Normal} & \mu, \sigma^2  &
+\frac{1}{\sigma \sqrt{2\pi }}\exp \left(-\frac{(x-\mu )^{2}}{2\sigma ^{2}}\right) & 
+\mu, \sigma^2, \frac{\gamma^2}{2}, - \left(\frac{x^2}{2\theta} + \frac{\ln(2 \pi
+\theta)}{2} \right) \\
+\text{Binomal} & \pi & 
+{n \choose x} \pi ^x (1-\pi)^{n-x} & 
+\ln
+\left(\frac{\pi}{1-\pi} \right), 1, n \ln(1+e^{\gamma} ),  \\
+&  &  &  \ln {n \choose x} \\
+\text{Poisson} & \lambda & 
+\frac{\lambda^x}{x!} \exp(-\lambda)  & 
+\ln \lambda, 1, e^{\gamma}, - \ln (x!)  \\
+\text{Negative } & 
+r,p &  \frac{\Gamma(x+r)}{x!\Gamma(r)} p^r ( 1-p)^x & 
+\ln(1-p), 1, -r \ln(1-e^{\gamma}), \\
+~~~\text{Binomial}^{\ast} & & & ~~~\ln \left[ \frac{\Gamma(x+r)}{x!
+\Gamma(r)} \right] \\
+\text{Gamma} & \alpha, \theta  & \frac{1}{\Gamma (\alpha)\theta ^ \alpha}
+x^{\alpha -1 }\exp(-x/ \theta)  & - \frac{1}{\alpha \gamma},
+\frac{1}{\alpha}, - \ln ( - \gamma), -\theta^{-1} \ln \theta \\
+& & &  - \ln \left( \Gamma(\theta ^{-1}) \right) +
+(\theta^{-1} - 1) \ln x & & \\ \hline
+\end{array}\\
+^{\ast} \text{This assumes that the parameter r is fixed but need not be an integer.}\\ 
+\end{matrix}
+}
+$$
+
+The Tweedie (see Section \@ref(S:TweedieDistribution)) and inverse Gaussian distributions are also members of the linear exponential family. The linear exponential family of distribution families is extensively used as the basis of generalized linear models as described in, for example, @frees2009regression.
+
+### Conjugate Distributions
+Now assume that the parameter $\gamma$ is random with distribution $\pi(\gamma, \tau)$, where $\tau$ is a vector of parameters that describe the distribution of $\gamma$. In Bayesian models, the distribution $\pi$ is known as the prior and reflects our belief or information about $\gamma$. The likelihood $f(x|\gamma)$ is a probability conditional on $\gamma$. The distribution of $\gamma$ with knowledge of the random variables, $\pi(\gamma,\tau| x)$, is called the posterior distribution. For a given likelihood distribution, priors and posteriors that come from the same parametric family are known as conjugate families of distributions.
+
+For a linear exponential likelihood, there exists a natural conjugate family. Specifically, consider a  likelihood of the form 
+$f(x|\gamma) = \exp \left\{(x\gamma -b(\gamma))/\theta\right\} \exp \left\{S\left( x,\theta \right) \right\}$. For this likelihood, define the prior distribution
+$$
+\pi(\gamma,\tau) = C \exp\left\{
+\gamma a_1(\tau) - b(\gamma)a_2(\tau))\right\},
+$$
+where $C$ is a normalizing constant. Here, $a_1(\tau)=a_1$ and $a_2(\tau)=a_2$ are functions of the parameters $\tau$ although we simplify the notation by dropping explicit dependence on $\tau$. The joint distribution of $x$ and $\gamma$ is given by $f(x,\gamma) = f(x|\gamma) \pi(\gamma,\tau)$. Using Bayes Theorem, the
+posterior distribution is
+$$
+\pi(\gamma,\tau|x) = C_1 \exp\left\{
+\gamma \left( a_1+\frac{x}{\theta}\right) - b(\gamma)\left( a_2+\frac{1}{\theta}\right)\right\},
+$$
+where $C_1$ is a normalizing constant. Thus, we see that $\pi(\gamma,\tau|x)$ has the same form as $\pi(\gamma,\tau)$.
+
+***
+
+**Special case. Poisson-Gamma Model.** Consider a Poisson likelihood so that $b(\gamma) = e^{\gamma}$ and scale parameter ($\theta$) equals one.  Thus, we have
+$$
+\pi(\gamma,\tau) = C \exp\left\{
+\gamma a_1 - a_2 e^{\gamma} \right\}=
+C ~ 
+\left(
+e^{\gamma}\right)^{a_1}
+\exp\left(-a_2e^{\gamma} \right).
+$$
+From the table of exponential family distributions, we recognize this to be a gamma distribution. That is, we have that the prior distribution of $\lambda = e^{\gamma}$ is a gamma distribution with parameters $\alpha_{prior} = a_1+1$ and $\theta_{prior}^{-1}=a_2$. The posterior distribution is a gamma distribution with parameters  $\alpha_{post} =a_1+x+1=\alpha_{prior}+x$ and $\theta_{post}^{-1}=a_2+1 = \theta_{prior}^{-1}+1$. This is consistent with our Section \@ref(S:PosteriorDistribution) result.
+
+
+***
+
+**Special case. Normal-Normal Model.** 
+Consider a normal likelihood so that $b(\gamma) = \gamma^2/2$ and the scale parameter is $\sigma^2$. Thus,  we have
+$$
+\pi(\gamma,\tau) = C \exp\left\{
+\gamma a_1 - \frac{\gamma^2}{2}a_2\right\}=
+C_1(\tau)\exp\left\{ - \frac{a_2}{2}\left(\gamma -\frac{a_1}{a_2}\right)^2\right\},
+$$
+The prior distribution of $\gamma$ is normal with mean $a_1/a_2$ and variance $a_2^{-1}$. The posterior distribution of $\gamma$ given $x$ is normal with mean $(a_1+x/\sigma^2)/(a_2+\sigma^{-2})$ and variance $(a_2+\sigma^{-2})^{-1}$. 
+
+***
+
+**Special case. Beta-Binomial Model.** Consider a binomial likelihood so that $b(\gamma) = n \ln(1+e^{\gamma})$ and scale parameter equals one. Thus, we have
+$$
+\pi(\gamma,\tau) = C \exp\left\{
+\gamma a_1 - n a_2 \ln(1+e^{\gamma}) \right\}=
+C ~ 
+\left(
+\frac{e^{\gamma}}{1+e^{\gamma}}\right)^{a_1}
+\left(1-\frac{e^{\gamma}}{1+e^{\gamma}}\right)^{-na_2+a_1}.
+$$
+
+This is a beta distribution. As in the other cases, prior parameters $a_1$ and $a_2$ are updated to become posterior parameters $a_1+x$ and $a_2+1$. 
+
+
+####Contributors {-}
+
+- **Lei (Larry) Hua**, Northern Illinois University, and **Edward W. (Jed) Frees**, University of Wisconsin-Madison, are the principal authors of the initial version of this chapter. Email: lhua@niu.edu or jfrees@bus.wisc.edu for chapter comments and suggested improvements.
+
 

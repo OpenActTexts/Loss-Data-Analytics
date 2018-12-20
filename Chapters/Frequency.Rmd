@@ -47,9 +47,9 @@ F_N(x):=\begin{cases}
 \end{equation}
 In the above, $\lfloor \cdot \rfloor$ denotes the floor function; $\lfloor x \rfloor$ denotes the greatest integer less than or equal to $x$. We note that the **survival function** of $N$, denoted by $S_N(\cdot)$, is defined as the ones'-complement of $F_N(\cdot)$, *i.e.* $S_N(\cdot):=1-F_N(\cdot)$. Clearly, the latter is another characterization of the distribution of $N$.
 
-Often one is interested in quantifying a certain aspect of the distribution and not in its complete description. This is particularly useful when comparing distributions. A *center of location* of the distribution is one such aspect, and there are many different measures that are commonly used to quantify it. Of these, the **mean** is the most popular; the mean of $N$, denoted by $\mu_N$[^1], is defined as
+Often one is interested in quantifying a certain aspect of the distribution and not in its complete description. This is particularly useful when comparing distributions. A *center of location* of the distribution is one such aspect, and there are many different measures that are commonly used to quantify it. Of these, the **mean** is the most popular; the mean of $N$, denoted by $\mu_N$[^2.1], is defined as
 
-[^1]: For convenience, we have indexed $\mu_N$ with the random variable $N$ instead of $F_N$ or $p_N$, even though it is solely a function of the distribution of the random variable.
+[^2.1]: For convenience, we have indexed $\mu_N$ with the random variable $N$ instead of $F_N$ or $p_N$, even though it is solely a function of the distribution of the random variable.
 
 \begin{equation}
 \mu_N=\sum_{k=0}^\infty kp_N(k).
@@ -132,9 +132,9 @@ In this sub-section we will study three important frequency distributions used i
 <!-- \phantom{It is useful to get an example here of a discrete distribution with three point support and derive its mgf/pgf/moments etc..} -->
 
 #### Binomial Distribution {#S:binomial-distribution}
-We begin with the binomial distribution which arises from any finite sequence of identical and independent experiments with binary outcomes. The most canonical of such experiments is the (biased or unbiased) coin tossing experiment with the outcome being heads or tails. So if $N$ denotes the number of heads in a sequence of $m$ independent coin tossing experiments with an identical coin which turns heads up with probability $q$, then the distribution of $N$ is called the binomial distribution with parameters $(m,q)$, with $m$ a positive integer and $q\in[0,1]$. Note that when $q=0$ (resp., $q=1$) then the distribution is degenerate with $N=0$ (resp., $N=m$) with probability $1$. Clearly, its support when $q\in(0,1)$ equals $\{0,1,\ldots,m\}$ with *pmf* given by [^2]
+We begin with the binomial distribution which arises from any finite sequence of identical and independent experiments with binary outcomes. The most canonical of such experiments is the (biased or unbiased) coin tossing experiment with the outcome being heads or tails. So if $N$ denotes the number of heads in a sequence of $m$ independent coin tossing experiments with an identical coin which turns heads up with probability $q$, then the distribution of $N$ is called the binomial distribution with parameters $(m,q)$, with $m$ a positive integer and $q\in[0,1]$. Note that when $q=0$ (resp., $q=1$) then the distribution is degenerate with $N=0$ (resp., $N=m$) with probability $1$. Clearly, its support when $q\in(0,1)$ equals $\{0,1,\ldots,m\}$ with *pmf* given by [^2.2]
 
-[^2]: In the following we will suppress the reference to $N$ and denote the *pmf* by the sequence $\{p_k\}_{k\geq 0}$, instead of the function $p_N(\cdot)$.
+[^2.2]: In the following we will suppress the reference to $N$ and denote the *pmf* by the sequence $\{p_k\}_{k\geq 0}$, instead of the function $p_N(\cdot)$.
 
 \begin{equation*}
 p_k:= \binom{m}{k} q^k (1-q)^{m-k}, \quad k=0,\ldots,m.
@@ -240,9 +240,10 @@ Finally, we observe that the Poisson distribution also emerges as a limit of neg
 \[
 \lim_{r\rightarrow 0} (1-\beta_r(e^t-1))^{-r}=\exp\{\lambda(e^t-1)\},
 \]
-with the right hand side of the above equation being the *mgf* of the Poisson distribution with parameter $\lambda$[^3]
+with the right hand side of the above equation being the *mgf* of the Poisson distribution with parameter $\lambda$[^2.3]
 
-[^3]: For the theoretical basis underlying the above argument, see [@billingsley].
+[^2.3]: For the theoretical basis underlying the above argument, see [@billingsley].
+
 
 ## The (a, b, 0) Class {#S:the-a-b-0-class}
 In the previous section we studied three distributions, namely the binomial, the Poisson and the negative binomial distributions. In the case of the Poisson, to derive its mean we used the the fact that
@@ -339,15 +340,17 @@ and the plot of the likelihood is given in Figure \@ref(fig:berlik). As shown in
 \[
 q(1-q)^2=\left(q-\frac{1}{3}\right)^2\left(q-\frac{4}{3}\right)+\frac{4}{27},
 \]
-and conclude that the maximum equals $4/27$, and is attained at $q=1/3$ (using the fact that the first term is non-positive in the interval $[0,1]$). But as is apparent, this way of deriving the *mle* using algebra does not generalize. In general, one resorts to calculus to derive the *mle* - note that for some likelihoods one may have to resort to other optimization methods, especially when the likelihood has many local extrema. It is customary to equivalently maximize the logarithm of the likelihood[^4] $L(\cdot)$, denoted by $l(\cdot)$, and look at the set of zeros of its first derivative[^5] $l'(\cdot)$. In the case of the above likelihood, $l(q)=\log(q)+2\log(1-q)$, and
+
+and conclude that the maximum equals $4/27$, and is attained at $q=1/3$ (using the fact that the first term is non-positive in the interval $[0,1]$). But as is apparent, this way of deriving the *mle* using algebra does not generalize. In general, one resorts to calculus to derive the *mle* - note that for some likelihoods one may have to resort to other optimization methods, especially when the likelihood has many local extrema. It is customary to equivalently maximize the logarithm of the likelihood[^2.4] $L(\cdot)$, denoted by $l(\cdot)$, and look at the set of zeros of its first derivative[^2.5] $l'(\cdot)$. In the case of the above likelihood, $l(q)=\log(q)+2\log(1-q)$, and
+
 \[
 l'(q):=\frac{\rm d}{{\rm d}q}l(q)=\frac{1}{q}-\frac{2}{1-q}.
 \]
 The unique zero of $l'(\cdot)$ equals $1/3$, and since $l''(\cdot)$ is negative, we have $1/3$ is the unique maximizer of the likelihood and hence its *mle*.
 
-[^4]: The set of maximizers of $L(\cdot)$ are the same as the set of maximizers of any strictly increasing function of $L(\cdot)$, and hence the same as those for $l(\cdot)$.
+[^2.4]: The set of maximizers of $L(\cdot)$ are the same as the set of maximizers of any strictly increasing function of $L(\cdot)$, and hence the same as those for $l(\cdot)$.
 
-[^5]: A slight benefit of working with $l(\cdot)$ is that constant terms in $L(\cdot)$ do not appear in $l'(\cdot)$ whereas they do in $L'(\cdot)$.
+[^2.5]: A slight benefit of working with $l(\cdot)$ is that constant terms in $L(\cdot)$ do not appear in $l'(\cdot)$ whereas they do in $L'(\cdot)$.
 
 ```{r, berlik, echo=FALSE, fig.cap="Likelihood of a $(0,1,0)$ $3$-sample from Bernoulli", out.width='45%', fig.align='center'}
 knitr::include_graphics("Figures/figure2.1.png")
@@ -747,9 +750,9 @@ The above expression can be seen as a direct application of Bayes theorem. As an
 \alpha\cdot F_{\leq 5} + (1-\alpha)F_{> 5}.
 \]
 
-An alternate definition of a mixture distribution is as follows. Let $N_i$ be a random variable with distribution $F_i$, $i=1,\ldots, k$. Let $I$ be a random variable taking values  $1,2,\ldots,k$ with probabilities $\alpha_1,\ldots,\alpha_k$, respectively. Then the random variable $N_I$ has a distribution given by equation \@ref(eq:mixdefn)[^6].
+An alternate definition of a mixture distribution is as follows. Let $N_i$ be a random variable with distribution $F_i$, $i=1,\ldots, k$. Let $I$ be a random variable taking values  $1,2,\ldots,k$ with probabilities $\alpha_1,\ldots,\alpha_k$, respectively. Then the random variable $N_I$ has a distribution given by equation \@ref(eq:mixdefn)[^2.6].
 
-[^6]: This in particular lays out a way to simulate from a mixture distribution that makes use of efficient simulation schemes that may exist for the component distributions.
+[^2.6]: This in particular lays out a way to simulate from a mixture distribution that makes use of efficient simulation schemes that may exist for the component distributions.
 
 In \@ref(eq:mixdefn) we see that the distribution function is a convex combination of the component distribution functions. This result easily extends to the density function, the survival function, the raw moments, and the expectation as these are all linear functionals of the distribution function. We note that this is not true for central moments like the variance, and conditional measures like the hazard rate function. In the case of variance it is easily seen as
 \[

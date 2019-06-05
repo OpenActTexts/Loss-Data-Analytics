@@ -1,11 +1,9 @@
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
+`r chapnum = 13`
 
-# Data Systems {#C:DataSystems}
+# Data and Systems {#C:DataSystems}
 
-*Chapter Preview*. This chapter covers the learning areas on data and systems outlined in the IAA (International Actuarial Association) Education Syllabus published in September 2015.
+*Chapter Preview*. This chapter covers the learning areas on data and systems outlined in the IAA (International Actuarial Association) Education Syllabus published in September 2015. This chapter is organized into three major parts: data, data analysis, and data analysis techniques. The first part introduces data basics such as data types, data structures, data storages, and data sources. The second part discusses the process and various aspects of data analysis. The third part presents some commonly used techniques for data analysis. 
 
 ## Data
 
@@ -17,13 +15,13 @@ knitr::opts_chunk$set(echo = TRUE)
 
 In terms of how data are collected, data can be divided into two types [@hox2005data]: primary data and secondary data. Primary data are original data that are collected for a specific research problem. Secondary data are data originally collected for a different purpose and reused for another research problem. A major advantage of using primary data is that the theoretical constructs, the research design, and the data collection strategy can be tailored to the underlying research question to ensure that the data collected indeed help to solve the problem. A disadvantage of using primary data is that data collection can be costly and time-consuming. Using secondary data has the advantage of lower cost and faster access to relevant information. However, using secondary data may not be optimal for the research question under consideration.   
 
-In terms of the degree of organization of the data, data can be also divided into two types [@inmon2014;@leary2013bigdata;@hashem2015bigdata;@abdullah2013data;@pries2015]: structured data and unstructured data. Structured data have a predictable and regularly occurring format. In contrast, unstructured data are unpredictable and have no structure that is recognizable to a computer. Structured data consists of records, attributes, keys, and indices and are typically managed by a database management system (DBMS) such as IBM DB2, Oracle, MySQL, and Microsoft SQL Server. As a result, most units of structured data can be located quickly and easily. Unstructured data have many different forms and variations. One common form of unstructured data is text. Accessing unstructured data is clumsy. To find a given unit of data in a long text, for example, sequentially search is usually performed. 
+In terms of the degree of organization of the data, data can be also divided into two types [@inmon2014;@leary2013bigdata;@hashem2015bigdata;@abdullah2013data;@pries2015]: structured data and unstructured data. Structured data have a predictable and regularly occurring format. In contrast, unstructured data are unpredictable and have no structure that is recognizable to a computer. Structured data consist of records, attributes, keys, and indices and are typically managed by a database management system (DBMS) such as IBM DB2, Oracle, MySQL, and Microsoft SQL Server. As a result, most units of structured data can be located quickly and easily. Unstructured data have many different forms and variations. One common form of unstructured data is text. Accessing unstructured data is clumsy. To find a given unit of data in a long text, for example, sequentially search is usually performed. 
 
-In terms of how the data are measured, data can be classified as qualitative or quantitative. Qualitative data is data about qualities, which cannot be actually measured. As a result, qualitative data is extremely varied in nature and includes interviews, documents, and artifacts [@miles2014]. Quantitative data is data about quantities, which can be measured numerically with numbers. In terms of the level of measurement, quantitative data can be further classified as nominal, ordinal,  interval, or ratio [@gan2011]. Nominal data, also called categorical data, are discrete data without a natural ordering. Ordinal data are discrete data with a natural order. Interval data are continuous data with a specific order and equal intervals. Ratio data are interval data with a natural zero. 
+In terms of how the data are measured, data can be classified as qualitative or quantitative. Qualitative data are data about qualities, which cannot be actually measured. As a result, qualitative data are extremely varied in nature and include interviews, documents, and artifacts [@miles2014]. Quantitative data are data about quantities, which can be measured numerically with numbers. In terms of the level of measurement, quantitative data can be further classified as nominal, ordinal,  interval, or ratio [@gan2011]. Nominal data, also called categorical data, are discrete data without a natural ordering. Ordinal data are discrete data with a natural order. Interval data are continuous data with a specific order and equal intervals. Ratio data are interval data with a natural zero. 
 
 There exist a number of data sources. First, data can be obtained from university-based researchers who collect primary data. Second, data can be obtained from organizations that are set up for the purpose of releasing secondary data for general research community. Third, data can be obtained from national and regional statistical institutes that collect data. Finally, companies have corporate data that can be obtained for research purpose.
 
-While it might be difficult to obtain data to address a specific research problem or answer a business question, it is relatively easy to obtain data to test a model or an algorithm for data analysis. In nowadays, readers can obtain datasets from the Internet easily. The following is a list of some websites to obtain real-world data:
+While it might be difficult to obtain data to address a specific research problem or answer a business question, it is relatively easy to obtain data to test a model or an algorithm for data analysis. In the modern era, readers can obtain datasets from the Internet easily. The following is a list of some websites to obtain real-world data:
 
 * **UCI Machine Learning Repository** This website (url: [http://archive.ics.uci.edu/ml/index.php](http://archive.ics.uci.edu/ml/index.php)) maintains more than 400 datasets that can be used to test machine learning algorithms.
 
@@ -61,7 +59,7 @@ In other words, structured data can be organized into a table consists of rows a
 
 Unstructured data do not follow a regular format [@abdullah2013data]. Examples of unstructured data include documents, videos, and audio files. Most of the data we encounter are unstructured data. In fact, the term ``big data'' was coined to reflect this fact. Traditional relational databases cannot meet the challenges on the varieties and scales brought by massive unstructured data nowadays. NoSQL databases have been used to store massive unstructured data. 
 
-There are three main NoSQL databases [@chen2014b]: key-value databases, column-oriented databases, and document-oriented databases. Key-value databases use a simple data model and store data according to key-values. Modern key-value databases have higher expandability and smaller query response time than relational databases. Examples of key-value databases include Dynamo used by Amazon and Voldemort used by LinkedIn. Column-oriented databases store and process data according to columns rather than rows. The columns and rows are segmented in multiple nodes to achieve expandability. Examples of column-oriented databases include BigTable developed by Google and Cassandra developed by FaceBook. Document databases are designed to support more complex data forms than those stored in key-value databases. Examples of document databases include MongoDB, SimpleDB, and CouchDB. MongoDB is an open-source document-oriented database that stores documents as binary objects. SimpleDB is a distributed NoSQL database used by Amazon. CouchDB is an another open-source document-oriented database. 
+There are three main NoSQL databases [@chen2014b]: key-value databases, column-oriented databases, and document-oriented databases. Key-value databases use a simple data model and store data according to key-values. Modern key-value databases have higher expandability and smaller query response time than relational databases. Examples of key-value databases include Dynamo used by Amazon and Voldemort used by LinkedIn. Column-oriented databases store and process data according to columns rather than rows. The columns and rows are segmented in multiple nodes to achieve expandability. Examples of column-oriented databases include BigTable developed by Google and Cassandra developed by FaceBook. Document databases are designed to support more complex data forms than those stored in key-value databases. Examples of document databases include MongoDB, SimpleDB, and CouchDB. MongoDB is an open-source document-oriented database that stores documents as binary objects. SimpleDB is a distributed NoSQL database used by Amazon. CouchDB is another open-source document-oriented database. 
 
 ### Data Quality
 
@@ -81,9 +79,9 @@ Inaccurate data arise from different sources. In particular, the following areas
 * Data moving and restructuring. Inaccurate data can also arise from data extracting, cleaning, transforming, loading, or integrating.
 * Data using. Faulty reporting and lack of understanding can lead to inaccurate data.
 
-Reverification and analysis are two approaches to find inaccurate data elements. To ensure that the data elements are 100\% accurate, we must use reverification. However, reverification can be time-consuming and may not be possible for some data. Analytical techniques can also be used to identify inaccurate data elements. There are five types of analysis that can be used to  identify inaccurate data [@olson2003]: data element analysis, structural analysis, value correlation, aggregation correlation, and value inspection
+Reverification and analysis are two approaches to find inaccurate data elements. The first approach is done by people, who manually check every data element by going back to the original source of the data. The second approach is done by software with the skills of an analyst to search through data to find possible inaccurate data elements. To ensure that the data elements are 100\% accurate, we must use reverification. However, reverification can be time-consuming and may not be possible for some data. Analytical techniques can also be used to identify inaccurate data elements. There are five types of analysis that can be used to  identify inaccurate data [@olson2003]: data element analysis, structural analysis, value correlation, aggregation correlation, and value inspection
 
-Companies can create a data quality assurance program to create high-quality databases. For more information about data quality issues management and data profiling techniques, readers are referred to [@olson2003].
+Companies can create a data quality assurance program to create high-quality databases. For more information about management of data quality issues and data profiling techniques, readers are referred to @olson2003.
 
 ### Data Cleaning
 
@@ -95,15 +93,15 @@ Raw data usually need to be cleaned before useful analysis can be conducted. In 
 
 * **Junk** Raw data may contain junks such as nonprintable characters. Junks are typically rare and not easy to get noticed. However, junks can cause serious problems in downstream applications.
 
-* **Format** Raw data may be formated in a way that is inconvenient for subsequent analysis. For example, components of a record may be split into multiple lines in a text file. In such cases, lines corresponding to a single record should be merged before loading to a data analysis software such as R.
+* **Format** Raw data may be formatted in a way that is inconvenient for subsequent analysis. For example, components of a record may be split into multiple lines in a text file. In such cases, lines corresponding to a single record should be merged before loading to a data analysis software such as R.
 
 * **Duplicate records** Raw data may contain duplicate records. Duplicate records should be recognized and removed. This task may not be trivial depending on what you consider ``duplicate.''
 
 * **Merging datasets** Raw data may come from different sources. In such cases, we need to merge the data from different sources to ensure compatibility.
 
-For more information about how to handle data in R, readers are referred to [@forte2015] and [@buttrey2017].
+For more information about how to handle data in R, readers are referred to @forte2015 and @buttrey2017.
 
-## Data Analysis Preliminary
+## Data Analysis Preliminaries
 
 <!-- aims 7.1.1  stages 7.1.2 -->
 <!-- 7.5.1 visualization reporting -->
@@ -127,7 +125,7 @@ In this section, we give a high-level introduction to data analysis, including d
 
 ### Data Analysis Process {#S:process}
 
-Data analysis is part of an overall study. For example, Figure \@ref(fig:study) shows the process of a typical study in behavioral and social sciences as described in [@albers2017]. The data analysis part consists of the following steps:
+Data analysis is part of an overall study. For example, Figure \@ref(fig:study) shows the process of a typical study in behavioral and social sciences as described in @albers2017. The data analysis part consists of the following steps:
 
 * **Exploratory analysis** The purpose of this step is to get a feel of the relationships with the data and figure out what type of analysis for the data makes sense.
 
@@ -286,7 +284,7 @@ Literate programming is an approach to address the two issues mentioned above. I
 
 Analysts may face ethical issues and dilemmas during the data analysis process. In some fields, for example, ethical issues and dilemmas include participant consent, benefits, risk, confidentiality, and data ownership [@miles2014]. For data analysis in actuarial science and insurance in particular, we face the following ethical matters and issues [@miles2014]:
 
-* **Worthness of the project** Is the project worth doing? Will the project contribute in some significant way to a domain broader than my career? If a project is only opportunistic and does not have a larger significance, then it might be pursued with less care. The result may be looked good but not right.
+* **Worthiness of the project** Is the project worth doing? Will the project contribute in some significant way to a domain broader than my career? If a project is only opportunistic and does not have a larger significance, then it might be pursued with less care. The result may be looked good but not right.
 
 * **Competence** Do I or the whole team have the expertise to carry out the project? Incompetence may lead to weakness in the analytics such as collecting large amounts of data poorly and drawing superficial conclusions.
 
@@ -327,7 +325,7 @@ Originating in engineering, pattern recognition is a field that is closely relat
 
 Exploratory data analysis techniques include descriptive statistics as well as many unsupervised learning techniques such as data clustering and principal component analysis.
 
-### Descriptive Statistics
+#### Descriptive Statistics
 
 In the mass noun sense, descriptive statistics is an area of statistics that concerns the collection, organization, summarization, and presentation of data [@bluman2012]. In the count noun sense, descriptive statistics are summary statistics that quantitatively describe or summarize data.
 
@@ -356,29 +354,16 @@ In addition to these quantitative descriptive statistics, we can also qualitativ
 
 Principal component analysis (PCA) is a statistical procedure that transforms a dataset described by possibly correlated variables into a dataset described by linearly uncorrelated variables, which are called principal components and are ordered according to their variances. PCA is a technique for dimension reduction. If the original variables are highly correlated, then the first few principal components can account for most of the variation of the original data.  
 
-To describe PCA, let $X_1,X_2,\ldots,X_d$ be a set of variables. The first principal component is defined to be the normalized linear combination of the variables that has the largest variance, that is, the first principal component is defined as
-
-$$Z_1=w_{11} X_1 + w_{12} X_2 + \cdots + w_{1d} X_d,$$
-where $\textbf{w}_1=(w_{11}, w_{12}, \ldots, w_{1d})'$ is a vector of loadings such that $\mathrm{Var~}{(Z_1)}$ is maximized subject to the following constraint:
-$$\textbf{w}_1'\textbf{w}_1 = \sum_{j=1}^d w_{1j}^2 = 1.$$
-
-For $i=2,3,\ldots,d$, the $i$th principal component is defined as
-
-$$Z_i=w_{i1} X_1 + w_{i2} X_2 + \cdots + w_{id} X_d,$$
-where $\textbf{w}_i=(w_{i1}, w_{i2}, \ldots, w_{id})'$ is a vector of loadings such that $\mathrm{Var~}{(Z_i)}$ is maximized subject to the following constraints:
-$$\textbf{w}_i'\textbf{w}_i=\sum_{j=1}^d w_{ij}^2 = 1,$$
-$$\mathrm{cov~}{(Z_i, Z_j)} = 0,\quad j=1,2,\ldots,i-1.$$
-
-The principal components of the variables are related to the eigenvectors and eigenvectors of the covariance matrix of the variables. For $i=1,2,\ldots,d$, let $(\lambda_i, \textbf{e}_i)$ be the $i$th eigenvalue-eigenvector pair of the covariance matrix ${\Sigma}$ such that $\lambda_1\ge \lambda_2\ge \ldots\ge \lambda_d\ge 0$ and the eigenvectors are normalized. Then the $i$th principal component is given by
+The principal components of the variables are related to the eigenvectors and eigenvectors of the covariance matrix of the variables. For $i=1,2,\ldots,d$, let $(\lambda_i, \textbf{e}_i)$ be the $i$th eigenvalue-eigenvector pair of the covariance matrix ${\Sigma}$ of $d$ variables $X_1,X_2,\ldots,X_d$  such that $\lambda_1\ge \lambda_2\ge \ldots\ge \lambda_d\ge 0$ and the eigenvectors are normalized. Then the $i$th principal component is given by
 
 $$Z_{i} = \textbf{e}_i' \textbf{X} =\sum_{j=1}^d e_{ij} X_j,$$
 where $\textbf{X}=(X_1,X_2,\ldots,X_d)'$. It can be shown that $\mathrm{Var~}{(Z_i)} = \lambda_i$. As a result, the proportion of variance explained by the $i$th principal component is calculated as
 
 $$\dfrac{\mathrm{Var~}{(Z_i)}}{ \sum_{j=1}^{d} \mathrm{Var~}{(Z_j)}} = \dfrac{\lambda_i}{\lambda_1+\lambda_2+\cdots+\lambda_d}.$$
 
-For more information about PCA, readers are referred to [@mirkin2011].
+For more information about PCA, readers are referred to @mirkin2011.
 
-### Cluster Analysis
+#### Cluster Analysis
 
 Cluster analysis (aka data clustering) refers to the process of dividing a dataset into homogeneous groups or clusters such that points in the same cluster are similar and points from different clusters are quite distinct [@gan2007;@gan2011]. Data clustering is one of the most popular tools for exploratory data analysis and has found applications in many scientific areas. 
 
@@ -390,21 +375,7 @@ where $U=(u_{il})_{n\times k}$ is an $n\times k$ partition matrix, $Z=\{\textbf{
 $$u_{il}\in \{0,1\},\quad i=1,2,\ldots,n,\:l=1,2,\ldots,k,$$
 $$\sum_{l=1}^k u_{il}=1,\quad i=1,2,\ldots,n.$$
 
-The $k$-means algorithm employs an iterative procedure to minimize the objective function. It repeatedly updates the partition matrix $U$ and the cluster centers $Z$ alternately until some stop criterion is met. When the cluster centers $Z$ are fixed, the partition matrix $U$ is updated as follows:
-
-$$\begin{aligned}u_{il}=\left\{
-\begin{array}{ll}
-1, & \text{if } \Vert \textbf{x}_i - \textbf{z}_l\Vert = \min_{1\le j\le k} \Vert \textbf{x}_i - \textbf{z}_j\Vert;\\
-0, & \text{if otherwise,}
-\end{array}
-\right.
-\end{aligned}$$
-When the partition matrix $U$ is fixed, the cluster centers are updated as follows:
-
-$$z_{lj} = \dfrac{\sum_{i=1}^n u_{il} x_{ij} } { \sum_{i=1}^n u_{il}},\quad l=1,2,\ldots,k,\: j=1,2,\ldots,d,$$
-where $z_{lj}$ is the $j$th component of $\textbf{z}_l$ and $x_{ij}$ is the $j$th component of $\textbf{x}_i$.
-
-For more information about $k$-means, readers are referred to [@gan2007] and [@mirkin2011].
+The $k$-means algorithm employs an iterative procedure to minimize the objective function. It repeatedly updates the partition matrix $U$ and the cluster centers $Z$ alternately until some stop criterion is met. For more information about $k$-means, readers are referred to @gan2007 and @mirkin2011.
 
 ### Confirmatory Techniques
 
@@ -458,7 +429,7 @@ GLMs make the following assumptions:
 $$\mathrm{Var~}{(y_i)} = \phi \nu(\mu_i),$$
 where $\phi$ denotes the dispersion parameter and $\nu(\cdot)$ is a function.
 
-As we can see from the above specification, the GLM provides a unifying framework to handle different types of dependent variables, including discrete and continuous variables. For more information about GLMs, readers are referred to [@dejong2008] and [@frees2009]. 
+As we can see from the above specification, the GLM provides a unifying framework to handle different types of dependent variables, including discrete and continuous variables. For more information about GLMs, readers are referred to @dejong2008 and @frees2009. 
 
 #### Tree-based Models
 
@@ -469,7 +440,7 @@ The process of building classification trees is similar to that of building regr
 $$f(R_1,R_2,\ldots,R_J) = \sum_{j=1}^J \sum_{i=1}^n I_{R_j}(\textbf{x}_i)(y_i - \mu_j)^2$$
 is minimized, where $I$ is an indicator function, $R_j$ denotes the set of indices of the observations that belong to the $j$th box, $\mu_j$ is the mean response of the observations in the $j$th box, $\textbf{x}_i$ is the vector of predictor values for the $i$th observation, and $y_i$ is the response value for the $i$th observation. 
 
-In terms of predictive accuracy, decision trees generally do not perform to the level of other regression and classification models. However, tree-based models may outperform linear models when the relationship between the response and the predictors is nonlinear. For more information about decision trees, readers are referred to [@breiman1984] and [@mitchell1997]. 
+In terms of predictive accuracy, decision trees generally do not perform to the level of other regression and classification models. However, tree-based models may outperform linear models when the relationship between the response and the predictors is nonlinear. For more information about decision trees, readers are referred to @breiman1984 and @mitchell1997. 
 
 <!-- ###Statistical Inference -->
 
@@ -503,12 +474,12 @@ $$
 [Table 13.5]:\#tab:13.5
 
 
-[Table 13.5] lists a few R functions for different data analysis tasks. Readers can read the R documentation for examples of using these functions. There are also other R functions from other packages to do similar things. However, the functions listed in this table provide good start points for readers to conduct data analysis in R. For analyzing large datasets in R in an efficient way, readers are referred to [@daroczi2015]. 
+[Table 13.5] lists a few R functions for different data analysis tasks. Readers can read the R documentation for examples of using these functions. There are also other R functions from other packages to do similar things. However, the functions listed in this table provide good start points for readers to conduct data analysis in R. For analyzing large datasets in R in an efficient way, readers are referred to @daroczi2015. 
 
 
 ## Summary
 
-In this chapter, we gave a high-level overview of data analysis. The overview is divided into three major parts: data, data analysis, and data analysis techniques. In the first part, we introduced data types, data structures, data storages, and data sources. In particular, we provided several websites where readers can obtain real-world datasets to horn their data analysis skills. In the second part, we introduced the process of data analysis and various aspects of data analysis. In the third part, we introduced some commonly used techniques for data analysis. In addition, we listed some R packages and functions that can be used to perform various data analysis tasks.
+In this chapter, we gave a high-level overview of data analysis by introducing data types, data structures, data storages, data sources, data analysis processes, and data analysis techniques. In particular, we presented various aspects of data analysis. In addition, we provided several websites where readers can obtain real-world datasets to horn their data analysis skills. We also listed some R packages and functions that can be used to perform various data analysis tasks.
 
 
 
@@ -518,5 +489,6 @@ In this chapter, we gave a high-level overview of data analysis. The overview is
 ####Contributor {-}
 
 - **Guojun Gan**, University of Connecticut, is the principal author of the initial version of this chapter. Email: guojun.gan@uconn.edu for chapter comments and suggested improvements.
+- Chapter reviewers include: Min Ji, Toby White.
 
 

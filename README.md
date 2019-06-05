@@ -1,6 +1,6 @@
 
 # Open Actuarial Textbooks Project Goal
-The goal is to have the actuarial community author our textbooks in a collaborative fashion. *GitHub* provides a natural development environment to achieve this goal. See the [Open Actuarial Textbooks Project Site](https://sites.google.com/a/wisc.edu/loss-data-analytics/) for more information about this project.
+The goal is to have the actuarial community author our textbooks in a collaborative fashion. *GitHub* provides a natural development environment to achieve this goal. See the [Open Actuarial Textbooks Project Site](https://OpenActTexts.github.io) for more information about this project.
 
 ## Loss Data Analytics
 

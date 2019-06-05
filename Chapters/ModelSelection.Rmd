@@ -59,9 +59,10 @@ Here, the statistic $s^2$ known as the *sample variance*. Dividing by *n-1* inst
 
 #### Empirical Distribution Function
 
-We have seen how to compute nonparametric estimators of the *k*th moment $\mathrm{E~} X^k$. In the same way, for any known function $\mathrm{g}(\cdot)$, we can estimate $\mathrm{E~} \mathrm{g}(X)$ using $n^{-1}\sum_{i=1}^n \mathrm{g}(X_i)$. This is sometimes known as the *analog principle*.
+We have seen how to compute nonparametric estimators of the *k*th moment $\mathrm{E~} X^k$. In the same way, for any known function $\mathrm{g}(\cdot)$, we can estimate $\mathrm{E~} \mathrm{g}(X)$ using $n^{-1}\sum_{i=1}^n \mathrm{g}(X_i)$. 
 
 Now suppose that we fix a value of *x* and consider the function $\mathrm{g}(X) = I(X \le x)$. Here, the notation $I(\cdot)$ is the indicator function; it returns 1 if the event $(\cdot)$ is true and 0 otherwise. For this choice of $\mathrm{g}(\cdot)$, the expected value is $\mathrm{E~} I(X \le x) = \Pr(X \le x) = F(x)$, the distribution function evaluated at a fixed point *x*. Using the analog principle, we define the nonparametric estimator of the distribution function
+
 $$
 \begin{aligned}
 F_n(x)
@@ -93,7 +94,8 @@ $$
 
 You should check that the sample mean is $\bar{X} = 19.7$ and that the sample variance is $s^2 =34.45556$. The corresponding empirical distribution function is
 
-$$\begin{aligned}
+$$
+\begin{aligned}
 F_n(x) &=
 \left\{
 \begin{array}{ll}
@@ -104,7 +106,8 @@ F_n(x) &=
 0.9 & \text{ for }\ 23 \leq x<30 \\
 1 & \text{ for }\ x \geq 30,
 \end{array}
-\right.\end{aligned}$$
+\right.\end{aligned}
+$$
 
 which is shown in the following graph in Figure \@ref(fig:EDFToy).
 
@@ -252,12 +255,14 @@ where $n_j$ is the number of observations ($X_i$) that fall into the interval $[
 
 The idea is that the estimator $f_n(x)$ in equation \@ref(eq:KDF) is the average over $n$ <a href="#" class="tooltip" style="color:green">*iid*<span style="font-size:8pt"> identically and independently distributed</span></a> realizations of a random variable with mean
 
-$$\begin{aligned}
+$$
+\begin{aligned}
 \mathrm{E~ } \frac{1}{2b} I(x-b < X \le x + b) &=  \frac{1}{2b}\left(F(x+b)-F(x-b)\right) \\
 &=  \frac{1}{2b} \left( \left\{ F(x) + b F^{\prime}(x) + b^2 C_1\right\}
 \left\{ F(x) - b F^{\prime}(x) + b^2 C_2\right\} \right) \\
 &=  F^{\prime}(x) + b \frac{C_1-C_2}{2} \rightarrow  F^{\prime}(x) = f(x),
-\end{aligned}$$
+\end{aligned}
+$$
 
 as $b\rightarrow  0$. That is, $f_n(x)$ is an asymptotically unbiased estimator of $f(x)$ (its expectation approaches the true value as sample size increases to infinity). This development assumes some smoothness of $F(\cdot)$, in particular, twice differentiability at $x$, but makes no assumptions on the form of the distribution function $F$. Because of this, the density estimator $f_n$ is said to be *nonparametric*.
 
@@ -337,13 +342,16 @@ legend("topright", c("b=0.3255 (default)", "b=0.1", "b=1.0"), lty=c(1,3,1),
 ***
 
 Nonparametric density estimators, such as the kernel estimator, are regularly used in practice. The concept can also be extended to give smooth versions of an empirical distribution function. Given the definition of the kernel density estimator, the *kernel estimator of the distribution function* can be found as 
-$$\begin{aligned}
-\hat{F}_n(x) = \frac{1}{n} \sum_{i=1}^n W\left(\frac{x-X_i}{b}\right).\end{aligned}$$
 
-where $W$ is the distribution function associated with the kernel density $w$. To illustrate, for the uniform kernel, we have $w(y) = \frac{1}{2}I(-1 < y \le 1)$, so 
 $$
 \begin{aligned}
+\hat{F}_n(x) = \frac{1}{n} \sum_{i=1}^n W\left(\frac{x-X_i}{b}\right).\end{aligned}
+$$
 
+where $W$ is the distribution function associated with the kernel density $w$. To illustrate, for the uniform kernel, we have $w(y) = \frac{1}{2}I(-1 < y \le 1)$, so
+
+$$
+\begin{aligned}
 W(y) =
 \begin{cases}
 0 &            y<-1\\
@@ -358,9 +366,11 @@ $$
 
 You study five lives to estimate the time from the onset of a disease to death. The times to death are:
 
-$$\begin{array}{ccccc}
+$$
+\begin{array}{ccccc}
 2 & 3 & 3 & 3 & 7  \\
-\end{array}$$
+\end{array}
+$$
 
 Using a triangular kernel with bandwith $2$, calculate the density function estimate at 2.5.
 
@@ -372,7 +382,8 @@ For the kernel density estimate, we have
 $$f_n(x) = \frac{1}{nb} \sum_{i=1}^n w\left(\frac{x-X_i}{b}\right),$$
 where $n=5$, $b=2$, and $x=2.5$. For the triangular kernel, $w(x) = (1-|x|)\times I(|x| \le 1)$. Thus,
 
-$$\begin{array}{c|c|c}
+$$
+\begin{array}{c|c|c}
 \hline
 X_i & \frac{x-X_i}{b} & w\left(\frac{x-X_i}{b} \right) \\
 \hline
@@ -384,13 +395,74 @@ X_i & \frac{x-X_i}{b} & w\left(\frac{x-X_i}{b} \right) \\
 \hline
 7 & \frac{2.5-7}{2}=-2.25 & (1-|-2.25|)(0) = 0\\
 \hline
-\end{array}$$
+\end{array}
+$$
 
 Then the kernel density estimate is $$f_n(x) = \frac{1}{5(2)}\left( \frac{3}{4} + (3) \frac{3}{4} + 0 \right) = \frac{3}{10}$$
 
 </div>
 
 ***
+
+#### Plug-in Principle
+
+One way to create a nonparametric estimator is to use the *analog* or *plug-in principle* where one replaces the unknown *cdf* $F$ with a known estimate such as the empirical *cdf* $F_n$. So, if we are trying to estimate $\mathrm{E}~\mathrm{g}(X)=\mathrm{E}_F~\mathrm{g}(X)$ for a generic function *g*, then we define a nonparametric estimator to be $\mathrm{E}_{F_n}~\mathrm{g}(X)=n^{-1}\sum_{i=1}^n \mathrm{g}(X_i)$.
+
+To see how this works, as a special case of *g* we consider the *loss elimination ratio* introduced in Section 3.4.1, 
+$$
+LER(d) = \frac{\mathrm{E~}(\min(X,d) )}{\mathrm{E~}(X)}
+$$
+for a fixed deductible $d$.
+
+**Example. 4.1.11. Bodily Injury Claims and Loss Elimination Ratios** 
+
+```{r comment="", warning=FALSE, echo = FALSE}
+# Example from Derrig et al
+#  "Applications of resampling methods in actuarial practice"
+#  CAS Proceedings 2001
+BIData <- read.csv("Data/DerrigResampling.csv", header =T)
+BIData$Censored <- 1*(BIData$AmountPaid >= BIData$PolicyLimit)
+BIDataUncensored <- subset(BIData, Censored == 0) 
+X <- BIDataUncensored$AmountPaid
+```
+
+We use a sample of `r nrow(BIData)` closed auto claims from Boston from @derrig2001applications. Losses are recorded for payments due to bodily injuries in auto accidents. Losses are not subject to deductibles but are subject to various policy limits also available in the data. It turns out that only `r sum(BIData$Censored)` out of `r nrow(BIData)` ($\approx$ `r round(100*sum(BIData$Censored)/nrow(BIData), digits=0)`%) were subject to policy limit and so we ignore these data for this illustration. 
+
+The average loss paid is `r round(mean(X),digits=0)`. Figure \@ref(fig:BIClaims) shows other aspects of the distribution. Specifically, the left-hand panel shows the empirical distribution function, the right-hand panel gives a nonparametric density plot.
+
+```{r BIClaims, echo=FALSE, fig.cap='Bodily Injury Claims. The left-hand panel gives the empirical distribution function. The right-hand panel presents a nonparametric density plot.', fig.align='center'}
+BI.cdf <- ecdf(X)
+par(mfrow=c(1,2))
+plot(BI.cdf , main="",xlab="x", ylab = "ECDF", cex = 0.3)
+plot(density(X), main="", xlab="x")
+
+```
+
+The impact of bodily injury losses can be mitigated by the imposition of limits or purchasing reinsurance policies (see Section 10.3). To quantify the impact of these risk mitigation tools, it is common to compute the *loss elimination ratio (LER)* as introduced in Section 3.4.1. The distribution function is not available and so much be estimated in some way. Using the plug-in principle, a nonparametric estimator can be defined as
+
+$$
+LER_n(d) = \frac{n^{-1} \sum_{i=1}^n \min(X_i,d)}{n^{-1} \sum_{i=1}^n X_i} = \frac{\sum_{i=1}^n \min(X_i,d)}{\sum_{i=1}^n X_i} .
+$$
+
+```{r comment="", echo=FALSE, warning=FALSE}
+LER <- function(d){
+  sumClaims <- sum(X)
+  sumClaims_d <- sum(pmin(X,d))
+  LER <-   sumClaims_d/sumClaims
+  return(LER)  
+}
+dVec <- seq(0,max(X), length.out = 1000)
+LERVec <- 0 * dVec
+for (i in 1:length(dVec)){LERVec[i] <- LER(dVec[i])} 
+```
+
+
+Figure \@ref(fig:BIClaims) shows the estimator $LER_n(d)$ for various choices of *d*. For example, if $d=14,000$, then it turns out that $LER_n(14000) \approx$ `r round(LER(14000),digits = 4)`. Imposing a limit of 14,000 means that we expect to retain `r round(100*LER(14000),digits = 2)` percent of claims.
+
+```{r LER, echo=FALSE, fig.cap='LER for Bodily Injury Claims. The figure presents the loss elimination ratio (LER) as a function of deductible d.',  fig.align='center'}
+plot(dVec,LERVec, xlab="d", ylab = "LER", cex=.3)
+```
+
 
 
 ### Tools for Model Selection and Diagnostics {#S:MS:ToolsModelSelection}
@@ -544,9 +616,11 @@ The *Kolmogorov-Smirnov statistic* is the maximum absolute difference between th
 A sample of claim payments is: 
 
 
-$$\begin{array}{ccccc}
+$$
+\begin{array}{ccccc}
 29 & 64 & 90 & 135 & 182  \\
-\end{array}$$
+\end{array}
+$$
 
 Compare the empirical claims distribution to an exponential distribution with mean $100$ by calculating the value of the Kolmogorov-Smirnov test statistic.
 
@@ -556,7 +630,8 @@ Compare the empirical claims distribution to an exponential distribution with me
 **Solution.**
 For an exponential distribution with mean $100$, the cumulative distribution function is $F(x)=1-e^{-x/100}$. Thus,
 
-$$\begin{array}{ccccc}
+$$
+\begin{array}{ccccc}
 \hline
 x & F(x) & F_n(x) & F_n(x-) & \max(|F(x)-F_n(x)|,|F(x)-F_n(x-)|) \\
 \hline
@@ -566,7 +641,8 @@ x & F(x) & F_n(x) & F_n(x-) & \max(|F(x)-F_n(x)|,|F(x)-F_n(x-)|) \\
 135 & 0.7408 & 0.8 & 0.6 & \max(0.0592, 0.1408) = 0.1408 \\
 182 & 0.8380 & 1   & 0.8 & \max(0.1620, 0.0380) = 0.1620 \\
 \hline
-\end{array}$$
+\end{array}
+$$
 
 The Kolmogorov-Smirnov test statistic is therefore $KS = \max(0.2517, 0.2727, 0.1934, 0.1408, 0.1620) = 0.2727$.
 
@@ -602,10 +678,12 @@ $$\alpha = \frac{\mu_1^2}{\mu_2^{\prime}-\mu_1^2}  \ \ \ \text{and} \ \ \  \thet
 
 Thus, the method of moment estimators are
 
-$$\begin{aligned}
+$$
+\begin{aligned}
 \hat{\alpha} &=  \frac{26.62259^2}{136154.6-26.62259^2} = 0.005232809 \\
 \hat{\theta} &=  \frac{136154.6-26.62259^2}{26.62259} = 5,087.629.
-\end{aligned}$$
+\end{aligned}
+$$
 
 For comparison, the maximum likelihood values turn out to be $\hat{\alpha}_{MLE} =  0.2905959$ and $\hat{\theta}_{MLE} = 91.61378$, so there are big discrepancies between the two estimation procedures. This is one indication, as we have seen before, that the gamma model fits poorly.
 
@@ -617,10 +695,12 @@ $$\alpha = 1+ \frac{\mu_2^{\prime}}{\mu_2^{\prime}-\mu_1^2} \ \ \ \
 
 Thus, the method of moment estimators are
 
-$$\begin{aligned}
+$$
+\begin{aligned}
 \hat{\alpha} &=  1+ \frac{136154.6}{136154.6-26,62259^2} = 2.005233 \\
 \hat{\theta} &=  (2.005233-1) \cdot 26.62259 = 26.7619
-\end{aligned}$$
+\end{aligned}
+$$
 
 The maximum likelihood values turn out to be $\hat{\alpha}_{MLE} =  0.9990936$ and $\hat{\theta}_{MLE} = 2.2821147$. It is interesting that $\hat{\alpha}_{MLE}<1$; for the Pareto distribution, recall that $\alpha <1$ means that the mean is infinite. This is another indication that the property claims data set is a long tail distribution.
 
@@ -673,9 +753,11 @@ You are given:
     $$F(x) = \frac{\left(x/\theta\right)^{\gamma}}{1+\left(x/\theta\right)^{\gamma}}$$
 (ii) The sample of losses is:
 
-$$\begin{array}{ccccccccccc}
+$$
+\begin{array}{ccccccccccc}
 10 &35 &80 &86 &90 &120 &158 &180 &200 &210 &1500 \\
-\end{array}$$
+\end{array}
+$$
 
 Calculate the estimate of $\theta$ by percentile matching, using the 40th and 80th empirically smoothed percentile estimates.
 
@@ -808,7 +890,7 @@ One uses the training sample to develop an estimate of $\mathrm{g}$, say, $\hat{
 (\#eq:OutSampleCriter)
 \end{equation}
 
-Here, the sum *i* is over the test data. In many regression applications, it is common to use squared Euclidean distance of the form $\mathrm{d}(y_i,\mathrm{g}) = (y_i-\mathrm{g})^2$. In actuarial applications, Euclidean distance $\mathrm{d}(y_i,\mathrm{g}) = |y_i-\mathrm{g}|$ is often preferred because of the skewed nature of the data (large outlying values of $y$ can have a large effect on the measure). The Chapter `r chapnum` *Technical Supplement A* describes another measure, the *Gini index*, that is useful in actuarial applications particularly when there is a large proportion of zeros in claims data (corresponding to no claims).
+Here, the sum *i* is over the test data. In many regression applications, it is common to use squared Euclidean distance of the form $\mathrm{d}(y_i,\mathrm{g}) = (y_i-\mathrm{g})^2$. In actuarial applications, Euclidean distance $\mathrm{d}(y_i,\mathrm{g}) = |y_i-\mathrm{g}|$ is often preferred because of the skewed nature of the data (large outlying values of $y$ can have a large effect on the measure). Chapter \@ref(C:PremiumFoundations) describes another measure, the *Gini index*, that is useful in actuarial applications particularly when there is a large proportion of zeros in claims data (corresponding to no claims).
 
 **Selecting a Distribution.** Still, our focus so far has been to select a distribution for a data set that can be used for actuarial modeling without additional inputs $x_1, \ldots, x_k$. Even in this more fundamental problem, the model validation approach is valuable. If we base all inference on only in-sample data, then there is a tendency to select more complicated models then needed. For example, we might select a four parameter GB2, generalized beta of the second kind, distribution when only a two parameter Pareto is needed. Information criteria such as <a href="#" class="tooltip" style="color:green">*AIC*<span style="font-size:8pt"> Akaike's information criterion</span></a> and <a href="#" class="tooltip" style="color:green">*BIC*<span style="font-size:8pt"> Bayesian information criterion</span></a> included penalties for model complexity and so provide some protection but using a test sample is the best guarantee to achieve parsimonious models. From a quote often attributed to Albert Einstein, we want to "use the simplest model as possible but no simpler."
 
@@ -860,7 +942,9 @@ Formalizing this idea, suppose there are $k$ groups or intervals delimited by bo
 _i \in (c_{j-1}, c_j]\right) = F(c_j) - F(c_{j-1}).$$
 
 The corresponding probability mass function for an observation is
-$$\begin{aligned}
+
+$$
+\begin{aligned}
 f(x) &=
 \begin{cases}
 F(c_1) - F(c_{0}) &   \text{if }\ x \in (c_{0}, c_1]\\
@@ -868,17 +952,22 @@ F(c_1) - F(c_{0}) &   \text{if }\ x \in (c_{0}, c_1]\\
 F(c_k) - F(c_{k-1}) &   \text{if }\ x \in (c_{k-1}, c_k]\\
 \end{cases} \\
 &= \prod_{j=1}^k \left\{F(c_j) - F(c_{j-1})\right\}^{I(x \in (c_{j-1}, c_j])}
-\end{aligned}$$
+\end{aligned}
+$$
 
 Now, define $n_j$ to be the number of observations that fall in the $j$th interval, $(c_{j-1}, c_j]$. Thus, the likelihood function (with respect to the parameter(s) $\theta$) is
-$$\begin{aligned}
+$$
+\begin{aligned}
 \mathcal{L}(\theta) = \prod_{j=1}^n f(x_i) = \prod_{j=1}^k \left\{F(c_j) - F(c_{j-1})\right\}^{n_j}
-\end{aligned}$$
+\end{aligned}
+$$
 
 And the log-likelihood function is
-$$\begin{aligned}
+$$
+\begin{aligned}
 L(\theta) = \ln \mathcal{L}(\theta) = \ln \prod_{j=1}^n f(x_i) = \sum_{j=1}^k n_j \ln \left\{F(c_j) - F(c_{j-1})\right\}
-\end{aligned}$$
+\end{aligned}
+$$
 
 Maximizing the likelihood function (or equivalently, maximizing the log-likelihood function) would then produce the maximum likelihood estimates for grouped data.
 
@@ -910,12 +999,14 @@ Calculate the maximum likelihood estimate of $\theta$.
 <div id="toggleExampleSelect.3.1" style="display: none">
 
 **Solution.**
-$$\begin{aligned}
+$$
+\begin{aligned}
 \mathcal{L}(\theta) &= F(1000)^7[F(2000)-F(1000)]^6[1-F(2000)]^7 \\
 &= (1-e^{-1000/\theta})^7(e^{-1000/\theta} - e^{-2000/\theta})^6(e^{-2000/\theta})^7 \\
 &= (1-p)^7(p-p^2)^6(p^2)^7 \\
 &= p^{20}(1-p)^{13}
-\end{aligned}$$
+\end{aligned}
+$$
 
 where $p=e^{-1000/\theta}$. Maximizing this expression with respect to $p$ is equivalent to maximizing the likelihood with respect to $\theta$. The maximum occurs at $p=\frac{20}{33}$ and so $\hat{\theta}=\frac{-1000}{\ln(20/33)}= 1996.90$.
 
@@ -1322,9 +1413,11 @@ As usual, the corresponding estimate of the survival function is $\hat{S}(x) = 1
 The following is a sample of 10 payments: 
 
 
-$$\begin{array}{cccccccccc}
+$$
+\begin{array}{cccccccccc}
 4 &4 &5+ &5+ &5+ &8 &10+ &10+ &12 &15 \\
-\end{array}$$
+\end{array}
+$$
 
 where $+$ indicates that a loss has exceeded the policy limit.
 
@@ -1336,7 +1429,8 @@ Using the Kaplan-Meier product-limit estimator, calculate the probability that t
 **Solution.**
 There are four event times (non-censored observations). For each time $t_j$, we can calculate the number of events $s_j$ and the risk set $R_j$ as the following:
 
-$$\begin{array}{cccc}
+$$
+\begin{array}{cccc}
 \hline
 j & t_j & s_j & R_j \\
 \hline
@@ -1345,13 +1439,44 @@ j & t_j & s_j & R_j \\
 3 & 12 & 1 & 2 \\
 4 & 15 & 1 & 1 \\
 \hline
-\end{array}$$
+\end{array}
+$$
 
 Thus, the Kaplan-Meier estimate of $S(11)$ is
-$$\begin{aligned}
+$$
+\begin{aligned}
 \hat{S}(11) &= \prod_{j:t_j\leq 11} \left( 1- \frac{s_j}{R_j} \right) =  \prod_{j=1}^{2} \left( 1- \frac{s_j}{R_j} \right)\\
 &= \left(1-\frac{2}{10} \right) \left(1-\frac{1}{5} \right) = (0.8)(0.8)= 0.64. \\
-\end{aligned}$$
+\end{aligned}
+$$
+
+</div>
+
+***
+
+**Example. `r chapnum`.3.6. Bodily Injury Claims.** We consider again the Boston auto bodily injury claims data from @derrig2001applications that was introduced in Example `r chapnum`.1.11. In that example, we omitted the `r sum(BIData$Censored)` claims that were censored by policy limits. Now, we include the full dataset and use the Kaplan-Meier product limit to estimate the survival function. This is given in Figure \@ref(fig:KMSurvival).
+
+
+```{r KMSurvival, fig.cap='Kaplan-Meier Estimate of the Survival Function for Bodily Injury Claims', fig.align='center', echo = FALSE}
+library(survival)                # for Surv(), survfit()
+#BIData <- read.csv("Data/DerrigResampling.csv", header =T)
+#BIData$Censored <- 1*(BIData$AmountPaid >= BIData$PolicyLimit)
+BIData$UnCensored <- 1*(BIData$AmountPaid < BIData$PolicyLimit)
+## KM estimate
+KM0 <- survfit(Surv(AmountPaid, UnCensored) ~ 1,  type="kaplan-meier", data=BIData)
+plot(KM0, conf.int=FALSE, xlab="x",ylab="Kaplan Meier Survival")
+```
+
+<h5 style="text-align: center;"><a id="displayTextKaplanMeier.4f" href="javascript:togglecode('toggleKaplanMeier','displayTextKaplanMeier.4f');"><i><strong>Show R Code</strong></i></a> </h5>
+<div id="toggleKaplanMeier" style="display: none">
+
+```{r eval = FALSE}
+library(survival)                # for Surv(), survfit()
+## KM estimate
+KM0 <- survfit(Surv(AmountPaid, UnCensored) ~ 1,  type="kaplan-meier", data=BIData)
+plot(KM0, conf.int=FALSE, xlab="x",ylab="Kaplan Meier Survival")
+
+```
 
 </div>
 
@@ -1389,7 +1514,7 @@ and the relationship between the survival function and cumulative hazard functio
 
 ***
 
-**Example `r chapnum`.3.6. Actuarial Exam Question.** 
+**Example `r chapnum`.3.7. Actuarial Exam Question.** 
 
 For observation $i$ of a survival study:
 
@@ -1422,7 +1547,8 @@ Calculate the Kaplan-Meier product-limit estimate, $\hat{S}(1.6)$
 
 **Solution.** Recall the risk set $R_j = \sum_{i=1}^n \left\{ I(x_i \geq t_{j}) + I(u_i \geq t_{j}) - I(d_i \geq t_{j}) \right\}$. Then
 
-$$\begin{array}{ccccc}
+$$
+\begin{array}{ccccc}
 \hline
 j & t_j & s_j & R_j & \hat{S}(t_j) \\
 \hline
@@ -1431,7 +1557,8 @@ j & t_j & s_j & R_j & \hat{S}(t_j) \\
 3  & 1.7   & 1   & 5-0 = 5  & \frac{5}{7}\left( 1 - \frac{1}{5} \right) = \frac{4}{7}\\
 4  & 2.1   & 2   & 3        & \frac{4}{7}\left( 1 - \frac{2}{3}\right) = \frac{4}{21}\\
 \hline
-\end{array}$$
+\end{array}
+$$
 
 The Kaplan-Meier estimate is therefore $\hat{S}(1.6) = \frac{5}{7}$.
 
@@ -1440,7 +1567,7 @@ The Kaplan-Meier estimate is therefore $\hat{S}(1.6) = \frac{5}{7}$.
 
 ***
 
-**Example `r chapnum`.3.7. Actuarial Exam Question. - Continued.** 
+**Example `r chapnum`.3.8. Actuarial Exam Question. - Continued.** 
 
 
 a) Using the Nelson-&Auml;alen estimator, calculate the probability that the loss on a policy exceeds 11, $\hat{S}_{NA}(11)$.
@@ -1452,7 +1579,8 @@ b) Calculate Greenwood's approximation to the variance of the product-limit esti
 **Solution.**
 As before, there are four event times (non-censored observations). For each time $t_j$, we can calculate the number of events $s_j$ and the risk set $R_j$ as the following:
 
-$$\begin{array}{cccc}
+$$
+\begin{array}{cccc}
 \hline
 j & t_j & s_j & R_j \\
 \hline
@@ -1461,19 +1589,24 @@ j & t_j & s_j & R_j \\
 3 & 12 & 1 & 2 \\
 4 & 15 & 1 & 1 \\
 \hline
-\end{array}$$
+\end{array}
+$$
 
 The Nelson-&Auml;alen estimate of $S(11)$ is $\hat{S}_{NA}(11)=e^{-\hat{H}(11)} = e^{-0.4} = 0.67$, since
-$$\begin{aligned}
+$$
+\begin{aligned}
 \hat{H}(11) &= \sum_{j:t_j\leq 11} \frac{s_j}{R_j}  = \sum_{j=1}^{2} \frac{s_j}{R_j}  \\
 &= \frac{2}{10} + \frac{1}{5}  = 0.2 + 0.2 = 0.4 .\\
-\end{aligned}$$
+\end{aligned}
+$$
 
 From earlier work, the Kaplan-Meier estimate of $S(11)$ is $\hat{S}(11) = 0.64$. Then Greenwood's estimate of the variance of the product-limit estimate of $S(11)$ is
-$$\begin{aligned}
+$$
+\begin{aligned}
 \widehat{Var}(\hat{S}(11)) &= (\hat{S}(11))^2 \sum_{j:t_j\leq 11} \frac{s_j}{R_j(R_j-s_j)}
 &= (0.64)^2 \left(\frac{2}{10(8)} + \frac{1}{5(4)} \right)  = 0.0307. \\
-\end{aligned}$$
+\end{aligned}
+$$
 
 </div>
 
@@ -1837,17 +1970,21 @@ Calculate the posterior probability that the insured will have at least one loss
 
 **Solution.**
 The posterior probability density is
-$$\begin{aligned}
+$$
+\begin{aligned}
 \pi(p|1,1,1,1,1,1,1,1) &\propto \Pr(1,1,1,1,1,1,1,1|p)\ \pi(p) = p^8(2) \propto p^8 \\ 
 \Rightarrow \pi(p|1,1,1,1,1,1,1,1) &= \frac{p^8}{\int_0^5 p^8 dp} = \frac{p^8}{(0.5^9)/9} = 9(0.5^{-9})p^8
-\end{aligned}$$
+\end{aligned}
+$$
 
 Thus, the posterior probability that the insured will have at least one loss during Year 9 is
 
-$$\begin{aligned}
+$$
+\begin{aligned}
 \Pr(X_9=1|1,1,1,1,1,1,1,1) &= \int_0^5 \Pr(X_9=1|p) \pi(p|1,1,1,1,1,1,1,1) dp \\
 &= \int_0^5 p(9)(0.5^{-9})p^8 dp = 9(0.5^{-9})(0.5^{10})/10 = 0.45
-\end{aligned}$$
+\end{aligned}
+$$
 
 </div>
 
@@ -1881,29 +2018,37 @@ One randomly chosen risk has three claims during Years 1-6. Calculate the poster
 The probabilities are from a binomial distribution with 6 trials in which 3 successes were observed.
 
 
-$$\begin{aligned} 
+$$
+\begin{aligned} 
 \Pr(3|\text{I}) &= {6 \choose 3} (0.1^3)(0.9^3) = 0.01458 \\
 \Pr(3|\text{II}) &= {6 \choose 3} (0.2^3)(0.8^3) = 0.08192 \\
 \Pr(3|\text{III}) &= {6 \choose 3} (0.4^3)(0.6^3) = 0.27648
-\end{aligned}$$
+\end{aligned}
+$$
 
 The probability of observing three successes is 
-$$\begin{aligned} \Pr(3) &= \Pr(3|\text{I})\Pr(\text{I}) + \Pr(3|\text{II})\Pr(\text{II}) + \Pr(3|\text{III})\Pr(\text{III}) \\
+$$
+\begin{aligned} \Pr(3) &= \Pr(3|\text{I})\Pr(\text{I}) + \Pr(3|\text{II})\Pr(\text{II}) + \Pr(3|\text{III})\Pr(\text{III}) \\
 &=  0.7(0.01458) + 0.2(0.08192) + 0.1(0.27648) = 0.054238
-\end{aligned}$$
+\end{aligned}
+$$
 
 The three posterior probabilities are
-$$\begin{aligned}
+$$
+\begin{aligned}
 \Pr(\text{I}|3) &= \frac{\Pr(3|\text{I})\Pr(\text{I})}{\Pr(3)} = \frac{0.7(0.01458)}{0.054238} = 0.18817 \\
 \Pr(\text{II}|3) &= \frac{\Pr(3|\text{II})\Pr(\text{II})}{\Pr(3)} = \frac{0.2(0.08192)}{0.054238} = 0.30208 \\
 \Pr(\text{III}|3) &= \frac{\Pr(3|\text{III})\Pr(\text{III})}{\Pr(3)} = \frac{0.1(0.27648)}{0.054238} = 0.50975 
-\end{aligned}$$
+\end{aligned}
+$$
 
 The posterior probability of a claim is then 
-$$\begin{aligned} 
+$$
+\begin{aligned} 
 \Pr(\text{claim} | 3) &= \Pr(\text{claim}|\text{I})\Pr(\text{I} | 3) + \Pr(\text{claim} | \text{II})\Pr(\text{II} | 3) + \Pr(\text{claim} | \text{III}) \Pr(\text{III} | 3) \\ 
 &= 0.1(0.18817) + 0.2(0.30208) + 0.4(0.50975) = 0.28313
-\end{aligned}$$
+\end{aligned}
+$$
 
 </div>
 
@@ -1915,11 +2060,13 @@ In the Bayesian framework, the key to statistical inference is understanding the
 
 To relate the prior and posterior distributions of the parameters, we have the relationship
 
-$$\begin{array}{ccc}
+$$
+\begin{array}{ccc}
 \pi(\boldsymbol \theta | x) & = & \frac{f(x|\boldsymbol \theta )\pi(\boldsymbol \theta)}{f(x)}  \\
  & \propto  & f(x|\boldsymbol \theta ) \pi(\boldsymbol \theta) \\
 \text{Posterior} & \text{is proportional to} & \text{likelihood} \times \text{prior} .
-\end{array}$$
+\end{array}
+$$
 
 For conjugate distributions, the posterior and the prior come from the same family of distributions. The following illustration looks at the Poisson-gamma special case, the most well-known in actuarial applications.
 
@@ -1934,10 +2081,12 @@ $$f(\mathbf{x} | \lambda) = \prod_{i=1}^n \frac{\lambda^{x_i} e^{-\lambda}}{x_i!
 The prior distribution is
 $$\pi(\lambda) = \frac{\left(\lambda/\theta\right)^{\alpha} \exp(-\lambda/\theta)}{\lambda \Gamma(\alpha)}.$$
 Thus, the posterior distribution is proportional to
-$$\begin{aligned}
+$$
+\begin{aligned}
 \pi(\lambda | \mathbf{x}) &\propto f(\mathbf{x}|\theta ) \pi(\lambda) \\
 &= C \lambda^{\sum_i x_i + \alpha -1} \exp(-\lambda(n+1/\theta))
-\end{aligned}$$
+\end{aligned}
+$$
 
 where $C$ is a constant. We recognize this to be a gamma distribution with new parameters $\alpha_{post} = \sum_i x_i + \alpha$ and $\theta_{post} = 1/(n + 1/\theta)$. Thus, the gamma distribution is a conjugate prior for the Poisson model distribution. 
 
@@ -1964,10 +2113,12 @@ Calculate $\theta$.
 
 Since the conditional distribution of the number of claims per policyholder,  $E(X|\lambda)=Var(X|\lambda)=\lambda$, the Bayes prediction is
 
-$$\begin{aligned}
+$$
+\begin{aligned}
 \mathrm{E}(X_2|X_1)
 &= \int \mathrm{E}(X_2|\lambda) \pi(\lambda|X_1) d\lambda = \alpha_{new} \theta_{new}
-\end{aligned}$$
+\end{aligned}
+$$
 because the posterior distribution is gamma with parameters $\alpha_{new}$ and $\theta_{new}$.
 
 
@@ -1995,7 +2146,7 @@ Closed-form expressions means that results can be readily interpreted and easily
 - The uncertainty of parameters is summarized using a beta distribution and the outcomes have a (conditional on the parameter) binomial distribution.
 - The uncertainty of parameters is summarized using a normal distribution and the outcomes are conditionally normally distributed.
 
-Additional results on conjugate distributions are summarized in the Appendix Chapter \@ref(C:AppB).
+Additional results on conjugate distributions are summarized in the Appendix Section \@ref(S:AppConjugateDistributions).
 
 ## Further Resources and Contributors {#MS:further-reading-and-resources}
 
@@ -2012,3 +2163,4 @@ Here are a set of exercises that guide the viewer through some of the theoretica
 ####Contributors {-}
 
 - **Edward W. (Jed) Frees** and **Lisa Gao**, University of Wisconsin-Madison, are the principal authors of the initial version of this chapter. Email: jfrees@bus.wisc.edu for chapter comments and suggested improvements.
+- Chapter reviewers include: Andrew Kwon-Nakamura,  Hirokazu (Iwahiro) Iwasawa, Eren Dodd.

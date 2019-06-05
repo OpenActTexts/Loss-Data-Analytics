@@ -1,0 +1,357 @@
+<!-- ###  PremiumSelection.Rmd {#S:GiniStatistic} -->
+
+
+For a portfolio of insurance contracts, insurers collect premiums and pay out losses. After making adjustments for expenses and profit considerations, tools for comparing distributions of premiums and losses can be helpful when selecting a premium calculation principle. 
+
+### Classic Lorenz Curve 
+
+In welfare economics, it is common to compare distributions via the **Lorenz curve**, developed by Max Otto Lorenz [@lorenz1905methods]. A Lorenz curve is a graph of the proportion of a population on the horizontal axis and a distribution function of interest on the vertical axis. It is typically used to represent income distributions. When the income distribution is perfectly aligned with the population distribution, the Lorenz curve results in a 45 degree line that is known as the *line of equality*. Because the graph compares two distribution functions, one can also think of a Lorenz curve as a type of $pp$ plot that was introduced in Section \@ref(S:MS:GraphComparison). The area between the Lorenz curve and the line of equality is a measure of the discrepancy between the income and population distributions. Two times this area is known as the **Gini index**, introduced by Corrado Gini in 1912. 
+
+
+```{r echo=FALSE}  
+# Lorenz Curve
+set.seed(2017) #set seed to reproduce work 
+nTot<-2000  #number of simulations
+alpha<-2
+theta<-100
+Losses<-rgamma(nTot,alpha,scale = theta)  
+y <- Losses[order(Losses)]
+DFLosses = cumsum(y)/sum(y)
+DFLine <- (1:nTot)/nTot
+GiniLoss = 2*(sum(rank(y)*y)/sum(y) - (nTot+1)/2)/nTot
+
+```
+
+**Example -- Classic Lorenz Curve.** For an insurance example, Figure \@ref(fig:ClassicLorenz) shows a distribution of insurance losses. This figure is based on a random sample of `r nTot` losses. The left-hand panel shows a right-skewed histogram of losses.  The right-hand panel provides the corresponding Lorenz curve, showing again a skewed distribution. For example, the arrow marks the point where 60 percent of the policyholders have 30 percent of losses. The 45 degree line is the line of equality; if each policyholder has the same loss, then the loss distribution would be at this line. The Gini index, twice the area between the Lorenz curve and the 45 degree line, is `r round(GiniLoss*100,1)` percent for this data set.
+
+```{r, ClassicLorenz, fig.cap='Distribution of Insurance Losses. The left-hand panel is a density plot of losses. The right-hand panel presents the same data using a Lorenz curve.', out.width='90%', fig.asp=0.5, fig.align='center', echo=FALSE}
+par(mfrow=c(1,2))
+plot(density(Losses), main="", xlab="Losses")
+plot(DFLine,DFLosses, cex=0.25, xlab="Proportion of Observations", ylab="Proportion of Losses")
+abline(0,1)
+arrows(0.8, 0.2, 0.6, 0.3,length=0.1, angle = 30)
+text(.85, .15, "(0.60, 0.30)", cex=.6)
+
+```
+
+### Concentration Curve and a Gini Statistic 
+We now introduce a modification of the classic Lorenz curve and Gini statistic that is useful in insurance applications. Specifically, we introduce a **concentration curve** which is a graph of the distribution of losses versus premiums, where both losses and premiums are ordered by premiums. To make the ideas concrete, we provide some notation and consider $i=1, \ldots, n$ policies. For the $i$th policy, let
+
+* $y_i$ denote the insurance loss,
+* $\mathbf{x}_i$ be a set of rating variables known to the analyst, and
+* $P_i=P(\mathbf{x}_i)$ be the associated premium that is a function of $\mathbf{x}_i$.
+
+The set of information used to calculate the concentration curve for the $i$th policy is $(y_i, P_i)$. 
+
+#### Concentration Curve {-}
+
+It is convenient to first sort the set of policies based on premiums (from smallest to largest) and then compute the premium and loss distributions. The premium distribution is
+\begin{equation}
+\hat{F}_P(s) =  \frac{ \sum_{i=1}^n P_i ~\mathrm{I}(P_i \leq s) }{\sum_{i=1}^n P_i}   ,
+(\#eq:EmpPremDF)
+\end{equation}
+
+and the loss distribution is
+
+\begin{equation}
+\hat{F}_{L}(s) =  \frac{ \sum_{i=1}^n y_i ~\mathrm{I}(P_i \leq s) }{\sum_{i=1}^n y_i} ,
+(\#eq:EmpLossDF)
+\end{equation}
+
+where $\mathrm{I}(\cdot)$ is the indicator function, returning a 1 if the event is true and zero otherwise. The graph $\left(\hat{F}_P(s),\hat{F}_{L}(s) \right)$ is a **concentration curve**.
+
+
+**Example -- Loss Distribution.** Suppose we have $n=5$ policyholders with experience as follows. The data have been ordered by premiums.
+
+
+Variable             $i$                             1   2    3   4   5  
+----------          -----------------                -   -   --  --  --  
+Premium             $P(\mathbf{x}_i)$                2   4    5   7  16   
+Cumulative Premiums $\sum_{j=1}^i P(\mathbf{x}_j)$   2   6   11  18  34 
+Loss                $y_i$                            2   5    6   6  17 
+Cumulative Loss     $\sum_{j=1}^i y_j$               2   7   13  19  36
+----------          -----------------                -   -   --  --  -- 
+
+Figure \@ref(fig:LorenzVsOrdered) compares the Lorenz to the concentration curve. The left-hand panel shows the Lorenz curve. The horizontal axis is the cumulative proportion of policyholders (0, 0.2, 0.4, and so forth) and the vertical axis is the cumulative proportion of losses (0, 2/36, 7/36, and so forth). For the Lorenz curve, you first order by the loss size (which turns out to be the same order as premiums for this simple dataset). This figure shows a large separation between the distributions of losses and policyholders.
+
+The right-hand panel shows the concentration  curve. Because observations are sorted by premiums, the first point after the origin (reading from left to right) is (2/34, 2/36). The second point is (6/34, 7/36), with the pattern continuing. From the figure, we see that there is little separation between losses and premiums.
+
+
+```{r echo=FALSE} 
+GiniLossCalc <- function(Loss){
+y <- Loss[order(Loss)]
+nTot = length(y)
+DFLosses = cumsum(y)/sum(y)
+DFLine <- (1:nTot)/nTot
+GiniLoss = 2*(sum(rank(y)*y)/sum(y) - (nTot+1)/2)/nTot
+return(GiniLoss)
+}
+
+GiniCalc <- function(Claims,PIx,Sx){
+   y   <- Claims/mean(Claims)
+   PIx <- PIx/mean(PIx)
+   Sx  <- Sx/mean(Sx)
+   Rx  <- Sx/PIx       #Relativity
+   n   <- length(PIx)
+   origorder <- (1:n)
+   PSRmat <- data.frame(cbind(PIx,Sx,Rx,y,origorder))
+   PSRmatOrder <- PSRmat[order(Rx),]  #  Sort by relativity
+#  PREMIUM, LOSS DFs
+   DFPrem <- cumsum(PSRmatOrder$PIx)/n
+   DFLoss <- cumsum(PSRmatOrder$y)/n
+#  GINI CALC
+   DFPremdiff <- DFPrem[2:n]-DFPrem[1:(n-1)]
+   DFPremavg  <- (DFPrem[2:n]+DFPrem[1:(n-1)])/2
+   DFLossavg  <- (DFLoss[2:n]+DFLoss[1:(n-1)])/2
+   (Gini <- 2*crossprod(DFPremdiff,DFPremavg-DFLossavg)) 
+#  STANDARD ERROR CALC
+   h1 <- 0.5* (PSRmatOrder$PIx*DFLoss + PSRmatOrder$y*(1-DFPrem) ) #  PROJECTION CALC
+   h1bar   <- mean(h1) 
+   sigmah  <- var(h1)
+   sigmahy <- cov(h1,PSRmatOrder$y)
+   sigmahpi <- cov(h1,PSRmatOrder$PIx)
+   sigmay  <- var(y)
+   sigmapi <- var(PIx)
+   sigmaypi <- cov(PSRmatOrder$y,PSRmatOrder$PIx)
+   temp1= 4*sigmah + h1bar^2*sigmay + h1bar^2*sigmapi -
+           4*h1bar*sigmahy - 4*h1bar*sigmahpi +
+           2*h1bar^2*sigmaypi
+   sigmaGini  <- 4*temp1
+   stderrGini <- sqrt(sigmaGini/n) 
+   #check <- var(PIx-Sx)
+   #Gini  <- Gini*(check != 0)
+   #stderrGini <- stderrGini*(check != 0)
+   Retmat <- data.frame(cbind(DFPrem,DFLoss)) 
+   RetmatGini<-list(Retmat,Gini,stderrGini)
+     return(RetmatGini)
+}
+
+```
+
+
+
+```{r, LorenzVsOrdered, fig.cap='Lorenz versus Concentration Curve', out.width='90%', fig.asp=0.5, fig.align='center', echo=FALSE}
+# EXAMPLE
+P = c(2,4,5,7,16)
+y = c(2,5,6,6,17)
+n1 = length(y)
+XYmat = data.frame(cbind(y,P))
+XYmatYOrder = XYmat[order(y),]  #  Sort by losses y
+origorder = (1:n1)
+DFy1 = c(0,cumsum(XYmatYOrder$y)/sum(y))
+DFx1 = c(0,origorder/n1) 
+XYmatPOrder = XYmat[order(P),]  #  Sort by premiums P
+DFy2 = c(0,cumsum(XYmatPOrder$y)/sum(y))
+DFx2 = c(0,cumsum(XYmatPOrder$P)/sum(P))
+
+#  FIGURE 3
+par(mfrow=c(1, 2))
+#  Lorenz Curve
+plot(DFx1,DFy1,xlim=c(0,1),ylim=c(0,1), type="b",
+xlab="People Distn",ylab="", main="Lorenz");abline(0,1)
+mtext("Loss Distn", side=2, line=-0.5, at=1.1,   las=1, cex=1.0)
+#  Concentration Curve
+plot(DFx2,DFy2,xlim=c(0,1),ylim=c(0,1), type="b",
+xlab="Premium Distn",ylab="", main="Concentration");abline(0,1)
+mtext("Loss Distn", side=2, line=-0.5, at=1.1,   las=1, cex=1.0)
+
+GiniLoss = GiniLossCalc(Loss=y)
+temp = GiniCalc(Claims=y,PIx=P,Sx=1)
+Results=temp[[1]]
+Gini <- temp[[2]];#Gini
+stderrorGini <- temp[[3]];#Standard Error
+
+```
+
+
+***
+
+The concentration curve can be helpful to the analyst who thinks about forming profitable portfolios for the insurer. For example, suppose that $s$ is chosen to represent the 95*th* percentile of the premium distribution. Then, the horizontal axis, $\hat{F}_P(s)$, represents the fraction of premiums for this portfolio and the vertical axis, $\hat{F}_L(s)$, the fraction of losses for this portfolio. When developing premium principles, analysts wish to avoid unprofitable situations and make profits, or at least break even.
+
+The expectation of the numerator of equation \@ref(eq:EmpLossDF) is $\sum_{i=1}^n \mathrm{E}~ y_i=\sum_{i=1}^n \mu_i$. Thus, if the premium principle is chosen such that $P_i= \mu_i$, then we anticipate a close relation between the premium and loss distributions, resulting in a 45 degree line. The 45 degree line is presents equality between losses and premiums, a break-even situation which is the benchmark for insurance pricing.
+
+#### Gini Statistic {-}
+
+The classic Lorenz curve shows the proportion of policyholders on the horizontal axis and the loss distribution function on the vertical axis. The concentration curve extends the classical Lorenz curve in two ways, (1) through the ordering of risks and prices by prices and (2) by allowing prices to vary by observation. We summarize the concentration curve in the same way as the classic Lorenz curve using a Gini statistic, defined as twice the area between the curve and a 45 degree line. The analyst seeks ordered concentration curves that approach passing through the 45 degree line; these have least separation between the loss and premium distributions and therefore small Gini statistics.
+
+
+Specifically, the Gini statistic can be calculated as follows. Suppose that the empirical concentration curve is given by $\{ (a_0=0, b_0=0), (a_1, b_1), \ldots,$ $(a_n=1, b_n=1) \}$ for a sample of $n$ observations. Here, we use $a_j = \hat{F}_P(P_j)$ and $b_j = \hat{F}_{L}(P_j)$. Then, the empirical Gini statistic is
+\begin{eqnarray}
+\widehat{Gini} 
+&=&  2\sum_{j=0}^{n-1} (a_{j+1} - a_j) \left \{
+\frac{a_{j+1}+a_j}{2} - \frac{b_{j+1}+b_j}{2} \right\} \nonumber \\
+&=& 1 - \sum_{j=0}^{n-1} (a_{j+1} - a_j) (b_{j+1}+b_j) .
+(\#eq:GiniDefn)
+\end{eqnarray}
+
+
+<h5 style="text-align: center;"><a id="displayAreaDemo" href="javascript:toggleEX('toggleAreaDemo','displayAreaDemo');"><i><strong>Show Gini Formula Details</strong></i></a> </h5><div id="toggleAreaDemo" style="display: none">
+
+
+To understand the formula for the Gini statistic, here is a sketch of a parallelogram connecting points $(a_1, b_1)$, $(a_2, b_2)$, and a 45 degree line. You can use basic geometry to check that the area of the figure is $Area = (a_2 - a_1) \left \{\frac{a_2+a_1}{2} - \frac{b_2+b_1}{2} \right\}$. The definition of the Gini statistic in equation \@ref(eq:GiniDefn) is simply twice the sum of the parallelograms. The second equality in equation \@ref(eq:GiniDefn) is the result of some straight-forward algebra.
+
+
+```{r, warning=FALSE, message=FALSE, echo=FALSE}
+#  FIGURE 3
+x = 1:100/100
+plot(x,x, type="l", xlab="",ylab="", main="", yaxt="n", xaxt="n")
+text(.45, .10, expression(paste("(",a[1], ",", b[1],")")), cex=.8)
+text(.75, .25, expression(paste("(",a[2], ",", b[2],")")), cex=.8)
+points(.45, .15, pch = 19)
+points(.75, .30, pch = 19)
+arrows(.45, .15, .75, .30,length=0.1, angle = 0)
+arrows(.45, .15, .45, .45,length=0.1, angle = 0)
+arrows(.75, .30, .75, .75,length=0.1, angle = 0)
+text(.15, .35, "45 degree line")
+text(.60, .40, "Area")
+arrows(.15, .32, .20, .25,length=0.1, angle = 30)
+
+```
+
+
+***
+
+</div>
+
+
+**Example -- Loss Distribution: Continued.** The Gini statistic for the Lorenz curve (left-hand panel of Figure \@ref(fig:LorenzVsOrdered)) is `r round(100*GiniLoss,digits=1)` percent. In contrast, the Gini statistic for concentration curve (right-hand panel) is `r round(100*Gini,digits=1)` percent. 
+
+
+### Out-of-Sample Validation 
+
+The benefits of out-of-sample validation for model selection were introduced in Section 4.2. We now demonstrate the use of the a Gini statistic and concentration curve in this context. The procedure follows:
+
+1.  Use an in-sample data set to estimate several competing models, each producing a premium function.
+2.  Designate an out-of-sample, or validation, data set of the form $\{(y_i, \mathbf{x}_i), i=1,\ldots,n\}$.
+3.  Use the explanatory variables from the validation sample to form premiums of the form $P(\mathbf{x}_i)$.
+4.  Compute the Gini statistic for each model. Choose the model with the lowest Gini statistic.
+
+
+```{r, warning=FALSE, message=FALSE, echo=FALSE} 
+set.seed(2017)
+NInsamp  = 200
+NOutsamp = 100
+Nstate   = 25
+InClaims   <- matrix(0,NInsamp,Nstate)
+OutClaims  <- matrix(0,NOutsamp,Nstate)
+PredClaims <- matrix(0,NOutsamp,Nstate)
+ for (iState in  1:Nstate) { 
+InClaims[,iState]   <- rgamma(NInsamp, shape = 5, scale = 18+iState*2)
+PredClaims[,iState] <- rep(mean(InClaims[,iState]),NOutsamp)
+OutClaims[,iState]  <- rgamma(NOutsamp, shape = 5, scale = 18+iState*2)
+ }
+
+Predvec  <- as.vector(PredClaims)
+Flatpred <- Predvec*0+mean(PredClaims)
+Outy     <- as.vector(OutClaims)
+```
+
+**Example -- Community Rating versus Premiums that Vary by State.** Suppose that we have experience from `r Nstate` states and that, for each state, we have available `r NInsamp` observations that can be used to predict future losses. For simplicity, assume that the analyst knows that these losses were generated by a gamma distribution with a common shape parameter equal to 5. Unknown to the analyst, the scale parameters vary by state, from a low of 20 to `r 18+2*(Nstate-1)`. 
+
+* To compute base premiums, the analyst assumes a scale parameter that is common to all states that is to be estimated from the data. You can think of this common premium as based on a *community rating* principle. 
+* As an alternative, the analyst allows the scale parameters to vary by state and will again use the data to estimate these parameters.
+
+An out of sample validation set of `r NOutsamp` losses from each state is available. For each of the two rating procedures, determine the concentration curve and the corresponding Gini statistic. Choose the rate procedure with the lower Gini statistic.
+
+
+
+
+<h5 style="text-align: center;"><a id="displayLorenzeExample" href="javascript:toggleEX('toggleExampleLor','displayLorenzeExample');"><i><strong>Show Example Solution</strong></i></a> </h5><div id="toggleExampleLor" style="display: none">
+
+***
+
+Recall for the gamma distribution that the mean equals the shape times the scale or, 5 times the scale parameter, for our example. So, you can check that the maximum likelihood estimates are simply the average experience.
+
+For our base premium, we assume a common distribution among all states. For these simulated data, the average in-sample loss is $P_1$=`r round(mean(InClaims),digits=2)`. 
+
+As an alternative, we use averages that are state-specific; these averages form our premiums $P_2$. Because this illustration uses means that vary by states, we anticipate this alternative rating procedure to be preferred to the community rating procedure. 
+
+Out of sample claims were generated from the same gamma distribution as the in-sample model, with `r NOutsamp` observations for each state. The following `R` code shows how to calculate the concentration curves.
+
+
+```{r echo=FALSE} 
+GiniCalc <- function(Claims,PIx,Sx){
+   y   <- Claims/mean(Claims)
+   PIx <- PIx/mean(PIx)
+   Sx  <- Sx/mean(Sx)
+   Rx  <- Sx/PIx       #Relativity
+   n   <- length(PIx)
+   origorder <- (1:n)
+   PSRmat <- data.frame(cbind(PIx,Sx,Rx,y,origorder))
+   PSRmatOrder <- PSRmat[order(Rx),]  #  Sort by relativity
+#  PREMIUM, LOSS DFs
+   DFPrem <- cumsum(PSRmatOrder$PIx)/n
+   DFLoss <- cumsum(PSRmatOrder$y)/n
+#  GINI CALC
+   DFPremdiff <- DFPrem[2:n]-DFPrem[1:(n-1)]
+   DFPremavg  <- (DFPrem[2:n]+DFPrem[1:(n-1)])/2
+   DFLossavg  <- (DFLoss[2:n]+DFLoss[1:(n-1)])/2
+   (Gini <- 2*crossprod(DFPremdiff,DFPremavg-DFLossavg)) 
+#  STANDARD ERROR CALC
+   h1 <- 0.5* (PSRmatOrder$PIx*DFLoss + PSRmatOrder$y*(1-DFPrem) ) #  PROJECTION CALC
+   h1bar   <- mean(h1) 
+   sigmah  <- var(h1)
+   sigmahy <- cov(h1,PSRmatOrder$y)
+   sigmahpi <- cov(h1,PSRmatOrder$PIx)
+   sigmay  <- var(y)
+   sigmapi <- var(PIx)
+   sigmaypi <- cov(PSRmatOrder$y,PSRmatOrder$PIx)
+   temp1= 4*sigmah + h1bar^2*sigmay + h1bar^2*sigmapi -
+           4*h1bar*sigmahy - 4*h1bar*sigmahpi +
+           2*h1bar^2*sigmaypi
+   sigmaGini  <- 4*temp1
+   stderrGini <- sqrt(sigmaGini/n) 
+   #check <- var(PIx-Sx)
+   #Gini  <- Gini*(check != 0)
+   #stderrGini <- stderrGini*(check != 0)
+   Retmat <- data.frame(cbind(DFPrem,DFLoss)) 
+   RetmatGini<-list(Retmat,Gini,stderrGini)
+     return(RetmatGini)
+}
+Gini1 <- GiniCalc(Claims=Outy,PIx=Flatpred,Sx=Flatpred)[[2]];#Gini
+Gini2 <- GiniCalc(Claims=Outy,PIx=Predvec,Sx=Flatpred)[[2]];#Gini
+
+```
+
+
+```{r, fig.cap='', out.width='90%', fig.align='center', echo=TRUE} 
+y <- Outy 
+P1 <- Flatpred
+P2 <- Predvec
+n1 = length(y)
+XYmat = data.frame(cbind(y,P1,P2))
+XYmatPOrder = XYmat[order(P1),]  #  Sort by premiums P1
+DFy1 = c(0,cumsum(XYmatPOrder$y)/sum(y))
+DFx1 = c(0,cumsum(XYmatPOrder$P1)/sum(P1))
+XYmatPOrder = XYmat[order(P2),]  #  Sort by premiums P2
+DFy2 = c(0,cumsum(XYmatPOrder$y)/sum(y))
+DFx2 = c(0,cumsum(XYmatPOrder$P2)/sum(P2))
+
+#  FIGURE 3
+par(mfrow=c(1, 2))
+#  Lorenz Curve
+plot(DFx1,DFy1,xlim=c(0,1),ylim=c(0,1), type="b", cex= 0.2,
+xlab="Premium Distn",ylab="", main="Flat");abline(0,1)
+mtext("Loss Distn", side=2, line=-0.5, at=1.1,   las=1, cex=1.0)
+#  Concentration Curve
+plot(DFx2,DFy2,xlim=c(0,1),ylim=c(0,1), type="b", cex= 0.2,
+xlab="Premium Distn",ylab="", main="State Specific");abline(0,1)
+mtext("Loss Distn", side=2, line=-0.5, at=1.1,   las=1, cex=1.0)
+
+```
+
+
+
+For these data, the Gini statistics are `r round(100*Gini1,digits=1)` percent for the flat rate premium and `r round(100*Gini2,digits=3)` percent for the state-specific alternative.  This suggests that the state-specific alternative procedure is strongly preferred to the base community rating procedure.
+
+***
+
+</div>
+
+#### Discussion {-}
+
+In insurance claims modeling, standard out-of-sample validation measures are not the most informative due to the high proportions of zeros (corresponding to no claim) and the skewed fat-tailed distribution of the positive values. In contrast, the Gini statistic works well with many zeros (see the demonstration in [@frees2014insurance]). 
+
+The value of the concentration curves and Gini statistics have been recently advanced in the paper of @denuit2019concentrationGini.
+Properties of an extended version, dealing with relatives for new premiums, were developed by [@frees2011summarizing] and [@frees2014insurance]. In these articles you can find formulas for the standard errors and other additional background information.
+

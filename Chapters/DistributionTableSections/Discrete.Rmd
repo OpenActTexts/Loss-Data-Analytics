@@ -1,0 +1,542 @@
+
+<!-- ## Discrete Distributions -->
+
+
+### The (a,b,0) Class 
+
+
+<div class="tab">
+  <button class="tablinks" onclick="openTab(event, 'disA')">Poisson</button>
+  <button class="tablinks" onclick="openTab(event, 'disB')">Geometric</button>
+  <button class="tablinks" onclick="openTab(event, 'disC')">Binomial</button>
+  <button class="tablinks" onclick="openTab(event, 'disD')">Negative Binomial</button>
+</div>
+
+<div id="disA" class="tabcontent">
+  <span onclick="this.parentElement.style.display='none'" class="topright"><button>Hide</button></span>
+
+<h3>Poisson</h3>
+
+**Functions**
+
+$$
+\begin{matrix}
+\begin{array}{l|c}
+\hline
+  \text{Name} & \text{Function} \\
+\hline
+  ~~p_0 & e^{-\lambda} \\
+\hline
+  \small{\text{Probability mass function}} & \frac{e^{-\lambda}\lambda^k}{k!} \\
+  ~~p_k & \\
+\hline
+  \small{\text{Expected value}} & \lambda \\
+  ~~\mathrm{E}[N] & \\
+\hline
+  \small{\text{Variance}} & \lambda \\
+\hline
+  \small{\text{Probability generating function}} & e^{\lambda(z-1)} \\
+  ~~P(z) & \\
+  \hline
+  a \small{\text{ and }} b \small{\text{ for recursion}} & a=0 \\
+   & b=\lambda \\
+\hline
+\end{array}
+\end{matrix}
+$$
+
+**`R` Commands**
+
+$$
+\begin{matrix}
+\begin{array}{l|c}
+\hline
+  \text{Function Name} & \text{R Command} \\
+\hline
+  \small{\text{Probability mass function}} & \text{dpois}(x=, lambda=\lambda) \\
+\hline
+  \small{\text{Distribution function}} & \text{ppois}(p=, lambda=\lambda) \\
+\hline
+  \small{\text{Quantile function}} & \text{qpois}(q=, lambda=\lambda) \\ 
+\hline
+  \small{\text{Random sampling function}} & \text{rpois}(n=, lambda=\lambda) \\
+\hline
+\end{array}
+\end{matrix}
+$$
+
+</div>
+
+<div id="disB" class="tabcontent">
+  <span onclick="this.parentElement.style.display='none'" class="topright"><button>Hide</button></span>
+
+<h3>Geometric</h3>
+
+**Functions**
+
+$$
+\begin{matrix}
+\begin{array}{l|c}
+\hline
+  \text{Name} & \text{Function} \\
+\hline
+  ~~p_0 & \frac{1}{1+\beta} \\
+\hline
+  \small{\text{Probability mass function}} & \frac{\beta^k}{(1+\beta)^{k+1}} \\
+  ~~p_k & \\
+\hline
+  \small{\text{Expected value}} & \beta \\
+  ~~\mathrm{E}[N] & \\
+\hline
+  \small{\text{Variance}} & \beta(1+\beta) \\
+\hline
+  \small{\text{Probability generating function}} & [1-\beta(z-1)]^{-1} \\
+  ~~P(z) & \\
+  \hline
+  a \small{\text{ and }} b \small{\text{ for recursion}} & a=\frac{\beta}{1+\beta} \\
+   & b=0 \\
+\hline
+\end{array}
+\end{matrix}
+$$
+
+**`R` Commands**
+
+$$
+\begin{matrix}
+\begin{array}{l|c}
+\hline
+  \text{Function Name} & \text{R Command} \\
+\hline
+  \small{\text{Probability mass function}} & \text{dgeom}(x=, prob=\frac{1}{1+\beta}) \\
+\hline
+  \small{\text{Distribution function}} & \text{pgeom}(p=, prob=\frac{1}{1+\beta}) \\
+\hline
+  \small{\text{Quantile function}} & \text{qgeom}(q=, prob=\frac{1}{1+\beta}) \\ 
+\hline
+  \small{\text{Random sampling function}} & \text{rgeom}(n=, prob=\frac{1}{1+\beta}) \\
+\hline
+\end{array}
+\end{matrix}
+$$
+
+</div>
+
+<div id="disC" class="tabcontent">
+  <span onclick="this.parentElement.style.display='none'" class="topright"><button>Hide</button></span>
+
+<h3>Binomial</h3>
+
+**Functions**
+
+$$
+\begin{matrix}
+\begin{array}{l|c}
+\hline
+  \text{Name} & \text{Function} \\
+\hline
+  \small{\text{Parameter assumptions}} & 0<q<1,~\text{m is an integer} \\
+   & 0 \leq k \leq m\\
+\hline
+  ~~p_0 &(1-q)^m \\
+\hline
+  \small{\text{Probability mass function}} & \binom{m}{k}q^k(1-q)^{m-k} \\
+  ~~p_k & \\
+\hline
+  \small{\text{Expected value}} & mq \\
+  ~~\mathrm{E}[N] & \\
+\hline
+  \small{\text{Variance}} & mq(1-q) \\
+\hline
+  \small{\text{Probability generating function}} & [1+q(z-1)]^m \\
+  ~~P(z) & \\
+  \hline
+  a \small{\text{ and }} b \small{\text{ for recursion}} & a=\frac{-q}{1-q} \\
+   & b=\frac{(m+1)q}{1-q} \\
+\hline
+\end{array}
+\end{matrix}
+$$
+
+**`R` Commands**
+
+$$
+\begin{matrix}
+\begin{array}{l|c}
+\hline
+  \text{Function Name} & \text{R Command} \\
+\hline
+  \small{\text{Probability mass function}} & \text{dbinom}(x=, size=m, prob=p) \\
+\hline
+  \small{\text{Distribution function}} & \text{pbinom}(p=, size=m, prob=p) \\
+\hline
+  \small{\text{Quantile function}} & \text{qbinom}(q=, size=m, prob=p) \\ 
+\hline
+  \small{\text{Random sampling function}} & \text{rbinom}(n=, size=m, prob=p) \\
+\hline
+\end{array}
+\end{matrix}
+$$
+
+</div>
+
+<div id="disD" class="tabcontent">
+  <span onclick="this.parentElement.style.display='none'" class="topright"><button>Hide</button></span>
+
+<h3>Negative Binomial</h3>
+
+**Functions**
+
+$$
+\begin{matrix}
+\begin{array}{l|c}
+\hline
+  \text{Name} & \text{Function} \\
+\hline
+  ~~p_0 & (1+\beta)^{-r} \\
+\hline
+  \small{\text{Probability mass function}} & \frac{r(r+1)\cdots(r+k-1)\beta^k}{k!(1+\beta)^{r+k}} \\
+  ~~p_k & \\
+\hline
+  \small{\text{Expected value}} & r\beta \\
+  ~~\mathrm{E}[N] & \\
+\hline
+  \small{\text{Variance}} & r\beta(1+\beta) \\
+\hline
+  \small{\text{Probability generating function}} & [1-\beta(z-1)]^{-r} \\
+  ~~P(z) & \\
+  \hline
+  a \small{\text{ and }} b \small{\text{ for recursion}} & a=\frac{\beta}{1+\beta} \\
+   & b=\frac{(r-1)\beta}{1+\beta} \\
+\hline
+\end{array}
+\end{matrix}
+$$
+
+**`R` Commands**
+
+$$
+\begin{matrix}
+\begin{array}{l|c}
+\hline
+  \text{Function Name} & \text{R Command} \\
+\hline
+  \small{\text{Probability mass function}} & \text{dnbinom}(x=, size=r, prob=\frac{1}{1+\beta}) \\
+\hline
+  \small{\text{Distribution function}} & \text{pnbinom}(p=, size=r, prob=\frac{1}{1+\beta}) \\
+\hline
+  \small{\text{Quantile function}} & \text{qnbinom}(q=, size=r, prob=\frac{1}{1+\beta}) \\ 
+\hline
+  \small{\text{Random sampling function}} & \text{rnbinom}(n=, size=r, prob=\frac{1}{1+\beta}) \\
+\hline
+\end{array}
+\end{matrix}
+$$
+
+</div>
+
+### The (a,b,1) Class
+
+</center>
+
+<div class="tab">
+  <button class="tablinks" onclick="openTab(event, 'ztA')">Zero Truncated Poisson</button>
+  <button class="tablinks" onclick="openTab(event, 'ztB')">Zero Truncated Geometric</button>
+  <button class="tablinks" onclick="openTab(event, 'ztC')">Zero Truncated Binomial</button>
+  <button class="tablinks" onclick="openTab(event, 'ztD')">Zero Truncated Negative Binomial</button>
+  <button class="tablinks" onclick="openTab(event, 'ztE')">Logarithmic</button>
+</div>
+
+<div id="ztA" class="tabcontent">
+  <span onclick="this.parentElement.style.display='none'" class="topright"><button>Hide</button></span>
+
+<h3>Zero Truncated Poisson</h3>
+
+**Functions**
+
+$$
+\begin{matrix}
+\begin{array}{l|c}
+\hline
+  \text{Name} & \text{Function} \\
+\hline
+  ~~p^T_1 & \frac{\lambda}{e^\lambda-1} \\
+\hline
+  \small{\text{Probability mass function}} & \frac{\lambda^k}{k!(e^\lambda-1)} \\
+  ~~p^T_k & \\
+\hline
+  \small{\text{Expected value}} & \frac{\lambda}{1-e^{-\lambda}} \\
+  ~~\mathrm{E}[N] & \\
+\hline
+  \small{\text{Variance}} & \frac{\lambda[1-(\lambda+1)e^{-\lambda}]}{(1-e^{-\lambda})^2} \\
+\hline
+  \tilde\lambda & \ln(\frac{n\hat\mu}{n_1}) \\
+\hline
+  \small{\text{Probability generating function}} & \frac{e^{\lambda z}-1}{e^\lambda-1} \\
+  ~~P(z) & \\
+\hline
+  a \small{\text{ and }} b \small{\text{ for recursion}} & a=0 \\
+   & b=\lambda \\
+\hline
+\end{array}
+\end{matrix}
+$$
+
+**`R` Commands**
+
+$$
+\begin{matrix}
+\begin{array}{l|c}
+\hline
+  \text{Function Name} & \text{R Command} \\
+\hline
+  \small{\text{Probability mass function}} & \text{dztpois}(x=, lambda=\lambda) \\
+\hline
+  \small{\text{Distribution function}} & \text{pztpois}(p=, lambda=\lambda) \\
+\hline
+  \small{\text{Quantile function}} & \text{qztpois}(q=, lambda=\lambda) \\ 
+\hline
+  \small{\text{Random sampling function}} & \text{rztpois}(n=, lambda=\lambda) \\
+\hline
+\end{array}
+\end{matrix}
+$$
+
+
+</div>
+
+<div id="ztB" class="tabcontent">
+  <span onclick="this.parentElement.style.display='none'" class="topright"><button>Hide</button></span>
+
+<h3>Zero Truncated Geometric</h3>
+
+**Functions**
+
+$$
+\begin{matrix}
+\begin{array}{l|c}
+\hline
+  \text{Name} & \text{Function} \\
+\hline
+  ~~p^T_1 & \frac{1}{1+\beta} \\
+\hline
+  \small{\text{Probability mass function}} & \frac{\beta^{k-1}}{(1+\beta)^k} \\
+  ~~p^T_k & \\
+\hline
+  \small{\text{Expected value}} & 1+\beta \\
+  ~~\mathrm{E}[N] & \\
+\hline
+  \small{\text{Variance}} & \beta(1+\beta) \\
+\hline
+  \tilde\beta & \hat\mu-1 \\
+\hline
+  \small{\text{Probability generating function}} & \frac{[1-\beta(z-1)]^{-1}-(1+\beta)^{-1}}{1-(1+\beta)^{-1}} \\
+  ~~P(z) & \\
+\hline
+  a \small{\text{ and }} b \small{\text{ for recursion}} & a=\frac{\beta}{1+\beta} \\
+   & b=0 \\
+\hline
+\end{array}
+\end{matrix}
+$$
+
+**`R` Commands**
+
+$$
+\begin{matrix}
+\begin{array}{l|c}
+\hline
+  \text{Function Name} & \text{R Command} \\
+\hline
+  \small{\text{Probability mass function}} & \text{dztgeom}(x=, prob=\frac{1}{1+\beta}) \\
+\hline
+  \small{\text{Distribution function}} & \text{pztgeom}(p=, prob=\frac{1}{1+\beta}) \\
+\hline
+  \small{\text{Quantile function}} & \text{qztgeom}(q=, prob=\frac{1}{1+\beta}) \\ 
+\hline
+  \small{\text{Random sampling function}} & \text{rztgeom}(n=, prob=\frac{1}{1+\beta}) \\
+\hline
+\end{array}
+\end{matrix}
+$$
+
+</div>
+
+<div id="ztC" class="tabcontent">
+  <span onclick="this.parentElement.style.display='none'" class="topright"><button>Hide</button></span>
+
+<h3>Zero Truncated Binomial</h3>
+
+**Functions**
+
+$$
+\begin{matrix}
+\begin{array}{l|c}
+\hline
+  \text{Name} & \text{Function} \\
+\hline
+  \small{\text{Parameter assumptions}} & 0<q<1,~\text{m is an integer} \\
+   & 0 \leq k \leq m\\
+\hline
+  ~~p^T_1 & \frac{m(1-q)^{m-1}q}{1-(1-q)^m} \\
+\hline
+  \small{\text{Probability mass function}} & \frac{\binom{m}{k}q^k(1-q)^{m-k}}{1-(1-q)^m} \\
+  ~~p^T_k & \\
+\hline
+  \small{\text{Expected value}} & \frac{mq}{1-(1-q)^m} \\
+  ~~\mathrm{E}[N] & \\
+\hline
+  \small{\text{Variance}} & \frac{mq[(1-q)-(1-q+mq)(1-q)^m]}{[1-(1-q)^m]^2} \\
+\hline
+  \tilde q & \frac{\hat\mu}{m} \\
+\hline
+  \small{\text{Probability generating function}} & \frac{[1+q(z-1)^m]-(1-q)^m}{1-(1-q)^m} \\
+  ~~P(z) & \\
+\hline
+  a \small{\text{ and }} b \small{\text{ for recursion}} & a=\frac{1}{1-q} \\
+   & b=\frac{(m+1)q}{1-q} \\
+\hline
+\end{array}
+\end{matrix}
+$$
+
+**`R` Commmands**
+
+$$
+\begin{matrix}
+\begin{array}{l|c}
+\hline
+  \text{Function Name} & \text{R Command} \\
+\hline
+  \small{\text{Probability mass function}} & \text{dztbinom}(x=, size=m, prob=p) \\
+\hline
+  \small{\text{Distribution function}} & \text{pztbinom}(p=, size=m, prob=p) \\
+\hline
+  \small{\text{Quantile function}} & \text{qztbinom}(q=, size=m, prob=p) \\ 
+\hline
+  \small{\text{Random sampling function}} & \text{rztbinom}(n=, size=m, prob=p) \\
+\hline
+\end{array}
+\end{matrix}
+$$
+
+
+</div>
+
+<div id="ztD" class="tabcontent">
+  <span onclick="this.parentElement.style.display='none'" class="topright"><button>Hide</button></span>
+
+<h3>Zero Truncated Negative Binomial</h3>
+
+**Functions**
+
+$$
+\begin{matrix}
+\begin{array}{l|c}
+\hline
+  \text{Name} & \text{Function} \\
+\hline
+  \small{\text{Parameter assumptions}} & r>-1, r\neq0 \\
+\hline
+  ~~p^T_1 & \frac{r\beta}{(1+\beta)^{r+1}-(1+\beta)} \\
+\hline
+  \small{\text{Probability mass function}} & \frac{r(r+1)\cdots(r+k-1)}{k![(1+\beta)^r-1]}(\frac{\beta}{1+\beta})^k \\
+  ~~p^T_k & \\
+\hline
+  \small{\text{Expected value}} & \frac{r\beta}{1-(1+\beta)^{-r}} \\
+  ~~\mathrm{E}[N] & \\
+\hline
+  \small{\text{Variance}} & \frac{r\beta[(1+\beta)-(1+\beta+r\beta)(1+\beta)^{-r}]}{[1-(1+\beta)^{-r}]^2} \\
+\hline
+  \tilde\beta & \frac{\hat\sigma^2}{\hat\mu}-1 \\
+\hline
+  \tilde r & \frac{\hat\mu^2}{\hat\sigma^2-\hat\mu} \\
+\hline
+  \small{\text{Probability generating function}} & \frac{[1-\beta(z-1)]^{-r}-(1+\beta)^{-r}}{1-(1+\beta)^{-r}} \\
+  ~~P(z) & \\
+\hline
+  a \small{\text{ and }} b \small{\text{ for recursion}} & a=\frac{\beta}{1+\beta} \\
+   & b=\frac{(r-1)\beta}{1+\beta} \\
+\hline
+\end{array}
+\end{matrix}
+$$
+
+**`R` Commands**
+
+$$
+\begin{matrix}
+\begin{array}{l|c}
+\hline
+  \text{Function Name} & \text{R Command} \\
+\hline
+  \small{\text{Probability mass function}} & \text{dztnbinom}(x=, size=r, prob=\frac{1}{1+\beta}) \\
+\hline
+  \small{\text{Distribution function}} & \text{pztnbinom}(p=, size=r, prob=\frac{1}{1+\beta}) \\
+\hline
+  \small{\text{Quantile function}} & \text{qztnbinom}(q=, size=r, prob=\frac{1}{1+\beta}) \\ 
+\hline
+  \small{\text{Random sampling function}} & \text{rztnbinom}(n=, size=r, prob=\frac{1}{1+\beta}) \\
+\hline
+\end{array}
+\end{matrix}
+$$
+
+</div>
+
+<div id="ztE" class="tabcontent">
+  <span onclick="this.parentElement.style.display='none'" class="topright"><button>Hide</button></span>
+
+<h3>Logarithmic</h3>
+
+**Functions**
+
+$$
+\begin{matrix}
+\begin{array}{l|c}
+\hline
+  \text{Name} & \text{Function} \\
+\hline
+  ~~p^T_1 & \frac{\beta}{(1+\beta)ln(1+\beta)} \\
+\hline
+  \small{\text{Probability mass function}} & \frac{\beta^k}{k(1+\beta)^k \ln (1+\beta)} \\
+  ~~p^T_k & \\
+\hline
+  \small{\text{Expected value}} & \frac{\beta}{\ln (1+\beta)} \\
+  ~~\mathrm{E}[N] & \\
+\hline
+  \small{\text{Variance}} & \frac{\beta[1+\beta-\frac{\beta}{ln(1+\beta)}]}{\ln (1+\beta)} \\
+\hline
+  \tilde\beta & \frac{n\hat\mu}{n_1}-1~=~ \frac{2(\hat\mu-1)}{\hat\mu} \\
+\hline
+  \small{\text{Probability generating function}} & 1-\frac{ln[1-\beta(z-1)]}{\ln (1+\beta)} \\
+  ~~P(z) & \\
+\hline
+  a \small{\text{ and }} b \small{\text{ for recursion}} & a=\frac{\beta}{1+\beta} \\
+   & b=\frac{-\beta}{1+\beta} \\
+\hline
+\end{array}
+\end{matrix}
+$$
+
+**`R` Commands**
+
+$$
+\begin{matrix}
+\begin{array}{l|c}
+\hline
+  \text{Function Name} & \text{R Command} \\
+\hline
+  \small{\text{Probability mass function}} & \text{dnbinom}(x=,prob=\frac{\beta}{1+\beta}) \\
+\hline
+  \small{\text{Distribution function}} & \text{pnbinom}(p=,prob=\frac{\beta}{1+\beta}) \\
+\hline
+  \small{\text{Quantile function}} & \text{qnbinom}(q=,prob=\frac{\beta}{1+\beta}) \\ 
+\hline
+  \small{\text{Random sampling function}} & \text{rnbinom}(n=,prob=\frac{\beta}{1+\beta}) \\
+\hline
+\end{array}
+\end{matrix}
+$$
+
+</div>

@@ -1,0 +1,114 @@
+
+```{r echo = FALSE, message=FALSE, warning=FALSE}
+library(tseries)
+library(boot)
+library(scales)
+library(rpart)
+library(rpart.plot)
+library(RColorBrewer)
+library(forecast)
+library(splines)
+library(MASS)
+library(survival)
+library(Hmisc)
+INSTALLPACKAGES = FALSE
+ANIMATION = TRUE
+CHAPCOMPILE = TRUE
+#CHAPCOMPILE = FALSE
+chapnum = 6
+
+```
+
+
+
+#Simulation and Resampling {#C:Simulation}
+
+*Chapter Preview.* Simulation is a computationally intensive method used to solve difficult problems. Instead of creating physical processes and experimenting with them in order to understand their operational characteristics, a simulation study is based on a computer representation - it considers various hypothetical conditions as inputs and summarizes the results. Through simulation, a vast number of hypothetical conditions can be quickly and inexpensively examined. Section \@ref(S:SimulationFundamentals) introduces simulation, a wonderful computational tool that is especially useful in complex, multivariate settings.
+
+We can also use simulation to draw from an empirical distribution - this process is known as resampling. Resampling allows us to assess the uncertainty of estimates in complex models. Section \@ref(S:Bootstrap) introduces resampling in the context of bootstrapping to determine the precision of estimators.
+
+Subsequent sections introduce other topics in resampling. Section \@ref(S:CrossValidation) on cross-validation shows how to use it for model selection and validation. Section \@ref(S:ImportanceSampling) on importance sampling describes resampling in specific regions of interest, such as long-tailed actuarial applications. Section \@ref(S:MCMC) on Monte Carlo Markov Chain (MCMC) introduces the simulation and resampling engine underpinning much of modern Bayesian analysis.
+
+***
+
+**This chapter is being written and is not yet complete nor edited. It is here to give you a flavor of what will be in the final version.**
+
+***
+
+
+## Simulation Fundamentals {#S:SimulationFundamentals}
+
+***
+In this section, you learn how to:
+
+-   Generate approximately independent realizations that are uniformly distributed
+-   Transform the uniformly distributed realizations to observations
+    from a probability distribution of interest
+-   Calculate quantities of interest and determining the precision of the calculated quantities
+
+***
+
+```{r eval =  TRUE, child = './Chapters/SimulationSections/SimulationFundamentals.Rmd'}
+```
+
+## Bootstrapping and Resampling {#S:Bootstrap}
+
+***
+In this section, you learn how to:
+
+-   Generate a nonparametric bootstrap distribution for a statistic of interest
+-   Use the bootstrap distribution to generate estimates of precision for the statistic of interest, including bias, standard deviations, and confidence intervals
+-   Perform bootstrap analyses for parametric distributions
+
+***
+
+```{r eval =  TRUE, child = 'Chapters/SimulationSections/Bootstrap.Rmd'}
+```
+
+
+## Cross-Validation {#S:CrossValidation}
+
+In this section, you learn how to:
+
+-  Compare and contrast cross-validation to simulation techniques and bootstrap methods.
+-  Use cross-validation techniques for model selection
+-  Explain the jackknife method as a special case of cross-validation and calculate jackknife estimates of bias and standard errors
+
+***
+
+```{r eval = TRUE, child = './Chapters/SimulationSections/CrossValidation.Rmd'}
+```
+
+
+## Importance Sampling {#S:ImportanceSampling}
+
+```{r eval = TRUE, child = './Chapters/SimulationSections/ImportanceSampling.Rmd'}
+```
+
+
+## Monte Carlo Markov Chain (MCMC)  {#S:MCMC}
+
+```{r eval = TRUE, child = './Chapters/SimulationSections/MCMC.Rmd'}
+```
+
+## Further Resources and Contributors {#Simulation:further-reading-and-resources}
+
+- Include historical references for jackkife (Quenouille, Tukey, Efron)
+
+
+####Contributors {-}
+
+- **Arthur Charpentier**, Universit&eacute; du Quebec &aacute; Montreal, and **Edward W. (Jed) Frees**, University of Wisconsin-Madison, are the principal authors of the initial version of this chapter. Email: jfrees@bus.wisc.edu and/or arthur.charpentier@gmail.com for chapter comments and suggested improvements.
+- Chapter reviewers include: Write Jed or Arthur; to add you name here.
+
+
+
+## TS `r chapnum`.A. Applications of Bootstrap in Predictive Modeling
+
+
+```{r eval =  FALSE, child = 'SimulationSections/BootstrapPredictModels.Rmd'}
+```
+
+
+
+

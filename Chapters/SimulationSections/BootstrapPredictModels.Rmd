@@ -1,0 +1,508 @@
+<!-- ## Bootstrap Predictive Models -->
+
+Bootstrap techniques are popular in P&C reserving techniques (with a Poisson regression). Observe that simulations are now popular to quantify uncertainty in predictive models
+
+### Boostrap and Linear Models
+
+Consider the following dataset, with the height and weight of $200$ students
+
+```{r}
+Davis=read.table(
+  "http://socserv.socsci.mcmaster.ca/jfox/Books/Applied-Regression-2E/datasets/Davis.txt")
+Davis[12,c(2,3)]=Davis[12,c(3,2)]
+Davis=data.frame(X1=Davis$height / 30.48,
+                 Y =Davis$weight * 2.204622)
+```
+
+Algorithm 6.2 described in [http://statwww.epfl.ch/davison/BMA/](Davison & Hinckey (1997)) is based on the idea of *resampling* observations $(\mathbf{x}_i,y_i)$, and to fit a model on the new dataset
+
+```{r}
+library(scales)
+BETA = matrix(NA,100,2)
+for(s in 1:100){
+  set.seed(s)
+  idx = sample(1:nrow(Davis),nrow(Davis),replace=TRUE)
+  reg_sim = lm(Y~X1, data=Davis[idx,])
+  BETA[s,] = reg_sim$coefficients
+}
+```
+
+Here are the estimations of the regression line on several boostrap samples,
+
+```{r, animation.hook='gifski', eval = ANIMATION}
+pic_ani = function(k){
+  plot(Davis$X1,Davis$Y,ylab="weight (lbs)",xlab="height (feet)",col="white")
+  for(s in 1:100) abline(BETA[s,1],BETA[s,2],col=alpha("light blue",.3))
+  set.seed(k)
+  idx = sample(1:nrow(Davis),nrow(Davis),replace=TRUE)
+  points(Davis$X1,Davis$Y,col="grey")
+  points(Davis$X1[idx],Davis$Y[idx],pch=19)
+  abline(BETA[k,1],BETA[k,2],col="blue",lwd=2)
+}
+for (k in 1:50) {pic_ani(k)}
+```
+
+We can visualize the density of the two estimators $\widehat{\beta}_0$ and  $\widehat{\beta}_1$
+  
+```{r}
+BETA = matrix(NA,1e5,2)
+for(s in 1:nrow(BETA)){
+  idx = sample(1:nrow(Davis),nrow(Davis),replace=TRUE)
+  reg_sim = lm(Y~X1, data=Davis[idx,])
+  BETA[s,] = reg_sim$coefficients
+}
+summary(lm(Y~X1, data=Davis))
+par(mfrow=c(1,2))
+hist(BETA[,1],probability=TRUE,col="grey",border="white",ylim=c(0,.016))
+m_std = summary(lm(Y~X1, data=Davis))$coefficients[1,1:2]
+m_std
+u=seq(m_std[1]-3*m_std[2],m_std[1]+3*m_std[2],length=251)
+v=dnorm(u,m_std[1],m_std[2])
+lines(u,v,col="red")
+hist(BETA[,2],probability=TRUE,col="grey",border="white",ylim=c(0,.09))
+m_std = summary(lm(Y~X1, data=Davis))$coefficients[2,1:2]
+u=seq(m_std[1]-3*m_std[2],m_std[1]+3*m_std[2],length=251)
+v=dnorm(u,m_std[1],m_std[2])
+lines(u,v,col="red")
+```
+
+Algorithm 6.1 in [http://statwww.epfl.ch/davison/BMA/](Davison & Hinckey (1997)) is based on the idea of *resampling* the residuals $\widehat{\varepsilon}_i$ and to add them to the predicted model : our "*new*" dataset is then $(\mathbf{x}_i,\widehat{y}_i+\widehat{\varepsilon})$, and here againm we fit a model on the new dataset
+
+```{r}
+model <-lm(Y~X1, data=Davis)
+BETA = matrix(NA,100,2)
+for(s in 1:100){
+  set.seed(s)
+  idx = sample(1:nrow(Davis),nrow(Davis),replace=TRUE)
+  reg_sim = lm(predict(model)+residuals(model)[idx]~Davis$X1)
+  BETA[s,] = reg_sim$coefficients
+}
+```
+
+Here are the estimations of the regression line on several boostrap samples,
+
+```{r, animation.hook='gifski', eval = ANIMATION}
+pic_ani = function(k){
+  plot(Davis$X1,Davis$Y,ylab="weight (lbs)",xlab="height (feet)",col="white")
+  for(s in 1:100) abline(BETA[s,1],BETA[s,2],col=alpha("light blue",.3))
+  set.seed(k)
+  idx = sample(1:nrow(Davis),nrow(Davis),replace=TRUE)
+  points(Davis$X1,Davis$Y,col="grey")
+  points(Davis$X1,predict(model)+residuals(model)[idx],pch=19)
+  abline(BETA[k,1],BETA[k,2],col="blue",lwd=2)
+}
+for (k in 1:50) {pic_ani(k)}
+```
+
+We can visualize the density of the two estimators $\widehat{\beta}_0$ and  $\widehat{\beta}_1$
+  
+```{r}
+BETA = matrix(NA,1e5,2)
+for(s in 1:nrow(BETA)){
+  idx = sample(1:nrow(Davis),nrow(Davis),replace=TRUE)
+  reg_sim = lm(predict(model)+residuals(model)[idx]~Davis$X1)
+  BETA[s,] = reg_sim$coefficients
+}
+summary(lm(Y~X1, data=Davis))
+par(mfrow=c(1,2))
+hist(BETA[,1],probability=TRUE,col="grey",border="white",ylim=c(0,.016))
+m_std = summary(lm(Y~X1, data=Davis))$coefficients[1,1:2]
+m_std
+u=seq(m_std[1]-3*m_std[2],m_std[1]+3*m_std[2],length=251)
+v=dnorm(u,m_std[1],m_std[2])
+lines(u,v,col="red")
+hist(BETA[,2],probability=TRUE,col="grey",border="white",ylim=c(0,.09))
+m_std = summary(lm(Y~X1, data=Davis))$coefficients[2,1:2]
+u=seq(m_std[1]-3*m_std[2],m_std[1]+3*m_std[2],length=251)
+v=dnorm(u,m_std[1],m_std[2])
+lines(u,v,col="red")
+```
+
+### Boostrap and Generalized Linear Models
+
+With GLM's it is natural to use the second type of algorithm, where residuals are resampled. Because a strong assumption is to have i.id. sample, we will usually use Pearson's residuals. For instance, with a Poisson regression
+$$
+  \widehat{\varepsilon}_i=\frac{y_i - \widehat{y}_i}{\sqrt{\widehat{y}_i}}
+$$
+```{r}
+model_poisson <- glm(dist~speed, data=cars, family=poisson)
+plot(cars)
+u <- seq(4,30,by=.1)
+v <- predict(model_poisson, newdata=data.frame(speed=u), type="response")
+lines(u, v, lwd=2, col="red")
+```
+
+```{r, animation.hook='gifski', warning=FALSE, eval = ANIMATION}
+pic_ani = function(k){
+  plot(cars)
+  v <- predict(model_poisson, newdata=data.frame(speed=u), type="response")
+  lines(u, v, lty=2, col="red")
+  set.seed(k)
+  idx = sample(1:nrow(cars),nrow(cars),replace=TRUE)
+  points(cars,col="grey")
+  cars_b <- data.frame(speed = cars$speed,
+                       dist = predict(model_poisson, type="response")+residuals(model_poisson, type="pearson")[idx]*sqrt(predict(model_poisson, type="response")))
+  points(cars_b,pch=19)
+  model_poisson_b <- glm(dist~speed, data=cars_b, family=poisson)
+  u <- seq(4,30,by=.1)
+  v <- predict(model_poisson_b, newdata=data.frame(speed=u), type="response")
+  lines(u, v, lwd=2, col="red")
+}
+for (k in 1:50) {pic_ani(k)}
+```
+
+### Boostrap and Trees (Bagging and Random Forests)
+
+```{r}
+library(rpart)
+library(rpart.plot)
+tree <- rpart(dist~speed,data=cars,method = "anova")
+par(mfrow=c(1,2))
+rpart.plot(tree, , type = 4, extra = 101) 
+plot(cars)
+u <- seq(4,30,by=.1)
+v <- predict(tree, newdata=data.frame(speed=u))
+lines(u, v, type="s", lwd=2, col="red")
+```
+
+
+```{r}
+u <- seq(4,30,by=.5)
+mat_v <- matrix(NA, 100, length(u))
+for(b in 1:100){
+  index     <- sample(1:nrow(cars),size=nrow(cars), replace=TRUE)
+  tree      <- rpart(dist~speed, data=cars[index,], method = "anova")
+  mat_v[b,] <- predict(tree, newdata=data.frame(speed=u))
+}
+v     <- apply(mat_v,2,mean)
+v_lwr <- apply(mat_v,2,function(x) quantile(x,.05))
+v_upr <- apply(mat_v,2,function(x) quantile(x,.95))
+```
+
+We can visualize the tree obtained on the latest boostrap sample,
+
+```{r}
+par(mfrow=c(1,2))
+rpart.plot(tree, , type = 4, extra = 101) 
+plot(cars)
+lines(u, v, lwd=2, col="red")
+lines(u, v_lwr, lty=2, col="red")
+lines(u, v_upr, lty=2, col="red")
+```
+
+### Boostrap and Time Series (and Block Boostrap)
+
+Consider the following (simulated) time series - with an $ARMA(2,2)$ process
+
+```{r}
+library(RColorBrewer)
+col=brewer.pal(12,"Set3")
+set.seed(1)
+colr=col[sample(12)]
+library(tseries)
+k <- 8
+set.seed(1)
+y <- arima.sim(n = 12*k, list(ar = c(0.8897, -0.4858), ma = c(-0.2279, 0.2488)),sd = sqrt(0.1796))
+```
+
+Here is the series, and the associated auto-correlation function
+
+```{r}
+layout(matrix(c(1,2),nrow=1), widths=c(2,1))
+plot(y, main = "", ylab = "", xlab="", ty = "b",cex.main = 2)
+acf(y,lwd=4,main="",ylim=c(-.45,1))
+```
+
+One can use a parametric method : we fit an $ARIMA$ process, extract the residuals, and boostrap the residuals
+
+```{r}
+library(forecast)
+ar <- auto.arima(y)
+ar
+e <- residuals(ar)
+ys <- y
+set.seed(2017)
+es <- sample(e,size=length(e),replace=TRUE)
+for(t in 4:length(y)){
+  ys[t] <- coefficients(ar)["ar1"]*ys[t-1]+
+    coefficients(ar)["ar2"]*ys[t-2]+
+    coefficients(ar)["ar3"]*ys[t-3]+
+    es[t]
+}
+# AR(2,0,2) or AR(3)??
+layout(matrix(c(1,2),nrow=1), widths=c(2,1))
+plot(ys, main = "", ylab = "", xlab="", ty = "b",cex.main = 2)
+#acf(ys,lwd=4,main="",ylim=c(-.45,1))
+```
+
+Another natural idea is to split the time series in blocks of equal size
+
+```{r}
+layout(matrix(c(1,2),nrow=1), widths=c(2,1))
+plot(1:(12*k),y, main = "", ylab = "", xlab="", col="white")
+for(i in 1:12){
+  lines(((i-1)*k+(1:k)),y[(i-1)*k+(1:k)],type="b",col=colr[i],pch=19)
+}
+```
+
+then we boostrap the blocks : here we consider 12 blocks of length `k <- 8`, `si <- sample(1:12,size=1)` means that we draw the block number
+
+```{r}
+layout(matrix(c(1,2),nrow=1), widths=c(2,1))
+set.seed(4)
+ys <- NULL
+plot(1:(12*k),y, main = "", ylab = "", xlab="", col="white")
+for(i in 1:12){
+  si <- sample(1:12,size=1)
+  ys <- c(ys,y[(si-1)*k+(1:k)])
+  lines(((i-1)*k+(1:k)),y[(si-1)*k+(1:k)],type="b",col=colr[si],pch=19)
+}
+acf(ys,lwd=2,main="",ylim=c(-.45,1))
+```
+
+and create as much boostrapped samples as we wished. Another method is to keep the length of blocks fixed, but we boostrap to get the starting point of the block we keep : we select randomly `si <- sample(1:(length(y)-k),size=1)` 
+
+```{r}
+layout(matrix(c(1,2),nrow=1), widths=c(2,1))
+set.seed(5)
+ys <- NULL
+plot(1:(12*k),y, main = "", ylab = "", xlab="", col="white")
+for(i in 1:12){
+  si=sample(1:(length(y)-k),size=1)
+  ys=c(ys,y[si+(1:k)])
+  lines(((i-1)*k+(1:k)),y[si+(1:k)],type="b",col=colr[i],pch=19)
+}
+acf(ys,lwd=2,main="",ylim=c(-.45,1))
+```
+
+An alternative is to use the same algotithm as previously, but consider blocks of random size `l <- rgeom(1,1/4)+1`
+
+```{r}
+layout(matrix(c(1,2),nrow=1), widths=c(2,1))
+set.seed(7)
+ys <- NULL
+test <- TRUE
+i <- 1
+plot(1:(12*k),y, main = "", ylab = "", xlab="", col="white")
+while(length(ys)<length(y)){
+  i <- i+1
+  l=rgeom(1,1/8)+1
+  si=sample(1:(length(y)-l),size=1)
+  u=length(ys)+1:l
+  ys=c(ys,y[si+1:l])
+  if(test) lines(u,y[si+(1:l)],type="b",col=colr[1+(i %% 12)],pch=19)   
+  if(length(ys)>length(y)){ys=ys[1:length(y)];test=FALSE}
+}
+acf(ys,lwd=2,main="",ylim=c(-.45,1))
+```
+
+### Application of bootstrap in statistical modeling
+
+Consider the following (small) dataset (from John Neter (1974) *Applied Linear Regression Models*, 1974, Table 4.3)
+
+```{r}
+base = data.frame(x=c(125,100,200,75,150,175,75,175,125,200,100),
+                  y=c(160,112,124,28,152,156,42,124,150,104,136))
+plot(base,xlab="Size of Minimum Deposit",
+     ylab="Number of New Accounts",pch=19,ylim=c(30,180))
+```
+
+With some smooth nonlinear regression, it seems that there is a optimal value (in $x$) to get a maximal quantity (in $y$).
+
+```{r}
+scatter.smooth(base$x, base$y,
+               lpars = list(col = "red"),
+               xlab="Size of Minimum Deposit",
+               ylab="Number of New Accounts",
+               ylim=c(30,180),pch=19)
+```
+
+Could it be possible to get a confidence region for the location of the maximum ? One stragtegy could be to use a parabolic regression model, and then to use the *delta method* to derive a confidence interval for the location of the maximum. Consider a parabolic model, $\beta_0+\beta_1x+\beta_2x^2$. The maximum is obtained at $\theta=x^\star=−\beta_1/2\beta_2$. Thus a natural estimator is then $\widehat{\theta}=−\widehat{\beta}_1/2\widehat{\beta}_2$. Observe that
+$$
+  \displaystyle{\frac{\partial \theta}{\partial \beta_1}=\frac{-1}{2\beta_2}}\text{ and } \displaystyle{\frac{\partial \theta}{\partial \beta_2}=\frac{\beta_1}{2\beta_2^2}}
+$$
+  so that the (asymptotic) variance would be
+$$
+  \left[ \frac{-1}{2\beta_2}~~\frac{\beta_1}{2\beta_2^2} \right] \left[ \begin{array}{cc} \sigma_{1}^2 & \sigma_{12} \\ \sigma_{12} & \sigma_{2}^2 \end{array} \right] \left[\frac{-1}{2\beta_2}~~\frac{\beta_1}{2\beta_2^2} \right]^{\text{ T}}
+$$
+  i.e.
+$$
+  \frac{\sigma_1^2\beta_2^2-2\beta_1\beta_2\sigma_{12}+\beta_1^2\sigma_2^2}{4\beta_2^2}
+$$
+  To compute it numerically, use
+```{r}
+quad_model <- lm(y~x+I(x^2),data=base)
+beta  <- coefficients(quad_model) 
+n     <- nrow(base) 
+sigma <- n*vcov(quad_model)[2:3,2:3] 
+dg    <-  c(-.5/beta[3],.5*beta[2]/beta[3]^2) 
+theta <- as.numeric(-beta[2]/(2*beta[3]))
+theta
+```
+for the optimal $x$ and
+```{r}
+s2 <- as.numeric(t(dg) %*% sigma %*% dg)
+sqrt(s2)
+```
+for its (asymptotic) standard error. Thus, a $95\%$ confidence interval would be
+```{r}
+theta+qt(c(.025,.975),n-3)*sqrt(s2)
+```
+Graphically, we get
+```{r}
+base = data.frame(x=c(125,100,200,75,150,175,75,175,125,200,100),
+                  y=c(160,112,124,28,152,156,42,124,150,104,136))
+plot(base,xlab="Size of Minimum Deposit",
+     ylab="Number of New Accounts",pch=19,ylim=c(30,180))
+vx=seq(min(base$x),max(base$x),length=251)
+vy=predict(quad_model,newdata=data.frame(x=vx)) 
+lines(vx,vy,col="red")
+vx1=theta 
+vy1=predict(quad_model,newdata=data.frame(x=vx1))
+points(vx1,vy1,pch=19,cex=1.5,col="red") 
+arrows(vx1-qt(.975,n-3)*sqrt(s2),vy1,vx1+qt(.975,n-3)*sqrt(s2),vy1,code=3,angle=90,length=.1, col="red",lwd=1.2)
+```
+
+An alernative is to use a bootstrap strategy
+
+```{r}
+epsilon <- residuals(quad_model)
+```
+
+```{r, animation.hook='gifski', eval = ANIMATION}
+pic_ani = function(){
+  plot(base,xlab="Size of Minimum Deposit",
+       ylab="Number of New Accounts",pch=1,col="grey",ylim=c(30,180))
+  sim_base <- data.frame(x=base$x,
+                         y=predict(quad_model)+
+                           sample(epsilon,size=nrow(base),replace=TRUE))
+  points(sim_base,pch=19)
+  sim_quad_model <- lm(y~x+I(x^2), data=sim_base)
+  svx=seq(min(base$x),max(base$x),length=251)
+  svy=predict(sim_quad_model,newdata=data.frame(x=vx)) 
+  lines(vx,vy,col="red",lty=2,lwd=.4)
+  lines(svx,svy,col="red")
+  sim_beta  <- coefficients(sim_quad_model) 
+  sim_theta <- -sim_beta[2]/(2*sim_beta[3]) 
+  vx1=sim_theta 
+  vy1=predict(sim_quad_model,newdata=data.frame(x=vx1))
+  points(vx1,vy1,pch=19,cex=1.5,col="red") 
+}
+for (i in 1:30) {pic_ani()}
+```
+
+Here, we just store the value of $X^\star$ on all generated sample, and we can compute a confidence interval.
+
+```{r}
+ns <- 1e4
+v_theta <- rep(NA, ns)
+for(s in 1:ns){
+  sim_base <- data.frame(x=base$x,
+                         y=predict(quad_model)+
+                           sample(epsilon,size=nrow(base),replace=TRUE))
+  sim_quad_model <- lm(y~x+I(x^2), data=sim_base)
+  sim_beta  <- coefficients(sim_quad_model) 
+  v_theta[s] <- -sim_beta[2]/(2*sim_beta[3]) 
+}
+hist(v_theta,probability = TRUE,col="light blue",border="white",xlab="Location of the Maximum",main="",ylim=c(0,.16))
+lines(density(v_theta),col="red")
+```
+
+Two boostrap confidence intervals can be considered
+
+- the Gaussian type confidence interval $[\bar \theta\pm 1.96 s_\theta]$
+  - empirical quantiles
+
+In the first case the confidence interval would be
+```{r}
+mean(v_theta)+c(-1.96,+1.96)*sd(v_theta)
+```
+In the first case the confidence interval would be
+```{r}
+quantile(v_theta,c(.025,.975))
+```
+to be compared with [`r format(theta+qt(.025,n-3)*sqrt(s2),digit=2)`,`r format(theta+qt(.975,n-3)*sqrt(s2),digit=2)`] obtained using asymptotic approximations.
+
+
+### Cross-Validation and Linear Models
+
+To consider further cross-validation, consider here a model $\widehat{m}$ obtained on $n$ observations. Consider a linear model. A natural measure to quantify goodness of fit is to use the sum of squares of errors,
+
+```{r}
+model <- lm(dist~speed,data=cars)
+sum(residuals(model)^2)
+```
+
+The problem with such a measure is that it does not goes under over-fit : the more complex the model, the lower the sum of squares of errors. Consider either splines (with $k$ degrees of freedom) or a polynomial regression (with $k$ degrees)
+
+```{r}
+library(splines)
+RSS_splines <- function(k) sum(residuals(lm(dist~bs(speed,k),data=cars))^2)
+RSS_polynom <- function(k) sum(residuals(lm(dist~poly(speed,k),data=cars))^2)
+```
+
+Here are the evolutions as a function of $k$
+
+```{r, warning=FALSE, comment=FALSE}
+par(mfrow=c(1,2))
+plot(0:20,Vectorize(RSS_splines)(0:20),type="b",xlab="Spline Regression",ylab="Sum of squares of residuals",ylim=c(6500,12000))
+plot(1:15,Vectorize(RSS_polynom)(1:15),type="b",xlab="Polynomial Regression",ylab="Sum of squares of residuals",ylim=c(6500,12000))
+```
+
+For leave-one-out cross validation,
+
+```{r}
+epsilon <- rep(NA, nrow(cars))
+for(i in 1:length(epsilon)){
+  model <- lm(dist~speed,data=cars[-i,])
+  epsilon[i] <- cars[i,"dist"]-predict(model, newdata=cars[i,])
+}
+sum(epsilon^2)
+```
+
+```{r eval = ANIMATION}
+RSS_splines_cv <- function(k){
+  epsilon <- rep(NA, nrow(cars))
+  for(i in 1:length(epsilon)){
+    model <- lm(dist~bs(speed,k),data=cars[-i,])
+    epsilon[i] <- cars[i,"dist"]-predict(model, newdata=cars[i,])
+  }
+sum(epsilon^2)
+}
+RSS_polynom_cv <- function(k){
+    epsilon <- rep(NA, nrow(cars))
+  for(i in 1:length(epsilon)){
+    model <- lm(dist~poly(speed,k),data=cars[-i,])
+    epsilon[i] <- cars[i,"dist"]-predict(model, newdata=cars[i,])
+  }
+sum(epsilon^2)
+}
+```
+
+```{r, warning=FALSE, comment=FALSE, eval = ANIMATION}
+par(mfrow=c(1,2))
+plot(0:20,Vectorize(RSS_splines)(0:20),type="b",xlab="Spline Regression",ylab="Sum of squares of residuals",ylim=c(6500,20000),col="grey")
+lines(0:20,Vectorize(RSS_splines_cv)(0:20),type="b")
+plot(1:15,Vectorize(RSS_polynom)(1:15),type="b",xlab="Polynomial Regression",ylab="Sum of squares of residuals",ylim=c(6500,20000),col="grey")
+lines(1:15,Vectorize(RSS_polynom_cv)(1:15),type="b")
+```
+
+We can clearly observe that assessing the quality of a model by looking at predictions obtained on the data used to fit the model is not valid! And cross-validation might be a good way of doing it.
+
+A natural extension of the Leave-One-Out is the $k$-*Folds Cross Validation*
+
+```{r, comment=FALSE, warning=FALSE, eval = ANIMATION}
+indices <- sample(nrow(cars))
+List_indices = list()
+for(i in 1:7) List_indices[[i]] <- which((indices %% 7) == (i-1))
+List_indices
+epsilon <- list()
+for(i in 1:length(List_indices)){
+  model <- lm(dist~speed,data=cars[-List_indices[[i]],])
+  epsilon[[i]] <- cars[List_indices[[i]],"dist"]-predict(model, newdata=cars[List_indices[[i]],])
+}
+sum(unlist(epsilon)^2)
+```
+
+
+

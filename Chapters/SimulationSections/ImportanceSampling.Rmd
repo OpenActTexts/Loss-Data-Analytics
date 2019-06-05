@@ -1,0 +1,86 @@
+<!-- ## Importance Sampling -->
+
+We have introduced Monte Carlo techniques using the inversion technique : to generate a random variable $X$ with distribution $F$, apply $F^{-1}$ to calls of a random generator (uniform on the unit interval). What if we what to draw according to $X$, conditional on $X\in[a,b]$ ?
+
+One can use an **accept-reject** mechanism : draw $x$ from distribution $F$
+
+- if $x\in[a,b]$ : keep it ("*accept*")
+- if $x\notin[a,b]$ : draw another one ("*reject*")
+
+Observe that from $n$ values initially generated, we keep here only $[F(b)-F(a)]\cdot n$ draws, on average.
+
+```{r sampleani1, animation.hook='gifski', eval = ANIMATION}
+#install.packages('gifski')
+#if (packageVersion('knitr') < '1.20.14') {
+#  remotes::install_github('yihui/knitr')
+#}
+pic_ani = function(){
+  u=seq(0,5,by=.01)
+  plot(u,pnorm(u,2.5,1),col="white",ylab="",xlab="")
+  rect(-1,-1,6,2,col=rgb(1,0,0,.2),border=NA)
+  rect(2,pnorm(2,2.5,1),4,pnorm(4,2.5,1),col="white",border=NA)
+  lines(u,pnorm(u,2.5,1),lwd=2)
+  abline(v=c(2,4),lty=2,col="red")
+  ru <- runif(1)
+  clr <- "red"
+  if((qnorm(ru,2.5,1)>=2)&(qnorm(ru,2.5,1)<=4)) clr <- "blue"
+  segments(-1,ru,qnorm(ru,2.5,1),ru,col=clr,lwd=2)
+  arrows(qnorm(ru,2.5,1),ru,qnorm(ru,2.5,1),0,col=clr,lwd=2,length = .1)
+}
+for (i in 1:30) {pic_ani()}
+```
+
+An alternative is draw according to the conditional distribution $F^star$ defined as
+$$
+dF^\star(x) = \frac{dF(x)}{F(b)-F(a)}\boldsymbol{1}(x\in[a,b])
+$$
+This can be related to the **importance sampling** mechanism : we draw more frequently in regions where we expect to have quantities that have some interest. So we consider a change of measure.
+
+```{r sampleani_IS_1, animation.hook='gifski', eval = ANIMATION}
+#install.packages('gifski')
+#if (packageVersion('knitr') < '1.20.14') {
+#  remotes::install_github('yihui/knitr')
+#}
+pic_ani = function(){
+  u=seq(0,5,by=.01)
+  plot(u,pnorm(u,2.5,1),col="white",ylab="",xlab="")
+  rect(-1,-1,6,2,col=rgb(1,0,0,.2),border=NA)
+  rect(2,-1,4,2,col="white",border=NA)
+  lines(u,pnorm(u,2.5,1),lty=2)
+  pnormstar <- Vectorize(function(x){
+    y=(pnorm(x,2.5,1)-pnorm(2,2.5,1))/(pnorm(4,2.5,1)-pnorm(2,2.5,1))
+    if(x<=2) y <- 0
+    if(x>=4) y <- 1
+    return(y)
+    })
+  qnormstar <- function(u) as.numeric(uniroot((function (x) pnormstar(x) - u), lower = 2, upper = 4)[1])
+  lines(u,pnormstar(u),lwd=2)
+  abline(v=c(2,4),lty=2,col="red")
+  ru <- runif(1)
+  segments(-1,ru,qnormstar(ru),ru,col="blue",lwd=2)
+  arrows(qnormstar(ru),ru,qnormstar(ru),0,col="blue",lwd=2,length = .1)
+}
+for (i in 1:30) {pic_ani()}
+```
+
+But one can use an alternative representation, where we constraint on the $y$-axis, to have only values between $F^{-1}(a)$ and $F^{-1}(b)$. Thus, from $u$ (drawn from a uniform distribution on the unit interval), consider
+$$
+\tilde{u}=(1-u)\cdot F(a)+u\cdot F(b)
+$$
+and then use $F^{-1}(\tilde{u})$,
+
+```{r sampleani_IS_2, animation.hook='gifski', eval = ANIMATION}
+pic_ani = function(){
+  u=seq(0,5,by=.01)
+  plot(u,pnorm(u,2.5,1),col="white",ylab="",xlab="")
+  rect(-1,-1,6,2,col=rgb(1,0,0,.2),border=NA)
+  rect(2,pnorm(2,2.5,1),4,pnorm(4,2.5,1),col="white",border=NA)
+  lines(u,pnorm(u,2.5,1),lwd=2)
+  abline(h=pnorm(c(2,4),2.5,1),lty=2,col="red")
+  ru <- runif(1)
+  rutilde <- (1-ru)*pnorm(2,2.5,1)+ru*pnorm(4,2.5,1)
+  segments(-1,rutilde,qnorm(rutilde,2.5,1),rutilde,col="blue",lwd=2)
+  arrows(qnorm(rutilde,2.5,1),rutilde,qnorm(rutilde,2.5,1),0,col="blue",lwd=2,length = .1)
+}
+for (i in 1:30) {pic_ani()}
+```

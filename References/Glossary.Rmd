@@ -1,0 +1,48 @@
+
+```{r echo = FALSE}
+Gloss_data <- read.csv("References/GlossFct.csv", header = TRUE)
+Gloss_data$Term = trimws(tolower(Gloss_data$Term))
+
+A1 <- '<a href="#" class="tooltip" style="color:green">*'
+A2 <- '*<span style="font-size:8pt">'
+A3 <- '</span></a>'
+
+Glossfunction <- function(term){
+  temp2 <- which(Gloss_data == trimws(tolower(term)), arr.ind = TRUE)
+  ifelse(length(temp2) == 0, return(''), return(Gloss_data[temp2[[1]],2]))
+}
+
+Gloss <- function(term){
+  return(paste(A1,term,A2,Glossfunction(term),A3, sep=""))
+}
+
+GlossNo <- function(term){
+  return(term)
+}
+
+```
+
+```{r echo = FALSE}
+
+B1 <- '<h5 style="text-align: center;"><a id="displayExample.'
+B2 <- ' href="javascript:toggleEX(\'toggleExample.'
+B3 <- '\',\'displayExample.'
+B4 <- '\');"><i><strong>Show Example Solution</strong></i></a> </h5><div id="toggleExample.'
+B5 <- '" style="display: none">'
+
+HideExample <- function(arg){
+  return(paste(B1,arg,'"',B2,arg,B3,arg,B4,arg,B5, sep=""))
+} 
+
+C1 <- '<h5 style="text-align: center;"><a id="displayCode.'
+C2 <- ' href="javascript:togglecode(\'toggleCode.'
+C3 <- '\',\'displayCode.'
+C4a<- '\');"><i><strong>'
+C4b<- '</strong></i></a> </h5><div id="toggleCode.'
+C5 <- '" style="display: none">'
+
+HideRCode <- function(arg1,arg2){
+  return(paste(C1,arg1,'"',C2,arg1,C3,arg1,C4a,arg2,C4b,arg1,C5, sep=""))
+}
+```
+

@@ -1,0 +1,183 @@
+
+It is common to consider aggregate portfolios, or groups, of insurance experience. Consistent with earlier notation, consider a collection of *n* contracts with losses $X_1, \ldots, X_n$. In this section, we assume that contracts have the same loss distribution, that is they form a homogeneous portfolio, and so are *iid*. For motivation, you can think about personal insurance such as auto or homeowners where insurers write many contracts on risks that appear very similar. Further, the assumption of identical distributions is not as limiting as you might think. In Section \@ref(S:ExposureToRisk) we will introduce the idea of an *exposure* variable that allows us to rescale experience to make it comparable. For example, by rescaling losses we will be able to treat homeowner losses from a $100,000 house and a $200,000 house as coming from the same distribution. For now, we will simply assume that $X_1, \ldots, X_n$ are *iid*.
+
+
+<!-- ## Pure Premium Method -->
+
+### Pure Premium Method {#S:PurePremium}
+
+If the number in the group, *n*, is large, then the average provides a good approximation of the expected loss
+$$
+\small{
+\mathrm{E}(X) \approx \frac{\sum_{i=1}^n X_i}{n} = \frac{\text{Loss}}{\text{Exposure}} = \text{Pure Premium}.
+}
+$$
+With this as motivation, we define the **pure premium** to be the sum of losses divided by the exposure; it is also known as a **loss cost.** In the case of homogeneous risks, all policies are treated the same and we can use the number of policies *n* for the exposure. In Section \@ref(S:ExposureToRisk) we extend the concept of exposure when policies are not all the same.
+
+We can multiply and divide by the number of claims to get
+$$
+\small{
+\text{Pure Premium} = \frac{\text{claim count}}{\text{Exposure}} \times \frac{\text{Loss}}{\text{claim count}} = \text{frequency} \times \text{severity} .
+}
+$$
+
+So, when premiums are determined using the pure premium method, we either take the average loss (loss cost) or use the frequency severity approach. 
+
+To get a bit closer to applications in practice, we now return to equation \@ref(eq:AccountingEquation) to include expenses. Equation \@ref(eq:AccountingEquation) also refers to `UW Profit` for underwriting profit. When rescaled by premiums, this is known as the *profit loading.* Because claims are uncertain, the insurer must hold capital to ensure that all claims are paid. Holding this extra capital is a cost of doing business, investors in the company need to be compensated for this, thus the extra loading.
+
+Thinking of variable expenses and profit as a fraction of premiums, we define
+
+$$
+\small{
+V =  \frac{\text{Variable}}{\text{Premium}} ~~~ \text{and}~~~
+Q = \frac{\text{UW Profit}}{\text{Premium}} ~.
+}
+$$
+
+With these definitions and equation  \@ref(eq:AccountingEquation), we may write
+$$
+\small{
+\begin{matrix}
+\begin{array}{ll}
+\text{Premium} &= \text{Losses + Fixed} + \text{Premium} \times \frac{\text{Variable + UW Profit}}{\text{Premium}}  \\
+& = \text{Losses + Fixed} + \text{Premium} \times (V+Q) .
+\end{array}
+\end{matrix}
+}
+$$
+Solving for premiums yields
+
+\begin{equation}
+\small{
+\text{Premium} = \frac{\text{Losses + Fixed}}{1-V-Q} .
+}
+(\#eq:PremiumEquation)
+\end{equation}
+
+Dividing by exposure, the rate can be calculated as
+
+$$
+\begin{matrix}
+\begin{array}{ll}
+\text{Rate} &= \frac{\text{Premium}}{\text{Exposure}} = \frac{\text{Losses/Exposure + Fixed/Exposure}}{1-V-Q} \\
+&=   \frac{\text{Pure Premium + Fixed/Exposure}}{1-V-Q} ~.
+\end{array}
+\end{matrix}
+$$
+
+In words, this is
+
+$$
+\small{
+\text{Rate} =\frac{\text{pure premium + fixed expense per exposure}}{\text{1 - variable expense factor - profit and contingencies factor}}  .
+}
+$$
+
+**Example. CAS Exam 5, 2004, Number 13.** Determine the indicated rate per exposure unit, given the following information:
+
+- Frequency per exposure unit = 0.25
+- Severity = \$100
+- Fixed expense per exposure unit = \$10
+- Variable expense factor = 20\%
+- Profit and contingencies factor = 5\%
+
+
+**Solution.** Under the pure premium method, the indicated rate is
+
+$$
+\begin{matrix}
+\begin{array}{ll}
+\text{Rate} &=  \frac{\text{pure premium + fixed expense per exposure}}{\text{1 - variable expense factor - profit and contingencies factor}}\\
+&= \frac{\text{frequency} \times \text{severity} ~+~10}{1-0.20-0.05} = \frac{0.25 \times 100 +10}{1-0.20-0.05} = 46.67 .
+\end{array}
+\end{matrix}
+$$
+
+***
+
+From the example, note that the rates produced by the pure premium method are commonly known as **indicated** rates.
+
+From our development, note also that the profit is associated with underwriting aspect of the contract and not investments. Premiums are typically paid at the beginning of a contract and insurers receive investment income from holding this money. However, due in part to the short-term nature of the contracts, investment income is typically ignored in pricing. This builds a bit of conservatism into the process that insurers welcome. It is probably most relevant in the very long "tail" lines such as workers' compensation and medical malpractice. In these lines, it can sometimes take 20 years or even longer to settle claims. But, these are also the most volatile lines; claim payments far in the future are less extreme when viewed in discounted sense. 
+
+
+### Loss Ratio Method {#S:LossRatio} 
+
+The **loss ratio** is the ratio of the sum of losses to the premium
+
+$$
+\small{
+\text{Loss Ratio} = \frac{\text{Loss}}{\text{Premium}} .
+}
+$$
+
+When determining premiums, it is a bit counter-intuitive to emphasize this ratio because the premium component is built into the denominator. As we will see, the idea is that the loss ratio method develops rate **changes** rather than rates; we can use rate changes to update past experience to get a current rate. To do this, rate changes consist of the ratio of the experience loss ratio to the target loss ratio. This adjustment factor is then applied to current rates to get new indicated rates.
+
+To see how this works in a simple context, let us return to equation \@ref(eq:AccountingEquation) but now ignore expenses to get $\small{\text{Premium = Losses  + UW Profit}}$. Dividing by premiums yields
+
+$$
+\small{
+\frac{\text{UW Profit}}{\text{Premium}} = 1 - LR = 1 - \frac{\text{Loss}}{\text{Premium}} .
+}
+$$
+Suppose that we have in mind a new "target" profit loading, say *Q*. Assuming that losses, exposure, and other things about the contract stay the same, then to achieve the new target profit loading we adjust the premium. Use the *ICF* for the "indicated change factor" that is defined through the expression
+
+$$
+\small{
+\frac{\text{new UW Profit}}{\text{Premium}} = Q =  1 - \frac{\text{Loss}}{ICF \times \text{Premium}}.
+}
+$$
+Solving for *ICF*, we get
+
+$$
+\small{
+ICF =  \frac{\text{Loss}}{\text{Premium} \times (1-Q)} = \frac{LR}{1-Q}.
+}
+$$
+
+So, for example, if we have a current loss ratio = 85% and a target profit loading $\small{Q=0.20}$, then $\small{ICF = 0.85/0.80 = 1.0625}$, meaning that we increase premiums by 6.25%.
+
+Now let's see how this works with expenses in equation \@ref(eq:AccountingEquation). We can use the same development as in Section \@ref(S:PurePremium) and so start with equation \@ref(eq:PremiumEquation), solve for the profit loading to get
+
+$$
+\small{
+Q = 1 - \frac{\text{Loss+Fixed}}{\text{Premium}} - V .
+}
+$$
+We interpret the quantity `Fixed /Premium + V` as the "operating expense ratio." Now, fix the profit percentage *Q* at a target and adjust premiums through the "indicated change factor" $ICF$
+$$
+\small{
+Q = 1
+-\frac{\text{Loss + Fixed}}{\text{Premium}\times ICF} - V .
+}
+$$
+Solving for $ICF$ yields
+
+\begin{equation}
+\small{
+ICF = \frac{\text{Loss + Fixed}}{\text{Premium} \times (1 - V - Q)} .
+}
+(\#eq:IndicatedChangeFactor)
+\end{equation}
+
+**Example. Loss Ratio Indicated Change Factor.** Assume the following information:
+
+- Projected ultimate loss and LAE ratio = 65%
+- Projected fixed expense ratio = 6.5%
+- Variable expense  = 25%
+- Target UW profit = 10%
+
+With these assumptions, with equation \@ref(eq:IndicatedChangeFactor), the indicated change factor can be calculated as
+$$
+\small{
+ICF = \frac{\text{(Losses + Fixed)}/\text{Premium}}{ 1 - V - Q} = \frac{0.65 + 0.065}{1- 0.25 - 0.10} = 1.10 .
+}
+$$
+
+This means that overall average rate level should be increased by 10%.
+
+***
+
+
+
+We later provide a comparison of the pure premium and loss ratio methods in Section \@ref(S:CompareMethods). As inputs, this section will require  discussions of trended exposures and *on-level* premiums defined in Section \@ref(S:TrendDevelopment).
+

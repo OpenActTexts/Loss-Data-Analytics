@@ -1,0 +1,364 @@
+<!-- ###  TrendDevelopment.Rmd {#S:TrendDevelopment} -->
+
+Insurers need to report information on their exposures to risk, premium, claims, and payments. They do so on an aggregate basis for financial reports that are created at least annually and oftentimes quarterly. As we have seen in Section \@ref(S:AggRateMaking), they also consider this aggregate information for ratemaking.
+Information about the risks, such as exposures, premium, claim counts, losses, and rating factors, is typically organized into three databases:
+
+* *policy database* - contains information about the risk being insured, the policyholder, and the contract provisions
+* *claims database* - contains information about each claim; these are linked to the policy database.
+* *payment database* - contains information on each claims transaction, typically payments but may also changes to *case reserves*. These are linked to the claims database.
+
+With these detailed databases, it is straightforward (in principle) to sum up policy level detail to aggregate information needed for financial reports. This section describes various summary measures commonly used.
+
+Further, the aggregate level detail is useful in ratemaking because many expenses, such as underwriting, are typically only available at the aggregate level.
+
+### Exposures and Premiums
+
+A financial reporting period is a length of time that is fixed in the calendar; we use January 1 to December 31 for the examples in this book although other reporting periods are also common. The reporting period is fixed but policies may begin at any time during the year. Even if all policies have a common contract length of (say) one year, because of the variable starting time, they can end at any time during the financial reporting. Figure 
+\@ref(fig:Exposures) presents four illustrative policies. Because of these variable starting and end times, there needs to be some standards as to what types of measures are most useful for summarizing experience in a given reporting period.
+
+
+(ref:Exposures) Timeline of Exposures for Four 12-Month Policies.
+
+```{r Exposures, fig.cap='(ref:Exposures)', out.width='50%',  fig.asp=0.5, fig.align='center', echo=FALSE}
+plot.new() 
+par(mar = c(0,0,0,0), cex = 0.9)
+y <- 1:5/2 +2
+plot.window(xlim = c(0,20), ylim = c(2.2,5))
+x <- 2*(1:10)
+#  Main Time Line
+arrows(x[1], y[5] , x[10], y[5], code = 2, lwd = 4, angle = 25, length = 0.10)
+text(0,y[5]+.5,labels="Calendar Time", adj = 0, cex = 1.2)
+text(x[1],y[5],labels="X", adj = 0, cex = 1.4)
+text(x[1], y[5]+.25, labels="1 Jan 2019", adj = 0, cex = 0.8)
+text(x[5],y[5],labels="X", adj = 0, cex = 1.4)
+text(x[5], y[5]+.25, labels="1 Jan 2020", adj = 0, cex = 0.8)
+text(x[9],y[5],labels="X", adj = 0, cex = 1.4)
+text(x[9], y[5]+.25, labels="1 Jan 2020", adj = 0, cex = 0.8)
+# Policy A
+arrows(x[1], y[4] , x[5], y[4], code = 2, lwd = 1, angle = 0, length = 0.10)
+text(0,y[4],labels="A", adj = 0, cex = 1.0)
+text(x[1],y[4],labels="|", adj = 0, cex = 1.4)
+text(x[5],y[4],labels="|", adj = 0, cex = 1.4)
+# Policy B
+arrows(x[2], y[3] , x[6], y[3], code = 2, lwd = 1, angle = 0, length = 0.10)
+text(0,y[3],labels="B", adj = 0, cex = 1.0)
+text(x[2],y[3],labels="|", adj = 0, cex = 1.4)
+text(x[6],y[3],labels="|", adj = 0, cex = 1.4)
+# Policy C
+arrows(x[3], y[2] , x[7], y[2], code = 2, lwd = 1, angle = 0, length = 0.10)
+text(0,y[2],labels="C", adj = 0, cex = 1.0)
+text(x[3],y[2],labels="|", adj = 0, cex = 1.4)
+text(x[7],y[2],labels="|", adj = 0, cex = 1.4)
+# Policy D
+arrows(x[4], y[1] , x[8], y[1], code = 2, lwd = 1, angle = 0, length = 0.10)
+text(0,y[1],labels="D", adj = 0, cex = 1.0)
+text(x[4],y[1],labels="|", adj = 0, cex = 1.4)
+text(x[8],y[1],labels="|", adj = 0, cex = 1.4)
+
+```
+
+
+The most commonly used exposure statistics are:
+
+- *written exposures*, the amount of exposures on policies issued (underwritten or written) during the period in question,
+- *earned exposures*, the exposure units actually exposed to loss during the period, that is, where coverage has already been provided
+- *unearned exposures*, represent the portion of the written exposures for which coverage has not yet been provided as of that point in time, and
+-  *in force exposures*, exposure units exposed to loss at a given point in time.
+
+[Table 7.12] gives detailed illustrative calculations for the four illustrative policies.
+
+<a id=tab:7.12></a> 
+
+[Table 7.12]: \#tab:7.12
+
+$$
+\small{
+\begin{matrix}
+\begin{array}{cl|cc|cc|cc|c}
+  \hline
+&  & & & & & &&\text{In-Force} \\
+&\text{Effective} & \text{Written}& \text{Exposure} & \text{Earned} &\text{Exposure}& \text{Unearned} &\text{Exposure}&  \text{Exposure} \\
+{Policy} &\text{Date}         & 2019 & 2020 & 2019 & 2020 & 2019 & 2020 & \text{1 Jan 2020} \\   \hline
+\text{A}&\text{1 Jan 2019}   & 1.00 & 0.00 & 1.00 & 0.00& 0.00 & 0.00 & 0.00 \\
+\text{B}&\text{1 April 2019} & 1.00 & 0.00 & 0.75 & 0.25 & 0.25 & 0.00& 1.00 \\
+\text{C}&\text{1 July 2019}  & 1.00 & 0.00 & 0.50 & 0.50 & 0.50 & 0.00& 1.00 \\
+\text{D}&\text{1 Oct 2019}   & 1.00 & 0.00 & 0.25 & 0.75 & 0.75 & 0.00& 1.00 \\ \hline
+ &  Total       & 4.00 & 0.00 & 2.50 & 1.50 & 1.50 & 0.00 & 3.00 \\
+  \hline
+  \hline
+\end{array}
+\end{matrix}
+}
+$$
+[Table 7.12]:  Exposures for Four 12-Month Policies
+
+
+This summarization is sometimes known as the *calendar year* method of aggregation to serve as a contrast to the *policy year* method. In the latter method, all policies start at the beginning of the year. This method is useful for ratemaking methods based on individual contracts and we do not pursue this further here.
+
+In the same way as exposures, one can summarizes premiums. Premiums, like exposures, can be either *written*, *earned*, *unearned*, or *in force*. Consider the following example.
+
+**Example. `r chapnum`.5.1. CAS Exam 5, 2003, Number 10.** A 12-month policy is written on March 1, 2002 for a premium of $900. As of December 31, 2002, which of the following is true?
+
+$$
+\small{
+\begin{matrix}
+\begin{array}{l|ccc}
+  \hline
+& \text{Calendar Year} & \text{Calendar Year} \\
+& \text{2002 Written} & \text{2002 Earned} & \text{Inforce} \\
+& \text{Premium} & \text{Premium}  & \text{Premium}  \\\hline
+A. & 900 & 900 & 900 \\
+B. & 750 & 750 & 900 \\
+C. & 900 & 750 & 750 \\
+D. & 750 & 750 & 750 \\
+E. & 900 & 750 & 900 \\\hline
+\end{array}
+\end{matrix}
+}
+$$
+
+
+<h5 style="text-align: center;"><a id="displayTextExamplePremium.5.1" href="javascript:toggleEX('toggleExamplePremium.5.1','displayTextExampleSPremium.5.1');"><i><strong>Show Example Solution</strong></i></a> </h5>
+<div id="toggleExamplePremium.5.1" style="display: none">
+
+Only earned premium differs from written premium and inforce premium and therefore needs to be computed. Thus, earned premium at Dec 31, 2002, equals $\$900 \times 10/12 = \$750$. Answer E.
+
+***
+
+</div>
+
+
+
+
+###Losses, Claims, and Payments
+
+Broadly speaking, a *loss* is the amount of compensation paid or payable to the claimant under the terms of the insurance policy. Definitions for loss and *claim* can vary:
+
+* Sometimes, the term *claim* is used interchageably with the term *loss*. 
+* In some insurance and actuarial sources, the term *loss* is used for the amount of damage sustained in an insured event. The *claim* is the amount paid by the insurer with differences typically due to deductibles, upper policy limits, and the like. 
+* In economic usages, a *claim* is a demand  for payment by an insured  or by  an injured third-party  under the terms and conditions of insurance contract and the *loss* is the amount paid by the insurer.
+
+This text will follow the second bullet. However, when reading other sources, you will need to take care when thinking about definitions for the terms loss and claim.
+
+To set additional terminology, it is helpful to follow the timeline of a claim as it develops. In Figure \@ref(fig:ClaimDevelopment), the claim occurs at time $t_1$ and the insuring company is notified at time $t_3$. There can be a long gap between occurrence and notification such that the
+end of a company financial reporting period, known as a *valuation date*, occurs ($t_2$). In this case, the claim is said to be
+*incurred but not reported* at this valuation date.
+
+After claim notification, there may one or more loss payments. Not all of the payments may be made by the next valuation date ($t_4$).
+As the claim develops, eventually the company deems its financial obligations on the claim to be resolved and declares the claim
+*closed.* However, it is possible that new facts arise and the claim must be re-opened, giving rise to additional loss payments
+prior to being closed again.
+
+(ref:ClaimDevelopment) Timeline of Claim Development.
+
+```{r ClaimDevelopment, fig.cap='(ref:ClaimDevelopment)', out.width='75%',  fig.asp=0.5, fig.align='center', echo=FALSE}
+plot.new()
+par(mar=c(0,0,0,0), cex=1.1)
+plot.window(xlim=c(0,20),ylim=c(0,10))
+
+arrows(1,1,19.8,1,code=2,lwd=2,angle=25,length=0.10)
+text(0,2,labels="Occurrence",adj=0, cex=0.8)
+
+text(3,4,labels="Valuation\nDate 1",adj=0, cex=0.8)
+text(4,2,labels="Notification",adj=0, cex=0.8)
+text(6,8,labels="Loss Payments",adj=0, cex=0.8)
+text(9,4,labels="Valuation\nDate 2",adj=0, cex=0.8)
+text(11,8,labels="Loss\nPayments",adj=0, cex=0.8)
+text(13,2,labels="Closure",adj=0, cex=0.8)
+text(14.5,4,labels="Re-\nOpening",adj=0, cex=0.8)
+text(16,8,labels="Loss\nPayments",adj=0, cex=0.8)
+text(18,4,labels="Closure",adj=0, cex=0.8)
+
+arrows(3.8,3.3,3.8,1.2,code=2,lwd=2,angle=25,length=0.10)
+arrows(9.8,3.3,9.8,1.2,code=2,lwd=2,angle=25,length=0.10)
+arrows(15.3,3.3,15.3,1.2,code=2,lwd=2,angle=25,length=0.10)
+arrows(18.8,3.3,18.8,1.2,code=2,lwd=2,angle=25,length=0.10)
+
+arrows(6.8,7.7,6.8,1.2,code=2,lwd=2,angle=25,length=0.10)
+arrows(7.1,7.7,7.1,1.2,code=2,lwd=2,angle=25,length=0.10)
+arrows(7.9,7.7,7.9,1.2,code=2,lwd=2,angle=25,length=0.10)
+
+arrows(11.4,7.2,11.4,1.2,code=2,lwd=2,angle=25,length=0.10)
+arrows(12,7.2,12,1.2,code=2,lwd=2,angle=25,length=0.10)
+
+arrows(16.6,7.2,16.6,1.2,code=2,lwd=2,angle=25,length=0.10)
+arrows(17,7.2,17,1.2,code=2,lwd=2,angle=25,length=0.10)
+
+text(1,1,labels="X",adj=0, cex=0.8)
+text(4.8,1,labels="X",adj=0, cex=0.8)
+text(13.8,1,labels="X",adj=0, cex=0.8)
+
+text(1,0.3,expression(t[1]),adj=0, cex=0.8)
+text(3.8,0.3,expression(t[2]),adj=0, cex=0.8)
+text(4.8,0.3,expression(t[3]),adj=0, cex=0.8)
+text(9.8,0.3,expression(t[4]),adj=0, cex=0.8)
+```
+
+
+- *Accident date* - the date of the occurrence which gave rise to the claim. This is also known as the *date of loss* or the *occurrence date*.
+- *Report date* - the date the insurer  receives notice of the claim. Claims not currently known by the insurer are referred to as unreported claims or *incurred but not reported (IBNR) claims*.
+
+Until the claim is settled, the reported claim is considered an *open claim*. Once the claim is settled, it is categorized as a *closed claim*. In some instances, further activity may occur after the claim is closed, and the claim may be re-opened.
+
+
+Recall that a  loss is the amount paid or payable to claimants under the terms of insurance policies. Further, we have
+
+- *Paid losses* are those losses for a particular period that have actually been paid to claimants.
+- Where there is an expectation that payment will be made in the future, a claim will have an associated  *case reserve*  representing the estimated amount of that payment.
+- *Reported Losses*, also known as  *case incurred*, is Paid Losses + Case Reserves
+
+
+The *ultimate loss* is the amount of money required to close and settle all claims for a defined group of policies.
+
+
+
+
+### Comparing Pure Premium and Loss Ratio Methods {#S:CompareMethods}
+
+Now that we have learned how exposures, premiums, and claims develop over time, we can consider how they can be used for ratemaking. We have seen that insurers offer many different types of policies that cover different policyholders and amounts of risks. This aggregation is sometimes loosely referred to as the *mix of business*. Importantly, the mix changes over time as policyholders come and go, amounts of risks change, and so forth. The exposures, premiums, and types of risks from a prior financial reporting may not be representative of the period that rates are being developed for. The process of extrapolating exposures, premiums, and risk types is known as **trending**. For example, an *on-level earned premium* is that earned premium that would have resulted for the experience period had the current rates been in effect for the entire period. Most trending methods used in practice are mathematically straight-forward although they can become complicated given the contractual and adminstrative complexities. We refer the reader to standard references that describe approaches in details such as @werner2016basic and @friedland2013fundamentals.
+
+#### Loss Ratio Method {-}
+
+The expression for the loss ratio method indicated change factor in equation \@ref(eq:IndicatedChangeFactor) assumes a certain amount of consistency in the portfolio experience over time. For another approach, we can define the *experience loss ratio* to be:
+$$
+\small{
+LR_{experience} = \frac{\text{experience losses}}{\text{experience period earned exposure}\times \text{current rate}}  .
+}
+$$
+
+Here, we think of the experience period earned exposure $\times$ current rate as the experience premium.
+
+Using equation \@ref(eq:PremiumEquation), we can write a loss ratio as 
+$$
+\small{
+LR = \frac{\text{Losses}}{\text{Premium}}=\frac{1-V-Q}{\text{(Losses + Fixed)}/\text{Losses}}=\frac{1-V-Q}{1+G} ~,
+}
+$$
+where $G = \text{Fixed} / \text{Losses}$, the ratio of fixed expenses to premiums. With this expression, we define the *target loss ratio*
+$$
+\small{
+LR_{target} = 
+\frac{1-V-Q}{1+G} = \frac{1-\text{premium related expense factor - profit and contingencies factor}}
+{1+\text{ratio of non-premium related expenses to losses}}  .
+}
+$$
+
+
+With these, the indicated change factor is
+
+\begin{equation}
+\small{
+ICF =\frac{LR_{experience}}{LR_{target}}.
+}
+(\#eq:RevisedIndicatedChangeFactor)
+\end{equation}
+
+
+Comparing equation \@ref(eq:IndicatedChangeFactor) to \@ref(eq:RevisedIndicatedChangeFactor), we see that the latter offers more flexibility to explicitly incorporate trended experience. As the loss ratio method is based on rate changes, this flexibility is certainly warranted.
+
+
+#### Comparison of Methods {-}
+
+Assuming that exposures, premiums, and claims have been trended to be representative of a period that rates are being developed for, we are now in a position to compare the pure premium and loss ratio methods for ratemaking. We start with the observation that for the same data inputs, these two approaches produce the same results. That is, they are algebraically equivalent. However, the rely on different inputs:
+
+$$
+\small{
+\begin{array}{l|l}\hline
+\text{Pure Premium Method} & \text{Loss Ratio Method} \\ \hline
+\text{Based on exposures} & \text{Based on premiums} \\
+\text{Does not require existing rates} & \text{Requires existing rates} \\
+\text{Does not use on-level premiums} & \text{Uses on-level premiums} \\
+\text{Produces indicated rates} & \text{Produces indicated rate changes} \\
+  \hline
+\end{array}
+}
+$$
+
+Comparing the pure premium and loss ratio methods, we note that:
+
+- The pure premium method requires well-defined, responsive exposures.
+- The loss ratio method cannot be used for new business because  it produces indicated rate changes.
+- The pure premium method is preferable where on-level premium is difficult to calculate.  In some instances, such as commercial lines where individual risk rating adjustments are made to individual policies, it is difficult to determine the on-level  earned premium required for the loss ratio method.
+
+
+In many developed countries like the US where lines of business have been in existence, the loss ratio approach is more popular.
+
+**Example. `r chapnum`.5.2. CAS Exam 5, 2006, Number 36.** You are given the following information:
+
+- Experience period on-level earned premium = $500,000
+- Experience period trended and developed losses = $300,000
+- Experience period earned exposure = 10,000
+- Premium-related expenses factor = 23%
+- Non-premium related expenses = $21,000
+- Profit and contingency factor = 5%
+
+(a) Calculate the indicated rate level change using the loss ratio method.
+(b) Calculate the indicated rate level change using the pure premium method.
+(c) Describe one situation in which it is preferable to use the loss ratio method, and one situation in which it is preferable to use the pure premium method.
+
+
+<h5 style="text-align: center;"><a id="displayTextExamplePremium.5.2" href="javascript:toggleEX('toggleExamplePremium.5.2','displayTextExampleSPremium.5.2');"><i><strong>Show Example Solution</strong></i></a> </h5>
+<div id="toggleExamplePremium.5.2" style="display: none">
+
+(a) We will calculate the experience and target loss ratios, then take the ratio to get the indicated rate change. The experience loss ratio is
+$$
+\small{
+LR_{experience} =  \frac{\text{experience losses}}{\text{experience period premium}} =\frac{300000}{500000} = 0.60.
+}
+$$
+The target loss ratio is:
+
+$$
+\small{
+\begin{matrix}
+\begin{array}{ll}
+LR_{target} 
+&= \frac{1-V-Q}{1+G} = \frac{1-\text{premium related expense factor - profit and contingencies factor}}
+{1+\text{ratio of non-premium related expenses to losses}}\\
+&= \frac{1-0.23 - 0.05}{1+0.07} = 0.673  .
+\end{array}
+\end{matrix}
+}
+$$
+
+Here, the ratio of non-premium related expenses to losses is $G = \frac{21000}{300000} = 0.07$.
+
+Thus, the (new) indicated rate level change is
+
+$$
+\small{
+ICF =\frac{LR_{experience}}{LR_{target}} -1  = \frac{0.60}{0.673} -1 = -10.8\%.
+}
+$$
+(b) Using the pure premium method, the indicated change factor, $ICF$, is
+
+$$
+\small{
+\begin{matrix}
+\begin{array}{ll}
+ICF 
+&= \frac{\text{Losses + Fixed}}{\text{Premium} \times (1 - Q - V)}\\
+&= \frac{300000+ 21000}{500000 \times (1 - 0.23 - 0.05)} = 0.892 .
+\end{array}
+\end{matrix}
+}
+$$
+
+Thus, the indicated rate level change is $0.892 -1 = -10.8\%$. 
+
+(c) The loss ratio method is preferable when the exposure unit is not available.
+
+The loss ratio method is preferable when the exposure unit is not reasonably consistent between risks.
+
+The pure premium method is preferable for a new line of business.
+
+The pure premium method is preferable where on-level premiums are difficult to calculate.
+
+</div>
+
+
+
+
+
+
+

@@ -1,0 +1,139 @@
+
+<!-- ## MCMC -->
+
+The idea of Monte Carlo techniques rely on the law of large number (that insures the convengence of the average towards the integral) and the central limit theorem (that is used to quantify uncertainty in the computations). Recall that if $(X_i)$ is an i.id. sequence of random variables with distribution $F$, then
+$$
+\frac{1}{\sqrt{n}}\left(\sum_{i=1}^n h(X_i)-\int h(x)dF(x)\right)\overset{\mathcal{L}}{\rightarrow }\mathcal{N}(0,\sigma^2),\text{ as }n\rightarrow\infty.
+$$
+for some variance $\sigma^2>0$. But actually, the **ergodic theorem** can be used to weaker the previous result, since it is not necessary to have independence of the variables. More precisely, if $(X_i)$ is a **Markov Process** with invariant measure $\mu$, under some additional technical assumptions, we can obtain that
+$$
+\frac{1}{\sqrt{n}}\left(\sum_{i=1}^n h(X_i)-\int h(x)d\mu(x)\right)\overset{\mathcal{L}}{\rightarrow }\mathcal{N}(0,\sigma_\star^2),\text{ as }n\rightarrow\infty.
+$$
+for some variance $\sigma_\star^2>0$.
+
+Hence, from this property, we can see that it is possible not necessarily to generate independent values from $F$, but to generate a markov process with invariante measure $F$, and to consider means over the process (not necessarily independent).
+
+Consider the case of a constraint Gaussian vector : we want to generate random pairs from a random vector $\boldsymbol{X}$, but we are interested only on the case where the sum of the composants is large enough, which can be written $\boldsymbol{X}^T\boldsymbol{1}> m$ for some real valued $m$. Of course, it is possible to use the *accept-reject* algorithm, but we have seen that it might be quite inefficient. One can use **Hastings Metropolis** and **Gibbs sampler** to generate a Markov process with such an invariant measure.
+
+### Hastings Metropolis
+
+The algorithm is rather simple to generate from $f$ : we start with a feasible value $x_1$. Then, at step $t$, we need to specify a transition kernel : given $x_t$, we need a conditional distribution for $X_{t+1}$ given $x_t$. The algorithm will work well if that conditional distribution can easily be simulated. Let $\pi(\cdot|x_t)$ denote that probability.
+
+Draw a value $x_{t+1}^\star$, and $u$, from a uniform distribution. Compute 
+$$
+\displaystyle{R=\frac{xx}{xx}} 
+$$
+and 
+
+- if $u < r$, then set $x_{t+1}=x_t^\star$
+- if $u\leq r$, then set $x_{t+1}=x_t$
+
+Here $r$ is called the *acceptance*-ratio: we accept the new value with probability $r$ (or actually the smallest between $1$ and $r$ since $r$ can exceed $1$).
+
+For instance, assume that $f(\cdot|x_t)$ is uniform on $[x_t-\varepsilon,x_t+\varepsilon]$ for some $\varepsilon>0$, and where $f$ (our target distribution) is the $\mathcal{N}(0,1)$. We will never *draw* from $f$, but we will use it to compute our acceptance ratio at each step.
+
+```{r}
+metrop1 <- function(n=1000,eps=0.5){
+ vec <- matrix(NA, n, 3)
+ x=0
+ vec[1] <- x
+ for (i in 2:n) {
+ innov <- runif(1,-eps,eps)
+ mov <- x+innov
+ R <- min(1,dnorm(mov)/dnorm(x))
+ u <- runif(1)
+ if (u < R) x <- mov
+ vec[i,] <- c(x,mov,R)
+ }
+return(vec)}
+```
+In the code above, `vec` contains values of $\boldsymbol{x}=(x_1,x_2,\cdots)$, `innov` is the innovation.
+
+```{r sampleani_HM_1, animation.hook='gifski'}
+#install.packages('gifski')
+#if (packageVersion('knitr') < '1.20.14') {
+#  remotes::install_github('yihui/knitr')
+#}
+vec <- metrop1(25)
+u=seq(-3,3,by=.01)
+pic_ani = function(k){
+  plot(1:k,vec[1:k,1],pch=19,xlim=c(0,25),ylim=c(-2,2),xlab="",ylab="")
+    if(vec[k+1,1]==vec[k+1,2]) points(k+1,vec[k+1,1],col="blue",pch=19)
+    if(vec[k+1,1]!=vec[k+1,2]) points(k+1,vec[k+1,1],col="red",pch=19)
+  points(k+1,vec[k+1,2],cex=1.5)
+  arrows(k+1,vec[k,1]-.5,k+1,vec[k,1]+.5,col="green",angle=90,code = 3,length=.1)
+  polygon(c(k+dnorm(u)*10,rep(k,length(u))),c(u,rev(u)),col=rgb(0,1,0,.3),
+          border=NA)  
+  segments(k,vec[k,1],k+dnorm(vec[k,1])*10,vec[k,1])
+  segments(k,vec[k+1,2],k+dnorm(vec[k+1,2])*10,vec[k+1,2])
+  text(k,2,round(vec[k+1,3],digits=3))
+}
+for (k in 2:23) {pic_ani(k)}
+```
+
+Now, if we use more simulations, we get
+```{r}
+vec <- metrop1(10000)
+simx <- vec[1000:10000,1]
+par(mfrow=c(1,4))
+plot(simx,type="l")
+hist(simx,probability = TRUE,col="light blue",border="white")
+lines(u,dnorm(u),col="red")
+qqnorm(simx)
+acf(simx,lag=100,lwd=2,col="light blue")
+```
+
+### Gibbs sampler
+
+Consider some vector $\boldsymbol{X}=(X_1,\cdots,X_d)$ with ind\'ependent components, $X_i\sim\mathcal{E}(\lambda_i)$. We sample to sample from $\boldsymbol{X}$ given $\boldsymbol{X}^T\boldsymbol{1}>s$ for some threshold $s>0$.
+
+- start with some starting point  $\boldsymbol{x}_0$ such that 
+- pick up (randomly) $i\in\{1,\cdots,d\}$
+- $X_i$ given $X_i > s-\boldsymbol{x}_{(-i)}^T\boldsymbol{1}$ has an Exponential distribution $\mathcal{E}(\lambda_i)$
+- draw $Y\sim \mathcal{E}(\lambda_i)$ and set $x_i=y +(s-\boldsymbol{x}_{(-i)}^T\boldsymbol{1})_+$ until $\boldsymbol{x}_{(-i)}^T\boldsymbol{1}+x_i>s$
+
+```{r}
+sim <- NULL
+ lambda <- c(1,2)
+ X <- c(3,3)
+ s <- 5
+ for(k in 1:1000){
+ i <- sample(1:2,1)
+ X[i] <- rexp(1,lambda[i])+max(0,s-sum(X[-i]))
+ while(sum(X)<s){
+ X[i] <- rexp(1,lambda[i])+max(0,s-sum(X[-i])) }
+ sim <- rbind(sim,X) }
+plot(sim,xlim=c(1,11),ylim=c(0,4.3))
+polygon(c(-1,-1,6),c(-1,6,-1),col="red",density=15,border=NA)
+abline(5,-1,col="red")
+```
+
+The construction of the sequence (MCMC algorithms are iterative) can be visualized below
+
+```{r}
+lambda <- c(1,2)
+X <- c(3,3)
+sim <- X
+s <- 5
+for(k in 1:100){
+ set.seed(k)
+ i <- sample(1:2,1)
+ X[i] <- rexp(1,lambda[i])+max(0,s-sum(X[-i]))
+ while(sum(X)<s){
+ X[i] <- rexp(1,lambda[i])+max(0,s-sum(X[-i])) }
+ sim <- rbind(sim,X) }
+pic_ani = function(n){
+plot(sim[1:n,],xlim=c(1,11),ylim=c(0,5),xlab="",ylab="")
+i=which(apply(sim[(n-1):n,],2,diff)==0)
+if(i==1) abline(v=sim[n,1],col="grey")
+if(i==2) abline(h=sim[n,2],col="grey")
+if(n>=1) points(sim[n,1],sim[n,2],pch=19,col="blue",cex=1.4)
+if(n>=2) points(sim[n-1,1],sim[n-1,2],pch=19,col="red",cex=1.4)
+polygon(c(-1,-1,6),c(-1,6,-1),col="red",density=15,border=NA)
+abline(5,-1,col="red")
+}
+```
+
+```{r sampleani_HM, animation.hook='gifski'}
+for (i in 2:100) {pic_ani(i)}
+```

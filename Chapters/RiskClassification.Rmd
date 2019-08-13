@@ -33,12 +33,17 @@ If all policyholders in the insurance pool have identical risk profiles, the ins
 
 **Rating Factors**. In order to incorporate relevant risk characteristics of policyholders in the pricing process, insurers maintain some classification system that assigns each policyholder to one of the risk classes based on a relatively small number of risk characteristics that are deemed most relevant. These characteristics used in the classification system are called the *rating factors*, which are *a priori* variables in the sense that they are known before the contract begins (e.g., sex, health status, vehicle type, etc, are known during the underwriting). All policyholders sharing identical risk factors thus are assigned to the same risk class, and are considered homogeneous from the pricing viewpoint; the insurer consequently charge them the same premium or rate.
 
-Regarding the risk factors and premiums, the *Actuarial Standard of Practice* (ASOP No. 12) of the @ASBStandards states that the actuary should select risk characteristics that are related to expected outcomes, and that rates within a risk classification system would be considered equitable if differences in rates reflect material differences in expected cost for risk characteristics. In the process of choosing risk factors, ASOP also requires the actuary to  consider the following: relationship of risk characteristics and expected outcomes, causality, objectivity, practicality, applicable law, industry practices, and business practices. 
+Regarding the risk factors and premiums, the *Actuarial Standard of Practice* (ASOP No. 12) of the @ASBStandards states that the actuary should select risk characteristics that are related to expected outcomes, and that rates within a risk classification system would be considered equitable if differences in rates reflect material differences in expected cost for risk characteristics. In the process of choosing risk factors, ASOP also requires the actuary to  consider the following: relationship of risk characteristics and expected outcomes, causality, objectivity, practicality, applicable law, industry practices, and business practices. Technical Supplement **TS 8.B** provides additional discussion of selection of rating factors.
 
 On the quantitative side, an important task for the actuary in building any risk classification is to construct a statistical model that can determine the expected loss given various rating factors of a policyholder. The standard approach is to adopt a regression model which produces the expected loss as the output when the relevant risk factors are given as the inputs. In this chapter we learn the Poisson regression, which can be used when the loss is a count variable, as a prominent example of an insurance pricing tool.  
 
 <!-- %\subsection{Fundamental concept of insurance pricing} -->
 <!-- %================================ -->
+
+
+```{r child = './Quizzes/Quiz81.html', eval = QUIZ}
+```
+
 
 ## Poisson Regression Model {#S:RC:PoissonRegression}
 
@@ -307,6 +312,10 @@ which gives
 Adding $\log m_i$ in \@ref(eq:mean-ft-Pois-7) does not pose a problem in fitting as we can always specify this as an extra explanatory variable, as it is a known constant, and fix its coefficient to 1. In the literature the log of exposure, $\log m_i$, is commonly called the **offset**.
 
 
+```{r child = './Quizzes/Quiz82.html', eval = QUIZ}
+```
+
+
 ### Exercises
 <!-- %=================== -->
 1. Regarding [Table 8.1] answer the following.  
@@ -526,10 +535,9 @@ In the last few subsections we considered a dataset of a hypothetical auto insur
 
 from the relation given in \@ref(eq:relativity-1). The `R` script and the output are as follows.
 
-<h5 style="text-align: center;"><a id="displayCodeRiskClass.1" href="javascript:togglecode('toggleCodeRiskClass.1','displayCodeRiskClass.1');"><i><strong>Show R Code</strong></i></a> </h5>
-<div id="toggleCodeRiskClass.1" style="display: none">
+`r HideRCode('RiskClass.1', 'Show R Code')`
 
-```latex
+```{r, echo=ShowCode(), eval=FALSE}
 > mydat1<- read.csv("eg1_v1a.csv")
 > mydat1
   Vtype Agebnd Expsr Claims
@@ -631,11 +639,9 @@ As another example consider a female  policyholder aged 60 who owns a 3-year-old
 
 Note that for this policy the age band variable is not used as the vehicle type is not A. The `R` script is given as follows.
 
+`r HideRCode('RiskClass.2', 'Show R Code')`
 
-<h5 style="text-align: center;"><a id="displayCodeRiskClass.2" href="javascript:togglecode('toggleCodeRiskClass.2','displayCodeRiskClass.2');"><i><strong>Show R Code</strong></i></a> </h5>
-<div id="toggleCodeRiskClass.2" style="display: none">
-
-```latex
+```{r, echo=ShowCode(), eval=FALSE}
 mydat <- read.csv("SingaporeAuto.csv",  quote = "", header = TRUE)
 attach(mydat)
 
@@ -679,6 +685,11 @@ detach(mydat)
 *** 
 
 As a concluding remark, we comment that the Poisson regression is not the only possible count regression model. Actually, the Poisson distribution can be restrictive in the sense that it has a single parameter and its mean and the variance are always equal. There are other count regression models that allow more flexible distributional structure, such as negative binomial regressions and zero-inflated (ZI) regressions; details of these alternative regressions can be found in other texts listed in the next section.
+
+
+```{r child = './Quizzes/Quiz83.html', eval = QUIZ}
+```
+
 
 ## Further Resources and Contributors {#RC:further-reading-and-resources }
 
@@ -769,6 +780,12 @@ For grouped datasets, we have
 \begin{equation}
 \mathbf{ I}(\beta)=\sum^K_{k=1} \Big{\{}\sum_{i \in C_k}m_i \exp(\mathbf{ x}^{\prime}_i \mathbf{ \beta})\mathbf{ x}_i \mathbf{ x}_i^{\prime} \Big{\}}=\sum^K_{k=1} m_{(k)} \exp(\mathbf{ x}^{\prime}_{(k)} \mathbf{ \beta})\mathbf{ x}_{(k)} \mathbf{ x}_{(k)}^{\prime}.
 \end{equation}
+
+### TS `r chapnum`.B. Selecting Rating Factors {-}
+
+
+```{r child = 'Chapters/PremiumSections/RateFactorSelection.Rmd'}
+```
 
 
 

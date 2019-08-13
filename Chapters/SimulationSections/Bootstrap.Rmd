@@ -83,11 +83,11 @@ Observe that value `r round(x[4],digits=4)` was obtained three times here.
 
 We summarize the nonparametric bootstrap procedure as follows:
 
-1. From the sample $\{X_1, \ldots, X_n\}$, draw a sample of size *n* (with replacement), say, $X_1^*, \ldots, X_n^*$. From the simulated draws compute a statistic of interest, denoted as $\theta(X_1^*, \ldots, X_n^*)$. Call this $\theta_b^*$ for the *b*th replicate.
-2. Repeat this $b=1, \ldots, B$ times to get a sample of statistics, $\theta_1^*, \ldots,\theta_B^*$.
-3. From the sample of statistics in Step 2, $\{\theta_1^*, \ldots, \theta_B^*\}$, compute a summary measure of interest.
+1. From the sample $\{X_1, \ldots, X_n\}$, draw a sample of size *n* (with replacement), say, $X_1^*, \ldots, X_n^*$. From the simulated draws compute a statistic of interest, denoted as $\hat{\theta}(X_1^*, \ldots, X_n^*)$. Call this $\hat{\theta}_b^*$ for the *b*th replicate.
+2. Repeat this $b=1, \ldots, B$ times to get a sample of statistics, $\hat{\theta}_1^*, \ldots,\hat{\theta}_B^*$.
+3. From the sample of statistics in Step 2, $\{\hat{\theta}_1^*, \ldots, \hat{\theta}_B^*\}$, compute a summary measure of interest.
  
-In this section, we focus on three summary measures, the bias, the standard deviation, and the mean square error (*MSE*). [Table 6.2] summarizes these three measures. Here, $\overline{\hat{\theta^*}}$ is the average of $\{\theta_1^*, \ldots,\theta_B^*\}$.
+In this section, we focus on three summary measures, the bias, the standard deviation, and the mean square error (*MSE*). [Table 6.2] summarizes these three measures. Here, $\overline{\hat{\theta^*}}$ is the average of $\{\hat{\theta}_1^*, \ldots,\hat{\theta}_B^*\}$.
 
 
 [Table 6.2]:\#tab:62
@@ -105,8 +105,8 @@ $$
 \hline
 \text{Bias} & \mathrm{E}(\hat{\theta})-\theta&\overline{\hat{\theta^*}}-\hat{\theta}& Bias_{boot}(\hat{\theta})  \\\hline
 \text{Standard Deviation} &   \sqrt{\mathrm{Var}(\hat{\theta})}
-& \sqrt{\frac{1}{B-1} \sum_{b=1}^{B}\left(\theta_b^* -\overline{\hat{\theta^*}} \right) ^2}&s_{boot}(\hat{\theta})  \\\hline
-\text{Mean Square Error} &\mathrm{E}(\hat{\theta}-\theta)^2 & \frac{1}{B} \sum_{b=1}^{B}\left(\theta_b^* -\hat{\theta}
+& \sqrt{\frac{1}{B-1} \sum_{b=1}^{B}\left(\hat{\theta}_b^* -\overline{\hat{\theta^*}} \right) ^2}&s_{boot}(\hat{\theta})  \\\hline
+\text{Mean Square Error} &\mathrm{E}(\hat{\theta}-\theta)^2 & \frac{1}{B} \sum_{b=1}^{B}\left(\hat{\theta}_b^* -\hat{\theta}
 \right)^2&MSE_{boot}(\hat{\theta})\\
 \hline
 \end{array}\end{matrix}
@@ -254,7 +254,7 @@ legend("topleft", c("raw estimator", "second order correction", "bootstrap"),
 
 ### Confidence Intervals
 
-The bootstrap procedure generates *B* replicates $\theta_1^*, \ldots,\theta_B^*$ of the estimator $\hat{\theta}$. In *Example `r chapnum`.2.1,* we saw how to use standard normal approximations to create a confidence interval for parameters of interest. However, given that a major point is to use bootstrapping to avoid relying on assumptions of approximate normality, it is not surprising that there are alternative confidence intervals available.
+The bootstrap procedure generates *B* replicates $\hat{\theta}_1^*, \ldots,\hat{\theta}_B^*$ of the estimator $\hat{\theta}$. In *Example `r chapnum`.2.1,* we saw how to use standard normal approximations to create a confidence interval for parameters of interest. However, given that a major point is to use bootstrapping to avoid relying on assumptions of approximate normality, it is not surprising that there are alternative confidence intervals available.
 
 For an estimator $\hat{\theta}$, the *basic* bootstrap confidence interval is
 
@@ -263,14 +263,14 @@ For an estimator $\hat{\theta}$, the *basic* bootstrap confidence interval is
   (\#eq:basicBootCI)
 \end{equation}
 
-where $q_L$ and $q_U$ are lower and upper 2.5% quantiles from the bootstrap sample $\theta_1^*, \ldots,\theta_B^*$.
+where $q_L$ and $q_U$ are lower and upper 2.5% quantiles from the bootstrap sample $\hat{\theta}_1^*, \ldots,\hat{\theta}_B^*$.
 
-To see where this comes from, start with the idea that $q_L, q_U$ is a 95% interval for $\theta_1^*, \ldots,\theta_B^*$. So, for a random $\theta_b^*$, there is a 95% chance that $q_L \le \theta_b^* \le q_U$. Reversing the inequalities and adding $\hat{\theta}$ to each side gives a 95% interval 
+To see where this comes from, start with the idea that $q_L, q_U$ is a 95% interval for $\hat{\theta}_1^*, \ldots,\hat{\theta}_B^*$. So, for a random $\hat{\theta}_b^*$, there is a 95% chance that $q_L \le \hat{\theta}_b^* \le q_U$. Reversing the inequalities and adding $\hat{\theta}$ to each side gives a 95% interval 
 
 $$
-\hat{\theta} -q_U \le \hat{\theta} - \theta_b^* \le  \hat{\theta} -q_L .
+\hat{\theta} -q_U \le \hat{\theta} - \hat{\theta}_b^* \le  \hat{\theta} -q_L .
 $$
-So, $\left( \hat{\theta}-q_U,  \hat{\theta} -q_L\right)$ is an 95% interval for $\hat{\theta} - \theta_b^*$. The bootstrap approximation idea says that this is also a 95% interval for $\theta - \hat{\theta}$. Adding $\hat{\theta}$ to each side gives the 95% interval in equation \@ref(eq:basicBootCI). 
+So, $\left( \hat{\theta}-q_U,  \hat{\theta} -q_L\right)$ is an 95% interval for $\hat{\theta} - \hat{\theta}_b^*$. The bootstrap approximation idea says that this is also a 95% interval for $\theta - \hat{\theta}$. Adding $\hat{\theta}$ to each side gives the 95% interval in equation \@ref(eq:basicBootCI). 
 
 Many alternative bootstrap intervals are available. The easiest to explain is the *percentile* bootstrap interval which is defined as $\left(q_L, q_U\right)$. However, this has the drawback of potentially poor behavior in the tails which can be of concern in some actuarial problems of interest.
 
@@ -386,7 +386,7 @@ knitr::kable(OutBoot1,digits=2)
 
 ### Parametric Bootstrap {#S:ParametricBootStrap}
 
-As described in the section on bootstrap, the idea of (nonparametric) bootstrap is to resample, or equivalently, to use the inverse method on the empirical cumulative distribution function $F_n$. With parametric bootstrap, we draw independent variables from $F_\widehat{\theta}$ where the underlying distribution is assume to be in a parametric family $\mathcal{F}=\{F_{\theta},\theta\in\Theta\}$. Typically, parameters from this distribution are estimated based on a sample and denoted as $\hat{\theta}$.
+As described in the section on bootstrap, the idea of (nonparametric) bootstrap is to resample, or equivalently, to use the inverse method on the empirical cumulative distribution function $F_n$. With parametric bootstrap, we draw independent variables from $F_{\widehat{\theta}}$ where the underlying distribution is assume to be in a parametric family $\mathcal{F}=\{F_{\theta},\theta\in\Theta\}$. Typically, parameters from this distribution are estimated based on a sample and denoted as $\hat{\theta}$.
 
 **Example `r chapnum`.2.4. Lognormal distribution.** Consider again the dataset  
 ```{r}

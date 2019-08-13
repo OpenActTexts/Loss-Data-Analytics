@@ -421,11 +421,11 @@ round(outMat,digits=2)
 ```
 
 **b.** For insured claims, the standard error of the simulation approximation is $s_{h,R}/\sqrt{1000000} =$ `r 
-round(sd(Yinsurer),digits=2)` $/\sqrt{1000000} =$  `r round(sd(Yinsurer)/sqrt(1000000), digits=3)`. For this example, simulation is quick and so a large value such as 1000000 is an easy choice. However, for more complex problems, the simulation size may be an issue. Figure \ref@(fig:PortfolioDF)
+round(sd(Yinsurer),digits=2)` $/\sqrt{1000000} =$  `r round(sd(Yinsurer)/sqrt(1000000), digits=3)`. For this example, simulation is quick and so a large value such as 1000000 is an easy choice. However, for more complex problems, the simulation size may be an issue. Figure \@ref(fig:PortfolioDF)
 allows us to visualize the development of the approximation as the number of simulations increases.
 
 
-```{r PortfolioDF, warning=FALSE, message=FALSE, fig.width=8, fig.height=4, fig.align='center', comment="", fig.cap = 'Estimated Expected Insurer Claims versus Number of Simulations. There are 20 paths given in this figure, each path traces the development of the average insurer claim over the number of simulations. The solid lines are set at plus and minus 1.96 standard errors for an approximate 95% confidence band.'}
+```{r PortfolioDF, warning=FALSE, message=FALSE, fig.width=8, fig.height=4, fig.align='center', comment="", fig.cap = 'Estimated Expected Insurer Claims versus Number of Simulations.'}
 Yinsurefct <- function(numSim){
 X1 <- rgamma(numSim,alpha1,scale = theta1)  
 X2 <- rgamma(numSim,alpha2,scale = theta2)  
@@ -455,6 +455,7 @@ How many simulated values are recommended? 100? 1,000,000? We can use the centra
 
 As one criterion for your confidence in the result, suppose that you wish to be within 1% of the mean with 95%
 certainty. That is, you want $\Pr \left( |\overline{h}_R - \mathrm{E~}h(X)| \le 0.01 \mathrm{E~}h(X) \right) \le 0.95$. According to the central limit theorem, your estimate should be approximately normally distributed and so we want to have $R$ large enough to satisfy $0.01 \mathrm{E~}h(X)/\sqrt{\mathrm{Var~}h(X)/R}) \ge 1.96$. (Recall that 1.96 is the 97.5th percentile from the standard normal distribution.) Replacing $\mathrm{E~}h(X)$ and $\mathrm{Var~}h(X)$ with estimates, you continue your simulation until 
+
 $$
 \frac{.01\overline{h}_R}{s_{h,R}/\sqrt{R}}\geq 1.96
 $$
@@ -480,6 +481,7 @@ For our example, the average insurance claim is `r round(mean(Yinsurer), digits=
 An important application of simulation is the approximation of $\mathrm{E~}h(X)$. In this example, we show that the choice of the $h(\cdot)$ function and the distribution of $X$ can play a role.
 
 Consider the following question : what is $\Pr[X>2]$ when $X$ has a Cauchy distribution, with density $f(x) =\left(\pi(1+x^2)\right)^{-1}$, on the real line? The true value is 
+
 $$
 \Pr\left[X>2\right] = \int_2^\infty \frac{dx}{\pi(1+x^2)} .
 $$
@@ -495,7 +497,7 @@ $$
 p_1 = \frac{1}{R}\sum_{i=1}^R \mathrm{I}(F^{-1}(U_i)>2) = \frac{1}{R}\sum_{i=1}^R \mathrm{I}(\tan \left( \pi(U_i-0.5) \right)>2) .
 $$
 
-```{r comment=""}
+```{r comment = ""}
 Q <- function(u) tan(pi*(u-.5))
 R <- 1e6
 set.seed(1)
@@ -506,7 +508,8 @@ p1
 se.p1
 ```
 
-With one million simulations, we obtain an estimate of `r round(p1,digit=5)` with standard error `r round(se.p1,digit=5)`. One can prove that the variance of $p_1$ is of order $0.127/R$.
+
+With one million simulations, we obtain an estimate of `r round(p1,digits=5)` with standard error `r round(se.p1*1000,digits=3)` (divided by 1000). One can prove that the variance of $p_1$ is of order $0.127/R$.
 
 <!--It can be visualized below -->
 ```{r eval=FALSE, echo = FALSE}
@@ -536,7 +539,7 @@ p2 <- mean(abs(Q(runif(R)))>2)/2
 se.p2 <- sd(abs(Q(runif(R)))>2)/(2*sqrt(R))
 ```
 
-With one million simulations, we obtain an estimate of `r round(p2,digit=5)` with standard error `r round(se.p2,digit=5)`. One can prove that the variance of $p_2$ is of order $0.052/R$.
+With one million simulations, we obtain an estimate of `r round(p2,digits=5)` with standard error `r round(se.p2*1000,digits=3)` (divided by 1000). One can prove that the variance of $p_2$ is of order $0.052/R$.
 
 <!--It can be visualized below -->
 ```{r eval=FALSE, echo = FALSE}
@@ -567,7 +570,8 @@ p3 <- .5-mean(h(2*runif(R)))
 se.p3 <- sd(h(2*runif(R)))/sqrt(R)
 ```
 
-With one million simulations, we obtain an estimate of `r round(p3,digit=5)` with standard error `r round(se.p3,digit=5)`.  One can prove that the variance of $p_3$ is of order $0.0285/R$.
+With one million simulations, we obtain an estimate of `r round(p3,digits=5)` 
+with standard error `r signif(se.p3*1000,digits=3)` (divided by 1000).  One can prove that the variance of $p_3$ is of order $0.0285/R$.
 
 <!--It can be visualized below -->
 ```{r eval=FALSE, echo = FALSE}
@@ -600,7 +604,7 @@ p4 <- mean(h4(runif(R)/2))
 se.p4 <- sd(h4(runif(R)/2))/sqrt(R)
 ```
 
-With one million simulations, we obtain an estimate of `r round(p4,digit=5)` with standard error `r round(se.p4,digit=5)`. One can prove that the variance of $p_4$ is of order $0.00009/R$, which is much smaller than what we had so far !
+With one million simulations, we obtain an estimate of `r round(p4,digits=5)` with standard error `r round(se.p4*1000,digits=3)` (divided by 1000). One can prove that the variance of $p_4$ is of order $0.00009/R$, which is much smaller than what we had so far !
 
 <!--It can be visualized below -->
 ```{r eval=FALSE, echo = FALSE}
@@ -676,7 +680,7 @@ plot(vx,vy,type="l",xlab="x",ylab="Cumulative Distribution",main="Empirical cdf"
 lines(u,plnorm(u,1,.4),col="red",lty=2)
 ```
 
-Recall that the Kolmogorov-Smirnov statistic equals the largest discrepancy between the empirical and the hypothesized distribution. This is $\max_x\{F_n(x)-F_0(x)\}$, where $F_0$ is the hypothesized lognormal distribution. We can calculate this directly as:
+Recall that the Kolmogorov-Smirnov statistic equals the largest discrepancy between the empirical and the hypothesized distribution. This is $\max_x |F_n(x)-F_0(x)|$, where $F_0$ is the hypothesized lognormal distribution. We can calculate this directly as:
 
 ```{r comment=""}
 # test statistic
@@ -700,7 +704,7 @@ ks.test(x, plnorm, mean=1, sd=0.4)
 
 However, for many distributions of actuarial interest, pre-built programs are not available. We can use simulation to test the relevance of the test statistic. Specifically, to compute the $p$-value, let us generate thousands of random samples from a $LN(1,0.4)$ distribution (with the same size), and compute empirically the distribution of the statistic,
 
-```{r KSSimulatedDistribution, fig.align='center', comment="", fig.cap = 'Simulated Distribution of the Kolmogorove-Smirnov Test Statistic. The vertical red dashed line marks the test statistic for the sample of 100.'}
+```{r KSSimulatedDistribution, fig.align='center', comment="", fig.cap = 'Simulated Distribution of the Kolmogorov-Smirnov Test Statistic. The vertical red dashed line marks the test statistic for the sample of 100.'}
 ns <- 1e4
 d_KS <- rep(NA,ns)
 # compute the test statistics for a large (ns) number of simulated samples
@@ -711,13 +715,13 @@ abline(v=D(x,function(x) plnorm(x,1,.4)),lty=2,col="red")
 mean(d_KS>D(x,function(x) plnorm(x,1,.4)))
 ```
 
-The simulated distribution based on 10,000 random samples is summarized in Figure \@ref(fig:KSSimulatedDistribution). Here, the statistic exceeded the empirical value (`r format(D(x,function(x) plnorm(x,1,.4)),digit=4)`) in `r 100*mean(d_KS>D(x,function(x) plnorm(x,1,.4)))`% of the scenarios, while the *theoretical* $p$-value is `r round(ks.test(x,plnorm,mean=1,sd=.4)$p.value, digits=4)`. For both the simulation and the theoretical $p$-values, the conclusions are the same; the data do not provide sufficient evidence to reject the hypothesis of a lognormal distribution.
+The simulated distribution based on 10,000 random samples is summarized in Figure \@ref(fig:KSSimulatedDistribution). Here, the statistic exceeded the empirical value (`r format(D(x,function(x) plnorm(x,1,.4)),digits=4)`) in `r 100*mean(d_KS>D(x,function(x) plnorm(x,1,.4)))`% of the scenarios, while the *theoretical* $p$-value is `r round(ks.test(x,plnorm,mean=1,sd=.4)$p.value, digits=4)`. For both the simulation and the theoretical $p$-values, the conclusions are the same; the data do not provide sufficient evidence to reject the hypothesis of a lognormal distribution.
 
 
 Although only an approximation, the simulation approach works in a variety of distributions and test statistics without needing to develop the nuances of the underpinning theory for each situation. We summarize the procedure for developing simulated distributions and *p*-values as follows:
 
-1. Draw a sample of size *n*, say, $X_1, \ldots, X_n$, from a known distribution function $F$. Compute a statistic of interest, denoted as $\theta(X_1, \ldots, X_n)$. Call this $\theta^r$ for the *r*th replication.
-2. Repeat this $r=1, \ldots, R$ times to get a sample of statistics, $\theta^1, \ldots,\theta^R$.
-3. From the sample of statistics in Step 2, $\{\theta^1, \ldots,\theta^R\}$, compute a summary measure of interest, such as a *p*-value.
+1. Draw a sample of size *n*, say, $X_1, \ldots, X_n$, from a known distribution function $F$. Compute a statistic of interest, denoted as $\hat{\theta}(X_1, \ldots, X_n)$. Call this $\hat{\theta}^r$ for the *r*th replication.
+2. Repeat this $r=1, \ldots, R$ times to get a sample of statistics, $\hat{\theta}^1, \ldots,\hat{\theta}^R$.
+3. From the sample of statistics in Step 2, $\{\hat{\theta}^1, \ldots,\hat{\theta}^R\}$, compute a summary measure of interest, such as a *p*-value.
  
 

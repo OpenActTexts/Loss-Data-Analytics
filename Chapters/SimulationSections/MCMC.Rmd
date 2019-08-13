@@ -19,9 +19,9 @@ Consider the case of a constraint Gaussian vector : we want to generate random p
 
 The algorithm is rather simple to generate from $f$ : we start with a feasible value $x_1$. Then, at step $t$, we need to specify a transition kernel : given $x_t$, we need a conditional distribution for $X_{t+1}$ given $x_t$. The algorithm will work well if that conditional distribution can easily be simulated. Let $\pi(\cdot|x_t)$ denote that probability.
 
-Draw a value $x_{t+1}^\star$, and $u$, from a uniform distribution. Compute 
+Draw a potential value $x_{t+1}^\star$, and $u$, from a uniform distribution. Compute 
 $$
-\displaystyle{R=\frac{xx}{xx}} 
+R=  \frac{f(x'⋆t+1)}{f(xt)}
 $$
 and 
 
@@ -49,7 +49,7 @@ return(vec)}
 ```
 In the code above, `vec` contains values of $\boldsymbol{x}=(x_1,x_2,\cdots)$, `innov` is the innovation.
 
-```{r sampleani_HM_1, animation.hook='gifski'}
+```{r sampleani_HM_1, animation.hook='gifski', eval = ANIMATION}
 #install.packages('gifski')
 #if (packageVersion('knitr') < '1.20.14') {
 #  remotes::install_github('yihui/knitr')
@@ -72,7 +72,7 @@ for (k in 2:23) {pic_ani(k)}
 ```
 
 Now, if we use more simulations, we get
-```{r}
+```{r  eval = ANIMATION}
 vec <- metrop1(10000)
 simx <- vec[1000:10000,1]
 par(mfrow=c(1,4))
@@ -134,6 +134,6 @@ abline(5,-1,col="red")
 }
 ```
 
-```{r sampleani_HM, animation.hook='gifski'}
+```{r sampleani_HM, animation.hook='gifski', eval = ANIMATION}
 for (i in 2:100) {pic_ani(i)}
 ```

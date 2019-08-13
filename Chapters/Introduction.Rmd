@@ -183,7 +183,7 @@ text(12.9,1.8,labels="Policy \nRenewal\nPremium \nPaid", adj = 0, cex = 0.8)
 text(13,1,labels="X", adj = 0, cex = 0.8)
 ```
 
-```{r child = './Quizzes/Quiz11.html'}
+```{r child = './Quizzes/Quiz11.html', eval = QUIZ}
 ```
 
 ## Insurance Company Operations {#S:PredModApps}
@@ -429,7 +429,7 @@ example, for an insured who purchases a life contract at age 20, it
 would not be unusual for the contract to still be open in 60 years time, when the insured celebrates his or her 80th birthday. See, for example, @bowers1986actuarial or @dickson2013actuarial for introductions to reserving for life insurance.
 
 
-```{r child = './Quizzes/Quiz12.html'}
+```{r child = './Quizzes/Quiz12.html', eval = QUIZ}
 ```
 
 
@@ -494,12 +494,9 @@ this sample was 1.24 (=1377/1110).
 
 Table: (\#tab:Frequency2010)  2010 Claims Frequency Distribution
   
+`r HideRCode('T:Frequency.1',"R Code for Frequency Table")`
 
-<h5 style="text-align: center;"><a id="display.T:Frequency.1" href="javascript:togglecode
-('display.T:Frequency.2','display.T:Frequency.1');"><i><strong>R Code for Frequency Table</strong></i></a> </h5>
-<div id="display.T:Frequency.2" style="display: none">
-
-``` 
+```{r, echo=ShowCode(), eval=FALSE}
 Insample <- read.csv("Insample.csv", header=T,  na.strings=c("."), stringsAsFactors=FALSE)
 Insample2010 <- subset(Insample, Year==2010)
 table(Insample2010$Freq)
@@ -549,10 +546,9 @@ hist(InsamplePos2010$yAvg, main="", xlab="Average Claims")
 hist(log(InsamplePos2010$yAvg), main="", xlab="Logarithmic Average Claims")
 ```
 
-<h5 style="text-align: center;"><a id="display.SeverityFig.1" href="javascript:togglecode('display.SeverityFig.2','display.SeverityFig.1');"><i><strong>R Code for Severity Distribution Table and Figures</strong></i></a> </h5>
-<div id="display.SeverityFig.2" style="display: none">
+`r HideRCode('SeverityFig.1',"R Code for Severity Distribution Table and Figures")`
 
-``` 
+```{r, echo=ShowCode(), eval=FALSE}
 Insample <- read.csv("Data/PropertyFundInsample.csv", header=T, na.strings=c("."), stringsAsFactors=FALSE)
 Insample2010 <- subset(Insample, Year==2010)
 InsamplePos2010 <- subset(Insample2010, yAvg>0)
@@ -615,10 +611,9 @@ known.
 
 [^1.1]: Note that the average severity in Table \@ref(tab:CoverageBCIM) differs from that reported in Table \@ref(tab:Severity2010). This is because the former includes policyholders with zero claims where as the latter does not. This is an important distinction that we will address in later portions of the text. 
 
-<h5 style="text-align: center;"><a id="display.CoverageBC.1" href="javascript:togglecode('display.CoverageBC.2','display.CoverageBC.1');"><i><strong>R Code for Claims Summary by Policyholder</strong></i></a> </h5>
-<div id="display.CoverageBC.2" style="display: none">
+`r HideRCode('CoverageBC.1',"R Code for Claims Summary by Policyholder")`
 
-``` 
+```{r, echo=ShowCode(), eval=FALSE}
 Insample <- read.csv("Data/PropertyFundInsample.csv", header=T, na.strings=c("."), stringsAsFactors=FALSE)
 library(doBy)
 T1A <- summaryBy(Freq ~ Year, data = Insample, 
@@ -665,11 +660,9 @@ right-skewed distributions.
   
 Table: (\#tab:DeductCov) Summary of Claim Frequency and Severity, Deductibles, and Coverages
   
+`r HideRCode('DeductCov.1',"R Code for Summary of Claim Frequency and Severity, Deductibles, and Coverages")`
 
-<h5 style="text-align: center;"><a id="display.DeductCov.1" href="javascript:togglecode('display.DeductCov.2','display.DeductCov.1');"><i><strong>R Code for Summary of Claim Frequency and Severity, Deductibles, and Coverages</strong></i></a> </h5>
-<div id="display.DeductCov.2" style="display: none">
-
-``` 
+```{r, echo=ShowCode(), eval=FALSE}
 Insample <- read.csv("Data/PropertyFundInsample.csv", header=T, na.strings=c("."), stringsAsFactors=FALSE)
 t1<- summaryBy(Insample$Freq ~ 1, data = Insample, 
    FUN = function(x) { c(ma=min(x), m1=median(x),m=mean(x),mb=max(x)) } )
@@ -771,11 +764,9 @@ intuitive, appealing (negative) sign for the ${\tt Fire5}$ variable.
 
  Table: (\#tab:ClaimRateVar) Claims Summary by Entity Type, Fire Class, and No Claim Credit
   
-  
-<h5 style="text-align: center;"><a id="display.ClaimRateVar.1" href="javascript:togglecode('display.ClaimRateVar.2','display.ClaimRateVar.1');"><i><strong>R Code for Claims Summary by Entity Type, Fire Class, and No Claim Credit</strong></i></a> </h5>
-<div id="display.ClaimRateVar.2" style="display: none">
+`r HideRCode('ClaimRateVar.1',"R Code for Claims Summary by Entity Type, Fire Class, and No Claim Credit")`
 
-``` 
+```{r, echo=ShowCode(), eval=FALSE}
 ByVarSumm<-function(datasub){
   tempA <- summaryBy(Freq    ~ 1 , data = datasub,   
      FUN = function(x) { c(m = mean(x), num=length(x)) } )
@@ -879,14 +870,9 @@ coverage amounts) that affect claims.
 
   : Claims Summary by Entity Type and Alarm Credit (AC) Category
   
+`r HideRCode('RateAlarmCredit.1',"R Code for Claims Summary by Entity Type and Alarm Credit Category")`
 
-
-
-<h5 style="text-align: center;"><a id="display.RateAlarmCredit.1" href="javascript:togglecode('display.RateAlarmCredit.2','display.RateAlarmCredit.1');"><i><strong>R Code for Claims Summary by Entity Type and Alarm Credit
-  Category</strong></i></a> </h5>
-<div id="display.RateAlarmCredit.2" style="display: none">
-
-``` 
+```{r, echo=ShowCode(), eval=FALSE}
 #Claims Summary by Entity Type and Alarm Credit
 ByVarSumm<-function(datasub){
   tempA <- summaryBy(Freq    ~ AC00 , data = datasub,   
@@ -972,7 +958,7 @@ having top alarm systems) would actually wind up paying more.
 
 So, we have the data for thinking about the appropriate rates to charge
 but will need to dig deeper into the analysis. We will explore this
-topic further in Chapter \@ref(C:PremCalc) on *premium calculation fundamentals*.
+topic further in Chapter \@ref(C:PremiumFoundations) on *premium calculation fundamentals*.
 Selecting appropriate risks is introduced in Chapter \@ref(C:RiskClass) on *risk
 classification*.
 
@@ -1012,7 +998,7 @@ of business, including those where there are injuries to people, take
 much longer to develop. Chapter \@ref(C:LossReserves) introduces this concern and *loss reserving*, the discipline of determining how much the insurance company should retain to meet its obligations.
 
 
-```{r child = './Quizzes/Quiz13.html'}
+```{r child = './Quizzes/Quiz13.html', eval = QUIZ}
 ```
 
 

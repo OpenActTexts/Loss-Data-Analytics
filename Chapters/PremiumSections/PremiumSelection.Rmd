@@ -5,7 +5,8 @@ For a portfolio of insurance contracts, insurers collect premiums and pay out lo
 
 ### Classic Lorenz Curve 
 
-In welfare economics, it is common to compare distributions via the **Lorenz curve**, developed by Max Otto Lorenz [@lorenz1905methods]. A Lorenz curve is a graph of the proportion of a population on the horizontal axis and a distribution function of interest on the vertical axis. It is typically used to represent income distributions. When the income distribution is perfectly aligned with the population distribution, the Lorenz curve results in a 45 degree line that is known as the *line of equality*. Because the graph compares two distribution functions, one can also think of a Lorenz curve as a type of $pp$ plot that was introduced in Section \@ref(S:MS:GraphComparison). The area between the Lorenz curve and the line of equality is a measure of the discrepancy between the income and population distributions. Two times this area is known as the **Gini index**, introduced by Corrado Gini in 1912. 
+In welfare economics, it is common to compare distributions via the `r Gloss('Lorenz curve')`, developed by Max Otto Lorenz [@lorenz1905methods]. A Lorenz curve is a graph of the proportion of a population on the horizontal axis and a distribution function of interest on the vertical axis. It is typically used to represent income distributions. When the income distribution is perfectly aligned with the population distribution, the Lorenz curve results in a 45 degree line that is known as the *line of equality*. Because the graph compares two distribution functions, one can also think of a Lorenz curve as a type of $pp$ plot that was introduced in Section \@ref(S:MS:GraphComparison). The area between the Lorenz curve and the line of equality is a measure of the discrepancy between the income and population distributions. Two times this area is known as the `r Gloss('Gini index')`, introduced by Corrado Gini in 1912. 
+
 
 
 ```{r echo=FALSE}  
@@ -22,7 +23,8 @@ GiniLoss = 2*(sum(rank(y)*y)/sum(y) - (nTot+1)/2)/nTot
 
 ```
 
-**Example -- Classic Lorenz Curve.** For an insurance example, Figure \@ref(fig:ClassicLorenz) shows a distribution of insurance losses. This figure is based on a random sample of `r nTot` losses. The left-hand panel shows a right-skewed histogram of losses.  The right-hand panel provides the corresponding Lorenz curve, showing again a skewed distribution. For example, the arrow marks the point where 60 percent of the policyholders have 30 percent of losses. The 45 degree line is the line of equality; if each policyholder has the same loss, then the loss distribution would be at this line. The Gini index, twice the area between the Lorenz curve and the 45 degree line, is `r round(GiniLoss*100,1)` percent for this data set.
+
+**Example -- Classic Lorenz Curve.**  For an insurance example, Figure \@ref(fig:ClassicLorenz) shows a distribution of insurance losses. This figure is based on a random sample of `r nTot` losses. The left-hand panel shows a right-skewed histogram of losses.  The right-hand panel provides the corresponding Lorenz curve, showing again a skewed distribution. For example, the arrow marks the point where 60 percent of the policyholders have 30 percent of losses. The 45 degree line is the line of equality; if each policyholder has the same loss, then the loss distribution would be at this line. The Gini index, twice the area between the Lorenz curve and the 45 degree line, is `r round(GiniLoss*100,1)` percent for this data set.
 
 ```{r, ClassicLorenz, fig.cap='Distribution of Insurance Losses. The left-hand panel is a density plot of losses. The right-hand panel presents the same data using a Lorenz curve.', out.width='90%', fig.asp=0.5, fig.align='center', echo=FALSE}
 par(mfrow=c(1,2))
@@ -35,7 +37,7 @@ text(.85, .15, "(0.60, 0.30)", cex=.6)
 ```
 
 ### Concentration Curve and a Gini Statistic 
-We now introduce a modification of the classic Lorenz curve and Gini statistic that is useful in insurance applications. Specifically, we introduce a **concentration curve** which is a graph of the distribution of losses versus premiums, where both losses and premiums are ordered by premiums. To make the ideas concrete, we provide some notation and consider $i=1, \ldots, n$ policies. For the $i$th policy, let
+We now introduce a modification of the classic Lorenz curve and Gini statistic that is useful in insurance applications. Specifically, we introduce a `r Gloss('concentration curve')` which is a graph of the distribution of losses versus premiums, where both losses and premiums are ordered by premiums. To make the ideas concrete, we provide some notation and consider $i=1, \ldots, n$ policies. For the $i$th policy, let
 
 * $y_i$ denote the insurance loss,
 * $\mathbf{x}_i$ be a set of rating variables known to the analyst, and
@@ -74,7 +76,7 @@ Cumulative Loss     $\sum_{j=1}^i y_j$               2   7   13  19  36
 
 Figure \@ref(fig:LorenzVsOrdered) compares the Lorenz to the concentration curve. The left-hand panel shows the Lorenz curve. The horizontal axis is the cumulative proportion of policyholders (0, 0.2, 0.4, and so forth) and the vertical axis is the cumulative proportion of losses (0, 2/36, 7/36, and so forth). For the Lorenz curve, you first order by the loss size (which turns out to be the same order as premiums for this simple dataset). This figure shows a large separation between the distributions of losses and policyholders.
 
-The right-hand panel shows the concentration  curve. Because observations are sorted by premiums, the first point after the origin (reading from left to right) is (2/34, 2/36). The second point is (6/34, 7/36), with the pattern continuing. From the figure, we see that there is little separation between losses and premiums.
+The right-hand panel shows the concentration curve. Because observations are sorted by premiums, the first point after the origin (reading from left to right) is (2/34, 2/36). The second point is (6/34, 7/36), with the pattern continuing. From the figure, we see that there is little separation between losses and premiums.
 
 
 ```{r echo=FALSE} 
@@ -168,7 +170,7 @@ stderrorGini <- temp[[3]];#Standard Error
 
 The concentration curve can be helpful to the analyst who thinks about forming profitable portfolios for the insurer. For example, suppose that $s$ is chosen to represent the 95*th* percentile of the premium distribution. Then, the horizontal axis, $\hat{F}_P(s)$, represents the fraction of premiums for this portfolio and the vertical axis, $\hat{F}_L(s)$, the fraction of losses for this portfolio. When developing premium principles, analysts wish to avoid unprofitable situations and make profits, or at least break even.
 
-The expectation of the numerator of equation \@ref(eq:EmpLossDF) is $\sum_{i=1}^n \mathrm{E}~ y_i=\sum_{i=1}^n \mu_i$. Thus, if the premium principle is chosen such that $P_i= \mu_i$, then we anticipate a close relation between the premium and loss distributions, resulting in a 45 degree line. The 45 degree line is presents equality between losses and premiums, a break-even situation which is the benchmark for insurance pricing.
+The expectation of the numerator in equation \@ref(eq:EmpLossDF) is $\sum_{i=1}^n \mathrm{E}~ y_i=\sum_{i=1}^n \mu_i$. Thus, if the premium principle is chosen such that $P_i= \mu_i$, then we anticipate a close relation between the premium and loss distributions, resulting in a 45 degree line. The 45 degree line presents equality between losses and premiums, a break-even situation which is the benchmark for insurance pricing.
 
 #### Gini Statistic {-}
 
@@ -248,7 +250,7 @@ Outy     <- as.vector(OutClaims)
 
 **Example -- Community Rating versus Premiums that Vary by State.** Suppose that we have experience from `r Nstate` states and that, for each state, we have available `r NInsamp` observations that can be used to predict future losses. For simplicity, assume that the analyst knows that these losses were generated by a gamma distribution with a common shape parameter equal to 5. Unknown to the analyst, the scale parameters vary by state, from a low of 20 to `r 18+2*(Nstate-1)`. 
 
-* To compute base premiums, the analyst assumes a scale parameter that is common to all states that is to be estimated from the data. You can think of this common premium as based on a *community rating* principle. 
+* To compute base premiums, the analyst assumes a scale parameter that is common to all states that is to be estimated from the data. You can think of this common premium as based on a `r Gloss('community rating')` principle. 
 * As an alternative, the analyst allows the scale parameters to vary by state and will again use the data to estimate these parameters.
 
 An out of sample validation set of `r NOutsamp` losses from each state is available. For each of the two rating procedures, determine the concentration curve and the corresponding Gini statistic. Choose the rate procedure with the lower Gini statistic.
@@ -342,7 +344,7 @@ mtext("Loss Distn", side=2, line=-0.5, at=1.1,   las=1, cex=1.0)
 
 
 
-For these data, the Gini statistics are `r round(100*Gini1,digits=1)` percent for the flat rate premium and `r round(100*Gini2,digits=3)` percent for the state-specific alternative.  This suggests that the state-specific alternative procedure is strongly preferred to the base community rating procedure.
+For these data, the Gini statistics are `r round(100*Gini1,digits=1)` percent for the flat rate premium and `r round(100*Gini2,digits=3)` percent for the state-specific alternative.  This indicates that the state-specific alternative procedure is strongly preferred to the base community rating procedure.
 
 ***
 
@@ -353,5 +355,5 @@ For these data, the Gini statistics are `r round(100*Gini1,digits=1)` percent fo
 In insurance claims modeling, standard out-of-sample validation measures are not the most informative due to the high proportions of zeros (corresponding to no claim) and the skewed fat-tailed distribution of the positive values. In contrast, the Gini statistic works well with many zeros (see the demonstration in [@frees2014insurance]). 
 
 The value of the concentration curves and Gini statistics have been recently advanced in the paper of @denuit2019concentrationGini.
-Properties of an extended version, dealing with relatives for new premiums, were developed by [@frees2011summarizing] and [@frees2014insurance]. In these articles you can find formulas for the standard errors and other additional background information.
+Properties of an extended version, dealing with relatives for new premiums, were developed by [@frees2011summarizing] and [@frees2014insurance]. In these articles you can find formulas for the standard errors and additional background information.
 

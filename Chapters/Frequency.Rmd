@@ -48,6 +48,11 @@ Insurers and other stakeholders, including governmental organizations, have vari
 
 * **Regulatory and Administrative.** Insurance is a highly regulated and monitored industry, given its importance in providing financial security to individuals and companies facing risk. As part of its duties, regulators routinely require the reporting of claims numbers as well as amounts. This may be due to the fact that there can be alternative definitions of an "amount," e.g., paid versus incurred, and there is less potential error when reporting claim numbers. This continual monitoring helps ensure financial stability of these insurance companies.
 
+
+```{r child = './Quizzes/Quiz21.html', eval = QUIZ}
+```
+
+
 ## Basic Frequency Distributions {#S:basic-frequency-distributions}
 
 ***
@@ -100,13 +105,16 @@ M_N(t) = \mathrm{E}~{[e^{tN}]} = \sum^{\infty}_{k=0} ~e^{tk}~ p_N(k), \quad t\in
 We note that while $M_N(\cdot)$ is well defined as it is the expectation of a non-negative random variable ($e^{tN}$), though it can assume the value $\infty$. Note that for a count random variable, $M_N(\cdot)$ is finite valued on $(-\infty,0]$ with $M_N(0)=1$. The following theorem, whose proof can be found in [@billingsley] (pages 285-6), encapsulates the reason for its name.  
 
 <!-- \begin{theorem}\label{freq:thm1} -->
+
 ```{theorem, freq-thm1}
 Let $N$ be a count random variable such that $\mathrm{E}~{[e^{t^\ast N}]}$ is finite for some $t^\ast>0$. We have the following:
 
 All moments of $N$ are finite, *i.e.*
-\[
-\mathrm{E}{[N^r]}<\infty, \quad r \gt 0.
-\]
+  
+$$
+\mathrm{E}{[N^r]}<\infty, \quad r > 0.
+$$
+
 The *mgf* can be used to *generate* its moments as follows:
 \[
 \left.\frac{{\rm d}^m}{{\rm d}t^m} M_N(t)\right\vert_{t=0}=\mathrm{E}{N^m}, \quad m\geq 1.
@@ -254,13 +262,13 @@ p_k = \binom{k+r-1}{k} \left(\frac{1}{1+\beta}\right)^r \left(\frac{\beta}{1+\be
 for $r>0$ and $\beta\geq0$, then it defines a valid *pmf*. Such defined distribution is called the negative binomial distribution with parameters $(r,\beta)$ with $r>0$ and $\beta\geq 0$. Moreover, the binomial series also implies that the *pgf* of this distribution is given by 
 \[
 \begin{aligned}
-  P_N(z) &= (1-\beta(z-1))^{-r}, \quad \vert z \vert \lt 1+\frac{1}{\beta}, \beta\geq0. 
+  P_N(z) &= (1-\beta(z-1))^{-r}, \quad \vert z \vert < 1+\frac{1}{\beta}, \beta\geq0. 
 \end{aligned}
 \]
 The above implies that the *mgf* is given by 
 \[
 \begin{aligned}
-  M_N(t) &= (1-\beta(e^t-1))^{-r}, \quad t \lt \log\left(1+\frac{1}{\beta}\right), \beta\geq0. 
+  M_N(t) &= (1-\beta(e^t-1))^{-r}, \quad t < \log\left(1+\frac{1}{\beta}\right), \beta\geq0. 
 \end{aligned}
 \]
 We derive its moments using Theorem \@ref(thm:freq-thm1) as follows:
@@ -281,6 +289,11 @@ Finally, we observe that the Poisson distribution also emerges as a limit of neg
 with the right hand side of the above equation being the *mgf* of the Poisson distribution with parameter $\lambda$.[^4]
 
 [^4]: For the theoretical basis underlying the above argument, see [@billingsley]. 
+
+
+```{r child = './Quizzes/Quiz22.html', eval = QUIZ}
+```
+
 
 ## The (a, b, 0) Class {#S:the-a-b-0-class}
 
@@ -344,7 +357,7 @@ p_1&= \frac{9}{256}
 \] 
 Determine the expected value of this discrete random variable.
 
-`r HideExample('2.3.1')`
+`r HideExample('2.3.1', 'Show Example Solution')`
 
 **Solution:** Since the *pmf* satisfies the $(a,b,0)$ recurrence relation we know that the underlying distribution is one among the binomial, Poisson, and negative binomial distributions. Since the ratio of the parameters (*i.e.* $b/a$) equals $2$, we know that it is negative binomial and that $r=3$. Moreover, since for a negative binomial $p_1=r(1+\beta)^{-(r+1)}\beta$, we have 
 \[
@@ -359,6 +372,11 @@ Finally, since the mean of a negative binomial is $r\beta$ we have the mean of t
 </div>
 
 *** 
+
+
+```{r child = './Quizzes/Quiz23.html', eval = QUIZ}
+```
+
 
 ## Estimating Frequency Distributions {#S:estimating-frequency-distributions}
 
@@ -455,7 +473,7 @@ and
 \[
 l'(\lambda)= -n +\frac{1}{\lambda}\sum_{i=1}^n x_i.
 \]
-In evaluating $l''(\lambda)$, when $\sum_{i=1}^n x_i>0$, $l''< 0$. Consequently, the maximum is attained at the sample mean, \overline{x}, presented below. When $\sum_{i=1}^n x_i=0$, the likelihood is a decreasing function and hence the maximum is attained at the least possible parameter value; this results in the maximum likelihood estimate being zero. Hence, we have  
+In evaluating $l''(\lambda)$, when $\sum_{i=1}^n x_i>0$, $l''< 0$. Consequently, the maximum is attained at the sample mean, $\overline{x}$, presented below. When $\sum_{i=1}^n x_i=0$, the likelihood is a decreasing function and hence the maximum is attained at the least possible parameter value; this results in the maximum likelihood estimate being zero. Hence, we have  
 \[
 \overline{x} = \hat{\lambda}_{\rm MLE} = \frac{1}{n}\sum_{i=1}^n x_i. 
 \]
@@ -515,41 +533,6 @@ The above discussion suggests the following simple algorithm:
 
 We note that if the underlying distribution is the binomial distribution with parameters $(m,q)$ (with $q>0$) then $\hat{m}_{MLE}$ will equal $m$ for large sample sizes. Also, $\hat{q}_{MLE}$ will have an asymptotically normal distribution and converge with probability one to $q$.  
 
-
-<!-- label{MLEm} -->
-
-<!-- ```{r echo=FALSE, include=FALSE} -->
-<!-- library(ggplot2) -->
-<!-- likm<-function(m){ -->
-<!--   prod((dbinom(x,m,mean(x)/m))) -->
-<!-- } -->
-<!-- x<-c(2,2,2,4,5); -->
-<!-- n<-(5:100); -->
-<!-- ll<-unlist(lapply(n,likm)); -->
-<!-- n[ll==max(ll)] -->
-<!-- y<-cbind(n,ll); -->
-<!-- x<-c(2,2,2,4,6); -->
-<!-- ll<-unlist(lapply(n,likm)); -->
-<!-- n[ll==max(ll)] -->
-<!-- y<-cbind(y,ll); -->
-<!-- x<-c(2,2,2,4,7); -->
-<!-- ll<-unlist(lapply(n,likm)); -->
-<!-- n[ll==max(ll)] -->
-<!-- y<-cbind(y,ll); -->
-<!-- colnames(y)<-c("m","$\\tilde{x}=(2,2,2,4,5)$","$\\tilde{x}=(2,2,2,4,6)$","$\\tilde{x}=(2,2,2,4,7)$"); -->
-<!-- dy<-data.frame(y); -->
-<!-- ``` -->
-
-
-<!-- ```{r, MLEm, echo=FALSE, fig.cap="Plot of $L(m,\\overline{x}/m)$ for binomial distribution", out.width='80%', fig.align='center'} -->
-<!-- ggplot(dy) +  -->
-<!--   geom_point(aes(x=m, y=(X..tilde.x...2.2.2.4.5..),shape="$\\tilde{x}=(2,2,2,4,5):\\hat{m}=7$"),size=0.75) +  -->
-<!--   geom_point(aes(x=m, y=(X..tilde.x...2.2.2.4.6..),shape="$\\tilde{x}=(2,2,2,4,6):\\hat{m}=18$"),size=0.75) + -->
-<!--   geom_point(aes(x=m, y=(X..tilde.x...2.2.2.4.7..),shape="$\\tilde{x}=(2,2,2,4,7):\\hat{m}=\\infty$"),size=0.75) + -->
-<!--   geom_point(aes(x=c(7),y=dy$X..tilde.x...2.2.2.4.5..[3],colour="$\\hat{m}$",shape="$\\tilde{x}=(2,2,2,4,5):\\hat{m}=7$"),size=0.75)+ -->
-<!--   geom_point(aes(x=c(18),y=dy$X..tilde.x...2.2.2.4.6..[14],colour="$\\hat{m}$",shape="$\\tilde{x}=(2,2,2,4,6):\\hat{m}=18$"),size=0.75)+ -->
-<!--   labs(x="m",y=expression(L(m,bar(x)/m)),title="MLE for m: Non-Robustness of MLE ")  -->
-<!-- ``` -->
 
 ```{r, MLEm, echo=FALSE, fig.cap="Plot of $L(m,\\overline{x}/m)$ for binomial distribution", out.width='80%', fig.align='center'}
 knitr::include_graphics("Figures/figure2.2.png")
@@ -613,8 +596,7 @@ the rapid convergence seen above is typical of the Newton's method. Hence in thi
 
 `r HideRCode('Freq.1','Show R Code')`
 
-
-``` 
+```{r, echo=ShowCode(), eval=FALSE}
 Newton<-function(x,abserr){
 mu<-mean(x);
 sigma2<-mean(x^2)-mu^2;
@@ -661,6 +643,11 @@ $$\begin{matrix}
 ```{r, MLEab0, echo=FALSE, fig.cap="Plot of $(a,b,0)$ Partially Maximized Likelihoods", out.width='80%', fig.align='center'}
 knitr::include_graphics("Figures/figure2.3.png")
 ```
+
+
+```{r child = './Quizzes/Quiz24.html', eval = QUIZ}
+```
+
 
 ## Other Frequency Distributions {#S:other-frequency-distributions}
 
@@ -718,7 +705,7 @@ Consider a Poisson distribution with parameter \(\lambda=2\). Calculate \(p_k, k
 version with \((p_0^M=0.6)\).  
 
 
-`r HideExample('2.5.1')`
+`r HideExample('2.5.1', 'Show Example Solution')`
 
 **Solution.** For the Poisson distribution as a member of the (\(a,b\),0) class, we have \(a=0\) and \(b=\lambda=2\). Thus, we may use the recursion \(p_k = \lambda p_{k-1}/k= 2 p_{k-1}/k\) for each type,
 after determining starting probabilities. The calculation of probabilities for $k\leq 3$ is shown in [Table 2.2].
@@ -749,9 +736,18 @@ p_3^M=p_2^M\left(\frac{\lambda}{3}\right)=0.083476\\\hline
 
 </div>
 
+
+
 *** 
 
+
+```{r child = './Quizzes/Quiz25.html', eval = QUIZ}
+```
+
+
 ## Mixture Distributions {#S:mixture-distributions} 
+
+
 
 ***
 
@@ -815,7 +811,7 @@ $$\begin{matrix}
 1. Calculate the probability that a randomly drawn person has 3 common colds in a year.
 2. Calculate the conditional probability that a person with exactly 3 common colds in a year is an adult smoker.
 
-`r HideExample('2.6.1')`
+`r HideExample('2.6.1', 'Show Example Solution')`
 
 **Solution.**  
 
@@ -861,7 +857,7 @@ It is worth mentioning that by considering mixtures of a parametric class of dis
 **Example `r chapnum`.6.2.**
 Suppose that \(N|\Lambda \sim\) Poisson\((\Lambda)\) and that \(\Lambda \sim\) gamma with mean of 1 and variance of 2. Determine the probability that \(N=1\).
 
-`r HideExample('2.6.1')`
+`r HideExample('2.6.2', 'Show Example Solution')`
 
 **Solution.** For a gamma distribution with parameters \((\alpha, \theta)\), we have that the mean is \(\alpha \theta\) and the variance is \(\alpha \theta^2\). Using these expressions we have
 \[
@@ -881,6 +877,11 @@ Now, one can directly use the above result to conclude that $N$ is distributed a
 </div>
 
 *** 
+
+
+```{r child = './Quizzes/Quiz26.html', eval = QUIZ}
+```
+
 
 ## Goodness of Fit {#S:goodness-of-fit}
 
@@ -965,6 +966,13 @@ When one uses the full data to estimate the probabilities, the asymptotic distri
 For the Singaporean auto data the Pearson's chi-square statistic equals $41.98$ using the full data *MLE* for ${\lambda}$. Using the limiting distribution of chi-square with $5-1-1=3$ degrees of freedom, we see that the value of $41.98$ is way out in the tail ($99$-th percentile is below $12$). Hence we can conclude that the Poisson distribution provides an inadequate fit for the data. 
 
 In the above, we started with the cells as given in the above tabular summary. In practice, a relevant question is how to define the cells so that the chi-square distribution is a good approximation to the finite sample distribution of the statistic.  A rule of thumb is to define the cells in such a way to have at least $80\%$, if not all, of the cells having expected counts greater than $5$. Also, it is clear that a larger number of cells results in a higher power of the test, and hence a simple rule of thumb is to maximize the number of cells such that each cell has at least 5 observations. 
+
+
+
+```{r child = './Quizzes/Quiz27.html', eval = QUIZ}
+```
+
+
 
 ## Exercises {#S:exercises}
 ####Theoretical Exercises  {-}
@@ -1065,6 +1073,7 @@ A discrete probability distribution has the following properties
 Determine the value of $\Pr(N=3)$. (Ans: 0.1609) 
 
 
+
 ####Additional Exercises {-}
 
 Here are a set of exercises that guide the viewer through some of the theoretical foundations of **Loss Data Analytics**. Each tutorial is based on one or more questions from the professional actuarial examinations – typically the Society of Actuaries Exam C.
@@ -1091,8 +1100,7 @@ Appendix Chapter \@ref(C:AppA) gives a general introduction to maximum likelihoo
 
 `r HideRCode('Freq.2','Show R Code')`
 
-
-```
+```{r,echo=ShowCode(),eval=FALSE}
 likbinm<-function(m){ 
   # binomial likelihood maximized w.r.t. p
   prod((dbinom(x,m,mean(x)/m)))
@@ -1181,7 +1189,7 @@ dev.off();
 `r HideRCode('Freq.3','Show R Code')`
 
 
-```
+```{r,echo=ShowCode(),eval=FALSE}
 likm<-function(m){
   prod((dbinom(x,m,mean(x)/m)))
 }

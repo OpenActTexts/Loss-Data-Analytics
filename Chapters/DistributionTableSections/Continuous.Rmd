@@ -66,8 +66,8 @@ $$
 **Illustrative Graph**
 
 ```{r}
-theta = 100
-X=seq(from = 0, to = 1000, by = 1)
+theta <- 100
+X <- seq(from = 0, to = 1000, by = 1)
 plot(x=X,y=dexp(X,rate=1/theta),type="l",
      ylab="Probability density",col="red",main="Exponential Distribution")
 ```
@@ -87,6 +87,8 @@ $$
 \begin{array}{l|c}
 \hline
   \text{Name} & \text{Function} \\
+    \hline
+  \small{\text{Parameter assumptions}} & \theta>0 \\
 \hline
   \small{\text{Probability density}} & \frac{\theta e^{-\theta/x}}{x^2} \\
  ~~ \small{\text{function }} f(x)& \\
@@ -94,11 +96,10 @@ $$
   \small{\text{Distribution function}} & e^{-\theta/x} \\
    ~~F(x) & \\
 \hline
-  \textit{k}^{th}~\small{\text{raw moment}} & \theta^k\Gamma(k+1) \\
-  ~~\mathrm{E}[X^k]  & k>-1 \\
+  \textit{k}^{th}~\small{\text{raw moment}} & \theta^k\Gamma(1-k) \\
+  ~~\mathrm{E}[X^k]  & k<1 \\
 \hline
-  \mathrm{E}[(X\wedge x)^k] & \theta^k\Gamma(k+1)\Gamma(k+1;x/\theta)+x^k e^{-x/\theta} \\
-  & k>-1 \\
+  \mathrm{E}[(X\wedge x)^k] & \theta^kG(1-k;\theta/x)+x^k (1 - e^{-\theta/x}) \\
 \hline
 \end{array}
 \end{matrix}
@@ -128,9 +129,9 @@ $$
 **Illustrative Graph**
 
 ```{r}
-theta = 100
-X=seq(from = 0, to = 1000, by = 1)
-plot(x=X,y=dinvexp(X,scale=theta),type="l",
+theta <- 0.01
+X <- seq(from = 0, to = 1000, by = 1)
+plot(x=X,y=dinvexp(X, rate =  1/theta),type="l",
      ylab="Probability density",col="red",main="Inverse Exponential Distribution")
 ```
 </div>
@@ -149,7 +150,7 @@ $$
 \hline
   \text{Name} & \text{Function} \\
 \hline
-  \small{\text{Parameter assumptions}} & \theta~\text{is known.}~,~x>\theta \\
+  \small{\text{Parameter assumptions}} & \theta~\text{is known},~x>\theta, \alpha > 0 \\
 \hline
   \small{\text{Probability density}} & \frac{\alpha\theta^\alpha}{x^{\alpha+1}} \\
  ~~ \small{\text{function }} f(x)& \\
@@ -158,9 +159,9 @@ $$
    ~~F(x) & \\
 \hline
   \textit{k}^{th}~\small{\text{raw moment}} & \frac{\alpha\theta^k}{\alpha-k} \\
-  ~~\mathrm{E}[X^k]  & \\
+  ~~\mathrm{E}[X^k]  & k < \alpha \\
 \hline
-  \mathrm{E}[(X\wedge x)^k] & \frac{\alpha\theta^k}{\alpha-k}-\frac{k\theta^k}{(\alpha-k)x^{\alpha-k}} \\
+  \mathrm{E}[(X\wedge x)^k] & \frac{\alpha\theta^k}{\alpha-k}-\frac{k\theta^{\alpha}}{(\alpha-k)x^{\alpha-k}} \\
   & x \geq\theta \\
 \hline
 \end{array}
@@ -190,9 +191,9 @@ $$
 **Illustrative Graph**
 
 ```{r}
-alpha = 3
-theta = 100
-X=seq(from = 0, to = 1000, by = 1)
+alpha <- 3
+theta <- 100
+X <- seq(from = 0, to = 1000, by = 1)
 plot(x=X,y=dpareto1(X,shape=alpha,min=theta),type="l",
      ylab="Probability density",col="red",main="Single Parameter Pareto Distribution")
 ```
@@ -228,7 +229,7 @@ $$
 \hline
   \text{Name} & \text{Function} \\
 \hline
-  \small{\text{Parameter assumptions}} & \alpha>0 \\
+  \small{\text{Parameter assumptions}} & \theta>0, \alpha>0 \\
 \hline
   \small{\text{Probability density}} & \frac{\alpha\theta^\alpha}{(x+\theta)^{\alpha+1}} \\
  ~~ \small{\text{function }} f(x)& \\
@@ -237,7 +238,7 @@ $$
    ~~F(x) & \\
 \hline
   \textit{k}^{th}~\small{\text{raw moment}} & \frac{\theta^k\Gamma(k+1)\Gamma(\alpha-k)}{\Gamma(\alpha)} \\
-  ~~\mathrm{E}[X^k] & -1<\alpha<k \\
+  ~~\mathrm{E}[X^k] & -1<k<\alpha \\
 \hline
   \small{\text{Limited Expected Value:}}~\alpha\neq1 & \frac{\theta}{\alpha-1}\Big[1-\Big(\frac{\theta}{x+\theta}\Big)^{\alpha-1}\Big] \\
   ~~\mathrm{E}[X\wedge x] & \\
@@ -275,9 +276,9 @@ $$
 **Illustrative Graph**
 
 ```{r}
-alpha = 3
-theta = 200
-X=seq(from = 0, to = 1000, by = 1)
+alpha <- 3
+theta <- 200
+X <- seq(from = 0, to = 1000, by = 1)
 plot(x=X,y=dpareto2(X,shape=alpha,scale=theta),type="l",
      ylab="Probability density",col="red",main="Pareto Distribution")
 ```
@@ -296,6 +297,8 @@ $$
 \begin{array}{l|c}
 \hline
   \text{Name} & \text{Function} \\
+  \hline
+  \small{\text{Parameter assumptions}} & \theta>0, \tau>0 \\
 \hline
   \small{\text{Probability density}} & \frac{\tau\theta x^{\tau-1}}{(x+\theta)^\tau-1} \\
  ~~ \small{\text{function }} f(x)& \\
@@ -335,9 +338,9 @@ $$
 **Illustrative Graph**
 
 ```{r}
-tau = 5
-theta = 100
-X=seq(from=0,to=3000,by=1)
+tau <- 5
+theta <- 100
+X <- seq(from=0,to=3000,by=1)
 plot(x=X,y=dinvpareto(X,shape=tau,scale=theta),type="l",
      ylab="Probability density",col="red",main="Inverse Pareto Distribution")
 ```
@@ -358,7 +361,7 @@ $$
 \hline
   \text{Name} & \text{Function} \\
 \hline
-  \small{\text{Parameter assumptions}} & u=\frac{(x/\theta)^\gamma}{1+(x/\theta)^\gamma} \\
+  \small{\text{Parameter assumptions}} & \theta>0, \gamma > 0, u=\frac{(x/\theta)^\gamma}{1+(x/\theta)^\gamma} \\
 \hline
   \small{\text{Probability density}} & \frac{\gamma(x/\theta)^\gamma}{x[1+(x/\theta)^\gamma]^2} \\
  ~~ \small{\text{function }} f(x)& \\
@@ -378,8 +381,15 @@ $$
 
 **Illustrative Graph**
 
-```{r}
-#need to write a f(x) for this dist
+```{r eval=TRUE, include=TRUE}
+dloglogistic <- function(x, gamma, theta){
+  p=gamma*(x/theta)^gamma/(x*(1+(x/theta)^gamma)^2)
+  return(p)
+}
+gamma <- 2
+theta <- 100
+X <- seq(from = 0, to = 1000, by = 1)
+plot(x=X,y=dloglogistic(X,gamma=gamma,theta=theta),type="l",col="red")
 ```
 
 
@@ -398,7 +408,7 @@ $$
 \hline
   \text{Name} & \text{Function} \\
 \hline
-  \small{\text{Parameter assumptions}} & u=\frac{1}{1+(x/\theta)^\alpha} \\
+  \small{\text{Parameter assumptions}} & \theta>0, \alpha>0, u=\frac{1}{1+(x/\theta)^\alpha} \\
 \hline
   \small{\text{Probability density}} & \frac{\alpha^2(x/\theta)^\alpha}{x[1+(x/\theta)^\alpha]^{\alpha+1}} \\
  ~~ \small{\text{function }} f(x)& \\
@@ -409,7 +419,7 @@ $$
   \textit{k}^{th}~\small{\text{raw moment}} & \frac{\theta^k\Gamma(1+(k/\alpha))\Gamma(\alpha-(k/\alpha))}{\Gamma(\alpha)} \\
   ~~\mathrm{E}[X^k]  & -\alpha<k<\alpha^2 \\
 \hline
-  \mathrm{E}[(X\wedge x)^k] & \frac{\theta^k\Gamma(1+(k/\alpha))\Gamma(\alpha-(k/\alpha))}{\Gamma(\alpha)}\beta(1+(k/\alpha),\alpha-(k/\alpha);1-u)+x^\alpha \\
+  \mathrm{E}[(X\wedge x)^k] & \frac{\theta^k\Gamma(1+(k/\alpha))\Gamma(\alpha-(k/\alpha))}{\Gamma(\alpha)}\beta(1+(k/\alpha),\alpha-(k/\alpha);1-u)+x^ku^\alpha \\
   & k>-\alpha \\
 \hline
 \end{array}
@@ -441,9 +451,9 @@ $$
 **Illustrative Graph**
 
 ```{r}
-alpha = 2
-theta = 100
-X=seq(from = 0, to = 1000, by = 1)
+alpha <- 2
+theta <- 100
+X <- seq(from = 0, to = 1000, by = 1)
 plot(x=X,y=dparalogis(X,shape=alpha,scale=theta),type="l",
      ylab="Probability density",col="red",main="Paralogistic Distribution")
 ```
@@ -474,8 +484,8 @@ $$
   \textit{k}^{th}~\small{\text{raw moment}}  & \theta^k\frac{\Gamma(\alpha+k)}{\Gamma(\alpha)} \\
   ~~\mathrm{E}[X^k]  & k>-\alpha \\
 \hline
-  \small{\text{Limited Expected Value}} & \frac{\theta^k\Gamma(k+\alpha)}{\Gamma(\alpha)}\Gamma(k+\alpha; x/\theta)+x^k[1-\Gamma(\alpha; x/\theta)]  \\
-   ~~\mathrm{E}[X\wedge x] & k > -\alpha \\
+   & \frac{\theta^k\Gamma(k+\alpha)}{\Gamma(\alpha)}\Gamma(k+\alpha; x/\theta)+x^k[1-\Gamma(\alpha; x/\theta)]  \\
+   ~~\mathrm{E}[X\wedge x]^k & k > -\alpha \\
 \hline
 \end{array}
 \end{matrix}
@@ -503,9 +513,9 @@ $$
 **Illustrative Graph**
 
 ```{r}
-alpha = 2
-theta = 50
-X=seq(from = 0, to = 1000, by = 1)
+alpha <- 2
+theta <- 50
+X <- seq(from = 0, to = 1000, by = 1)
 plot(x=X,y=dgamma(X,shape=alpha,scale=theta),type="l",
      ylab="Probability density",col="red",main="Gamma Distribution")
 ```
@@ -565,9 +575,9 @@ $$
 **Illustrative Graph**
 
 ```{r}
-alpha = 3
-theta = 100
-X=seq(from=0,to=400,by=1)
+alpha <- 3
+theta <- 100
+X <- seq(from=0,to=400,by=1)
 plot(x=X,y=dinvgamma(X,shape=alpha,scale=theta),type="l",
      ylab="Probability density",col="red",main="Inverse Gamma Distribution")
 ```
@@ -588,9 +598,9 @@ $$
 \hline
   \text{Name} & \text{Function} \\
 \hline
-  \small{\text{Parameter assumptions}} & x>0,\alpha>0 \\
+  \small{\text{Parameter assumptions}} & \theta>0,\alpha>0 \\
 \hline\
-  \small{\text{Probability density}} & \frac{\alpha \Big(\frac{x}{\theta}\Big)^\alpha e^-\Big(\frac{x}{\theta}\Big)^\alpha}{x} \\
+  \small{\text{Probability density}} & \frac{\alpha \Big(\frac{x}{\theta}\Big)^\alpha \exp\Big(-\Big(\frac{x}{\theta}\Big)^\alpha\Big)}{x} \\
  ~~ \small{\text{function }} f(x)& \\
 \hline
   \small{\text{Distribution function}} & 1-\exp\Big(-\Big(\frac{x}{\theta}\Big)^\alpha\Big) \\
@@ -599,7 +609,7 @@ $$
   \textit{k}^{th}~\small{\text{raw moment}} & \theta^k \Gamma(1 + \frac{k}{\alpha}) \\
   ~~\mathrm{E}[X^k]  & k>-\alpha \\
 \hline
-  \mathrm{E}[(X\wedge x)^k] & \theta^k\Gamma(1+\frac{k}{\alpha})\Gamma\Big[1+\frac{k}{\alpha};\Big(\frac{x}{\theta}\Big)^\alpha\Big]+x^k\exp\Big(-\Big(\frac{x}{\alpha}\Big)^\alpha\Big)  \\
+  \mathrm{E}[(X\wedge x)^k] & \theta^k\Gamma(1+\frac{k}{\alpha})\Gamma\Big[1+\frac{k}{\alpha};\Big(\frac{x}{\theta}\Big)^\alpha\Big]+x^k\exp\Big(-\Big(\frac{x}{\theta}\Big)^\alpha\Big)  \\
    & k>-\alpha \\
 \hline
 \end{array}
@@ -630,9 +640,9 @@ $$
 **Illustrative Graph**
 
 ```{r}
-alpha = 2
-theta = 100
-X=seq(from = 0, to = 1000, by = 1)
+alpha <- 2
+theta <- 100
+X <- seq(from = 0, to = 1000, by = 1)
 plot(x=X,y=dweibull(X,shape=alpha, scale=theta),type="l",
      ylab="Probability density",col="red",main="Weibull Distribution")
 ```
@@ -652,18 +662,18 @@ $$
 \hline
   \text{Name} & \text{Function} \\
 \hline
-  \small{\text{Parameter assumptions}} & x>0,\alpha>0 \\
+  \small{\text{Parameter assumptions}} & \theta>0,\tau>0 \\
 \hline\
-  \small{\text{Probability density}} & \frac{\alpha(\theta/x)^\alpha \exp^{-(\theta/x)^\alpha}}{x} \\
+  \small{\text{Probability density}} & \frac{\tau(\theta/x)^\tau \exp\Big(-\Big(\frac{\theta}{x}\Big)^\tau\Big)}{x} \\
  ~~ \small{\text{function }} f(x)& \\
 \hline
-  \small{\text{Distribution function}} & \exp\Big(-\Big(\frac{\theta}{x}\Big)^\alpha\Big) \\
+  \small{\text{Distribution function}} & \exp\Big(-\Big(\frac{\theta}{x}\Big)^\tau\Big) \\
    ~~F(x) & \\
 \hline
- \textit{k}^{th}~\small{\text{raw moment}} & \theta^k\Gamma(1-(k/\alpha)) \\
-  ~~\mathrm{E}[X^k]  & k<\alpha \\
+ \textit{k}^{th}~\small{\text{raw moment}} & \theta^k\Gamma(1-(k/\tau)) \\
+  ~~\mathrm{E}[X^k]  & k<\tau \\
 \hline
-  \mathrm{E}[(X\wedge x)^k] & \theta^k\Gamma(1-(k/\alpha))[1-\Gamma(1(k/\alpha);(\theta/x)^\alpha)]+x^k[1-e^{-(\theta/x)^\alpha}] \\
+  \mathrm{E}[(X\wedge x)^k] & \theta^k\Gamma(1-(k/\tau))[1-\Gamma(1-(k/\tau);(\theta/x)^\tau)]+x^k[1-e^{-(\theta/x)^\tau}] \\
   &  \\
 \hline
 \end{array}
@@ -678,13 +688,13 @@ $$
 \hline
   \text{Function Name} & \text{R Command} \\
 \hline
-  \small{\text{Density function}} & \text{dinvweibull}(x=, shape=\alpha, scale=\theta) \\
+  \small{\text{Density function}} & \text{dinvweibull}(x=, shape=\tau, scale=\theta) \\
 \hline
-  \small{\text{Distribution function}} & \text{pinvweibull}(p=, shape=\alpha,scale=\theta) \\
+  \small{\text{Distribution function}} & \text{pinvweibull}(p=, shape=\tau,scale=\theta) \\
 \hline
-  \small{\text{Quantile function}} & \text{qinvweibull}(q=, shape=\alpha,scale=\theta) \\ 
+  \small{\text{Quantile function}} & \text{qinvweibull}(q=, shape=\tau,scale=\theta) \\ 
 \hline
-  \small{\text{Random sampling function}} & \text{rinvweibull}(n=, shape=\alpha,scale=\theta) \\
+  \small{\text{Random sampling function}} & \text{rinvweibull}(n=, shape=\tau,scale=\theta) \\
 \hline
 \end{array}
 \end{matrix}
@@ -693,10 +703,10 @@ $$
 **Illustrative Graph**
 
 ```{r}
-alpha = 5
-theta = 100
-X=seq(from = 0, to = 1000, by = 1)
-plot(x=X,y=dinvweibull(X,shape=alpha,scale=theta),type="l",
+tau <- 5
+theta <- 100
+X <- seq(from = 0, to = 1000, by = 1)
+plot(x=X,y=dinvweibull(X,shape=tau,scale=theta),type="l",
      ylab="Probability density",col="red",main="Inverse Weibull Distribution")
 ```
 
@@ -759,11 +769,11 @@ $$
 **Illustrative Graph**
 
 ```{r}
-alpha = 50
-beta = 100
-X=seq(alpha,beta,1)
+alpha <- 50
+beta <- 100
+X <- seq(alpha,beta,1)
 plot(x=X,y=dunif(X,alpha,beta),type="l",
-     ylab="Probability density",col="red",main="Continous Uniform Distribution")
+     ylab="Probability density",col="red",main="Continuous Uniform Distribution")
 ```
 
 
@@ -829,9 +839,9 @@ $$
 **Illustrative Graph**
 
 ```{r}
-mu=100
-sigma=10
-X=seq(from=0,to=200,by=1)
+mu <- 100
+sigma <- 10
+X <- seq(from=0,to=200,by=1)
 plot(x=X,y=dnorm(X,mean=mu,sd=sigma),type="l",
      ylab="Probability density",col="red",main="Normal Distribution")
 ```
@@ -884,9 +894,9 @@ $$
 **Illustrative Graph**
 
 ```{r}
-alpha = 50
-beta = 100
-X=seq(from = 0, to = 1000, by = 1)
+alpha <- 50
+beta <- 100
+X <- seq(from = 0, to = 1000, by = 1)
 plot(x=X,y=dcauchy(X,location=alpha,scale=beta),
      type="l",ylab="Probability density",col="red",main="Cauchy Distribution")
 ```
@@ -916,7 +926,7 @@ $$
 \hline
   \text{Name} & \text{Function} \\
 \hline
-  \small{\text{Parameter assumptions}} & u=\frac{x}{x+\theta} \\
+  \small{\text{Parameter assumptions}} & \theta>0, \alpha>0, \tau>0, u=\frac{x}{x+\theta} \\
 \hline
   \small{\text{Probability density}} & \frac{\Gamma(\alpha+\tau)}{\Gamma(\alpha)\Gamma(\tau)}\frac{\theta^\alpha x^{\tau-1}}{(x+\theta)^{\alpha+\tau}} \\
  ~~ \small{\text{function }} f(x)& \\
@@ -927,7 +937,7 @@ $$
   \textit{k}^{th}~\small{\text{raw moment}} & \frac{\theta^k\Gamma(\tau+1)\Gamma(\alpha-k)}{\Gamma(\alpha)\Gamma(\tau)} \\
   ~~~~\mathrm{E}[X^k]  & -\tau<k<\alpha \\
 \hline
-  \mathrm{E}[(X\wedge x)^k] & \frac{\theta^k\Gamma(\tau+k)\Gamma(\alpha-k)}{\Gamma(\alpha)\Gamma(\tau)}\beta(\tau+k,\alpha-k;u)+x^k[1-\beta(\tau,\alpha,u)]  \\
+  \mathrm{E}[(X\wedge x)^k] & \frac{\theta^k\Gamma(\tau+k)\Gamma(\alpha-k)}{\Gamma(\alpha)\Gamma(\tau)}\beta(\tau+k,\alpha-k;u)+x^k[1-\beta(\tau,\alpha;u)]  \\
   & k>-\tau \\
 \hline
 \end{array}
@@ -958,10 +968,10 @@ $$
 **Illustrative Graph**
 
 ```{r}
-alpha = 3
-tau = 5
-theta = 100
-X=seq(from = 0, to = 1000, by = 1)
+alpha <- 3
+tau <- 5
+theta <- 100
+X <- seq(from = 0, to = 1000, by = 1)
 plot(x=X,y=dgenpareto(X,shape1=alpha,shape2=tau,scale=theta),type="l",
      ylab="Probability density",col="red",main="Generalized Pareto Distribution")
 ```
@@ -981,7 +991,7 @@ $$
 \hline
   \text{Name} & \text{Function} \\
 \hline
-  \small{\text{Parameter assumptions}} & u=\frac{1}{1+(x/\theta)^\gamma} \\
+  \small{\text{Parameter assumptions}} & \theta>0, \alpha>0, \gamma>0, u=\frac{1}{1+(x/\theta)^\gamma} \\
 \hline
   \small{\text{Probability density}} & \frac{\alpha\gamma(x/\theta)^\gamma}{x[1+(x/\theta)^\gamma]^{\alpha+1}} \\
  ~~ \small{\text{function }} f(x)& \\
@@ -989,11 +999,11 @@ $$
   \small{\text{Distribution function}} & 1-u^\alpha \\
    ~~F(x) & \\
 \hline
-  \textit{k}^{th}~\small{\text{raw moment}} & \frac{\theta\Gamma(1+(k/\gamma))\Gamma(\alpha-(k/\gamma))}{\Gamma(\alpha)} \\
+  \textit{k}^{th}~\small{\text{raw moment}} & \frac{\theta^k\Gamma(1+(k/\gamma))\Gamma(\alpha-(k/\gamma))}{\Gamma(\alpha)} \\
   ~~~~\mathrm{E}[X^k]  & -\gamma<k<\alpha\gamma \\
 \hline
-  \mathrm{E}[(X\wedge x)^k] & \frac{\theta\Gamma(1+(k/\gamma))\Gamma(\alpha-(k/\gamma))}{\Gamma(\alpha)}\beta(1+(k/\gamma),\alpha-(k/\gamma);1-u)+x^ku^\alpha  \\
-  & k>-\tau \\
+  \mathrm{E}[(X\wedge x)^k] & \frac{\theta^k\Gamma(1+(k/\gamma))\Gamma(\alpha-(k/\gamma))}{\Gamma(\alpha)}\beta(1+(k/\gamma),\alpha-(k/\gamma);1-u)+x^ku^\alpha  \\
+  & k>-\gamma \\
 \hline
 \end{array}
 \end{matrix}
@@ -1023,10 +1033,10 @@ $$
 **Illustrative Graph**
 
 ```{r}
-alpha = 2
-gamma=3
-theta = 100
-X=seq(from = 0, to = 1000, by = 1)
+alpha <- 2
+gamma <- 3
+theta <- 100
+X <- seq(from = 0, to = 1000, by = 1)
 plot(x=X,y=dburr(X,shape1=alpha,shape2=gamma,scale=theta),type="l",
      ylab="Probability density",col="red",main="Burr Distribution")
 ```
@@ -1046,19 +1056,19 @@ $$
 \hline
   \text{Name} & \text{Function} \\
 \hline
-  \small{\text{Parameter assumptions}} & u=\frac{(x/\theta)^\gamma}{1+(x/\theta)^\gamma} \\
+  \small{\text{Parameter assumptions}} & \theta>0, \tau>0, \gamma>0, u=\frac{(x/\theta)^\gamma}{1+(x/\theta)^\gamma} \\
 \hline
-  \small{\text{Probability density}} & \frac{\alpha\gamma(x/\theta)^\gamma}{x[1+(x/\theta)^\tau]^{\alpha+1}} \\
+  \small{\text{Probability density}} & \frac{\tau\gamma(x/\theta)^{\tau \gamma}}{x[1+(x/\theta)^\gamma]^{\tau+1}} \\
  ~~ \small{\text{function }} f(x)& \\
 \hline
   \small{\text{Distribution function}} & u^\tau \\
    ~~F(x) & \\
 \hline
-  \textit{k}^{th}~\small{\text{raw moment}} & \frac{\theta^k\Gamma(1+(k/\gamma))\Gamma(\alpha-(k/\gamma))}{\tau} \\
+  \textit{k}^{th}~\small{\text{raw moment}} & \frac{\theta^k\Gamma(\tau+(k/\gamma))\Gamma(1-(k/\gamma))}{\Gamma(\tau)} \\
   ~~~~\mathrm{E}[X^k]  & -\tau\gamma<k<\gamma \\
 \hline
-  \mathrm{E}[(X\wedge x)^k] & \frac{\theta^k\Gamma(1+(k/\gamma))\Gamma(\alpha-(k/\gamma))}{\tau}\beta(\tau+(k/\gamma),1-(k/\gamma);u)+x^k[1-u^\tau]  \\
-  & k>-\tau \\
+  \mathrm{E}[(X\wedge x)^k] & \frac{\theta^k\Gamma(\tau+(k/\gamma))\Gamma(1-(k/\gamma))}{\Gamma(\tau)}\beta(\tau+(k/\gamma),1-(k/\gamma);u)+x^k[1-u^\tau]  \\
+  & k>-\tau\gamma \\
 \hline
 \end{array}
 \end{matrix}
@@ -1072,13 +1082,13 @@ $$
 \hline
   \text{Function Name} & \text{R Command} \\
 \hline
-  \small{\text{Density function}} & \text{dinvburr}(x=, shape1=\alpha, shape2=\tau, scale=\theta) \\
+  \small{\text{Density function}} & \text{dinvburr}(x=, shape1=\tau, shape2=\gamma, scale=\theta) \\
 \hline
-  \small{\text{Distribution function}} & \text{pinvburr}(p=, shape1=\alpha, shape2=\tau, scale=\theta) \\
+  \small{\text{Distribution function}} & \text{pinvburr}(p=, shape1=\tau, shape2=\gamma, scale=\theta) \\
 \hline
-  \small{\text{Quantile function}} & \text{qinvburr}(q=, shape1=\alpha, shape2=\tau, scale=\theta) \\ 
+  \small{\text{Quantile function}} & \text{qinvburr}(q=, shape1=\tau, shape2=\gamma, scale=\theta) \\ 
 \hline
-  \small{\text{Random sampling function}} & \text{rinvburr}(n=, shape1=\alpha, shape2=\tau, scale=\theta) \\
+  \small{\text{Random sampling function}} & \text{rinvburr}(n=, shape1=\tau, shape2=\gamma, scale=\theta) \\
 \hline
 \end{array}
 \end{matrix}
@@ -1087,11 +1097,11 @@ $$
 **Illustrative Graph**
 
 ```{r}
-alpha = 2
-tau=3
-theta = 100
-X=seq(from = 0, to = 1000, by = 1)
-plot(x=X,y=dinvburr(X,shape1=alpha,shape2=tau,scale=theta),type="l",
+tau <- 2
+gamma <- 3
+theta <- 100
+X <- seq(from = 0, to = 1000, by = 1)
+plot(x=X,y=dinvburr(X,shape1=tau,shape2=gamma,scale=theta),type="l",
      ylab="Probability density",col="red",main="Inverse Burr Distribution")
 ```
 
@@ -1119,7 +1129,7 @@ $$
 \hline
   \text{Name} & \text{Function} \\
 \hline
-  \small{\text{Parameter assumptions}} & \beta>0 \\
+  \small{\text{Parameter assumptions}} & \theta>0, \alpha_1>0, \alpha_2>0, \sigma>0  \\
 \hline
   \small{\text{Probability density}} & \frac{(x/\theta)^{\alpha_2/\sigma}}{x \sigma~\mathrm{B}\left( \alpha_1,\alpha_2\right)\left\lbrack 1 + \left( x/\theta \right)^{1/\sigma} \right\rbrack^{\alpha_1 + \alpha_2}}  \\
     ~~ \small{\text{function }} f(x) & \\
@@ -1134,29 +1144,9 @@ $$
 
 **`R` Commands**
 
-$$
-\begin{matrix}
-\begin{array}{l|c}
-\hline
-  \text{Function Name} & \text{R Command} \\
-\hline
-  \small{\text{Density function}} & \text{insert text}(x=,) \\
-\hline
-  \small{\text{Distribution function}} & \text{insert text}(q=,) \\
-\hline
-  \small{\text{Quantile function}} & \text{insert text}(p=,) \\ 
-\hline
-  \small{\text{Random sampling function}} & \text{insert text}(r=,) \\
-\hline
-\end{array}
-\end{matrix}
-$$
+Please see the [R Codes for Loss Data Analytics](https://ewfrees.github.io/LDARcode/index.html) site for information about this distribution.
 
-**Illustrative Graph**
 
-```{r}
-#Need Density function and respective packages for graph
-```
 
 ### Other Distributions
 
@@ -1191,7 +1181,7 @@ $$
    ~~F(x) & \\
 \hline
   \textit{k}^{th}~\small{\text{raw moment}} & \exp(k\mu+\frac{k^2\sigma^2}{2}) \\
-  ~~\mathrm{E}[X^k]  & k>-a \\
+  ~~\mathrm{E}[X^k]  &  \\
 \hline
   \small{\text{Limited Expected Value}} & \exp\Big(k\mu+\frac{k^2\sigma^2}{2}\Big)\Phi\Big(\frac{\ln (x)-\mu-k\sigma^2}{\sigma}\Big)+x^k\Big[1-\Phi\Big(\frac{\ln (x)-\mu}{\sigma}\Big)\Big]  \\
   ~~\mathrm{E}[X\wedge x] & \\
@@ -1203,13 +1193,13 @@ $$
 **Illustrative Graph**
 
 ```{r eval=TRUE, include=TRUE}
-dlognorm=function(x,mu,sigma){
+dlognorm <- function(x,mu,sigma){
   p=(1/(x*sigma*sqrt(2*pi)))*exp(-((log(x)-mu)/sigma)^2)
   return(p)
 }
-mu = 20
-sigma = 12
-X=seq(from = 0, to = 1000, by = 1)
+mu <- 20
+sigma <- 12
+X <- seq(from = 0, to = 1000, by = 1)
 plot(x=X,y=dlognorm(X,mu=mu,sigma=sigma),type="l",col="red")
 ```
 
@@ -1230,9 +1220,9 @@ $$
 \hline
   \text{Name} & \text{Function} \\
 \hline
-  \small{\text{Parameter assumptions}} & z=\frac{x-\mu}{\mu}~,~y=\frac{x+\mu}{\mu} \\
+  \small{\text{Parameter assumptions}} & \theta>0, \mu>0, z=\frac{x-\mu}{\mu}~,~y=\frac{x+\mu}{\mu} \\
 \hline
-  \small{\text{Probability density}} & \Big(\frac{\theta}{2\pi x^3}\Big)^{1/2}\exp\Big(\frac{\theta z^2}{2x}\Big) \\
+  \small{\text{Probability density}} & \Big(\frac{\theta}{2\pi x^3}\Big)^{1/2}\exp\Big(\frac{-\theta z^2}{2x}\Big) \\
  ~~ \small{\text{function }} f(x)& \\
 \hline
   \small{\text{Distribution function}} & \Phi\Big[z\Big(\frac{\theta}{x}\Big)^{1/2}\Big]+\exp\Big(\frac{2\theta}{\mu}\Big)\Phi\Big[-y\Big(\frac{\theta}{x}\Big)^{1/2}\Big] \\
@@ -1274,9 +1264,9 @@ $$
 **Illustrative Graph**
 
 ```{r}
-mu=100
-theta = 1000
-X=seq(from=0,to=100,by=1)
+mu <- 100
+theta <- 1000
+X <- seq(from=0,to=100,by=1)
 plot(x=X,y=dinvgauss(X,mean=mu,dispersion=theta),type="l",
      ylab="Probability density",col="red",main="Inverse Gaussian Distribution")
 ```
@@ -1308,7 +1298,7 @@ $$
 \hline
   \text{Name} & \text{Function} \\
 \hline
-  \small{\text{Parameter assumptions}} & u=\frac{x}{\theta},~a>0,~b>0,~0<x<\theta \\
+  \small{\text{Parameter assumptions}} & \theta>0, ~a>0,~b>0, u=\frac{x}{\theta},~0<x<\theta \\
 \hline
   \small{\text{Probability density}} & \frac{\Gamma(a+b)}{\Gamma(a)\Gamma(b)} u^a(1-u)^{b-1}\frac{1}{x} \\
  ~~ \small{\text{function }} f(x)& \\
@@ -1317,11 +1307,11 @@ $$
    ~~F(x) & \\
 \hline
   \textit{k}^{th}~\small{\text{raw moment}} & \frac{\theta^k 
-  \Gamma(a+b)\Gamma(a+k)}{\Gamma(a)\Gamma(a+b+1)} \\
+  \Gamma(a+b)\Gamma(a+k)}{\Gamma(a)\Gamma(a+b+k)} \\
   ~~\mathrm{E}[X^k]  & k>-a \\
 \hline
-  \small{\text{Limited Expected Value}} & \frac{\theta^k a(a+1)\cdots(a+k-1)}{(a+b)(a+b+1)\cdots(a+b+k-1)}\beta(a+k,b;u)+x^k[1-\beta(a,b;u)]  \\
-   ~~\mathrm{E}[X\wedge x] & k > -\alpha \\
+  & \frac{\theta^k a(a+1)\cdots(a+k-1)}{(a+b)(a+b+1)\cdots(a+b+k-1)}\beta(a+k,b;u)+x^k[1-\beta(a,b;u)]  \\
+   ~~\mathrm{E}[X\wedge x]^k &  \\
 \hline
 \end{array}
 \end{matrix}
@@ -1349,10 +1339,10 @@ $$
 
 
 ```{r}
-a = 2
-b = 4
-theta = 1
-X=seq(from=0,to=1,by=.0001)
+a <- 2
+b <- 4
+theta <- 1
+X <- seq(from=0,to=1,by=.0001)
 plot(x=X,y=dbeta(X,shape1=a,shape2=b,ncp=theta),type="l",
      ylab="Probability density",col="red",main="Beta Distribution")
 ```
@@ -1373,7 +1363,7 @@ $$
 \hline
   \text{Name} & \text{Function} \\
 \hline
-  \small{\text{Parameter assumptions}} & 0<x<\theta~,~u=(x/\theta)^\tau \\
+  \small{\text{Parameter assumptions}} & \theta>0, a>0, b>0, \tau>0, 0<x<\theta~,~u=(x/\theta)^\tau \\
 \hline
   \small{\text{Probability density}} & \frac{\Gamma(a+b)}{\Gamma(a)\Gamma(b)}u^\alpha(1-u)^{b-1}\frac{\tau}{x} \\
  ~~ \small{\text{function }} f(x)& \\
@@ -1413,11 +1403,11 @@ $$
 **Illustrative Graph**
 
 ```{r}
-a = 3
-b = 5
-tau = 2
-theta = 1000
-X=seq(from = 0, to = 1000, by = 1)
+a <- 3
+b <- 5
+tau <- 2
+theta <- 1000
+X <- seq(from = 0, to = 1000, by = 1)
 plot(x=X,y=dgenbeta(X,shape1=a,shape2=b,shape3=tau,scale=theta),type="l",
      ylab="Probability density",col="red",main="Generalized Beta Distribution")
 ```

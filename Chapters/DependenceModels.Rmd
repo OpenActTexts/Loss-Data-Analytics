@@ -2,7 +2,7 @@
 
 # Dependence Modeling {#C:DependenceModel}
 
-*Chapter Preview*. In practice, there are many types of variables that one encounter and the first step in dependence modeling is identifying the type of variable you are dealing with to help direct you to the appropriate technique.This chapter introduces readers to variable types and techniques for modeling dependence or association of multivariate distributions. Section \@ref(S:VarTypes) provides an overview of the types of variables. Section \@ref(S:Measures) then elaborates basic measures for modeling the dependence between variables.
+*Chapter Preview*. In practice, there are many types of variables that one encounter and the first step in dependence modeling is identifying the type of variable you are dealing with to help direct you to the appropriate technique. This chapter introduces readers to variable types and techniques for modeling dependence or association of multivariate distributions. Section \@ref(S:VarTypes) provides an overview of the types of variables. Section \@ref(S:Measures) then elaborates basic measures for modeling the dependence between variables. 
 
 Section \@ref(S:Copula) introduces a novel approach to modeling dependence using Copulas which is reinforced with practical illustrations in Section \@ref(S:CopAppl). The types of Copula families and basic properties of Copula functions is explained Section \@ref(S:CopTyp). The chapter concludes by explaining why the study of dependence modeling is important in Section \@ref(S:CopImp).
 
@@ -19,7 +19,7 @@ In this section, you learn how to:
 
 ***
 
-People, firms, and other entities that we want to understand are described in a dataset by numerical characteristics. As these characteristics vary by entity, they are commonly known as *variables*. To manage insurance systems, it will be critical to understand the distribution of each variable and how they are associated with one another. It is common for data sets to have many variables (high dimensional) and so it useful to begin by classifying them into different types. As will be seen, these classifications are not strict; there is overlap among the groups. Nonetheless, the grouping summarized in  [Table 14.1] and explained in the remainder of this section provide a solid first step in framing a data set.
+People, firms, and other entities that we want to understand are described in a dataset by numerical characteristics. As these characteristics vary by entity, they are commonly known as `r Gloss('variables')`. To manage insurance systems, it will be critical to understand the distribution of each variable and how they are associated with one another. It is common for data sets to have many variables (`r Gloss('high dimensional')`) and so it useful to begin by classifying them into different types. As will be seen, these classifications are not strict; there is overlap among the groups. Nonetheless, the grouping summarized in  [Table 14.1] and explained in the remainder of this section provides a solid first step in framing a data set. 
 
 <a id=tab:14.1></a>  
 
@@ -36,7 +36,7 @@ Qualitative &            \\
 & ~~~ \text{to 5 =satisfied)} \\\hline
 Quantitative &            \\
 \text{Continuous} & \text{Policyholder's age, weight, income} \\
-  \text{Discrete} & \text{Amount of deductible} \\
+  \text{Discrete} & \text{Amount of deductible  (0, 250, 500, and 1000)} \\
 \text{Count} & \text{Number of insurance claims} \\
 \text{Combinations of}  & \text{Policy losses, mixture of 0's (for no loss)}  \\
 ~~~ \text{Discrete and Continuous} & ~~~\text{and positive claim amount} \\
@@ -92,11 +92,11 @@ In this sub-section, you learn how to:
 
 ***
 
-A *qualitative*, or *categorical*, variable is one for which the measurement denotes membership in a set of groups, or categories. For example, if you were coding which area of the country an insured resides, you might use a 1 for the northern part, 2 for southern, and 3 for everything else. This location variable is an example of a *nominal* variable, one for which the levels have no natural ordering. Any analysis of nominal variables should not depend on the labeling of the categories. For example, instead of using a 1,2,3 for north, south, other, I should arrive at the same set of summary statistics if I used a 2,1,3 coding instead, interchanging north and south. 
+A `r Gloss('qualitative')`,or `r Gloss('categorical variable')` is one for which the measurement denotes membership in a set of groups, or categories. For example, if you were coding which area of the country an insured resides, you might use a 1 for the northern part, 2 for southern, and 3 for everything else. This location variable is an example of a `r Gloss('nominal variable')`, one for which the levels have no natural ordering. Any analysis of nominal variables should not depend on the labeling of the categories. For example, instead of using a 1,2,3 for north, south, other, I should arrive at the same set of summary statistics if I used a 2,1,3 coding instead, interchanging north and south. 
 
-In contrast, an *ordinal* variable is a type of categorical variable for which an ordering does exist. For example, with a survey to see how satisfied customers are with our claims servicing department, we might use a five point scale that ranges from 1 meaning dissatisfied to a 5 meaning satisfied. Ordinal variables provide a clear ordering of levels of a variable but the amount of separation between levels is unknown.
+In contrast, an `r Gloss('ordinal variable')` is a type of categorical variable for which an ordering does exist. For example, with a survey to see how satisfied customers are with our claims servicing department, we might use a five point scale that ranges from 1 meaning dissatisfied to a 5 meaning satisfied. Ordinal variables provide a clear ordering of levels of a variable but the amount of separation between levels is unknown.
 
-A *binary* variable is a special type of categorical variable where there are only two categories commonly taken to be a 0 and a 1. For example, we might code a variable in a dataset to be a 1 if an insured is female and a 0 if male. 
+A `r Gloss('binary variable')` is a special type of categorical variable where there are only two categories commonly taken to be a 0 and a 1. For example, we might code a variable in a dataset to be a 1 if an insured is female and a 0 if male. 
 
 
 ### Quantitative Variables {#S:QuanVar}
@@ -111,12 +111,15 @@ In this sub-section, you learn how to:
 
 ***
 
-Unlike a qualitative variable, a quantitative variable is one in which numerical level is a realization from some scale so that the distance between any two levels of the scale takes on meaning. A *continuous variable* is one that can take on any value within a finite interval. For example, it is common to represent a policyholder's age, weight, or income, as a continuous variable. In contrast, a *discrete variable* is one that takes on only a finite number of values in any finite interval. Like an ordinal variable, these represent distinct categories that are ordered. Unlike an ordinal variable, the numerical difference between levels takes on economic meaning. A special type of discrete variable is a *count variable*, one with values on the nonnegative integers. For example, we will be particularly interested in the number of claims arising from a policy during a given period. 
+Unlike a qualitative variable, a `r Gloss('quantitative variable')` is one in which numerical level is a realization from some scale so that the distance between any two levels of the scale takes on meaning. A `r Gloss('continuous variable')` is one that can take on any value within a finite interval. For example, it is common to represent a `r Gloss('policyholder')`'s age, weight, or income, as a continuous variable. In contrast, a 
+`r Gloss('discrete variable')` is one that takes on only a finite number of values in any finite interval. For example, when examining a policyholder's choice of `r Gloss('deductibles')`, it may be that values of 0, 250, 500, and 1000 are the only possible outcomes. Like an ordinal variable, these represent distinct categories that are ordered. Unlike an ordinal variable, the numerical difference between levels takes on economic meaning. A special type of discrete variable is a `r Gloss('count variable')`, one with values on the nonnegative integers. For example, we will be particularly interested in the number of claims arising from a policy during a given period. 
 
 
-Some variables are inherently a *combination of discrete and continuous* components. For example, when we analyze the insured loss of a policyholder, we will encounter a discrete outcome at zero, representing no insured loss, and a continuous amount for positive outcomes, representing the amount of the insured loss. Another interesting variation is an *interval variable*, one that gives a range of possible outcomes. 
+Some variables are inherently a *combination of discrete and continuous* components. For example, when we analyze the insured `r Gloss('loss')` of a policyholder, we will encounter a discrete outcome at zero, representing no insured loss, and a continuous amount for positive outcomes, representing the amount of the insured loss. Another interesting variation is an `r Gloss('interval variable')`,one that gives a range of possible outcomes. 
 
-*Circular data* represent an interesting category typically not analyzed by insurers. As an example of circular data, suppose that you monitor calls to your customer service center and would like to know when is the peak time of the day for calls to arrive. In this context, one can think about the time of the day as a variable with realizations on a circle, e.g., imagine an analog picture of a clock. For circular data, the distance between observations at 00:15 and 00:45 are just as close as observations 23:45 and 00:15 (here, we use the convention *HH:MM* means hours and minutes).
+ 
+
+`r Gloss('Circular data')` represent an interesting category typically not analyzed by `r Gloss('insurers')`. As an example of circular data, suppose that you monitor calls to your customer service center and would like to know when is the peak time of the day for calls to arrive. In this context, one can think about the time of the day as a variable with realizations on a circle, e.g., imagine an analog picture of a clock. For circular data, the distance between observations at 00:15 and 00:45 are just as close as observations 23:45 and 00:15 (here, we use the convention *HH:MM* means hours and minutes).
 
 
 ### Multivariate Variables
@@ -130,14 +133,16 @@ In this sub-section, you learn how to:
 
 ***
 
-Insurance data typically are *multivariate* in the sense that we can take many measurements on a single entity. For example, when studying losses associated with a firm's worker's compensation plan, we might want to know the location of its manufacturing plants, the industry in which it operates, the number of employees, and so forth. The usual strategy for analyzing multivariate data is to begin by examining each variable in isolation of the others. This is known as a *univariate* approach. 
+Insurance data typically are `r Gloss('multivariate')` in the sense that we can take many measurements on a single entity. For example, when studying losses associated with a firm's `r Gloss("worker's compensation")` plan, we might want to know the location of its manufacturing plants, the industry in which it operates, the number of employees, and so forth. The usual strategy for analyzing multivariate data is to begin by examining each variable in isolation of the others. This is known as a `r Gloss('univariate')` approach. 
 
 In contrast, for some variables, it makes little sense to only look at one dimensional aspects. For example, insurers typically organize *spatial* data by longitude and latitude to analyze the location of weather related insurance claims due hailstorms. Having only a single number, either longitude or latitude, provides little information in understanding geographical location.
 
-Another special case of a multivariate variable, less obvious, involves coding for *missing data*. When data are missing, it is better to think about the variable as two dimensions, one to indicate whether or not the variable is reported and the second providing the age (if reported). In the same way, insurance data are commonly *censored* and *truncated*. We refer you to Chapter 4 for more on censored and truncated data. *Aggregate claims* can also be coded as another special type of multivariate variable. We refer you to Chapter 5 for more Aggregate claims.
+Another special case of a multivariate variable, less obvious, involves coding for `r Gloss('missing data')`. Historically, some statistical packages used a -99 to report when a variable, such as policyholder's age, was not available or not reported. This led to many unsuspecting analysts providing strange statistics when summarizing a set of data. When data are missing, it is better to think about the variable as two dimensions, one to indicate whether or not the variable is reported and the second providing the age (if reported). In the same way, insurance data are commonly `r Gloss('censored')` and `r Gloss('truncated')`. We refer you to Chapter 4 for more on censored and truncated data. `r Gloss('Aggregate claims')` can also be coded as another special type of multivariate variable. We refer you to Chapter 5 for more Aggregate claims.
 
-Perhaps the most complicated type of multivariate variable is a *realization of a stochastic process*. You will recall that a stochastic process is little more than a collection of random variables. For example, in insurance, we might think about the times that claims arrive to an insurance company in a one year time horizon. This is a high dimensional variable that theoretically is infinite dimensional. Special techniques are required to understand realizations of stochastic processes that will not be addressed here.
+Perhaps the most complicated type of multivariate variable is a realization of a `r Gloss('stochastic process')`. You will recall that a stochastic process is little more than a collection of random variables. For example, in insurance, we might think about the times that claims arrive to an insurance company in a one year time horizon. This is a high dimensional variable that theoretically is infinite dimensional. Special techniques are required to understand realizations of stochastic processes that will not be addressed here.
 
+```{r child = './Quizzes/Quiz141.html', eval = QUIZ}
+```
 
 ## Classic Measures of Scalar Associations {#S:Measures}
 
@@ -147,7 +152,7 @@ In this section, you learn how to:
 
 - Estimate correlation using Pearson method 
 - Use rank based measures like Spearman, Kendall to estimate correlation
-- Measure dependence using odds ratio,Pearson chi-square and likelihood ratio test statistic 
+- Measure dependence using odds ratio, Pearson chi-square and likelihood ratio test statistic 
 - Use normal-based correlations to quantify associations involving ordinal variables
 
 ***
@@ -159,18 +164,20 @@ For this section, consider a pair of random variables $(X,Y)$ having joint distr
 
 #### Pearson Correlation
 
-Define the sample covariance function $Cov(X,Y) = \frac{1}{n} \sum_{i=1}^n (X_i - \bar{X})(Y_i - \bar{Y})$, where $\bar{X}$ and $\bar{Y}$ are the sample means of $X$ and $Y$, respectively. Then, the product-moment (Pearson) correlation can be written as
+Define the sample covariance function $\widehat{Cov}(X,Y) = \frac{1}{n} \sum_{i=1}^n (X_i - \bar{X})(Y_i - \bar{Y})$, where $\bar{X}$ and $\bar{Y}$ are the sample means of $X$ and $Y$, respectively. Then, the product-moment (Pearson) correlation can be written as
+
 \begin{equation*}
-r = \frac{Cov(X,Y)}{\sqrt{Cov(X,X) Cov(Y,Y)}}.
+r = \frac{\widehat{Cov}(X,Y)}{\sqrt{\widehat{Cov}(X,X)\widehat{Cov}(Y,Y)}}.
 \end{equation*}
-The correlation statistic $r$ is widely used to capture association between random variables. It is a (nonparametric) estimator of the correlation parameter $\rho$, defined to be the covariance divided by the product of standard deviations. In this sense, it captures association for any pair of random variables.
+
+The correlation statistic $r$ is widely used to capture linear association between random variables. It is a (nonparametric) estimator of the correlation parameter $\rho$, defined to be the covariance divided by the product of standard deviations. In this sense, it captures association for any pair of random variables.
 
 This statistic has several important features. Unlike regression estimators, it is symmetric between random variables, so the correlation between $X$ and $Y$ equals the correlation between $Y$ and $X$. It is unchanged by linear transformations of random variables (up to sign changes) so that we can multiply random variables or add constants as is helpful for interpretation. The range of the statistic is $[-1,1]$ which does not depend on the distribution of either $X$ or $Y$.
 
 Further, in the case of independence, the correlation coefficient $r$ is 0. However, it is well known that zero correlation does not imply independence, except for normally distributed random variables. The correlation statistic $r$ is also a (maximum likelihood) estimator of the association parameter for bivariate normal distribution. So, for normally distributed data, the correlation statistic $r$ can be used to assess independence. For additional interpretations of this well-known statistic, readers will enjoy [@lee1988thirteen].
 
 
-You can obtain the correlation statistic $r$ using the `cor()` function in `R` and selecting the `pearson` method. This is demonstrated below by using the *Coverage* rating variable in millions of dollars and *Claim* amount variable in dollars from the LGPIF data introduced in chapter 1. 
+You can obtain the Pearson correlation statistic $r$ using the `cor()` function in `R` and selecting the `pearson` method. This is demonstrated below by using the *Coverage* rating variable in millions of dollars and *Claim* amount variable in dollars from the LGPIF data introduced in chapter 1. 
 
 
 
@@ -182,21 +189,17 @@ r<-cor(Claim,log(Coverage), method = c("pearson"))
 round(r,2)
 ```
 
+`r HideRCode('pearson.1','R Code for Pearson Correlation Statistic')`
 
-
-<h5 style="text-align: center;"><a id="display.pearson.1" href="javascript:togglecode
-('display.pearson.2','display.pearson.1');"><i><strong>R Code for Pearson Correlation Statistic</strong></i></a> </h5>
-<div id="display.pearson.2" style="display: none">
-
-``` 
-### Pearson correlation between Claim and Coverage ###
+```{r, echo=ShowCode(), eval=FALSE}
+### Pearson correlation between Claim and Coverage
 r<-cor(Claim,Coverage, method = c("pearson"))
 round(r,2)
 
 Output:
 [1] 0.31
 
-### Pearson correlation between Claim and log(Coverage) ###
+### Pearson correlation between Claim and log(Coverage)
 r<-cor(Claim,log(Coverage), method = c("pearson"))
 round(r,2)
 
@@ -219,8 +222,8 @@ Alternative measures of correlation are based on ranks of the data. Let $R(X_j)$
 
 With this, the correlation measure of [@spearman1904proof] is simply the product-moment correlation computed on the ranks:
 \begin{equation*}
-r_S = \frac{Cov(R(X),R(Y))}{\sqrt{Cov(R(X),R(X))Cov(R(Y),R(Y))}}
-= \frac{Cov(R(X),R(Y))}{(n^2-1)/12} .
+r_S = \frac{\widehat{Cov}(R(X),R(Y))}{\sqrt{\widehat{Cov}(R(X),R(X))\widehat{Cov}(R(Y),R(Y))}}
+= \frac{\widehat{Cov}(R(X),R(Y))}{(n^2-1)/12} .
 \end{equation*}
 
 You can obtain the Spearman correlation statistic $r_S$ using the `cor()` function in `R` and selecting the `spearman` method. From below, the Spearman correlation between the *Coverage* rating variable in millions of dollars and *Claim* amount variable in dollars is $0.41$.
@@ -233,11 +236,9 @@ rs<-cor(Claim,log(Coverage), method = c("spearman"))
 round(rs,2)
 ```
 
-<h5 style="text-align: center;"><a id="display.spearman.1" href="javascript:togglecode
-('display.spearman.2','display.spearman.1');"><i><strong>R Code for Spearman Correlation Statistic</strong></i></a> </h5>
-<div id="display.spearman.2" style="display: none">
+`r HideRCode('spearman.1','R Code for Spearman Correlation Statistic')`
 
-``` 
+```{r echo=ShowCode(), eval=FALSE}
 ### Spearman correlation between Claim and Coverage ###
 rs<-cor(Claim,Coverage, method = c("spearman"))
 round(rs,2)
@@ -254,14 +255,13 @@ Output:
 ```
 </div>  
 
-
-To show that the Spearman correlation statistic is invariate under strictly increasing transformations , from the `R` Code for Spearman correlation statistic above, $r_S=0.41$ between the *Coverage* rating variable in logarithmic millions of dollars and *Claim* amount variable in dollars. 
+We can show that the Spearman correlation statistic is invariant under strictly increasing transformations. From the `R` Code for Spearman correlation statistic above, $r_S=0.41$ between the *Coverage* rating variable in logarithmic millions of dollars and *Claim* amount variable in dollars. 
 
 
 
 #### Kendall's Tau
 
-An alternative measure that uses ranks is based on the concept of *concordance*. An observation pair $(X,Y)$ is said to be concordant (discordant) if the observation with a larger value of $X$ has also the larger (smaller) value of $Y$. Then $\Pr(concordance) = \Pr[ (X_1-X_2)(Y_1-Y_2) >0 ]$ , $\Pr(discordance) = \Pr[ (X_1-X_2)(Y_1-Y_2) <0 ]$ and
+An alternative measure that uses ranks is based on the concept of *concordance*. An observation pair $(X,Y)$ is said to be concordant (discordant) if the observation with a larger value of $X$ has also the larger (smaller) value of $Y$. Then $\Pr(concordance) = \Pr[ (X_1-X_2)(Y_1-Y_2) >0 ]$ , $\Pr(discordance) = \Pr[ (X_1-X_2)(Y_1-Y_2) <0 ]$, $\Pr(tie) = \Pr[ (X_1-X_2)(Y_1-Y_2) =0 ]$ and
 
 \begin{eqnarray*}
 \tau(X,Y)= \Pr(concordance) - \Pr(discordance) = 2\Pr(concordance) - 1 + \Pr(tie).
@@ -280,7 +280,7 @@ To estimate this, the pairs $(X_i,Y_i)$ and $(X_j,Y_j)$ are said to be concordan
 Interestingly, [@hougaard2000analysis], page 137, attributes the original discovery of this statistic to [@fechnerkollektivmasslehre], noting that Kendall's discovery was independent and more complete than the original work.
 
 
-You can obtain the Kendall's tau, using the `cor()` function in `R` and selecting the `kendall` method. From below, $\tau=0.32$ between the *Coverage* rating variable in millions of dollars and *Claim* amount variable in dollars.
+You can obtain the Kendall's tau, using the `cor()` function in `R` and selecting the `kendall` method. From below, $\tau=0.32$ between the *Coverage* rating variable in millions of dollars and *Claim* amount variable in dollars. When there are ties in the data, the `cor()` function computes *Kendall's tau_b*, as proposed by [@kendall1945]. 
 
 ```{r comment="", results='hide', echo=FALSE}
 tau<-cor(Claim,Coverage, method = c("kendall"))
@@ -290,11 +290,9 @@ tau<-cor(Claim,log(Coverage), method = c("kendall"))
 round(tau,2)
 ```
 
-<h5 style="text-align: center;"><a id="display.kendall.1" href="javascript:togglecode
-('display.kendall.2','display.kendall.1');"><i><strong>R Code for Kendall's Tau</strong></i></a> </h5>
-<div id="display.kendall.2" style="display: none">
+`r HideRCode('kendall.1',"R Code for Kendall's Tau")`
 
-``` 
+```{r echo=ShowCode(), eval=FALSE}
 ### Kendall's tau correlation between Claim and Coverage ###
 tau<-cor(Claim,Coverage, method = c("kendall"))
 round(tau,2)
@@ -330,15 +328,15 @@ Unlike the case for continuous data, it is not possible for this measure to achi
 \end{eqnarray*}
 For example, if $\pi=0.8$, then the smallest that the Pearson correlation could be is -0.25. More generally, there are bounds on $\rho$ that depend on $\pi_X$ and $\pi_Y$ that make it difficult to interpret this measure.
 
-As noted by [@bishop1975discrete] (page 382), squaring this correlation coefficient yields the Pearson chi-square statistic. Despite the boundary problems described above, this feature makes the Pearson correlation coefficient a good choice for describing dependence with binary data. The other is the odds ratio, described as follows.
+As noted by [@bishop1975discrete] (page 382), squaring this correlation coefficient yields the Pearson chi-square statistic (introduced in chapter 2) . Despite the boundary problems described above, this feature makes the Pearson correlation coefficient a good choice for describing dependence with binary data. The other is the odds ratio, described as follows.
 
 As an alternative measure for Bernoulli variables, the *odds ratio* is given by
 \begin{eqnarray*}
-OR(\pi_{11}) = \frac{\pi_{11} \pi_{00}}{\pi_{01} \pi_{10}} = \frac{\pi_{11} \left( 1+\pi_{11}-\pi_1 -\pi_2\right)}{(\pi_1-\pi_{11})(\pi_2- \pi_{11})} .
+OR(\pi_{11}) = \frac{\pi_{11} \pi_{00}}{\pi_{01} \pi_{10}} = \frac{\pi_{11} \left( 1+\pi_{11}-\pi_X -\pi_Y\right)}{(\pi_X-\pi_{11})(\pi_Y- \pi_{11})} .
 \end{eqnarray*}
-Pleasant calculations show that $OR(z)$ is $0$ at the lower Fr$\acute{e}$chet-H$\ddot{o}$effding bound $z= \max\{0, \pi_1+\pi_2-1\}$ and is $\infty$ at the upper bound $z=\min\{\pi_1,\pi_2\}$. Thus, the bounds on this measure do not depend on the marginal probabilities $\pi_X$ and $\pi_Y$, making it easier to interpret this measure.
+Pleasant calculations show that $OR(z)$ is $0$ at the lower Fr$\acute{e}$chet-H$\ddot{o}$effding bound $z= \max\{0, \pi_X+\pi_Y-1\}$ and is $\infty$ at the upper bound $z=\min\{\pi_X,\pi_Y\}$. Thus, the bounds on this measure do not depend on the marginal probabilities $\pi_X$ and $\pi_Y$, making it easier to interpret this measure.
 
-As noted by [@yule1900association], odds ratios are invariant to the labeling of 0 and 1. Further, they are invariant to the marginals in the sense that one can rescale $\pi_1$ and $\pi_2$ by positive constants and the odds ratio remains unchanged. Specifically, suppose that $a_i$, $b_j$ are sets of positive constants and that
+As noted by [@yule1900association], odds ratios are invariant to the labeling of 0 and 1. Further, they are invariant to the marginals in the sense that one can rescale $\pi_X$ and $\pi_Y$ by positive constants and the odds ratio remains unchanged. Specifically, suppose that $a_i$, $b_j$ are sets of positive constants and that
 
 \begin{eqnarray*}
 \pi_{ij}^{new} &=& a_i b_j \pi_{ij}
@@ -383,7 +381,7 @@ $$
 \end{matrix}}
 $$
 
-[Table 14.2] : 2 $\times$ 2 table of counts for *Fire5* and *NoClaimCredit*
+[Table 14.2] : 2 $\times$ 2 table of counts for *Fire5* and *NoClaimCredit* variables from LGPIF data.
 
 
 From [Table 14.2], $OR(\pi_{11})=\frac{1611(956)}{897(2175)}=0.79$. You can obtain the $OR(\pi_{11})$, using the `oddsratio()` function from the `epitools` library in `R`. From the output below, $OR(\pi_{11})=0.79$ for the binary variables *NoClaimCredit*  and *Fier5* from the LGPIF data.
@@ -398,11 +396,10 @@ library(epitools)
 oddsratio(NoClaimCredit, Fire5,method = c("wald"))$measure
 ```
 
-<h5 style="text-align: center;"><a id="display.wald.1" href="javascript:togglecode
-('display.wald.2','display.wald.1');"><i><strong>R Code for Odds Ratios</strong></i></a> </h5>
-<div id="display.wald.2" style="display: none">
 
-``` 
+`r HideRCode('wald.1',"R Code for Odds Ratios")`
+
+```{r echo=ShowCode(), eval=FALSE}
 library(epitools)
 oddsratio(NoClaimCredit, Fire5,method = c("wald"))$measure
 
@@ -416,19 +413,19 @@ Output:
 #### Categorical Variables
 
 
-More generally, let $(X,Y)$ be a bivariate pair having $ncat_X$ and $ncat_Y$ numbers of categories, respectively. For a two-way table of counts, let $n_{jk}$ be the number in the $j$th row, $k$ column. Let $n_{j\cdot}$ be the row margin total and $n_{\cdot k}$ be the column margin total. Define Pearson chi-square statistic as
+More generally, let $(X,Y)$ be a bivariate pair having $ncat_X$ and $ncat_Y$ numbers of categories, respectively. For a two-way table of counts, let $n_{jk}$ be the number in the $j$th row, $k$ column. Let $n_{j\centerdot}$ be the row margin total, $n_{\centerdot k}$ be the column margin total and $n=\sum_{j,k} n_{j,k}$. Define Pearson chi-square statistic as
 \begin{eqnarray*}
-chi^2 = \sum_{jk} \frac{(n_{jk}- n_{j\cdot}n_{\cdot k}/n)^2}{n_{j\cdot}n_{\cdot k}/n} .
+\chi^2 = \sum_{jk} \frac{(n_{jk}- n_{j\centerdot}n_{\centerdot k}/n)^2}{n_{j\centerdot}n_{\centerdot k}/n} .
 \end{eqnarray*}
 The likelihood ratio test statistic is
 \begin{eqnarray*}
-G^2 = 2 \sum_{jk} n_{jk} \ln\frac{n_{jk}}{n_{j\cdot}n_{\cdot k}/n} .
+G^2 = 2 \sum_{jk} n_{jk} \ln\frac{n_{jk}}{n_{j\centerdot}n_{\centerdot k}/n} .
 \end{eqnarray*}
-Under the assumption of independence, both $chi^2$ and $G^2$ have an asymptotic chi-square distribution with $(ncat_X-1)(ncat_Y-1)$ degrees of freedom.
+Under the assumption of independence, both $\chi^2$ and $G^2$ have an asymptotic chi-square distribution with $(ncat_X-1)(ncat_Y-1)$ degrees of freedom.
 
 To help see what these statistics are estimating, let $\pi_{jk} = \Pr(X=j, Y=k)$ and let $\pi_{X,j}=\Pr(X=j)$ and similarly for $\pi_{Y,k}$. Assuming that $n_{jk}/n \approx \pi_{jk}$ for large $n$ and similarly for the marginal probabilities, we have
 \begin{eqnarray*}
-\frac{chi^2}{n} \approx \sum_{jk} \frac{(\pi_{jk}- \pi_{X,j}\pi_{Y,k})^2}{\pi_{X,j}\pi_{Y,k}}
+\frac{\chi^2}{n} \approx \sum_{jk} \frac{(\pi_{jk}- \pi_{X,j}\pi_{Y,k})^2}{\pi_{X,j}\pi_{Y,k}}
 \end{eqnarray*}
 and
 \begin{eqnarray*}
@@ -462,7 +459,7 @@ $$
 \end{matrix}}
 $$
 
-[Table 14.3] : Two-way table of counts for *EntityType* and *NoClaimCredit*
+[Table 14.3] : Two-way table of counts for *EntityType* and *NoClaimCredit* variables from LGPIF data.
 
 You can obtain the Pearson chi-square statistic, using the `chisq.test()` function from the `MASS` library in `R`. Here, we test whether the  *EntityType*  variable is independent of *NoClaimCredit* variable using [Table 14.3].
 
@@ -485,11 +482,9 @@ pander(chisq.test(table))
 
 ```
 
-<h5 style="text-align: center;"><a id="display.chi.1" href="javascript:togglecode
-('display.chi.2','display.chi.1');"><i><strong>R Code for Pearson Chi-square Statistic</strong></i></a> </h5>
-<div id="display.chi.2" style="display: none">
+`r HideRCode('chi.1',"R Code for Pearson Chi-square Statistic")`
 
-``` 
+```{r echo=ShowCode(), eval=FALSE}
 library(MASS)
 table = table(EntityType, NoClaimCredit)
 chisq.test(table)
@@ -519,11 +514,9 @@ Furthermore, you can obtain the likelihood ratio test statistic , using the `lik
 
 ```
 
-<h5 style="text-align: center;"><a id="display.lik.1" href="javascript:togglecode
-('display.lik.2','display.lik.1');"><i><strong>R Code for Likelihood Ratio Test Statistic</strong></i></a> </h5>
-<div id="display.lik.2" style="display: none">
+`r HideRCode('lik.1',"R Code for Likelihood Ratio Test Statistic")`
 
-``` 
+```{r echo=ShowCode(), eval=FALSE}
 library(Deducer)
 likelihood.test(EntityType, NoClaimCredit)
 
@@ -542,7 +535,7 @@ Table: Log likelihood ratio (G-test) test of independence without correction
 
 
 
-#### Ordinal Variables
+### Ordinal Variables
 
 As the analyst moves from the continuous to the nominal scale, there are two main sources of loss of information [@bishop1975discrete] (page 343). The first is breaking the precise continuous measurements into groups. The second is losing the ordering of the groups. So, it is sensible to describe what we can do with variables that in discrete groups but where the ordering is known.
 
@@ -551,11 +544,10 @@ As described in Section \@ref(S:QuaVar), ordinal variables provide a clear order
 
 #### Parametric Approach Using Normal Based Correlations
 
-Refer to page 60, Section 2.12.7 of [@joe2014dependence]. Let $(y_1,y_2)$ be a bivariate pair with discrete values on $m_1, \ldots, m_2$. For a two-way table of ordinal counts, let $n_{st}$ be the number in the $s$th row, $t$ column. Let $(n_{m_1*}, \ldots, n_{m_2*})$ be the row margin total and $(n_{*m_1}, \ldots, n_{*m_2})$ be the column margin total.
+Refer to page 60, Section 2.12.7 of [@joe2014dependence]. Let $(y_1,y_2)$ be a bivariate pair with discrete values on $m_1, \ldots, m_2$. For a two-way table of ordinal counts, let $n_{st}$ be the number in the $s$th row, $t$ column. Let $(n_{m_1\centerdot}, \ldots, n_{m_2\centerdot})$ be the row margin total, $(n_{\centerdot m_1}, \ldots, n_{\centerdot m_2})$ be the column margin total and $n=\sum_{s,t} n_{s,t}$.
 
 
-Let $\hat{\xi}_{1s} = \Phi^{-1}((n_{m_1}+\cdots+n_{s*})/n)$ for $s=m_1, \ldots, m_2$ be a cutpoint and similarly for $\hat{\xi}_{2t}$. The *polychoric* correlation, based on a two-step estimation procedure, is
-
+Let $\hat{\xi}_{1s} = \Phi^{-1}((n_{m_1}+\cdots+n_{s\centerdot})/n)$ for $s=m_1, \ldots, m_2$ be a cutpoint and similarly for $\hat{\xi}_{2t}$. The *polychoric* correlation, based on a two-step estimation procedure, is
 
 
   \begin{eqnarray*}
@@ -595,10 +587,10 @@ $$
 \end{matrix}}
 $$
 
-[Table 14.4] : Two-way table of counts for *AlarmCredit* and *NoClaimCredit*
+[Table 14.4] : Two-way table of counts for *AlarmCredit* and *NoClaimCredit* variables from LGPIF data.
 
 
-You can obtain the polychoric or tetrachoric correlation using the `polychoric()` or `tetrachoric()` function from the `psych` library in `R`. The polychoric correlation is illustrated using [Table 14.4].  $\hat{\rho_N}=-0.14$, which means that there is a negative relationship between *AlarmCredit* and *NoClaimCredit*.
+You can obtain the polychoric or tetrachoric correlation using the `polychoric()` or `tetrachoric()` function from the `psych` library in `R`. The polychoric correlation is illustrated using [Table 14.4].  $\hat{\rho}_N=-0.14$, which means that there is a negative relationship between *AlarmCredit* and *NoClaimCredit*.
 
 ```{r echo=FALSE,warning=FALSE, message=FALSE, results='hide', echo=FALSE}
 NoClaimCredit<-as.numeric(Insample$NoClaimCredit)
@@ -620,11 +612,9 @@ round(rhoN,2)
 ```
 
 
-<h5 style="text-align: center;"><a id="display.poly.1" href="javascript:togglecode
-('display.poly.2','display.poly.1');"><i><strong>R Code for Polychoric Correlation</strong></i></a> </h5>
-<div id="display.poly.2" style="display: none">
+`r HideRCode('poly.1',"R Code for Polychoric Correlation")`
 
-``` 
+```{r echo=ShowCode(), eval=FALSE}
 library(psych)
 AlarmCredit<-as.numeric(ifelse(Insample$AC00==1,"1",
                    ifelse(Insample$AC05==1,"2",
@@ -641,15 +631,14 @@ Output:
 
 
 
-#### Interval Variables
+### Interval Variables
 
-As described in Section \@ref(S:QuanVar), interval variables provide a clear ordering of levels of a variable and the numerical distance between any two levels of the scale can be readily interpretable. For example, a claims count variable is an interval variable.
+As described in Section \@ref(S:QuanVar), interval variables provide a clear ordering of levels of a variable and the numerical distance between any two levels of the scale can be readily interpretable. For example, drivers age group variable is an interval variable.
 
 For measuring association, both the continuous variable and ordinal variable approaches make sense. The former takes advantage of knowledge of the ordering although assumes continuity. The latter does not rely on the continuity but also does not make use of the information given by the distance between scales.
 
-For applications, one type is a count variable, a random variable on the discrete integers. Another is a mixture variable, on that has discrete and continuous components. 
 
-#### Discrete and Continuous Variables
+### Discrete and Continuous Variables
 
 The polyserial correlation is defined similarly, when one variable ($y_1$) is continuous and the other ($y_2$) ordinal. Define $z$ to be the normal score of $y_1$. The polyserial correlation is
 
@@ -686,10 +675,10 @@ $$
 \end{matrix}}
 $$
 
-[Table 14.5] : Summary of *Claim* by  *NoClaimCredit*
+[Table 14.5] : Summary of *Claim* by  *NoClaimCredit* variable from LGPIF data.
 
 
-You can obtain the polyserial or biserial correlation using the `polyserial()` or `biserial()` function from the `psych` library in `R`. [Table 14.5] gives the summary of *Claim* by *NoClaimCredit* and  the biserial correlation is illustrated using `R` code below. The $\hat{\rho_N}=-0.04$ which means that there is a negative correlation between *Claim* and *NoClaimCredit*.
+You can obtain the polyserial or biserial correlation using the `polyserial()` or `biserial()` function from the `psych` library in `R`. [Table 14.5] gives the summary of *Claim* by *NoClaimCredit* and  the biserial correlation is illustrated using `R` code below. The $\hat{\rho}_N=-0.04$ which means that there is a negative correlation between *Claim* and *NoClaimCredit*.
 
 
 ```{r warning=FALSE, comment="", results='hide', echo=FALSE}
@@ -698,12 +687,9 @@ rhoN<-biserial(Claim,NoClaimCredit)
 round(rhoN,2)
 ```
 
+`r HideRCode('bis.1',"R Code for Biserial Correlation")`
 
-<h5 style="text-align: center;"><a id="display.bis.1" href="javascript:togglecode
-('display.bis.2','display.bis.1');"><i><strong>R Code for Biserial Correlation </strong></i></a> </h5>
-<div id="display.bis.2" style="display: none">
-
-``` 
+```{r echo=ShowCode(), eval=FALSE}
 library(psych)
 rhoN<-biserial(Claim,NoClaimCredit)
 round(rhoN,2)
@@ -714,7 +700,8 @@ Output:
 </div>  
 
 
-
+```{r child = './Quizzes/Quiz142.html', eval = QUIZ}
+```
 
 
 ## Introduction to Copulas  {#S:Copula}
@@ -753,6 +740,9 @@ u_1) -1)(\exp(\theta u_2) -1)} {\exp(\theta) -1} \right).$$
 
 This is a bivariate distribution function with its domain on the unit square $[0,1]^2.$ Here $\theta$ is dependence parameter and the range of dependence is controlled by the parameter $\theta$. Positive association increases as $\theta$ increases and this positive association can be summarized with Spearman's rho ($\rho$) and Kendall's tau ($\tau$). Frank's copula is one of the commonly used copula functions in the copula literature. We will see other copula functions in Section \@ref(S:CopTyp).
 
+```{r child = './Quizzes/Quiz143.html', eval = QUIZ}
+```
+
 
 ## Application Using Copulas  {#S:CopAppl}
 
@@ -766,7 +756,7 @@ In this section, you learn how to:
 ***
 
 
-This section analyzes the insurance *losses * and  *expenses * data with the statistical programming `R`. This data set was introduced in @frees1998understanding and is now readily available in the `copula` package. The model fitting process is started by marginal modeling of two variables ($loss$ and $expense$). Then we model the joint distribution of these marginal outcomes.
+This section analyzes the insurance *losses * and  *expenses * data with the statistical programming `R`. This data set was introduced in [@frees1998understanding] and is now readily available in the `copula` package. The model fitting process is started by marginal modeling of two variables ($loss$ and $expense$). Then we model the joint distribution of these marginal outcomes.
 
 ### Data Description
 
@@ -794,11 +784,9 @@ plot(log(loss),log(alae),cex=.5) # log scale
 ```
 
 
-<h5 style="text-align: center;"><a id="display.ScaHis.1" href="javascript:togglecode
-('display.ScaHis.2','display.ScaHis.1');"><i><strong>R Code for Scatterplots</strong></i></a> </h5>
-<div id="display.ScaHis.2" style="display: none">
+`r HideRCode('ScaHis.1',"R Code for Scatterplots")`
 
-``` 
+```{r echo=ShowCode(), eval=FALSE}
 library(copula)
 data(loss) # loss data
 Lossdata <- loss 
@@ -833,11 +821,9 @@ fit = vglm(alae ~ 1, paretoII(location=0, lscale="loge", lshape="loge")) # fit t
 
 ```
 
-<h5 style="text-align: center;"><a id="display.Reg.1" href="javascript:togglecode
-('display.Reg.2','display.Reg.1');"><i><strong>R Code for Pareto Fitting</strong></i></a> </h5>
-<div id="display.Reg.2" style="display: none">
+`r HideRCode('Reg.1',"R Code for Pareto Fitting")`
 
-``` 
+```{r echo=ShowCode(), eval=FALSE}
 library(VGAM)
 
 fit = vglm(alae ~ 1, paretoII(location=0, lscale="loge", lshape="loge")) # fit the model by vlgm function
@@ -864,12 +850,9 @@ alpha = Coef(fit)[2]
 #summary(fit)
 ```
 
+`r HideRCode('ParFit.1',"R Code for Pareto Fitting")`
 
-<h5 style="text-align: center;"><a id="display.ParFit.1" href="javascript:togglecode
-('display.ParFit.2','display.ParFit.1');"><i><strong>R Code for Pareto Fitting </strong></i></a> </h5>
-<div id="display.ParFit.2" style="display: none">
-
-``` 
+```{r echo=ShowCode(), eval=FALSE}
 fitloss = vglm(loss ~ 1, paretoII, trace=TRUE)
 Coef(fit)
 summary(fit)
@@ -916,12 +899,9 @@ hist(u2, main="", xlab="")
 hist(qnorm(u2), main="", xlab="")
 ```
 
+`r HideRCode('transalae.1',"R Code for Histograms of Transformed Variables")`
 
-<h5 style="text-align: center;"><a id="display.transalae.1" href="javascript:togglecode
-('display.transalae.2','display.transalae.1');"><i><strong>R Code for Histograms of Transformed Variables  </strong></i></a> </h5>
-<div id="display.transalae.2" style="display: none">
-
-``` 
+```{r echo=ShowCode(), eval=FALSE}
 u1 <- 1 - (1 + (alae/b))^(-s) # or u1 <- pparetoII(alae, location=0, scale=b, shape=s)
 hist(u1, main = "", xlab = "Histogram of Transformed alae")
 
@@ -950,12 +930,9 @@ plot(qnorm(u1), qnorm(u2))
 #cor(u1,u2, method="spearman")
 ```
 
+`r HideRCode('Cor.1',"R Code for Scatter Plots and Correlation")`
 
-<h5 style="text-align: center;"><a id="display.Cor.1" href="javascript:togglecode
-('display.Cor.2','display.Cor.1');"><i><strong>R Code for Scatter Plots and Correlation  </strong></i></a> </h5>
-<div id="display.Cor.2" style="display: none">
-
-``` 
+```{r echo=ShowCode(), eval=FALSE}
 par(mfrow = c(1, 2))
 plot(u1, u2, cex = 0.5, xlim = c(-0.1,1.1), ylim = c(-0.1,1.1),
      xlab = "Transformed Alae", ylab = "Transformed Loss")
@@ -982,14 +959,9 @@ fit.ml <- fitCopula(frank.cop, uu, method="ml", start=c(0.4))
 #summary(fit.ml)
 ```
 
+`r HideRCode('FrankCopula.1',"R Code for Modeling with Frank Copula")`
 
-
-
-<h5 style="text-align: center;"><a id="display.FrankCopula.1" href="javascript:togglecode
-('display.FrankCopula.2','display.FrankCopula.1');"><i><strong>R Code for Modeling with Frank Copula</strong></i></a> </h5>
-<div id="display.FrankCopula.2" style="display: none">
-
-``` 
+```{r echo=ShowCode(), eval=FALSE}
 uu = cbind(u1,u2) 
 frank.cop <- archmCopula("frank", param= c(5), dim = 2)
 fit.ml <- fitCopula(frank.cop, uu, method="ml", start=c(0.4))
@@ -1028,13 +1000,9 @@ frank.cop <- archmCopula("frank", param= param, dim = 2)
 #rho(frank.cop) # Spearman's correlation
 ```
 
+`r HideRCode('fittedCop.1',"R Code for Spearman's Correlation Using Frank's Copula")`
 
-
-<h5 style="text-align: center;"><a id="display.fittedCop.1" href="javascript:togglecode
-('display.fittedCop.2','display.fittedCop.1');"><i><strong>R Code for Spearman's Correlation Using Frank's Copula</strong></i></a> </h5>
-<div id="display.fittedCop.2" style="display: none">
-
-``` 
+```{r echo=ShowCode(), eval=FALSE}
 (param = fit.ml@estimate)
 frank.cop <- archmCopula("frank", param= param, dim = 2)
 rho(frank.cop) 
@@ -1055,13 +1023,9 @@ persp(frank.cop, dCopula, theta=0, zlab="c(u,v)",
         xlab ="u", ylab="v", cex.lab=1.3)
 ```
 
+`r HideRCode('DistriPlot.1',"R Code for Frank's Copula Plots")`
 
-
-<h5 style="text-align: center;"><a id="display.DistriPlot.1" href="javascript:togglecode
-('display.DistriPlot.2','display.DistriPlot.1');"><i><strong>R Code for Frank's Copula Plots</strong></i></a> </h5>
-<div id="display.DistriPlot.2" style="display: none">
-
-``` 
+```{r echo=ShowCode(), eval=FALSE}
 par(mar=c(3.2,3,.2,.2),mfrow=c(1,2))
 persp(frank.cop, pCopula, theta=50, zlab="C(u,v)",
         xlab ="u", ylab="v", cex.lab=1.3)
@@ -1093,7 +1057,7 @@ There are several families of copulas have been described in the literature. Two
 
 Elliptical copulas are constructed from elliptical distributions. This copula decompose (multivariate) elliptical distributions into their univariate elliptical marginal distributions by Sklar's theorem [@hofertelements].
 
-Properties of elliptical copulas are typically obtained from the properties ofcorresponding elliptical distributions [@hofertelements].
+Properties of elliptical copulas are typically obtained from the properties of corresponding elliptical distributions [@hofertelements].
 
 For example, the normal distribution is a special type of elliptical distribution. To introduce the elliptical class of copulas, we start with the familiar multivariate normal distribution with probability density function
 $$\phi_N (\mathbf{z})= \frac{1}{(2 \pi)^{p/2}\sqrt{\det \boldsymbol \Sigma}}
@@ -1211,12 +1175,9 @@ plot(cbind(U,1-U), xlab=quote(U[1]), ylab=quote(U[2]),main="Perfect Negative Dep
 plot (cbind(U,U), xlab=quote(U[1]),ylab=quote(U[2]),main="Perfect Positive Dependency")  #M for p=2
 ```
 
+`r HideRCode('plot.1',"R Code for Frechet-Hoeffding Bounds for Two Random Variables")`
 
-<h5 style="text-align: center;"><a id="display.plot.1" href="javascript:togglecode
-('display.plot.2','display.plot.1');"><i><strong>R Code for Frechet-Hoeffding Bounds for Two Random Variables</strong></i></a> </h5>
-<div id="display.plot.2" style="display: none">
-
-``` 
+```{r echo=ShowCode(), eval=FALSE}
 library(copula)
 n<-100
 set.seed(1980)
@@ -1308,13 +1269,9 @@ jointtail4 <- TailFunction(Tailcop4)
 
 ```
 
+`r HideRCode('Tail.1',"R Code for Tail Copula Functions for Different Copulas")`
 
-<h5 style="text-align: center;"><a id="display.Tail.1" href="javascript:togglecode
-('display.Tail.2','display.Tail.1');"><i><strong>R Code for Tail Copula Functions for Different Copulas</strong></i></a> </h5>
-<div id="display.Sim.2" style="display: none">
-
-```
-
+```{r echo=ShowCode(), eval=FALSE}
 library(copula)
 U1 = seq(0,0.5, by=0.002)
 U2 = seq(0.5,1, by=0.002)
@@ -1354,11 +1311,9 @@ arrows(.17, 0.1, .07, 0.12,code=2, angle=20, length=0.1)
 text(0.9, 0.4, "t with 5 df", cex=1.3)   #4
 ```
 
-<h5 style="text-align: center;"><a id="display.Tailplot.1" href="javascript:togglecode
-('display.Tailplot.2','display.Tailplot.1');"><i><strong>R Code for Tail Dependence Plots for Different Copulas</strong></i></a> </h5>
-<div id="display.Sim.2" style="display: none">
+`r HideRCode('Tailplot.1',"R Code for Tail Dependence Plots for Different Copulas")`
 
-```
+```{r echo=ShowCode(), eval=FALSE}
 plot(U,jointtail1, cex=.2, xlim=c(0,1),ylab="Tail Dependence", ylim=c(0,1))
 lines(U,jointtail2, type="p",lty=1, cex=.2)
 lines(U,jointtail3, type="p",lty=1, cex=.2)
@@ -1370,7 +1325,10 @@ arrows(.17, 0.1, .07, 0.12,code=2, angle=20, length=0.1)
 text(0.9, 0.4, "t with 5 df", cex=1.3)   #4
 
 ```
-</div> 
+</div>
+
+```{r child = './Quizzes/Quiz145.html', eval = QUIZ}
+```
 
 ## Why is Dependence Modeling Important? {#S:CopImp}
 
@@ -1494,14 +1452,9 @@ round(quantMat,digits=2)
 
 ```
 
+`r HideRCode('SimG.1',"R Code for Simulation Using Gaussian Copula")`
 
-
-<h5 style="text-align: center;"><a id="display.Sim.1" href="javascript:togglecode
-('display.Sim.2','display.Sim.1');"><i><strong>R Code for Simulation Using Gaussian Copula</strong></i></a> </h5>
-<div id="display.Sim.2" style="display: none">
-
-``` 
-
+```{r echo=ShowCode(), eval=FALSE}
 # For the gamma distributions, use
 alpha1 <- 2;      theta1 <- 100
 alpha2 <- 2;      theta2 <- 200
@@ -1586,6 +1539,9 @@ plot(density(S), main="Density of Total Portfolio Risk S", xlab="S")
 ```
 </div>  
 
+```{r child = './Quizzes/Quiz146.html', eval = QUIZ}
+```
+
 
 ## Further Resources and Contributors {#Dep:further-reading-and-resources}
 
@@ -1633,11 +1589,9 @@ beta<-betan(Fx, scaling=FALSE)
 round(beta,2)
 ```
 
-<h5 style="text-align: center;"><a id="display.beta.1" href="javascript:togglecode
-('display.beta.2','display.beta.1');"><i><strong>R Code for Blomqvist's Beta</strong></i></a> </h5>
-<div id="display.beta.2" style="display: none">
+`r HideRCode('beta.1',"R Code for Blomqvist's Beta")`
 
-``` 
+```{r echo=ShowCode(), eval=FALSE}
 ### Blomqvist's beta correlation between Claim and Coverage ###
 library(copula)
 n<-length(Claim)
@@ -1668,75 +1622,67 @@ In addition,to show that the Blomqvist's beta is invariate under strictly increa
 For the first variable, the average rank of observations in the $s$th row is
 
 \begin{equation*}
-r_{1s} = n_{m_1*}+ \cdots+ n_{s-1,*}+ \frac{1}{2} \left(1+ n_{s*}\right)
+r_{1s} = n_{m_1\centerdot}+ \cdots+ n_{s-1,\centerdot}+ \frac{1}{2} \left(1+ n_{s\centerdot}\right)
 \end{equation*}
-and similarly $r_{2t} = \frac{1}{2} \left[(n_{*m_1}+ \cdots+ n_{*,s-1}+1)+ (n_{*m_1}+ \ldots+ n_{*s})\right]$. With this, we have Spearman's rho with tied rank is
+and similarly $r_{2t} = \frac{1}{2} \left[(n_{\centerdot m_1}+ \cdots+ n_{\centerdot,s-1}+1)+ (n_{\centerdot m_1}+ \cdots+ n_{\centerdot s})\right]$. With this, we have Spearman's rho with tied rank is
 \begin{equation*}
 \hat{\rho}_S = \frac{\sum_{s=m_1}^{m_2} \sum_{t=m_1}^{m_2} n_{st}(r_{1s} - \bar{r})(r_{2t} - \bar{r})}
-{\left[\sum_{s=m_1}^{m_2}n_{s*}(r_{1s} - \bar{r})^2 \sum_{t=m_1}^{m_2} n_{*t}(r_{2t} - \bar{r})^2
+{\left[\sum_{s=m_1}^{m_2}n_{s \centerdot}(r_{1s} - \bar{r})^2 \sum_{t=m_1}^{m_2} n_{\centerdot t}(r_{2t} - \bar{r})^2
 \right]^2}
 \end{equation*}
 
 where the average rank is $\bar{r} = (n+1)/2$.
 
+`r HideRCode('Thry.1',"Click to Show Proof for Special Case: Binary Data.")`
 
-
-<h5 style="text-align: center;"><a id="display.Thry.1" href="javascript:togglecode
-('display.Thry.2','display.Thry.1');"><i><strong>Click to Show Proof for Special Case: Binary Data.</strong></i></a> </h5>
-<div id="display.Thry.2" style="display: none">
-
-
-Special Case: Binary Data.  Here, $m_1=0$ and $m_2=1$. For the first variable ranks, we have $r_{10} = (1+n_{0+})/2$ and $r_{11} = (n_{0+}+1+n)/2$. Thus, $r_{10} -\bar{r}= (n_{0+}-n)/2$ and $r_{11}-\bar{r} = n_{0+}/2$.
-This means that we have $\sum_{s=0}^{1}n_{s+}(r_{1s} - \bar{r})^2 = n (n-n_{0+})n_{0+}/4$ and similarly for the second variable. For the numerator, we have
+Special Case: Binary Data.  Here, $m_1=0$ and $m_2=1$. For the first variable ranks, we have $r_{10} = (1+n_{0\centerdot})/2$ and $r_{11} = (n_{0\centerdot}+1+n)/2$. Thus, $r_{10} -\bar{r}= (n_{0\centerdot}-n)/2$ and $r_{11}-\bar{r} = n_{0\centerdot}/2$.
+This means that we have $\sum_{s=0}^{1}n_{s\centerdot}(r_{1s} - \bar{r})^2 = n (n-n_{0\centerdot})n_{0\centerdot}/4$ and similarly for the second variable. For the numerator, we have
 \begin{eqnarray*}
 \sum_{s=0}^{1}  \sum_{t=0}^{1} && n_{st}(r_{1s} - \bar{r})(r_{2t} - \bar{r})\\
-&=& n_{00} \frac{n_{0+}-n}{2} \frac{n_{+0}-n}{2}
-+n_{01} \frac{n_{0+}-n}{2} \frac{n_{+0}}{2}
-+n_{10} \frac{n_{0+}}{2} \frac{n_{+0}-n}{2}
-+n_{11} \frac{n_{0+}}{2} \frac{n_{+0}}{2} \\
-&=& \frac{1}{4}(n_{00} (n_{0+}-n) (n_{+0}-n)
-+(n_{0+}-n_{00}) (n_{0+}-n)n_{+0} \\
-&&  ~ ~ ~ +(n_{+0}-n_{00})  n_{0+}(n_{+0}-n)
-+(n-n_{+0}-n_{0+}+n_{00}) n_{0+}n_{+0} ) \\
+&=& n_{00} \frac{n_{0\centerdot}-n}{2} \frac{n_{\centerdot 0}-n}{2}
++n_{01} \frac{n_{0\centerdot}-n}{2} \frac{n_{\centerdot 0}}{2}
++n_{10} \frac{n_{0\centerdot}}{2} \frac{n_{\centerdot 0}-n}{2}
++n_{11} \frac{n_{0\centerdot}}{2} \frac{n_{\centerdot 0}}{2} \\
+&=& \frac{1}{4}(n_{00} (n_{0\centerdot}-n) (n_{\centerdot 0}-n)
++(n_{0\centerdot}-n_{00}) (n_{0\centerdot}-n)n_{\centerdot 0} \\
+&&  ~ ~ ~ +(n_{\centerdot 0}-n_{00})  n_{0\centerdot}(n_{\centerdot 0}-n)
++(n-n_{\centerdot 0}-n_{0\centerdot}+n_{00}) n_{0\centerdot}n_{\centerdot 0} ) \\
 &=& \frac{1}{4}(n_{00} n^2
-- n_{0+} (n_{0+}-n)n_{+0} \\
-&& ~ ~ ~ +n_{+0}  n_{0+}(n_{+0}-n)
-+(n-n_{+0}-n_{0+}) n_{0+}n_{+0} ) \\
+- n_{0\centerdot} (n_{0\centerdot}-n)n_{\centerdot 0} \\
+&& ~ ~ ~ +n_{\centerdot 0}  n_{0\centerdot}(n_{\centerdot 0}-n)
++(n-n_{\centerdot 0}-n_{0\centerdot}) n_{0\centerdot}n_{\centerdot 0} ) \\
 &=& \frac{1}{4}(n_{00} n^2
-- n_{0+}n_{+0} (n_{0+}-n +n_{+0}-n
-+n-n_{+0}-n_{0+}) \\
-&=& \frac{n}{4}(n n_{00} - n_{0+}n_{+0}) .
+- n_{0\centerdot}n_{\centerdot 0} (n_{0\centerdot}-n +n_{\centerdot 0}-n
++n-n_{\centerdot 0}-n_{0\centerdot}) \\
+&=& \frac{n}{4}(n n_{00} - n_{0\centerdot}n_{\centerdot 0}) .
 \end{eqnarray*}
 
 This yields
 \begin{eqnarray*}
-\hat{\rho}_S &=& \frac{n(n n_{00} - n_{0+}n_{+0})}
-{4\sqrt{(n (n-n_{0+})n_{0+}/4)(n (n-n_{+0})n_{+0}/4)}} \\
-&=& \frac{n n_{00} - n_{0+}n_{+0}}
-{\sqrt{ n_{0+} n_{+0}(n-n_{0+}) (n-n_{+0})}} \\
+\hat{\rho}_S &=& \frac{n(n n_{00} - n_{0\centerdot}n_{\centerdot 0})}
+{4\sqrt{(n (n-n_{0\centerdot})n_{0\centerdot}/4)(n (n-n_{\centerdot 0})n_{\centerdot 0}/4)}} \\
+&=& \frac{n n_{00} - n_{0\centerdot}n_{\centerdot 0}}
+{\sqrt{ n_{0\centerdot} n_{\centerdot 0}(n-n_{0\centerdot}) (n-n_{\centerdot 0})}} \\
 &=& \frac{n_{00} - n (1-\hat{\pi}_X)(1- \hat{\pi}_Y)}
 {\sqrt{\hat{\pi}_X(1-\hat{\pi}_X)\hat{\pi}_Y(1-\hat{\pi}_Y) }}
 \end{eqnarray*}
-where $\hat{\pi}_X = (n-n_{0+})/n$ and similarly for $\hat{\pi}_Y$. Note that this is same form as the Pearson measure. From this, we see that the joint count $n_{00}$ drives this association measure.
+where $\hat{\pi}_X = (n-n_{0\centerdot})/n$ and similarly for $\hat{\pi}_Y$. Note that this is same form as the Pearson measure. From this, we see that the joint count $n_{00}$ drives this association measure.
 
 
 </div>  
 
 \bigskip
 
-You can obtain the ties-corrected Spearman correlation statistic $r_S$ using the `cor()` function in `R` and selecting the `spearman` method.  From below $\hat{\rho}_S=-0.09$
+You can obtain the ties-corrected Spearman correlation statistic $r_S$ using the `cor()` function in `R` and selecting the `spearman` method.  From below $\hat{\rho}_S=-0.09$.
 
 ```{r comment="", results='hide', echo=FALSE}
 rs_ties<-cor(AlarmCredit,NoClaimCredit, method = c("spearman"))
 round(rs_ties,2)
 ```
 
+`r HideRCode('spearT.1',"R Code for Ties-corrected Spearman Correlation")`
 
-<h5 style="text-align: center;"><a id="display.spearT.1" href="javascript:togglecode
-('display.spearT.2','display.spearT.1');"><i><strong>R Code for Ties-corrected Spearman Correlation</strong></i></a> </h5>
-<div id="display.spearT.2" style="display: none">
-
-``` 
+```{r echo=ShowCode(), eval=FALSE}
 rs_ties<-cor(AlarmCredit,NoClaimCredit, method = c("spearman"))
 round(rs_ties,2)
 

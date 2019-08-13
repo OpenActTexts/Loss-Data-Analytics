@@ -10,7 +10,7 @@
 
 ## Introduction to Insurance Portfolios
 
-Most of our analyses in prior chapters has been at the contract level which is an agreement between a policyholder and an insurer. Insurers hold, and manage, <a href="#" class="tooltip" style="color:green">*portfolios*<span style="font-size:8pt">a collection of contracts</span></a>  that are simply collections of contracts. As in other areas of finance, there are management decision-making choices that occur only at the portfolio level. For example, strategic decision-making does not occur at the contract level. It happens in the conference room, where management reviews available data and possibly steers a new course. From the portfolio perspective, insurers want to do capacity planning, set management policies, and balance the mix of products being booked to grow revenue while controlling volatility.
+Most of our analyses in prior chapters has been at the contract level which is an agreement between a policyholder and an insurer. Insurers hold, and manage, `r Gloss('portfolios')`  that are simply collections of contracts. As in other areas of finance, there are management decision-making choices that occur only at the portfolio level. For example, strategic decision-making does not occur at the contract level. It happens in the conference room, where management reviews available data and possibly steers a new course. From the portfolio perspective, insurers want to do capacity planning, set management policies, and balance the mix of products being booked to grow revenue while controlling volatility.
 
 Conceptually, one can think about an insurance company as nothing more than a collection, or portfolio, of insurance contracts. In Chapter \@ref(C:AggLossModels) we learned about modeling insurance portfolios as the sum of individual contracts based on assumptions of independence among contracts. Because of their importance, this chapter focuses directly on portfolio distributions.
 
@@ -19,6 +19,10 @@ Conceptually, one can think about an insurance company as nothing more than a co
 - Insurance portfolios represent company obligations and so insurers keep an equivalent amount of assets to meet these obligations. *Risk measures*, introduced in Section \@ref(S:RiskMeasure), summarize the distribution of the insurance portfolio and these summary measures are used to quantify the amount of assets that an insurer needs to retain to meet obligations.
 
 -  In Section \@ref(S:CoverageModifications), we learned about mechanisms that policyholders use to spread risks such as deductibles and policy limits. In the same way, insurers use similar mechanisms in order to spread portfolio risks. They purchase risk protection from reinsurers, an insurance company for insurers. This sharing of insurance portfolio risk is described in Section \@ref(S:Reinsurance).
+
+
+```{r child = './Quizzes/Quiz101.html', eval = QUIZ}
+```
 
 ##Tails of Distributions {#S:Tails}
 
@@ -36,9 +40,9 @@ In 1998 freezing rain fell on eastern Ontario, southwestern Quebec and lasted fo
 
 In the context of insurance, a few large losses hitting a portfolio and then converting into claims usually represent the greatest part of the indemnities paid by insurance companies. The aforementioned losses, also called 'extremes', are quantitatively modelled by the tails of the associated probability distributions.  From the quantitative modelling standpoint, relying on probabilistic models with improper tails is rather daunting.  For instance, periods of financial stress may appear with a higher frequency than expected, and insurance losses may occur with worse severity. Therefore, the study of probabilistic behavior in the tail portion of actuarial models is of utmost importance in the modern framework of quantitative risk management. For this reason, this section is devoted to the introduction of a few mathematical notions that characterize the tail weight of random variables (*rv*'s). The applications of these notions will benefit us in the construction and selection of appropriate models with desired mathematical properties in the tail portion, that are suitable for a given task.
 
-Formally, define $X$ to be the (random) obligations that arise from a collection (portfolio) of insurance contracts.  We are particularly interested in studying the right tail of the distribution of $X$, which represents the occurrence of large losses. Informally, *a rv is said to be heavy-tailed if high probabilities are assigned to large values.*  Note that this by no mean implies the probability density/mass functions are increasing as the value of *rv* goes to infinity.  Ineed for a real-valued *rv*, the <a href="#" class="tooltip" style="color:green">*pdf*<span style="font-size:8pt">probability density function</span></a>/<a href="#" class="tooltip" style="color:green">*pmf*<span style="font-size:8pt">probability mass function</span></a> must diminish at infinity in order to guarantee the total probability to be equal to one.  Instead, what we concern about is the rate of decaying of the probability function. Unwelcome outcomes are more likely to occur for an insurance portfolio that is described by a loss *rv* possessing heavier (right) tail.  Tail weight can be an absolute or a relative concept.  Specifically, for the former, we may consider a *rv* to be heavy-tailed if certain mathematical properties of the probability distribution are met.  For the latter, we can say the tail of one distribution is heavier than the other if some tail measures are larger/smaller.
+Formally, define $X$ to be the (random) obligations that arise from a collection (portfolio) of insurance contracts.  We are particularly interested in studying the right tail of the distribution of $X$, which represents the occurrence of large losses. Informally, *a rv is said to be heavy-tailed if high probabilities are assigned to large values.*  Note that this by no mean implies the probability density/mass functions are increasing as the value of *rv* goes to infinity.  Ineed for a real-valued *rv*, the `r Gloss('pdf')`/`r Gloss('pmf')` must diminish at infinity in order to guarantee the total probability to be equal to one.  Instead, what we concern about is the rate of decaying of the probability function. Unwelcome outcomes are more likely to occur for an insurance portfolio that is described by a loss *rv* possessing heavier (right) tail.  Tail weight can be an absolute or a relative concept.  Specifically, for the former, we may consider a *rv* to be heavy-tailed if certain mathematical properties of the probability distribution are met.  For the latter, we can say the tail of one distribution is heavier than the other if some tail measures are larger/smaller.
 
-Several quantitative approaches have been proposed to classify and compare tail weight. Among most of these approaches, the  <a href="#" class="tooltip" style="color:green">*survival function*<span style="font-size:8pt">one minus the distribution function. It gives the probability that a rv exceeds a specific value</span></a> serves as the building block.  In what follows, we introduce two simple yet useful tail classification methods both of which are based on the behavior of the survival function of $X$.
+Several quantitative approaches have been proposed to classify and compare tail weight. Among most of these approaches, the  `r Gloss('survival function')` serves as the building block.  In what follows, we introduce two simple yet useful tail classification methods both of which are based on the behavior of the survival function of $X$.
 
 ### Classification Based on Moments
 
@@ -64,8 +68,7 @@ The first part of Definition  `r chapnum`.1 is an absolute concept of tail weigh
 **Example `r chapnum`.1.1. Light tail nature of the gamma distribution.**
 Let $X\sim gamma(\alpha,\theta)$, with $\alpha>0$ and $\theta>0$, then for all $k>0$, show that $\mu_k' < \infty$.
 
-<h5 style="text-align: center;"><a id="displayTextExamplePortMgt.1.1" href="javascript:toggleEX('toggleExamplePortMgt.1.1','displayTextExamplePortMgt.1.1');"><i><strong>Show Example Solution</strong></i></a> </h5>
-<div id="toggleExamplePortMgt.1.1" style="display: none">
+`r HideExample('10.1.1','Show Example Solution')`
 
 **Solution.**
 
@@ -85,8 +88,7 @@ Since all the positive moments exist, i.e., $k^{\ast}=\infty$, in accordance wit
 **Example `r chapnum`.1.2. Light tail nature of the Weibull distribution.**
 Let $X\sim Weibull(\theta,\tau)$, with $\theta>0$ and $\tau>0$, then for all $k>0$, show that $\mu_k' < \infty$.
 
-<h5 style="text-align: center;"><a id="displayTextExamplePortMgt.1.2" href="javascript:toggleEX('toggleExamplePortMgt.1.2','displayTextExamplePortMgt.1.2');"><i><strong>Show Example Solution</strong></i></a> </h5>
-<div id="toggleExamplePortMgt.1.2" style="display: none">
+`r HideExample('10.1.2','Show Example Solution')`
 
 **Solution.**
 
@@ -155,9 +157,7 @@ We say that
 **Example `r chapnum`.1.4. Comparison of Pareto to Weibull distributions.**
 Let $X\sim Pareto(\alpha, \theta)$ and $Y\sim Weibull(\tau, \theta)$, for $\alpha>0$, $\tau>0$, and $\theta>0$. Show that the Pareto has a heavier right tail than the Weibull.
 
-<h5 style="text-align: center;"><a id="displayTextExamplePortMgt.1.4" 
-href="javascript:toggleEX('toggleExamplePortMgt.1.4','displayTextExamplePortMgt.1.4');"><i><strong>Show Example Solution</strong></i></a> </h5>
-<div id="toggleExamplePortMgt.1.4" style="display: none">
+`r HideExample('10.1.4','Show Example Solution')`
 
 **Solution.**
 
@@ -191,9 +191,7 @@ given that the density functions exist.
 **Example `r chapnum`.1.5. Comparison of Pareto to gamma distributions.**
 Let $X\sim Pareto(\alpha, \theta)$ and $Y\sim gamma(\alpha, \theta)$, for $\alpha>0$ and $\theta>0$. Show that the Pareto has a heavier right tail than the gamma.
 
-<h5 style="text-align: center;"><a id="displayTextExamplePortMgt.1.5" 
-href="javascript:toggleEX('toggleExamplePortMgt.1.5','displayTextExamplePortMgt.1.5');"><i><strong>Show Example Solution</strong></i></a> </h5>
-<div id="toggleExamplePortMgt.1.5" style="display: none">
+`r HideExample('10.1.5','Show Example Solution')`
 
 **Solution.**
 
@@ -211,6 +209,10 @@ as exponentials go to infinity faster than polynomials.
 *** 
 
 
+```{r child = './Quizzes/Quiz102.html', eval = QUIZ}
+```
+
+
 ## Risk Measures {#S:RiskMeasure}
 
 ***
@@ -226,7 +228,7 @@ In the previous section, we studied two methods for classifying the weight of di
 
 ### Coherent Risk Measures 
 
-To compare the magnitude of risk in a practically convenient manner, we seek a function that maps the loss *rv* of interest to a numerical value indicating the level of riskiness, which is termed the <a href="#" class="tooltip" style="color:green">*risk measure*<span style="font-size:8pt">a measure that summarizes the riskiness, or uncertainty, of a distribution</span></a>.  Put mathematically, the risk measure simply summarizes the distribution function of a *rv* as a single number. Two simple risk measures are the mean $\mathrm{E}[X]$ and the standard deviation $\mathrm{SD}(X)=\sqrt{\mathrm{Var}(X)}$. Other classical examples of risk measures include the standard deviation *principle*
+To compare the magnitude of risk in a practically convenient manner, we seek a function that maps the loss *rv* of interest to a numerical value indicating the level of riskiness, which is termed the `r Gloss('risk measure')`.  Put mathematically, the risk measure simply summarizes the distribution function of a *rv* as a single number. Two simple risk measures are the mean $\mathrm{E}[X]$ and the standard deviation $\mathrm{SD}(X)=\sqrt{\mathrm{Var}(X)}$. Other classical examples of risk measures include the standard deviation *principle*
 
 <!-- \label{eqn:SD-principle} -->
 
@@ -248,7 +250,7 @@ Since risk measures are scalar measures which aim to use a single numerical valu
 * computable conveniently; and  
 * able to reflect the most critical information of risk underpinning the loss distribution.  
 
-Several risk measures have been developed in the literature. Unfortunately, there is no best risk measure that can outperform the others, and the selection of appropriate risk measure depends mainly on the application questions at hand.  In this respect, it is imperative to emphasize that *risk* is a subjective concept, and thus even given the same problem, there are multifarious approaches to assess risk.  However, for many risk management applications, there is a wide agreement that economically sounded risk measures should satisfy four major axioms which we are going to describe in detail next.  Risk measures that satisfy these axioms are termed <a href="#" class="tooltip" style="color:green">*coherent risk measures*<span style="font-size:8pt">a risk measure that is is subadditive, monontonic, has positive homogeneity, and is translation invariant</span></a>.
+Several risk measures have been developed in the literature. Unfortunately, there is no best risk measure that can outperform the others, and the selection of appropriate risk measure depends mainly on the application questions at hand.  In this respect, it is imperative to emphasize that *risk* is a subjective concept, and thus even given the same problem, there are multifarious approaches to assess risk.  However, for many risk management applications, there is a wide agreement that economically sounded risk measures should satisfy four major axioms which we are going to describe in detail next.  Risk measures that satisfy these axioms are termed `r Gloss('coherent risk measures')`.
 
 Consider in what follows a risk measure $H(\cdot)$, then $H$ is a **coherent risk measure** if the following axioms are satisfied.  
 
@@ -277,10 +279,7 @@ With a little more effort, we can determine the following.
 
 **Example. The Standard Deviation is not a Coherent Risk Measure.**
 
-
-<h5 style="text-align: center;"><a id="displayTextExamplePortMgt.2.1" 
-href="javascript:toggleEX('toggleExamplePortMgt.2.1','displayTextExamplePortMgt.2.1');"><i><strong>Show Example Verification</strong></i></a> </h5>
-<div id="toggleExamplePortMgt.2.1" style="display: none">
+`r HideExample('PortMgt.2.1', 'Show Example Verification')`
 
 On a different note, the standard deviation is not a coherent risk measure.  Specifically, one can check that the standard deviation satisfies
 
@@ -332,11 +331,7 @@ We have so far checked that $\mathrm{E}[\cdot]$ is a coherent risk measure, but 
 
 **Example. The Standard Deviation Principle \@ref(eq:SD-principle) is a Coherent Risk Measure.**
 
-
-<h5 style="text-align: center;"><a id="displayTextExamplePortMgt.2.2" 
-href="javascript:toggleEX('toggleExamplePortMgt.2.2','displayTextExamplePortMgt.2.2');"><i><strong>Show Example Verification</strong></i></a> </h5>
-<div id="toggleExamplePortMgt.2.2" style="display: none">
-
+`r HideExample('PortMgt.2.2', 'Show Example Verification')`
 
 To this end, for a given $\alpha>0$, we check the four axioms for $H_{\mathrm{SD}}(X+Y)$ one by one:
 
@@ -375,7 +370,7 @@ The literature on risk measures has been growing rapidly in popularity and impor
 
 ### Value-at-Risk
 
-In Section \@ref(S:MS:QuantileEstimator), we defined the quantile of a distribution. We now look to a special case of this and offer the formal definition of the <a href="#" class="tooltip" style="color:green">*value-at-risk*<span style="font-size:8pt">a risk measure based on a quantile function</span></a>, or *VaR*.  
+In Section \@ref(S:MS:QuantileEstimator), we defined the quantile of a distribution. We now look to a special case of this and offer the formal definition of the `r Gloss("value-at-risk")`, or *VaR*.  
 
 **Definition  `r chapnum`.3.**
 Consider an insurance loss random variable $X$.  The value-at-risk measure of $X$ with confidence level $q\in (0,1)$ is formulated as
@@ -385,7 +380,7 @@ VaR_q[X]:=\inf\{x:F_X(x)\geq q\}.
 (\#eq:Value-at-Risk)
 \end{eqnarray}
 
-Here, $inf$ is the infimum operator so that the *VaR* measure outputs the smallest value of $X$ such that the associated <a href="#" class="tooltip" style="color:green">*cdf*<span style="font-size:8pt">cumulative distribution function</span></a> first exceeds or equates to $q$. 
+Here, $inf$ is the infimum operator so that the *VaR* measure outputs the smallest value of $X$ such that the associated `r Gloss('cdf')` first exceeds or equates to $q$. 
 
 Here is how we should interpret *VaR* in the context of actuarial applications. The *VaR* is a measure of the 'maximal' probable loss for an insurance product/portfolio or a risky investment occurring $q\times 100\%$ of times, over a specific time horizon (typically, one year).  For instance, let $X$ be the annual loss *rv* of an insurance product, $VaR_{0.95}[X]=100$ million means that there is a $5\%$ chance that the loss will exceed 100 million over a given year.  Owing to this meaningful interpretation, *VaR* has become the industrial standard to measuring financial and insurance risks since 1990's.  Financial conglomerates, regulators, and academics often utilize *VaR* to measure risk capital, ensure the compliance with regulatory rules, and disclose the financial positions.
 
@@ -399,9 +394,7 @@ F_X(x)=1-e^{-x/\theta}, \text{ for } x>0.
 $$
 Give a closed-form expression for the *VaR*.
 
-<h5 style="text-align: center;"><a id="displayTextExamplePortMgt.2.1" 
-href="javascript:toggleEX('toggleExamplePortMgt.2.1','displayTextExamplePortMgt.2.1');"><i><strong>Show Example Solution</strong></i></a> </h5>
-<div id="toggleExamplePortMgt.2.1" style="display: none">
+`r HideExample('10.2.1','Show Example Solution')`
 
 **Solution.**
 
@@ -423,9 +416,7 @@ The result reported in Example `r chapnum`.2.1 can be generalized to any continu
 **Example `r chapnum`.2.2. *VaR* for the normal distribution.**
 Consider an insurance loss *rv* $X\sim Normal(\mu,\sigma^2)$ with $\sigma>0$.  In this case, one may interpret the negative values of $X$ as profit or revenue.  Give a closed-form expression for the *VaR*.
 
-<h5 style="text-align: center;"><a id="displayTextExamplePortMgt.2.2" 
-href="javascript:toggleEX('toggleExamplePortMgt.2.2','displayTextExamplePortMgt.2.2');"><i><strong>Show Example Solution</strong></i></a> </h5>
-<div id="toggleExamplePortMgt.2.2" style="display: none">
+`r HideExample('10.2.2','Show Example Solution')`
 
 **Solution.**
 
@@ -451,9 +442,7 @@ In many insurance applications, we have to deal with transformations of *rv*'s. 
 **Example `r chapnum`.2.3. *VaR* for transformed variables.**
 Consider an insurance loss *rv*\ $Y\sim lognormal(\mu,\sigma^2)$, for $\mu\in \mathbf{R}$ and $\sigma>0$. Give an expression of the $VaR$ of $Y$ in terms of the standard normal inverse *cdf*.
 
-<h5 style="text-align: center;"><a id="displayTextExamplePortMgt.2.3" 
-href="javascript:toggleEX('toggleExamplePortMgt.2.3','displayTextExamplePortMgt.2.3');"><i><strong>Show Example Solution</strong></i></a> </h5>
-<div id="toggleExamplePortMgt.2.3" style="display: none">
+`r HideExample('10.2.3','Show Example Solution')`
 
 **Solution.**
 
@@ -484,9 +473,7 @@ $$
 $$
 Determine the *VaR* at $q = 0.6, 0.9, 0.95, 0.95001$.
 
-<h5 style="text-align: center;"><a id="displayTextExamplePortMgt.2.4" 
-href="javascript:toggleEX('toggleExamplePortMgt.2.4','displayTextExamplePortMgt.2.4');"><i><strong>Show Example Solution</strong></i></a> </h5>
-<div id="toggleExamplePortMgt.2.4" style="display: none">
+`r HideExample('10.2.4','Show Example Solution')`
 
 **Solution.**
 
@@ -541,7 +528,7 @@ As a remedy, the *Tail Value-at-Risk* (*TVaR*) was proposed to measure the extre
 
 <!-- \label{def:TVaR}-->
 **Definition  `r chapnum`.4.**
-Fix $q\in (0,1)$, the  <a href="#" class="tooltip" style="color:green">*tail value-at-risk*<span style="font-size:8pt">the expected value of a risk given that the risk exceeds a value-at-risk</span></a> of a (continuous) *rv* $X$ is formulated as
+Fix $q\in (0,1)$, the  `r Gloss("tail value-at-risk")` of a (continuous) *rv* $X$ is formulated as
 
 \begin{eqnarray*}
   TVaR_q[X] &:=& \mathrm{E}[X|X>VaR_q[X]],
@@ -561,9 +548,7 @@ TVaR_{q}[X]=\frac{1}{(1-q)}\int_{\pi_q}^{\infty}xf_X(x)dx.
 **Example `r chapnum`.2.6. *TVaR* for a normal distribution.**
 Consider an insurance loss *rv*\ $X\sim Normal (\mu,\sigma^2)$ with $\mu\in \mathbf{R}$ and $\sigma>0$. Give an expression for *TVaR*.
 
-<h5 style="text-align: center;"><a id="displayTextExamplePortMgt.2.6" 
-href="javascript:toggleEX('toggleExamplePortMgt.2.6','displayTextExamplePortMgt.2.6');"><i><strong>Show Example Solution</strong></i></a> </h5>
-<div id="toggleExamplePortMgt.2.6" style="display: none">
+`r HideExample('10.2.6','Show Example Solution')`
 
 **Solution.**
 
@@ -602,9 +587,7 @@ Consider an insurance loss *rv*\ $X\sim lognormal (\mu,\sigma^2)$, with $\sigma>
   TVaR_q[X] &=& \frac{e^{\mu+\sigma^2/2}}{(1-q)} \Phi(\Phi^{-1}(q)-\sigma).
 \end{eqnarray*}
 
-<h5 style="text-align: center;"><a id="displayTextExamplePortMgt.2.7" 
-href="javascript:toggleEX('toggleExamplePortMgt.2.7','displayTextExamplePortMgt.2.7');"><i><strong>Show Example Solution</strong></i></a> </h5>
-<div id="toggleExamplePortMgt.2.7" style="display: none">
+`r HideExample('10.2.7','Show Example Solution')`
 
 **Solution.**
 
@@ -649,9 +632,7 @@ TVaR_{q}[X]&=&\left[-x S_X(x)\big |_{\pi_q}^{\infty}+\int_{\pi_q}^{\infty}S_X(x)
 **Example  `r chapnum`.2.8. *TVaR* of an exponential distribution.**
 Consider an insurance loss *rv*\ $X\sim Exp(\theta)$ for $\theta>0$. Give an expression for the *TVaR*.
 
-<h5 style="text-align: center;"><a id="displayTextExamplePortMgt.2.8" 
-href="javascript:toggleEX('toggleExamplePortMgt.2.8','displayTextExamplePortMgt.2.8');"><i><strong>Show Example Solution</strong></i></a> </h5>
-<div id="toggleExamplePortMgt.2.8" style="display: none">
+`r HideExample('10.2.8','Show Example Solution')`
 
 **Solution.**
 
@@ -734,6 +715,9 @@ $$
 Third and perhaps foremost, *TVaR* is a coherent risk measure and thus is able to more accurately capture the diversification effects of insurance portfolio.  Herein, we do not intend to provide  the proof of the coherent feature for *TVaR*, which is considered to be challenging technically.
 
 
+```{r child = './Quizzes/Quiz103.html', eval = QUIZ}
+```
+
 ##Reinsurance {#S:Reinsurance}
 
 
@@ -748,10 +732,10 @@ In this section, you learn how to:
 ***
 
 
-Recall that <a href="#" class="tooltip" style="color:green">*reinsurance*<span style="font-size:8pt">insurance purchased by an insurer</span></a> is simply insurance purchased by an insurer. Insurance purchased by non-insurers is sometimes known as  <a href="#" class="tooltip" style="color:green">*primary insurance*<span style="font-size:8pt">insurance purchased by an non-insurer</span></a> to distinguish it from reinsurance. Reinsurance differs from personal insurance purchased by individuals, such as auto and homeowners insurance, in contract flexibility. Like insurance purchased by major corporations, reinsurance programs are generally tailored more closely to the buyer. For contrast, in personal insurance buyers typically cannot negotiate on the contract terms although they may have a variety of different options (contracts) from which to choose.
+Recall that `r Gloss('reinsurance')` is simply insurance purchased by an insurer. Insurance purchased by non-insurers is sometimes known as  `r Gloss('primary insurance')` to distinguish it from reinsurance. Reinsurance differs from personal insurance purchased by individuals, such as auto and homeowners insurance, in contract flexibility. Like insurance purchased by major corporations, reinsurance programs are generally tailored more closely to the buyer. For contrast, in personal insurance buyers typically cannot negotiate on the contract terms although they may have a variety of different options (contracts) from which to choose.
 
 The two broad types are proportional and non-proportional reinsurance. A 
-<a href="#" class="tooltip" style="color:green">*proportional reinsurance*<span style="font-size:8pt">an agreement between a reinsurer and a ceding company (also known as the reinsured) in which the reinsurer assumes a given percent of losses and premium</span></a> contract is an agreement between a reinsurer and a <a href="#" class="tooltip" style="color:green">*ceding company*<span style="font-size:8pt">a company that purchases reinsurance (also known as the reinsured)</span></a> (also known as the *reinsured*) in which the reinsurer assumes a given percent of losses and premium. A reinsurance contract is also known as a <a href="#" class="tooltip" style="color:green">*treaty*<span style="font-size:8pt">a reinsurance contract</span></a>. Non-proportional agreements are simply everything else. As examples of non-proportional agreements, this chapter focuses on <a href="#" class="tooltip" style="color:green">*stop-loss*<span style="font-size:8pt">Under a stop-loss arrangement, the insurer sets a retention level and pays in full total claims less than the level with the reinsurer paying the excess</span></a> and <a href="#" class="tooltip" style="color:green">*excess of loss* <span style="font-size:8pt">Under an excess of loss arrangement, the insurer sets a retention level for each claim and pays claim amounts less than the level with the reinsurer paying the excess</span></a>contracts. For all types of agreements, we split the total risk $X$ into the portion taken on by the reinsurer, $Y_{reinsurer}$, and that retained by the insurer, $Y_{insurer}$, that is, $X= Y_{insurer}+Y_{reinsurer}$.
+`r Gloss('proportional reinsurance')` contract is an agreement between a reinsurer and a `r Gloss('ceding company')` (also known as the *reinsured*) in which the reinsurer assumes a given percent of losses and premium. A reinsurance contract is also known as a `r Gloss('treaty')`. Non-proportional agreements are simply everything else. As examples of non-proportional agreements, this chapter focuses on `r Gloss("stop-loss")` and `r Gloss('excess of loss')` contracts. For all types of agreements, we split the total risk $X$ into the portion taken on by the reinsurer, $Y_{reinsurer}$, and that retained by the insurer, $Y_{insurer}$, that is, $X= Y_{insurer}+Y_{reinsurer}$.
 
 The mathematical structure of a basic reinsurance treaty is the same as the coverage modifications of personal insurance introduced in Chapter 3. For a proportional reinsurance, the transformation $Y_{insurer} = c X$ is identical to a coinsurance adjustment in personal insurance. For stop-loss reinsurance, the transformation $Y_{reinsurer} = \max(0,X-M)$ is the same as an insurer's payment with a deductible $M$ and $Y_{insurer} = \min(X,M) = X \wedge M$ is equivalent to what a policyholder pays with deductible $M$. For practical applications of the mathematics, in personal insurance the focus is generally upon the expectation as this is a key ingredient used in pricing. In contrast, for reinsurance the focus is on the entire distribution of the risk, as the extreme events are a primary concern of the financial stability of the insurer and reinsurer.
 
@@ -760,7 +744,7 @@ This section describes the foundational and most basic of reinsurance treaties: 
 
 ### Proportional Reinsurance {#S:ProportionalRe}
 
-The simplest example of a proportional treaty is called <a href="#" class="tooltip" style="color:green">*quota share*<span style="font-size:8pt">A proportional treaty where the reinsurer receives a flat percent of the premium for the book of business reinsured and pays a percentage of losses, including allocated loss adjustment expenses. The reinsurer may also pays the ceding company a ceding commission which is designed to reflect the differences in underwriting expenses incurred.</span></a>.
+The simplest example of a proportional treaty is called `r Gloss('quota share')`.
 
 -   In a quota share treaty, the reinsurer receives a flat percent, say 50%, of the premium for the book of business reinsured.
 
@@ -791,11 +775,9 @@ plot(density(0.75*X), xlim=c(0,3*theta), ylim=c(0,0.008), main="Insurer (75%)", 
 plot(density(0.25*X), xlim=c(0,3*theta), ylim=c(0,0.008), main="Reinsurer (25%)", xlab="Losses")
 ```
 
+`r HideRCode('QuotaShare', 'Show the R Code')`
 
-<h6 style="text-align: center;"><a id="displayQuotaShare" href="javascript:togglecode('toggleQuotaShare','displayQuotaShare');"><i><strong>Show the R Code</strong></i></a> </h6>
-<div id="toggleQuotaShare" style="display: none">
-
-```{r comment="", message=FALSE, eval=FALSE, fig.width=10, fig.height=4, fig.align='center'}
+```{r comment="", echo=ShowCode(), message=FALSE, eval=FALSE, fig.width=10, fig.height=4, fig.align='center'}
 set.seed(2018)
 theta = 1000
 alpha = 3
@@ -819,8 +801,7 @@ for some generic function $g(\cdot)$ (known as the *retention* function). Suppos
 
 **Proposition**. Suppose that $Var(Y_{insurer})=Q.$ Then, $Var ((1-c)X) \le Var(g(X))$ for all $g(.)$, where $c=Q/Var(X)$.
 
-<h6 style="text-align: center;"><a id="displayProof" href="javascript:togglecode('toggleProof','displayProof');"><i><strong>Show the Justification of the Proposition</strong></i></a> </h6>
-<div id="toggleProof" style="display: none">
+`r HideProofTheory('proof', 'Show the Justification of the Proposition')`
 
 **Proof of the Proposition**. With $Y_{reinsurer} = X - Y_{insurer}$ and the law of total variation
 
@@ -845,8 +826,7 @@ Now assume $n$ risks in the porfolio, $X_1, \ldots, X_n,$ so that the portfolio 
 
 To formalize this question, we seek to find those values of $c_i$ that minimize $Var  (Y_{insurer})$ subject to the constraint that $E (Y_{insurer}) = K.$ The requirement that $E (Y_{insurer}) = K$ suggests that the insurers wishes to retain a revenue in at least the amount of the constant $K$. Subject to this revenue constraint, the insurer wishes to minimize the uncertainty of the retained risks as measured by the variance.
 
-<h6 style="text-align: center;"><a id="displayDerivationProof" href="javascript:togglecode('toggleDerivationProof','displayDerivationProof');"><i><strong>Show the Optimal Retention Proportions</strong></i></a> </h6>
-<div id="toggleDerivationProof" style="display: none">
+`r HideProofTheory('derivationProof', 'Show the Optimal Retention Proportions')`
 
 **The Optimal Retention Proportions**
 
@@ -886,11 +866,10 @@ From the math, it turns out that the constant for the $i$th risk, $c_i$ is propo
 
 **Example `r chapnum`.3.2. Three Pareto risks.** Consider three risks that have a Pareto distribution. Provide a graph, and supporting code, that give values of $c_1$, $c_2$, and $c_3$ for a required revenue $K$. Note that these values increase linearly with $K$.
 
-<h6 style="text-align: center;"><a id="displayParetoRisksProp" href="javascript:togglecode('toggleParetoRisksProp','displayParetoRisksProp');"><i><strong>Show an Example with Three Pareto Risks</strong></i></a> </h6>
-<div id="toggleParetoRisksProp" style="display: none">
+`r HideRCode('ParetoRisksProp', 'Show an Example with Three Pareto Risks')`
 
 
-```{r comment="", message=FALSE,  fig.width=8, fig.height=4, fig.align='center'}
+```{r comment="", message=FALSE, echo=ShowCode(), fig.width=8, fig.height=4, fig.align='center'}
 
 theta1 = 1000; theta2 = 2000; theta3 = 3000;
 alpha1 = 3; alpha2 = 3; alpha3 = 4;
@@ -956,8 +935,7 @@ The stop-loss type of contract is particularly desirable for the insurer. Simila
 
 **Proposition**. Suppose that $E(Y_{insurer})=K.$ Then, $Var (X \wedge M) \le Var(g(X))$ for all $g(.)$, where $M$ is such that $E(X \wedge M)=K$.
 
-<h6 style="text-align: center;"><a id="displayProofStopLoss" href="javascript:togglecode('toggleProofStopLoss','displayProofStopLoss');"><i><strong>Show the Justification of the Proposition</strong></i></a> </h6>
-<div id="toggleProofStopLoss" style="display: none">
+`r HideProofTheory('ProofStopLoss', 'Show the Justification of the Proposition')`
 
 **Proof of the Proposition**. Add and subtract a constant $M$ and expand the square to get
 $$
@@ -997,7 +975,7 @@ The proposition is intuitively appealing - with stop-loss insurance, the reinsur
 
 #### Excess of Loss
 
-A closely related form of non-proportional reinsurance is the <a href="#" class="tooltip" style="color:green">*excess of loss* <span style="font-size:8pt">Under an excess of loss arrangement, the insurer sets a retention level for each claim and pays claim amounts less than the level with the reinsurer paying the excess</span></a> coverage. Under this contract, we assume that the total risk $X$ can be thought of as composed as $n$ separate risks $X_1, \ldots, X_n$ and that each of these risks are subject to an upper limit, say, $M_i$. So the insurer retains
+A closely related form of non-proportional reinsurance is the `r Gloss('excess of loss')` coverage. Under this contract, we assume that the total risk $X$ can be thought of as composed as $n$ separate risks $X_1, \ldots, X_n$ and that each of these risks are subject to an upper limit, say, $M_i$. So the insurer retains
 
 $$
 Y_{i,insurer} = X_i \wedge M_i \ \ \ \ Y_{insurer} = \sum_{i=1}^n Y_{i,insurer}
@@ -1008,8 +986,7 @@ and the reinsurer is responsible for the excess, $Y_{reinsurer}=X - Y_{insurer}$
 
 What is the best choice of the excess of loss retention limits $M_i$? To formalize this question, we seek to find those values of $M_i$ that minimize $Var(Y_{insurer})$ subject to the constraint that $E(Y_{insurer}) = K.$ Subject to this revenue constraint, the insurer wishes to minimize the uncertainty of the retained risks (as measured by the variance).
 
-<h6 style="text-align: center;"><a id="displayDerivationProofExcess" href="javascript:togglecode('toggleDerivationProofExcess','displayDerivationProofExcess');"><i><strong>Show the Optimal Retention Proportions</strong></i></a> </h6>
-<div id="toggleDerivationProofExcess" style="display: none">
+`r HideProofTheory('DerivationProofExcess', 'Show the Optimal Retention Proportions')`
 
 **The Optimal Retention Limits**
 
@@ -1056,14 +1033,12 @@ From the math, it turns out that the retention limit less the expected insurer's
 
 **Example `r chapnum`.3.3. Excess of loss for three Pareto risks.** Consider three risks that have a Pareto distribution, each having a different set of parameters (so they are independent but non-identical). Show numerically that the optimal retention limits $M_1$, $M_2$, and $M_3$ resulting retention limit minus expected insurer's claims, $M_i - E(X_i \wedge M_i)$, is the same for all risks, as we derived theoretically. Further, graphically compare the distribution of total risks to that retained by the insurer and by the reinsurer.
 
-<h6 style="text-align: center;"><a id="displayParetoRisksExcess" href="javascript:togglecode('toggleParetoRisksExcess','displayParetoRisksExcess');"><i><strong>Show an Example with Three Pareto Risks</strong></i></a> </h6>
-<div id="toggleParetoRisksExcess" style="display: none">
-
+`r HideRCode('ParetoRisksExcess', 'Show an Example with Three Pareto Risks')`
 
 We first optimize the Lagrangian using the `R` package `alabama` for *Augmented Lagrangian Adaptive Barrier Minimization Algorithm*. 
 
 
-```{r comment="", message=FALSE, warning=FALSE, fig.width=8, fig.height=4, fig.align='center'}
+```{r comment="", echo=ShowCode(), message=FALSE, warning=FALSE, fig.width=8, fig.height=4, fig.align='center'}
 
 theta1 = 1000;theta2 = 2000;theta3 = 3000;
 alpha1 = 3;   alpha2 = 3;   alpha3 = 4;
@@ -1126,7 +1101,7 @@ plot(density(Yreinsur), xlim=c(0,10000), main="Reinsurer",  xlab="Losses")
 
 #### Surplus Share Proportional Treaty
 
-Another proportional treaty is known as <a href="#" class="tooltip" style="color:green">*surplus share*<span style="font-size:8pt">A proportional reinsurance treaty that is common in commercial property insurance. A surplus share treaty allows the reinsured to limit its exposure on any one risk to a given amount (the retained line). The reinsurer assumes a part of the risk in proportion to the amount that the insured value exceeds the retained line, up to a given limit (expressed as a multiple of the retained line, or number of lines).</span></a>; this type of contract is common in commercial property insurance.
+Another proportional treaty is known as `r Gloss('surplus share')`; this type of contract is common in commercial property insurance.
 
 -   A surplus share treaty allows the reinsured to limit its exposure on any one risk to a given amount (the *retained line*).
 -   The reinsurer assumes a part of the risk in proportion to the amount that the insured value exceeds the retained line, up to a given
@@ -1221,13 +1196,11 @@ a. Determine the expected claim amount of (i) that retained, (ii) that accepted 
 b. Determine the 80th, 90th, 95th, and 99th percentiles for (i) that retained, (ii) that accepted by the insurer, and (iii) the total overall amount. 
 c. Compare the distributions by plotting the densities for (i) that retained, (ii) that accepted by the insurer, and (iii) the total overall amount.
 
-
-<h6 style="text-align: center;"><a id="displayPortMgtExample" href="javascript:togglecode('togglePortMgtExample','displayPortMgtExample');"><i><strong>Show Example Solution with R Code</strong></i></a> </h6>
-<div id="togglePortMgtExample" style="display: none">
+`r HideRCode('PortMgt', 'Show Example Solution with R Code')`
 
 In preparation, here is the code needed to set the parameters.
 
-```{r warning=FALSE, message=FALSE, comment="", eval=FALSE}
+```{r warning=FALSE, message=FALSE, comment="", eval=FALSE, echo=ShowCode()}
 # For the gamma distributions, use
 alpha1 <- 2;      theta1 <- 100
 alpha2 <- 2;      theta2 <- 200
@@ -1241,7 +1214,7 @@ M2     <- 200
 
 With these parameters, we can now simulate realizations of the portfolio risks.
 
-```{r warning=FALSE, message=FALSE, fig.width=8, fig.height=4, fig.align='center', comment=""}
+```{r warning=FALSE, message=FALSE, fig.width=8, fig.height=4, fig.align='center', comment="", echo=ShowCode()}
 # Simulate the risks
 nSim <- 10000  #number of simulations
 set.seed(2017) #set seed to reproduce work 
@@ -1259,7 +1232,7 @@ Yinsurer  <- X - Yretained
 
 **(a)** Here is the code for the expected claim amounts.
 
-```{r warning=FALSE, message=FALSE, fig.width=8, fig.height=4, fig.align='center', comment=""}
+```{r warning=FALSE, message=FALSE, fig.width=8, fig.height=4, fig.align='center', comment="", echo=ShowCode()}
 # Expected Claim Amounts
 ExpVec <- t(as.matrix(c(mean(Yretained),mean(Yinsurer),mean(X))))
 colnames(ExpVec) <- c("Retained", "Insurer","Total")
@@ -1268,7 +1241,7 @@ round(ExpVec,digits=2)
 
 **(b)** Here is the code for the quantiles.
 
-```{r warning=FALSE, message=FALSE, fig.width=8, fig.height=4, fig.align='center', comment=""}
+```{r warning=FALSE, message=FALSE, fig.width=8, fig.height=4, fig.align='center', comment="", echo=ShowCode()}
 # Quantiles
 quantMat <- rbind(
   quantile(Yretained, probs=c(0.80, 0.90, 0.95, 0.99)),
@@ -1280,7 +1253,7 @@ round(quantMat,digits=2)
 
 **(c)** Here is the code for the density plots of the retained, insurer, and total portfolio risk.
 
-```{r warning=FALSE, message=FALSE, fig.width=8, fig.height=4, fig.align='center', comment=""}
+```{r warning=FALSE, message=FALSE, fig.width=8, fig.height=4, fig.align='center', comment="", echo=ShowCode()}
 
 par(mfrow=c(1,3))
 plot(density(Yretained), xlim=c(0,500), main="Retained Portfolio Risk", xlab="Loss (Note the different horizontal scale)", ylab = "Density (Note different vertical scale)")

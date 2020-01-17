@@ -12,8 +12,25 @@ Glossfunction <- function(term){
   ifelse(length(temp2) == 0, return(''), return(Gloss_data[temp2[[1]],2]))
 }
 
-Gloss <- function(term){
-  return(paste(A1,term,A2,Glossfunction(term),A3, sep=""))
+GlossfunctionBySection <- function(term, section){
+  temp2 <- which(Gloss_data$Term == trimws(tolower(term)) & Gloss_data$Section == section)
+  ifelse(length(temp2) == 0, return(''), return(Gloss_data[temp2,2]))
+}
+
+#Gloss <- function(term){
+#  return(paste(A1,term,A2,Glossfunction(term),A3, sep=""))
+#}
+
+Gloss <- function(term, section){
+  if (missing(section)) {
+    section = FALSE
+  }
+  
+  if (section == FALSE) {
+    return(paste(A1,term,A2,Glossfunction(term),A3, sep=""))
+  } else {
+    return(paste(A1,term,A2,GlossfunctionBySection(term, section),A3, sep=""))
+  }
 }
 
 ```
@@ -21,11 +38,13 @@ Gloss <- function(term){
 ```{r echo = FALSE}
 QUIZ = TRUE
 ANIMATION = TRUE
+SHOW_PDF = TRUE
+ANIMATIONHOOK <- 'gifski'
 # Switches that control the number of animations in Chapter 6
 # Use these for html output
-numAnimation = 30     # Section 6.4 Importance Sampling
-numAnimation2 = 23    # Section 6.5.1 Hastings Metropolis 
-numAnimation3 = 100   # Section 6.5.2 Gibbs
+numAnimation =  5#10#30     # Section 6.4 Importance Sampling
+numAnimation2 = 2#23    # Section 6.5.1 Hastings Metropolis 
+numAnimation3 = 2#100   # Section 6.5.2 Gibbs
 # Use these for pdf output - maybe later
 
 ```
@@ -52,11 +71,6 @@ C5 <- '" style="display: none">'
 
 HideRCode <- function(arg1,arg2){
   return(paste(C1,arg1,'"',C2,arg1,C3,arg1,C4a,arg2,C4b,arg1,C5, sep=""))
-}
-
-# to display R code
-ShowCode <- function() {
-  return(TRUE)
 }
 
 D1 <- '<h5 style="text-align: center;"><a id="displayTheory.'

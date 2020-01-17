@@ -5,7 +5,7 @@ For a portfolio of insurance contracts, insurers collect premiums and pay out lo
 
 ### Classic Lorenz Curve 
 
-In welfare economics, it is common to compare distributions via the `r Gloss('Lorenz curve')`, developed by Max Otto Lorenz [@lorenz1905methods]. A Lorenz curve is a graph of the proportion of a population on the horizontal axis and a distribution function of interest on the vertical axis. It is typically used to represent income distributions. When the income distribution is perfectly aligned with the population distribution, the Lorenz curve results in a 45 degree line that is known as the *line of equality*. Because the graph compares two distribution functions, one can also think of a Lorenz curve as a type of $pp$ plot that was introduced in Section \@ref(S:MS:GraphComparison). The area between the Lorenz curve and the line of equality is a measure of the discrepancy between the income and population distributions. Two times this area is known as the `r Gloss('Gini index')`, introduced by Corrado Gini in 1912. 
+In welfare economics, it is common to compare distributions via the `r Gloss('Lorenz curve')`, developed by Max Otto Lorenz [@lorenz1905methods]. A Lorenz curve is a graph of the proportion of a population on the horizontal axis and a distribution function of interest on the vertical axis. It is typically used to represent income distributions. When the income distribution is perfectly aligned with the population distribution, the Lorenz curve results in a 45 degree line that is known as the `r Gloss('line of equality')`. Because the graph compares two distribution functions, one can also think of a Lorenz curve as a type of `r Gloss('pp plot')` that was introduced in Section \@ref(S:MS:GraphComparison). The area between the Lorenz curve and the line of equality is a measure of the discrepancy between the income and population distributions. Two times this area is known as the `r Gloss('Gini index', '7.6')`, introduced by Corrado Gini in 1912. 
 
 
 
@@ -36,16 +36,16 @@ text(.85, .15, "(0.60, 0.30)", cex=.6)
 
 ```
 
-### Concentration Curve and a Gini Statistic 
-We now introduce a modification of the classic Lorenz curve and Gini statistic that is useful in insurance applications. Specifically, we introduce a `r Gloss('concentration curve')` which is a graph of the distribution of losses versus premiums, where both losses and premiums are ordered by premiums. To make the ideas concrete, we provide some notation and consider $i=1, \ldots, n$ policies. For the $i$th policy, let
+### Performance Curve and a Gini Statistic 
+We now introduce a modification of the classic Lorenz curve and Gini statistic that is useful in insurance applications. Specifically, we introduce a `r Gloss('performance curve')` that, in this case, is a graph of the distribution of losses versus premiums, where both losses and premiums are ordered by premiums. To make the ideas concrete, we provide some notation and consider $i=1, \ldots, n$ policies. For the $i$th policy, let
 
 * $y_i$ denote the insurance loss,
 * $\mathbf{x}_i$ be a set of rating variables known to the analyst, and
 * $P_i=P(\mathbf{x}_i)$ be the associated premium that is a function of $\mathbf{x}_i$.
 
-The set of information used to calculate the concentration curve for the $i$th policy is $(y_i, P_i)$. 
+The set of information used to calculate the performance curve for the $i$th policy is $(y_i, P_i)$. 
 
-#### Concentration Curve {-}
+#### Performance Curve {-}
 
 It is convenient to first sort the set of policies based on premiums (from smallest to largest) and then compute the premium and loss distributions. The premium distribution is
 \begin{equation}
@@ -60,7 +60,7 @@ and the loss distribution is
 (\#eq:EmpLossDF)
 \end{equation}
 
-where $\mathrm{I}(\cdot)$ is the indicator function, returning a 1 if the event is true and zero otherwise. The graph $\left(\hat{F}_P(s),\hat{F}_{L}(s) \right)$ is a **concentration curve**.
+where $\mathrm{I}(\cdot)$ is the indicator function, returning a 1 if the event is true and zero otherwise. For a given value $s$, $\hat{F}_P(s)$ gives the proportion of premiums less than or equal to $s$, and $\hat{F}_{L}(s)$ gives the proportion of losses for those policyholders with premiums less than or equal to $s$. The graph $\left(\hat{F}_P(s),\hat{F}_{L}(s) \right)$ is known as a **performance curve**.
 
 
 **Example -- Loss Distribution.** Suppose we have $n=5$ policyholders with experience as follows. The data have been ordered by premiums.
@@ -74,9 +74,9 @@ Loss                $y_i$                            2   5    6   6  17
 Cumulative Loss     $\sum_{j=1}^i y_j$               2   7   13  19  36
 ----------          -----------------                -   -   --  --  -- 
 
-Figure \@ref(fig:LorenzVsOrdered) compares the Lorenz to the concentration curve. The left-hand panel shows the Lorenz curve. The horizontal axis is the cumulative proportion of policyholders (0, 0.2, 0.4, and so forth) and the vertical axis is the cumulative proportion of losses (0, 2/36, 7/36, and so forth). For the Lorenz curve, you first order by the loss size (which turns out to be the same order as premiums for this simple dataset). This figure shows a large separation between the distributions of losses and policyholders.
+Figure \@ref(fig:LorenzVsOrdered) compares the Lorenz to the performance curve. The left-hand panel shows the Lorenz curve. The horizontal axis is the cumulative proportion of policyholders (0, 0.2, 0.4, and so forth) and the vertical axis is the cumulative proportion of losses (0, 2/36, 7/36, and so forth). For the Lorenz curve, you first order by the loss size (which turns out to be the same order as premiums for this simple dataset). This figure shows a large separation between the distributions of losses and policyholders.
 
-The right-hand panel shows the concentration curve. Because observations are sorted by premiums, the first point after the origin (reading from left to right) is (2/34, 2/36). The second point is (6/34, 7/36), with the pattern continuing. From the figure, we see that there is little separation between losses and premiums.
+The right-hand panel shows the performance curve. Because observations are sorted by premiums, the first point after the origin (reading from left to right) is (2/34, 2/36). The second point is (6/34, 7/36), with the pattern continuing. From the figure, we see that there is little separation between losses and premiums.
 
 
 ```{r echo=FALSE} 
@@ -132,7 +132,7 @@ GiniCalc <- function(Claims,PIx,Sx){
 
 
 
-```{r, LorenzVsOrdered, fig.cap='Lorenz versus Concentration Curve', out.width='90%', fig.asp=0.5, fig.align='center', echo=FALSE}
+```{r, LorenzVsOrdered, fig.cap='Lorenz versus Performance Curve', out.width='90%', fig.asp=0.5, fig.align='center', echo=FALSE}
 # EXAMPLE
 P = c(2,4,5,7,16)
 y = c(2,5,6,6,17)
@@ -152,9 +152,9 @@ par(mfrow=c(1, 2))
 plot(DFx1,DFy1,xlim=c(0,1),ylim=c(0,1), type="b",
 xlab="People Distn",ylab="", main="Lorenz");abline(0,1)
 mtext("Loss Distn", side=2, line=-0.5, at=1.1,   las=1, cex=1.0)
-#  Concentration Curve
+#  Performance Curve
 plot(DFx2,DFy2,xlim=c(0,1),ylim=c(0,1), type="b",
-xlab="Premium Distn",ylab="", main="Concentration");abline(0,1)
+xlab="Premium Distn",ylab="", main="Performance");abline(0,1)
 mtext("Loss Distn", side=2, line=-0.5, at=1.1,   las=1, cex=1.0)
 
 GiniLoss = GiniLossCalc(Loss=y)
@@ -168,16 +168,16 @@ stderrorGini <- temp[[3]];#Standard Error
 
 ***
 
-The concentration curve can be helpful to the analyst who thinks about forming profitable portfolios for the insurer. For example, suppose that $s$ is chosen to represent the 95*th* percentile of the premium distribution. Then, the horizontal axis, $\hat{F}_P(s)$, represents the fraction of premiums for this portfolio and the vertical axis, $\hat{F}_L(s)$, the fraction of losses for this portfolio. When developing premium principles, analysts wish to avoid unprofitable situations and make profits, or at least break even.
+The performance curve can be helpful to the analyst who thinks about forming profitable portfolios for the insurer. For example, suppose that $s$ is chosen to represent the 95*th* percentile of the premium distribution. Then, the horizontal axis, $\hat{F}_P(s)$, represents the fraction of premiums for this portfolio and the vertical axis, $\hat{F}_L(s)$, the fraction of losses for this portfolio. When developing premium principles, analysts wish to avoid unprofitable situations and make profits, or at least break even.
 
 The expectation of the numerator in equation \@ref(eq:EmpLossDF) is $\sum_{i=1}^n \mathrm{E}~ y_i=\sum_{i=1}^n \mu_i$. Thus, if the premium principle is chosen such that $P_i= \mu_i$, then we anticipate a close relation between the premium and loss distributions, resulting in a 45 degree line. The 45 degree line presents equality between losses and premiums, a break-even situation which is the benchmark for insurance pricing.
 
 #### Gini Statistic {-}
 
-The classic Lorenz curve shows the proportion of policyholders on the horizontal axis and the loss distribution function on the vertical axis. The concentration curve extends the classical Lorenz curve in two ways, (1) through the ordering of risks and prices by prices and (2) by allowing prices to vary by observation. We summarize the concentration curve in the same way as the classic Lorenz curve using a Gini statistic, defined as twice the area between the curve and a 45 degree line. The analyst seeks ordered concentration curves that approach passing through the 45 degree line; these have least separation between the loss and premium distributions and therefore small Gini statistics.
+The classic Lorenz curve shows the proportion of policyholders on the horizontal axis and the loss distribution function on the vertical axis. The performance curve extends the classical Lorenz curve in two ways, (1) through the ordering of risks and prices by prices and (2) by allowing prices to vary by observation. We summarize the performance curve in the same way as the classic Lorenz curve using a Gini statistic, defined as twice the area between the curve and a 45 degree line. The analyst seeks ordered performance curves that approach passing through the 45 degree line; these have least separation between the loss and premium distributions and therefore small Gini statistics.
 
 
-Specifically, the Gini statistic can be calculated as follows. Suppose that the empirical concentration curve is given by $\{ (a_0=0, b_0=0), (a_1, b_1), \ldots,$ $(a_n=1, b_n=1) \}$ for a sample of $n$ observations. Here, we use $a_j = \hat{F}_P(P_j)$ and $b_j = \hat{F}_{L}(P_j)$. Then, the empirical Gini statistic is
+Specifically, the Gini statistic can be calculated as follows. Suppose that the empirical performance curve is given by $\{ (a_0=0, b_0=0), (a_1, b_1), \ldots,$ $(a_n=1, b_n=1) \}$ for a sample of $n$ observations. Here, we use $a_j = \hat{F}_P(P_j)$ and $b_j = \hat{F}_{L}(P_j)$. Then, the empirical Gini statistic is
 \begin{eqnarray}
 \widehat{Gini} 
 &=&  2\sum_{j=0}^{n-1} (a_{j+1} - a_j) \left \{
@@ -187,8 +187,7 @@ Specifically, the Gini statistic can be calculated as follows. Suppose that the 
 \end{eqnarray}
 
 
-<h5 style="text-align: center;"><a id="displayAreaDemo" href="javascript:toggleEX('toggleAreaDemo','displayAreaDemo');"><i><strong>Show Gini Formula Details</strong></i></a> </h5><div id="toggleAreaDemo" style="display: none">
-
+`r HideExample('AreaDemo', 'Show Gini Formula Details')`
 
 To understand the formula for the Gini statistic, here is a sketch of a parallelogram connecting points $(a_1, b_1)$, $(a_2, b_2)$, and a 45 degree line. You can use basic geometry to check that the area of the figure is $Area = (a_2 - a_1) \left \{\frac{a_2+a_1}{2} - \frac{b_2+b_1}{2} \right\}$. The definition of the Gini statistic in equation \@ref(eq:GiniDefn) is simply twice the sum of the parallelograms. The second equality in equation \@ref(eq:GiniDefn) is the result of some straight-forward algebra.
 
@@ -216,12 +215,12 @@ arrows(.15, .32, .20, .25,length=0.1, angle = 30)
 </div>
 
 
-**Example -- Loss Distribution: Continued.** The Gini statistic for the Lorenz curve (left-hand panel of Figure \@ref(fig:LorenzVsOrdered)) is `r round(100*GiniLoss,digits=1)` percent. In contrast, the Gini statistic for concentration curve (right-hand panel) is `r round(100*Gini,digits=1)` percent. 
+**Example -- Loss Distribution: Continued.** The Gini statistic for the Lorenz curve (left-hand panel of Figure \@ref(fig:LorenzVsOrdered)) is `r round(100*GiniLoss,digits=1)` percent. In contrast, the Gini statistic for performance curve (right-hand panel) is `r round(100*Gini,digits=1)` percent. 
 
 
 ### Out-of-Sample Validation 
 
-The benefits of out-of-sample validation for model selection were introduced in Section 4.2. We now demonstrate the use of the a Gini statistic and concentration curve in this context. The procedure follows:
+The benefits of out-of-sample validation for model selection were introduced in Section 4.2. We now demonstrate the use of the a Gini statistic and performance curve in this context. The procedure follows:
 
 1.  Use an in-sample data set to estimate several competing models, each producing a premium function.
 2.  Designate an out-of-sample, or validation, data set of the form $\{(y_i, \mathbf{x}_i), i=1,\ldots,n\}$.
@@ -253,12 +252,9 @@ Outy     <- as.vector(OutClaims)
 * To compute base premiums, the analyst assumes a scale parameter that is common to all states that is to be estimated from the data. You can think of this common premium as based on a `r Gloss('community rating')` principle. 
 * As an alternative, the analyst allows the scale parameters to vary by state and will again use the data to estimate these parameters.
 
-An out of sample validation set of `r NOutsamp` losses from each state is available. For each of the two rating procedures, determine the concentration curve and the corresponding Gini statistic. Choose the rate procedure with the lower Gini statistic.
+An out of sample validation set of `r NOutsamp` losses from each state is available. For each of the two rating procedures, determine the performance curve and the corresponding Gini statistic. Choose the rate procedure with the lower Gini statistic.
 
-
-
-
-<h5 style="text-align: center;"><a id="displayLorenzeExample" href="javascript:toggleEX('toggleExampleLor','displayLorenzeExample');"><i><strong>Show Example Solution</strong></i></a> </h5><div id="toggleExampleLor" style="display: none">
+`r HideExample('Lorenze','Show Example Solution')`
 
 ***
 
@@ -268,7 +264,7 @@ For our base premium, we assume a common distribution among all states. For thes
 
 As an alternative, we use averages that are state-specific; these averages form our premiums $P_2$. Because this illustration uses means that vary by states, we anticipate this alternative rating procedure to be preferred to the community rating procedure. 
 
-Out of sample claims were generated from the same gamma distribution as the in-sample model, with `r NOutsamp` observations for each state. The following `R` code shows how to calculate the concentration curves.
+Out of sample claims were generated from the same gamma distribution as the in-sample model, with `r NOutsamp` observations for each state. The following `R` code shows how to calculate the performance curves.
 
 
 ```{r echo=FALSE} 
@@ -316,7 +312,7 @@ Gini2 <- GiniCalc(Claims=Outy,PIx=Predvec,Sx=Flatpred)[[2]];#Gini
 ```
 
 
-```{r, fig.cap='', out.width='90%', fig.align='center', echo=TRUE} 
+```{r, fig.cap='', out.width='90%', fig.align='center', echo=SHOW_PDF} 
 y <- Outy 
 P1 <- Flatpred
 P2 <- Predvec
@@ -335,7 +331,7 @@ par(mfrow=c(1, 2))
 plot(DFx1,DFy1,xlim=c(0,1),ylim=c(0,1), type="b", cex= 0.2,
 xlab="Premium Distn",ylab="", main="Flat");abline(0,1)
 mtext("Loss Distn", side=2, line=-0.5, at=1.1,   las=1, cex=1.0)
-#  Concentration Curve
+#  Performance Curve
 plot(DFx2,DFy2,xlim=c(0,1),ylim=c(0,1), type="b", cex= 0.2,
 xlab="Premium Distn",ylab="", main="State Specific");abline(0,1)
 mtext("Loss Distn", side=2, line=-0.5, at=1.1,   las=1, cex=1.0)
@@ -354,6 +350,6 @@ For these data, the Gini statistics are `r round(100*Gini1,digits=1)` percent fo
 
 In insurance claims modeling, standard out-of-sample validation measures are not the most informative due to the high proportions of zeros (corresponding to no claim) and the skewed fat-tailed distribution of the positive values. In contrast, the Gini statistic works well with many zeros (see the demonstration in [@frees2014insurance]). 
 
-The value of the concentration curves and Gini statistics have been recently advanced in the paper of @denuit2019concentrationGini.
-Properties of an extended version, dealing with relatives for new premiums, were developed by [@frees2011summarizing] and [@frees2014insurance]. In these articles you can find formulas for the standard errors and additional background information.
+The value of the performance curves and Gini statistics have been recently advanced in the paper of @denuit2019concentrationGini.
+Properties of an extended version, dealing with relatives for new premiums, were developed by @frees2011summarizing and @frees2014insurance. In these articles you can find formulas for the standard errors and additional background information.
 

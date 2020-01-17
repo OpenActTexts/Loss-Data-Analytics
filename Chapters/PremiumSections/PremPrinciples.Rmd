@@ -1,0 +1,67 @@
+<!-- ###  Premium Principles {#S:PremPrinciples} -->
+
+Approaches to pricing vary by the type of contract. For example, personal automobile is common (it is known as part of the retail general insurance market in the United Kingdom). Here, one can expect to do pricing based on a large pool of independent contracts, a situation in which expectations of losses provide an excellent starting point. In contrast, an actuary may wish to price an insurance contract issued to a large employer that covers complex health benefits for thousands of employees. In this example, knowledge of the entire distribution of potential losses, not just the expected value, is critical for starting the pricing negotiations. To cover a range of potential applications, this section describes general premium principles and their properties that one can use to decide whether or not a specific principle is applicable in a given situation.
+
+
+### Premium Principles
+
+This chapter introduces traditional actuarial pricing principles that provide a price based only on the insurance loss distribution; the price does not depend on the demand for insurance or other aspects of the costs such as expenses. Assume that the loss $X$ has a distribution function $F(\cdot)$ and that there exists some functional $H$ that takes $F(\cdot)$ into the positive real line, denoted as $P = H(F)$. For notation purposes, it is often convenient to substitute the random variable $X$ for its distribution function and write $P = H(X)$. Table \@ref(tab:PremPrinciples) provides several examples. 
+
+  Description 		        Definition ($H(X)$)
+  ------------------      ---------------------------------------------
+  Net (pure) premium	    $E[X]$ 
+  Expected value		      $(1+\alpha)E[X]$ 
+  Standard deviation	    $E[X]+\alpha ~SD(X)$ 
+  Variance		            $E[X]+\alpha ~Var(X)$ 
+  Zero utility		        solution of $u(w) = E ~u(w + P - X)$
+  Exponential		          $\frac{1}{\alpha} \ln E ~e^{\alpha X}$
+  ------------------      ---------------------------------------------
+  
+  Table: (\#tab:PremPrinciples)  Common Premium Principles
+  
+A premium principle is similar to a `r Gloss('risk measure')` that is introduced in Section \@ref(S:RiskMeasure). Mathematically, both are functions that maps the loss `r Gloss('rv')` of interest to a numerical value. From a practical viewpoint, a premium principle provides a guide as to how much an insurer will charge for accepting a risk $X$. In contrast, a risk measure quantifies the level of uncertainty, or riskiness, that an insurer can use to decide on a capital level to be assured of remaining solvent.
+
+As noted above, the net, or pure, premium essentially assumes no uncertainty. The expected value, standard deviation, and variance principles each add an explicit loading for riskiness through parameter $\alpha \ge 0$. For the principle of zero utility, we think of an insurer with utility function $u(\cdot)$ and wealth *w* as being indifferent to accepting and not accepting risk $X$. In this case, $P$ is known as an indifference price or, in economics, a reservation price. With exponential utilility, the principle of zero utility reduces to the exponential premium principle, that is, assuming $u(x) = (1-e^{-\alpha x})/\alpha$.
+
+For small values of risk parameters, the variance principle is approximately equal to exponential premium principle, as illustrated in the following special case.
+
+***
+
+**Special Case: Gamma Distribution**. Consider a loss that is gamma distributed with parameters $\alpha$ and $\theta$. From the Appendix D in \@ref(C:SummaryDistributions), the mean is $\alpha \theta$ and the variance is $\alpha \theta^2$. Using $\alpha_{Var}$ for the risk parameter, the variance premium is  $H_{Var}(X) = \alpha \theta+\alpha_{Var} ~(\alpha \theta^2)$. From this appendix, it is straightforward to derive the well-known moment generating function, $M(t) = E e^{tX} = (1-t\theta)^{-\alpha}$. With this and a risk parameter $\alpha_{Exp}$, we may express the exponential premium as 
+
+$$
+H_{Exp}(X) = \frac{-\alpha}{\alpha_{Exp}} \ln\left(1-\alpha_{Exp} \theta\right).
+$$
+To see the relationship between $H_{Var}(X)$ and $H_{Var}(X)$, we choose $\alpha_{Exp} = 2 \alpha_{Var}$. With an approximation from calculus ($\ln(1-x) = -x - x^2/2 - x^3/3 - \cdots$), we write
+
+$$
+H_{Exp}(X) = \frac{-\alpha}{\alpha_{Exp}} \ln\left(1-\alpha_{Exp} \theta\right) 
+= \frac{-\alpha}{\alpha_{Exp}} \left\{ -\alpha_{Exp} \theta -(\alpha_{Exp} \theta)^2/2 - \cdots\right\} \\
+\approx \alpha \theta + \frac{\alpha_{Exp}}{2}(\alpha \theta^2 ) 
+= H_{Var}(X). 
+$$
+
+
+### Properties of Premium Principles
+
+Properties of premium principles help guide the selection of a premium principle in applications. Table \@ref(tab:Properties) provides examples of properties of premium principles.
+
+  Description 		      Definition 
+  -------------------   ----------------------------------------------------------
+  Nonnegative loading 	$H(X) \ge E[X]$
+  Additivity 		        $H(X_1+X_2) = H(X_1) + H(X_2)$, for independent $X_1, X_2$
+  Scale invariance 	    $H(cX) = c H(X)$, for $c \ge 0$
+  Consistency 		      $H(c+X) = c + H(X)$
+  No rip-off 		        $H(X) \le max ~range ~\{X\}$
+  -------------------   ----------------------------------------------------------
+
+Table: (\#tab:Properties)  Common Properties of Premium Principles
+
+This is simply a subset of the many properties quoted in the actuarial literature. For example, the review paper of @young2014premium lists 15 properties. See also the properties described as *coherent axioms* that we introduce for risk measures in Section \@ref(S:RiskMeasure).
+
+Some of the properties listed in Table \@ref(tab:Properties) are mild in the sense that they will nearly always be satisfied. For example, the *no rip-off* property indicates that the premium charge will be smaller than the maximal value of the loss $X$. Other properties may not be so mild. For example, for a portfolio of independent risks, the actuary may want the *additivity* property to hold. It is easy to see that this property holds for the expected value, variance, and exponential premium principles but not for the standard deviation principle. Another example is the *consistency* property that does not hold for the expected value principle when the risk loading parameter $\alpha$ is positive.
+
+The *scale invariance* principle is known as *homogeneity of degree one* in economics. It allows, for example, us to work in different currencies (e.g., from dollars to Euros) as well as a host of other applications and will be discussed further in the following Section \@ref(S:HeterogeneousRisks). Although a generally accepted principle, we note that this principle does not hold for a large values of $X$ that may border on a surplus constraint of an insurer; if an insurer has a large probability of becoming insolvent, then that insurer may not wish to use linear pricing. It is easy to check that this principle holds for the expected value and standard deviation principles, although not for the variance and exponential principles.
+
+
+

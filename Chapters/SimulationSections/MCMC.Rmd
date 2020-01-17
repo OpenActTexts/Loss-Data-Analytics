@@ -1,11 +1,12 @@
 
 <!-- ## MCMC -->
 
+
 The idea of Monte Carlo techniques rely on the law of large number (that insures the convengence of the average towards the integral) and the central limit theorem (that is used to quantify uncertainty in the computations). Recall that if $(X_i)$ is an i.id. sequence of random variables with distribution $F$, then
 $$
 \frac{1}{\sqrt{n}}\left(\sum_{i=1}^n h(X_i)-\int h(x)dF(x)\right)\overset{\mathcal{L}}{\rightarrow }\mathcal{N}(0,\sigma^2),\text{ as }n\rightarrow\infty.
 $$
-for some variance $\sigma^2>0$. But actually, the **ergodic theorem** can be used to weaker the previous result, since it is not necessary to have independence of the variables. More precisely, if $(X_i)$ is a **Markov Process** with invariant measure $\mu$, under some additional technical assumptions, we can obtain that
+for some variance $\sigma^2>0$. But actually, the `r Gloss('ergodic theorem')` can be used to weaker the previous result, since it is not necessary to have independence of the variables. More precisely, if $(X_i)$ is a `r Gloss('Markov Process')` with `r Gloss('invariant measure')` $\mu$, under some additional technical assumptions, we can obtain that
 $$
 \frac{1}{\sqrt{n}}\left(\sum_{i=1}^n h(X_i)-\int h(x)d\mu(x)\right)\overset{\mathcal{L}}{\rightarrow }\mathcal{N}(0,\sigma_\star^2),\text{ as }n\rightarrow\infty.
 $$
@@ -13,7 +14,7 @@ for some variance $\sigma_\star^2>0$.
 
 Hence, from this property, we can see that it is possible not necessarily to generate independent values from $F$, but to generate a markov process with invariante measure $F$, and to consider means over the process (not necessarily independent).
 
-Consider the case of a constraint Gaussian vector : we want to generate random pairs from a random vector $\boldsymbol{X}$, but we are interested only on the case where the sum of the composants is large enough, which can be written $\boldsymbol{X}^T\boldsymbol{1}> m$ for some real valued $m$. Of course, it is possible to use the *accept-reject* algorithm, but we have seen that it might be quite inefficient. One can use **Hastings Metropolis** and **Gibbs sampler** to generate a Markov process with such an invariant measure.
+Consider the case of a constraint Gaussian vector : we want to generate random pairs from a random vector $\boldsymbol{X}$, but we are interested only on the case where the sum of the `r Gloss('composants')` is large enough, which can be written $\boldsymbol{X}^T\boldsymbol{1}> m$ for some real valued $m$. Of course, it is possible to use the *accept-reject* algorithm, but we have seen that it might be quite inefficient. One can use `r Gloss('Hastings Metropolis')` and `r Gloss('Gibbs sampler')` to generate a Markov process with such an invariant measure.
 
 ### Hastings Metropolis
 
@@ -21,7 +22,7 @@ The algorithm is rather simple to generate from $f$ : we start with a feasible v
 
 Draw a potential value $x_{t+1}^\star$, and $u$, from a uniform distribution. Compute 
 $$
-R=  \frac{f(x'⋆t+1)}{f(xt)}
+R=  \frac{f(x_{t+1}^\star)}{f(x_t)}
 $$
 and 
 
@@ -32,7 +33,9 @@ Here $r$ is called the *acceptance*-ratio: we accept the new value with probabil
 
 For instance, assume that $f(\cdot|x_t)$ is uniform on $[x_t-\varepsilon,x_t+\varepsilon]$ for some $\varepsilon>0$, and where $f$ (our target distribution) is the $\mathcal{N}(0,1)$. We will never *draw* from $f$, but we will use it to compute our acceptance ratio at each step.
 
-```{r}
+`r HideRCode('MCMC.1','Show R Code')`
+
+```{r echo=SHOW_PDF}
 metrop1 <- function(n=1000,eps=0.5){
  vec <- matrix(NA, n, 3)
  x=0
@@ -47,9 +50,14 @@ metrop1 <- function(n=1000,eps=0.5){
  }
 return(vec)}
 ```
+
+</div>
+
 In the code above, `vec` contains values of $\boldsymbol{x}=(x_1,x_2,\cdots)$, `innov` is the innovation.
 
-```{r sampleani_HM_1, animation.hook='gifski', eval = ANIMATION}
+`r HideRCode('MCMC.2','Show R Code')`
+
+```{r eval = ANIMATION, echo=SHOW_PDF, animation.hook=ANIMATIONHOOK}
 #install.packages('gifski')
 #if (packageVersion('knitr') < '1.20.14') {
 #  remotes::install_github('yihui/knitr')
@@ -68,11 +76,21 @@ pic_ani = function(k){
   segments(k,vec[k+1,2],k+dnorm(vec[k+1,2])*10,vec[k+1,2])
   text(k,2,round(vec[k+1,3],digits=3))
 }
+
+```
+
+</div>
+
+```{r sampleani_HM_1, eval = ANIMATION, echo=SHOW_PDF, animation.hook=ANIMATIONHOOK}
 for (k in 2:23) {pic_ani(k)}
 ```
 
+
+
 Now, if we use more simulations, we get
-```{r  eval = ANIMATION}
+
+
+```{r  eval = ANIMATION, echo=SHOW_PDF}
 vec <- metrop1(10000)
 simx <- vec[1000:10000,1]
 par(mfrow=c(1,4))
@@ -83,6 +101,7 @@ qqnorm(simx)
 acf(simx,lag=100,lwd=2,col="light blue")
 ```
 
+
 ### Gibbs sampler
 
 Consider some vector $\boldsymbol{X}=(X_1,\cdots,X_d)$ with ind\'ependent components, $X_i\sim\mathcal{E}(\lambda_i)$. We sample to sample from $\boldsymbol{X}$ given $\boldsymbol{X}^T\boldsymbol{1}>s$ for some threshold $s>0$.
@@ -92,7 +111,9 @@ Consider some vector $\boldsymbol{X}=(X_1,\cdots,X_d)$ with ind\'ependent compon
 - $X_i$ given $X_i > s-\boldsymbol{x}_{(-i)}^T\boldsymbol{1}$ has an Exponential distribution $\mathcal{E}(\lambda_i)$
 - draw $Y\sim \mathcal{E}(\lambda_i)$ and set $x_i=y +(s-\boldsymbol{x}_{(-i)}^T\boldsymbol{1})_+$ until $\boldsymbol{x}_{(-i)}^T\boldsymbol{1}+x_i>s$
 
-```{r}
+`r HideRCode('Gibbs.1','Show R Code')`
+
+```{r echo=SHOW_PDF}
 sim <- NULL
  lambda <- c(1,2)
  X <- c(3,3)
@@ -103,14 +124,22 @@ sim <- NULL
  while(sum(X)<s){
  X[i] <- rexp(1,lambda[i])+max(0,s-sum(X[-i])) }
  sim <- rbind(sim,X) }
+
+```
+
+</div>
+
+```{r echo=SHOW_PDF}
 plot(sim,xlim=c(1,11),ylim=c(0,4.3))
 polygon(c(-1,-1,6),c(-1,6,-1),col="red",density=15,border=NA)
 abline(5,-1,col="red")
 ```
 
-The construction of the sequence (MCMC algorithms are iterative) can be visualized below
+The construction of the sequence (`r Gloss('MCMC')` algorithms are iterative) can be visualized below
 
-```{r}
+`r HideRCode('Gibbs.2','Show R Code')`
+
+```{r, echo=SHOW_PDF}
 lambda <- c(1,2)
 X <- c(3,3)
 sim <- X
@@ -134,6 +163,8 @@ abline(5,-1,col="red")
 }
 ```
 
-```{r sampleani_HM, animation.hook='gifski', eval = ANIMATION}
+</div>
+
+```{r sampleani_HM, eval = ANIMATION, echo=SHOW_PDF, animation.hook=ANIMATIONHOOK}
 for (i in 2:100) {pic_ani(i)}
 ```

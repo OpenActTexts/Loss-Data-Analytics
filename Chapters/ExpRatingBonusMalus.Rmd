@@ -10,7 +10,7 @@
 
 ## Introduction {#S:ERBM:Intro}
 
-Bonus-malus system, which is used interchangeably as "no-fault
+`r Gloss('Bonus-malus system')`, which is used interchangeably as "no-fault
 discount", "merit rating", "experience rating" or "no-claim discount" in
 different countries, is based on penalizing insureds who are responsible
 for one or more claims by a premium surcharge, and awarding insureds
@@ -20,7 +20,7 @@ more carefully in a year without any claims, and to ensure insureds to
 pay premiums proportional to their risks based on their claims
 experience.
 
-No Claim Discount (NCD) system is an experience rating system commonly
+`r Gloss("No Claim Discount (NCD) system")` is an experience rating system commonly
 used in motor insurance. It represents an attempt to categorize insureds
 into homogeneous groups who pay premiums based on their claims
 experience. Depending on the rules in the scheme, new policyholders may
@@ -30,7 +30,7 @@ policyholders for not making any claims during a year, or in other
 words, it grants a bonus to a careful driver. This bonus principle may
 affect policy holders' decisions whether to claim or not to claim,
 especially when involving accidents with slight damages, which is known
-as 'hunger for bonus' phenomenon. The option of 'hunger for bonus' under
+as '`r Gloss('hunger for bonus')`' phenomenon. The option of 'hunger for bonus' under
 an NCD system may reduce insurers' claim costs, and may be able to
 offset the expected decrease in premium income.
 
@@ -51,7 +51,7 @@ entitlement.
 
 Effective on 1st July 2017, the premium rates for motor insurance are
 liberalized, or de-tariffed. The pricing of premium is now determined by
-individual insurers and takaful operators, and the consumers are able to
+individual insurers and `r Gloss('takaful')` operators, and the consumers are able to
 enjoy a wider choice of motor insurance products at competitive prices.
 Since tariff liberalization encourages innovation and competition among
 insurers and takaful operators, the premiums are based on broader risk
@@ -189,7 +189,7 @@ knitr::include_graphics("Figures/FigureTransitionSwitz.png")
 ## BMS and Markov Chain Model {#S:ERBM:BMS}
 
 A BMS, or an NCD system, can be represented by a discrete time parameter
-Markov chain. Under this model, the state space consists of classes of
+`r Gloss('Markov chain')`. Under this model, the state space consists of classes of
 bonus-malus, and the state (or class) is assumed to shift randomly from
 year to year. Therefore, it is important to know a brief description on
 two elements; a stochastic process that has a Markov property, and a
@@ -234,7 +234,7 @@ p_{k1} & p_{k2} & \cdots & & & p_{kk}
 \end{array} } \right].
 \]
 
-Each row of the transition matrix represents the transition of flowing
+Each row of the `r Gloss('transition matrix')` represents the transition of flowing
 out of state, whereas each column represents the transition of flowing
 into the state. The cumulative transitions of flowing out of state must
 equal 1, or each row of the matrix must sum to 1, i.e.
@@ -343,8 +343,7 @@ interested in the distribution of the transition in the long run (which
 may take several years), the stationary probability can be used.
 
 Several definitions and properties are provided here to understand the
-use of a Markov chain model for representing the stationary distribution
-of the NCD transitions. However, students are encouraged to refer to
+use of a Markov chain model for representing the stationary distribution of the NCD transitions. However, students are encouraged to refer to
 textbooks on Markov Chain and stochastic processes available in the
 literature for a more comprehensive knowledge on the related subjects.
 
@@ -380,7 +379,7 @@ the *[**Chapman--Kolmogorov equation**](https://en.wikipedia.org/wiki/Chapman%E2
 for any $k$, where $0 < k < n$.
 
 **Definition:** If a Markov chain is
-*[stationary](https://en.wikipedia.org/w/index.php?title=Time-homogeneous_Markov_chain&action=edit&redlink=1)*, then the vector ${\bf{\pi }}$ is called a ***stationary distribution*** 
+*[stationary](https://en.wikipedia.org/w/index.php?title=Time-homogeneous_Markov_chain&action=edit&redlink=1)*, then the vector ${\bf{\pi }}$ is called a `r Gloss('stationary distribution')` 
 (or *[invariant measure](https://en.wikipedia.org/wiki/Invariant_measure)*)
 if it satisfies:
 
@@ -402,9 +401,9 @@ the $k$-step transition probability can be computed as the $k$-th power
 of the transition matrix, ${{\bf{P}}^k}.$
 
 From the definitions and properties above, a BMS forms a regular Markov
-chain if all of its states (NCD classes) are ***ergodic***, and the
-chain is not cyclic (or ***irreversible***). The row vector,
-${\bf{\pi }}$, which is also the ***left eigenvector*** of
+chain if all of its states (NCD classes) are `r Gloss('ergodic')`, and the
+chain is not cyclic (or `r Gloss('irreversible')`). The row vector,
+${\bf{\pi }}$, which is also the ***left*** `r Gloss('eigenvector')` of
 the transition matrix, is a ***stationary distribution*** defined by
 $0 \le {\pi _j} \le 1$ and $\sum\limits_j {{\pi_j}} = 1$.
 
@@ -463,7 +462,7 @@ We can use the left eigenvector of a transition matrix to calculate the
 stationary distribution. The following R program can be used to
 calculate the left eigenvector:
 
-```{r}
+```{r, echo=SHOW_PDF}
 #create transition matrix
 entries=c(0.1,0.9,0,0,0,0,
 + 0.1,0,0.9,0,0,0,
@@ -574,7 +573,7 @@ the NCD is considered.*
 
 Sometimes we are interested to observe the evolution of the mean premium
 after $n$ years (or $n$ steps). Under the NCD system,
-the *n*-step transition probability, $p_{ij}^{(n)}$, can be
+the `r Gloss("n-step transition probability")`, $p_{ij}^{(n)}$, can be
 used to observe the evolution of the mean premium. A definition on
 *n*-step transition probabaility $p_{ij}^{(n)}$ is provided
 here to understand the use of the probability for observing the
@@ -582,8 +581,7 @@ evolution of the mean premium.
 
 **Definition:** Let $p_{ij} = \Pr ({X_{n + 1}} = j|{X_n} = i)$ be a ***one-step transition probability*** from state
 $i$ to state $j$, and $p_{ij}^{(n)} = \Pr
-({X_n} = j|{X_0} = i)$, $n = 1,2,...$, be an ***n-step
-transition probability*** from state $i$ to state
+({X_n} = j|{X_0} = i)$, $n = 1,2,...$, be an n-step transition probability from state $i$ to state
 $j$. The probability $p_{ij}^{(n)}$ can be obtained
 using the $n$th power of transition matrix
 ${\bf{P}}$, which is ${\bf{P}^n}.$
@@ -636,7 +634,7 @@ The following R program can be used to find the premium in the *n-*th
 year and the premiums in 20 years under the NCD system in Malaysia (to
 find the solution in Example 6).
 
-```{r}
+```{r, echo=SHOW_PDF}
 #create transition matrix
 entries=c(0.0952,0.9048,0,0,0,0,
 + 0.0952,0,0.9048,0,0,0,
@@ -751,8 +749,8 @@ in all classes:
 
 \[\sum\limits_j {\left| {average(p_{ij}^{(n)}) - {\pi _j}} \right|}\].
 
-The total variation is also called the convergence rate because it
-measures the *convergence rate* after $n$ years (or $n$
+The total variation is also called the `r Gloss('convergence rate')` because it
+measures the convergence rate after $n$ years (or $n$
 transitions).
 
 ***Example 8***
@@ -815,7 +813,7 @@ The following R program can be used to calculate the total variation in
 the $n$th year, and the total variations (convergence rates) in
 20 years under the NCD system in Malaysia (the solution in Example 8).
 
-```{r}
+```{r, echo=SHOW_PDF}
 #transition matrix
 TP
 
@@ -883,14 +881,14 @@ discussion of the Poisson and negative binomial regression models are
 provided here. The Poisson regression has been widely used for fitting
 count (or frequency) data in insurance area. The negative binomial
 regression model can be used for fitting count (or frequency) data with
-overdispersion, which is a situation when the variance is larger than
-the mean. However, students are encouraged to refer to textbooks on GLMs or regression models available in the literature for a more comprehensive knowledge on the related subjects.
+`r Gloss('overdispersion')`, which is a situation when the variance is larger than
+the mean. However, students are encouraged to refer to textbooks on `r Gloss('GLM')`s or regression models available in the literature for a more comprehensive knowledge on the related subjects.
 
 ### Frequency Model -- Poisson and Negative Binomial Regressions
 
 Let ${({Y_1},{Y_2},...,{Y_n})^T}$ be the vector of count
 random variables and $n$ be the sample size. The probability
-mass function (p.m.f.) for Poisson regression model is,
+mass function (p.m.f.) for `r Gloss('Poisson regression model')` is,
 
 \[\Pr ({Y_i} = {y_i})
 \begin{array}{*{20}{c}}
@@ -906,7 +904,7 @@ variables and ${\bf \beta}$ is the vector of regression
 parameters. The maximum likelihood estimates can be obtained by
 maximizing the log likelihood.
 
-The p.m.f. for negative binomial regression model is,
+The p.m.f. for `r Gloss('negative binomial regression model')` is,
 
 \[
 \Pr ({Y_i} = {y_i}) = \frac{{\Gamma ({y_i} +
@@ -938,7 +936,7 @@ Bailey and Simon (1960). The data provides information on the number of
 claims incurred and exposures (expressed in terms of number of earned
 car years). The data is classified into two rating factors; merit rating
 and class rating. Altogether, there are twenty $(4 \times 5)$
-cross-classified rating classes of claim frequencies (20 count data).
+`r Gloss('cross-classified rating classes')` of claim frequencies (20 count data).
 Table 5 provides the description of the two rating factors. It can be
 seen that merit rating provides information on the number of
 accident-free years, and thus, the information can be used as
@@ -1177,7 +1175,7 @@ Malaysian private car insurance data:
     indicate that the regression parameters of all models have similar
     estimates. The likelihood ratio for testing overdispersion between
     the Poisson and the NB models is 2844.14, indicating that the data
-    is overdispersed and the NB is a better model. The AIC and BIC also
+    is overdispersed and the NB is a better model. The `r Gloss('AIC')` and `r Gloss('BIC')` also
     indicate that the NB is a better model. Table 12 shows the parameter
     estimates (and standard errors) for the fitted negative binomial
     regression model with significant covariates (covariates with

@@ -34,7 +34,7 @@ In this section, you learn the following concepts related to statistical inferen
 | Logarithmic Claims   |        0 |          6.670 |  7.719 |  7.804 |          8.728 |     16.370 |              1.683 |
 
 
-```{r ClaimDistn1, fig.cap='Distribution of Claims', out.width='80%', fig.asp=.75, fig.align='center'}
+```{r ClaimDistn1, fig.cap='Distribution of Claims', out.width='80%', fig.asp=.75, fig.align='center', echo=SHOW_PDF}
 ClaimLev <- read.csv("Data/CLAIMLEVEL.csv", header=TRUE)
 ClaimLevBC10<-subset(ClaimLev,Year==2010); 
 cat("Sample size: ", nrow(ClaimLevBC10), "\n")
@@ -143,7 +143,7 @@ we obtain $\hat{\mu}=\bar{x}=(1/n)\sum_{i=1}^nx_i$. It is straightforward to ver
 $$\frac{\partial l(\mu,\hat{\sigma}^2)}{\partial \hat{\sigma}^2}=0,$$
 we obtain $\hat{\sigma}^2=(1/n)\sum_{i=1}^n(x_i-\mu)^2$. Further replacing $\mu$ by $\hat{\mu}$, we derive the MLE of $\sigma^2$ as $\hat{\sigma}^2=(1/n)\sum_{i=1}^n(X_i-\bar{X})^2$. 
 
-Hence, the sample mean $\bar{X}$ and $\hat{\sigma}^2$ are both the *MME* and *MLE* for the mean $\mu$ and variance $\sigma^2$, under a normal population distribution $F(\cdot)$. More details regarding the properties of the likelihood function, and the derivation of MLE under parametric distributions other than the normal distribution are given in Appendix Chapter \@ref(C:AppB).
+Hence, the sample mean $\bar{X}$ and $\hat{\sigma}^2$ are both the *MME* and `r Gloss('MLE')` for the mean $\mu$ and variance $\sigma^2$, under a normal population distribution $F(\cdot)$. More details regarding the properties of the likelihood function, and the derivation of MLE under parametric distributions other than the normal distribution are given in Appendix Chapter \@ref(C:AppB).
 
 ## Interval Estimation {#S:AppA:IE}
 
@@ -377,7 +377,7 @@ lines(x,fGB2_ex, col="green")
 
 R Code for Fitted Claims Distributions
 
-```{r, echo=ShowCode(), eval=FALSE}
+```{r, echo=SHOW_PDF, eval=FALSE}
 # R Code to fit several claims distributions
 ClaimLev <- read.csv("Data/CLAIMLEVEL.csv", header=TRUE); nrow(ClaimLev)
 ClaimData<-subset(ClaimLev,Year==2010); 

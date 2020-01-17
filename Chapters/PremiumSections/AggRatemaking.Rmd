@@ -1,5 +1,5 @@
 
-It is common to consider aggregate portfolios, or groups, of insurance experience. Consistent with earlier notation, consider a collection of *n* contracts with losses $X_1, \ldots, X_n$. In this section, we assume that contracts have the same loss distribution, that is they form a homogeneous portfolio, and so are `r Gloss('iid')`. For motivation, you can think about personal insurance such as auto or homeowners where insurers write many contracts on risks that appear very similar. Further, the assumption of identical distributions is not as limiting as you might think. In Section \@ref(S:ExposureToRisk) we will introduce the idea of an `r Gloss('exposure')` variable that allows us to rescale experience to make it comparable. For example, by rescaling losses we will be able to treat homeowner losses from a 100,000 house and a 200,000 house as coming from the same distribution. For now, we simply assume that $X_1, \ldots, X_n$ are *iid*.
+It is common to consider an aggregate portfolio of insurance experience. Consistent with earlier notation, consider a collection of *n* contracts with losses $X_1, \ldots, X_n$. In this section, we assume that contracts have the same loss distribution, that is they form a homogeneous portfolio, and so are `r Gloss('iid')`. For motivation, you can think about personal insurance such as auto or homeowners where insurers write many contracts on risks that appear very similar. Further, the assumption of identical distributions is not as limiting as you might think. In Section \@ref(S:ExposureToRisk) we will introduce the idea of an `r Gloss('exposure', '7.2, 7.4')` variable that allows us to rescale experience to make it comparable. For example, by rescaling losses we will be able to treat homeowner losses from a 100,000 house and a 200,000 house as coming from the same distribution. For now, we simply assume that $X_1, \ldots, X_n$ are *iid*.
 
 
 <!-- ## Pure Premium Method -->
@@ -12,7 +12,7 @@ $$
 \mathrm{E}(X) \approx \frac{\sum_{i=1}^n X_i}{n} = \frac{\text{Loss}}{\text{Exposure}} = \text{Pure Premium}.
 }
 $$
-With this as motivation, we define the `r Gloss('pure premium')` to be the sum of losses divided by the exposure; it is also known as a `r Gloss('loss cost')`. In the case of `r Gloss('homogeneous risks')`, all policies are treated the same and we can use the number of policies *n* for the exposure. In Section \@ref(S:ExposureToRisk) we extend the concept of exposure when policies are not all the same.
+With this as motivation, we define the `r Gloss('pure premium')` to be the sum of losses divided by the exposure; it is also known as a `r Gloss('loss cost')`. In the case of `r Gloss('homogeneous risks')`, all policies are treated the same and we can use the number of policies *n* for the exposure. In Section \@ref(S:ExposureToRisk) we extend the concept of exposure when policies are not the same.
 
 We can multiply and divide by the number of claims, `claim count`, to get
 $$
@@ -21,11 +21,11 @@ $$
 }
 $$
 
-So, when premiums are determined using the pure premium method, we either take the average loss (loss cost) or use the frequency severity approach. 
+So, when premiums are determined using the pure premium method, we either take the average loss (loss cost) or use the frequency severity approach.
 
-To get a bit closer to applications in practice, we now return to equation \@ref(eq:AccountingEquation) to include expenses. Equation \@ref(eq:AccountingEquation) also refers to `UW Profit` for underwriting profit. When rescaled by premiums, this is known as the `r Gloss('profit loading')`.  Because claims are uncertain, the insurer must hold capital to ensure that all claims are paid. Holding this extra capital is a cost of doing business, investors in the company need to be compensated for this, thus the extra loading.
+To get a bit closer to applications in practice, we now return to equation \@ref(eq:AccountingEquation) that includes expenses. Equation \@ref(eq:AccountingEquation) also refers to `UW Profit` for underwriting profit. When rescaled by premiums, this is known as the `r Gloss('profit loading')`.  Because claims are uncertain, the insurer must hold capital to ensure that all claims are paid. Holding this extra capital is a cost of doing business, investors in the company need to be compensated for this, thus the extra loading.
 
-Thinking of variable expenses and profit as a fraction of premiums, we define
+We now decompose `Expenses` into those that vary by premium, `Variable`, and those that do not, `Fixed` so that `Expenses = Variable + Fixed`. Thinking of variable expenses and profit as a fraction of premiums, we define
 
 $$
 \small{
@@ -81,6 +81,7 @@ $$
 - Variable expense factor = 20\%
 - Profit and contingencies factor = 5\%
 
+`r HideExample('7.1.1', 'Show Example Solution')`
 
 **Solution.** Under the pure premium method, the indicated rate is
 
@@ -95,12 +96,14 @@ $$
 
 ***
 
+</div>
+
 From the example, note that the rates produced by the pure premium method are commonly known as *indicated rates*.
 
-From our development, note also that the profit is associated with underwriting aspect of the contract and not investments. Premiums are typically paid at the beginning of a contract and insurers receive investment income from holding this money. However, due in part to the short-term nature of the contracts, investment income is typically ignored in pricing. This builds a bit of conservatism into the process that insurers welcome. It is probably most relevant in the very long "tail" lines such as workers' compensation and medical malpractice. In these lines, it can sometimes take 20 years or even longer to settle claims. But, these are also the most volatile lines; claim payments far in the future are less extreme when viewed in discounted sense. 
+From our development, note also that the profit is associated with underwriting aspect of the contract and not investments. Premiums are typically paid at the beginning of a contract and insurers receive investment income from holding this money. However, due in part to the short-term nature of the contracts, investment income is typically ignored in pricing. This builds a bit of conservatism into the process that insurers welcome. It is probably most relevant in the very long "tail" lines such as workers' compensation and medical malpractice. In these lines, it can sometimes take 20 years or even longer to settle claims. But, these are also the most volatile lines; claim payments far in the future are less extreme when viewed in discounted sense.
 
 
-### Loss Ratio Method {#S:LossRatio} 
+### Loss Ratio Method {#S:LossRatio}
 
 The `r Gloss('loss ratio')` is the ratio of the sum of losses to the premium
 
@@ -119,22 +122,22 @@ $$
 \frac{\text{UW Profit}}{\text{Premium}} = 1 - LR = 1 - \frac{\text{Loss}}{\text{Premium}} .
 }
 $$
-Suppose that we have in mind a new "target" profit loading, say *Q*. Assuming that losses, exposure, and other things about the contract stay the same, then to achieve the new target profit loading we adjust the premium. Use the *ICF* for the "indicated change factor" that is defined through the expression
+Suppose that we have in mind a new "target" profit loading, say $Q_{target}$. Assuming that losses, exposure, and other things about the contract stay the same, then to achieve the new target profit loading we adjust the premium. Use the *ICF* for the `r Gloss('indicated change factor')` that is defined through the expression
 
 $$
 \small{
-\frac{\text{new UW Profit}}{\text{Premium}} = Q =  1 - \frac{\text{Loss}}{ICF \times \text{Premium}}.
+\frac{\text{new UW Profit}}{\text{Premium}} = Q_{target} =  1 - \frac{\text{Loss}}{ICF \times \text{Premium}}.
 }
 $$
 Solving for *ICF*, we get
 
 $$
 \small{
-ICF =  \frac{\text{Loss}}{\text{Premium} \times (1-Q)} = \frac{LR}{1-Q}.
+ICF =  \frac{\text{Loss}}{\text{Premium} \times (1-Q_{target})} = \frac{LR}{1-Q_{target}}.
 }
 $$
 
-So, for example, if we have a current loss ratio = 85% and a target profit loading $\small{Q=0.20}$, then $\small{ICF = 0.85/0.80 = 1.0625}$, meaning that we increase premiums by 6.25%.
+So, for example, if we have a current loss ratio = 85% and a target profit loading $\small{Q_{target}=0.20}$, then $\small{ICF = 0.85/0.80 = 1.0625}$, meaning that we increase premiums by 6.25%.
 
 Now let's see how this works with expenses in equation \@ref(eq:AccountingEquation). We can use the same development as in Section \@ref(S:PurePremium) and so start with equation \@ref(eq:PremiumEquation), solve for the profit loading to get
 
@@ -146,7 +149,7 @@ $$
 We interpret the quantity `Fixed /Premium + V` as the "operating expense ratio." Now, fix the profit percentage *Q* at a target and adjust premiums through the "indicated change factor" $ICF$
 $$
 \small{
-Q = 1
+Q_{target} = 1
 -\frac{\text{Loss + Fixed}}{\text{Premium}\times ICF} - V .
 }
 $$
@@ -154,7 +157,7 @@ Solving for $ICF$ yields
 
 \begin{equation}
 \small{
-ICF = \frac{\text{Loss + Fixed}}{\text{Premium} \times (1 - V - Q)} .
+ICF = \frac{\text{Loss + Fixed}}{\text{Premium} \times (1 - V - Q_{target})} .
 }
 (\#eq:IndicatedChangeFactor)
 \end{equation}
@@ -169,7 +172,7 @@ ICF = \frac{\text{Loss + Fixed}}{\text{Premium} \times (1 - V - Q)} .
 With these assumptions, with equation \@ref(eq:IndicatedChangeFactor), the indicated change factor can be calculated as
 $$
 \small{
-ICF = \frac{\text{(Losses + Fixed)}/\text{Premium}}{ 1 - V - Q} = \frac{0.65 + 0.065}{1- 0.25 - 0.10} = 1.10 .
+ICF = \frac{\text{(Losses + Fixed)}/\text{Premium}}{ 1 - V - Q_{target}} = \frac{0.65 + 0.065}{1- 0.25 - 0.10} = 1.10 .
 }
 $$
 
@@ -180,4 +183,3 @@ This means that overall average rate level should be increased by 10%.
 
 
 We later provide a comparison of the pure premium and loss ratio methods in Section \@ref(S:CompareMethods). As inputs, this section will require  discussions of trended exposures and *on-level* premiums defined in Section \@ref(S:TrendDevelopment).
-

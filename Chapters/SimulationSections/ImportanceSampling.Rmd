@@ -1,56 +1,111 @@
 <!-- ## Importance Sampling -->
 
-We have introduced Monte Carlo techniques using the inversion technique : to generate a random variable $X$ with distribution $F$, apply $F^{-1}$ to calls of a random generator (uniform on the unit interval). What if we what to draw according to $X$, conditional on $X\in[a,b]$ ?
+Section \@ref(S:SimulationFundamentals) introduced Monte Carlo techniques using the inversion technique : to generate a random variable $X$ with distribution $F$, apply $F^{-1}$ to calls of a random generator (uniform on the unit interval). What if we what to draw according to $X$, conditional on $X\in[a,b]$ ?
 
-One can use an **accept-reject** mechanism : draw $x$ from distribution $F$
+One can use an `r Gloss('accept-reject mechanism')` : draw $x$ from distribution $F$
 
 - if $x\in[a,b]$ : keep it ("*accept*")
 - if $x\notin[a,b]$ : draw another one ("*reject*")
 
 Observe that from $n$ values initially generated, we keep here only $[F(b)-F(a)]\cdot n$ draws, on average.
 
-```{r sampleani1, animation.hook='gifski', eval = ANIMATION}
-#install.packages('gifski')
-#if (packageVersion('knitr') < '1.20.14') {
-#  remotes::install_github('yihui/knitr')
-#}
+
+
+**Example `r chapnum`.4.1. Draws from a Normal Distribution.** Suppose that we draw from a normal distribution with mean 2.5 and variance 1, $N(2.5,1)$, but are only interested in draws greater that $a \ge 2$ and less than $b \le 4$. That is, we can only use $F(4)-F(2) = \Phi(4-2.5)-\Phi(2-2.5)$ = `r round(pnorm(4,2.5,1),digits=4)` - `r round(pnorm(2,2.5,1),digits=4)` = `r round(pnorm(4,2.5,1)-pnorm(2,2.5,1),digits=4)` proportion of the draws. Figure \@ref(fig:sampleani1) demonstrates that some draws lie with the interval $(2,4)$ and some are outside.
+
+`r HideRCode('ImportanceSampling.1','Show R Code for Accept-Reject Mechanism')`
+
+```{r eval = ANIMATION, comment = "", fig.align='center', out.width='50%', fig.asp=.75, echo=SHOW_PDF, animation.hook=ANIMATIONHOOK}
+mu = 2.5
+sigma = 1
+a = 2
+b = 4
+Fa = pnorm(a,mu,sigma)
+Fb = pnorm(b,mu,sigma)
 pic_ani = function(){
   u=seq(0,5,by=.01)
-  plot(u,pnorm(u,2.5,1),col="white",ylab="",xlab="")
+  plot(u,pnorm(u,mu,sigma),col="white",ylab="",xlab="")
   rect(-1,-1,6,2,col=rgb(1,0,0,.2),border=NA)
-  rect(2,pnorm(2,2.5,1),4,pnorm(4,2.5,1),col="white",border=NA)
-  lines(u,pnorm(u,2.5,1),lwd=2)
-  abline(v=c(2,4),lty=2,col="red")
+  rect(a,Fa,b,Fb,col="white",border=NA)
+  lines(u,pnorm(u,mu,sigma),lwd=2)
+  abline(v=c(a,b),lty=2,col="red")
   ru <- runif(1)
   clr <- "red"
-  if((qnorm(ru,2.5,1)>=2)&(qnorm(ru,2.5,1)<=4)) clr <- "blue"
-  segments(-1,ru,qnorm(ru,2.5,1),ru,col=clr,lwd=2)
-  arrows(qnorm(ru,2.5,1),ru,qnorm(ru,2.5,1),0,col=clr,lwd=2,length = .1)
+  if((qnorm(ru,mu,sigma)>=a)&(qnorm(ru,mu,sigma)<=b)) clr <- "blue"
+  segments(-1,ru,qnorm(ru,mu,sigma),ru,col=clr,lwd=2)
+  arrows(qnorm(ru,mu,sigma),ru,qnorm(ru,mu,sigma),0,col=clr,lwd=2,length = .1)
 }
+
+```
+
+</div>
+
+```{r sampleani1, animation.hook=ANIMATIONHOOK, fig.cap='Animated Demonstration of Draws In and Outside of (2,4)', eval = ANIMATION, comment = "", fig.align='center', out.width='50%', fig.asp=.75, echo=SHOW_PDF}
 for (i in 1:numAnimation) {pic_ani()}
 ```
 
-An alternative is draw according to the conditional distribution $F^{\star}$ defined as
-$$
-dF^\star(x) = \frac{dF(x)}{F(b)-F(a)}\boldsymbol{1}(x\in[a,b])
-$$
-This can be related to the **importance sampling** mechanism : we draw more frequently in regions where we expect to have quantities that have some interest. So we consider a change of measure.
+***
 
-```{r sampleani_IS_1, animation.hook='gifski', eval = ANIMATION}
-#install.packages('gifski')
-#if (packageVersion('knitr') < '1.20.14') {
-#  remotes::install_github('yihui/knitr')
-#}
+Instead, one can draw according to the conditional distribution $F^{\star}$ defined as
+
+$$
+F^{\star}(x) = \Pr(X \le x | a < X \le b) =\frac{F(x)-F(a)}{F(b)-F(a)}, \ \  \ \text{for } a < x \le b .
+$$
+
+Using the inverse transform method in Section \@ref(S:InverseTransform), we have that the draw
+
+$$
+X^\star=F^{\star-1}\left( U \right) = F^{-1}\left(F(a)+U\cdot[F(b)-F(a)]\right)
+$$
+
+has distribution $F^{\star}$. Expressed another way, define
+$$
+\tilde{U} = (1-U)\cdot F(a)+U\cdot F(b)
+$$
+and then use $F^{-1}(\tilde{U})$. With this approach, each draw counts.
+
+This can be related to the `r Gloss('importance sampling mechanism')` : we draw more frequently in regions where we expect to have quantities that have some interest. This transform can be considered as a "a change of measure."
+
+`r HideRCode('ImportanceSampling.2','Show R Code for Importance Sampling by the Inverse Transform Method')`
+
+```{r eval = ANIMATION, echo=SHOW_PDF, animation.hook=ANIMATIONHOOK}
 pic_ani = function(){
   u=seq(0,5,by=.01)
-  plot(u,pnorm(u,2.5,1),col="white",ylab="",xlab="")
+  plot(u,pnorm(u,mu,sigma),col="white",ylab="",xlab="")
+  rect(-1,-1,6,2,col=rgb(1,0,0,.2),border=NA)
+  rect(a,Fa,b,Fb,col="white",border=NA)
+  lines(u,pnorm(u,mu,sigma),lwd=2)
+  abline(h=pnorm(c(a,b),mu,sigma),lty=2,col="red")
+  ru <- runif(1)
+  rutilde <- (1-ru)*Fa+ru*Fb
+  segments(-1,rutilde,qnorm(rutilde,mu,sigma),rutilde,col="blue",lwd=2)
+  arrows(qnorm(rutilde,mu,sigma),rutilde,qnorm(rutilde,mu,sigma),0,col="blue",lwd=2,length = .1)
+}
+
+```
+
+</div>
+
+```{r sampleani_IS_2, eval = ANIMATION, fig.align='center', out.width='50%', fig.asp=.75, echo=SHOW_PDF, animation.hook=ANIMATIONHOOK}
+for (i in 1:numAnimation) {pic_ani()}
+```
+
+In Example `r chapnum`.4.1., the inverse of the normal distribution is readily available (in `R`, the function is `qnorm`). However, for other applications, this is not the case. Then, one simply uses numerical methods to determine $X^\star$ as the solution of the equation $F(X^\star) =\tilde{U}$ where $\tilde{U}=(1-U)\cdot F(a)+U\cdot F(b)$. See the following illustrative code.
+
+
+`r HideRCode('ImportanceSampling.3','Show R Code for Importance Sampling via Numerical Solutions')`
+
+```{r eval = ANIMATION, comment = "", echo=SHOW_PDF, animation.hook=ANIMATIONHOOK}
+pic_ani = function(){
+  u=seq(0,5,by=.01)
+  plot(u,pnorm(u,mu,sigma),col="white",ylab="",xlab="")
   rect(-1,-1,6,2,col=rgb(1,0,0,.2),border=NA)
   rect(2,-1,4,2,col="white",border=NA)
-  lines(u,pnorm(u,2.5,1),lty=2)
+  lines(u,pnorm(u,mu,sigma),lty=2)
   pnormstar <- Vectorize(function(x){
-    y=(pnorm(x,2.5,1)-pnorm(2,2.5,1))/(pnorm(4,2.5,1)-pnorm(2,2.5,1))
-    if(x<=2) y <- 0
-    if(x>=4) y <- 1
+    y=(pnorm(x,mu,sigma)-Fa)/(Fb-Fa)
+    if(x<=a) y <- 0
+    if(x>=b) y <- 1
     return(y)
     })
   qnormstar <- function(u) as.numeric(uniroot((function (x) pnormstar(x) - u), lower = 2, upper = 4)[1])
@@ -60,27 +115,12 @@ pic_ani = function(){
   segments(-1,ru,qnormstar(ru),ru,col="blue",lwd=2)
   arrows(qnormstar(ru),ru,qnormstar(ru),0,col="blue",lwd=2,length = .1)
 }
+
+```
+
+</div>
+
+```{r sampleani_IS_1, eval = ANIMATION, comment = "", fig.align='center', out.width='50%', fig.asp=.75, echo=SHOW_PDF, animation.hook=ANIMATIONHOOK}
 for (i in 1:numAnimation) {pic_ani()}
 ```
 
-But one can use an alternative representation, where we constraint on the $y$-axis, to have only values between $F^{-1}(a)$ and $F^{-1}(b)$. Thus, from $u$ (drawn from a uniform distribution on the unit interval), consider
-$$
-\tilde{u}=(1-u)\cdot F(a)+u\cdot F(b)
-$$
-and then use $F^{-1}(\tilde{u})$,
-
-```{r sampleani_IS_2, animation.hook='gifski', eval = ANIMATION}
-pic_ani = function(){
-  u=seq(0,5,by=.01)
-  plot(u,pnorm(u,2.5,1),col="white",ylab="",xlab="")
-  rect(-1,-1,6,2,col=rgb(1,0,0,.2),border=NA)
-  rect(2,pnorm(2,2.5,1),4,pnorm(4,2.5,1),col="white",border=NA)
-  lines(u,pnorm(u,2.5,1),lwd=2)
-  abline(h=pnorm(c(2,4),2.5,1),lty=2,col="red")
-  ru <- runif(1)
-  rutilde <- (1-ru)*pnorm(2,2.5,1)+ru*pnorm(4,2.5,1)
-  segments(-1,rutilde,qnorm(rutilde,2.5,1),rutilde,col="blue",lwd=2)
-  arrows(qnorm(rutilde,2.5,1),rutilde,qnorm(rutilde,2.5,1),0,col="blue",lwd=2,length = .1)
-}
-for (i in 1:numAnimation) {pic_ani()}
-```

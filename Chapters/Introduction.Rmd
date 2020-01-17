@@ -24,7 +24,7 @@ an apartment or house that you are renting (known as
 `r Gloss('renters insurance')`) or the contents and property of a building that is owned by you or a friend (known as 
 `r Gloss('homeowners insurance')`). Another common example is `r Gloss('automobile insurance')`. In the event of an accident, this policy may cover damage to your vehicle, damage to other vehicles in the accident, as well as medical expenses of those injured in the accident.
 
-One way to think about the nature of insurance is who buys it. Renters, homeowners, and auto insurance are examples of `r Gloss('personal insurance')` in that these are policies issued to people. Businesses also buy insurance, such as coverage on their properties, and this is known as `r Gloss('commercial insurance')`. The seller, an insurance company, is also known as an insurer. Even insurance companies need insurance; this is known as `r Gloss('reinsurance')`.
+One way to think about the nature of insurance is who buys it. Renters, homeowners, and auto insurance are examples of `r Gloss('personal insurance')` in that these are policies issued to people. Businesses also buy insurance, such as coverage on their properties, and this is known as `r Gloss('commercial insurance')`. The seller, an insurance company, is also known as an insurer. Even insurance companies need insurance; this is known as `r Gloss('reinsurance', '1.1, 10.4')`.
 
 Another way to think about the nature of insurance is the type of risk being covered. In the U.S., policies such as renters and homeowners are known as
 `r Gloss('property insurance')` whereas a policy such as auto that covers medical
@@ -124,7 +124,7 @@ To illustrate, $\mathrm{t}_2$ and $\mathrm{t}_4$ mark the
 event of an insurance claim (some contracts, such as life insurance, can
 have only a single claim). Times $\mathrm{t}_3$ and $\mathrm{t}_5$
 mark events when a policyholder wishes to alter certain contract
-features, such as the choice of a deductible or the amount of coverage.
+features, such as the choice of a `r Gloss('deductible')` or the amount of coverage.
 From a company perspective, one can even think about the
 contract initiation (arrival, time $\mathrm{t}_1$) and contract
 termination (departure, time $\mathrm{t}_6$) as uncertain events.  (Alternatively, for some purposes, you may condition on these events and treat them as certain.)
@@ -378,8 +378,7 @@ monitor customer loyalty.
 Analytics can also be used to manage the portfolio, or collection, of
 risks that an insurer has acquired. When the risk is initially obtained,
 the insurer's risk can be managed by imposing contract parameters that
-modify contract payouts. Chapters \@ref(C:Severity) and \@ref(C:PortMgt) describe common modifications including `r Gloss('coinsurance')`,`r Gloss('deductibles')` and 
-`r Gloss('policy upper limits')`.
+modify contract payouts. Chapters \@ref(C:Severity) and \@ref(C:PortMgt) describe common modifications including `r Gloss('coinsurance')`, deductibles and `r Gloss('policy upper limits')`.
 
  
 After the contract has been agreed upon with an insured, the insurer may
@@ -496,7 +495,7 @@ Table: (\#tab:Frequency2010)  2010 Claims Frequency Distribution
   
 `r HideRCode('T:Frequency.1',"R Code for Frequency Table")`
 
-```{r, echo=ShowCode(), eval=FALSE}
+```{r, echo=SHOW_PDF, eval=FALSE}
 Insample <- read.csv("Insample.csv", header=T,  na.strings=c("."), stringsAsFactors=FALSE)
 Insample2010 <- subset(Insample, Year==2010)
 table(Insample2010$Freq)
@@ -548,7 +547,7 @@ hist(log(InsamplePos2010$yAvg), main="", xlab="Logarithmic Average Claims")
 
 `r HideRCode('SeverityFig.1',"R Code for Severity Distribution Table and Figures")`
 
-```{r, echo=ShowCode(), eval=FALSE}
+```{r, echo=SHOW_PDF, eval=FALSE}
 Insample <- read.csv("Data/PropertyFundInsample.csv", header=T, na.strings=c("."), stringsAsFactors=FALSE)
 Insample2010 <- subset(Insample, Year==2010)
 InsamplePos2010 <- subset(Insample2010, yAvg>0)
@@ -613,7 +612,7 @@ known.
 
 `r HideRCode('CoverageBC.1',"R Code for Claims Summary by Policyholder")`
 
-```{r, echo=ShowCode(), eval=FALSE}
+```{r, echo=SHOW_PDF, eval=FALSE}
 Insample <- read.csv("Data/PropertyFundInsample.csv", header=T, na.strings=c("."), stringsAsFactors=FALSE)
 library(doBy)
 T1A <- summaryBy(Freq ~ Year, data = Insample, 
@@ -662,7 +661,7 @@ Table: (\#tab:DeductCov) Summary of Claim Frequency and Severity, Deductibles, a
   
 `r HideRCode('DeductCov.1',"R Code for Summary of Claim Frequency and Severity, Deductibles, and Coverages")`
 
-```{r, echo=ShowCode(), eval=FALSE}
+```{r, echo=SHOW_PDF, eval=FALSE}
 Insample <- read.csv("Data/PropertyFundInsample.csv", header=T, na.strings=c("."), stringsAsFactors=FALSE)
 t1<- summaryBy(Insample$Freq ~ 1, data = Insample, 
    FUN = function(x) { c(ma=min(x), m1=median(x),m=mean(x),mb=max(x)) } )
@@ -766,7 +765,7 @@ intuitive, appealing (negative) sign for the ${\tt Fire5}$ variable.
   
 `r HideRCode('ClaimRateVar.1',"R Code for Claims Summary by Entity Type, Fire Class, and No Claim Credit")`
 
-```{r, echo=ShowCode(), eval=FALSE}
+```{r, echo=SHOW_PDF, eval=FALSE}
 ByVarSumm<-function(datasub){
   tempA <- summaryBy(Freq    ~ 1 , data = datasub,   
      FUN = function(x) { c(m = mean(x), num=length(x)) } )
@@ -872,7 +871,7 @@ coverage amounts) that affect claims.
   
 `r HideRCode('RateAlarmCredit.1',"R Code for Claims Summary by Entity Type and Alarm Credit Category")`
 
-```{r, echo=ShowCode(), eval=FALSE}
+```{r, echo=SHOW_PDF, eval=FALSE}
 #Claims Summary by Entity Type and Alarm Credit
 ByVarSumm<-function(datasub){
   tempA <- summaryBy(Freq    ~ AC00 , data = datasub,   

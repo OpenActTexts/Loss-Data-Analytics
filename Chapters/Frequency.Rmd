@@ -79,7 +79,7 @@ F_N(x):=\begin{cases}
 0, & \hbox{otherwise}.
 \end{cases}
 \end{equation}
-In the above, $\lfloor \cdot \rfloor$ denotes the floor function; $\lfloor x \rfloor$ denotes the greatest integer less than or equal to $x$. We note that the `r Gloss('survival function')` of $N$, denoted by $S_N(\cdot)$, is defined as the ones'-complement of $F_N(\cdot)$, *i.e.* $S_N(\cdot):=1-F_N(\cdot)$. Clearly, the latter is another characterization of the distribution of $N$.
+In the above, $\lfloor \cdot \rfloor$ denotes the floor function; $\lfloor x \rfloor$ denotes the greatest integer less than or equal to $x$. We note that the `r Gloss('survival function', '2.1')` of $N$, denoted by $S_N(\cdot)$, is defined as the ones'-complement of $F_N(\cdot)$, *i.e.* $S_N(\cdot):=1-F_N(\cdot)$. Clearly, the latter is another characterization of the distribution of $N$.
 
 Often one is interested in quantifying a certain aspect of the distribution and not in its complete description. This is particularly useful when comparing distributions. A *center of location* of the distribution is one such aspect, and there are many different measures that are commonly used to quantify it. Of these, the `r Gloss('mean')` is the most popular; the mean of $N$, denoted by $\mu_N$,[^1] is defined as
 
@@ -145,7 +145,7 @@ All moments of $N$ are finite, *i.e.*
 \[
 \mathrm{E}~{N^r}<\infty, \quad r\geq 0.
 \]
-The *pmf* of $N$ can be derived from the *pgf* as follows:
+The `r Gloss('pmf')` of $N$ can be derived from the *pgf* as follows:
 \[
 p_N(m)=\begin{cases} 
 P_N(0), &m=0;\cr
@@ -191,7 +191,7 @@ P_N(z):= \sum_{k=0}^m z^k \binom{m}{k} q^k (1-q)^{m-k} = \sum_{k=0}^m  \binom{m}
 \]
 Note that the above expression for the *pgf* confirms the fact that the binomial distribution is the `r Gloss('m-convolution')` of the Bernoulli distribution, which is the binomial distribution with $m=1$ and *pgf* $(1+q(z-1))$. Also, note that the *mgf* of the binomial distribution is given by $(1+q(e^t-1))^m$.  
 
-The central moments of the binomial distribution can be found in a few different ways. To emphasize the key property that it is a $m$-convolution of the Bernoulli distribution, we derive below the moments using this property. We begin by observing that the Bernoulli distribution with parameter $q$ assigns probability of $q$ and $1-q$ to $1$ and $0$, respectively. So its mean equals $q$ ($=0\times (1-q) + 1\times q$); note that its raw second moment equals its mean as $N^2=N$ with probability $1$. Using these two facts we see that the variance equals $q(1-q)$. Moving on to the binomial distribution with parameters $m$ and $q$, using the fact that it is the $m$-convolution of the Bernoulli distribution, we write $N$ as the sum of $N_1,\ldots,N_m$, where $N_i$ are *iid* Bernoulli variates. Now using the moments of Bernoulli and linearity of the expectation, we see that 
+The central moments of the binomial distribution can be found in a few different ways. To emphasize the key property that it is a $m$-convolution of the Bernoulli distribution, we derive below the moments using this property. We begin by observing that the Bernoulli distribution with parameter $q$ assigns probability of $q$ and $1-q$ to $1$ and $0$, respectively. So its mean equals $q$ ($=0\times (1-q) + 1\times q$); note that its raw second moment equals its mean as $N^2=N$ with probability $1$. Using these two facts we see that the variance equals $q(1-q)$. Moving on to the binomial distribution with parameters $m$ and $q$, using the fact that it is the $m$-convolution of the Bernoulli distribution, we write $N$ as the sum of $N_1,\ldots,N_m$, where $N_i$ are `r Gloss('iid')` Bernoulli variates. Now using the moments of Bernoulli and linearity of the expectation, we see that 
 \[
 \mathrm{E}[{N}]=\mathrm{E}[{\sum_{i=1}^m N_i}] = \sum_{i=1}^m ~\mathrm{E}[N_i] = mq.
 \]
@@ -524,7 +524,7 @@ Interestingly, in [@olkin1981] they show that if the sample mean is less than or
 \left(\prod_{i=1}^n x_i! \right)^{-1} \exp\left\{-\sum_{i=1}^n x_i\right\} \overline{x}^{n\overline{x}}. 
 (\#eq:Poilik)
 \end{equation}
-Also, note that Figure \@ref(fig:MLEm) shows that the *MLE* of $m$ is non-robust, *i.e.* changes in a small proportion of the data set can cause large changes in the estimator. 
+Also, note that Figure \@ref(fig:MLEm) shows that the *MLE* of $m$ is non-`r Gloss('robust', '2.4')`, *i.e.* changes in a small proportion of the data set can cause large changes in the estimator. 
 
 The above discussion suggests the following simple algorithm: 
 
@@ -596,7 +596,7 @@ the rapid convergence seen above is typical of the Newton's method. Hence in thi
 
 `r HideRCode('Freq.1','Show R Code')`
 
-```{r, echo=ShowCode(), eval=FALSE}
+```{r, echo=SHOW_PDF, eval=FALSE}
 Newton<-function(x,abserr){
 mu<-mean(x);
 sigma2<-mean(x^2)-mu^2;
@@ -619,7 +619,7 @@ c(r,iter)
 
 *** 
 
-To summarize our discussion of *MLE* for the $(a,b,0)$ class of distributions, in Figure \@ref(fig:MLEab0) below we plot the maximum value of the Poisson likelihood, $L(m,\overline{x}/m)$ for the binomial, and $L(r,\overline{x}/r)$ for the negative binomial, for the three samples of size $5$ given in [Table 2.1]. The data was constructed to cover the three orderings of the sample mean and variance. As show in the Figure \@ref(fig:MLEab0), and supported by theory, if $\hat{\mu}<\hat{\sigma}^2$ then the negative binomial will result in a higher maximum likelihood value; if $\hat{\mu}=\hat{\sigma}^2$  the Poisson will have the highest likelihood value; and finally in the case that $\hat{\mu}>\hat{\sigma}^2$ the binomial will give a better fit than the others. So before fitting a frequency data with an $(a,b,0,)$ distribution, it is best to start with examining the ordering of $\hat{\mu}$ and $\hat{\sigma}^2$. We again emphasize that the Poisson is on the **boundary** of the  negative binomial and binomial distributions. So in the case that $\hat{\mu}\geq\hat{\sigma}^2$ ($\hat{\mu}\leq\hat{\sigma}^2$, resp.) the Poisson will yield a better fit than the negative binomial 
+To summarize our discussion of `r Gloss('MLE')` for the $(a,b,0)$ class of distributions, in Figure \@ref(fig:MLEab0) below we plot the maximum value of the Poisson likelihood, $L(m,\overline{x}/m)$ for the binomial, and $L(r,\overline{x}/r)$ for the negative binomial, for the three samples of size $5$ given in [Table 2.1]. The data was constructed to cover the three orderings of the sample mean and variance. As show in the Figure \@ref(fig:MLEab0), and supported by theory, if $\hat{\mu}<\hat{\sigma}^2$ then the negative binomial will result in a higher maximum likelihood value; if $\hat{\mu}=\hat{\sigma}^2$  the Poisson will have the highest likelihood value; and finally in the case that $\hat{\mu}>\hat{\sigma}^2$ the binomial will give a better fit than the others. So before fitting a frequency data with an $(a,b,0,)$ distribution, it is best to start with examining the ordering of $\hat{\mu}$ and $\hat{\sigma}^2$. We again emphasize that the Poisson is on the **boundary** of the  negative binomial and binomial distributions. So in the case that $\hat{\mu}\geq\hat{\sigma}^2$ ($\hat{\mu}\leq\hat{\sigma}^2$, resp.) the Poisson will yield a better fit than the negative binomial 
 (binomial, resp.), which will also be indicated by $\hat{r}=\infty$ ($\hat{m}=\infty$, resp.).
 
 <a id=tab:2.1></a>  
@@ -772,7 +772,7 @@ The above expression can be seen as a direct application of the Law of Total Pro
 \alpha\cdot F_{\leq 5}(x) + (1-\alpha)F_{> 5}(x).
 \]
 
-An alternate definition of a `r Gloss('mixture distribution')` is as follows. Let $N_i$ be a random variable with distribution $F_i$, $i=1,\ldots, k$. Let $I$ be a random variable taking values  $1,2,\ldots,k$ with probabilities $\alpha_1,\ldots,\alpha_k$, respectively. Then the random variable $N_I$ has a distribution given by equation \@ref(eq:mixdefn)[^7].
+An alternate definition of a `r Gloss('mixture distribution', '2.6')` is as follows. Let $N_i$ be a random variable with distribution $F_i$, $i=1,\ldots, k$. Let $I$ be a random variable taking values  $1,2,\ldots,k$ with probabilities $\alpha_1,\ldots,\alpha_k$, respectively. Then the random variable $N_I$ has a distribution given by equation \@ref(eq:mixdefn)[^7].
 
 [^7]: This in particular lays out a way to simulate from a mixture distribution that makes use of efficient simulation schemes that may exist for the component distributions.
 
@@ -952,7 +952,7 @@ The motivation for the above statistic derives from the fact that
 \[
 \sum_{k=1}^K\frac{\left( m_k-n{p}_k \right) ^{2}}{n{p}_k}
 \]
-has a limiting `r Gloss('chi-square distribution')` with $K-1$ degrees of freedom if $p_k$, $k=1,\ldots,K$ are the true cell probabilities. Now suppose that only the summarized data represented by $m_k$, $k=1,\ldots,K$ is available. Further, if $p_k$'s are functions of $s$ parameters, replacing $p_k$'s by any *efficiently* estimated probabilities $\widehat{p}_k$'s results in the statistic continuing to have a limiting chi-square distribution but with degrees of freedom given by $K-1-s$. Such efficient estimates can be derived for example by using the *MLE* method (with a `r Gloss('multinomial likelihood')`) or by estimating the $s$ parameters which minimizes the Pearson's chi-square statistic above. For example, the `R` code below does calculate an estimate for $\lambda$ doing the latter and results in the estimate $0.06623153$, close but different from the *MLE* of $\lambda$ using the full data:
+has a limiting `r Gloss('chi-square distribution', '2.7')` with $K-1$ degrees of freedom if $p_k$, $k=1,\ldots,K$ are the true cell probabilities. Now suppose that only the summarized data represented by $m_k$, $k=1,\ldots,K$ is available. Further, if $p_k$'s are functions of $s$ parameters, replacing $p_k$'s by any *efficiently* estimated probabilities $\widehat{p}_k$'s results in the statistic continuing to have a limiting chi-square distribution but with degrees of freedom given by $K-1-s$. Such efficient estimates can be derived for example by using the *MLE* method (with a `r Gloss('multinomial likelihood')`) or by estimating the $s$ parameters which minimizes the Pearson's chi-square statistic above. For example, the `R` code below does calculate an estimate for $\lambda$ doing the latter and results in the estimate $0.06623153$, close but different from the *MLE* of $\lambda$ using the full data:
 
 ```
 m<-c(6996,455,28,4,0);
@@ -1100,7 +1100,7 @@ Appendix Chapter \@ref(C:AppA) gives a general introduction to maximum likelihoo
 
 `r HideRCode('Freq.2','Show R Code')`
 
-```{r,echo=ShowCode(),eval=FALSE}
+```{r,echo=SHOW_PDF,eval=FALSE}
 likbinm<-function(m){ 
   # binomial likelihood maximized w.r.t. p
   prod((dbinom(x,m,mean(x)/m)))
@@ -1189,7 +1189,7 @@ dev.off();
 `r HideRCode('Freq.3','Show R Code')`
 
 
-```{r,echo=ShowCode(),eval=FALSE}
+```{r,echo=SHOW_PDF,eval=FALSE}
 likm<-function(m){
   prod((dbinom(x,m,mean(x)/m)))
 }

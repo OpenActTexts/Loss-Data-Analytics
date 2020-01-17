@@ -92,7 +92,7 @@ In this sub-section, you learn how to:
 
 ***
 
-A `r Gloss('qualitative')`,or `r Gloss('categorical variable')` is one for which the measurement denotes membership in a set of groups, or categories. For example, if you were coding which area of the country an insured resides, you might use a 1 for the northern part, 2 for southern, and 3 for everything else. This location variable is an example of a `r Gloss('nominal variable')`, one for which the levels have no natural ordering. Any analysis of nominal variables should not depend on the labeling of the categories. For example, instead of using a 1,2,3 for north, south, other, I should arrive at the same set of summary statistics if I used a 2,1,3 coding instead, interchanging north and south. 
+A `r Gloss('qualitative')`, or `r Gloss('categorical variable')` is one for which the measurement denotes membership in a set of groups, or categories. For example, if you were coding which area of the country an insured resides, you might use a 1 for the northern part, 2 for southern, and 3 for everything else. This location variable is an example of a `r Gloss('nominal variable')`, one for which the levels have no natural ordering. Any analysis of nominal variables should not depend on the labeling of the categories. For example, instead of using a 1,2,3 for north, south, other, I should arrive at the same set of summary statistics if I used a 2,1,3 coding instead, interchanging north and south. 
 
 In contrast, an `r Gloss('ordinal variable')` is a type of categorical variable for which an ordering does exist. For example, with a survey to see how satisfied customers are with our claims servicing department, we might use a five point scale that ranges from 1 meaning dissatisfied to a 5 meaning satisfied. Ordinal variables provide a clear ordering of levels of a variable but the amount of separation between levels is unknown.
 
@@ -135,7 +135,7 @@ In this sub-section, you learn how to:
 
 Insurance data typically are `r Gloss('multivariate')` in the sense that we can take many measurements on a single entity. For example, when studying losses associated with a firm's `r Gloss("worker's compensation")` plan, we might want to know the location of its manufacturing plants, the industry in which it operates, the number of employees, and so forth. The usual strategy for analyzing multivariate data is to begin by examining each variable in isolation of the others. This is known as a `r Gloss('univariate')` approach. 
 
-In contrast, for some variables, it makes little sense to only look at one dimensional aspects. For example, insurers typically organize *spatial* data by longitude and latitude to analyze the location of weather related insurance claims due hailstorms. Having only a single number, either longitude or latitude, provides little information in understanding geographical location.
+In contrast, for some variables, it makes little sense to only look at one dimensional aspects. For example, insurers typically organize `r Gloss('spatial data')` by longitude and latitude to analyze the location of weather related insurance claims due hailstorms. Having only a single number, either longitude or latitude, provides little information in understanding geographical location.
 
 Another special case of a multivariate variable, less obvious, involves coding for `r Gloss('missing data')`. Historically, some statistical packages used a -99 to report when a variable, such as policyholder's age, was not available or not reported. This led to many unsuspecting analysts providing strange statistics when summarizing a set of data. When data are missing, it is better to think about the variable as two dimensions, one to indicate whether or not the variable is reported and the second providing the age (if reported). In the same way, insurance data are commonly `r Gloss('censored')` and `r Gloss('truncated')`. We refer you to Chapter 4 for more on censored and truncated data. `r Gloss('Aggregate claims')` can also be coded as another special type of multivariate variable. We refer you to Chapter 5 for more Aggregate claims.
 
@@ -164,7 +164,7 @@ For this section, consider a pair of random variables $(X,Y)$ having joint distr
 
 #### Pearson Correlation
 
-Define the sample covariance function $\widehat{Cov}(X,Y) = \frac{1}{n} \sum_{i=1}^n (X_i - \bar{X})(Y_i - \bar{Y})$, where $\bar{X}$ and $\bar{Y}$ are the sample means of $X$ and $Y$, respectively. Then, the product-moment (Pearson) correlation can be written as
+Define the sample covariance function $\widehat{Cov}(X,Y) = \frac{1}{n} \sum_{i=1}^n (X_i - \bar{X})(Y_i - \bar{Y})$, where $\bar{X}$ and $\bar{Y}$ are the sample means of $X$ and $Y$, respectively. Then, the `r Gloss("product-moment (Pearson) correlation")` can be written as
 
 \begin{equation*}
 r = \frac{\widehat{Cov}(X,Y)}{\sqrt{\widehat{Cov}(X,X)\widehat{Cov}(Y,Y)}}.
@@ -177,11 +177,11 @@ This statistic has several important features. Unlike regression estimators, it 
 Further, in the case of independence, the correlation coefficient $r$ is 0. However, it is well known that zero correlation does not imply independence, except for normally distributed random variables. The correlation statistic $r$ is also a (maximum likelihood) estimator of the association parameter for bivariate normal distribution. So, for normally distributed data, the correlation statistic $r$ can be used to assess independence. For additional interpretations of this well-known statistic, readers will enjoy [@lee1988thirteen].
 
 
-You can obtain the Pearson correlation statistic $r$ using the `cor()` function in `R` and selecting the `pearson` method. This is demonstrated below by using the *Coverage* rating variable in millions of dollars and *Claim* amount variable in dollars from the LGPIF data introduced in chapter 1. 
+You can obtain the `r Gloss('Pearson correlation')` statistic $r$ using the `cor()` function in `R` and selecting the `pearson` method. This is demonstrated below by using the *Coverage* rating variable in millions of dollars and *Claim* amount variable in dollars from the LGPIF data introduced in chapter 1. 
 
 
 
-```{r comment="", results='hide', echo=FALSE}
+```{r include=FALSE}
 r<-cor(Claim,Coverage, method = c("pearson"))
 round(r,2)
 
@@ -191,7 +191,7 @@ round(r,2)
 
 `r HideRCode('pearson.1','R Code for Pearson Correlation Statistic')`
 
-```{r, echo=ShowCode(), eval=FALSE}
+```{r, echo=SHOW_PDF, eval=FALSE}
 ### Pearson correlation between Claim and Coverage
 r<-cor(Claim,Coverage, method = c("pearson"))
 round(r,2)
@@ -228,7 +228,7 @@ r_S = \frac{\widehat{Cov}(R(X),R(Y))}{\sqrt{\widehat{Cov}(R(X),R(X))\widehat{Cov
 
 You can obtain the Spearman correlation statistic $r_S$ using the `cor()` function in `R` and selecting the `spearman` method. From below, the Spearman correlation between the *Coverage* rating variable in millions of dollars and *Claim* amount variable in dollars is $0.41$.
 
-```{r comment="" , results='hide', echo=FALSE}
+```{r comment="" , include=FALSE}
 rs<-cor(Claim,Coverage, method = c("spearman"))
 round(rs,2)
 
@@ -238,7 +238,7 @@ round(rs,2)
 
 `r HideRCode('spearman.1','R Code for Spearman Correlation Statistic')`
 
-```{r echo=ShowCode(), eval=FALSE}
+```{r echo=SHOW_PDF, eval=FALSE}
 ### Spearman correlation between Claim and Coverage ###
 rs<-cor(Claim,Coverage, method = c("spearman"))
 round(rs,2)
@@ -261,13 +261,13 @@ We can show that the Spearman correlation statistic is invariant under strictly 
 
 #### Kendall's Tau
 
-An alternative measure that uses ranks is based on the concept of *concordance*. An observation pair $(X,Y)$ is said to be concordant (discordant) if the observation with a larger value of $X$ has also the larger (smaller) value of $Y$. Then $\Pr(concordance) = \Pr[ (X_1-X_2)(Y_1-Y_2) >0 ]$ , $\Pr(discordance) = \Pr[ (X_1-X_2)(Y_1-Y_2) <0 ]$, $\Pr(tie) = \Pr[ (X_1-X_2)(Y_1-Y_2) =0 ]$ and
+An alternative measure that uses ranks is based on the concept of *concordance*. An observation pair $(X,Y)$ is said to be `r Gloss('concordant')` (`r Gloss('discordant')`) if the observation with a larger value of $X$ has also the larger (smaller) value of $Y$. Then $\Pr(concordance) = \Pr[ (X_1-X_2)(Y_1-Y_2) >0 ]$ , $\Pr(discordance) = \Pr[ (X_1-X_2)(Y_1-Y_2) <0 ]$, $\Pr(tie) = \Pr[ (X_1-X_2)(Y_1-Y_2) =0 ]$ and
 
 \begin{eqnarray*}
 \tau(X,Y)= \Pr(concordance) - \Pr(discordance) = 2\Pr(concordance) - 1 + \Pr(tie).
 \end{eqnarray*}
 
-To estimate this, the pairs $(X_i,Y_i)$ and $(X_j,Y_j)$ are said to be concordant if the product $sgn(X_j-X_i)sgn(Y_j-Y_i)$ equals 1 and discordant if the product equals -1. Here, $sgn(x)=1,0,-1$ as $x>0$, $x=0$, $x<0$, respectively. With this, we can express the association measure of [@kendall1938new], known as *Kendall's tau*, as
+To estimate this, the pairs $(X_i,Y_i)$ and $(X_j,Y_j)$ are said to be concordant if the product $sgn(X_j-X_i)sgn(Y_j-Y_i)$ equals 1 and discordant if the product equals -1. Here, $sgn(x)=1,0,-1$ as $x>0$, $x=0$, $x<0$, respectively. With this, we can express the association measure of [@kendall1938new], known as `r Gloss("Kendall's tau")`, as
 
 \begin{equation*}
 \begin{array}{rl}
@@ -282,7 +282,7 @@ Interestingly, [@hougaard2000analysis], page 137, attributes the original discov
 
 You can obtain the Kendall's tau, using the `cor()` function in `R` and selecting the `kendall` method. From below, $\tau=0.32$ between the *Coverage* rating variable in millions of dollars and *Claim* amount variable in dollars. When there are ties in the data, the `cor()` function computes *Kendall's tau_b*, as proposed by [@kendall1945]. 
 
-```{r comment="", results='hide', echo=FALSE}
+```{r include=FALSE}
 tau<-cor(Claim,Coverage, method = c("kendall"))
 round(tau,2)
 
@@ -292,7 +292,7 @@ round(tau,2)
 
 `r HideRCode('kendall.1',"R Code for Kendall's Tau")`
 
-```{r echo=ShowCode(), eval=FALSE}
+```{r echo=SHOW_PDF, eval=FALSE}
 ### Kendall's tau correlation between Claim and Coverage ###
 tau<-cor(Claim,Coverage, method = c("kendall"))
 round(tau,2)
@@ -330,7 +330,7 @@ For example, if $\pi=0.8$, then the smallest that the Pearson correlation could 
 
 As noted by [@bishop1975discrete] (page 382), squaring this correlation coefficient yields the Pearson chi-square statistic (introduced in chapter 2) . Despite the boundary problems described above, this feature makes the Pearson correlation coefficient a good choice for describing dependence with binary data. The other is the odds ratio, described as follows.
 
-As an alternative measure for Bernoulli variables, the *odds ratio* is given by
+As an alternative measure for Bernoulli variables, the `r Gloss('odds ratio')` is given by
 \begin{eqnarray*}
 OR(\pi_{11}) = \frac{\pi_{11} \pi_{00}}{\pi_{01} \pi_{10}} = \frac{\pi_{11} \left( 1+\pi_{11}-\pi_X -\pi_Y\right)}{(\pi_X-\pi_{11})(\pi_Y- \pi_{11})} .
 \end{eqnarray*}
@@ -357,7 +357,7 @@ and the second in [@yule1912methods],
 \end{eqnarray*}
 Although these statistics provide the same information as is the original odds ration $OR$, they have the advantage of taking values in the interval $[-1,1]$, making them easier to interpret.
 
-In a later section, we will also see that the marginal distributions have no effect on the Fr$\acute{e}$chet-H$\ddot{o}$effding of the tetrachoric correlation, another measure of association, see also, [@joe2014dependence], page 48. 
+In a later section, we will also see that the marginal distributions have no effect on the Fr$\acute{e}$chet-H$\ddot{o}$effding of the `r Gloss('tetrachoric correlation')`, another measure of association, see also, [@joe2014dependence], page 48. 
 
 
 <a id=tab:14.2></a>
@@ -391,7 +391,7 @@ NoClaimCredit<-Insample$NoClaimCredit
 Fire5<-Insample$Fire5
 ```
 
-```{r warning=FALSE, comment="", results='hide', echo=FALSE}
+```{r include=FALSE, comment=""}
 library(epitools)
 oddsratio(NoClaimCredit, Fire5,method = c("wald"))$measure
 ```
@@ -399,7 +399,7 @@ oddsratio(NoClaimCredit, Fire5,method = c("wald"))$measure
 
 `r HideRCode('wald.1',"R Code for Odds Ratios")`
 
-```{r echo=ShowCode(), eval=FALSE}
+```{r echo=SHOW_PDF, eval=FALSE}
 library(epitools)
 oddsratio(NoClaimCredit, Fire5,method = c("wald"))$measure
 
@@ -413,11 +413,11 @@ Output:
 #### Categorical Variables
 
 
-More generally, let $(X,Y)$ be a bivariate pair having $ncat_X$ and $ncat_Y$ numbers of categories, respectively. For a two-way table of counts, let $n_{jk}$ be the number in the $j$th row, $k$ column. Let $n_{j\centerdot}$ be the row margin total, $n_{\centerdot k}$ be the column margin total and $n=\sum_{j,k} n_{j,k}$. Define Pearson chi-square statistic as
+More generally, let $(X,Y)$ be a bivariate pair having $ncat_X$ and $ncat_Y$ numbers of categories, respectively. For a two-way table of counts, let $n_{jk}$ be the number in the $j$th row, $k$ column. Let $n_{j\centerdot}$ be the row margin total, $n_{\centerdot k}$ be the column margin total and $n=\sum_{j,k} n_{j,k}$. Define `r Gloss('Pearson chi-square statistic')` as
 \begin{eqnarray*}
 \chi^2 = \sum_{jk} \frac{(n_{jk}- n_{j\centerdot}n_{\centerdot k}/n)^2}{n_{j\centerdot}n_{\centerdot k}/n} .
 \end{eqnarray*}
-The likelihood ratio test statistic is
+The `r Gloss('likelihood ratio test')` statistic is
 \begin{eqnarray*}
 G^2 = 2 \sum_{jk} n_{jk} \ln\frac{n_{jk}}{n_{j\centerdot}n_{\centerdot k}/n} .
 \end{eqnarray*}
@@ -463,7 +463,7 @@ $$
 
 You can obtain the Pearson chi-square statistic, using the `chisq.test()` function from the `MASS` library in `R`. Here, we test whether the  *EntityType*  variable is independent of *NoClaimCredit* variable using [Table 14.3].
 
-```{r echo=FALSE,warning=FALSE, results='hide', echo=FALSE}
+```{r include=FALSE}
 library(pander)
 NoClaimCredit<-Insample$NoClaimCredit
 EntityType<-ifelse(Insample$TypeCity==1,"City",
@@ -474,7 +474,7 @@ EntityType<-ifelse(Insample$TypeCity==1,"City",
                                                ifelse(Insample$TypeVillage==1,"Village",0))))))
 ```
 
-```{r warning=FALSE, message=FALSE, comment="", results='hide', echo=FALSE}
+```{r include=FALSE, comment=""}
 library(MASS)
 
 table = table(EntityType, NoClaimCredit)
@@ -484,7 +484,7 @@ pander(chisq.test(table))
 
 `r HideRCode('chi.1',"R Code for Pearson Chi-square Statistic")`
 
-```{r echo=ShowCode(), eval=FALSE}
+```{r echo=SHOW_PDF, eval=FALSE}
 library(MASS)
 table = table(EntityType, NoClaimCredit)
 chisq.test(table)
@@ -508,7 +508,7 @@ As the p-value is less than the .05 significance level, we reject the null hypot
 
 Furthermore, you can obtain the likelihood ratio test statistic , using the `likelihood.test()` function from the `Deducer` library in `R`. From below, we test whether the  *EntityType*  variable is independent of *NoClaimCredit* variable from the LGPIF data. Same conclusion is drawn as the Pearson chi-square test.
 
-```{r warning=FALSE, message=FALSE, comment="", results='hide', echo=FALSE}
+```{r include=FALSE, comment=""}
 # library(Deducer)
 # pander(likelihood.test(EntityType, NoClaimCredit))
 
@@ -516,7 +516,7 @@ Furthermore, you can obtain the likelihood ratio test statistic , using the `lik
 
 `r HideRCode('lik.1',"R Code for Likelihood Ratio Test Statistic")`
 
-```{r echo=ShowCode(), eval=FALSE}
+```{r echo=SHOW_PDF, eval=FALSE}
 library(Deducer)
 likelihood.test(EntityType, NoClaimCredit)
 
@@ -547,7 +547,7 @@ As described in Section \@ref(S:QuaVar), ordinal variables provide a clear order
 Refer to page 60, Section 2.12.7 of [@joe2014dependence]. Let $(y_1,y_2)$ be a bivariate pair with discrete values on $m_1, \ldots, m_2$. For a two-way table of ordinal counts, let $n_{st}$ be the number in the $s$th row, $t$ column. Let $(n_{m_1\centerdot}, \ldots, n_{m_2\centerdot})$ be the row margin total, $(n_{\centerdot m_1}, \ldots, n_{\centerdot m_2})$ be the column margin total and $n=\sum_{s,t} n_{s,t}$.
 
 
-Let $\hat{\xi}_{1s} = \Phi^{-1}((n_{m_1}+\cdots+n_{s\centerdot})/n)$ for $s=m_1, \ldots, m_2$ be a cutpoint and similarly for $\hat{\xi}_{2t}$. The *polychoric* correlation, based on a two-step estimation procedure, is
+Let $\hat{\xi}_{1s} = \Phi^{-1}((n_{m_1}+\cdots+n_{s\centerdot})/n)$ for $s=m_1, \ldots, m_2$ be a cutpoint and similarly for $\hat{\xi}_{2t}$. The `r Gloss('polychoric correlation')`, based on a two-step estimation procedure, is
 
 
   \begin{eqnarray*}
@@ -592,7 +592,7 @@ $$
 
 You can obtain the polychoric or tetrachoric correlation using the `polychoric()` or `tetrachoric()` function from the `psych` library in `R`. The polychoric correlation is illustrated using [Table 14.4].  $\hat{\rho}_N=-0.14$, which means that there is a negative relationship between *AlarmCredit* and *NoClaimCredit*.
 
-```{r echo=FALSE,warning=FALSE, message=FALSE, results='hide', echo=FALSE}
+```{r include=FALSE}
 NoClaimCredit<-as.numeric(Insample$NoClaimCredit)
 AlarmCredit<-as.numeric(ifelse(Insample$AC00==1,"1",
                    ifelse(Insample$AC05==1,"2",
@@ -600,7 +600,7 @@ AlarmCredit<-as.numeric(ifelse(Insample$AC00==1,"1",
                                  ifelse(Insample$AC15==1,"4",0)))))
 ```
 
-```{r warning=FALSE, message=FALSE, comment="", results='hide', echo=FALSE}
+```{r include=FALSE, comment=""}
 library(psych)
 AlarmCredit<-as.numeric(ifelse(Insample$AC00==1,"1",
                    ifelse(Insample$AC05==1,"2",
@@ -614,7 +614,7 @@ round(rhoN,2)
 
 `r HideRCode('poly.1',"R Code for Polychoric Correlation")`
 
-```{r echo=ShowCode(), eval=FALSE}
+```{r echo=SHOW_PDF, eval=FALSE}
 library(psych)
 AlarmCredit<-as.numeric(ifelse(Insample$AC00==1,"1",
                    ifelse(Insample$AC05==1,"2",
@@ -640,7 +640,7 @@ For measuring association, both the continuous variable and ordinal variable app
 
 ### Discrete and Continuous Variables
 
-The polyserial correlation is defined similarly, when one variable ($y_1$) is continuous and the other ($y_2$) ordinal. Define $z$ to be the normal score of $y_1$. The polyserial correlation is
+The `r Gloss('polyserial correlation')` is defined similarly, when one variable ($y_1$) is continuous and the other ($y_2$) ordinal. Define $z$ to be the `r Gloss('normal score')` of $y_1$. The polyserial correlation is
 
 \begin{eqnarray*}
 \hat{\rho_N} = \text{argmax}_{\rho}
@@ -653,7 +653,7 @@ The polyserial correlation is defined similarly, when one variable ($y_1$) is co
 \right\}
 \end{eqnarray*}
 
-The biserial correlation is defined similarly, when one variable is continuous and the other binary.
+The `r Gloss('biserial correlation')` is defined similarly, when one variable is continuous and the other binary.
 
 <a id=tab:14.5></a>
 
@@ -681,7 +681,7 @@ $$
 You can obtain the polyserial or biserial correlation using the `polyserial()` or `biserial()` function from the `psych` library in `R`. [Table 14.5] gives the summary of *Claim* by *NoClaimCredit* and  the biserial correlation is illustrated using `R` code below. The $\hat{\rho}_N=-0.04$ which means that there is a negative correlation between *Claim* and *NoClaimCredit*.
 
 
-```{r warning=FALSE, comment="", results='hide', echo=FALSE}
+```{r include=FALSE, comment=""}
 library(psych)
 rhoN<-biserial(Claim,NoClaimCredit)
 round(rhoN,2)
@@ -689,7 +689,7 @@ round(rhoN,2)
 
 `r HideRCode('bis.1',"R Code for Biserial Correlation")`
 
-```{r echo=ShowCode(), eval=FALSE}
+```{r echo=SHOW_PDF, eval=FALSE}
 library(psych)
 rhoN<-biserial(Claim,NoClaimCredit)
 round(rhoN,2)
@@ -717,7 +717,7 @@ In this section, you learn how to:
 ***
 
 
-A $copula$ is a multivariate distribution function with uniform marginals. Specifically, let $U_1, \ldots, U_p$ be $p$ uniform random variables on $(0,1)$. Their distribution function $${C}(u_1, \ldots, u_p) = \Pr(U_1 \leq u_1, \ldots, U_p \leq u_p),$$
+A `r Gloss('copula')` is a multivariate distribution function with uniform marginals. Specifically, let $U_1, \ldots, U_p$ be $p$ uniform random variables on $(0,1)$. Their distribution function $${C}(u_1, \ldots, u_p) = \Pr(U_1 \leq u_1, \ldots, U_p \leq u_p),$$
 
 is a copula. We seek to use copulas in applications that are based on more than just uniformly distributed data. Thus, consider arbitrary marginal distribution functions ${F}_1(y_1)$,...,${F}_p(y_p)$. Then, we can define a multivariate distribution function using the copula such that $${F}(y_1, \ldots, y_p)= {C}({F}_1(y_1), \ldots,
 {F}_p(y_p)).$$
@@ -738,7 +738,7 @@ To give an example for  bivariate copula, we can look at Frank's (1979) copula. 
 $${C}(u_1,u_2) = \frac{1}{\theta} \ln \left( 1+ \frac{ (\exp(\theta
 u_1) -1)(\exp(\theta u_2) -1)} {\exp(\theta) -1} \right).$$
 
-This is a bivariate distribution function with its domain on the unit square $[0,1]^2.$ Here $\theta$ is dependence parameter and the range of dependence is controlled by the parameter $\theta$. Positive association increases as $\theta$ increases and this positive association can be summarized with Spearman's rho ($\rho$) and Kendall's tau ($\tau$). Frank's copula is one of the commonly used copula functions in the copula literature. We will see other copula functions in Section \@ref(S:CopTyp).
+This is a bivariate distribution function with its domain on the unit square $[0,1]^2.$ Here $\theta$ is dependence parameter and the range of dependence is controlled by the parameter $\theta$. Positive association increases as $\theta$ increases and this positive association can be summarized with `r Gloss("Spearman's rho")` ($\rho$) and Kendall's tau ($\tau$). Frank's copula is one of the commonly used copula functions in the copula literature. We will see other copula functions in Section \@ref(S:CopTyp).
 
 ```{r child = './Quizzes/Quiz143.html', eval = QUIZ}
 ```
@@ -767,7 +767,7 @@ We start with getting a sample ($n = 1500$) from the whole data. We consider fir
 
 
 
-```{r message=FALSE, results='hide', echo=FALSE}
+```{r message=FALSE, include=FALSE}
 library(copula)
 data(loss) # loss data
 Lossdata <- loss # rename dataframe to distinguish from the loss variable
@@ -777,7 +777,7 @@ loss <- Lossdata$loss
 
 To visualize the relationship between  *losses * and  *expenses * (ALAE), scatterplots in figure \@ref(fig:Scatter) are created on the real dollar scale and on the log scale.
 
-```{r  Scatter, message=FALSE, results='hide', echo=FALSE, fig.cap='Scatter plot of Loss and ALAE'}
+```{r  Scatter, include=FALSE, fig.cap='Scatter plot of Loss and ALAE'}
 par(mfrow=c(1, 2))
 plot(loss,alae, cex=.5) # real dollar scale
 plot(log(loss),log(alae),cex=.5) # log scale
@@ -786,7 +786,7 @@ plot(log(loss),log(alae),cex=.5) # log scale
 
 `r HideRCode('ScaHis.1',"R Code for Scatterplots")`
 
-```{r echo=ShowCode(), eval=FALSE}
+```{r echo=SHOW_PDF, eval=FALSE}
 library(copula)
 data(loss) # loss data
 Lossdata <- loss 
@@ -804,7 +804,7 @@ par(mfrow=c(1, 2))
 
 ### Marginal Models
 
-We first examine the marginal distributions of *losses * and *expenses * before going through the joint modeling. The histograms show that both  *losses * and  *expenses * are right-skewed and fat-tailed.
+We first examine the `r Gloss('marginal distributions')` of *losses * and *expenses * before going through the joint modeling. The histograms show that both  *losses * and  *expenses * are right-skewed and `r Gloss("fat-tailed")`.
 
 For marginal distributions of losses and expenses, we consider a Pareto-type distribution, namely a Pareto type II with distribution function
 
@@ -813,7 +813,7 @@ where $\theta$ is the scale parameter and $\alpha$ is the shape parameter.
 
 The marginal distributions of losses and expenses are fitted with maximum likelihood. Specifically, we use the $vglm$ function from the `R VGAM` package. Firstly, we fit the marginal distribution of   *expenses *.
 
-```{r message=FALSE, warning=FALSE, comment="", echo=FALSE, results='hide'}
+```{r include=FALSE, comment=""}
 library(VGAM)
 fit = vglm(alae ~ 1, paretoII(location=0, lscale="loge", lshape="loge")) # fit the model by vlgm function
 #coef(fit, matrix=TRUE) # extract fitted model coefficients, matrix=TRUE gives logarithm of estimated parameters instead of default normal scale estimates
@@ -823,7 +823,7 @@ fit = vglm(alae ~ 1, paretoII(location=0, lscale="loge", lshape="loge")) # fit t
 
 `r HideRCode('Reg.1',"R Code for Pareto Fitting")`
 
-```{r echo=ShowCode(), eval=FALSE}
+```{r echo=SHOW_PDF, eval=FALSE}
 library(VGAM)
 
 fit = vglm(alae ~ 1, paretoII(location=0, lscale="loge", lshape="loge")) # fit the model by vlgm function
@@ -842,7 +842,7 @@ Output:
 
 We repeat this procedure to fit the marginal distribution of the *loss* variable. Because the loss data also seems right-skewed and heavy-tail data, we also model the marginal distribution with Pareto II distribution. 
 
-```{r message=FALSE, warning=FALSE, comment="", echo=FALSE, results='hide'}
+```{r include=FALSE, comment=""}
 fitloss = vglm(loss ~ 1, paretoII, trace=TRUE)
 theta = Coef(fit)[1]
 alpha = Coef(fit)[2]
@@ -852,7 +852,7 @@ alpha = Coef(fit)[2]
 
 `r HideRCode('ParFit.1',"R Code for Pareto Fitting")`
 
-```{r echo=ShowCode(), eval=FALSE}
+```{r echo=SHOW_PDF, eval=FALSE}
 fitloss = vglm(loss ~ 1, paretoII, trace=TRUE)
 Coef(fit)
 summary(fit)
@@ -872,7 +872,7 @@ To visualize the fitted distribution of  *expenses * and *loss* variables, we us
 
 ### Probability Integral Transformation
 
-The *probability integral transformation * shows that any continuous variable can be mapped to a $U(0,1)$ random variable via its distribution function.
+The `r Gloss('probability integral transformation')` shows that any continuous variable can be mapped to a $U(0,1)$ random variable via its distribution function.
 
 Given the fitted Pareto II distribution, the variable *expenses* is transformed to the variable $u_1$, which follows a uniform distribution on $[0,1]$:
 
@@ -901,7 +901,7 @@ hist(qnorm(u2), main="", xlab="")
 
 `r HideRCode('transalae.1',"R Code for Histograms of Transformed Variables")`
 
-```{r echo=ShowCode(), eval=FALSE}
+```{r echo=SHOW_PDF, eval=FALSE}
 u1 <- 1 - (1 + (alae/b))^(-s) # or u1 <- pparetoII(alae, location=0, scale=b, shape=s)
 hist(u1, main = "", xlab = "Histogram of Transformed alae")
 
@@ -932,7 +932,7 @@ plot(qnorm(u1), qnorm(u2))
 
 `r HideRCode('Cor.1',"R Code for Scatter Plots and Correlation")`
 
-```{r echo=ShowCode(), eval=FALSE}
+```{r echo=SHOW_PDF, eval=FALSE}
 par(mfrow = c(1, 2))
 plot(u1, u2, cex = 0.5, xlim = c(-0.1,1.1), ylim = c(-0.1,1.1),
      xlab = "Transformed Alae", ylab = "Transformed Loss")
@@ -961,7 +961,7 @@ fit.ml <- fitCopula(frank.cop, uu, method="ml", start=c(0.4))
 
 `r HideRCode('FrankCopula.1',"R Code for Modeling with Frank Copula")`
 
-```{r echo=ShowCode(), eval=FALSE}
+```{r echo=SHOW_PDF, eval=FALSE}
 uu = cbind(u1,u2) 
 frank.cop <- archmCopula("frank", param= c(5), dim = 2)
 fit.ml <- fitCopula(frank.cop, uu, method="ml", start=c(0.4))
@@ -1002,7 +1002,7 @@ frank.cop <- archmCopula("frank", param= param, dim = 2)
 
 `r HideRCode('fittedCop.1',"R Code for Spearman's Correlation Using Frank's Copula")`
 
-```{r echo=ShowCode(), eval=FALSE}
+```{r echo=SHOW_PDF, eval=FALSE}
 (param = fit.ml@estimate)
 frank.cop <- archmCopula("frank", param= param, dim = 2)
 rho(frank.cop) 
@@ -1025,7 +1025,7 @@ persp(frank.cop, dCopula, theta=0, zlab="c(u,v)",
 
 `r HideRCode('DistriPlot.1',"R Code for Frank's Copula Plots")`
 
-```{r echo=ShowCode(), eval=FALSE}
+```{r echo=SHOW_PDF, eval=FALSE}
 par(mar=c(3.2,3,.2,.2),mfrow=c(1,2))
 persp(frank.cop, pCopula, theta=50, zlab="C(u,v)",
         xlab ="u", ylab="v", cex.lab=1.3)
@@ -1055,7 +1055,7 @@ There are several families of copulas have been described in the literature. Two
 
 ### Elliptical Copulas
 
-Elliptical copulas are constructed from elliptical distributions. This copula decompose (multivariate) elliptical distributions into their univariate elliptical marginal distributions by Sklar's theorem [@hofertelements].
+`r Gloss('Elliptical copulas')` are constructed from  `r Gloss('elliptical distributions')`. This copula decompose (multivariate) elliptical distributions into their univariate elliptical marginal distributions by Sklar's theorem [@hofertelements].
 
 Properties of elliptical copulas are typically obtained from the properties of corresponding elliptical distributions [@hofertelements].
 
@@ -1064,7 +1064,7 @@ $$\phi_N (\mathbf{z})= \frac{1}{(2 \pi)^{p/2}\sqrt{\det \boldsymbol \Sigma}}
 \exp\left( -\frac{1}{2} \mathbf{z}^{\prime} \boldsymbol
 \Sigma^{-1}\mathbf{z}\right).$$
 
-Here, $\boldsymbol \Sigma$ is a correlation matrix, with ones on the diagonal. Let $\Phi$ and $\phi$ denote the standard normal distribution and density functions.
+Here, $\boldsymbol \Sigma$ is a `r Gloss('correlation matrix')`, with ones on the diagonal. Let $\Phi$ and $\phi$ denote the standard normal distribution and density functions.
 We define the Gaussian (normal) copula density function as
 
 $${c}_N(u_1,  \ldots, u_p) = \phi_N \left(\Phi^{-1}(u_1), \ldots, \Phi^{-1}(u_p) \right) \prod_{j=1}^p \frac{1}{\phi(\Phi^{-1}(u_j))}.$$
@@ -1163,7 +1163,7 @@ The product copula is $\mathrm{C}(u_1,u_2)=u_1u_2$ is the result of assuming ind
 The lower bound is achieved when the two random variables are perfectly negatively related ($U_2=1-U_1$) and the upper bound is achieved when they are
 perfectly positively related ($U_2=U_1$).
 
-We can see The Frechet-Hoeffding bounds for two random variables in the Figure \@ref(fig:Bounds).
+We can see The `r Gloss('Frechet-Hoeffding bounds')` for two random variables in the Figure \@ref(fig:Bounds).
 
 ```{r Bounds, message=FALSE, warning=FALSE, comment="", echo=FALSE, fig.cap='Perfect Positive and Perfect negative dependence plots'}
 library(copula)
@@ -1177,7 +1177,7 @@ plot (cbind(U,U), xlab=quote(U[1]),ylab=quote(U[2]),main="Perfect Positive Depen
 
 `r HideRCode('plot.1',"R Code for Frechet-Hoeffding Bounds for Two Random Variables")`
 
-```{r echo=ShowCode(), eval=FALSE}
+```{r echo=SHOW_PDF, eval=FALSE}
 library(copula)
 n<-100
 set.seed(1980)
@@ -1218,7 +1218,7 @@ From this equation , $R(z)$ will equal to $z$ under independence. Joe (1997) use
 
 $$L(z) = \frac{\Pr(U_1 \leq z, U_2 \leq z)}{z}=\Pr(U_1 \leq z | U_2 \leq z) =\frac{ \mathrm{C}(z,z)}{1-z}.$$ 
 
-Tail dependency concentration function captures the probability of two random variables both catching up extreme values.
+`r Gloss('Tail dependency')` concentration function captures the probability of two random variables both catching up extreme values.
 
 We calculate the left and right tail concentration functions for four different types of copulas; Normal, Frank,Gumbel and t copula. After getting tail concentration functions for each copula, we show concentration function's values for these four copulas in  [Table 14.7]. As in @venter2002tails,  we show $L(z)$ for $z\leq 0.5$ and $R(z)$ for $z>0.5$ in the tail dependence plot in Figure \@ref(fig:DepTails). We interpret the tail dependence plot, to mean that both the Frank and Normal copula exhibit no tail dependence whereas the $t$ and the Gumbel may do so. The $t$ copula is symmetric in its treatment of upper and lower tails.
 
@@ -1271,7 +1271,7 @@ jointtail4 <- TailFunction(Tailcop4)
 
 `r HideRCode('Tail.1',"R Code for Tail Copula Functions for Different Copulas")`
 
-```{r echo=ShowCode(), eval=FALSE}
+```{r echo=SHOW_PDF, eval=FALSE}
 library(copula)
 U1 = seq(0,0.5, by=0.002)
 U2 = seq(0.5,1, by=0.002)
@@ -1313,7 +1313,7 @@ text(0.9, 0.4, "t with 5 df", cex=1.3)   #4
 
 `r HideRCode('Tailplot.1',"R Code for Tail Dependence Plots for Different Copulas")`
 
-```{r echo=ShowCode(), eval=FALSE}
+```{r echo=SHOW_PDF, eval=FALSE}
 plot(U,jointtail1, cex=.2, xlim=c(0,1),ylab="Tail Dependence", ylim=c(0,1))
 lines(U,jointtail2, type="p",lty=1, cex=.2)
 lines(U,jointtail3, type="p",lty=1, cex=.2)
@@ -1368,7 +1368,7 @@ $$
 
 [Table 14.8] : Results for portfolio expected value and quantiles ($VaR_q$)
 
-```{r comment="",warning=FALSE, results='hide', echo=FALSE, message=FALSE}
+```{r comment="", include=FALSE}
 # For the gamma distributions, use
 alpha1 <- 2;      theta1 <- 100
 alpha2 <- 2;      theta2 <- 200
@@ -1454,7 +1454,7 @@ round(quantMat,digits=2)
 
 `r HideRCode('SimG.1',"R Code for Simulation Using Gaussian Copula")`
 
-```{r echo=ShowCode(), eval=FALSE}
+```{r echo=SHOW_PDF, eval=FALSE}
 # For the gamma distributions, use
 alpha1 <- 2;      theta1 <- 100
 alpha2 <- 2;      theta2 <- 200
@@ -1556,7 +1556,7 @@ plot(density(S), main="Density of Total Portfolio Risk S", xlab="S")
 
 #### TS `r chapnum`.A.1. Blomqvist's Beta {-}
 
-@blomqvist1950measure developed a measure of dependence now known as *Blomqvist's beta*, also called the *median concordance coefficient* and the *medial correlation coefficient*. Using distribution functions, this parameter can be expressed as
+@blomqvist1950measure developed a measure of dependence now known as `r Gloss("Blomqvist's beta")`, also called the *median concordance coefficient* and the *medial correlation coefficient*. Using distribution functions, this parameter can be expressed as
 
 \begin{equation*}
 \beta = 4F\left(F^{-1}_X(1/2),F^{-1}_Y(1/2) \right) - 1.
@@ -1574,7 +1574,7 @@ Because Blomqvist's parameter is based on the center of the distribution, it is 
 
 You can obtain the Blomqvist's beta, using the `betan()` function from the `copula` library in `R`. From below, $\beta=0.3$ between the *Coverage* rating variable in millions of dollars and *Claim* amount  variable in dollars. 
 
-```{r comment="", results='hide', echo=FALSE, warning=FALSE}
+```{r include=FALSE, comment=""}
 ### Blomqvist's beta correlation between Claim and Coverage ###
 library(copula)
 n<-length(Claim)
@@ -1591,7 +1591,7 @@ round(beta,2)
 
 `r HideRCode('beta.1',"R Code for Blomqvist's Beta")`
 
-```{r echo=ShowCode(), eval=FALSE}
+```{r echo=SHOW_PDF, eval=FALSE}
 ### Blomqvist's beta correlation between Claim and Coverage ###
 library(copula)
 n<-length(Claim)
@@ -1675,14 +1675,14 @@ where $\hat{\pi}_X = (n-n_{0\centerdot})/n$ and similarly for $\hat{\pi}_Y$. Not
 
 You can obtain the ties-corrected Spearman correlation statistic $r_S$ using the `cor()` function in `R` and selecting the `spearman` method.  From below $\hat{\rho}_S=-0.09$.
 
-```{r comment="", results='hide', echo=FALSE}
+```{r include=FALSE}
 rs_ties<-cor(AlarmCredit,NoClaimCredit, method = c("spearman"))
 round(rs_ties,2)
 ```
 
 `r HideRCode('spearT.1',"R Code for Ties-corrected Spearman Correlation")`
 
-```{r echo=ShowCode(), eval=FALSE}
+```{r echo=SHOW_PDF, eval=FALSE}
 rs_ties<-cor(AlarmCredit,NoClaimCredit, method = c("spearman"))
 round(rs_ties,2)
 

@@ -4,7 +4,7 @@
 #Modeling Loss Severity {#C:Severity}
 
 
-*Chapter Preview.* The traditional loss distribution approach to modeling `r Gloss('aggregate losses')` starts by separately fitting a frequency distribution to the number of losses and a severity distribution to the size of losses. The estimated aggregate loss distribution combines the loss frequency distribution and the loss severity distribution by convolution. Discrete distributions often referred to as counting or frequency distributions were used in Chapter \@ref(C:Frequency-Modeling) to describe the number of events such as number of accidents to the driver or number of claims to the insurer. Lifetimes, asset values, losses and claim sizes are usually modeled as continuous random variables and as such are modeled using continuous distributions, often referred to as loss or severity distributions. A `r Gloss('mixture distribution')` is a weighted combination of simpler distributions that is used to model phenomenon investigated in a heterogeneous population, such as modelling more than one type of claims in `r Gloss('liability insurance')` (small frequent claims and large relatively rare claims). In this chapter we explore the use of continuous as well as mixture distributions to model the random size of loss. We present key attributes that characterize continuous models and means of creating new distributions from existing ones. We also explore the effect of coverage modifications, which change the conditions that trigger a payment, such as applying deductibles, limits, or adjusting for inflation, on the distribution of individual loss amounts. The frequency distributions from Chapter \@ref(C:Frequency-Modeling) will be combined with the ideas from this chapter to describe the aggregate losses over the whole portfolio in Chapter \@ref(C:AggLossModels).
+*Chapter Preview.* The traditional loss distribution approach to modeling `r Gloss('aggregate losses')` starts by separately fitting a frequency distribution to the number of losses and a severity distribution to the size of losses. The estimated aggregate loss distribution combines the loss frequency distribution and the loss severity distribution by convolution. Discrete distributions often referred to as counting or frequency distributions were used in Chapter \@ref(C:Frequency-Modeling) to describe the number of events such as number of accidents to the driver or number of claims to the insurer. Lifetimes, asset values, losses and claim sizes are usually modeled as continuous random variables and as such are modeled using continuous distributions, often referred to as loss or severity distributions. A `r Gloss('mixture distribution', '3')` is a weighted combination of simpler distributions that is used to model phenomenon investigated in a heterogeneous population, such as modelling more than one type of claims in `r Gloss('liability insurance')` (small frequent claims and large relatively rare claims). In this chapter we explore the use of continuous as well as mixture distributions to model the random size of loss. We present key attributes that characterize continuous models and means of creating new distributions from existing ones. We also explore the effect of coverage modifications, which change the conditions that trigger a payment, such as applying deductibles, limits, or adjusting for inflation, on the distribution of individual loss amounts. The frequency distributions from Chapter \@ref(C:Frequency-Modeling) will be combined with the ideas from this chapter to describe the aggregate losses over the whole portfolio in Chapter \@ref(C:AggLossModels).
 
 
 
@@ -42,7 +42,7 @@ The second central moment $\mu_{2}$ defines the `r Gloss('variance')` of $X$, de
 From a classical perspective, further characterization of the shape of the distribution includes its degree of symmetry as well as its flatness compared to the normal distribution. The ratio of the third central moment to the cube of the standard deviation $\left( \mu_{3} / \sigma^{3} \right)$ defines the coefficient of `r Gloss('skewness')` which is a measure of symmetry. A positive coefficient of skewness indicates that the distribution is skewed to the right (positively skewed). The ratio of the fourth central moment to the fourth power of the standard deviation $\left(\mu_{4} / \sigma^{4} \right)$ defines the coefficient of `r Gloss('kurtosis')`. The normal distribution has a coefficient of kurtosis of 3. Distributions with a coefficient of kurtosis greater than 3 have heavier tails and higher peak than the normal, whereas distributions with a coefficient of kurtosis less than 3 have lighter tails and are flatter. Section \@ref(S:Tails) describes the tails of distributions from an insurance and actuarial perspective.
 
 **Example `r chapnum`.1.1. Actuarial Exam Question.** 
-Assume that the *rv* $X$ has a gamma distribution with mean 8 and skewness 1. Find the variance of $X$. (*Hint*: The gamma distribution is reviewed in Section \@ref(S:Loss:Gamma).)
+Assume that the `r Gloss('rv')` $X$ has a gamma distribution with mean 8 and skewness 1. Find the variance of $X$. (*Hint*: The gamma distribution is reviewed in Section \@ref(S:Loss:Gamma).)
 
 `r HideExample('3.1.1','Show Example Solution')`
 
@@ -75,7 +75,7 @@ Quantiles can also be used to describe the characteristics of the distribution o
 $$
 F_{X}\left( \pi_{p} \right) = p .
 $$
-For example, the middle point of the distribution, $\pi_{0.5}$, is the `r Gloss('median')`. A `r Gloss('percentile')` is a type of quantile; a $100p$ percentile is the number such that $100 \times p$ percent of the data is below it.
+For example, the middle point of the distribution, $\pi_{0.5}$, is the `r Gloss('median')`. A `r Gloss('percentile', '3.1')` is a type of quantile; a $100p$ percentile is the number such that $100 \times p$ percent of the data is below it.
 
 
 **Example `r chapnum`.1.1. Actuarial Exam Question.**
@@ -228,7 +228,7 @@ legend("topright", c("shape=2", "shape=3", "shape=4", "shape=5"), lty=1, col = 1
 
 `r HideRCode('gamma.1','R Code for Gamma Density Plots')`
 
-```{r, echo=ShowCode(), eval=FALSE}
+```{r, echo=SHOW_PDF, eval=FALSE}
 par(mfrow=c(1, 2), mar = c(4, 4, .1, .1))
 
 # Varying Scale Gamma Densities
@@ -255,7 +255,7 @@ legend("topright", c("shape=2", "shape=3", "shape=4", "shape=5"), lty=1, col = 1
 
 </div>
 
-When $\alpha = 1$ the gamma reduces to an `r Gloss('exponential distribution')` and when $\alpha = \frac{n}{2}$ and $\theta = 2$ the gamma reduces to a `r Gloss('chi-square distribution')` with $n$ degrees of freedom. As we will see in Section \@ref(S:AppA:HT), the chi-square distribution is used extensively in statistical hypothesis testing.
+When $\alpha = 1$ the gamma reduces to an `r Gloss('exponential distribution')` and when $\alpha = \frac{n}{2}$ and $\theta = 2$ the gamma reduces to a `r Gloss('chi-square distribution', '3.2')` with $n$ degrees of freedom. As we will see in Section \@ref(S:AppA:HT), the chi-square distribution is used extensively in statistical hypothesis testing.
 
 The distribution function of the gamma model is the incomplete gamma function, denoted by $\Gamma\left(\alpha; \frac{x}{\theta} \right)$, and defined as
 $$
@@ -276,7 +276,7 @@ modeling risky assets as it will not provide a realistic assessment of the likel
 
 The `r Gloss('Pareto distribution')`, named after the Italian economist Vilfredo Pareto (1843-1923), has many economic and financial applications. It is a positively skewed and heavy-tailed distribution which makes it suitable for modeling income, high-risk insurance claims and severity of large casualty losses. The survival function of the Pareto distribution which decays slowly to zero was first used to describe the distribution of income where a small percentage of the population holds a large proportion of the total wealth. For extreme insurance claims, the tail of the severity distribution (losses in excess of a threshold) can be modeled using a Generalized Pareto distribution.
 
-The continuous variable $X$ is said to have the Pareto distribution with shape parameter $\alpha$ and scale parameter $\theta$ if its *pdf* is given by
+The continuous variable $X$ is said to have the Pareto distribution with shape parameter $\alpha$ and scale parameter $\theta$ if its `r Gloss('pdf')` is given by
 $$
 f_{X}\left( x \right) = \frac{\alpha\theta^{\alpha}}{\left( x + \theta \right)^{\alpha + 1}} \ \ \  x  >  0,\ \alpha >  0,\ \theta > 0.
 $$
@@ -312,7 +312,7 @@ legend("topright", c(expression(theta~'=2000'), expression(theta~'=2500'), expre
 
 `r HideRCode('Pareto.1','R Code for Pareto Density Plots')`
 
-```{r, echo=ShowCode(), eval=FALSE}
+```{r, echo=SHOW_PDF, eval=FALSE}
 library(VGAM)
 
 par(mfrow=c(1, 2), mar = c(4, 4, .1, .1))
@@ -408,7 +408,7 @@ legend("topright", c("shape=1.5", "shape=2", "shape=2.5", "shape=3"), lty=1, col
 
 `r HideRCode('Weibull.1','R Code for Weibull Density Plots')`
 
-```{r, echo=ShowCode(), eval=FALSE}
+```{r, echo=SHOW_PDF, eval=FALSE}
 par(mfrow=c(1, 2), mar = c(4, 4, .1, .1))
 
 # Varying Scale Weibull Densities
@@ -538,7 +538,7 @@ Hence, the probability density function of interest $f_{Y}(y)$ can be written as
 $$
 f_{Y}\left( y \right) = \frac{1}{c}f_{X}\left( \frac{y}{c} \right).
 $$
-Suppose that $X$ belongs to a certain set of `r Gloss('parametric distributions')` and define a rescaled version $Y\  = \ cX$, $c\  > \ 0$. If $Y$ is in the same set of distributions then the distribution is said to be a `r Gloss('scale distribution')`. When a member of a scale distribution is multiplied by a constant $c$ ($c > 0$), the scale parameter for this scale distribution meets two conditions:
+Suppose that $X$ belongs to a certain set of `r Gloss('parametric distributions')` and define a rescaled version $Y\  = \ cX$, $c\  > \ 0$. If $Y$ is in the same set of distributions then the distribution is said to be a `r Gloss('scale distribution', '3.3')`. When a member of a scale distribution is multiplied by a constant $c$ ($c > 0$), the scale parameter for this scale distribution meets two conditions:
 <ol>
 <li>The parameter is changed by multiplying by $c$;</li>
 <li>All other parameters remain unchanged.</li>
@@ -666,7 +666,7 @@ Assume that $X$ has a uniform distribution on the interval $(0,\ c)$ and define 
 
 **Solution.**
 
-We begin with the *cdf* of $Y$,
+We begin with the `r Gloss('cdf')` of $Y$,
 $$
 F_{Y}\left( y \right) = \Pr\left( Y \leq y \right) = \Pr\left( e^{X} \leq y \right) = \Pr\left( X \leq \ln y \right) = F_{X}\left( \ln y \right).
 $$
@@ -758,7 +758,7 @@ A mixture with a very large number of subpopulations ($k$ goes to infinity) is o
 $$
 f_{X}\left( x \right) = \int_{-\infty}^{\infty}{f_{X}\left(x \left| \theta \right.  \right)g_{\Theta}( \theta )} d \theta ,
 $$
-where $f_{X}\left( x | \theta  \right)$ is the `r Gloss('conditional distribution')` of $X$ at a particular value of $\Theta=\theta$ and $g_{\Theta}\left( \theta \right)$ is the probability statement made about the unknown parameter $\theta$. In a Bayesian context (described in Section \@ref(S:MS:BayesInference)), this is known as the `r Gloss('prior distribution')` of $\Theta$ (the prior information or expert opinion to be used in the analysis).
+where $f_{X}\left( x | \theta  \right)$ is the `r Gloss('conditional distribution')` of $X$ at a particular value of $\Theta=\theta$ and $g_{\Theta}\left( \theta \right)$ is the probability statement made about the unknown parameter $\theta$. In a Bayesian context (described in Section \@ref(S:MS:BayesInference)), this is known as the `r Gloss('prior distribution', '3.3')` of $\Theta$ (the prior information or expert opinion to be used in the analysis).
 
 The distribution function, $k$-th moment and moment generating functions of the continuous mixture are given as
 $$
@@ -1184,7 +1184,7 @@ Because $\frac{E\left( Y_{2007}^{P} \right)}{E\left( Y_{2006}^{P} \right)} -1 = 
 
 ###Reinsurance {#S:Chap3Reinsurance}
 
-In Section \@ref(S:PolicyDeduct) we introduced the policy deductible, which is a contractual arrangement under which an insured transfers part of the risk by securing coverage from an insurer in return for an insurance premium. Under that policy, the insured must pay all losses up to the deductible, and the insurer only pays the amount (if any) above the deductible. We now introduce `r Gloss('reinsurance')`, a mechanism of insurance for insurance companies. Reinsurance is a contractual arrangement under which an insurer transfers part of the underlying insured risk by securing coverage from another insurer (referred to as a reinsurer) in return for a reinsurance premium. Although reinsurance involves a relationship between three parties: the original insured, the insurer (often referred to as `r Gloss('cedent')` or cedant) and the reinsurer, the parties of the reinsurance agreement are only the primary insurer and the reinsurer. There is no contractual agreement between the original insured and the reinsurer. Though many different types of reinsurance contracts exist, a common form is `r Gloss('excess of loss coverage')`. In such contracts, the primary insurer must make all required payments to the insured until the primary insurer's total payments reach a fixed reinsurance deducible. The reinsurer is then only responsible for paying losses above the reinsurance deductible. The maximum amount retained by the primary insurer in the reinsurance agreement (the reinsurance deductible) is called `r Gloss('retention')`.  
+In Section \@ref(S:PolicyDeduct) we introduced the policy deductible, which is a contractual arrangement under which an insured transfers part of the risk by securing coverage from an insurer in return for an insurance premium. Under that policy, the insured must pay all losses up to the deductible, and the insurer only pays the amount (if any) above the deductible. We now introduce `r Gloss('reinsurance', '3.4')`, a mechanism of insurance for insurance companies. Reinsurance is a contractual arrangement under which an insurer transfers part of the underlying insured risk by securing coverage from another insurer (referred to as a reinsurer) in return for a reinsurance premium. Although reinsurance involves a relationship between three parties: the original insured, the insurer (often referred to as `r Gloss('cedent')` or cedant) and the reinsurer, the parties of the reinsurance agreement are only the primary insurer and the reinsurer. There is no contractual agreement between the original insured and the reinsurer. Though many different types of reinsurance contracts exist, a common form is `r Gloss('excess of loss coverage')`. In such contracts, the primary insurer must make all required payments to the insured until the primary insurer's total payments reach a fixed reinsurance deducible. The reinsurer is then only responsible for paying losses above the reinsurance deductible. The maximum amount retained by the primary insurer in the reinsurance agreement (the reinsurance deductible) is called `r Gloss('retention')`.  
 
 Reinsurance arrangements allow insurers with limited financial resources to increase the capacity to write insurance and meet client requests for larger insurance coverage while reducing the impact of potential losses and protecting the insurance company against catastrophic losses. Reinsurance also allows the primary insurer to benefit from underwriting skills, expertise and proficient complex claim file handling of the larger reinsurance companies.
 
@@ -1330,7 +1330,7 @@ Naturally, there are many problems where it is not practical to use hand calcula
 
 `r HideRCode('optim.1','R Code for Optimization')`
 
-```{r, echo=ShowCode(), message=FALSE, warning=FALSE}
+```{r, echo=SHOW_PDF, message=FALSE, warning=FALSE}
 c1 <- log(521)+log(658)+log(702)+log(819)+log(1217)
 nloglike <- function(alpha){-(5*alpha*log(500)+5*log(alpha)-(alpha+1)*c1)}
 MLE <- optim(par=1, fn=nloglike)$par
@@ -1478,7 +1478,7 @@ $$0.57 \pm 1.96\sqrt{0.0329} = \left( 0.214,\ 0.926 \right).$$
 `r HideExample('3.5.3a','Show Example Solution')`
 
 
-**a.** To derive the covariance matrix of the *mle* we need to find the expectations of the second derivatives. Since the random variable $X$ is from a lognormal distribution with parameters $\mu$ and $\sigma$, then $\text{lnX}$ is normally distributed with mean $\mu$ and variance $\sigma^{2}$.
+**a.** To derive the covariance matrix of the `r Gloss('mle')` we need to find the expectations of the second derivatives. Since the random variable $X$ is from a lognormal distribution with parameters $\mu$ and $\sigma$, then $\text{lnX}$ is normally distributed with mean $\mu$ and variance $\sigma^{2}$.
 
 $\mathrm{E}\left( \frac{\partial^{2}\text{lnL}\left( \mu,\sigma \right)}{\partial\mu^{2}} \right) = \mathrm{E}\left( \frac{- 6}{\sigma^{2}} \right) = \frac{- 6}{\sigma^{2}}$,
 
@@ -1559,7 +1559,7 @@ The following snippet of code shows how to fit the exponential, gamma, Pareto, l
 `r HideExample('3.5.4','Show Example Solution')`
 
 
-```{r message = FALSE, warning = FALSE, fig.cap='Density Comparisons for the Wisconsin Property Fund', fig.align='center', eval= FALSE}
+```{r message = FALSE, warning = FALSE, fig.cap='Density Comparisons for the Wisconsin Property Fund', fig.align='center', eval= FALSE, echo=SHOW_PDF}
 
 library(VGAM)
 claim_lev <- read.csv("Data/CLAIMLEVEL.csv", header = TRUE) 

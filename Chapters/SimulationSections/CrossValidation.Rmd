@@ -6,17 +6,17 @@ Cross-validation, briefly introduced in Section 4.2.4, is a technique based on s
 - Bootstrap, and other resampling methods introduced in Section \@ref(S:Bootstrap), provide estimators of the precision, or variability, of statistics.
 - Cross-validation is important when assessing how accurately a predictive model will perform in practice.
 
-Overlap exists but nonetheless it is helpful to think about these broad goals as associated with each statistical method.
+Overlap exists but nonetheless it is helpful to think about the broad goals as associated with each statistical method.
 
-To discuss cross-validation, let us recall from Section 4.2 some of the key ideas of model validation. When assessing, or validating, a model, we look to  performance measured on *new* data, or at least not those that were used to fit the model. A classical approach, described in Section 4.2.3, is to split the sample in two: a subpart (the *training* dataset) is used to fit the model and another one (the *testing* dataset) is used to validate. However, a limitation of this approach is that results depend on the split; even though the overall sample is fixed, the split between training and test sub samples varies randomly. A different training sample means that model estimated parameters will differ. Different model parameters and a different test sample means that validation statistics will differ. Two analysts may use the same data and same models yet reach different conclusions about the viability of a model (based on different random splits), a frustrating situation.
+To discuss cross-validation, let us recall from Section 4.2 some of the key ideas of model validation. When assessing, or validating, a model, we look to  performance measured on *new* data, or at least not those that were used to fit the model. A classical approach, described in Section 4.2.3, is to split the sample in two: a subpart (the *training* dataset) is used to fit the model and another one (the *testing* dataset) is used to validate. However, a limitation of this approach is that results depend on the split; even though the overall sample is fixed, the split between training and test subsamples varies randomly. A different training sample means that model estimated parameters will differ. Different model parameters and a different test sample means that validation statistics will differ. Two analysts may use the same data and same models yet reach different conclusions about the viability of a model (based on different random splits), a frustrating situation.
 
 <!-- 
-Cross-validation techniques are used to avoid the basic two part split. Note that two techniques will be mentioned here : an exhaustive aprroach, where all observations will be used (once, and only once) as a testing observation and a non-exhaustive one, based on bootstrap techniques. See [Arlot & Celisse (2010)](https://projecteuclid.org/euclid.ssu/1268143839) for a survey.
+Cross-validation techniques are used to avoid the basic two part split. Note that two techniques will be mentioned here : an exhaustive approach, where all observations will be used (once, and only once) as a testing observation and a non-exhaustive one, based on bootstrap techniques. See [Arlot & Celisse (2010)](https://projecteuclid.org/euclid.ssu/1268143839) for a survey.
  -->
 
 ### k-Fold Cross-Validation
 
-To mitigate this difficulty, it is common to use a cross-validation approach as introduced in Section 4.2.4. The key idea is to replicate the basic test/training approach to model validation but to repeat it many times by averaging over different splits of the data. A key advantage is that the validation statistic is not tied to a specific parametric (or nonparametric) model - one can use a nonparametric statistic or a statistic that has economic interpretations - and so this can be used to compare models that are not nested (unlike likelihood ratio procedures).
+To mitigate this difficulty, it is common to use a cross-validation approach as introduced in Section 4.2.4. The key idea is to emulate the basic test/training approach to model validation by repeating it many times through averaging over different splits of the data. A key advantage is that the validation statistic is not tied to a specific parametric (or nonparametric) model - one can use a nonparametric statistic or a statistic that has economic interpretations - and so this can be used to compare models that are not nested (unlike likelihood ratio procedures).
 
 ```{r echo = FALSE, warning = FALSE, message = FALSE, comment = ""}
 ## Read in data and get number of claims.  
@@ -41,11 +41,11 @@ ksResultGamma <- ks.test(claim_data$Claim, "pgamma", shape = alpha, scale = gamm
 **Example `r chapnum`.3.1. Wisconsin Property Fund.** For the 2010 property fund data introduced in Section 1.3, we fit gamma and Pareto distributions to the 1,377 claims data. For details of the related goodness of fit, see Appendix Section 15.4.4. We now consider the Kolmogorov-Smirnov statistic introduced in Section 4.1.2.2. When the entire dataset was fit, the Kolmogorov-Smirnov goodness of fit statistic for the gamma distribution turns out to be 
 `r round(ksResultPareto$statistic,digits=4)` and for the Pareto distribution is `r round(ksResultGamma$statistic,digits=4)`. The lower value for the Pareto distribution indicates that this distribution is a better fit than the gamma.
 
-To see how $k$-fold cross-validation works, we randomly split the data into $k=8$ groups, or folds, each having about $1377/8 \approx 172$ observations. Then, we fit gamma and Pareto models to a data set with the first seven folds (about $172*7 = 1204$ observations), determined estimated parameters, and then used these fitted models with the held-out data to determine the Kolmogorov-Smirnov statistic. The results appear in 
-Figure \@ref(fig:KScvFig) where horizontal axis is Fold=1. This process was repeated for the other seven folds. The results summarized in Figure \@ref(fig:KScvFig) show that the Pareto is a consistently provides a more reliable predictive distribution than the gamma.
+To see how `r Gloss('k-fold cross-validation')` works, we randomly split the data into $k=8$ groups, or folds, each having about $1377/8 \approx 172$ observations. Then, we fit gamma and Pareto models to a data set with the first seven folds (about $172*7 = 1204$ observations), determine estimated parameters, and then used these fitted models with the held-out data to determine the Kolmogorov-Smirnov statistic. 
 
-```{r KScvFig, warning = FALSE, message = FALSE, comment = "", fig.align='center', fig.cap='Cross Validated Kolmogorov-Smirnov (KS) Statistics for the Property Fund Claims Data. The solid black line is for the Pareto distribution, the green dashed line is for the gamma distribution. The KS statistic measures the largest deviation between the fitted distribution and the empirical distribution for each of 8 groups, or folds, of randomly selected data.'}
-## Cross - Validation
+`r HideRCode('KFoldCV.1','Show R Code for Kolmogorov-Smirnov Cross-Validation')`
+
+```{r warning = FALSE, message = FALSE, comment = "",  echo=SHOW_PDF}
 # Randomly re-order the data - "shuffle it"
 n <- nrow(claim_data)
 set.seed(12347)
@@ -67,19 +67,26 @@ for (i in 1:k) {
   ksResultGamma <- ks.test(cvdata[indices,]$Claim, "pgamma", shape = alpha, scale = gamma_theta)
   cvalvec[2,i] <- ksResultGamma$statistic
 }
-# Plot the statistics
-matplot(1:k,t(cvalvec),type="b", col=c(1,3), lty=1:2, ylim=c(0,0.4), pch = 0, xlab="Fold", ylab="KS Statistic")
-legend("left", c("Pareto", "Gamma"), col=c(1,3),lty=1:2, bty="n")
 KScv <- rowSums(cvalvec)/k
 
 ```
 
+</div>
+
+The results appear in Figure \@ref(fig:KScvFig) where horizontal axis is Fold=1. This process was repeated for the other seven folds. The results summarized in Figure \@ref(fig:KScvFig) show that the Pareto consistently provides a more reliable predictive distribution than the gamma.
+
+```{r KScvFig, warning = FALSE, message = FALSE, comment = "", fig.align='center', fig.cap='Cross Validated Kolmogorov-Smirnov (KS) Statistics for the Property Fund Claims Data. The solid black line is for the Pareto distribution, the green dashed line is for the gamma distribution. The KS statistic measures the largest deviation between the fitted distribution and the empirical distribution for each of 8 groups, or folds, of randomly selected data.', echo=SHOW_PDF}
+# Plot the statistics
+matplot(1:k,t(cvalvec),type="b", col=c(1,3), lty=1:2, 
+        ylim=c(0,0.4), pch = 0, xlab="Fold", ylab="KS Statistic")
+legend("left", c("Pareto", "Gamma"), col=c(1,3),lty=1:2, bty="n")
+```
 
 ### Leave-One-Out Cross-Validation
 
-A special case where $k=n$ is known as *leave-one-out cross validation.* This case is historically prominent and is closely related to **jackknife statistics**, a precursor of the bootstrap technique. 
+A special case where $k=n$ is known as `r Gloss('leave-one-out cross validation')`. This case is historically prominent and is closely related to `r Gloss('jackknife statistics')`, a precursor of the bootstrap technique. 
 
-Even though we present it as a special case of cross-validation, it is helpful to given an explicit definition. Consider a generic statistic $\widehat{\theta}=t(\boldsymbol{x})$ that is an estimator for a parameter of interest $\theta$. The idea of jackknife is to compute $n$ values $\widehat{\theta}_{-i}=t(\boldsymbol{x}_{-i})$, where $\boldsymbol{x}_{-i}$ is the subsample of $\boldsymbol{x}$ with the $i$-th value removed. The average of these values is denoted a
+Even though we present it as a special case of cross-validation, it is helpful to given an explicit definition. Consider a generic statistic $\widehat{\theta}=t(\boldsymbol{x})$ that is an estimator for a parameter of interest $\theta$. The idea of the jackknife is to compute $n$ values $\widehat{\theta}_{-i}=t(\boldsymbol{x}_{-i})$, where $\boldsymbol{x}_{-i}$ is the subsample of $\boldsymbol{x}$ with the $i$-th value removed. The average of these values is denoted as
 $$
 \overline{\widehat{\theta}}_{(\cdot)}=\frac{1}{n}\sum_{i=1}^n \widehat{\theta}_{-i} .
 $$
@@ -90,7 +97,7 @@ Bias_{jack} = (n-1) \left(\overline{\widehat{\theta}}_{(\cdot)} - \widehat{\thet
 (\#eq:Biasjack)
 \end{equation}
 
-as well as a standard deviation
+as well as a standard deviation estimate
 
 \begin{equation}
 s_{jack} =\sqrt{\frac{n-1}{n}\sum_{i=1}^n \left(\widehat{\theta}_{-i} -\overline{\widehat{\theta}}_{(\cdot)}\right)^2} ~.
@@ -101,10 +108,11 @@ s_{jack} =\sqrt{\frac{n-1}{n}\sum_{i=1}^n \left(\widehat{\theta}_{-i} -\overline
 **Example `r chapnum`.3.2. Coefficient of Variation.** To illustrate, consider a small fictitious sample $\boldsymbol{x}=\{x_1,\ldots,x_n\}$ with realizations
 
 ```{}
-sample_x <- c(2.46,2.80,3.28,3.86,2.85,3.67,3.37,3.40,5.22,2.55,2.79,4.50,3.37,2.88,1.44,2.56,2.00,2.07,2.19,1.77)
+sample_x <- c(2.46,2.80,3.28,3.86,2.85,3.67,3.37,3.40,
+              5.22,2.55,2.79,4.50,3.37,2.88,1.44,2.56,2.00,2.07,2.19,1.77)
 ```
 
-Suppose that we are interested in the coefficient of variation
+Suppose that we are interested in the `r Gloss('coefficient of variation')`
 $\theta = CV = \sqrt{\mathrm{Var~}X}/\mathrm{E~}X$.
 
 
@@ -120,7 +128,7 @@ sdJack <- sd(JackTheta)
 With this dataset, the estimator of the coefficient of variation turns out to be `r round(CVar(sample_x),digits = 5)`. But how reliable is it? To answer this question, we can compute the jackknife estimates of bias and its standard deviation. The following code shows that the jackknife estimator of the bias is $Bias_{jack} =$ `r round(BiasJack,digits = 5)` and the jackknife standard deviation is $s_{jack} =$ `r round(sdJack,digits = 5)`.
 
 
-```{r eval = FALSE}
+```{r eval = FALSE, echo=SHOW_PDF}
 CVar <- function(x) sqrt(var(x))/mean(x)
 JackCVar <- function(i) sqrt(var(sample_x[-i]))/mean(sample_x[-i])
 JackTheta <- Vectorize(JackCVar)(1:length(sample_x))
@@ -136,14 +144,9 @@ sd(JackTheta)
 [Table 6.7] summarizes the results of the jackknife estimation. It shows that jackknife estimates of the bias and standard deviation of the loss elimination ratio $\mathrm{E}~\min(X,d)/\mathrm{E}~X$ are largely consistent with the bootstrap methodology. Moreover, one can use the standard deviations to construct normal based confidence intervals, centered around a bias-corrected estimator. For example, at $d=14000$, we saw in Example 4.1.11 that the nonparametric estimate of *LER* is 0.97678. This has an estimated bias of 0.00010, resulting in the (jackknife) *bias-corrected* estimator 0.97688. The 95% confidence intervals are produced by creating an interval of twice the length of 1.96 jackknife standard deviations, centered about the bias-corrected estimator (1.96 is the approximate 97.5th quantile of the standard normal distribution). 
 
 
-[Table 6.7]:\#tab:67
+`r HideRCode('Jackknife.1','Show the R Code')`
 
-<a id=tab:67></a>
-
-##### Table 6.7. Jackkife Estimates of LER at Selected Deductibles {-}
-
-
-```{r comment="", warning=FALSE, echo = FALSE}
+```{r comment="", warning=FALSE, echo=SHOW_PDF}
 # Example from Derrig et al
 BIData <- read.csv("../../Data/DerrigResampling.csv", header =T)
 BIData$Censored <- 1*(BIData$AmountPaid >= BIData$PolicyLimit)
@@ -181,8 +184,20 @@ OutJack[j,5] <- BiasJack.ded <- (length(x)-1)*(mean(JackTheta.ded) - LER(ded=dVe
 OutJack[j,6] <- sd(JackTheta.ded)
 OutJack[j,7:8] <- mean(JackTheta.ded)+qt(c(0.025,0.975),length(x)-1)*OutJack[j,6]
 }
-knitr::kable(OutJack, digits=5)
 
+```
+
+</div>
+
+
+[Table 6.7]:\#tab:67
+
+<a id=tab:67></a>
+
+##### Table 6.7. Jackknife Estimates of LER at Selected Deductibles {-}
+
+```{r comment="", echo=FALSE}
+knitr::kable(OutJack, digits=5)
 ```
 
 ***
@@ -194,28 +209,52 @@ Jackknife statistics were developed to understand precision of estimators, produ
 
 ### Cross-Validation and Bootstrap
 
-**Arthur**. *I'm not sure about the point of this section. Is it supposed to point out connections, as per Efron (1982) Chapter 7?*
+The bootstrap is useful in providing estimators of the precision, or variability, of statistics. It can also be useful for model validation. The bootstrap approach to model validation is similar to the leave-one-out and *k*-fold validation procedures:
 
-One can mix the idea of cross-validation and bootstrap :
+- Create a bootstrap sample by re-sampling (with replacement) $n$ indices in $\{1,\cdots,n\}$. That will be our *training sample*. Estimate the model under consideration based on this sample.
+- The *test*, or *validation sample*, consists of those observations not selected for training. Evaluate the fitted model (based on the training data) using the test data.
 
-- create a bootstrap sample with re-sampling (with replacement) $n$ indices in $\{1,\cdots,n\}$ : let $\mathcal{I}_b$ denote that set of indices. That will be our *training sample*
-- the validation sample will observations that were not
+Repeat this process many (say $B$) times. Take an average over the results and choose the model based on the average evaluation statistic.
 
-```{r, warning=FALSE, comment=FALSE, eval = ANIMATION}
-indices <- sample(nrow(cars))
-List_indices = List_indices_C = list()
-for(i in 1:100){
-  List_indices[[i]] <- sample(indices, size=length(indices), replace= TRUE)
-  List_indices_C[[i]] <- (1:nrow(cars))[-sort(unique(List_indices[[i]]))]}
-List_indices[[1]]
-List_indices_C[[1]]
-epsilon <- list()
-mean_RSS <- rep(NA,100)
-for(i in 1:length(List_indices)){
-  model <- lm(dist~speed,data=cars[List_indices[[i]],])
-  epsilon[[i]] <- cars[List_indices_C[[i]],"dist"]-predict(model, newdata=cars[List_indices_C[[i]],])
-  mean_RSS[i] <- mean( (epsilon[[i]])^2 )
+
+**Example `r chapnum`.3.4. Wisconsin Property Fund.**  Return to Example `r chapnum`.3.1 where we investigate the fit of the gamma and Pareto distributions on the property fund data. We again compare the predictive performance using the Kolmogorov-Smirnov statistic but this time using the bootstrap procedure to split the data between training and testing samples. The following provides illustrative code.
+
+`r HideRCode('BootstrapValidation.1','Show R Code for Bootstrapping Validation Procedures')`
+
+```{r, warning=FALSE, comment=FALSE, echo=SHOW_PDF}
+# library(MASS)
+# library(VGAM)
+# library(goftest)
+# claim_lev <- read.csv("../../Data/CLAIMLEVEL.csv", header = TRUE) 
+# # 2010 subset 
+# claim_data <- subset(claim_lev, Year == 2010); 
+n <- nrow(claim_data)
+set.seed(12347)
+indices <- 1:n
+# Number of Bootstrap Samples
+B <- 100
+cvalvec <- matrix(0,2,B)
+for (i in 1:B) {
+  bootindex <- unique(sample(indices, size=n, replace= TRUE))
+  traindata <- claim_data[bootindex,]
+  testdata  <- claim_data[-bootindex,]
+# Pareto
+  fit.pareto <- vglm(Claim ~ 1, paretoII, loc = 0, data = traindata)
+  ksResultPareto <- ks.test(testdata$Claim, "pparetoII", loc = 0, shape = exp(coef(fit.pareto)[2]), 
+        scale = exp(coef(fit.pareto)[1]))
+  cvalvec[1,i] <- ksResultPareto$statistic
+# Gamma
+  fit.gamma <- glm(Claim ~ 1, data = traindata, family = Gamma(link = log)) 
+  gamma_theta <- exp(coef(fit.gamma)) * gamma.dispersion(fit.gamma)  
+  alpha <- 1 / gamma.dispersion(fit.gamma)
+  ksResultGamma <- ks.test(testdata$Claim, "pgamma", shape = alpha, scale = gamma_theta)
+  cvalvec[2,i] <- ksResultGamma$statistic
 }
-nrow(cars)*mean(mean_RSS)
+KSBoot <- rowSums(cvalvec)/B
+
 ```
+
+</div>
+
+We did the sampling using $B=$ `r B` replications. The average *KS* statistic for the Pareto distribution was `r round (KSBoot[1], digits = 3)` compared to the average for the gamma distribution, `r round (KSBoot[2], digits = 3)`. This is consistent with earlier results and provides another piece of evidence that the Pareto is a better model for these data than the gamma.
 

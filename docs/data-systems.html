@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Loss Data Analytics</title>
+  <meta name="description" content="Loss Data Analytics is an interactive, online, freely available text. - The online version will contain many interactive objects (quizzes, computer demonstrations, interactive graphs, video, and the like) to promote deeper learning. - A subset of the book will be available in pdf format for low-cost printing. - The online text will be available in multiple languages to promote access to a worldwide audience.">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Loss Data Analytics" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Loss Data Analytics is an interactive, online, freely available text. - The online version will contain many interactive objects (quizzes, computer demonstrations, interactive graphs, video, and the like) to promote deeper learning. - A subset of the book will be available in pdf format for low-cost printing. - The online text will be available in multiple languages to promote access to a worldwide audience." />
+  <meta name="github-repo" content="<a href="https://github.com/ewfrees/Loss-Data-Analytics" class="uri">https://github.com/ewfrees/Loss-Data-Analytics</a>" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Loss Data Analytics" />
+  
+  <meta name="twitter:description" content="Loss Data Analytics is an interactive, online, freely available text. - The online version will contain many interactive objects (quizzes, computer demonstrations, interactive graphs, video, and the like) to promote deeper learning. - A subset of the book will be available in pdf format for low-cost printing. - The online text will be available in multiple languages to promote access to a worldwide audience." />
+  
+
+<meta name="author" content="An open text authored by the Actuarial Community">
+
+
+<meta name="date" content="2018-07-23">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="C-BonusMalus.html">
+<link rel="next" href="C-DependenceModel.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script language="javascript">
+function toggle(id1,id2) {
+	var ele = document.getElementById(id1); var text = document.getElementById(id2);
+	if (ele.style.display == "block") {ele.style.display = "none"; text.innerHTML = "Show Solution";}
+		else {ele.style.display = "block"; text.innerHTML = "Hide Solution";}}
+</script>
+<script language="javascript">
+function togglecode(id1,id2) {
+   var ele = document.getElementById(id1); var text = document.getElementById(id2);
+   if (ele.style.display == "block") {ele.style.display = "none"; text.innerHTML = "Show R Code";}
+      else {ele.style.display = "block"; text.innerHTML = "Hide R Code";}}
+</script>
+<script language="javascript">
+function toggleEX(id1,id2) {
+   var ele = document.getElementById(id1); var text = document.getElementById(id2);
+   if (ele.style.display == "block") {ele.style.display = "none"; text.innerHTML = "Show Example";}
+      else {ele.style.display = "block"; text.innerHTML = "Hide Example";}}
+</script>
+<script language="javascript">
+function toggleTheory(id1,id2) {
+   var ele = document.getElementById(id1); var text = document.getElementById(id2);
+   if (ele.style.display == "block") {ele.style.display = "none"; text.innerHTML = "Show Theory";}
+      else {ele.style.display = "block"; text.innerHTML = "Hide Theory";}}
+</script>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Loss Data Analytics</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="" data-path="contributor-list.html"><a href="contributor-list.html"><i class="fa fa-check"></i>Contributor List</a></li>
+<li class="chapter" data-level="" data-path="acknowledgements.html"><a href="acknowledgements.html"><i class="fa fa-check"></i>Acknowledgements</a><ul>
+<li class="chapter" data-level="" data-path="acknowledgements.html"><a href="acknowledgements.html#reviewer-acknowledgment"><i class="fa fa-check"></i>Reviewer Acknowledgment</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="C-Intro.html"><a href="C-Intro.html"><i class="fa fa-check"></i><b>1</b> Introduction to Loss Data Analytics</a><ul>
+<li class="chapter" data-level="1.1" data-path="C-Intro.html"><a href="C-Intro.html#S:Intro"><i class="fa fa-check"></i><b>1.1</b> Relevance of Analytics</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="C-Intro.html"><a href="C-Intro.html#what-is-analytics"><i class="fa fa-check"></i><b>1.1.1</b> What is Analytics?</a></li>
+<li class="chapter" data-level="1.1.2" data-path="C-Intro.html"><a href="C-Intro.html#short-term-insurance"><i class="fa fa-check"></i><b>1.1.2</b> Short-term Insurance</a></li>
+<li class="chapter" data-level="1.1.3" data-path="C-Intro.html"><a href="C-Intro.html#S:InsProcesses"><i class="fa fa-check"></i><b>1.1.3</b> Insurance Processes</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="C-Intro.html"><a href="C-Intro.html#S:PredModApps"><i class="fa fa-check"></i><b>1.2</b> Insurance Company Operations</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="C-Intro.html"><a href="C-Intro.html#initiating-insurance"><i class="fa fa-check"></i><b>1.2.1</b> Initiating Insurance</a></li>
+<li class="chapter" data-level="1.2.2" data-path="C-Intro.html"><a href="C-Intro.html#renewing-insurance"><i class="fa fa-check"></i><b>1.2.2</b> Renewing Insurance</a></li>
+<li class="chapter" data-level="1.2.3" data-path="C-Intro.html"><a href="C-Intro.html#claims-and-product-management"><i class="fa fa-check"></i><b>1.2.3</b> Claims and Product Management</a></li>
+<li class="chapter" data-level="1.2.4" data-path="C-Intro.html"><a href="C-Intro.html#S:Reserving"><i class="fa fa-check"></i><b>1.2.4</b> Loss Reserving</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="C-Intro.html"><a href="C-Intro.html#S:LGPIF"><i class="fa fa-check"></i><b>1.3</b> Case Study: Wisconsin Property Fund</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="C-Intro.html"><a href="C-Intro.html#S:OutComes"><i class="fa fa-check"></i><b>1.3.1</b> Fund Claims Variables</a></li>
+<li class="chapter" data-level="1.3.2" data-path="C-Intro.html"><a href="C-Intro.html#S:FundVariables"><i class="fa fa-check"></i><b>1.3.2</b> Fund Rating Variables</a></li>
+<li class="chapter" data-level="1.3.3" data-path="C-Intro.html"><a href="C-Intro.html#fund-operations"><i class="fa fa-check"></i><b>1.3.3</b> Fund Operations</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="C-Intro.html"><a href="C-Intro.html#Intro-further-reading-and-resources"><i class="fa fa-check"></i><b>1.4</b> Further Resources and Contributors</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="C-Frequency-Modeling.html"><a href="C-Frequency-Modeling.html"><i class="fa fa-check"></i><b>2</b> Frequency Modeling</a><ul>
+<li class="chapter" data-level="2.1" data-path="C-Frequency-Modeling.html"><a href="C-Frequency-Modeling.html#S:frequency-distributions"><i class="fa fa-check"></i><b>2.1</b> Frequency Distributions</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="C-Frequency-Modeling.html"><a href="C-Frequency-Modeling.html#S:how-frequency-augments-severity-information"><i class="fa fa-check"></i><b>2.1.1</b> How Frequency Augments Severity Information</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="C-Frequency-Modeling.html"><a href="C-Frequency-Modeling.html#S:basic-frequency-distributions"><i class="fa fa-check"></i><b>2.2</b> Basic Frequency Distributions</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="C-Frequency-Modeling.html"><a href="C-Frequency-Modeling.html#S:foundations"><i class="fa fa-check"></i><b>2.2.1</b> Foundations</a></li>
+<li class="chapter" data-level="2.2.2" data-path="C-Frequency-Modeling.html"><a href="C-Frequency-Modeling.html#S:generating-functions"><i class="fa fa-check"></i><b>2.2.2</b> Moment and Probability Generating Functions</a></li>
+<li class="chapter" data-level="2.2.3" data-path="C-Frequency-Modeling.html"><a href="C-Frequency-Modeling.html#S:important-frequency-distributions"><i class="fa fa-check"></i><b>2.2.3</b> Important Frequency Distributions</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="C-Frequency-Modeling.html"><a href="C-Frequency-Modeling.html#S:the-a-b-0-class"><i class="fa fa-check"></i><b>2.3</b> The (a, b, 0) Class</a></li>
+<li class="chapter" data-level="2.4" data-path="C-Frequency-Modeling.html"><a href="C-Frequency-Modeling.html#S:estimating-frequency-distributions"><i class="fa fa-check"></i><b>2.4</b> Estimating Frequency Distributions</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="C-Frequency-Modeling.html"><a href="C-Frequency-Modeling.html#S:parameter-estimation"><i class="fa fa-check"></i><b>2.4.1</b> Parameter estimation</a></li>
+<li class="chapter" data-level="2.4.2" data-path="C-Frequency-Modeling.html"><a href="C-Frequency-Modeling.html#S:frequency-distributions-mle"><i class="fa fa-check"></i><b>2.4.2</b> Frequency Distributions MLE</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="C-Frequency-Modeling.html"><a href="C-Frequency-Modeling.html#S:other-frequency-distributions"><i class="fa fa-check"></i><b>2.5</b> Other Frequency Distributions</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="C-Frequency-Modeling.html"><a href="C-Frequency-Modeling.html#S:zero-truncation-or-modification"><i class="fa fa-check"></i><b>2.5.1</b> Zero Truncation or Modification</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="C-Frequency-Modeling.html"><a href="C-Frequency-Modeling.html#S:mixture-distributions"><i class="fa fa-check"></i><b>2.6</b> Mixture Distributions</a></li>
+<li class="chapter" data-level="2.7" data-path="C-Frequency-Modeling.html"><a href="C-Frequency-Modeling.html#S:goodness-of-fit"><i class="fa fa-check"></i><b>2.7</b> Goodness of Fit</a></li>
+<li class="chapter" data-level="2.8" data-path="C-Frequency-Modeling.html"><a href="C-Frequency-Modeling.html#S:exercises"><i class="fa fa-check"></i><b>2.8</b> Exercises</a></li>
+<li class="chapter" data-level="2.9" data-path="C-Frequency-Modeling.html"><a href="C-Frequency-Modeling.html#r-code-for-plots-in-this-chapter"><i class="fa fa-check"></i><b>2.9</b> R Code for Plots in this Chapter</a></li>
+<li class="chapter" data-level="2.10" data-path="C-Frequency-Modeling.html"><a href="C-Frequency-Modeling.html#Freq-further-reading-and-resources"><i class="fa fa-check"></i><b>2.10</b> Further Resources and Contributors</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="C-Severity.html"><a href="C-Severity.html"><i class="fa fa-check"></i><b>3</b> Modeling Loss Severity</a><ul>
+<li class="chapter" data-level="3.1" data-path="C-Severity.html"><a href="C-Severity.html#S:BasicQuantities"><i class="fa fa-check"></i><b>3.1</b> Basic Distributional Quantities</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="C-Severity.html"><a href="C-Severity.html#moments"><i class="fa fa-check"></i><b>3.1.1</b> Moments</a></li>
+<li class="chapter" data-level="3.1.2" data-path="C-Severity.html"><a href="C-Severity.html#quantiles"><i class="fa fa-check"></i><b>3.1.2</b> Quantiles</a></li>
+<li class="chapter" data-level="3.1.3" data-path="C-Severity.html"><a href="C-Severity.html#moment-generating-function"><i class="fa fa-check"></i><b>3.1.3</b> Moment Generating Function</a></li>
+<li class="chapter" data-level="3.1.4" data-path="C-Severity.html"><a href="C-Severity.html#probability-generating-function"><i class="fa fa-check"></i><b>3.1.4</b> Probability Generating Function</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="C-Severity.html"><a href="C-Severity.html#S:ContinuousDistn"><i class="fa fa-check"></i><b>3.2</b> Continuous Distributions for Modeling Loss Severity</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="C-Severity.html"><a href="C-Severity.html#gamma-distribution"><i class="fa fa-check"></i><b>3.2.1</b> Gamma Distribution</a></li>
+<li class="chapter" data-level="3.2.2" data-path="C-Severity.html"><a href="C-Severity.html#pareto-distribution"><i class="fa fa-check"></i><b>3.2.2</b> Pareto Distribution</a></li>
+<li class="chapter" data-level="3.2.3" data-path="C-Severity.html"><a href="C-Severity.html#weibull-distribution"><i class="fa fa-check"></i><b>3.2.3</b> Weibull Distribution</a></li>
+<li class="chapter" data-level="3.2.4" data-path="C-Severity.html"><a href="C-Severity.html#the-generalized-beta-distribution-of-the-second-kind"><i class="fa fa-check"></i><b>3.2.4</b> The Generalized Beta Distribution of the Second Kind</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="C-Severity.html"><a href="C-Severity.html#MethodsCreation"><i class="fa fa-check"></i><b>3.3</b> Methods of Creating New Distributions</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="C-Severity.html"><a href="C-Severity.html#functions-of-random-variables-and-their-distributions"><i class="fa fa-check"></i><b>3.3.1</b> Functions of Random Variables and their Distributions</a></li>
+<li class="chapter" data-level="3.3.2" data-path="C-Severity.html"><a href="C-Severity.html#multiplication-by-a-constant"><i class="fa fa-check"></i><b>3.3.2</b> Multiplication by a Constant</a></li>
+<li class="chapter" data-level="3.3.3" data-path="C-Severity.html"><a href="C-Severity.html#raising-to-a-power"><i class="fa fa-check"></i><b>3.3.3</b> Raising to a Power</a></li>
+<li class="chapter" data-level="3.3.4" data-path="C-Severity.html"><a href="C-Severity.html#exponentiation"><i class="fa fa-check"></i><b>3.3.4</b> Exponentiation</a></li>
+<li class="chapter" data-level="3.3.5" data-path="C-Severity.html"><a href="C-Severity.html#finite-mixtures"><i class="fa fa-check"></i><b>3.3.5</b> Finite Mixtures</a></li>
+<li class="chapter" data-level="3.3.6" data-path="C-Severity.html"><a href="C-Severity.html#continuous-mixtures"><i class="fa fa-check"></i><b>3.3.6</b> Continuous Mixtures</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="C-Severity.html"><a href="C-Severity.html#S:CoverageModifications"><i class="fa fa-check"></i><b>3.4</b> Coverage Modifications</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="C-Severity.html"><a href="C-Severity.html#S:PolicyDeduct"><i class="fa fa-check"></i><b>3.4.1</b> Policy Deductibles</a></li>
+<li class="chapter" data-level="3.4.2" data-path="C-Severity.html"><a href="C-Severity.html#S:PolicyLimits"><i class="fa fa-check"></i><b>3.4.2</b> Policy Limits</a></li>
+<li class="chapter" data-level="3.4.3" data-path="C-Severity.html"><a href="C-Severity.html#coinsurance"><i class="fa fa-check"></i><b>3.4.3</b> Coinsurance</a></li>
+<li class="chapter" data-level="3.4.4" data-path="C-Severity.html"><a href="C-Severity.html#reinsurance"><i class="fa fa-check"></i><b>3.4.4</b> Reinsurance</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="C-Severity.html"><a href="C-Severity.html#S:MaxLikeEstimation"><i class="fa fa-check"></i><b>3.5</b> Maximum Likelihood Estimation</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="C-Severity.html"><a href="C-Severity.html#maximum-likelihood-estimators-for-complete-data"><i class="fa fa-check"></i><b>3.5.1</b> Maximum Likelihood Estimators for Complete Data</a></li>
+<li class="chapter" data-level="3.5.2" data-path="C-Severity.html"><a href="C-Severity.html#MLEGrouped"><i class="fa fa-check"></i><b>3.5.2</b> Maximum Likelihood Estimators for Grouped Data</a></li>
+<li class="chapter" data-level="3.5.3" data-path="C-Severity.html"><a href="C-Severity.html#maximum-likelihood-estimators-for-censored-data"><i class="fa fa-check"></i><b>3.5.3</b> Maximum Likelihood Estimators for Censored Data</a></li>
+<li class="chapter" data-level="3.5.4" data-path="C-Severity.html"><a href="C-Severity.html#maximum-likelihood-estimators-for-truncated-data"><i class="fa fa-check"></i><b>3.5.4</b> Maximum Likelihood Estimators for Truncated Data</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="C-Severity.html"><a href="C-Severity.html#LM-further-reading-and-resources"><i class="fa fa-check"></i><b>3.6</b> Further Resources and Contributors</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="C-ModelSelection.html"><a href="C-ModelSelection.html"><i class="fa fa-check"></i><b>4</b> Model Selection and Estimation</a><ul>
+<li class="chapter" data-level="4.1" data-path="C-ModelSelection.html"><a href="C-ModelSelection.html#S:NonParInf"><i class="fa fa-check"></i><b>4.1</b> Nonparametric Inference</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="C-ModelSelection.html"><a href="C-ModelSelection.html#nonparametric-estimation"><i class="fa fa-check"></i><b>4.1.1</b> Nonparametric Estimation</a></li>
+<li class="chapter" data-level="4.1.2" data-path="C-ModelSelection.html"><a href="C-ModelSelection.html#S:ToolsModelSelection"><i class="fa fa-check"></i><b>4.1.2</b> Tools for Model Selection</a></li>
+<li class="chapter" data-level="4.1.3" data-path="C-ModelSelection.html"><a href="C-ModelSelection.html#starting-values"><i class="fa fa-check"></i><b>4.1.3</b> Starting Values</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="C-ModelSelection.html"><a href="C-ModelSelection.html#S:ModelSelection"><i class="fa fa-check"></i><b>4.2</b> Model Selection</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="C-ModelSelection.html"><a href="C-ModelSelection.html#iterative-model-selection"><i class="fa fa-check"></i><b>4.2.1</b> Iterative Model Selection</a></li>
+<li class="chapter" data-level="4.2.2" data-path="C-ModelSelection.html"><a href="C-ModelSelection.html#model-selection-based-on-a-training-dataset"><i class="fa fa-check"></i><b>4.2.2</b> Model Selection Based on a Training Dataset</a></li>
+<li class="chapter" data-level="4.2.3" data-path="C-ModelSelection.html"><a href="C-ModelSelection.html#model-selection-based-on-a-test-dataset"><i class="fa fa-check"></i><b>4.2.3</b> Model Selection Based on a Test Dataset</a></li>
+<li class="chapter" data-level="4.2.4" data-path="C-ModelSelection.html"><a href="C-ModelSelection.html#model-selection-based-on-cross-validation"><i class="fa fa-check"></i><b>4.2.4</b> Model Selection Based on Cross-Validation</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="C-ModelSelection.html"><a href="C-ModelSelection.html#S:ModifiedData"><i class="fa fa-check"></i><b>4.3</b> Estimation using Modified Data</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="C-ModelSelection.html"><a href="C-ModelSelection.html#parametric-estimation-using-modified-data"><i class="fa fa-check"></i><b>4.3.1</b> Parametric Estimation using Modified Data</a></li>
+<li class="chapter" data-level="4.3.2" data-path="C-ModelSelection.html"><a href="C-ModelSelection.html#nonparametric-estimation-using-modified-data"><i class="fa fa-check"></i><b>4.3.2</b> Nonparametric Estimation using Modified Data</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="C-ModelSelection.html"><a href="C-ModelSelection.html#S:BayesInference"><i class="fa fa-check"></i><b>4.4</b> Bayesian Inference</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="C-ModelSelection.html"><a href="C-ModelSelection.html#bayesian-model"><i class="fa fa-check"></i><b>4.4.1</b> Bayesian Model</a></li>
+<li class="chapter" data-level="4.4.2" data-path="C-ModelSelection.html"><a href="C-ModelSelection.html#decision-analysis"><i class="fa fa-check"></i><b>4.4.2</b> Decision Analysis</a></li>
+<li class="chapter" data-level="4.4.3" data-path="C-ModelSelection.html"><a href="C-ModelSelection.html#posterior-distribution"><i class="fa fa-check"></i><b>4.4.3</b> Posterior Distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="C-ModelSelection.html"><a href="C-ModelSelection.html#MS-further-reading-and-resources"><i class="fa fa-check"></i><b>4.5</b> Further Resources and Contributors</a></li>
+<li class="chapter" data-level="" data-path="C-ModelSelection.html"><a href="C-ModelSelection.html#technical-supplement-a.-gini-statistic"><i class="fa fa-check"></i>Technical Supplement A. Gini Statistic</a><ul>
+<li class="chapter" data-level="" data-path="C-ModelSelection.html"><a href="C-ModelSelection.html#ts-a.1.-the-classic-lorenz-curve"><i class="fa fa-check"></i>TS A.1. The Classic Lorenz Curve</a></li>
+<li class="chapter" data-level="" data-path="C-ModelSelection.html"><a href="C-ModelSelection.html#ts-a.2.-ordered-lorenz-curve-and-the-gini-index"><i class="fa fa-check"></i>TS A.2. Ordered Lorenz Curve and the Gini Index</a></li>
+<li class="chapter" data-level="" data-path="C-ModelSelection.html"><a href="C-ModelSelection.html#ts-a.3.-out-of-sample-validation"><i class="fa fa-check"></i>TS A.3. Out-of-Sample Validation</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="C-AggLossModels.html"><a href="C-AggLossModels.html"><i class="fa fa-check"></i><b>5</b> Aggregate Loss Models</a><ul>
+<li class="chapter" data-level="5.1" data-path="C-AggLossModels.html"><a href="C-AggLossModels.html#introduction"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
+<li class="chapter" data-level="5.2" data-path="C-AggLossModels.html"><a href="C-AggLossModels.html#individual-risk-model"><i class="fa fa-check"></i><b>5.2</b> Individual Risk Model</a></li>
+<li class="chapter" data-level="5.3" data-path="C-AggLossModels.html"><a href="C-AggLossModels.html#collective-risk-model"><i class="fa fa-check"></i><b>5.3</b> Collective Risk Model</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="C-AggLossModels.html"><a href="C-AggLossModels.html#moments-and-distribution"><i class="fa fa-check"></i><b>5.3.1</b> Moments and Distribution</a></li>
+<li class="chapter" data-level="5.3.2" data-path="C-AggLossModels.html"><a href="C-AggLossModels.html#stop-loss-insurance"><i class="fa fa-check"></i><b>5.3.2</b> Stop-loss Insurance</a></li>
+<li class="chapter" data-level="5.3.3" data-path="C-AggLossModels.html"><a href="C-AggLossModels.html#analytic-results"><i class="fa fa-check"></i><b>5.3.3</b> Analytic Results</a></li>
+<li class="chapter" data-level="5.3.4" data-path="C-AggLossModels.html"><a href="C-AggLossModels.html#tweedie-distribution"><i class="fa fa-check"></i><b>5.3.4</b> Tweedie Distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="C-AggLossModels.html"><a href="C-AggLossModels.html#computing-the-aggregate-claims-distribution"><i class="fa fa-check"></i><b>5.4</b> Computing the Aggregate Claims Distribution</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="C-AggLossModels.html"><a href="C-AggLossModels.html#recursive-method"><i class="fa fa-check"></i><b>5.4.1</b> Recursive Method</a></li>
+<li class="chapter" data-level="5.4.2" data-path="C-AggLossModels.html"><a href="C-AggLossModels.html#simulation"><i class="fa fa-check"></i><b>5.4.2</b> Simulation</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="C-AggLossModels.html"><a href="C-AggLossModels.html#effects-of-coverage-modifications"><i class="fa fa-check"></i><b>5.5</b> Effects of Coverage Modifications</a><ul>
+<li class="chapter" data-level="5.5.1" data-path="C-AggLossModels.html"><a href="C-AggLossModels.html#impact-of-exposure-on-frequency"><i class="fa fa-check"></i><b>5.5.1</b> Impact of Exposure on Frequency</a></li>
+<li class="chapter" data-level="5.5.2" data-path="C-AggLossModels.html"><a href="C-AggLossModels.html#impact-of-deductibles-on-claim-frequency"><i class="fa fa-check"></i><b>5.5.2</b> Impact of Deductibles on Claim Frequency</a></li>
+<li class="chapter" data-level="5.5.3" data-path="C-AggLossModels.html"><a href="C-AggLossModels.html#impact-of-policy-modifications-on-aggregate-claims"><i class="fa fa-check"></i><b>5.5.3</b> Impact of Policy Modifications on Aggregate Claims</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="C-AggLossModels.html"><a href="C-AggLossModels.html#AL-further-reading-and-resources"><i class="fa fa-check"></i><b>5.6</b> Further Resources and Contributors</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="simulation-1.html"><a href="simulation-1.html"><i class="fa fa-check"></i><b>6</b> Simulation</a><ul>
+<li class="chapter" data-level="6.1" data-path="simulation-1.html"><a href="simulation-1.html#generating-independent-uniform-observations"><i class="fa fa-check"></i><b>6.1</b> Generating Independent Uniform Observations</a></li>
+<li class="chapter" data-level="6.2" data-path="simulation-1.html"><a href="simulation-1.html#inverse-transform"><i class="fa fa-check"></i><b>6.2</b> Inverse Transform</a></li>
+<li class="chapter" data-level="6.3" data-path="simulation-1.html"><a href="simulation-1.html#how-many-simulated-values"><i class="fa fa-check"></i><b>6.3</b> How Many Simulated Values?</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="C-PremCalc.html"><a href="C-PremCalc.html"><i class="fa fa-check"></i><b>7</b> Premium Calculation Fundamentals</a></li>
+<li class="chapter" data-level="8" data-path="C-RiskClass.html"><a href="C-RiskClass.html"><i class="fa fa-check"></i><b>8</b> Risk Classification</a><ul>
+<li class="chapter" data-level="8.1" data-path="C-RiskClass.html"><a href="C-RiskClass.html#S:RCIntroduction"><i class="fa fa-check"></i><b>8.1</b> Introduction</a></li>
+<li class="chapter" data-level="8.2" data-path="C-RiskClass.html"><a href="C-RiskClass.html#S:PoissonRegression"><i class="fa fa-check"></i><b>8.2</b> Poisson Regression Model</a><ul>
+<li class="chapter" data-level="8.2.1" data-path="C-RiskClass.html"><a href="C-RiskClass.html#S:Need.Poi.reg"><i class="fa fa-check"></i><b>8.2.1</b> Need for Poisson Regression</a></li>
+<li class="chapter" data-level="8.2.2" data-path="C-RiskClass.html"><a href="C-RiskClass.html#poisson-regression"><i class="fa fa-check"></i><b>8.2.2</b> Poisson Regression</a></li>
+<li class="chapter" data-level="8.2.3" data-path="C-RiskClass.html"><a href="C-RiskClass.html#incorporating-exposure"><i class="fa fa-check"></i><b>8.2.3</b> Incorporating Exposure</a></li>
+<li class="chapter" data-level="8.2.4" data-path="C-RiskClass.html"><a href="C-RiskClass.html#exercises-4"><i class="fa fa-check"></i><b>8.2.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="C-RiskClass.html"><a href="C-RiskClass.html#S:CatVarMultiTarriff"><i class="fa fa-check"></i><b>8.3</b> Categorical Variables and Multiplicative Tariff</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="C-RiskClass.html"><a href="C-RiskClass.html#rating-ractors-and-tariff"><i class="fa fa-check"></i><b>8.3.1</b> Rating Ractors and Tariff</a></li>
+<li class="chapter" data-level="8.3.2" data-path="C-RiskClass.html"><a href="C-RiskClass.html#multiplicative-tariff-model"><i class="fa fa-check"></i><b>8.3.2</b> Multiplicative Tariff Model</a></li>
+<li class="chapter" data-level="8.3.3" data-path="C-RiskClass.html"><a href="C-RiskClass.html#poisson-regression-for-multiplicative-tariff"><i class="fa fa-check"></i><b>8.3.3</b> Poisson Regression for Multiplicative Tariff</a></li>
+<li class="chapter" data-level="8.3.4" data-path="C-RiskClass.html"><a href="C-RiskClass.html#numerical-examples"><i class="fa fa-check"></i><b>8.3.4</b> Numerical Examples</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="C-RiskClass.html"><a href="C-RiskClass.html#further-reading-and-references"><i class="fa fa-check"></i><b>8.4</b> Further Reading and References</a></li>
+<li class="chapter" data-level="8.5" data-path="C-RiskClass.html"><a href="C-RiskClass.html#S:mle-Pois-reg"><i class="fa fa-check"></i><b>8.5</b> Technical Supplement – Estimating Poisson Regression Models</a></li>
+<li class="chapter" data-level="8.6" data-path="C-RiskClass.html"><a href="C-RiskClass.html#further-reading-and-resources"><i class="fa fa-check"></i><b>8.6</b> Contributors and Further Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="experience-rating-using-credibility-theory.html"><a href="experience-rating-using-credibility-theory.html"><i class="fa fa-check"></i><b>9</b> Experience Rating Using Credibility Theory</a><ul>
+<li class="chapter" data-level="9.1" data-path="experience-rating-using-credibility-theory.html"><a href="experience-rating-using-credibility-theory.html#introduction-to-applications-of-credibility-theory"><i class="fa fa-check"></i><b>9.1</b> Introduction to Applications of Credibility Theory</a></li>
+<li class="chapter" data-level="9.2" data-path="experience-rating-using-credibility-theory.html"><a href="experience-rating-using-credibility-theory.html#limited-fluctuation-credibility"><i class="fa fa-check"></i><b>9.2</b> Limited Fluctuation Credibility</a><ul>
+<li class="chapter" data-level="9.2.1" data-path="experience-rating-using-credibility-theory.html"><a href="experience-rating-using-credibility-theory.html#S:frequency"><i class="fa fa-check"></i><b>9.2.1</b> Full Credibility for Claim Frequency</a></li>
+<li class="chapter" data-level="9.2.2" data-path="experience-rating-using-credibility-theory.html"><a href="experience-rating-using-credibility-theory.html#full-credibility-for-aggregate-losses-and-pure-premium"><i class="fa fa-check"></i><b>9.2.2</b> Full Credibility for Aggregate Losses and Pure Premium</a></li>
+<li class="chapter" data-level="9.2.3" data-path="experience-rating-using-credibility-theory.html"><a href="experience-rating-using-credibility-theory.html#full-credibility-for-severity"><i class="fa fa-check"></i><b>9.2.3</b> Full Credibility for Severity</a></li>
+<li class="chapter" data-level="9.2.4" data-path="experience-rating-using-credibility-theory.html"><a href="experience-rating-using-credibility-theory.html#partial-credibility"><i class="fa fa-check"></i><b>9.2.4</b> Partial Credibility</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="experience-rating-using-credibility-theory.html"><a href="experience-rating-using-credibility-theory.html#buhlmann-credibility"><i class="fa fa-check"></i><b>9.3</b> Bühlmann Credibility</a><ul>
+<li class="chapter" data-level="9.3.1" data-path="experience-rating-using-credibility-theory.html"><a href="experience-rating-using-credibility-theory.html#S:EPV-VHM-Z"><i class="fa fa-check"></i><b>9.3.1</b> Credibility Z, <em>EPV</em>, and <em>VHM</em></a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="experience-rating-using-credibility-theory.html"><a href="experience-rating-using-credibility-theory.html#buhlmann-straub-credibility"><i class="fa fa-check"></i><b>9.4</b> Bühlmann-Straub Credibility</a></li>
+<li class="chapter" data-level="9.5" data-path="experience-rating-using-credibility-theory.html"><a href="experience-rating-using-credibility-theory.html#bayesian-inference-and-buhlmann"><i class="fa fa-check"></i><b>9.5</b> Bayesian Inference and Bühlmann</a><ul>
+<li class="chapter" data-level="9.5.1" data-path="experience-rating-using-credibility-theory.html"><a href="experience-rating-using-credibility-theory.html#gamma-poisson-model"><i class="fa fa-check"></i><b>9.5.1</b> Gamma-Poisson Model</a></li>
+<li class="chapter" data-level="9.5.2" data-path="experience-rating-using-credibility-theory.html"><a href="experience-rating-using-credibility-theory.html#exact-credibility"><i class="fa fa-check"></i><b>9.5.2</b> Exact Credibility</a></li>
+</ul></li>
+<li class="chapter" data-level="9.6" data-path="experience-rating-using-credibility-theory.html"><a href="experience-rating-using-credibility-theory.html#estimating-credibility-parameters"><i class="fa fa-check"></i><b>9.6</b> Estimating Credibility Parameters</a><ul>
+<li class="chapter" data-level="9.6.1" data-path="experience-rating-using-credibility-theory.html"><a href="experience-rating-using-credibility-theory.html#full-credibility-standard-for-limited-fluctuation-credibility"><i class="fa fa-check"></i><b>9.6.1</b> Full Credibility Standard for Limited Fluctuation Credibility</a></li>
+<li class="chapter" data-level="9.6.2" data-path="experience-rating-using-credibility-theory.html"><a href="experience-rating-using-credibility-theory.html#nonparametric-estimation-for-buhlmann-and-buhlmann-straub-models"><i class="fa fa-check"></i><b>9.6.2</b> Nonparametric Estimation for Bühlmann and Bühlmann-Straub Models</a></li>
+<li class="chapter" data-level="9.6.3" data-path="experience-rating-using-credibility-theory.html"><a href="experience-rating-using-credibility-theory.html#semiparametric-estimation-for-buhlmann-and-buhlmann-straub-models"><i class="fa fa-check"></i><b>9.6.3</b> Semiparametric Estimation for Bühlmann and Bühlmann-Straub Models</a></li>
+<li class="chapter" data-level="9.6.4" data-path="experience-rating-using-credibility-theory.html"><a href="experience-rating-using-credibility-theory.html#balancing-credibility-estimators"><i class="fa fa-check"></i><b>9.6.4</b> Balancing Credibility Estimators</a></li>
+</ul></li>
+<li class="chapter" data-level="9.7" data-path="experience-rating-using-credibility-theory.html"><a href="experience-rating-using-credibility-theory.html#Cred-further-reading-and-resources"><i class="fa fa-check"></i><b>9.7</b> Further Resources and Contributors</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="C-PortMgt.html"><a href="C-PortMgt.html"><i class="fa fa-check"></i><b>10</b> Portfolio Management including Reinsurance</a><ul>
+<li class="chapter" data-level="10.1" data-path="C-PortMgt.html"><a href="C-PortMgt.html#S:Tails"><i class="fa fa-check"></i><b>10.1</b> Tails of Distributions</a><ul>
+<li class="chapter" data-level="10.1.1" data-path="C-PortMgt.html"><a href="C-PortMgt.html#classification-based-on-moments"><i class="fa fa-check"></i><b>10.1.1</b> Classification Based on Moments</a></li>
+<li class="chapter" data-level="10.1.2" data-path="C-PortMgt.html"><a href="C-PortMgt.html#comparison-based-on-limiting-tail-behavior"><i class="fa fa-check"></i><b>10.1.2</b> Comparison Based on Limiting Tail Behavior</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="C-PortMgt.html"><a href="C-PortMgt.html#S:RiskMeasure"><i class="fa fa-check"></i><b>10.2</b> Risk Measures</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="C-PortMgt.html"><a href="C-PortMgt.html#value-at-risk"><i class="fa fa-check"></i><b>10.2.1</b> Value-at-Risk</a></li>
+<li class="chapter" data-level="10.2.2" data-path="C-PortMgt.html"><a href="C-PortMgt.html#tail-value-at-risk"><i class="fa fa-check"></i><b>10.2.2</b> Tail Value-at-Risk</a></li>
+<li class="chapter" data-level="10.2.3" data-path="C-PortMgt.html"><a href="C-PortMgt.html#properties-of-risk-measures"><i class="fa fa-check"></i><b>10.2.3</b> Properties of risk measures</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="C-PortMgt.html"><a href="C-PortMgt.html#S:Reinsurance"><i class="fa fa-check"></i><b>10.3</b> Reinsurance</a><ul>
+<li class="chapter" data-level="10.3.1" data-path="C-PortMgt.html"><a href="C-PortMgt.html#S:ProportionalRe"><i class="fa fa-check"></i><b>10.3.1</b> Proportional Reinsurance</a></li>
+<li class="chapter" data-level="10.3.2" data-path="C-PortMgt.html"><a href="C-PortMgt.html#S:NonProportionalRe"><i class="fa fa-check"></i><b>10.3.2</b> Non-Proportional Reinsurance</a></li>
+<li class="chapter" data-level="10.3.3" data-path="C-PortMgt.html"><a href="C-PortMgt.html#S:AdditionalRe"><i class="fa fa-check"></i><b>10.3.3</b> Additional Reinsurance Treaties</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="C-LossReserves.html"><a href="C-LossReserves.html"><i class="fa fa-check"></i><b>11</b> Loss Reserving</a></li>
+<li class="chapter" data-level="12" data-path="C-BonusMalus.html"><a href="C-BonusMalus.html"><i class="fa fa-check"></i><b>12</b> Experience Rating using Bonus-Malus</a></li>
+<li class="chapter" data-level="13" data-path="data-systems.html"><a href="data-systems.html"><i class="fa fa-check"></i><b>13</b> Data Systems</a><ul>
+<li class="chapter" data-level="13.1" data-path="data-systems.html"><a href="data-systems.html#data"><i class="fa fa-check"></i><b>13.1</b> Data</a><ul>
+<li class="chapter" data-level="13.1.1" data-path="data-systems.html"><a href="data-systems.html#data-types-and-sources"><i class="fa fa-check"></i><b>13.1.1</b> Data Types and Sources</a></li>
+<li class="chapter" data-level="13.1.2" data-path="data-systems.html"><a href="data-systems.html#data-structures-and-storage"><i class="fa fa-check"></i><b>13.1.2</b> Data Structures and Storage</a></li>
+<li class="chapter" data-level="13.1.3" data-path="data-systems.html"><a href="data-systems.html#data-quality"><i class="fa fa-check"></i><b>13.1.3</b> Data Quality</a></li>
+<li class="chapter" data-level="13.1.4" data-path="data-systems.html"><a href="data-systems.html#data-cleaning"><i class="fa fa-check"></i><b>13.1.4</b> Data Cleaning</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="data-systems.html"><a href="data-systems.html#data-analysis-preliminary"><i class="fa fa-check"></i><b>13.2</b> Data Analysis Preliminary</a><ul>
+<li class="chapter" data-level="13.2.1" data-path="data-systems.html"><a href="data-systems.html#S:process"><i class="fa fa-check"></i><b>13.2.1</b> Data Analysis Process</a></li>
+<li class="chapter" data-level="13.2.2" data-path="data-systems.html"><a href="data-systems.html#exploratory-versus-confirmatory"><i class="fa fa-check"></i><b>13.2.2</b> Exploratory versus Confirmatory</a></li>
+<li class="chapter" data-level="13.2.3" data-path="data-systems.html"><a href="data-systems.html#supervised-versus-unsupervised"><i class="fa fa-check"></i><b>13.2.3</b> Supervised versus Unsupervised</a></li>
+<li class="chapter" data-level="13.2.4" data-path="data-systems.html"><a href="data-systems.html#parametric-versus-nonparametric"><i class="fa fa-check"></i><b>13.2.4</b> Parametric versus Nonparametric</a></li>
+<li class="chapter" data-level="13.2.5" data-path="data-systems.html"><a href="data-systems.html#S:expred"><i class="fa fa-check"></i><b>13.2.5</b> Explanation versus Prediction</a></li>
+<li class="chapter" data-level="13.2.6" data-path="data-systems.html"><a href="data-systems.html#data-modeling-versus-algorithmic-modeling"><i class="fa fa-check"></i><b>13.2.6</b> Data Modeling versus Algorithmic Modeling</a></li>
+<li class="chapter" data-level="13.2.7" data-path="data-systems.html"><a href="data-systems.html#big-data-analysis"><i class="fa fa-check"></i><b>13.2.7</b> Big Data Analysis</a></li>
+<li class="chapter" data-level="13.2.8" data-path="data-systems.html"><a href="data-systems.html#reproducible-analysis"><i class="fa fa-check"></i><b>13.2.8</b> Reproducible Analysis</a></li>
+<li class="chapter" data-level="13.2.9" data-path="data-systems.html"><a href="data-systems.html#ethical-issues"><i class="fa fa-check"></i><b>13.2.9</b> Ethical Issues</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="data-systems.html"><a href="data-systems.html#data-analysis-techniques"><i class="fa fa-check"></i><b>13.3</b> Data Analysis Techniques</a><ul>
+<li class="chapter" data-level="13.3.1" data-path="data-systems.html"><a href="data-systems.html#exploratory-techniques"><i class="fa fa-check"></i><b>13.3.1</b> Exploratory Techniques</a></li>
+<li class="chapter" data-level="13.3.2" data-path="data-systems.html"><a href="data-systems.html#descriptive-statistics"><i class="fa fa-check"></i><b>13.3.2</b> Descriptive Statistics</a></li>
+<li class="chapter" data-level="13.3.3" data-path="data-systems.html"><a href="data-systems.html#cluster-analysis"><i class="fa fa-check"></i><b>13.3.3</b> Cluster Analysis</a></li>
+<li class="chapter" data-level="13.3.4" data-path="data-systems.html"><a href="data-systems.html#confirmatory-techniques"><i class="fa fa-check"></i><b>13.3.4</b> Confirmatory Techniques</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="data-systems.html"><a href="data-systems.html#some-r-functions"><i class="fa fa-check"></i><b>13.4</b> Some R Functions</a></li>
+<li class="chapter" data-level="13.5" data-path="data-systems.html"><a href="data-systems.html#summary"><i class="fa fa-check"></i><b>13.5</b> Summary</a></li>
+<li class="chapter" data-level="13.6" data-path="data-systems.html"><a href="data-systems.html#further-resources-and-contributors"><i class="fa fa-check"></i><b>13.6</b> Further Resources and Contributors</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="C-DependenceModel.html"><a href="C-DependenceModel.html"><i class="fa fa-check"></i><b>14</b> Dependence Modeling</a><ul>
+<li class="chapter" data-level="14.1" data-path="C-DependenceModel.html"><a href="C-DependenceModel.html#S:VarTypes"><i class="fa fa-check"></i><b>14.1</b> Variable Types</a><ul>
+<li class="chapter" data-level="14.1.1" data-path="C-DependenceModel.html"><a href="C-DependenceModel.html#S:QuaVar"><i class="fa fa-check"></i><b>14.1.1</b> Qualitative Variables</a></li>
+<li class="chapter" data-level="14.1.2" data-path="C-DependenceModel.html"><a href="C-DependenceModel.html#S:QuanVar"><i class="fa fa-check"></i><b>14.1.2</b> Quantitative Variables</a></li>
+<li class="chapter" data-level="14.1.3" data-path="C-DependenceModel.html"><a href="C-DependenceModel.html#multivariate-variables"><i class="fa fa-check"></i><b>14.1.3</b> Multivariate Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="14.2" data-path="C-DependenceModel.html"><a href="C-DependenceModel.html#S:Measures"><i class="fa fa-check"></i><b>14.2</b> Classic Measures of Scalar Associations</a><ul>
+<li class="chapter" data-level="14.2.1" data-path="C-DependenceModel.html"><a href="C-DependenceModel.html#association-measures-for-quantitative-variables"><i class="fa fa-check"></i><b>14.2.1</b> Association Measures for Quantitative Variables</a></li>
+<li class="chapter" data-level="14.2.2" data-path="C-DependenceModel.html"><a href="C-DependenceModel.html#rank-based-measures"><i class="fa fa-check"></i><b>14.2.2</b> Rank Based Measures</a></li>
+<li class="chapter" data-level="14.2.3" data-path="C-DependenceModel.html"><a href="C-DependenceModel.html#nominal-variables"><i class="fa fa-check"></i><b>14.2.3</b> Nominal Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="C-DependenceModel.html"><a href="C-DependenceModel.html#S:Copula"><i class="fa fa-check"></i><b>14.3</b> Introduction to Copulas</a></li>
+<li class="chapter" data-level="14.4" data-path="C-DependenceModel.html"><a href="C-DependenceModel.html#S:CopAppl"><i class="fa fa-check"></i><b>14.4</b> Application Using Copulas</a><ul>
+<li class="chapter" data-level="14.4.1" data-path="C-DependenceModel.html"><a href="C-DependenceModel.html#data-description"><i class="fa fa-check"></i><b>14.4.1</b> Data Description</a></li>
+<li class="chapter" data-level="14.4.2" data-path="C-DependenceModel.html"><a href="C-DependenceModel.html#marginal-models"><i class="fa fa-check"></i><b>14.4.2</b> Marginal Models</a></li>
+<li class="chapter" data-level="14.4.3" data-path="C-DependenceModel.html"><a href="C-DependenceModel.html#probability-integral-transformation"><i class="fa fa-check"></i><b>14.4.3</b> Probability Integral Transformation</a></li>
+<li class="chapter" data-level="14.4.4" data-path="C-DependenceModel.html"><a href="C-DependenceModel.html#joint-modeling-with-copula-function"><i class="fa fa-check"></i><b>14.4.4</b> Joint Modeling with Copula Function</a></li>
+</ul></li>
+<li class="chapter" data-level="14.5" data-path="C-DependenceModel.html"><a href="C-DependenceModel.html#S:CopTyp"><i class="fa fa-check"></i><b>14.5</b> Types of Copulas</a><ul>
+<li class="chapter" data-level="14.5.1" data-path="C-DependenceModel.html"><a href="C-DependenceModel.html#elliptical-copulas"><i class="fa fa-check"></i><b>14.5.1</b> Elliptical Copulas</a></li>
+<li class="chapter" data-level="14.5.2" data-path="C-DependenceModel.html"><a href="C-DependenceModel.html#archimedian-copulas"><i class="fa fa-check"></i><b>14.5.2</b> Archimedian Copulas</a></li>
+<li class="chapter" data-level="14.5.3" data-path="C-DependenceModel.html"><a href="C-DependenceModel.html#properties-of-copulas"><i class="fa fa-check"></i><b>14.5.3</b> Properties of Copulas</a></li>
+</ul></li>
+<li class="chapter" data-level="14.6" data-path="C-DependenceModel.html"><a href="C-DependenceModel.html#S:CopImp"><i class="fa fa-check"></i><b>14.6</b> Why is Dependence Modeling Important?</a></li>
+<li class="chapter" data-level="" data-path="C-DependenceModel.html"><a href="C-DependenceModel.html#technical-supplement-a.-other-classic-measures-of-scalar-associations"><i class="fa fa-check"></i>Technical Supplement A. Other Classic Measures of Scalar Associations</a><ul>
+<li class="chapter" data-level="" data-path="C-DependenceModel.html"><a href="C-DependenceModel.html#a.1.-blomqvists-beta"><i class="fa fa-check"></i>A.1. Blomqvist’s Beta</a></li>
+<li class="chapter" data-level="" data-path="C-DependenceModel.html"><a href="C-DependenceModel.html#a.2.-nonparametric-approach-using-spearman-correlation-with-tied-ranks"><i class="fa fa-check"></i>A.2. Nonparametric Approach Using Spearman Correlation with Tied Ranks</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="C-AppA.html"><a href="C-AppA.html"><i class="fa fa-check"></i><b>15</b> Appendix A: Review of Statistical Inference</a><ul>
+<li class="chapter" data-level="15.1" data-path="C-AppA.html"><a href="C-AppA.html#S:AppA:BASIC"><i class="fa fa-check"></i><b>15.1</b> Basic Concepts</a><ul>
+<li class="chapter" data-level="15.1.1" data-path="C-AppA.html"><a href="C-AppA.html#random-sampling"><i class="fa fa-check"></i><b>15.1.1</b> Random Sampling</a></li>
+<li class="chapter" data-level="15.1.2" data-path="C-AppA.html"><a href="C-AppA.html#sampling-distribution"><i class="fa fa-check"></i><b>15.1.2</b> Sampling Distribution</a></li>
+<li class="chapter" data-level="15.1.3" data-path="C-AppA.html"><a href="C-AppA.html#central-limit-theorem"><i class="fa fa-check"></i><b>15.1.3</b> Central Limit Theorem</a></li>
+</ul></li>
+<li class="chapter" data-level="15.2" data-path="C-AppA.html"><a href="C-AppA.html#S:AppA:PE"><i class="fa fa-check"></i><b>15.2</b> Point Estimation and Properties</a><ul>
+<li class="chapter" data-level="15.2.1" data-path="C-AppA.html"><a href="C-AppA.html#method-of-moments-estimation"><i class="fa fa-check"></i><b>15.2.1</b> Method of Moments Estimation</a></li>
+<li class="chapter" data-level="15.2.2" data-path="C-AppA.html"><a href="C-AppA.html#maximum-likelihood-estimation"><i class="fa fa-check"></i><b>15.2.2</b> Maximum Likelihood Estimation</a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="C-AppA.html"><a href="C-AppA.html#S:AppA:IE"><i class="fa fa-check"></i><b>15.3</b> Interval Estimation</a><ul>
+<li class="chapter" data-level="15.3.1" data-path="C-AppA.html"><a href="C-AppA.html#S:AppA:IE:ED"><i class="fa fa-check"></i><b>15.3.1</b> Exact Distribution for Normal Sample Mean</a></li>
+<li class="chapter" data-level="15.3.2" data-path="C-AppA.html"><a href="C-AppA.html#large-sample-properties-of-mle"><i class="fa fa-check"></i><b>15.3.2</b> Large-sample Properties of MLE</a></li>
+<li class="chapter" data-level="15.3.3" data-path="C-AppA.html"><a href="C-AppA.html#confidence-interval"><i class="fa fa-check"></i><b>15.3.3</b> Confidence Interval</a></li>
+</ul></li>
+<li class="chapter" data-level="15.4" data-path="C-AppA.html"><a href="C-AppA.html#S:AppA:HT"><i class="fa fa-check"></i><b>15.4</b> Hypothesis Testing</a><ul>
+<li class="chapter" data-level="15.4.1" data-path="C-AppA.html"><a href="C-AppA.html#basic-concepts"><i class="fa fa-check"></i><b>15.4.1</b> Basic Concepts</a></li>
+<li class="chapter" data-level="15.4.2" data-path="C-AppA.html"><a href="C-AppA.html#student-t-test-based-on-mle"><i class="fa fa-check"></i><b>15.4.2</b> Student-<span class="math inline">\(t\)</span> test based on MLE</a></li>
+<li class="chapter" data-level="15.4.3" data-path="C-AppA.html"><a href="C-AppA.html#likelihood-ratio-test"><i class="fa fa-check"></i><b>15.4.3</b> Likelihood Ratio Test</a></li>
+<li class="chapter" data-level="15.4.4" data-path="C-AppA.html"><a href="C-AppA.html#information-criteria"><i class="fa fa-check"></i><b>15.4.4</b> Information Criteria</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="C-AppB.html"><a href="C-AppB.html"><i class="fa fa-check"></i><b>16</b> Appendix B: Iterated Expectations</a><ul>
+<li class="chapter" data-level="16.1" data-path="C-AppB.html"><a href="C-AppB.html#S:AppB:CD"><i class="fa fa-check"></i><b>16.1</b> Conditional Distribution and Conditional Expectation</a><ul>
+<li class="chapter" data-level="16.1.1" data-path="C-AppB.html"><a href="C-AppB.html#conditional-distribution"><i class="fa fa-check"></i><b>16.1.1</b> Conditional Distribution</a></li>
+<li class="chapter" data-level="16.1.2" data-path="C-AppB.html"><a href="C-AppB.html#conditional-expectation-and-conditional-variance"><i class="fa fa-check"></i><b>16.1.2</b> Conditional Expectation and Conditional Variance</a></li>
+</ul></li>
+<li class="chapter" data-level="16.2" data-path="C-AppB.html"><a href="C-AppB.html#S:AppB:IE"><i class="fa fa-check"></i><b>16.2</b> Iterated Expectations and Total Variance</a><ul>
+<li class="chapter" data-level="16.2.1" data-path="C-AppB.html"><a href="C-AppB.html#law-of-iterated-expectations"><i class="fa fa-check"></i><b>16.2.1</b> Law of Iterated Expectations</a></li>
+<li class="chapter" data-level="16.2.2" data-path="C-AppB.html"><a href="C-AppB.html#law-of-total-variance"><i class="fa fa-check"></i><b>16.2.2</b> Law of Total Variance</a></li>
+<li class="chapter" data-level="16.2.3" data-path="C-AppB.html"><a href="C-AppB.html#application"><i class="fa fa-check"></i><b>16.2.3</b> Application</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="C-AppC.html"><a href="C-AppC.html"><i class="fa fa-check"></i><b>17</b> Appendix C: Maximum Likelihood Theory</a><ul>
+<li class="chapter" data-level="17.1" data-path="C-AppC.html"><a href="C-AppC.html#S:AppC:LF"><i class="fa fa-check"></i><b>17.1</b> Likelihood Function</a><ul>
+<li class="chapter" data-level="17.1.1" data-path="C-AppC.html"><a href="C-AppC.html#likelihood-and-log-likelihood-functions"><i class="fa fa-check"></i><b>17.1.1</b> Likelihood and Log-likelihood Functions</a></li>
+<li class="chapter" data-level="17.1.2" data-path="C-AppC.html"><a href="C-AppC.html#properties-of-likelihood-functions"><i class="fa fa-check"></i><b>17.1.2</b> Properties of Likelihood Functions</a></li>
+</ul></li>
+<li class="chapter" data-level="17.2" data-path="C-AppC.html"><a href="C-AppC.html#S:AppC:MLE"><i class="fa fa-check"></i><b>17.2</b> Maximum Likelihood Estimators</a><ul>
+<li class="chapter" data-level="17.2.1" data-path="C-AppC.html"><a href="C-AppC.html#definition-and-derivation-of-mle"><i class="fa fa-check"></i><b>17.2.1</b> Definition and Derivation of MLE</a></li>
+<li class="chapter" data-level="17.2.2" data-path="C-AppC.html"><a href="C-AppC.html#asymptotic-properties-of-mle"><i class="fa fa-check"></i><b>17.2.2</b> Asymptotic Properties of MLE</a></li>
+<li class="chapter" data-level="17.2.3" data-path="C-AppC.html"><a href="C-AppC.html#use-of-maximum-likelihood-estimation"><i class="fa fa-check"></i><b>17.2.3</b> Use of Maximum Likelihood Estimation</a></li>
+</ul></li>
+<li class="chapter" data-level="17.3" data-path="C-AppC.html"><a href="C-AppC.html#S:AppC:SI"><i class="fa fa-check"></i><b>17.3</b> Statistical Inference Based on Maximum Likelhood Estimation</a><ul>
+<li class="chapter" data-level="17.3.1" data-path="C-AppC.html"><a href="C-AppC.html#hypothesis-testing"><i class="fa fa-check"></i><b>17.3.1</b> Hypothesis Testing</a></li>
+<li class="chapter" data-level="17.3.2" data-path="C-AppC.html"><a href="C-AppC.html#mle-and-model-validation"><i class="fa fa-check"></i><b>17.3.2</b> MLE and Model Validation</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="bibliography.html"><a href="bibliography.html"><i class="fa fa-check"></i>Bibliography</a></li>
+<li class="divider"></li>
+<li><a href="https://ewfrees.github.io/Loss-Data-Analytics/" target="blank">Loss Data Analytics on GitHub</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Loss Data Analytics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="data-systems" class="section level1">
+<h1><span class="header-section-number">Chapter 13</span> Data Systems</h1>
+<p><em>Chapter Preview</em>. This chapter covers the learning areas on data and systems outlined in the IAA (International Actuarial Association) Education Syllabus published in September 2015.</p>
+<div id="data" class="section level2">
+<h2><span class="header-section-number">13.1</span> Data</h2>
+<!-- % 7.1.3 - 7.1.6 data source, structure, storage, quality, preprocessing tools  inmon2014 -->
+<!-- % 7.4.1 - 7.4.3 ethical (miles2014), governance, risks -->
+<!-- % -->
+<div id="data-types-and-sources" class="section level3">
+<h3><span class="header-section-number">13.1.1</span> Data Types and Sources</h3>
+<p>In terms of how data are collected, data can be divided into two types <span class="citation">(Hox and Boeije <a href="#ref-hox2005data">2005</a>)</span>: primary data and secondary data. Primary data are original data that are collected for a specific research problem. Secondary data are data originally collected for a different purpose and reused for another research problem. A major advantage of using primary data is that the theoretical constructs, the research design, and the data collection strategy can be tailored to the underlying research question to ensure that the data collected indeed help to solve the problem. A disadvantage of using primary data is that data collection can be costly and time-consuming. Using secondary data has the advantage of lower cost and faster access to relevant information. However, using secondary data may not be optimal for the research question under consideration.</p>
+<p>In terms of the degree of organization of the data, data can be also divided into two types <span class="citation">(Inmon and Linstedt <a href="#ref-inmon2014">2014</a>; O’Leary <a href="#ref-leary2013bigdata">2013</a>; Hashem et al. <a href="#ref-hashem2015bigdata">2015</a>; Abdullah and Ahmad <a href="#ref-abdullah2013data">2013</a>; Pries and Dunnigan <a href="#ref-pries2015">2015</a>)</span>: structured data and unstructured data. Structured data have a predictable and regularly occurring format. In contrast, unstructured data are unpredictable and have no structure that is recognizable to a computer. Structured data consists of records, attributes, keys, and indices and are typically managed by a database management system (DBMS) such as IBM DB2, Oracle, MySQL, and Microsoft SQL Server. As a result, most units of structured data can be located quickly and easily. Unstructured data have many different forms and variations. One common form of unstructured data is text. Accessing unstructured data is clumsy. To find a given unit of data in a long text, for example, sequentially search is usually performed.</p>
+<p>In terms of how the data are measured, data can be classified as qualitative or quantitative. Qualitative data is data about qualities, which cannot be actually measured. As a result, qualitative data is extremely varied in nature and includes interviews, documents, and artifacts <span class="citation">(Miles, Hberman, and Sdana <a href="#ref-miles2014">2014</a>)</span>. Quantitative data is data about quantities, which can be measured numerically with numbers. In terms of the level of measurement, quantitative data can be further classified as nominal, ordinal, interval, or ratio <span class="citation">(Gan <a href="#ref-gan2011">2011</a>)</span>. Nominal data, also called categorical data, are discrete data without a natural ordering. Ordinal data are discrete data with a natural order. Interval data are continuous data with a specific order and equal intervals. Ratio data are interval data with a natural zero.</p>
+<p>There exist a number of data sources. First, data can be obtained from university-based researchers who collect primary data. Second, data can be obtained from organizations that are set up for the purpose of releasing secondary data for general research community. Third, data can be obtained from national and regional statistical institutes that collect data. Finally, companies have corporate data that can be obtained for research purpose.</p>
+<p>While it might be difficult to obtain data to address a specific research problem or answer a business question, it is relatively easy to obtain data to test a model or an algorithm for data analysis. In nowadays, readers can obtain datasets from the Internet easily. The following is a list of some websites to obtain real-world data:</p>
+<ul>
+<li><p><strong>UCI Machine Learning Repository</strong> This website (url: <a href="http://archive.ics.uci.edu/ml/index.php" class="uri">http://archive.ics.uci.edu/ml/index.php</a>) maintains more than 400 datasets that can be used to test machine learning algorithms.</p></li>
+<li><p><strong>Kaggle</strong> The Kaggle website (url: <a href="https://www.kaggle.com/" class="uri">https://www.kaggle.com/</a>) include real-world datasets used for data science competition. Readers can download data from Kaggle by registering an account.</p></li>
+<li><p><strong>DrivenData</strong> DrivenData aims at bringing cutting-edge practices in data science to solve some of the world’s biggest social challenges. In its website (url: <a href="https://www.drivendata.org/" class="uri">https://www.drivendata.org/</a>), readers can participate data science competitions and download datasets.</p></li>
+<li><p><strong>Analytics Vidhya</strong> This website (url: <a href="https://datahack.analyticsvidhya.com/contest/all/" class="uri">https://datahack.analyticsvidhya.com/contest/all/</a>) allows you to participate and download datasets from practice problems and hackathon problems.</p></li>
+<li><p><strong>KDD Cup</strong> KDD Cup is the annual Data Mining and Knowledge Discovery competition organized by ACM Special Interest Group on Knowledge Discovery and Data Mining. This website (url: <a href="http://www.kdd.org/kdd-cup" class="uri">http://www.kdd.org/kdd-cup</a>) contains the datasets used in past KDD Cup competitions since 1997.</p></li>
+<li><p><strong>U.S. Government’s open data</strong> This website (url: <a href="https://www.data.gov/" class="uri">https://www.data.gov/</a>) contains about 200,000 datasets covering a wide range of areas including climate, education, energy, and finance.</p></li>
+<li><p><strong>AWS Public Datasets</strong> In this website (url: <a href="https://aws.amazon.com/datasets/" class="uri">https://aws.amazon.com/datasets/</a>), Amazon provides a centralized repository of public datasets, including some huge datasets.</p></li>
+</ul>
+</div>
+<div id="data-structures-and-storage" class="section level3">
+<h3><span class="header-section-number">13.1.2</span> Data Structures and Storage</h3>
+<p>As mentioned in the previous subsection, there are structured data as well as unstructured data. Structured data are highly organized data and usually have the following tabular format:</p>
+<p><span class="math display">\[\begin{matrix}
+\begin{array}{lllll} \hline
+ &amp; V_1 &amp; V_2 &amp; \cdots &amp; V_d \  
+\\\hline
+\textbf{x}_1 &amp; x_{11} &amp; x_{12} &amp; \cdots &amp; x_{1d} \\
+\textbf{x}_2 &amp; x_{21} &amp; x_{22} &amp; \cdots &amp; x_{2d} \\
+\vdots &amp; \vdots &amp; \vdots &amp; \cdots &amp; \vdots \\
+\textbf{x}_n &amp; x_{n1} &amp; x_{n2} &amp; \cdots &amp; x_{nd} \\
+\hline
+\end{array}
+\end{matrix}
+\]</span></p>
+<p>In other words, structured data can be organized into a table consists of rows and columns. Typically, each row represents a record and each column represents an attribute. A table can be decomposed into several tables that can be stored in a relational database such as the Microsoft SQL Server. The SQL (Structured Query Language) can be used to access and modify the data easily and efficiently.</p>
+<p>Unstructured data do not follow a regular format <span class="citation">(Abdullah and Ahmad <a href="#ref-abdullah2013data">2013</a>)</span>. Examples of unstructured data include documents, videos, and audio files. Most of the data we encounter are unstructured data. In fact, the term ``big data’’ was coined to reflect this fact. Traditional relational databases cannot meet the challenges on the varieties and scales brought by massive unstructured data nowadays. NoSQL databases have been used to store massive unstructured data.</p>
+<p>There are three main NoSQL databases <span class="citation">(Chen et al. <a href="#ref-chen2014b">2014</a>)</span>: key-value databases, column-oriented databases, and document-oriented databases. Key-value databases use a simple data model and store data according to key-values. Modern key-value databases have higher expandability and smaller query response time than relational databases. Examples of key-value databases include Dynamo used by Amazon and Voldemort used by LinkedIn. Column-oriented databases store and process data according to columns rather than rows. The columns and rows are segmented in multiple nodes to achieve expandability. Examples of column-oriented databases include BigTable developed by Google and Cassandra developed by FaceBook. Document databases are designed to support more complex data forms than those stored in key-value databases. Examples of document databases include MongoDB, SimpleDB, and CouchDB. MongoDB is an open-source document-oriented database that stores documents as binary objects. SimpleDB is a distributed NoSQL database used by Amazon. CouchDB is an another open-source document-oriented database.</p>
+</div>
+<div id="data-quality" class="section level3">
+<h3><span class="header-section-number">13.1.3</span> Data Quality</h3>
+<p>Accurate data are essential to useful data analysis. The lack of accurate data may lead to significant costs to organizations in areas such as correction activities, lost customers, missed opportunities, and incorrect decisions <span class="citation">(Olson <a href="#ref-olson2003">2003</a>)</span>.</p>
+<p>Data has quality if it satisfies its intended use, that is, the data is accurate, timely, relevant, complete, understood, and trusted <span class="citation">(Olson <a href="#ref-olson2003">2003</a>)</span>. As a result, we first need to know the specification of the intended uses and then judge the suitability for those uses in order to assess the quality of the data. Unintended uses of data can arise from a variety of reasons and lead to serious problems.</p>
+<p>Accuracy is the single most important component of high-quality data. Accurate data have the following properties <span class="citation">(Olson <a href="#ref-olson2003">2003</a>)</span>:</p>
+<ul>
+<li>The data elements are not missing and have valid values.</li>
+<li>The values of the data elements are in the right ranges and have the right representations.</li>
+</ul>
+<p>Inaccurate data arise from different sources. In particular, the following areas are common areas where inaccurate data occur:</p>
+<ul>
+<li>Initial data entry. Mistakes (including deliberate errors) and system errors can occur during the initial data entry. Flawed data entry processes can result in inaccurate data.</li>
+<li>Data decay. Data decay, also known as data degradation, refers to the gradual corruption of computer data due to an accumulation of non-critical failures in a storage device.</li>
+<li>Data moving and restructuring. Inaccurate data can also arise from data extracting, cleaning, transforming, loading, or integrating.</li>
+<li>Data using. Faulty reporting and lack of understanding can lead to inaccurate data.</li>
+</ul>
+<p>Reverification and analysis are two approaches to find inaccurate data elements. To ensure that the data elements are 100% accurate, we must use reverification. However, reverification can be time-consuming and may not be possible for some data. Analytical techniques can also be used to identify inaccurate data elements. There are five types of analysis that can be used to identify inaccurate data <span class="citation">(Olson <a href="#ref-olson2003">2003</a>)</span>: data element analysis, structural analysis, value correlation, aggregation correlation, and value inspection</p>
+<p>Companies can create a data quality assurance program to create high-quality databases. For more information about data quality issues management and data profiling techniques, readers are referred to <span class="citation">(Olson <a href="#ref-olson2003">2003</a>)</span>.</p>
+</div>
+<div id="data-cleaning" class="section level3">
+<h3><span class="header-section-number">13.1.4</span> Data Cleaning</h3>
+<p>Raw data usually need to be cleaned before useful analysis can be conducted. In particular, the following areas need attention when preparing data for analysis <span class="citation">(Janert <a href="#ref-janert2010">2010</a>)</span>:</p>
+<ul>
+<li><p><strong>Missing values</strong> It is common to have missing values in raw data. Depending on the situations, we can discard the record, discard the variable, or impute the missing values.</p></li>
+<li><p><strong>Outliers</strong> Raw data may contain unusual data points such as outliers. We need to handle outliers carefully. We cannot just remove outliers without knowing the reason for their existence. Sometimes the outliers are caused by clerical errors. Sometimes outliers are the effect we are looking for.</p></li>
+<li><p><strong>Junk</strong> Raw data may contain junks such as nonprintable characters. Junks are typically rare and not easy to get noticed. However, junks can cause serious problems in downstream applications.</p></li>
+<li><p><strong>Format</strong> Raw data may be formated in a way that is inconvenient for subsequent analysis. For example, components of a record may be split into multiple lines in a text file. In such cases, lines corresponding to a single record should be merged before loading to a data analysis software such as R.</p></li>
+<li><p><strong>Duplicate records</strong> Raw data may contain duplicate records. Duplicate records should be recognized and removed. This task may not be trivial depending on what you consider ``duplicate.’’</p></li>
+<li><p><strong>Merging datasets</strong> Raw data may come from different sources. In such cases, we need to merge the data from different sources to ensure compatibility.</p></li>
+</ul>
+<p>For more information about how to handle data in R, readers are referred to <span class="citation">(Forte <a href="#ref-forte2015">2015</a>)</span> and <span class="citation">(Buttrey and Whitaker <a href="#ref-buttrey2017">2017</a>)</span>.</p>
+</div>
+</div>
+<div id="data-analysis-preliminary" class="section level2">
+<h2><span class="header-section-number">13.2</span> Data Analysis Preliminary</h2>
+<!-- aims 7.1.1  stages 7.1.2 -->
+<!-- 7.5.1 visualization reporting -->
+<!-- 7.5.2 reproducible mailund2017 -->
+<p>Data analysis involves inspecting, cleansing, transforming, and modeling data to discover useful information to suggest conclusions and make decisions. Data analysis has a long history. In 1962, statistician John Tukey defined data analysis as:</p>
+<blockquote>
+<p>procedures for analyzing data, techniques for interpreting the results of such procedures, ways of planning the gathering of data to make its analysis easier, more precise or more accurate, and all the machinery and results of (mathematical) statistics which apply to analyzing data.</p>
+<p>— <span class="citation">(Tukey <a href="#ref-tukey1962data">1962</a>)</span></p>
+</blockquote>
+<p>Recently, Judd and coauthors defined data analysis as the following equation<span class="citation">(Judd, McClelland, and Ryan <a href="#ref-judd2017">2017</a>)</span>:</p>
+<p><span class="math display">\[\hbox{Data} = \hbox{Model} + \hbox{Error},\]</span> where Data represents a set of basic scores or observations to be analyzed, Model is a compact representation of the data, and Error is simply the amount the model fails to represent accurately. Using the above equation for data analysis, an analyst must resolve the following two conflicting goals:</p>
+<ul>
+<li>to add more parameters to the model so that the model represents the data better.</li>
+<li>to remove parameters from the model so that the model is simple and parsimonious.</li>
+</ul>
+<p>In this section, we give a high-level introduction to data analysis, including different types of methods.</p>
+<div id="S:process" class="section level3">
+<h3><span class="header-section-number">13.2.1</span> Data Analysis Process</h3>
+<p>Data analysis is part of an overall study. For example, Figure <a href="data-systems.html#fig:study">13.1</a> shows the process of a typical study in behavioral and social sciences as described in <span class="citation">(Albers <a href="#ref-albers2017">2017</a>)</span>. The data analysis part consists of the following steps:</p>
+<ul>
+<li><p><strong>Exploratory analysis</strong> The purpose of this step is to get a feel of the relationships with the data and figure out what type of analysis for the data makes sense.</p></li>
+<li><p><strong>Statistical analysis</strong> This step performs statistical analysis such as determining statistical significance and effect size.</p></li>
+<li><p><strong>Make sense of the results</strong> This step interprets the statistical results in the context of the overall study.</p></li>
+<li><p><strong>Determine implications</strong> This step interprets the data by connecting it to the study goals and the larger field of this study.</p></li>
+</ul>
+<p>The goal of the data analysis as described above focuses on explaining some phenomenon (See Section <a href="data-systems.html#S:expred">13.2.5</a>).</p>
+<div class="figure" style="text-align: center"><span id="fig:study"></span>
+<img src="Figures/Figure1.png" alt="The process of a typical study in behavioral and social sciences." width="80%" />
+<p class="caption">
+Figure 13.1: The process of a typical study in behavioral and social sciences.
+</p>
+</div>
+<p><span class="citation">Shmueli (<a href="#ref-shmueli2010model">2010</a>)</span> described a general process for statistical modeling, which is shown in Figure <a href="data-systems.html#fig:modeling">13.2</a>. Depending on the goal of the analysis, the steps differ in terms of the choice of methods, criteria, data, and information.</p>
+<div class="figure" style="text-align: center"><span id="fig:modeling"></span>
+<img src="Figures/Figure2.png" alt="The process of statistical modeling." width="80%" />
+<p class="caption">
+Figure 13.2: The process of statistical modeling.
+</p>
+</div>
+</div>
+<div id="exploratory-versus-confirmatory" class="section level3">
+<h3><span class="header-section-number">13.2.2</span> Exploratory versus Confirmatory</h3>
+<p>There are two phases of data analysis <span class="citation">(Good <a href="#ref-good1983data">1983</a>)</span>: exploratory data analysis (EDA) and confirmatory data analysis (CDA). <a href="#tab:13.1">Table 13.1</a> summarizes some differences between EDA and CDA. EDA is usually applied to observational data with the goal of looking for patterns and formulating hypotheses. In contrast, CDA is often applied to experimental data (i.e., data obtained by means of a formal design of experiments) with the goal of quantifying the extent to which discrepancies between the model and the data could be expected to occur by chance <span class="citation">(Gelman <a href="#ref-gelman2004eda">2004</a>)</span>.</p>
+<p><a id=tab:13.1></a></p>
+<p><span class="math display">\[\begin{matrix}
+\begin{array}{lll} \hline
+ &amp; \textbf{EDA} &amp; \textbf{CDA} \\\hline
+\text{Data} &amp; \text{Observational data} &amp; \text{Experimental data}\\[3mm]
+\text{Goal} &amp; \text{Pattern recognition,}  &amp; \text{Hypothesis testing,}  \\
+&amp; \text{formulate hypotheses} &amp; \text{estimation, prediction} \\[3mm]
+\text{Techniques} &amp; \text{Descriptive statistics,} &amp; \text{Traditional statistical tools of} \\
+&amp; \text{visualization, clustering} &amp; \text{inference, significance, and}\\
+&amp; &amp; \text{confidence} \\
+\hline
+\end{array}
+\end{matrix}
+\]</span> <a href="#tab:13.1">Table 13.1</a>: Comparison of exploratory data analysis and confirmatory data analysis.</p>
+<p>Techniques for EDA include descriptive statistics (e.g., mean, median, standard deviation, quantiles), distributions, histograms, correlation analysis, dimension reduction, and cluster analysis. Techniques for CDA include the traditional statistical tools of inference, significance, and confidence.</p>
+</div>
+<div id="supervised-versus-unsupervised" class="section level3">
+<h3><span class="header-section-number">13.2.3</span> Supervised versus Unsupervised</h3>
+<p>Methods for data analysis can be divided into two types <span class="citation">(Abbott <a href="#ref-abbott2014">2014</a>; Igual and Segu <a href="#ref-igual2017">2017</a>)</span>: supervised learning methods and unsupervised learning methods. Supervised learning methods work with labeled data, which include a target variable. Mathematically, supervised learning methods try to approximate the following function: <span class="math display">\[
+Y = f(X_1, X_2, \ldots, X_p),
+\]</span> where <span class="math inline">\(Y\)</span> is a target variable and <span class="math inline">\(X_1\)</span>, <span class="math inline">\(X_2\)</span>, <span class="math inline">\(\ldots\)</span>, <span class="math inline">\(X_p\)</span> are explanatory variables. Other terms are also used to mean a target variable. <a href="#tab:13.2">Table 13.2</a> gives a list of common names for different types of variables <span class="citation">(Edward W. Frees <a href="#ref-frees2009">2009</a><a href="#ref-frees2009">b</a>)</span>. When the target variable is a categorical variable, supervised learning methods are called classification methods. When the target variable is continuous, supervised learning methods are called regression methods.</p>
+<p><a id=tab:13.2></a></p>
+<p><span class="math display">\[\begin{matrix}
+\begin{array}{ll}
+\hline
+\textbf{Target Variable}  &amp;  \textbf{Explanatory Variable}\\\hline
+\text{Dependent variable} &amp; \text{Independent variable}\\
+\text{Response} &amp; \text{Treatment} \\
+\text{Output} &amp; \text{Input} \\
+\text{Endogenous variable} &amp; \text{Exogenous variable} \\
+\text{Predicted variable} &amp; \text{Predictor variable} \\
+\text{Regressand} &amp; \text{Regressor} \\
+\hline
+\end{array}
+\end{matrix}
+\]</span> <a href="#tab:13.2">Table 13.2</a>: Common names of different variables.</p>
+<p>Unsupervised learning methods work with unlabeled data, which include explanatory variables only. In other words, unsupervised learning methods do not use target variables. As a result, unsupervised learning methods are also called descriptive modeling methods.</p>
+</div>
+<div id="parametric-versus-nonparametric" class="section level3">
+<h3><span class="header-section-number">13.2.4</span> Parametric versus Nonparametric</h3>
+<p>Methods for data analysis can be parametric or nonparametric <span class="citation">(Abbott <a href="#ref-abbott2014">2014</a>)</span>. Parametric methods assume that the data follow a certain distribution. Nonparametric methods do not assume distributions for the data and therefore are called distribution-free methods.</p>
+<p>Parametric methods have the advantage that if the distribution of the data is known, properties of the data and properties of the method (e.g., errors, convergence, coefficients) can be derived. A disadvantage of parametric methods is that analysts need to spend considerable time on figuring out the distribution. For example, analysts may try different transformation methods to transform the data so that it follows a certain distribution.</p>
+<p>Since nonparametric methods make fewer assumptions, nonparametric methods have the advantage that they are more flexible, more robust, and applicable to non-quantitative data. However, a drawback of nonparametric methods is that the conclusions drawn from nonparametric methods are not as powerful as those drawn from parametric methods.</p>
+</div>
+<div id="S:expred" class="section level3">
+<h3><span class="header-section-number">13.2.5</span> Explanation versus Prediction</h3>
+<p>There are two goals in data analysis <span class="citation">(Breiman <a href="#ref-breiman2001modeling">2001</a>; Shmueli <a href="#ref-shmueli2010model">2010</a>)</span>: explanation and prediction. In some scientific areas such as economics, psychology, and environmental science, the focus of data analysis is to explain the causal relationships between the input variables and the response variable. In other scientific areas such as natural language processing and bioinformatics, the focus of data analysis is to predict what the responses are going to be given the input variables.</p>
+<p><span class="citation">Shmueli (<a href="#ref-shmueli2010model">2010</a>)</span> discussed in detail the distinction between explanatory modeling and predictive modeling, which reflect the process of using data and methods for explaining or predicting, respectively. Explanatory modeling is commonly used for theory building and testing. However, predictive modeling is rarely used in many scientific fields as a tool for developing theory.</p>
+<p>Explanatory modeling is typically done as follows:</p>
+<ul>
+<li><p>State the prevailing theory.</p></li>
+<li><p>State causal hypotheses, which are given in terms of theoretical constructs rather than measurable variables. A causal diagram is usually included to illustrate the hypothesized causal relationship between the theoretical constructs.</p></li>
+<li><p>Operationalize constructs. In this step, previous literature and theoretical justification are used to build a bridge between theoretical constructs and observable measurements.</p></li>
+<li><p>Collect data and build models alongside the statistical hypotheses, which are operationalized from the research hypotheses.</p></li>
+<li><p>Reach research conclusions and recommend policy. The statistical conclusions are converted into research conclusions. Policy recommendations are often accompanied.</p></li>
+</ul>
+<p><span class="citation">Shmueli (<a href="#ref-shmueli2010model">2010</a>)</span> defined predictive modeling as the process of applying a statistical model or data mining algorithm to data for the purpose of predicting new or future observations. Predictions include point predictions, interval predictions, regions, distributions, and rankings of new observations. Predictive model can be any method that produces predictions.</p>
+</div>
+<div id="data-modeling-versus-algorithmic-modeling" class="section level3">
+<h3><span class="header-section-number">13.2.6</span> Data Modeling versus Algorithmic Modeling</h3>
+<p><span class="citation">Breiman (<a href="#ref-breiman2001modeling">2001</a>)</span> discussed two cultures in the use of statistical modeling to reach conclusions from data: the data modeling culture and the algorithmic modeling culture. In the data modeling culture, the data are assumed to be generated by a given stochastic data model. In the algorithmic modeling culture, the data mechanism is treated as unknown and algorithmic models are used.</p>
+<p>Data modeling gives the statistics field many successes in analyzing data and getting information about the data mechanisms. However, <span class="citation">Breiman (<a href="#ref-breiman2001modeling">2001</a>)</span> argued that the focus on data models in the statistical community has led to some side effects such as</p>
+<ul>
+<li><p>Produced irrelevant theory and questionable scientific conclusions.</p></li>
+<li><p>Kept statisticians from using algorithmic models that might be more suitable.</p></li>
+<li><p>Restricted the ability of statisticians to deal with a wide range of problems.</p></li>
+</ul>
+<p>Algorithmic modeling was used by industrial statisticians long time ago. However, the development of algorithmic methods was taken up by a community outside statistics <span class="citation">(Breiman <a href="#ref-breiman2001modeling">2001</a>)</span>. The goal of algorithmic modeling is predictive accuracy. For some complex prediction problems, data models are not suitable. These prediction problems include speech recognition, image recognition, handwriting recognition, nonlinear time series prediction, and financial market prediction. The theory in algorithmic modeling focuses on the properties of algorithms, such as convergence and predictive accuracy.</p>
+</div>
+<div id="big-data-analysis" class="section level3">
+<h3><span class="header-section-number">13.2.7</span> Big Data Analysis</h3>
+<p>Unlike traditional data analysis, big data analysis employs additional methods and tools that can extract information rapidly from massive data. In particular, big data analysis uses the following processing methods <span class="citation">(Chen et al. <a href="#ref-chen2014b">2014</a>)</span>:</p>
+<ul>
+<li><p><strong>Bloom filter</strong> A bloom filter is a space-efficient probabilistic data structure that is used to determine whether an element belongs to a set. It has the advantages of high space efficiency and high query speed. A drawback of using bloom filter is that there is a certain misrecognition rate.</p></li>
+<li><p><strong>Hashing</strong> Hashing is a method that transforms data into fixed-length numerical values through a hash function. It has the advantages of rapid reading and writing. However, sound hash functions are difficult to find.</p></li>
+<li><p><strong>Indexing</strong> Indexing refers to a process of partitioning data in order to speed up reading. Hashing is a special case of indexing.</p></li>
+<li><p><strong>Tries</strong> A trie, also called digital tree, is a method to improve query efficiency by using common prefixes of character strings to reduce comparison on character strings to the greatest extent.</p></li>
+<li><p><strong>Parallel computing</strong> Parallel computing uses multiple computing resources to complete a computation task. Parallel computing tools include MPI (Message Passing Interface), MapReduce, and Dryad.</p></li>
+</ul>
+<p>Big data analysis can be conducted in the following levels <span class="citation">(Chen et al. <a href="#ref-chen2014b">2014</a>)</span>: memory-level, business intelligence (BI) level, and massive level. Memory-level analysis is conducted when the data can be loaded to the memory of a cluster of computers. Current hardware can handle hundreds of gigabytes (GB) of data in memory. BI level analysis can be conducted when the data surpass the memory level. It is common for BI level analysis products to support data over terabytes (TB). Massive level analysis is conducted when the data surpass the capabilities of products for BI level analysis. Usually Hadoop and MapReduce are used in massive level analysis.</p>
+</div>
+<div id="reproducible-analysis" class="section level3">
+<h3><span class="header-section-number">13.2.8</span> Reproducible Analysis</h3>
+<p>As mentioned in Section <a href="data-systems.html#S:process">13.2.1</a>, a typical data analysis workflow includes collecting data, analyzing data, and reporting results. The data collected are saved in a database or files. The data are then analyzed by one or more scripts, which may save some intermediate results or always work on the raw data. Finally a report is produced to describe the results, which include relevant plots, tables, and summaries of the data. The workflow may subject to the following potential issues <span class="citation">(Mailund <a href="#ref-mailund2017">2017</a>, Chapter 2)</span>:</p>
+<ul>
+<li><p>The data are separated from the analysis scripts.</p></li>
+<li><p>The documentation of the analysis is separated from the analysis itself.</p></li>
+</ul>
+<p>If the analysis is done on the raw data with a single script, then the first issue is not a major problem. If the analysis consists of multiple scripts and a script saves intermediate results that are read by the next script, then the scripts describe a workflow of data analysis. To reproduce an analysis, the scripts have to be executed in the right order. The workflow may cause major problems if the order of the scripts is not documented or the documentation is not updated or lost. One way to address the first issue is to write the scripts so that any part of the workflow can be run completely automatically at any time.</p>
+<p>If the documentation of the analysis is synchronized with the analysis, then the second issue is not a major problem. However, the documentation may become completely useless if the scripts are changed but the documentation is not updated.</p>
+<p>Literate programming is an approach to address the two issues mentioned above. In literate programming, the documentation of a program and the code of the program are written together. To do literate programming in R, one way is to use the R Markdown and the <span class="math inline">\(\texttt{knitr}\)</span> package.</p>
+</div>
+<div id="ethical-issues" class="section level3">
+<h3><span class="header-section-number">13.2.9</span> Ethical Issues</h3>
+<p>Analysts may face ethical issues and dilemmas during the data analysis process. In some fields, for example, ethical issues and dilemmas include participant consent, benefits, risk, confidentiality, and data ownership <span class="citation">(Miles, Hberman, and Sdana <a href="#ref-miles2014">2014</a>)</span>. For data analysis in actuarial science and insurance in particular, we face the following ethical matters and issues <span class="citation">(Miles, Hberman, and Sdana <a href="#ref-miles2014">2014</a>)</span>:</p>
+<ul>
+<li><p><strong>Worthness of the project</strong> Is the project worth doing? Will the project contribute in some significant way to a domain broader than my career? If a project is only opportunistic and does not have a larger significance, then it might be pursued with less care. The result may be looked good but not right.</p></li>
+<li><p><strong>Competence</strong> Do I or the whole team have the expertise to carry out the project? Incompetence may lead to weakness in the analytics such as collecting large amounts of data poorly and drawing superficial conclusions.</p></li>
+<li><p><strong>Benefits, costs, and reciprocity</strong> Will each stakeholder gain from the project? Are the benefit and the cost equitable? A project will likely to fail if the benefit and the cost for a stakeholder do not match.</p></li>
+<li><p><strong>Privacy and confidentiality</strong> How do we make sure that the information is kept confidentially? Where raw data and analysis results are stored and how will have access to them should be documented in explicit confidentiality agreements.</p></li>
+</ul>
+</div>
+</div>
+<div id="data-analysis-techniques" class="section level2">
+<h2><span class="header-section-number">13.3</span> Data Analysis Techniques</h2>
+<!-- 7.2.1 - 7.2.3 exploratory, summarize, pca -->
+<!-- 7.3.1 - 7.3.3 machine learning, problems solved by ml, techniques -->
+<!-- statistics, machine learning, pattern recognition, data mining, predictive analytics, business intelligence, artificial intelligence -->
+<p>Techniques for data analysis are drawn from different but overlapping fields such as statistics, machine learning, pattern recognition, and data mining. Statistics is a field that addresses reliable ways of gathering data and making inferences based on them <span class="citation">(Bandyopadhyay and Forster <a href="#ref-bandyo2011">2011</a>; Bluman <a href="#ref-bluman2012">2012</a>)</span>. The term machine learning was coined by Samuel in 1959 <span class="citation">(Samuel <a href="#ref-samuel1959ml">1959</a>)</span>. Originally, machine learning refers to the field of study where computers have the ability to learn without being explicitly programmed. Nowadays, machine learning has evolved to the broad field of study where computational methods use experience (i.e., the past information available for analysis) to improve performance or to make accurate predictions <span class="citation">(Bishop <a href="#ref-bishop2007">2007</a>; Clarke, Fokoue, and Zhang <a href="#ref-clarke2009">2009</a>; Mohri, Rostamizadeh, and Talwalkar <a href="#ref-mohri2012">2012</a>; Kubat <a href="#ref-kubat2017">2017</a>)</span>. There are four types of machine learning algorithms (See <a href="#tab:13.3">Table 13.3</a> depending on the type of the data and the type of the learning tasks.</p>
+<p><a id=tab:13.3></a></p>
+<p><span class="math display">\[\begin{matrix}
+\begin{array}{rll} \hline
+&amp; \textbf{Supervised} &amp; \textbf{Unsupervised} \\\hline
+\textbf{Discrete Label} &amp; \text{Classification} &amp; \text{Clustering} \\
+\textbf{Continuous Label} &amp; \text{Regression} &amp; \text{Dimension reduction} \\
+\hline
+\end{array}
+\end{matrix}
+\]</span> <a href="#tab:13.3">Table 13.3</a>: Types of machine learning algorithms.</p>
+<p>Originating in engineering, pattern recognition is a field that is closely related to machine learning, which grew out of computer science. In fact, pattern recognition and machine learning can be considered to be two facets of the same field <span class="citation">(Bishop <a href="#ref-bishop2007">2007</a>)</span>. Data mining is a field that concerns collecting, cleaning, processing, analyzing, and gaining useful insights from data <span class="citation">(Aggarwal <a href="#ref-aggarwal2015">2015</a>)</span>.</p>
+<div id="exploratory-techniques" class="section level3">
+<h3><span class="header-section-number">13.3.1</span> Exploratory Techniques</h3>
+<p>Exploratory data analysis techniques include descriptive statistics as well as many unsupervised learning techniques such as data clustering and principal component analysis.</p>
+</div>
+<div id="descriptive-statistics" class="section level3">
+<h3><span class="header-section-number">13.3.2</span> Descriptive Statistics</h3>
+<p>In the mass noun sense, descriptive statistics is an area of statistics that concerns the collection, organization, summarization, and presentation of data <span class="citation">(Bluman <a href="#ref-bluman2012">2012</a>)</span>. In the count noun sense, descriptive statistics are summary statistics that quantitatively describe or summarize data.</p>
+<p><a id=tab:13.4></a></p>
+<p><span class="math display">\[\begin{matrix}
+\begin{array}{ll} \hline
+&amp; \textbf{Descriptive Statistics} \\\hline
+\text{Measures of central tendency} &amp; \text{Mean, median, mode, midrange}\\
+\text{Measures of variation} &amp; \text{Range, variance, standard deviation} \\
+\text{Measures of position} &amp; \text{Quantile} \\
+\hline
+\end{array}
+\end{matrix}
+\]</span> <a href="#tab:13.4">Table 13.4</a>: Some commonly used descriptive statistics.</p>
+<p><a href="#tab:13.4">Table 13.4</a> lists some commonly used descriptive statistics. In R, we can use the function <span class="math inline">\(\texttt{summary}\)</span> to calculate some of the descriptive statistics. For numeric data, we can visualize the descriptive statistics using a boxplot.</p>
+<p>In addition to these quantitative descriptive statistics, we can also qualitatively describe shapes of the distributions <span class="citation">(Bluman <a href="#ref-bluman2012">2012</a>)</span>. For example, we can say that a distribution is positively skewed, symmetric, or negatively skewed. To visualize the distribution of a variable, we can draw a histogram.</p>
+<div id="principal-component-analysis" class="section level4">
+<h4><span class="header-section-number">13.3.2.1</span> Principal Component Analysis</h4>
+<p>Principal component analysis (PCA) is a statistical procedure that transforms a dataset described by possibly correlated variables into a dataset described by linearly uncorrelated variables, which are called principal components and are ordered according to their variances. PCA is a technique for dimension reduction. If the original variables are highly correlated, then the first few principal components can account for most of the variation of the original data.</p>
+<p>To describe PCA, let <span class="math inline">\(X_1,X_2,\ldots,X_d\)</span> be a set of variables. The first principal component is defined to be the normalized linear combination of the variables that has the largest variance, that is, the first principal component is defined as</p>
+<p><span class="math display">\[Z_1=w_{11} X_1 + w_{12} X_2 + \cdots + w_{1d} X_d,\]</span> where <span class="math inline">\(\textbf{w}_1=(w_{11}, w_{12}, \ldots, w_{1d})&#39;\)</span> is a vector of loadings such that <span class="math inline">\(\mathrm{Var~}{(Z_1)}\)</span> is maximized subject to the following constraint: <span class="math display">\[\textbf{w}_1&#39;\textbf{w}_1 = \sum_{j=1}^d w_{1j}^2 = 1.\]</span></p>
+<p>For <span class="math inline">\(i=2,3,\ldots,d\)</span>, the <span class="math inline">\(i\)</span>th principal component is defined as</p>
+<p><span class="math display">\[Z_i=w_{i1} X_1 + w_{i2} X_2 + \cdots + w_{id} X_d,\]</span> where <span class="math inline">\(\textbf{w}_i=(w_{i1}, w_{i2}, \ldots, w_{id})&#39;\)</span> is a vector of loadings such that <span class="math inline">\(\mathrm{Var~}{(Z_i)}\)</span> is maximized subject to the following constraints: <span class="math display">\[\textbf{w}_i&#39;\textbf{w}_i=\sum_{j=1}^d w_{ij}^2 = 1,\]</span> <span class="math display">\[\mathrm{cov~}{(Z_i, Z_j)} = 0,\quad j=1,2,\ldots,i-1.\]</span></p>
+<p>The principal components of the variables are related to the eigenvectors and eigenvectors of the covariance matrix of the variables. For <span class="math inline">\(i=1,2,\ldots,d\)</span>, let <span class="math inline">\((\lambda_i, \textbf{e}_i)\)</span> be the <span class="math inline">\(i\)</span>th eigenvalue-eigenvector pair of the covariance matrix <span class="math inline">\({\Sigma}\)</span> such that <span class="math inline">\(\lambda_1\ge \lambda_2\ge \ldots\ge \lambda_d\ge 0\)</span> and the eigenvectors are normalized. Then the <span class="math inline">\(i\)</span>th principal component is given by</p>
+<p><span class="math display">\[Z_{i} = \textbf{e}_i&#39; \textbf{X} =\sum_{j=1}^d e_{ij} X_j,\]</span> where <span class="math inline">\(\textbf{X}=(X_1,X_2,\ldots,X_d)&#39;\)</span>. It can be shown that <span class="math inline">\(\mathrm{Var~}{(Z_i)} = \lambda_i\)</span>. As a result, the proportion of variance explained by the <span class="math inline">\(i\)</span>th principal component is calculated as</p>
+<p><span class="math display">\[\dfrac{\mathrm{Var~}{(Z_i)}}{ \sum_{j=1}^{d} \mathrm{Var~}{(Z_j)}} = \dfrac{\lambda_i}{\lambda_1+\lambda_2+\cdots+\lambda_d}.\]</span></p>
+<p>For more information about PCA, readers are referred to <span class="citation">(Mirkin <a href="#ref-mirkin2011">2011</a>)</span>.</p>
+</div>
+</div>
+<div id="cluster-analysis" class="section level3">
+<h3><span class="header-section-number">13.3.3</span> Cluster Analysis</h3>
+<p>Cluster analysis (aka data clustering) refers to the process of dividing a dataset into homogeneous groups or clusters such that points in the same cluster are similar and points from different clusters are quite distinct <span class="citation">(Gan, Ma, and Wu <a href="#ref-gan2007">2007</a>; Gan <a href="#ref-gan2011">2011</a>)</span>. Data clustering is one of the most popular tools for exploratory data analysis and has found applications in many scientific areas.</p>
+<p>During the past several decades, many clustering algorithms have been proposed. Among these clustering algorithms, the <span class="math inline">\(k\)</span>-means algorithm is perhaps the most well-known algorithm due to its simplicity. To describe the <span class="math inline">\(k\)</span>-means algorithm, let <span class="math inline">\(X=\{\textbf{x}_1,\textbf{x}_2,\ldots,\textbf{x}_n\}\)</span> be a dataset containing <span class="math inline">\(n\)</span> points, each of which is described by <span class="math inline">\(d\)</span> numerical features. Given a desired number of clusters <span class="math inline">\(k\)</span>, the <span class="math inline">\(k\)</span>-means algorithm aims at minimizing the following objective function:</p>
+<p><span class="math display">\[P(U,Z) = \sum_{l=1}^k\sum_{i=1}^n u_{il} \Vert \textbf{x}_i-\textbf{z}_l\Vert^2,\]</span> where <span class="math inline">\(U=(u_{il})_{n\times k}\)</span> is an <span class="math inline">\(n\times k\)</span> partition matrix, <span class="math inline">\(Z=\{\textbf{z}_1,\textbf{z}_2,\ldots,\textbf{z}_k\}\)</span> is a set of cluster centers, and <span class="math inline">\(\Vert\cdot\Vert\)</span> is the <span class="math inline">\(L^2\)</span> norm or Euclidean distance. The partition matrix <span class="math inline">\(U\)</span> satisfies the following conditions:</p>
+<p><span class="math display">\[u_{il}\in \{0,1\},\quad i=1,2,\ldots,n,\:l=1,2,\ldots,k,\]</span> <span class="math display">\[\sum_{l=1}^k u_{il}=1,\quad i=1,2,\ldots,n.\]</span></p>
+<p>The <span class="math inline">\(k\)</span>-means algorithm employs an iterative procedure to minimize the objective function. It repeatedly updates the partition matrix <span class="math inline">\(U\)</span> and the cluster centers <span class="math inline">\(Z\)</span> alternately until some stop criterion is met. When the cluster centers <span class="math inline">\(Z\)</span> are fixed, the partition matrix <span class="math inline">\(U\)</span> is updated as follows:</p>
+<p><span class="math display">\[\begin{aligned}u_{il}=\left\{
+\begin{array}{ll}
+1, &amp; \text{if } \Vert \textbf{x}_i - \textbf{z}_l\Vert = \min_{1\le j\le k} \Vert \textbf{x}_i - \textbf{z}_j\Vert;\\
+0, &amp; \text{if otherwise,}
+\end{array}
+\right.
+\end{aligned}\]</span> When the partition matrix <span class="math inline">\(U\)</span> is fixed, the cluster centers are updated as follows:</p>
+<p><span class="math display">\[z_{lj} = \dfrac{\sum_{i=1}^n u_{il} x_{ij} } { \sum_{i=1}^n u_{il}},\quad l=1,2,\ldots,k,\: j=1,2,\ldots,d,\]</span> where <span class="math inline">\(z_{lj}\)</span> is the <span class="math inline">\(j\)</span>th component of <span class="math inline">\(\textbf{z}_l\)</span> and <span class="math inline">\(x_{ij}\)</span> is the <span class="math inline">\(j\)</span>th component of <span class="math inline">\(\textbf{x}_i\)</span>.</p>
+<p>For more information about <span class="math inline">\(k\)</span>-means, readers are referred to <span class="citation">(Gan, Ma, and Wu <a href="#ref-gan2007">2007</a>)</span> and <span class="citation">(Mirkin <a href="#ref-mirkin2011">2011</a>)</span>.</p>
+</div>
+<div id="confirmatory-techniques" class="section level3">
+<h3><span class="header-section-number">13.3.4</span> Confirmatory Techniques</h3>
+<p>Confirmatory data analysis techniques include the traditional statistical tools of inference, significance, and confidence.</p>
+<div id="linear-models" class="section level4">
+<h4><span class="header-section-number">13.3.4.1</span> Linear Models</h4>
+<p>Linear models, also called linear regression models, aim at using a linear function to approximate the relationship between the dependent variable and independent variables. A linear regression model is called a simple linear regression model if there is only one independent variable. When more than one independent variables are involved, a linear regression model is called a multiple linear regression model.</p>
+<p>Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> denote the independent and the dependent variables, respectively. For <span class="math inline">\(i=1,2,\ldots,n\)</span>, let <span class="math inline">\((x_i, y_i)\)</span> be the observed values of <span class="math inline">\((X,Y)\)</span> in the <span class="math inline">\(i\)</span>th case. Then the simple linear regression model is specified as follows <span class="citation">(Edward W. Frees <a href="#ref-frees2009">2009</a><a href="#ref-frees2009">b</a>)</span>:</p>
+<p><span class="math display">\[y_i  = \beta_0 + \beta_1 x_i + \epsilon_i,\quad i=1,2,\ldots,n,\]</span> where <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> are parameters and <span class="math inline">\(\epsilon_i\)</span> is a random variable representing the error for the <span class="math inline">\(i\)</span>th case.</p>
+<p>When there are multiple independent variables, the following multiple linear regression model is used:</p>
+<p><span class="math display">\[y_i = \beta_0 + \beta_1 x_{i1} + \cdots + \beta_k x_{ik} + \epsilon_i,\]</span> where <span class="math inline">\(\beta_0\)</span>, <span class="math inline">\(\beta_1\)</span>, <span class="math inline">\(\ldots\)</span>, <span class="math inline">\(\beta_k\)</span> are unknown parameters to be estimated.</p>
+<p>Linear regression models usually make the following assumptions:</p>
+<ol style="list-style-type: lower-alpha">
+<li><p><span class="math inline">\(x_{i1},x_{i2},\ldots,x_{ik}\)</span> are nonstochastic variables.</p></li>
+<li><p><span class="math inline">\(\mathrm{Var~}(y_i)=\sigma^2\)</span>, where <span class="math inline">\(\mathrm{Var~}(y_i)\)</span> denotes the variance of <span class="math inline">\(y_i\)</span>.</p></li>
+<li><p><span class="math inline">\(y_1,y_2,\ldots,y_n\)</span> are independent random variables.</p></li>
+</ol>
+<p>For the purpose of obtaining tests and confidence statements with small samples, the following strong normality assumption is also made:</p>
+<ol start="4" style="list-style-type: lower-alpha">
+<li><span class="math inline">\(\epsilon_1,\epsilon_2,\ldots,\epsilon_n\)</span> are normally distributed.</li>
+</ol>
+</div>
+<div id="generalized-linear-models" class="section level4">
+<h4><span class="header-section-number">13.3.4.2</span> Generalized Linear Models</h4>
+<p>The generalized linear model (GLM) is a wide family of regression models that include linear regression models as special cases. In a GLM, the mean of the response (i.e., the dependent variable) is assumed to be a function of linear combinations of the explanatory variables, i.e.,</p>
+<p><span class="math display">\[\mu_i = E[y_i],\]</span> <span class="math display">\[\eta_i = \textbf{x}_i&#39;\boldsymbol{\beta} = g(\mu_i),\]</span> where <span class="math inline">\(\textbf{x}_i=(1,x_{i1}, x_{i2}, \ldots, x_{ik})&#39;\)</span> is a vector of regressor values, <span class="math inline">\(\mu_i\)</span> is the mean response for the <span class="math inline">\(i\)</span>th case, and <span class="math inline">\(\eta_i\)</span> is a systematic component of the GLM. The function <span class="math inline">\(g(\cdot)\)</span> is known and is called the link function. The mean response can vary by observations by allowing some parameters to change. However, the regression parameters <span class="math inline">\(\boldsymbol{\beta}\)</span> are assumed to be the same among different observations.</p>
+<p>GLMs make the following assumptions:</p>
+<ol style="list-style-type: lower-alpha">
+<li><p><span class="math inline">\(x_{i1},x_{i2},\ldots,x_{in}\)</span> are nonstochastic variables.</p></li>
+<li><p><span class="math inline">\(y_1,y_2,\ldots,y_n\)</span> are independent.</p></li>
+<li><p>The dependent variable is assumed to follow a distribution from the linear exponential family.</p></li>
+<li><p>The variance of the dependent variable is not assumed to be constant but is a function of the mean, i.e.,</p></li>
+</ol>
+<p><span class="math display">\[\mathrm{Var~}{(y_i)} = \phi \nu(\mu_i),\]</span> where <span class="math inline">\(\phi\)</span> denotes the dispersion parameter and <span class="math inline">\(\nu(\cdot)\)</span> is a function.</p>
+<p>As we can see from the above specification, the GLM provides a unifying framework to handle different types of dependent variables, including discrete and continuous variables. For more information about GLMs, readers are referred to <span class="citation">(Jong and Heller <a href="#ref-dejong2008">2008</a>)</span> and <span class="citation">(Edward W. Frees <a href="#ref-frees2009">2009</a><a href="#ref-frees2009">b</a>)</span>.</p>
+</div>
+<div id="tree-based-models" class="section level4">
+<h4><span class="header-section-number">13.3.4.3</span> Tree-based Models</h4>
+<p>Decision trees, also known as tree-based models, involve dividing the predictor space (i.e., the space formed by independent variables) into a number of simple regions and using the mean or the mode of the region for prediction <span class="citation">(Breiman et al. <a href="#ref-breiman1984">1984</a>)</span>. There are two types of tree-based models: classification trees and regression trees. When the dependent variable is categorical, the resulting tree models are called classification trees. When the dependent variable is continuous, the resulting tree models are called regression trees.</p>
+<p>The process of building classification trees is similar to that of building regression trees. Here we only briefly describe how to build a regression tree. To do that, the predictor space is divided into non-overlapping regions such that the following objective function</p>
+<p><span class="math display">\[f(R_1,R_2,\ldots,R_J) = \sum_{j=1}^J \sum_{i=1}^n I_{R_j}(\textbf{x}_i)(y_i - \mu_j)^2\]</span> is minimized, where <span class="math inline">\(I\)</span> is an indicator function, <span class="math inline">\(R_j\)</span> denotes the set of indices of the observations that belong to the <span class="math inline">\(j\)</span>th box, <span class="math inline">\(\mu_j\)</span> is the mean response of the observations in the <span class="math inline">\(j\)</span>th box, <span class="math inline">\(\textbf{x}_i\)</span> is the vector of predictor values for the <span class="math inline">\(i\)</span>th observation, and <span class="math inline">\(y_i\)</span> is the response value for the <span class="math inline">\(i\)</span>th observation.</p>
+<p>In terms of predictive accuracy, decision trees generally do not perform to the level of other regression and classification models. However, tree-based models may outperform linear models when the relationship between the response and the predictors is nonlinear. For more information about decision trees, readers are referred to <span class="citation">(Breiman et al. <a href="#ref-breiman1984">1984</a>)</span> and <span class="citation">(Mitchell <a href="#ref-mitchell1997">1997</a>)</span>.</p>
+<!-- ###Statistical Inference -->
+</div>
+</div>
+</div>
+<div id="some-r-functions" class="section level2">
+<h2><span class="header-section-number">13.4</span> Some R Functions</h2>
+<!-- % 7.2.4 - 7.2.7 fit distribution, linear model, survival analysis, glm -->
+<!-- % 7.3.4 nn, trees -->
+<p>R is an open-source software for statistical computing and graphics. The R software can be downloaded from the R project website at . In this section, we give some R function for data analysis, especially the data analysis tasks mentioned in previous sections.</p>
+<p><a id=tab:13.5></a></p>
+<p><span class="math display">\[\begin{matrix}
+\begin{array}{lll} \hline
+\text{Data Analysis Task} &amp; \text{R package} &amp; \text{R Function} \\\hline
+\text{Descriptive Statistics} &amp; \texttt{base} &amp; \texttt{summary}\\
+\text{Principal Component Analysis} &amp; \texttt{stats} &amp; \texttt{prcomp} \\
+\text{Data Clustering} &amp; \texttt{stats} &amp; \texttt{kmeans}, \texttt{hclust} \\
+\text{Fitting Distributions} &amp; \texttt{MASS} &amp; \texttt{fitdistr} \\
+\text{Linear Regression Models} &amp; \texttt{stats} &amp; \texttt{lm} \\
+\text{Generalized Linear Models} &amp; \texttt{stats} &amp; \texttt{glm} \\
+\text{Regression Trees} &amp; \texttt{rpart} &amp; \texttt{rpart} \\
+\text{Survival Analysis} &amp; \texttt{survival} &amp; \texttt{survfit} \\
+\hline
+\end{array}
+\end{matrix}
+\]</span> <a href="#tab:13.5">Table 13.5</a>: Some R functions for data analysis.</p>
+<p><a href="#tab:13.5">Table 13.5</a> lists a few R functions for different data analysis tasks. Readers can read the R documentation for examples of using these functions. There are also other R functions from other packages to do similar things. However, the functions listed in this table provide good start points for readers to conduct data analysis in R. For analyzing large datasets in R in an efficient way, readers are referred to <span class="citation">(Daroczi <a href="#ref-daroczi2015">2015</a>)</span>.</p>
+</div>
+<div id="summary" class="section level2">
+<h2><span class="header-section-number">13.5</span> Summary</h2>
+<p>In this chapter, we gave a high-level overview of data analysis. The overview is divided into three major parts: data, data analysis, and data analysis techniques. In the first part, we introduced data types, data structures, data storages, and data sources. In particular, we provided several websites where readers can obtain real-world datasets to horn their data analysis skills. In the second part, we introduced the process of data analysis and various aspects of data analysis. In the third part, we introduced some commonly used techniques for data analysis. In addition, we listed some R packages and functions that can be used to perform various data analysis tasks.</p>
+</div>
+<div id="further-resources-and-contributors" class="section level2">
+<h2><span class="header-section-number">13.6</span> Further Resources and Contributors</h2>
+
+</div>
+</div>
+<h3>Bibliography</h3>
+<div id="refs" class="references">
+<div id="ref-hox2005data">
+<p>Hox, Joop J., and Hennie R. Boeije. 2005. “Data Collection, Primary Versus Secondary.” In <em>Encyclopedia of Social Measurement</em>, 593–99. Elsevier.</p>
+</div>
+<div id="ref-inmon2014">
+<p>Inmon, W.H., and Dan Linstedt. 2014. <em>Data Architecture: A Primer for the Data Scientist: Big Data, Data Warehouse and Data Vault</em>. Cambridge, MA: Morgan Kaufmann.</p>
+</div>
+<div id="ref-leary2013bigdata">
+<p>O’Leary, D. E. 2013. “Artificial Intelligence and Big Data.” <em>IEEE Intelligent Systems</em> 28 (2): 96–99.</p>
+</div>
+<div id="ref-hashem2015bigdata">
+<p>Hashem, Ibrahim Abaker Targio, Ibrar Yaqoob, Nor Badrul Anuar, Salimah Mokhtar, Abdullah Gani, and Samee Ullah Khan. 2015. “The Rise of ‘Big Data’ on Cloud Computing: Review and Open Research Issues.” <em>Information Systems</em> 47: 98–115.</p>
+</div>
+<div id="ref-abdullah2013data">
+<p>Abdullah, Mohammad F., and Kamsuriah Ahmad. 2013. “The Mapping Process of Unstructured Data to Structured Data.” In <em>2013 International Conference on Research and Innovation in Information Systems (Icriis)</em>, 151–55.</p>
+</div>
+<div id="ref-pries2015">
+<p>Pries, Kim H., and Robert Dunnigan. 2015. <em>Big Data Analytics: A Practical Guide for Managers</em>. Boca Raton, FL: CRC Press.</p>
+</div>
+<div id="ref-miles2014">
+<p>Miles, Matthew, Michael Hberman, and Johnny Sdana. 2014. <em>Qualitative Data Analysis: A Methods Sourcebook</em>. 3rd ed. Thousand Oaks, CA: Sage.</p>
+</div>
+<div id="ref-gan2011">
+<p>Gan, Guojun. 2011. <em>Data Clustering in C++: An Object-Oriented Approach</em>. Data Mining and Knowledge Discovery Series. Boca Raton, FL, USA: Chapman &amp; Hall/CRC Press. doi:<a href="https://doi.org/10.1201/b10814">10.1201/b10814</a>.</p>
+</div>
+<div id="ref-chen2014b">
+<p>Chen, Min, Shiwen Mao, Yin Zhang, and Victor CM Leung. 2014. <em>Big Data: Related Technologies, Challenges and Future Prospects</em>. New York, NY: Springer.</p>
+</div>
+<div id="ref-olson2003">
+<p>Olson, Jack E. 2003. <em>Data Quality: The Accuracy Dimension</em>. San Francisco, CA: Morgan Kaufmann.</p>
+</div>
+<div id="ref-janert2010">
+<p>Janert, Philipp K. 2010. <em>Data Analysis with Open Source Tools</em>. Sebastopol, CA: O’Reilly Media.</p>
+</div>
+<div id="ref-forte2015">
+<p>Forte, Rui Miguel. 2015. <em>Mastering Predictive Analytics with R</em>. Birmingham, UK: Packt Publishing.</p>
+</div>
+<div id="ref-buttrey2017">
+<p>Buttrey, Samuel E., and Lyn R. Whitaker. 2017. <em>A Data Scientist’s Guide to Acquiring, Cleaning, and Managing Data in R</em>. Hoboken, NJ: Wiley.</p>
+</div>
+<div id="ref-tukey1962data">
+<p>Tukey, John W. 1962. “The Future of Data Analysis.” <em>The Annals of Mathematical Statistics</em> 33 (1). Institute of Mathematical Statistics: 1–67.</p>
+</div>
+<div id="ref-judd2017">
+<p>Judd, Charles M., Gary H. McClelland, and Carey S. Ryan. 2017. <em>Data Analysis. a Model Comparison Approach to Regression, ANOVA and Beyond</em>. 3rd ed. New York, NY: Routledge.</p>
+</div>
+<div id="ref-albers2017">
+<p>Albers, Michael J. 2017. <em>Introduction to Quantitative Data Analysis in the Behavioral and Social Sciences</em>. Hoboken, NJ: John Wiley &amp; Sons, Inc.</p>
+</div>
+<div id="ref-shmueli2010model">
+<p>Shmueli, Galit. 2010. “To Explain or to Predict?” <em>Statistical Science</em> 25 (3): 289–310.</p>
+</div>
+<div id="ref-good1983data">
+<p>Good, I. J. 1983. “The Philosophy of Exploratory Data Analysis.” <em>Philosophy of Science</em> 50 (2): 283–95.</p>
+</div>
+<div id="ref-gelman2004eda">
+<p>Gelman, Andrew. 2004. “Exploratory Data Analysis for Complex Models.” <em>Journal of Computational and Graphical Statistics</em> 13 (4): 755–79.</p>
+</div>
+<div id="ref-abbott2014">
+<p>Abbott, Dean. 2014. <em>Applied Predictive Analytics: Principles and Techniques for the Professional Data Analyst</em>. Hoboken, NJ: Wiley.</p>
+</div>
+<div id="ref-igual2017">
+<p>Igual, Laura, and Santi Segu. 2017. <em>Introduction to Data Science. a Python Approach to Concepts, Techniques and Applications</em>. New York, NY: Springer.</p>
+</div>
+<div id="ref-frees2009">
+<p>Frees, Edward W. 2009b. <em>Regression Modeling with Actuarial and Financial Applications</em>. Cambridge University Press.</p>
+</div>
+<div id="ref-breiman2001modeling">
+<p>Breiman, Leo. 2001. “Statistical Modeling: The Two Cultures.” <em>Statistical Science</em> 16 (3): 199–231.</p>
+</div>
+<div id="ref-mailund2017">
+<p>Mailund, Thomas. 2017. <em>Beginning Data Science in R: Data Analysis, Visualization, and Modelling for the Data Scientist</em>. Apress.</p>
+</div>
+<div id="ref-bandyo2011">
+<p>Bandyopadhyay, Prasanta S., and Malcolm R. Forster, eds. 2011. <em>Philosophy of Statistics</em>. Handbook of the Philosophy of Science 7. North Holland.</p>
+</div>
+<div id="ref-bluman2012">
+<p>Bluman, Allan. 2012. <em>Elementary Statistics: A Step by Step Approach</em>. New York, NY: McGraw-Hill.</p>
+</div>
+<div id="ref-samuel1959ml">
+<p>Samuel, A. L. 1959. “Some Studies in Machine Learning Using the Game of Checkers.” <em>IBM Journal of Research and Development</em> 3 (3): 210–29.</p>
+</div>
+<div id="ref-bishop2007">
+<p>Bishop, Christopher M. 2007. <em>Pattern Recognition and Machine Learning</em>. New York, NY: Springer.</p>
+</div>
+<div id="ref-clarke2009">
+<p>Clarke, Bertrand, Ernest Fokoue, and Hao Helen Zhang. 2009. <em>Principles and Theory for Data Mining and Machine Learning</em>. New York, NY: Springer-Verlag.</p>
+</div>
+<div id="ref-mohri2012">
+<p>Mohri, Mehryar, Afshin Rostamizadeh, and Ameet Talwalkar. 2012. <em>Foundations of Machine Learning</em>. Cambridge, MA: MIT Press.</p>
+</div>
+<div id="ref-kubat2017">
+<p>Kubat, Miroslav. 2017. <em>An Introduction to Machine Learning</em>. 2nd ed. New York, NY: Springer.</p>
+</div>
+<div id="ref-aggarwal2015">
+<p>Aggarwal, Charu C. 2015. <em>Data Mining: The Textbook</em>. New York, NY: Springer.</p>
+</div>
+<div id="ref-mirkin2011">
+<p>Mirkin, Boris. 2011. <em>Core Concepts in Data Analysis: Summarization, Correlation and Visualization</em>. London, UK: Springer.</p>
+</div>
+<div id="ref-gan2007">
+<p>Gan, Guojun, Chaoqun Ma, and Jianhong Wu. 2007. <em>Data Clustering: Theory, Algorithms, and Applications</em>. Philadelphia, PA: SIAM Press. doi:<a href="https://doi.org/10.1137/1.9780898718348">10.1137/1.9780898718348</a>.</p>
+</div>
+<div id="ref-dejong2008">
+<p>Jong, Piet de, and Gillian Z. Heller. 2008. <em>Generalized Linear Models for Insurance Data</em>. Cambridge, UK: Cambridge University Press.</p>
+</div>
+<div id="ref-breiman1984">
+<p>Breiman, Leo, Jerome Friedman, Charles J. Stone, and R.A. Olshen. 1984. <em>Classification and Regression Trees</em>. Raton Boca, FL: Chapman; Hall/CRC.</p>
+</div>
+<div id="ref-mitchell1997">
+<p>Mitchell, Tom M. 1997. <em>Machine Learning</em>. McGraw-Hill.</p>
+</div>
+<div id="ref-daroczi2015">
+<p>Daroczi, Gergely. 2015. <em>Mastering Data Analysis with R</em>. Birmingham, UK: Packt Publishing.</p>
+</div>
+</div>
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = '//lossdataanalytics.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="C-BonusMalus.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="C-DependenceModel.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/Chapters/DataSystems.Rmd",
+"text": "Edit"
+},
+"download": ["LossDataAnalytics.pdf", "LossDataAnalytics.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

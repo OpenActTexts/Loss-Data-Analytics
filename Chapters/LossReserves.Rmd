@@ -1,7 +1,7 @@
 
 `r chapnum = 11`
 
-#  Loss Reserving {#C:LossReserves}
+# Loss Reserving {#C:LossReserves}
 
 
 *Chapter Preview.* This chapter introduces loss reserving (also known as claims reserving) for property and casualty (P&C, or general, non-life) insurance products. In particular, the chapter sketches some basic, though essential, analytic tools to assess the reserves on a portfolio of P&C insurance products. First, Section \@ref(S:motivation) motivates the need for loss reserving, then Section \@ref(S:Data) studies the available data sources and introduces some formal notation to tackle loss reserving as a prediction challenge. Next, Section \@ref(S:Chain-ladder) covers the chain-ladder method and Mack's distribution-free chain-ladder model. Section \@ref(S:GLMs) then develops a fully stochastic approach to determine the outstanding reserve with generalized linear models (GLMs), including the technique of bootstrapping to obtain a predictive distribution of the outstanding reserve via simulation. 
@@ -10,8 +10,10 @@
 
 Our starting point is the lifetime of a P&C insurance claim. Figure \@ref(fig:tikz-run-off) pictures the development of such a claim over time and identifies the events of interest: 
 
+(ref:tikz-run-off)  **Lifetime or Run-off of a Claim**
+
 <a id="tikz-run-off"></a>
-```{tikz, tikz-run-off, fig.cap = "Lifetime or run-off of a claim", fig.align = 'center', fig.ext = 'png', fig.width=5, echo = FALSE, cache=TRUE}
+```{tikz, tikz-run-off, fig.cap = '(ref:tikz-run-off)', fig.align = 'center', fig.ext = 'png', fig.width=5, echo = FALSE, cache=TRUE}
 \usetikzlibrary{snakes}
 \begin{tikzpicture}[snake=zigzag, line before snake = 5mm, line after snake = 5mm]
 %draw horizontal line
@@ -57,14 +59,16 @@ Our starting point is the lifetime of a P&C insurance claim. Figure \@ref(fig:ti
 
 The insured event or accident occurs at time $t_{occ}$. This incident is reported to the insurance company at time $t_{rep}$, after some delay. If the filed claim is accepted by the insurance company, payments will follow to reimburse the financial loss of the policyholder. In this example the insurance company compensates the incurred loss with loss payments at times $t_1$, $t_2$ and $t_3$. Eventually, the claim settles or closes at time $t_{set}$. 
 
-Often claims will not settle immediately due to the presence of delay in the reporting of a claim, delay in the settlement process or both. The `r Gloss('reporting delay')` is the time that elapses between the occurrence of the insured event and the reporting of this event to the insurance company. The time between reporting and settlement of a claim is known as the `r Gloss('settlement delay')`. For example, it is very intuitive that a material damage claim settles quicker than a bodily injury claim involving a complex type of injury. Closed claims may also reopen due to new developments, e.g. an injury that requires extra treatment. Put together, the development of a claim typically takes some time. The presence of this delay in the run-off of a claim requires the insurer to hold capital in order to settle these claims in the future. 
+Often claims will not settle immediately due to the presence of delay in the reporting of a claim, delay in the settlement process or both. The `r Gloss('reporting delay')` is the time that elapses between the occurrence of the insured event and the reporting of this event to the insurance company. The time between reporting and settlement of a claim is known as the `r Gloss('settlement delay')`. For example, it is very intuitive that a material or property damage claim settles quicker than a bodily injury claim involving a complex type of injury. Closed claims may also reopen due to new developments, e.g. an injury that requires extra treatment. Put together, the development of a claim typically takes some time. The presence of this delay in the run-off of a claim requires the insurer to hold capital in order to settle these claims in the future. 
 
 ### Closed, IBNR, and RBNS Claims {#S:claim-types}
 
 Based on the status of the claim's run-off we distinguish three types of claims in the books of an insurance company. A first type of claim is a closed claim. For these claims the complete development has been observed. With the red line in  Figure \@ref(fig:tikz-closed) indicating the present moment, all events from the claim's development take place before the present moment. Hence, these events are observed at the present moment. For convenience, we will assume that a closed claim can not reopen. 
 
+(ref:tikz-closed)  **Lifetime of a Closed Claim**
+
 <a id="tikz-closed"></a>
-```{tikz, tikz-closed, fig.cap = "Lifetime of a closed claim", fig.align = 'center', fig.ext = 'png', fig.width=5, echo = FALSE, cache=TRUE}
+```{tikz, tikz-closed, fig.cap = '(ref:tikz-closed)', fig.align = 'center', fig.ext = 'png', fig.width=5, echo = FALSE, cache=TRUE}
 \usetikzlibrary{snakes}
 \begin{tikzpicture}[snake=zigzag, line before snake = 5mm, line after snake = 5mm]
 %draw horizontal line
@@ -94,10 +98,12 @@ Based on the status of the claim's run-off we distinguish three types of claims 
 ```
 
 
-An `r Gloss('RBNS')` claim is one that has been **R**eported, **B**ut is **N**ot fully **S**ettled at the present moment or the moment of evaluation, that is, the moment when the reserves should be calculated and booked by the insurer. Occurrence, reporting and possibly some loss payments take place before the present moment, but the closing of the claim happens in the future, beyond the present moment. 
+An `r Gloss('RBNS')` claim is one that has been **R**eported, **B**ut is **N**ot fully **S**ettled at the present moment or the moment of evaluation (the valuation date), that is, the moment when the reserves should be calculated and booked by the insurer. Occurrence, reporting and possibly some loss payments take place before the present moment, but the closing of the claim happens in the future, beyond the present moment. 
+
+(ref:tikz-RBNS)  **Lifetime of an RBNS Claim**
 
 <a id="tikz-RBNS"></a>
-```{tikz, tikz-RBNS, fig.cap = "Lifetime of an RBNS claim", fig.align = 'center', fig.ext = 'png', fig.width=5, echo = FALSE, cache=TRUE, eval = FALSE}
+```{tikz, tikz-RBNS, fig.cap = '(ref:tikz-RBNS)', fig.align = 'center', fig.ext = 'png', fig.width=5, echo = FALSE, cache=TRUE}
 \usetikzlibrary{snakes}
 \usetikzlibrary{shapes.arrows}
 \definecolor{shadecolor}{HTML}{f67e8e}  %licht rood
@@ -129,8 +135,10 @@ An `r Gloss('RBNS')` claim is one that has been **R**eported, **B**ut is **N**ot
 
 An `r Gloss('IBNR')` claim is one that has **I**ncurred in the past **B**ut is **N**ot yet **R**eported. For such a claim the insured event took place, but the insurance company is not yet aware of the associated claim. This claim will be reported in the future and its complete development (from reporting to settlement) takes place in the future.
 
+(ref:tikz-IBNR)  **Lifetime of an IBNR Claim**
+
 <a id="tikz-IBNR"></a>
-```{tikz, tikz-IBNR, fig.cap = "Lifetime of an IBNR claim", fig.align = 'center', fig.ext = 'png', fig.width=5, echo = FALSE, cache=TRUE}
+```{tikz, tikz-IBNR, fig.cap = '(ref:tikz-IBNR)', fig.align = 'center', fig.ext = 'png', fig.width=5, echo = FALSE, cache=TRUE}
 \usetikzlibrary{snakes}
 \usetikzlibrary{shapes.arrows}
 \definecolor{shadecolor}{HTML}{f67e8e}  %licht rood
@@ -154,7 +162,7 @@ Insurance companies will reserve capital to fulfill their future liabilities wit
 
 ### Why Reserving?
 
-The inverted production cycle of the insurance market and the claim dynamics pictured in Section \@ref(S:claim-types) motivate the need for reserving and the design of predictive modeling tools to estimate reserves. In insurance, the premium income precedes the costs. An insurer will charge a client a premium, before actually knowing how costly the insurance policy or contract will become. In typical manufacturing industry this is not the case and the manufacturer knows - before selling a product - what the cost of producing this product was. At a specified evaluation moment $\tau$ the insurer will predict his outstanding liabilities with respect to contracts sold in the past. This is the claims reserve or loss reserve; it is the capital necessary to settle open claims from past exposures. It is a very important element on the balance sheet of the insurer, more specifically on the liabilities side of this balance sheet.
+The inverted production cycle of the insurance market and the claim dynamics pictured in Section \@ref(S:claim-types) motivate the need for reserving and the design of predictive modeling tools to estimate reserves. In insurance, the premium income precedes the costs. An insurer will charge a client a premium, before actually knowing how costly the insurance policy or contract will become. In typical manufacturing industry this is not the case and the manufacturer knows - before selling a product - what the cost of producing this product was. At a specified evaluation moment $\tau$ the insurer will predict outstanding liabilities with respect to contracts sold in the past. This is the claims reserve or loss reserve; it is the capital necessary to settle open claims from past exposures. It is a very important element on the balance sheet of the insurer, more specifically on the liabilities side of the balance sheet.
 
 ## Loss Reserve Data {#S:Data}
 
@@ -162,8 +170,10 @@ The inverted production cycle of the insurance market and the claim dynamics pic
 
 We now shed light on the data available to estimate the outstanding reserve for a portfolio of P&C contracts. Insurance companies typically register data on the development of an individual claim as sketched in the timeline on the left hand side of  Figure \@ref(fig:tikz-micro-macro). We refer to data registered at this level as **granular or micro-level** data. Typically, an actuary aggregates the information registered on the individual development of claims across all claims in a portfolio. This aggregation leads to data structured in a triangular format as shown on the right hand side of  Figure \@ref(fig:tikz-micro-macro). Such data are called **aggregate or macro-level** data because each cell in the triangle displays information obtained by aggregating the development of multiple claims. 
 
+(ref:tikz-micro-macro) **From Granular Data to Run-off Triangle**
+
 <a id="tikz-micro-macro"></a>
-```{tikz, tikz-micro-macro, fig.cap = "From granular data to run-off triangle", fig.align = 'center', fig.ext = 'png', fig.width=5, echo = FALSE, cache=TRUE}
+```{tikz, tikz-micro-macro, fig.cap = '(ref:tikz-micro-macro)', fig.align = 'center', fig.ext = 'png', fig.width=5, echo = FALSE, cache=TRUE}
 \tikzset{
 triangle/.style={
   draw,shape border uses incircle,
@@ -210,10 +220,12 @@ The triangular display used in loss reserving is called a **run-off or developme
 
 ### Run-off Triangles
 
-A first example of a `r Gloss('run-off triangle')` with incremental payments is displayed in Figure \@ref(fig:tikz-triangle) (taken from @WuthrichMerz2008, Table 2.2, also used in @WuthrichMerz2015, Table 1.4). Accident years (or years of occurrence) are shown on the vertical axis and run from 2004 up to 2013. These refer to the year during which the insured event occurred. The horizontal axis indicates the payment delay in years since occurrence of the insured event. *0 delay* is used for payments made in the year of occurrence of the accident or insured event. *One year* of delay is used for payments made in the year after occurrence of the accident. 
+A first example of a `r Gloss('run-off triangle')` with incremental payments is displayed in Figure \@ref(fig:tikz-triangle) (taken from @WuthrichMerz2008, Table 2.2, also used in @WuthrichMerz2015, Table 1.4). Accident years (or years of occurrence) are shown on the vertical axis and run from 2004 up to 2013. These refer to the year during which the insured event occurred. The horizontal axis indicates the payment delay in years since occurrence of the insured event. *0 delay* is used for payments made in the year of occurrence of the accident or insured event. *One year* of delay is used for payments made in the year after occurrence of the accident.
+
+(ref:tikz-triangle) **A Run-off Triangle with Incremental Payment Data.** *Source: @WuthrichMerz2008, Table 2.2.*
 
 <a id="tikz-triangle"></a>
-```{tikz, tikz-triangle, fig.cap = "A run-off triangle with incremental payment data. Source: @WuthrichMerz2008, Table 2.2.", fig.align = 'center', fig.ext = 'png', fig.width=10, echo = FALSE}
+```{tikz tikz-triangle, fig.cap = '(ref:tikz-triangle)', fig.align = 'center', fig.ext = 'png', fig.width=10, echo = FALSE, cache=TRUE}
 \begin{tiny}
 \begin{center}
 \begin{tabular}{|c||r r r r r r r r r r|}
@@ -240,8 +252,10 @@ A first example of a `r Gloss('run-off triangle')` with incremental payments is 
 
 For example, cell $(2004, 0)$ in the above triangle displays the number $5,947$, the total amount paid in the year 2004 for all claims occurring in year 2004. Thus, it is the total amount paid with 0 years of delay on all claims that occurred in the year 2004. Similarly, the number in cell $(2012,1)$ displays the total $2,357.9$ paid in the year 2013 for all claims that occurred in year 2012. 
 
+(ref:tikz-cum-triangle) **A Run-off Triangle with Cumulative Payment Data.** *Source: @WuthrichMerz2008, Table 2.2.*
+
 <a id="tikz-cum-triangle"></a>
-```{tikz, tikz-cum-triangle, fig.cap = "A run-off triangle with cumulative payment data. Source: @WuthrichMerz2008, Table 2.2.", fig.align = 'center', fig.ext = 'png', fig.width=10, echo = FALSE, cache=TRUE}
+```{tikz tikz-cum-triangle, fig.cap = '(ref:tikz-cum-triangle)', fig.align = 'center', fig.ext = 'png', fig.width=10, echo = FALSE, cache=TRUE}
 \begin{tiny}
 \begin{center}
 \begin{tabular}{|c||r r r r r r r r r r|}
@@ -290,8 +304,10 @@ Other sources of information are potentially available, e.g. covariates (like th
 
 To formalize the displays shown in Figures \@ref(fig:tikz-triangle) and \@ref(fig:tikz-cum-triangle), we let $i$ refer to the occurrence or accident year, the year in which the insured event happened. In our notation the first accident year considered in the portfolio is denoted with 1 and the latest, most recent accident year is denoted with $I$. Then, $j$ refers to the payment delay or development year, where a delay equal to 0 corresponds to the accident year itself.  Figure \@ref(fig:tikz-math-triangle) shows a triangle where the same number of years is considered in both the vertical as well as the horizontal direction, hence $j$ runs from 0 up to $J = I-1$.
 
+(ref:tikz-math-triangle)  **Mathematical notation for a run-off triangle.** *Source:* @WuthrichMerz2008
+
 <a id="tikz-math-triangle"></a>
-```{tikz, tikz-math-triangle, fig.cap = "Mathematical notation for a run-off triangle. Source: @WuthrichMerz2008", fig.align = 'center', fig.ext = 'png', fig.width=10, echo = FALSE, cache=TRUE}
+```{tikz, tikz-math-triangle, fig.cap = '(ref:tikz-math-triangle)', fig.align = 'center', fig.ext = 'png', fig.width=10, echo = FALSE, cache=TRUE}
 \begin{scriptsize}
 \begin{center}
 \begin{tabular}{|c||r r r r r r r r r r|}
@@ -315,7 +331,7 @@ To formalize the displays shown in Figures \@ref(fig:tikz-triangle) and \@ref(fi
 \end{scriptsize}
 ```
 
-The random variable $X_{ij}$ denotes the incremental claims paid in development period $j$ on claims from accident year $i$. Thus, $X_{ij}$ is the total amount paid in development year $j$ for all claims that happened in occurrence year $i$. These payments are actually paid out in accounting or calendar year $i+j$. Taking a cumulative point of view, $C_{ij}$ is the cumulative amount paid up until (and including) development year $j$ for accidents that occurred in year $i$. Ultimately, a total amount $C_{iJ}$ is paid in the final development year $J$ for claims that occurred in accident year $i$. In this chapter time is expressed in years, though other time units can be used as well, e.g. semesters or quarters. 
+The random variable $X_{ij}$ denotes the incremental claims paid in development period $j$ on claims from accident year $i$. Thus, $X_{ij}$ is the total amount paid in development year $j$ for all claims that happened in occurrence year $i$. These payments are actually paid out in accounting or calendar year $i+j$. Taking a cumulative point of view, $C_{ij}$ is the cumulative amount paid up until (and including) development year $j$ for accidents that occurred in year $i$. Ultimately, a total amount $C_{iJ}$ is paid in the final development year $J$ for claims that occurred in accident year $i$. In this chapter time is expressed in years, though other time units can be used as well, e.g. six-month periods or quarters. 
 
 #### The Loss Reserve {-}
 
@@ -410,9 +426,11 @@ We recognize the incremental triangle from  Figure \@ref(fig:tikz-triangle).
 
 #### Visualizing Triangles {-}
 
-To explore the evolution of the cumulative payments per occurrence year, Figure \@ref(fig:plottriangle) shows `my_triangle` using the `plot` function available for objects of type `triangle` in the `ChainLadder` package. Each line in this plot pictures an occurrence year (from 2004 to 2013, labelled as 1 to 10). Development periods are labelled from 1 to 10 (instead of 0 to 9, as used above). 
+To explore the evolution of the cumulative payments per occurrence year, Figure \@ref(fig:plottriangle) shows `my_triangle` using the `plot` function available for objects of type `triangle` in the `ChainLadder` package. Each line in this plot depicts an occurrence year (from 2004 to 2013, labelled as 1 to 10). Development periods are labelled from 1 to 10 (instead of 0 to 9, as used above). 
 
-```{r plottriangle, fig.cap = "Claim Development by Occurrence Year", fig.align = 'center', out.width = '80%'}
+(ref:plottriangle) **Claim Development by Occurrence Year**
+
+```{r plottriangle, fig.cap = '(ref:plottriangle)', fig.align = 'center', out.width = '80%'}
 plot(my_triangle)
 ```
 
@@ -423,14 +441,14 @@ plot(my_triangle, lattice = TRUE)
 ```
 
 Instead of plotting the cumulative triangle stored in `my_triangle`, we can plot the incremental run-off triangle.
-```{r plot_triangle_incr, fig.align = 'center', out.width = '80%'}
+```{r plot_triangle_incr, fig.align = 'center', out.width = '80%', cache=TRUE}
 plot(my_triangle_incr)
 plot(my_triangle_incr, lattice = TRUE)
 ```
 
-## The Chain-Ladder {#S:Chain-ladder}
+## The Chain-Ladder Method {#S:Chain-ladder}
 
-The most widely used method to estimate outstanding loss reserves is the so-called `r Gloss('chain-ladder method')`. The origins of this method are obscure but was firmly entrenched in practical applications by the early 1970's, @taylor1986claims. As will be seen, the name refers to the chaining of a sequence of (year-to-year development) factors into a ladder of factors; immature losses climb toward maturity when multiplied by this concatenation of ratios, hence the apt description *chain-ladder method.* We will start with exploring the chain-ladder method in its deterministic or algorithmic version, hence without making any stochastic assumptions. Then we will describe Mack's distribution-free chain-ladder model. 
+The most widely used method to estimate outstanding loss reserves is the so-called `r Gloss('chain-ladder method')`. The origins of this method are obscure but was firmly entrenched in practical applications by the early 1970's, @taylor1986claims. As will be seen, the name refers to the chaining of a sequence of (year-to-year development) factors into a ladder of factors; immature losses climb toward maturity when multiplied by this concatenation of ratios, hence the apt descriptor *chain-ladder method.* We will start with exploring the chain-ladder method in its deterministic or algorithmic version, hence without making any stochastic assumptions. Then we will describe Mack's distribution-free chain-ladder model. 
 
 ### The Deterministic Chain-Ladder {#S:DeterministicCL}
 
@@ -440,11 +458,12 @@ $$
 C_{i,j+1} = f_j \times C_{i,j}.
 $$ 
 
-Thus, the development factor tells you how the cumulative amount in development year $j$ grows to the cumulative amount in year $j+1$. We highlight the cumulative amount in period 0 in \textcolor{blue} and the cumulative amount in period 1 in \textcolor{red} on the Figure \@ref(fig:tikz-cum-triangle-cl1) taken from @WuthrichMerz2008 (Table 2.2, also used in @WuthrichMerz2015, Table 1.4).
+Thus, the development factor tells you how the cumulative amount in development year $j$ grows to the cumulative amount in year $j+1$. We highlight the cumulative amount in period 0 in blue and the cumulative amount in period 1 in red on the Figure \@ref(fig:tikz-cum-triangle-cl1) taken from @WuthrichMerz2008 (Table 2.2, also used in @WuthrichMerz2015, Table 1.4).
 
+(ref:tikz-cum-triangle-cl1) **A Run-off Triangle with Cumulative Payment Data Highlighting the Cumulative Amount in Period 0 in Blue and the Cumulative Amount in Period 1 in Red.** *Source: @WuthrichMerz2008, Table 2.2.*
 
 <a id="tikz-cum-triangle-cl1"></a>
-```{tikz, tikz-cum-triangle-cl1, fig.cap = "A run-off triangle with cumulative payment data highlighting the cumulative amount in period 0 in blue and the cumulative amount in period 1 in red. Source: @WuthrichMerz2008, Table 2.2.", fig.align = 'center', fig.ext = 'png', fig.width=10, echo = FALSE, cache=TRUE}
+```{tikz, tikz-cum-triangle-cl1, fig.cap = '(ref:tikz-cum-triangle-cl1)', fig.align = 'center', fig.ext = 'png', fig.width=10, echo = FALSE, cache=TRUE}
 \begin{tiny}
 \begin{center}
 \begin{tabular}{|c||r r r r r r r r r r|}
@@ -469,7 +488,7 @@ year & \textcolor{magenta}{0} & \textcolor{magenta}{1} & 2 & 3 & 4 & 5 & 6 & 7 &
 \end{tiny}
 ```
 
-The chain-ladder method then presents an intuitive recipe to estimate or calculate these development factors. Since the first development factor $f_0$ describes the development of the cumulative claim amount from development period 0 to development period 1, it can be estimated as the ratio of the cumulative amounts in red and the cumulative amounts in blue, highlighted in the  Figure \@ref(fig:tikz-cum-triangle-cl1). In math notation we then obtain the following estimate $\hat{f}_0^{CL}$ for the first development factor $f_0$, given observations $\mathcal{D}_I$:
+The chain-ladder method then presents an intuitive recipe to estimate or calculate these development factors. Since the first development factor $f_0$ describes the development of the cumulative claim amount from development period 0 to development period 1, it can be estimated as the ratio of the cumulative amounts in red and the cumulative amounts in blue, highlighted in the  Figure \@ref(fig:tikz-cum-triangle-cl1). We then obtain the following estimate $\hat{f}_0^{CL}$ for the first development factor $f_0$, given observations $\mathcal{D}_I$:
 
 $$
 \hat{f}^{CL}_{\color{magenta}{0}} = \frac{\sum_{i=1}^{10-\color{magenta}{0}-1} \color{red}{C_{i,\color{magenta}{0}+1}}}{\sum_{i=1}^{10-\color{magenta}{0}-1} \color{blue}{C_{i\color{magenta}{0}}}}= 1.4925.
@@ -482,8 +501,10 @@ $$
 $$
 Going forward with this reasoning, the next development factor $f_1$ can be estimated. Since $f_1$ captures the development from period 1 to period 2, it can be estimated as the ratio of the numbers in red and the numbers in blue as highlighted in Figure \@ref(fig:tikz-cum-triangle-cl2).
 
+(ref:tikz-cum-triangle-cl2) **A Run-off Triangle with Cumulative Payment Data Highlighting the Cumulative Amount in Period 1 in Blue and the Cumulative Amount in Period 2 in Red.** *Source: @WuthrichMerz2008, Table 2.2.*
+
 <a id="tikz-cum-triangle-cl2"></a>
-```{tikz, tikz-cum-triangle-cl2, fig.cap = "A run-off triangle with cumulative payment data highlighting the cumulative amount in period 1 in blue and the cumulative amount in period 2 in red. Source: @WuthrichMerz2008, Table 2.2.", fig.align = 'center', fig.ext = 'png', fig.width=10, echo = FALSE, cache=TRUE}
+```{tikz, tikz-cum-triangle-cl2, fig.cap = '(ref:tikz-cum-triangle-cl2)', fig.align = 'center', fig.ext = 'png', fig.width=10, echo = FALSE, cache=TRUE}
 \begin{tiny}
 \begin{center}
 \begin{tabular}{|c||r r r r r r r r r r|}
@@ -525,8 +546,10 @@ Note that for $\hat{C}_{10,2}$ you actually use the estimate $\hat{C}_{10,1}$ an
 
 We continue analogously and obtain following predictions, printed in italics in the  Figure \@ref(fig:tikz-cum-triangle-cl3):
 
+(ref:tikz-cum-triangle-cl3) **A Run-off Triangle with Cumulative Payment Data Including Predictions in Italic** *Source: @WuthrichMerz2008, Table 2.2.*
+
 <a id="tikz-cum-triangle-cl3"></a>
-```{tikz, tikz-cum-triangle-cl3, fig.cap = "A run-off triangle with cumulative payment data including predictions in italic. Source: [@WuthrichMerz2008], Table 2.2.", fig.align = 'center', fig.ext = 'png', fig.width=10, echo = FALSE, cache=TRUE}
+```{tikz, tikz-cum-triangle-cl3, fig.cap = '(ref:tikz-cum-triangle-cl3)', fig.align = 'center', fig.ext = 'png', fig.width=10, echo = FALSE, cache=TRUE}
 \begin{tiny}
 \begin{center}
 \begin{tabular}{|c||r r r r r r r r r r|}
@@ -555,8 +578,10 @@ $\hat{f}^{CL}$ &  1.493 & 1.078 & 1.023 & 1.015 & 1.007 & 1.005 & 1.001 & 1.001 
 
 Eventually we need to estimate the values in the final column. The last development factor $f_8$ measures the growth from development period 8 to development period 9 in the triangle. Since only the first row in the triangle has both cells observed, this last factor is estimated as the ratio of the value in red and the value in blue in Figure \@ref(fig:tikz-cum-triangle-cl3b). 
 
+(ref:tikz-cum-triangle-cl3b) **A Run-off Triangle with Cumulative Payment Data Highlighting the Cumulative Amount in Period 8 in Blue and the Cumulative Amount in Period 9 in Red.** *Source: @WuthrichMerz2008, Table 2.2.*
+
 <a id="tikz-cum-triangle-cl3b"></a>
-```{tikz, tikz-cum-triangle-cl3b, fig.cap = "A run-off triangle with cumulative payment data highlighting the cumulative amount in period 8 in blue and the cumulative amount in period 9 in red. Source: [@WuthrichMerz2008], Table 2.2.", fig.align = 'center', fig.ext = 'png', fig.width=10, echo = FALSE, cache=TRUE}
+```{tikz, tikz-cum-triangle-cl3b, fig.cap = '(ref:tikz-cum-triangle-cl3b)', fig.align = 'center', fig.ext = 'png', fig.width=10, echo = FALSE, cache=TRUE}
 \begin{tiny}
 \begin{center}
 \begin{tabular}{|c||r r r r r r r r r r|}
@@ -604,8 +629,10 @@ where $C_{i,I-i}$ is on the last observed diagonal. It is clear that an importan
 
 This yields the following  Figure \@ref(fig:tikz-cum-triangle-cl4):
 
+(ref:tikz-cum-triangle-cl4) **A Run-off Triangle with Cumulative Payment Data Including Predictions in Italic** *Source: @WuthrichMerz2008, Table 2.2.*
+
 <a id="tikz-cum-triangle-cl4"></a>
-```{tikz, tikz-cum-triangle-cl4, fig.cap = "A run-off triangle with cumulative payment data including predictions in italic. Source: @WuthrichMerz2008, Table 2.2.", fig.align = 'center', fig.ext = 'png', fig.width=10, echo = FALSE, cache=TRUE}
+```{tikz, tikz-cum-triangle-cl4, fig.cap = '(ref:tikz-cum-triangle-cl4)', fig.align = 'center', fig.ext = 'png', fig.width=10, echo = FALSE, cache=TRUE}
 \begin{tiny}
 \begin{center}
 \begin{tabular}{|c||r r r r r r r r r r|}
@@ -639,8 +666,10 @@ $$
 $$
 This is the chain-ladder estimate for the reserve necessary to fulfill future liabilities with respect to claims that occurred in this particular occurrence period. These reserves per occurrence period and for the total summed over all occurrence periods are summarized in Figure \@ref(fig:tikz-cum-triangle-cl5). 
 
+(ref:tikz-cum-triangle-cl5) **Reserves per Occurence Period and for Total**
+
 <a id="tikz-table-cl5"></a>
-```{tikz, tikz-cum-triangle-cl5, fig.cap = "Reserves per occurence period and for total", fig.align = 'center', fig.ext = 'png', fig.width=10, echo = FALSE, cache=TRUE}
+```{tikz, tikz-cum-triangle-cl5, fig.cap = '(ref:tikz-cum-triangle-cl5)', fig.align = 'center', fig.ext = 'png', fig.width=10, echo = FALSE, cache=TRUE}
 \begin{tiny}
 \begin{center}
 \begin{tabular}{|r| r| r| r| r|}
@@ -751,7 +780,8 @@ $$
 This conditional *MSEP* measures:
 
 * the distance between the (true) ultimate claim $C_{iJ}$ and its chain-ladder predictor $\hat{C}_{iJ}^{CL}$ at time $I$, and 
-* the total prediction uncertainty over the entire run-off of the nominal ultimate claim $C_{iJ}$. It does not consider time value of money, a risk margin nor any dynamics in its developments.
+* the total prediction uncertainty over the entire run-off of the nominal ultimate claim $C_{iJ}$. It does not consider time value of money, a risk margin nor any dynamics in claim development.
+
 
 The *MSEP* that comes with the estimate for the ultimate cumulative claim amount is equal to the *MSEP* that measures the squared distance between the true and the estimated reserve:
 
@@ -777,7 +807,7 @@ $$
 for a $\mathcal{D}_I$ measurable estimator/predictor $\hat{C}_{iJ}$. The process variance component captures the volatility or uncertainty in the random variable $C_{i,J}$ and the parameter estimation variance measures the error that arises from replacing the unknown development factors $f_j$ with their estimated values. This result follows immediately from following equality about the variance of a shifted random variable $X$ where the shift $a$ is deterministic:
 
 $$
-E(X-a)^2 = \text{Var}(X)+\left[EX-a\right]^2.
+\mathrm{E}~(X-a)^2 = \text{Var}(X)+\left[\mathrm{E}(X)-a\right]^2.
 $$
 
 Applied to the expression of the *MSEP* you treat $\hat{C}_{i,J}$ as fixed because you work conditionally on the data in the upper triangle and $\hat{C}_{i,J}$ only uses information from this upper triangle. 
@@ -789,7 +819,7 @@ $$
 \left(\hat{C}_{iJ}^{CL}\right)^2 \sum_{j=I-i}^{J-1} \left[ \frac{\hat{\sigma}_j^2}{(\hat{f}_j^{CL})^2} \left(\frac{1}{\hat{C}^{CL}_{ij}}+\frac{1}{\sum_{n=1}^{I-j-1}C_{nj}}\right)\right].
 $$
 
-For the derivation of this popular formula, we refer to his paper. Note that it is an estimate of the *MSEP* since the unknown parameters $f_j$ and $\sigma_j$ need to be estimated and since the estimation error cannot be calculated explicitly. 
+For the derivation of this popular formula, we refer to his paper. Note that it is an estimate of the *MSEP* since the unknown parameters $f_j$ and $\sigma_j$ need to be estimated as the estimation error cannot be calculated explicitly. 
 
 Mack also derived a formula for the *MSEP* for the total reserve, across all occurrence periods:
 
@@ -896,7 +926,7 @@ $$
 
 This construction allows for under (when $\phi <1$) and over-dispersion (with $\phi>1$). Because $X_{ij}$ no longer follows a well-known distribution, this approach is referred to as quasi-likelihood. It is particularly useful to model a run-off triangle with incremental payments, as these typically reveal over-dispersion. 
 
-Third, the **gamma** regression model is relevant to model a run-off triangle with claim payments. Recall from Section \@ref(S:Loss:Gamma) (see also the Appendix Chapter \@ref(C:SummaryDistributions)) with parameters $\alpha$ and $\theta$. From these, we reparameterize and define a new parameter $\mu = \alpha \cdot \theta$ while retaining the scale parameter $\theta$. Further, assume that $X_{ij}$ has a gamma distribution and allow $\mu$ to vary by $ij$ such that 
+Third, the **gamma** regression model is relevant to model a run-off triangle with claim payments. Recall from Section \@ref(S:Loss:Gamma) (see also the Appendix Chapter \@ref(C:SummaryDistributions)) that the gamma distribution has shape parameter $\alpha$ and scale parameter $\theta$. From these, we reparameterize and define a new parameter $\mu = \alpha \cdot \theta$ while retaining the scale parameter $\theta$. Further, assume that $X_{ij}$ has a gamma distribution and allow $\mu$ to vary by $ij$ such that 
 
 $$
 \mu_{ij} =  \exp{(\mu + \alpha_i + \beta_j)}.
@@ -926,11 +956,11 @@ Point estimates for outstanding reserves (per occurrence year $i$ or the total r
 ## Further Resources and Contributors {#LossRe:further-reading-and-resources}
 
 
-####Contributors {-}
+#### Contributors {-}
 
 - **Katrien Antonio**, KU Leuven and University of Amsterdam, **Jan Beirlant**, KU Leuven, and **Tim Veerdonck**, University of Antwerp, are the principal authors of the initial version of this chapter. Email: katrien.antonio@kuleuven.be for chapter comments and suggested improvements.
 
-####Further Readings and References {-}
+#### Further Readings and References {-}
 
 As displayed in Figure \@ref(fig:tikz-run-off), similar timelines and visualizations are discussed (among others) in @WuthrichMerz2008, @AntonioPlat2014 and @WuthrichMerz2015. 
 
@@ -944,4 +974,4 @@ Over time actuaries started to think about possible underlying models and we men
 
 The various stochastic models proposed in actuarial literature rely on different assumptions and have different model properties, but have in common that they provide exactly the chain-ladder reserve estimates. For more information we also refer to @MackVenter2000 and to the lively discussion that was published in *ASTIN Bulletin: Journal of the International Actuarial Association* in 2006 [@Venter2006].
 
-To read more about exponential families and generalized linear models, see, for example, @McCullagh1989 and @WuthrichMerz2008. We refer to [@Kremer1982], [@RenshawVerrall1998] and [@EnglandVerrall2002], and the overviews in [@Taylor2000], [@WuthrichMerz2008] and [@WuthrichMerz2015] for more details on the discussed GLMs. XXX presents alternative distributional assumptions and specifications of the linear predictor. 
+To read more about exponential families and generalized linear models, see, for example, @McCullaghNelder89 and @WuthrichMerz2008. We refer to [@Kremer1982], [@RenshawVerrall1998] and [@EnglandVerrall2002], and the overviews in [@Taylor2000], [@WuthrichMerz2008] and [@WuthrichMerz2015] for more details on the discussed GLMs. XXX presents alternative distributional assumptions and specifications of the linear predictor. 

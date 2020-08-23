@@ -1,7 +1,7 @@
 
 `r chapnum = 7`
 
-#Premium Foundations {#C:PremiumFoundations}
+# Premium Foundations {#C:PremiumFoundations}
 
 *Chapter Preview.* Setting prices for insurance products, premiums, is an important task for actuaries and other data analysts. This chapter introduces the foundations for pricing non-life products.
 
@@ -18,9 +18,41 @@ In this section, you learn how to:
 
 ***
 
+This chapter explains how you can think about determining the appropriate price for an insurance product. As described in Section \@ref(S:PredModApps), one of the core actuarial functions is `r Gloss('ratemaking')`, where the  analyst seeks to determine the right price for a risk.
 
-```{r child = 'Chapters/PremiumSections/RatemakingIntroduction.Rmd'}
-```
+As this is a core function, let us first take a step back to define terms. A `r Gloss('price')` is a quantity, usually of money, that is exchanged for a good or service. In insurance, we typically use the word `r Gloss('premium')` for the amount of money charged for insurance protection against contingent events. The amount of protection varies by risk being insured. For example, in homeowners insurance the amount of insurance protection depends on the value of the house. In life insurance, the amount of protection depends on a policyholder's financial status (e.g. income and wealth) as well as a perceived need for financial security. So, it is common to express insurance prices as a unit of the protection being purchased, for example, a price per thousand dollars of coverage on a home or benefit in the event of death.  These prices/premiums are known as `r Gloss('rates')` because they are expressed in standardized units,
+
+To determine premiums, it is common in economics to consider the supply and demand of a product. The demand is sensitive to price as well as the existence of competing firms and substitute products. The supply is also sensitive to price as well as the resources required for production. For the individual firm, the price is set to meet some objective such as profit maximization which is met by choosing the output level that balances costs and revenues at the margins.
+
+However, a peculiarity of insurance is that the costs of insurance protection are not known at the sale of the contract. If the `r Gloss('insured contingent event')`, such as the loss of a house or life, does not occur, then the contract costs are only administrative (to set up the contract) and are relatively minor. If the insured event occurs, then the cost includes not only administrative costs but also payment of the amount insured and expenses to settle claims. So, the cost is random; when the contract is written, by design neither the insurer nor the insured knows the contract costs. Moreover, costs may not be revealed for months or years. For example, a typical time to settlement in medical malpractice is five years.
+
+Because costs are unknown at the time of sale, insurance pricing differs from common economic approaches. This chapter squarely addresses the uncertain nature of costs by introducing traditional actuarial approaches that determine prices as a function of insurance costs. As we will see, this pricing approach is sufficient for some insurance markets such as personal automobile or homeowners where the insurer has a portfolio of many independent risks. However, there are other insurance markets where actuarial prices only provide an input to general market prices. To reinforce this distinction, actuarial cost-based premiums are sometimes known as `r Gloss('technical prices')`. From the perspective of economists, corporate decisions such as pricing are to be evaluated with reference to their impact on the firm's market value. This objective is more comprehensive than the static notion of profit maximization. That is, you can think of the value of the firm as the capitalized value of all future expected profits. Decisions impacting this value in turn affect all groups having claims on the firm, including stockholders, bondholders, policyowners (in the case of mutual companies), and so forth.
+
+<!-- Given that costs are not incurred or even known at the time of sale, this chapter focuses on the costs of supplying insurance, following the actuarial literature. This is not a complete picture of everything needed to price insurance.  -->
+
+For cost-based prices, it is helpful to think of a premium as revenue source that provides for claim payments, contract expenses, and an operating margin. We formalize this in an accounting equation
+
+\begin{equation}
+\small{
+\text{Premium = Loss + Expense + UW Profit} .
+}
+(\#eq:AccountingEquation)
+\end{equation}
+
+The `Expense` term can be split into those that vary by premium (such as sales commissions) and those that do not (such as building costs and employee salaries). The term `UW Profit` is a residual that stands for `r Gloss('underwriting profit')`. It may also include include a cost of capital (for example, an annual dividend to company investors). Because fixed expenses and costs of capital are difficult to interpret for individual contracts, we think of the equation \@ref(eq:AccountingEquation) relationship as holding over the sum of many contracts (a portfolio) and work with it in *aggregate*. Then, in Section \@ref(S:AggRateMaking) we use this approach to help us think about setting premiums, for example by setting profit objectives. Specifically, Sections \@ref(S:PurePremium)  and \@ref(S:LossRatio) introduce two prevailing methods used in practice for determining premiums, the `r Gloss('pure premium')` and the `r Gloss('loss ratio')` methods.
+
+The `Loss` in equation \@ref(eq:AccountingEquation) is random and so, as a baseline, we use the *expected costs* to determine rates. There are several ways to motivate this perspective that we expand upon in Section \@ref(S:PricingPrinciples). For now, we will suppose that the insurer enters into many contracts with risks that are similar except, by pure chance, in some cases the insured event occurs and in others it does not. The insurer is obligated to pay the total amount of claim payments for all contracts. If risks are similar, then all policyholders are equally likely to contribute to the total loss. So, from this perspective, it makes sense to look at the average claim payment over many insureds. From probability theory, specifically the law of large numbers, we know that the average of `r Gloss('iid')` risks is close to the expected amount, so we use the expectation as a baseline pricing principle.
+
+Nonetheless, by using expected losses, we essentially assume that the uncertainty is non-existent. If the insurer sells enough independent policies, this may be a reasonable approximation. However, there will be other cases, such as a single contract issued to a large corporation to insure all of its buildings against fire damage, where the use of only an expectation for pricing is not sufficient. So, Section \@ref(S:PricingPrinciples) also summarizes alternative premium principles that incorporate uncertainty into our pricing. Note that an emphasis of this text is estimation of the entire distribution of losses so the analyst is not restricted to working only with expectations.
+
+The aggregate methods derived from equation \@ref(eq:AccountingEquation) focus on collections of `r Gloss('homogeneous risks')` that are similar except for the occurrence of random losses. In statistical language that we have introduced, this is a discussion about risks that have identical distributions. Naturally, when examining risks that insurers work with, there are many variations in the risks being insured including the features of the contracts and the people being insured.  Section \@ref(S:HeterogeneousRisks) extends pricing considerations to `r Gloss('heterogeneous')` collections of risks.
+
+Section \@ref(S:TrendDevelopment) introduces development and trending. When developing rates, we want to use the most recent loss experience because the goal is to develop rates that are forward looking. However, at contract initiation, recent loss experience is often not known; it may be several years until it is fully realized. So, this section introduces concepts needed for incorporating recent loss experience into our premium development. Development and trending of experience is related to but also differs from the idea of `r Gloss('experience rating')` that suggests that experience reveals hidden information about the insured and so should be incorporated in our forward thinking viewpoint. Chapter \@ref(C:Credibility) discusses this idea in more detail.
+
+The final section of this chapter introduces methods for selecting a premium. This is done by comparing a premium rating method to losses from a held-out portfolio and selecting the method that produces the best match with the held-out data. For a typical insurance portfolio, most policies produce zero losses, that is, do not have a claim. Because the distribution of held-out losses is a combination of (a large number of) zeros and continuous amounts, special techniques are useful. Section \@ref(S:GiniStatistic) introduces concepts of *concentration curves* and corresponding *Gini statistics* to help in this selection.
+
+The chapter also includes a technical supplement on government regulation of `r Gloss('insurance rates')` to keep our work grounded in applications.
+
 
 ## Aggregate Ratemaking Methods {#S:AggRateMaking}
 
@@ -35,8 +67,191 @@ In this section, you learn how to:
 
 ***
 
-```{r child = 'Chapters/PremiumSections/AggRatemaking.Rmd'}
-```
+It is common to consider an aggregate portfolio of insurance experience. Consistent with earlier notation, consider a collection of $n$ contracts with losses $X_1, \ldots, X_n$. In this section, we assume that contracts have the same loss distribution, that is they form a homogeneous portfolio, and so are `r Gloss('iid')`. For motivation, you can think about personal insurance such as auto or homeowners where insurers write many contracts on risks that appear very similar. Further, the assumption of identical distributions is not as limiting as you might think. In Section \@ref(S:ExposureToRisk) we will introduce the idea of an `r Gloss('exposure', '7.2, 7.4')` variable that allows us to rescale experience to make it comparable. For example, by rescaling losses we will be able to treat homeowner losses from a house with 80,000 insurable value and a house with a 320,000 insurable value as coming from the same distribution. For now, we simply assume that $X_1, \ldots, X_n$ are *iid*.
+
+
+### Pure Premium Method {#S:PurePremium}
+
+If the number of policies in a collection, $n$, is large, then the average provides a good approximation of the expected loss
+$$
+\small{
+\mathrm{E}(X) \approx \frac{\sum_{i=1}^n X_i}{n} = \frac{\text{Loss}}{\text{Exposure}} = \text{Pure Premium}.
+}
+$$
+With this as motivation, we define the `r Gloss('pure premium')` to be the sum of losses divided by the exposure; it is also known as a `r Gloss('loss cost')`. In the case of `r Gloss('homogeneous risks')`, all policies are treated the same and we can use the number of policies $n$ for the exposure. In Section \@ref(S:ExposureToRisk) we extend the concept of exposure when policies are not the same.
+
+We can multiply and divide by the number of claims, `claim count`, to get
+$$
+\small{
+\text{Pure Premium} = \frac{\text{claim count}}{\text{Exposure}} \times \frac{\text{Loss}}{\text{claim count}} = \text{frequency} \times \text{severity} .
+}
+$$
+
+So, when premiums are determined using the pure premium method, we either take the average loss (loss cost) or use the frequency-severity approach.
+
+To get a bit closer to applications in practice, we now return to equation \@ref(eq:AccountingEquation) that includes expenses. Equation \@ref(eq:AccountingEquation) also refers to `UW Profit` for underwriting profit. When rescaled by premiums, this is known as the `r Gloss('profit loading')`.  Because claims are uncertain, the insurer must hold capital to ensure that all claims are paid. Holding this extra capital is a cost of doing business, investors in the company need to be compensated for this, thus the extra loading.
+
+We now decompose `Expenses` into those that vary by premium, `Variable`, and those that do not, `Fixed` so that `Expenses = Variable + Fixed`. Thinking of variable expenses and profit as a fraction of premiums, we define
+
+$$
+\small{
+V =  \frac{\text{Variable}}{\text{Premium}} ~~~ \text{and}~~~
+Q = \frac{\text{UW Profit}}{\text{Premium}} ~.
+}
+$$
+
+With these definitions and equation  \@ref(eq:AccountingEquation), we may write
+$$
+\small{
+\begin{matrix}
+\begin{array}{ll}
+\text{Premium} &= \text{Losses + Fixed} + \text{Premium} \times \frac{\text{Variable + UW Profit}}{\text{Premium}}  \\
+& = \text{Losses + Fixed} + \text{Premium} \times (V+Q) .
+\end{array}
+\end{matrix}
+}
+$$
+Solving for premiums yields
+
+\begin{equation}
+\small{
+\text{Premium} = \frac{\text{Losses + Fixed}}{1-V-Q} .
+}
+(\#eq:PremiumEquation)
+\end{equation}
+
+Dividing by exposure, the rate can be calculated as
+
+$$
+\begin{matrix}
+\begin{array}{ll}
+\text{Rate} &= \frac{\text{Premium}}{\text{Exposure}} = \frac{\text{Losses/Exposure + Fixed/Exposure}}{1-V-Q} \\
+&=   \frac{\text{Pure Premium + Fixed/Exposure}}{1-V-Q} ~.
+\end{array}
+\end{matrix}
+$$
+
+In words, this is
+
+$$
+\small{
+\text{Rate} =\frac{\text{pure premium + fixed expense per exposure}}{\text{1 - variable expense factor - profit and contingencies factor}}  .
+}
+$$
+
+**Example. CAS Exam 5, 2004, Number 13.** Determine the `r Gloss('indicated rate')` per exposure unit, given the following information:
+
+- Frequency per exposure unit = 0.25
+- Severity = \$100
+- Fixed expense per exposure unit = \$10
+- Variable expense factor = 20\%
+- Profit and contingencies factor = 5\%
+
+`r HideExample('7.1.1', 'Show Example Solution')`
+
+**Solution.** Under the pure premium method, the indicated rate is
+
+$$
+\begin{matrix}
+\begin{array}{ll}
+\text{Rate} &=  \frac{\text{pure premium + fixed expense per exposure}}{\text{1 - variable expense factor - profit and contingencies factor}}\\
+&= \frac{\text{frequency} \times \text{severity} ~+~10}{1-0.20-0.05} = \frac{0.25 \times 100 +10}{1-0.20-0.05} = 46.67 .
+\end{array}
+\end{matrix}
+$$
+
+***
+
+</div>
+
+From the example, note that the rates produced by the pure premium method are commonly known as *indicated rates*.
+
+From our development, note also that the profit is associated with the underwriting aspect of the contract and not investments. Premiums are typically paid at the beginning of a contract and insurers receive investment income from holding this money. However, due in part to the short-term nature of the contracts, investment income is typically ignored in pricing. This builds a bit of conservatism into the process that insurers welcome. It is probably most relevant in the very long "tail" lines such as workers' compensation and medical malpractice. In these lines, it can sometimes take 20 years or even longer to settle claims. But, these are also the most volatile lines with some claim amounts being large relative to the rest of the distribution. The mitigating factor is that these large claim amounts tend to be far in the future and so are less extreme when viewed in a discounted sense.
+
+
+### Loss Ratio Method {#S:LossRatio}
+
+The `r Gloss('loss ratio')` is the ratio of the sum of losses to the premium
+
+$$
+\small{
+\text{Loss Ratio} = \frac{\text{Loss}}{\text{Premium}} .
+}
+$$
+
+When determining premiums, it is a bit counter-intuitive to emphasize this ratio because the premium component is built into the denominator. As we will see, the loss ratio method develops rate **changes** rather than rates; we can use rate changes to update past experience to get a current rate. To do this, rate changes consist of the ratio of the experience loss ratio to the target loss ratio. This adjustment factor is then applied to current rates to get new indicated rates.
+
+To see how this works in a simple context, let us return to equation \@ref(eq:AccountingEquation) but now ignore expenses to get $\small{\text{Premium = Losses  + UW Profit}}$. Dividing by premiums yields
+
+$$
+\small{
+\frac{\text{UW Profit}}{\text{Premium}} = 1 - LR = 1 - \frac{\text{Loss}}{\text{Premium}} .
+}
+$$
+Suppose that we have in mind a new "target" profit loading, say $Q_{target}$. Assuming that losses, exposure, and other things about the contract stay the same, then to achieve the new target profit loading we adjust the premium. Use the *ICF* for the `r Gloss('indicated change factor')` that is defined through the expression
+
+$$
+\small{
+\frac{\text{New UW Profit}}{\text{Premium}} = Q_{target} =  1 - \frac{\text{Loss}}{ICF \times \text{Premium}}.
+}
+$$
+Solving for *ICF*, we get
+
+$$
+\small{
+ICF =  \frac{\text{Loss}}{\text{Premium} \times (1-Q_{target})} = \frac{LR}{1-Q_{target}}.
+}
+$$
+
+So, for example, if we have a current loss ratio = 85% and a target profit loading $\small{Q_{target}=0.20}$, then $\small{ICF = 0.85/0.80 = 1.0625}$, meaning that we increase premiums by 6.25%.
+
+Now let's see how this works with expenses in equation \@ref(eq:AccountingEquation). We can use the same development as in Section \@ref(S:PurePremium) and so start with equation \@ref(eq:PremiumEquation), solve for the profit loading to get
+
+$$
+\small{
+Q = 1 - \frac{\text{Loss+Fixed}}{\text{Premium}} - V .
+}
+$$
+We interpret the quantity `Fixed /Premium + V` as the "operating expense ratio." Now, fix the profit percentage *Q* at a target and adjust premiums through the "indicated change factor" $ICF$
+$$
+\small{
+Q_{target} = 1
+-\frac{\text{Loss + Fixed}}{\text{Premium}\times ICF} - V .
+}
+$$
+Solving for $ICF$ yields
+
+\begin{equation}
+{\small
+\begin{array}{ll}
+ICF &= \frac{\text{Loss + Fixed}}{\text{Premium} \times (1 - V - Q_{target})} \\
+&= \frac{\text{Loss Ratio + Fixed Expense Ratio}}{1 - V - Q_{target}} .
+\end{array}
+(\#eq:IndicatedChangeFactor)
+}
+\end{equation}
+
+**Example. Loss Ratio Indicated Change Factor.** Assume the following information:
+
+- Projected ultimate loss and LAE ratio = 65%
+- Projected fixed expense ratio = 6.5%
+- Variable expense  = 25%
+- Target UW profit = 10%
+
+With these assumptions, with equation \@ref(eq:IndicatedChangeFactor), the indicated change factor can be calculated as
+$$
+\small{
+ICF = \frac{\text{(Losses + Fixed)}/\text{Premium}}{ 1 - V - Q_{target}} = \frac{0.65 + 0.065}{1- 0.25 - 0.10} = 1.10 .
+}
+$$
+
+This means that overall average rate level should be increased by 10%.
+
+***
+
+
+
+We later provide a comparison of the pure premium and loss ratio methods in Section \@ref(S:CompareMethods). As inputs, that section will require  discussions of trended exposures and *on-level* premiums defined in Section \@ref(S:TrendDevelopment).
 
 
 ## Pricing Principles {#S:PricingPrinciples}
@@ -51,9 +266,90 @@ In this section, you learn how to:
 ***
 
 
-```{r child = 'Chapters/PremiumSections/PremPrinciples.Rmd'}
-```
+Approaches to pricing vary by the type of contract. For example, personal automobile is a widely available product throughout the world and is known as part of the *retail general insurance* market in the United Kingdom. Here, one can expect to do pricing based on a large pool of independent contracts, a situation in which expectations of losses provide an excellent starting point. In contrast, an actuary may wish to price an insurance contract issued to a large employer that covers complex health benefits for thousands of employees. In this example, knowledge of the entire distribution of potential losses, not just the expected value, is critical for starting the pricing negotiations. To cover a range of potential applications, this section describes general premium principles and their properties that one can use to decide whether or not a specific principle is applicable in a given situation.
 
+
+### Premium Principles
+
+This chapter introduces traditional actuarial pricing principles that provide a price based only on the insurance loss distribution; the price does not depend on the demand for insurance or other aspects of the costs such as expenses. Assume that the loss $X$ has distribution function $F(\cdot)$ and that there exists some rule (which in mathematics is known as a *functional*), say $H$, that takes $F(\cdot)$ into the positive real line, denoted as $P = H(F)$. For notation purposes, it is often convenient to substitute the random variable $X$ for its distribution function and write $P = H(X)$. [Table 7.1] provides several examples. 
+
+[Table 7.1]:\#tab:71
+
+<a id=tab:71></a>
+
+Table 7.1. **Common Premium Principles**
+
+$$
+\small{
+\begin{array}{ll}
+\text{Description } & \text{Definition } (H(X)) \\\hline
+\text{Net (pure) premium} &  {\rm E}[X] \\
+\text{Expected value} & (1+\alpha){\rm E}[X]\\
+\text{Standard deviation}  & {\rm E}[X]+\alpha ~SD(X)\\
+\text{Variance} & {\rm E}[X]+\alpha ~{\rm Var}(X)\\
+\text{Zero utility}  & \text{solution of }u(w) = {\rm E} [u(w + P - X)]\\
+\text{Exponential}  & \frac{1}{\alpha} \log {\rm E} [e^{\alpha X}]\\
+\hline
+\end{array}
+}
+$$
+  
+  
+  
+A premium principle is similar to a `r Gloss('risk measure')` that is introduced in Section \@ref(S:RiskMeasure). Mathematically, both are rules that map the loss `r Gloss('rv')` of interest to a numerical value. From a practical viewpoint, a premium principle provides a guide as to how much an insurer will charge for accepting a risk $X$. In contrast, a risk measure quantifies the level of uncertainty, or riskiness, that an insurer can use to decide on a capital level to be assured of remaining solvent.
+
+The net, or pure, premium essentially assumes no uncertainty. The expected value, standard deviation, and variance principles each add an explicit loading for uncertainty through the risk parameter $\alpha \ge 0$. For the principle of zero utility, we think of an insurer with utility function $u(\cdot)$ and wealth *w* as being indifferent to accepting and not accepting risk $X$. In this case, $P$ is known as an indifference price or, in economics, a reservation price. With exponential utility, the principle of zero utility reduces to the exponential premium principle, that is, assuming $u(x) = (1-e^{-\alpha x})/\alpha$.
+
+For small values of the risk parameters, the variance principle is approximately equal to exponential premium principle, as illustrated in the following special case.
+
+***
+
+**Special Case: Gamma Distribution**. Consider a loss that is gamma distributed with parameters $\eta$ and $\theta$ (we usually use $\alpha$ for the location parameter but, to distinguish it from the risk parameter, for this example we call it $\eta$). From the Appendix Chapter \@ref(C:SummaryDistributions), the mean is $\eta~ \theta$ and the variance is $\eta ~\theta^2$. Using $\alpha_{Var}$ for the risk parameter, the variance premium is  $H_{Var}(X) = \eta~ \theta+\alpha_{Var} ~(\eta ~\theta^2)$. From this appendix, it is straightforward to derive the well-known moment generating function, $M(t) = {\rm E} [e^{tX}] = (1-t\theta)^{-\eta}$. With this and a risk parameter $\alpha_{Exp}$, we may express the exponential premium as 
+
+$$
+H_{Exp}(X) = \frac{-\eta}{\alpha_{Exp}} \log\left(1-\alpha_{Exp} \theta\right).
+$$
+To see the relationship between $H_{Exp}(X)$ and $H_{Var}(X)$, we choose $\alpha_{Exp} = 2 \alpha_{Var}$. With an approximation from calculus ($\log(1-x) = -x - x^2/2 - x^3/3 - \cdots$), we write
+
+$$
+\begin{array}{ll}
+H_{Exp}(X) &= \frac{-\eta}{\alpha_{Exp}} \log\left(1-\alpha_{Exp} ~\theta\right) 
+= \frac{-\eta}{\alpha_{Exp}} \left\{ -\alpha_{Exp} ~\theta -(\alpha_{Exp} ~\theta)^2/2 - \cdots\right\} \\
+& \approx \eta~ \theta + \frac{\alpha_{Exp}}{2}(\eta ~\theta^2 ) 
+= H_{Var}(X). 
+\end{array}
+$$
+
+
+### Properties of Premium Principles
+
+Properties of premium principles help guide the selection of a premium principle in applications. [Table 7.2] provides examples of properties of premium principles.
+
+[Table 7.2]:\#tab:72
+
+<a id=tab:72></a>
+
+Table 7.2. **Common Properties of Premium Principles**
+
+$$
+\small{
+\begin{array}{ll}
+\text{Description } & \text{Definition }\\\hline
+\text{Nonnegative loading} & H(X) \ge {\rm E}[X] \\
+\text{Additivity} & H(X_1+X_2) = H(X_1) + H(X_2), \text{ for independent }X_1, X_2  \\
+\text{Scale invariance}  & H(cX) = c H(X), \text{ for }c \ge 0 \\
+\text{Consistency} & H(c+X) = c + H(X)\\
+\text{No rip-off }  & H(X) \le \max \{X\}\\
+\hline
+\end{array}
+}
+$$
+
+This is simply a subset of the many properties quoted in the actuarial literature. For example, the review paper of @young2014premium lists 15 properties. See also the properties described as *coherent axioms* that we introduce for risk measures in Section \@ref(S:RiskMeasure).
+
+Some of the properties listed in [Table 7.2] are mild in the sense that they will nearly always be satisfied. For example, the *no rip-off* property indicates that the premium charge will be smaller than the largest or "maximal" value of the loss $X$ (here, we use the notation $\max \{X\}$ for this maximal value which is defined as an "essential supremium" in mathematics). Other properties may not be so mild. For example, for a portfolio of independent risks, the actuary may want the *additivity* property to hold. It is easy to see that this property holds for the expected value, variance, and exponential premium principles but not for the standard deviation principle. Another example is the *consistency* property that does not hold for the expected value principle when the risk loading parameter $\alpha$ is positive.
+
+The *scale invariance* principle is known as *homogeneity of degree one* in economics. For example, it allows us to work in different currencies (e.g., from dollars to Euros) as well as a host of other applications and will be discussed further in the following Section \@ref(S:HeterogeneousRisks). Although a generally accepted principle, we note that this principle does not hold for a large value of $X$ that may border on a surplus constraint of an insurer; if an insurer has a large probability of becoming insolvent, then that insurer may not wish to use linear pricing. It is easy to check that this principle holds for the expected value and standard deviation principles, although not for the variance and exponential principles.
 
 
 ## Heterogeneous Risks {#S:HeterogeneousRisks}
@@ -68,8 +364,175 @@ In this section, you learn how to:
 
 ***
 
-```{r child = 'Chapters/PremiumSections/Heterogeneous.Rmd'}
-```
+As noted in Section \@ref(S:IntroductionRatemaking), there are many variations in the risks being insured, the features of the contracts, and the people being insured. As an example, you might have a twin brother or sister who works in the same town and earns a roughly similar amount of money. Still, when it comes to selecting choices in rental insurance to insure contents of your apartment, you can imagine differences in the amount of contents to be insured, choices of deductibles for the amount of risk retained, and perhaps different levels of uncertainty given the relative safety of your neighborhoods. People and risks that they insure are different. 
+
+When thinking about a collection of different (`r Gloss('heterogeneous')`) risks, one option is to price all risks the same. This is common in government sponsored programs for flood or health insurance. However, it is also common to have different prices where the differences are commensurate with the risk being insured.
+
+
+### Exposure to Risk {#S:ExposureToRisk}
+
+One way to make heterogeneous risks comparable is through the concept of an `r Gloss('exposure', '7.2, 7.4')`. To explain exposures, let us use *scale distributions* that we learned about in Chapter \@ref(C:Severity). To recall a `r Gloss('scale distribution', '7.4')`, suppose that $X$ has a `r Gloss('parametric distribution')` and define a rescaled version $R = X/E$, $E > 0$. If $R$ is in the same parametric family as $X$, then the distribution is said to be a scale distribution. As we have seen, the gamma, exponential, and Pareto distributions are examples of scale distributions.
+
+Intuitively, the idea behind exposures is to make risks more comparable to one another. For example, it may be that risks $X_1, \ldots, X_n$ come from different distributions and yet, with the choice of the right exposures, the rates $R_1, \ldots, R_n$ come from the same distribution. Here, we interpret the rate $R_i = X_i/E_i$ to be the loss divided by exposure.
+
+[Table 7.3] provides a few examples. We remark that this table refers to "earned" car and house years, concepts that will be explained in Section \@ref(S:TrendDevelopment).
+
+<a id=tab:7.3></a> 
+
+[Table 7.3]: \#tab:7.3
+
+Table 7.3. **Commonly used Exposures in Different Types of Insurance**
+
+$$
+\small{
+\begin{matrix}
+\begin{array}{ll}
+\text{Type of Insurance} & \text{Exposure Basis} \\\hline
+\text{Personal Automobile} &  \text{Earned Car Year, Amount of Insurance Coverage} \\
+\text{Homeowners} &  \text{Earned House Year, Amount of Insurance Coverage}\\
+\text{Workers Compensation}  & \text{Payroll}\\
+\text{Commercial General Liability} &  \text{Sales Revenue, Payroll, Square Footage, Number of Units}\\
+\text{Commercial Business Property}  & \text{Amount of Insurance Coverage}\\
+\text{Physician's Professional Liability}  & \text{Number of Physician Years}\\
+\text{Professional Liability}  & \text{Number of Professionals (e.g., Lawyers or Accountants)}\\
+\text{Personal Articles Floater} &  \text{Value of Item} \\
+  \hline
+\end{array}
+\end{matrix}
+}
+$$
+
+
+An exposure is a type of `r Gloss('rating factor')`, a concept that we define explicitly in the next Section \@ref(S:RatingFactors). It is typically the most important rating factor, so important that both premiums and losses are quoted on a "per exposure" basis. 
+
+For frequency and severity modeling, it is customary to think about the frequency aspect as proportional to exposure and the severity aspect in terms of loss per claim (not dependent upon exposure). However, this does not cover the entire story. For many lines of business, it is convenient for exposures to be proportional to inflation. Inflation is typically viewed as unrelated to frequency but proportional to severity.
+
+
+#### Criteria for Choosing an Exposure  {-}
+
+An exposure base should meet the following criteria. It should:
+
+- be an accurate measure of the quantitative exposure to loss
+- be easy for the insurer to determine (at the time the policy is initiated) and not subject to manipulation by the insured,
+- be easy to understand by the insured and to calculate by the insurer,
+- consider any preexisting exposure base established within the industry, and
+- for some lines of business, be proportional to inflation. In this way, rates are not sensitive to the changing value of money over time as these changes are captured in exposure base.
+
+
+To illustrate, consider personal automobile coverage. Instead of the exposure basis "earned car year," a more accurate measure of the quantitative exposure to loss might be number of miles driven. Historically, this measure had been difficult to determine at the time the policy is issued and subject to potential manipulation by the insured and so it is still not typically used. Modern telematic devices that allow for accurate mileage recording is changing the use of this variable in some marketplaces.
+
+As another example, the exposure measure in `r Gloss('commercial business property')`, e.g. fire insurance, is typically the amount of insurance coverage. As property values grow with inflation, so will the amount of insurance coverage. Thus, rates quoted on a per amount of insurance coverage are less sensitive to inflation than otherwise.
+
+
+### Rating Factors {#S:RatingFactors}
+
+A rating factor, or `r Gloss('rating variable')`, is simply a characteristic of the policyholder or risk being insured by which rates vary. For example, when you purchase auto insurance, it is likely that the insurer has rates that differ by age, gender, type of car, where the car is garaged, accident history, and so forth. These variables are known as rating factors. Although some variables may be continuous, such as age, most are categorical - `r Gloss('factor')` is a label that is used for categorical variables. In fact, even with `r Gloss('continuous variables')` such as age, it is common to categorize them by creating groups such as "young," "intermediate," and "old" for rating purposes. 
+
+[Table 7.4] provides just a few examples. In many jurisdictions, the personal insurance market (e.g., auto and homeowners) is very competitive - using 10 or 20 variables for rating purposes is not uncommon.
+
+<a id=tab:7.4></a> 
+
+[Table 7.4]: \#tab:7.4
+
+Table 7.4. **Commonly used Rating Factors in Different Types of Insurance**
+
+$$
+\small{
+\begin{matrix}
+\begin{array}{l|l}\hline
+\text{Type of Insurance} & \text{Rating Factors}\\\hline\hline
+\text{Personal Automobile}  & \text{Driver Age and Gender, Model Year, Accident History}\\
+\text{Homeowners}  & \text{Amount of Insurance, Age of Home, Construction Type}\\
+\text{Workers Compensation}  & \text{Occupation Class Code}\\
+\text{Commercial General Liability}  & \text{Classification, Territory, Limit of Liability}\\
+\text{Medical Malpractice}  & \text{Specialty, Territory, Limit of Liability}\\
+\text{Commercial Automobile}  & \text{Driver Class, Territory, Limit of Liability}\\
+  \hline
+\end{array}
+\end{matrix}
+}
+$$
+
+***
+
+**Example. Losses and Premium by Amount of Insurance and Territory.** To illustrate, [Table 7.5] presents a small fictitious data set from @werner2016basic. The data consists of loss and loss adjustment expenses (*LossLAE*), decomposed by three levels of amount of insurance (*AOI*), and three territories (*Terr*). For each combination of *AOI* and *Terr*, we also have available the number of policies issued, given as the *Exposure*.
+
+<a id=tab:7.5></a> 
+
+[Table 7.5]: \#tab:7.5
+
+Table 7.5. **Losses and Premium by Amount of Insurance and Territory**
+
+$$
+\small{
+\begin{matrix}
+\begin{array}{cc|rrr}
+\hline
+       AOI &       Terr &   Exposure &    LossLAE &    Premium \\\hline
+       \text{Low} &          1 &          7 &     210.93 &     335.99 \\
+    \text{Medium} &          1 &        108 &   4,458.05 &   6,479.87 \\
+      \text{High} &          1 &        179 &  10,565.98 &  14,498.71 \\\hline
+       \text{Low} &          2 &        130 &   6,206.12 &  10,399.79 \\
+    \text{Medium} &          2 &        126 &   8,239.95 &  12,599.75 \\
+      \text{High} &          2 &        129 &  12,063.68 &  17,414.65 \\\hline
+       \text{Low} &          3 &        143 &   8,441.25 &  14,871.70 \\
+    \text{Medium} &          3 &        126 &  10,188.70 &  16,379.68 \\
+      \text{High} &          3 &         40 &   4,625.34 &   7,019.86 \\
+      \hline
+       \text{Total}    &       & 988 &  65,000.00 &     99,664.01   \\\hline
+\hline
+\end{array}
+\end{matrix}
+}
+$$
+
+In this case, the rating factors *AOI* and *Terr* produce nine cells. Note that one might combine the cell "territory one with a low amount of insurance"" with another cell because there are only 7 policies in that cell. Doing so is perfectly acceptable - considerations of this sort is one of the main jobs of the analyst. An outline on selecting variables is in Chapter \@ref(C:RiskClass), including Technical Supplement TS **8.B**. Alternatively, you can also think about reinforcing information about the cell (*Terr* 1, Low *AOI*) by "borrowing" information from neighboring cells (e.g., other territories with the same *AOI*, or other amounts of *AOI* within *Terr* 1). This is the subject of `r Gloss('credibility', '7.4')` that is introduced in Chapter \@ref(C:Credibility).
+
+***
+
+To understand the impact of rating factors, it is common to use relativities. A `r Gloss('relativity')` compares the expected risk at a specific level of a rating factor to an accepted baseline value. In this book, we work with relativities defined through ratios; it is also possible to define relativities through arithmetic differences. Thus, our relativity is defined as
+
+$$
+\text{Relativity}_j = \frac{\text{(Loss/Exposure)}_j}{\text{(Loss/Exposure)}_{Base}} .
+$$
+
+***
+
+**Example. Losses and Premium by Amount of Insurance and Territory - Continued.** Traditional classification methods consider only one classification variable at a time - they are univariate. Thus, if we wanted relativities for losses and expenses (*LossLAE*) by amount of insurance, we might sum over territories to get the information displayed in [Table 7.6].
+
+<a id=tab:7.6></a> 
+
+[Table 7.6]: \#tab:7.6
+
+Table 7.6. **Losses and Relativities by Amount of Insurance**
+
+$$
+\small{
+\begin{matrix}
+\begin{array}{c|rrrr}
+\hline
+       AOI &   Exposure &    LossLAE & Loss/Exp &Relativity \\\hline
+       \text{Low} &        280 &    14858.3 &   53.065   &0.835 \\
+    \text{Medium} &        360 &    22886.7 &    63.574  &1.000 \\
+      \text{High} &        348 &      27255.0 &   78.319  & 1.232 \\\hline
+       \text{Total}    &        988 &  65,000.0 &            \\\hline
+\hline
+\end{array}
+\end{matrix}
+}
+$$
+
+
+Thus, losses and expenses per unit of exposure are 23.2% higher for risks with a high amount of insurance compared to those with a medium amount.  These relativities do not control for territory.
+
+***
+
+The introduction of rating factors allows the analyst to create cells that define small collections of risks -- the goal is to choose the right combination of rating factors so that all risks within a cell may be treated the same. In statistical terminology, we want all risks within a cell to have the same distribution (subject to rescaling by an exposure variable). This is the foundation of insurance pricing. All risks within a cell have the same price per exposure yet risks from different cells may have different prices. 
+
+Said another way, insurers are allowed to charge different rates for different risks; `r Gloss('discrimination')` of risks is legal and routinely done. Nonetheless, the basis of discrimination, the choice of risk factors, is the subject of extensive debate. The actuarial community, insurance management, regulators, and consumer advocates are all active participants in this debate. Technical Supplement TS **7.A** describes these issues from a regulatory perspective.
+
+In addition to statistical criteria for assessing the significance of a rating factor, analysts much pay attention to business concerns of the company (e.g., is it expensive to implement a rating factor?), social criteria (is a variable under the control of a policyholder?), legal criteria (are there regulations that prohibit the use of a rating factor such as gender?), and other societal issues. These questions are largely beyond the scope of this text. Nonetheless, because they are so fundamental to pricing of insurance, a brief overview is given in Chapter \@ref(C:RiskClass), including Technical Supplement TS **8.B.**
+
 
 ## Development and Trending {#S:TrendDevelopment}
 
@@ -77,14 +540,358 @@ In this section, you learn how to:
 In this section, you learn how to:
 
 - Define and calculate different types of exposure and premium summary measures that appear in financial reports 
-- Describe the development of a claim over several payments and link that to various unpaid claim measures, including those incurred but not reported (IBNR) as well as case reserves
+- Describe the development of a claim over several payments and link that to various unpaid claim measures, including incurred but not reported (IBNR) as well as case reserves
 - Compare and contrast relative strengths and weaknesses of the pure premium and loss ratio methods for ratemaking
 
 ***
 
+As we have seen in Section \@ref(S:AggRateMaking), insurers consider aggregate information for ratemaking such as exposures to risk, premiums, expenses, claims, and payments. This aggregate information is also useful for managing an insurers' activities; financial reports are commonly created at least annually and oftentimes quarterly. At any given financial reporting date, information about recent policies and claims will be ongoing and necessarily incomplete; this section introduces concepts for  projecting risk information so that it is useful for ratemaking purposes.
+Information about the risks, such as exposures, premium, claim counts, losses, and rating factors, is typically organized into three databases:
 
-```{r child = 'Chapters/PremiumSections/TrendDevelopment.Rmd'}
+* *policy database* - contains information about the risk being insured, the policyholder, and the contract provisions
+* *claims database* - contains information about each claim; these are linked to the policy database.
+* *payment database* - contains information on each claims transaction, typically payments but may also changes to *case reserves*. These are linked to the claims database.
+
+With these detailed databases, it is straightforward (in principle) to sum up policy level detail to aggregate information needed for financial reports. This section describes various summary measures commonly used.
+
+### Exposures and Premiums
+
+A financial reporting period is a length of time that is fixed in the calendar; we use January 1 to December 31 for the examples in this book although other reporting periods are also common. The reporting period is fixed but policies may begin at any time during the year. Even if all policies have a common contract length of (say) one year, because of the differing starting time, they can end at any time during the financial reporting. Figure
+\@ref(fig:Exposures) presents four illustrative policies. There need to be some standards as to what types of measures are most useful for summarizing experience in a given reporting period due to these differing start and end times.
+
+
+(ref:Exposures) **Timeline of Exposures for Four 12-Month Policies**
+
+```{r Exposures, fig.cap='(ref:Exposures)', out.width='50%',  fig.asp=0.5, fig.align='center', echo=FALSE}
+plot.new()
+par(mar = c(0,0,0,0), cex = 0.9)
+y <- 1:5/2 +2
+plot.window(xlim = c(0,20), ylim = c(2.2,5))
+x <- 2*(1:10)
+#  Main Time Line
+arrows(x[1], y[5] , x[10], y[5], code = 2, lwd = 4, angle = 25, length = 0.10)
+text(0,y[5]+.5,labels="Calendar Time", adj = 0, cex = 1.2)
+text(x[1],y[5],labels="X", adj = 0, cex = 1.4)
+text(x[1], y[5]+.25, labels="1 Jan 2019", adj = 0, cex = 0.8)
+text(x[5],y[5],labels="X", adj = 0, cex = 1.4)
+text(x[5], y[5]+.25, labels="1 Jan 2020", adj = 0, cex = 0.8)
+text(x[9],y[5],labels="X", adj = 0, cex = 1.4)
+text(x[9], y[5]+.25, labels="1 Jan 2021", adj = 0, cex = 0.8)
+# Policy A
+arrows(x[1], y[4] , x[5], y[4], code = 2, lwd = 1, angle = 0, length = 0.10)
+text(0,y[4],labels="A", adj = 0, cex = 1.0)
+text(x[1],y[4],labels="|", adj = 0, cex = 1.4)
+text(x[5],y[4],labels="|", adj = 0, cex = 1.4)
+# Policy B
+arrows(x[2], y[3] , x[6], y[3], code = 2, lwd = 1, angle = 0, length = 0.10)
+text(0,y[3],labels="B", adj = 0, cex = 1.0)
+text(x[2],y[3],labels="|", adj = 0, cex = 1.4)
+text(x[6],y[3],labels="|", adj = 0, cex = 1.4)
+# Policy C
+arrows(x[3], y[2] , x[7], y[2], code = 2, lwd = 1, angle = 0, length = 0.10)
+text(0,y[2],labels="C", adj = 0, cex = 1.0)
+text(x[3],y[2],labels="|", adj = 0, cex = 1.4)
+text(x[7],y[2],labels="|", adj = 0, cex = 1.4)
+# Policy D
+arrows(x[4], y[1] , x[8], y[1], code = 2, lwd = 1, angle = 0, length = 0.10)
+text(0,y[1],labels="D", adj = 0, cex = 1.0)
+text(x[4],y[1],labels="|", adj = 0, cex = 1.4)
+text(x[8],y[1],labels="|", adj = 0, cex = 1.4)
+
 ```
+
+
+Some commonly used exposure measures are:
+
+- `r Gloss('written exposures')`, the amount of exposures on policies issued (underwritten or written) during the period in question,
+- `r Gloss('earned exposures')`, the exposure units actually exposed to loss during the period, that is, where coverage has already been provided
+- `r Gloss('unearned exposures')`, represent the portion of the written exposures for which coverage has not yet been provided as of that point in time, and
+-  `r Gloss('in force exposures')`, exposure units exposed to loss at a given point in time.
+
+[Table 7.7] gives detailed illustrative calculations for the four illustrative policies.
+
+<a id=tab:7.7></a>
+
+[Table 7.7]: \#tab:7.7
+
+Table 7.7. **Exposures for Four 12-Month Policies**
+
+$$
+\small{
+\begin{matrix}
+\begin{array}{cl|cc|cc|cc|c}
+  \hline
+&  & & & & & &&\text{In-Force} \\
+&\text{Effective} & \text{Written}& \text{Exposure} & \text{Earned} &\text{Exposure}& \text{Unearned} &\text{Exposure}&  \text{Exposure} \\
+{Policy} &\text{Date}         & 1/1/2019 & 1/1/2020 & 1/1/2019 & 1/1/2020 & 1/1/2019 & 1/1/2020 & 1/1/2020 \\   \hline
+\text{A}&\text{1 Jan 2019}   & 1.00 & 0.00 & 1.00 & 0.00& 0.00 & 0.00 & 0.00 \\
+\text{B}&\text{1 April 2019} & 1.00 & 0.00 & 0.75 & 0.25 & 0.25 & 0.00& 1.00 \\
+\text{C}&\text{1 July 2019}  & 1.00 & 0.00 & 0.50 & 0.50 & 0.50 & 0.00& 1.00 \\
+\text{D}&\text{1 Oct 2019}   & 1.00 & 0.00 & 0.25 & 0.75 & 0.75 & 0.00& 1.00 \\ \hline
+ &  Total       & 4.00 & 0.00 & 2.50 & 1.50 & 1.50 & 0.00 & 3.00 \\
+  \hline
+  \hline
+\end{array}
+\end{matrix}
+}
+$$
+
+
+This summarization is sometimes known as the `r Gloss('calendar year method')` of aggregation to serve as a contrast to the `r Gloss('policy year')` method. In the policy year method, all premiums and losses for policies written in the policy year are aggregated regardless of when earned. For example, for all four policies A, B, C, and D, they have written and earned exposures of 1.00 for the policy year 2019 (starting on 1/1 or 1 Jan). This is despite the fact that they do not start at the beginning of the year. This method is useful for ratemaking methods based on individual contracts and we do not pursue this further here.
+
+In the same way as exposures, one can summarize premiums. Premiums, like exposures, can be either *written*, *earned*, *unearned*, or *in force*. Consider the following example.
+
+**Example `r chapnum`.5.1. CAS Exam 5, 2003, Number 10.** A 12-month policy is written on March 1, 2002 for a premium of $900. As of December 31, 2002, which of the following is true?
+
+$$
+\small{
+\begin{matrix}
+\begin{array}{l|ccc}
+  \hline
+& \text{Calendar Year} & \text{Calendar Year} \\
+& \text{2002 Written} & \text{2002 Earned} & \text{Inforce} \\
+& \text{Premium} & \text{Premium}  & \text{Premium}  \\\hline
+A. & 900 & 900 & 900 \\
+B. & 750 & 750 & 900 \\
+C. & 900 & 750 & 750 \\
+D. & 750 & 750 & 750 \\
+E. & 900 & 750 & 900 \\\hline
+\end{array}
+\end{matrix}
+}
+$$
+
+`r HideExample('7.5.1', 'Show Example Solution')`
+
+**Solution.**
+
+Only earned premium differs from written premium and inforce premium and therefore needs to be computed. Thus, earned premium at Dec 31, 2002, equals $\$900 \times 10/12 = \$750$. Answer E.
+
+***
+
+</div>
+
+### Losses, Claims, and Payments
+
+Broadly speaking, the terms `r Gloss('loss')` and `r Gloss('claim')` refer to the amount of compensation paid or potentially payable to the claimant under the terms of the insurance policy. Definitions can vary:
+
+* Sometimes, the term *claim* is used interchangeably with the term *loss*.
+* In some insurance and actuarial sources, the term *loss* is used for the amount of damage sustained in an insured event. The *claim* is the amount paid by the insurer with differences typically due to deductibles, upper policy limits, and the like.
+* In economics, a *claim* is a demand  for payment by an insured  or by  an injured third-party under the terms and conditions of insurance contract and the *loss* is the amount paid by the insurer.
+
+This text will follow the second bullet. However, when reading other sources, you will need to take care when thinking about definitions for the terms loss and claim.
+
+To establish additional terminology, it is helpful to follow the timeline of a claim as it develops. In Figure \@ref(fig:ClaimDevelopment), the claim occurs at time $t_1$ and the insuring company is notified at time $t_3$. There can be a long gap between occurrence and notification such that the
+end of a company financial reporting period, known as a `r Gloss('valuation date')`, occurs ($t_2$) before the loss is reported. In this case, the claim is said to be `r Gloss('incurred but not reported')` at this valuation date.
+
+After claim notification, there may one or more loss payments. Not all of the payments may be made by the next valuation date ($t_4$).
+As the claim develops, eventually the company deems its financial obligations on the claim to be resolved and declares the claim
+`r Gloss('closed')`. However, it is possible that new facts arise and the claim must be re-opened, giving rise to additional loss payments
+prior to being closed again.
+
+(ref:ClaimDevelopment) **Timeline of Claim Development**
+
+```{r ClaimDevelopment, fig.cap='(ref:ClaimDevelopment)', out.width='75%',  fig.asp=0.5, fig.align='center', echo=FALSE}
+plot.new()
+par(mar=c(0,0,0,0), cex=1.1)
+plot.window(xlim=c(0,20),ylim=c(0,10))
+
+arrows(1,1,19.8,1,code=2,lwd=2,angle=25,length=0.10)
+text(0,2,labels="Occurrence",adj=0, cex=0.8)
+
+text(3,4,labels="Valuation\nDate 1",adj=0, cex=0.8)
+text(4,2,labels="Notification",adj=0, cex=0.8)
+text(6,8,labels="Loss Payments",adj=0, cex=0.8)
+text(9,4,labels="Valuation\nDate 2",adj=0, cex=0.8)
+text(11,8,labels="Loss\nPayments",adj=0, cex=0.8)
+text(13,2,labels="Closure",adj=0, cex=0.8)
+text(14.5,4,labels="Re-\nOpening",adj=0, cex=0.8)
+text(16,8,labels="Loss\nPayments",adj=0, cex=0.8)
+text(18,4,labels="Closure",adj=0, cex=0.8)
+
+arrows(3.8,3.3,3.8,1.2,code=2,lwd=2,angle=25,length=0.10)
+arrows(9.8,3.3,9.8,1.2,code=2,lwd=2,angle=25,length=0.10)
+arrows(15.3,3.3,15.3,1.2,code=2,lwd=2,angle=25,length=0.10)
+arrows(18.8,3.3,18.8,1.2,code=2,lwd=2,angle=25,length=0.10)
+
+arrows(6.8,7.7,6.8,1.2,code=2,lwd=2,angle=25,length=0.10)
+arrows(7.1,7.7,7.1,1.2,code=2,lwd=2,angle=25,length=0.10)
+arrows(7.9,7.7,7.9,1.2,code=2,lwd=2,angle=25,length=0.10)
+
+arrows(11.4,7.2,11.4,1.2,code=2,lwd=2,angle=25,length=0.10)
+arrows(12,7.2,12,1.2,code=2,lwd=2,angle=25,length=0.10)
+
+arrows(16.6,7.2,16.6,1.2,code=2,lwd=2,angle=25,length=0.10)
+arrows(17,7.2,17,1.2,code=2,lwd=2,angle=25,length=0.10)
+
+text(1,1,labels="X",adj=0, cex=0.8)
+text(4.8,1,labels="X",adj=0, cex=0.8)
+text(13.8,1,labels="X",adj=0, cex=0.8)
+
+text(1,0.3,expression(t[1]),adj=0, cex=0.8)
+text(3.8,0.3,expression(t[2]),adj=0, cex=0.8)
+text(4.8,0.3,expression(t[3]),adj=0, cex=0.8)
+text(9.8,0.3,expression(t[4]),adj=0, cex=0.8)
+```
+
+
+- `r Gloss('Accident date')` - the date of the occurrence which gave rise to the claim. This is also known as the *date of loss* or the *occurrence date*.
+- `r Gloss('Report date')` - the date the insurer  receives notice of the claim. Claims not currently known by the insurer are referred to as unreported claims or *incurred but not reported (IBNR) claims*.
+
+Until the claim is settled, the reported claim is considered an `r Gloss('open claim')`. Once the claim is settled, it is categorized as a *closed claim*. In some instances, further activity may occur after the claim is closed, and the claim may be re-opened.
+
+
+Recall that a claim is the amount paid or payable to claimants under the terms of insurance policies. Further, we have
+
+- *Paid losses* are those losses for a particular period that have actually been paid to claimants.
+- Where there is an expectation that payment will be made in the future, a claim will have an associated  *case reserve*  representing the estimated amount of that payment.
+- *Reported Losses*, also known as  *case incurred*, is Paid Losses + Case Reserves
+
+The *ultimate loss* is the amount of money required to close and settle all claims for a defined group of policies.
+
+### Comparing Pure Premium and Loss Ratio Methods {#S:CompareMethods}
+
+Now that we have learned how exposures, premiums, and claims develop over time, we can consider how they can be used for ratemaking. We have seen that insurers offer many different types of policies that cover different policyholders and amounts of risks. This aggregation is sometimes loosely referred to as the `r Gloss('mix of business')`. Importantly, the mix changes over time as policyholders come and go, amounts of risks change, and so forth. The exposures, premiums, and types of risks from a prior financial reporting may not be representative of the period for which the rates are being developed. The process of extrapolating exposures, premiums, and risk types is known as **trending**. For example, an `r Gloss('on-level earned premium')` is that earned premium that would have resulted for the experience period had the current rates been in effect for the entire period; this is also known as an *earned premium at current rates*. Most trending methods used in practice are mathematically straight-forward although they can become complicated given contractual and administrative complexities. We refer the reader to standard references that describe approaches in detail such as @werner2016basic and @friedland2013fundamentals.
+
+
+#### Loss Ratio Method {-}
+
+The expression for the loss ratio method indicated change factor in equation \@ref(eq:IndicatedChangeFactor) assumes a certain amount of consistency in the portfolio experience over time. For another approach, we can define the `r Gloss('experience loss ratio')` to be:
+
+$$
+\small{
+LR_{experience} = \frac{\text{experience losses}}{\text{experience period earned exposure}\times \text{current rate}}  .
+}
+$$
+
+Here, we think of the experience period earned exposure $\times$ current rate as the experience premium.
+
+Using equation \@ref(eq:PremiumEquation), we can write a loss ratio as
+
+$$
+\small{
+LR = \frac{\text{Losses}}{\text{Premium}}=\frac{1-V-Q}{\text{(Losses + Fixed)}/\text{Losses}}=\frac{1-V-Q}{1+G} ~,
+}
+$$
+where $G = \text{Fixed} / \text{Losses}$, the ratio of fixed expenses to losses. With this expression, we define the *target loss ratio*
+
+$$
+\small{
+LR_{target} =
+\frac{1-V-Q}{1+G} = \frac{1-\text{premium related expense factor - profit and contingencies factor}}
+{1+\text{ratio of non-premium related expenses to losses}}  .
+}
+$$
+
+
+With these, the indicated change factor is
+
+\begin{equation}
+\small{
+ICF =\frac{LR_{experience}}{LR_{target}}.
+}
+(\#eq:RevisedIndicatedChangeFactor)
+\end{equation}
+
+Comparing equation \@ref(eq:IndicatedChangeFactor) to \@ref(eq:RevisedIndicatedChangeFactor), we see that the latter offers more flexibility to explicitly incorporate trended experience. As the loss ratio method is based on rate changes, this flexibility is certainly warranted.
+
+#### Comparison of Methods {-}
+
+Assuming that exposures, premiums, and claims have been trended to be representative of a period that rates are being developed for, we are now in a position to compare the pure premium and loss ratio methods for ratemaking. We start with the observation that for the same data inputs, these two approaches produce the same results. That is, they are algebraically equivalent. However, they rely on different inputs:
+
+$$
+\small{
+\begin{array}{l|l}\hline
+\text{Pure Premium Method} & \text{Loss Ratio Method} \\ \hline
+\text{Based on exposures} & \text{Based on premiums} \\
+\text{Does not require existing rates} & \text{Requires existing rates} \\
+\text{Does not use on-level premiums} & \text{Uses on-level premiums} \\
+\text{Produces indicated rates} & \text{Produces indicated rate changes} \\
+  \hline
+\end{array}
+}
+$$
+
+Comparing the pure premium and loss ratio methods, we note that:
+
+- The pure premium method requires well-defined, responsive exposures.
+- The loss ratio method cannot be used for new business because  it produces indicated rate changes.
+- The pure premium method is preferable where on-level premium is difficult to calculate.  In some instances, such as commercial lines where individual risk rating adjustments are made to individual policies, it is difficult to determine the on-level  earned premium required for the loss ratio method.
+
+In many developed countries like the US where lines of business have been in existence, the loss ratio approach is more popular.
+
+**Example `r chapnum`.5.2. CAS Exam 5, 2006, Number 36.** You are given the following information:
+
+- Experience period on-level earned premium = $500,000
+- Experience period trended and developed losses = $300,000
+- Experience period earned exposure = 10,000
+- Premium-related expenses factor = 23%
+- Non-premium related expenses = $21,000
+- Profit and contingency factor = 5%
+
+(a) Calculate the indicated rate level change using the loss ratio method.
+(b) Calculate the indicated rate level change using the pure premium method.
+(c) Describe one situation in which it is preferable to use the loss ratio method, and one situation in which it is preferable to use the pure premium method.
+
+`r HideExample('7.5.2', 'Show Example Solution')`
+
+**Solution.**
+
+**(a)** We will calculate the experience and target loss ratios, then take the ratio to get the indicated rate change. The experience loss ratio is
+$$
+\small{
+LR_{experience} =  \frac{\text{experience losses}}{\text{experience period premium}} =\frac{300000}{500000} = 0.60.
+}
+$$
+The target loss ratio is:
+
+$$
+\small{
+\begin{matrix}
+\begin{array}{ll}
+LR_{target}
+&= \frac{1-V-Q}{1+G} = \frac{1-\text{premium related expense factor - profit and contingencies factor}}
+{1+\text{ratio of non-premium related expenses to losses}}\\
+&= \frac{1-0.23 - 0.05}{1+0.07} = 0.673  .
+\end{array}
+\end{matrix}
+}
+$$
+
+Here, the ratio of non-premium related expenses to losses is $G = \frac{21000}{300000} = 0.07$.
+
+Thus, the (new) indicated rate level change is
+
+$$
+\small{
+ICF =\frac{LR_{experience}}{LR_{target}} -1  = \frac{0.60}{0.673} -1 = -10.8\%.
+}
+$$
+**(b)** Using the pure premium method with equation \@ref(eq:PremiumEquation), 
+
+$$
+\small{
+\begin{matrix}
+\begin{array}{ll}
+Premium_{experience}
+&= \frac{\text{Losses + Fixed}}{1 - Q - V}\\
+&= \frac{300000+ 21000}{1 - 0.23 - 0.05} = 445833.33 .
+\end{array}
+\end{matrix}
+}
+$$
+
+Thus, the indicated rate level change is $\frac{445833.33}{500000} -1 = -10.8\%$.
+
+**(c)** The loss ratio method is preferable when the exposure unit is not available.
+
+The loss ratio method is preferable when the exposure unit is not reasonably consistent between risks.
+
+The pure premium method is preferable for a new line of business.
+
+The pure premium method is preferable where on-level premiums are difficult to calculate.
+
+</div>
 
 ## Selecting a Premium {#S:GiniStatistic}
 
@@ -97,31 +904,465 @@ In this section, you learn how to:
 
 ***
 
+For a portfolio of insurance contracts, insurers collect premiums and pay out losses. After making adjustments for expenses and profit considerations, tools for comparing distributions of premiums and losses can be helpful when selecting a premium calculation principle. 
 
-```{r child = 'Chapters/PremiumSections/PremiumSelection.Rmd'}
+### Classic Lorenz Curve 
+
+In welfare economics, it is common to compare distributions via the `r Gloss('Lorenz curve')`, developed by Max Otto Lorenz [@lorenz1905methods]. A Lorenz curve is a graph of the proportion of a population on the horizontal axis and a distribution function of interest on the vertical axis. It is typically used to represent income distributions. When the income distribution is perfectly aligned with the population distribution, the Lorenz curve results in a 45 degree line that is known as the `r Gloss('line of equality')`. Because the graph compares two distribution functions, one can also think of a Lorenz curve as a type of `r Gloss('pp plot')` that was introduced in Section \@ref(S:MS:GraphComparison). The area between the Lorenz curve and the line of equality is a measure of the discrepancy between the income and population distributions. Two times this area is known as the `r Gloss('Gini index', '7.6')`, introduced by Corrado Gini in 1912. 
+
+```{r echo=FALSE}  
+# Lorenz Curve
+set.seed(2017) #set seed to reproduce work 
+nTot<-2000  #number of simulations
+alpha<-2
+theta<-100
+Losses<-rgamma(nTot,alpha,scale = theta)  
+y <- Losses[order(Losses)]
+DFLosses = cumsum(y)/sum(y)
+DFLine <- (1:nTot)/nTot
+GiniLoss = 2*(sum(rank(y)*y)/sum(y) - (nTot+1)/2)/nTot
+
+```
+
+
+**Example -- Classic Lorenz Curve.**  For an insurance example, Figure \@ref(fig:ClassicLorenz) shows a distribution of insurance losses. This figure is based on a random sample of `r nTot` losses. The left-hand panel shows a right-skewed histogram of losses.  The right-hand panel provides the corresponding Lorenz curve, showing again a skewed distribution. For example, the arrow marks the point where 60 percent of the policyholders have 30 percent of losses. The 45 degree line is the line of equality; if each policyholder has the same loss, then the loss distribution would be at this line. The Gini index, twice the area between the Lorenz curve and the 45 degree line, is `r round(GiniLoss*100,1)` percent for this data set.
+
+(ref:ClassicLorenz) **Distribution of Insurance Losses.** The left-hand panel is a density plot of losses. The right-hand panel presents the same data using a Lorenz curve.
+
+```{r ClassicLorenz, fig.cap='(ref:ClassicLorenz)', out.width='90%', fig.asp=0.5, fig.align='center', echo=FALSE}
+par(mfrow=c(1,2))
+plot(density(Losses), main="", xlab="Losses")
+plot(DFLine,DFLosses, cex=0.25, xlab="Proportion of Observations", ylab="Proportion of Losses")
+abline(0,1)
+arrows(0.8, 0.2, 0.6, 0.3,length=0.1, angle = 30)
+text(.85, .15, "(0.60, 0.30)", cex=.6)
+
+```
+
+### Performance Curve and a Gini Statistic 
+We now introduce a modification of the classic Lorenz curve and Gini statistic that is useful in insurance applications. Specifically, we introduce a `r Gloss('performance curve')` that, in this case, is a graph of the distribution of losses versus premiums, where both losses and premiums are ordered by premiums. To make the ideas concrete, we provide some notation and consider $i=1, \ldots, n$ policies. For the $i$th policy, let
+
+* $y_i$ denote the insurance loss,
+* $\mathbf{x}_i$ be a set of rating variables known to the analyst, and
+* $P_i=P(\mathbf{x}_i)$ be the associated premium that is a function of $\mathbf{x}_i$.
+
+The set of information used to calculate the performance curve for the $i$th policy is $(P_i, y_i)$. 
+
+#### Performance Curve {-}
+
+It is convenient to first sort the set of policies based on premiums (from smallest to largest) and then compute the premium and loss distributions. The premium distribution is
+\begin{equation}
+\hat{F}_P(s) =  \frac{ \sum_{i=1}^n P_i ~\mathrm{I}(P_i \leq s) }{\sum_{i=1}^n P_i}   ,
+(\#eq:EmpPremDF)
+\end{equation}
+
+and the loss distribution is
+
+\begin{equation}
+\hat{F}_{L}(s) =  \frac{ \sum_{i=1}^n y_i ~\mathrm{I}(P_i \leq s) }{\sum_{i=1}^n y_i} ,
+(\#eq:EmpLossDF)
+\end{equation}
+
+where $\mathrm{I}(\cdot)$ is the indicator function, returning a 1 if the event is true and zero otherwise. For a given value $s$, $\hat{F}_P(s)$ gives the proportion of premiums less than or equal to $s$, and $\hat{F}_{L}(s)$ gives the proportion of losses for those policyholders with premiums less than or equal to $s$. The graph $\left(\hat{F}_P(s),\hat{F}_{L}(s) \right)$ is known as a **performance curve**.
+
+
+**Example -- Loss Distribution.** Suppose we have $n=5$ policyholders with experience as follows. The data have been ordered by premiums.
+
+
+Variable             $i$                             1   2    3   4   5  
+----------          -----------------                -   -   --  --  --  
+Premium             $P(\mathbf{x}_i)$                2   4    5   7  16   
+Cumulative Premiums $\sum_{j=1}^i P(\mathbf{x}_j)$   2   6   11  18  34 
+Loss                $y_i$                            2   5    6   6  17 
+Cumulative Loss     $\sum_{j=1}^i y_j$               2   7   13  19  36
+----------          -----------------                -   -   --  --  -- 
+
+Figure \@ref(fig:LorenzVsOrdered) compares the Lorenz to the performance curve. The left-hand panel shows the Lorenz curve. The horizontal axis is the cumulative proportion of policyholders (0, 0.2, 0.4, 0.6, 0.8, 1.0) and the vertical axis is the cumulative proportion of losses (0, 2/36, 7/36, 13/36, 19/39, 36/36). For the Lorenz curve, you first order by the loss size (which turns out to be the same order as premiums for this simple dataset). This figure shows a large separation between the distributions of losses and policyholders.
+
+The right-hand panel shows the performance curve. Because observations are sorted by premiums, the first point after the origin (reading from left to right) is (2/34, 2/36). The second point is (6/34, 7/36), with the pattern continuing. From the figure, we see that there is little separation between losses and premiums.
+
+
+```{r echo=FALSE} 
+GiniLossCalc <- function(Loss){
+y <- Loss[order(Loss)]
+nTot = length(y)
+DFLosses = cumsum(y)/sum(y)
+DFLine <- (1:nTot)/nTot
+GiniLoss = 2*(sum(rank(y)*y)/sum(y) - (nTot+1)/2)/nTot
+return(GiniLoss)
+}
+
+GiniCalc <- function(Claims,PIx,Sx){
+   y   <- Claims/mean(Claims)
+   PIx <- PIx/mean(PIx)
+   Sx  <- Sx/mean(Sx)
+   Rx  <- Sx/PIx       #Relativity
+   n   <- length(PIx)
+   origorder <- (1:n)
+   PSRmat <- data.frame(cbind(PIx,Sx,Rx,y,origorder))
+   PSRmatOrder <- PSRmat[order(Rx),]  #  Sort by relativity
+#  PREMIUM, LOSS DFs
+   DFPrem <- cumsum(PSRmatOrder$PIx)/n
+   DFLoss <- cumsum(PSRmatOrder$y)/n
+#  GINI CALC
+   DFPremdiff <- DFPrem[2:n]-DFPrem[1:(n-1)]
+   DFPremavg  <- (DFPrem[2:n]+DFPrem[1:(n-1)])/2
+   DFLossavg  <- (DFLoss[2:n]+DFLoss[1:(n-1)])/2
+   (Gini <- 2*crossprod(DFPremdiff,DFPremavg-DFLossavg)) 
+#  STANDARD ERROR CALC
+   h1 <- 0.5* (PSRmatOrder$PIx*DFLoss + PSRmatOrder$y*(1-DFPrem) ) #  PROJECTION CALC
+   h1bar   <- mean(h1) 
+   sigmah  <- var(h1)
+   sigmahy <- cov(h1,PSRmatOrder$y)
+   sigmahpi <- cov(h1,PSRmatOrder$PIx)
+   sigmay  <- var(y)
+   sigmapi <- var(PIx)
+   sigmaypi <- cov(PSRmatOrder$y,PSRmatOrder$PIx)
+   temp1= 4*sigmah + h1bar^2*sigmay + h1bar^2*sigmapi -
+           4*h1bar*sigmahy - 4*h1bar*sigmahpi +
+           2*h1bar^2*sigmaypi
+   sigmaGini  <- 4*temp1
+   stderrGini <- sqrt(sigmaGini/n) 
+   #check <- var(PIx-Sx)
+   #Gini  <- Gini*(check != 0)
+   #stderrGini <- stderrGini*(check != 0)
+   Retmat <- data.frame(cbind(DFPrem,DFLoss)) 
+   RetmatGini<-list(Retmat,Gini,stderrGini)
+     return(RetmatGini)
+}
+
+```
+
+(ref:LorenzVsOrdered) **Lorenz versus Performance Curve**
+
+```{r LorenzVsOrdered, fig.cap='(ref:LorenzVsOrdered)', out.width='90%', fig.asp=0.5, fig.align='center', echo=FALSE}
+# EXAMPLE
+P = c(2,4,5,7,16)
+y = c(2,5,6,6,17)
+n1 = length(y)
+XYmat = data.frame(cbind(y,P))
+XYmatYOrder = XYmat[order(y),]  #  Sort by losses y
+origorder = (1:n1)
+DFy1 = c(0,cumsum(XYmatYOrder$y)/sum(y))
+DFx1 = c(0,origorder/n1) 
+XYmatPOrder = XYmat[order(P),]  #  Sort by premiums P
+DFy2 = c(0,cumsum(XYmatPOrder$y)/sum(y))
+DFx2 = c(0,cumsum(XYmatPOrder$P)/sum(P))
+
+#  FIGURE 3
+par(mfrow=c(1, 2))
+#  Lorenz Curve
+plot(DFx1,DFy1,xlim=c(0,1),ylim=c(0,1), type="b",
+xlab="People Distn",ylab="", main="Lorenz");abline(0,1)
+mtext("Loss Distn", side=2, line=-0.5, at=1.1,   las=1, cex=1.0)
+#  Performance Curve
+plot(DFx2,DFy2,xlim=c(0,1),ylim=c(0,1), type="b",
+xlab="Premium Distn",ylab="", main="Performance");abline(0,1)
+mtext("Loss Distn", side=2, line=-0.5, at=1.1,   las=1, cex=1.0)
+
+GiniLoss = GiniLossCalc(Loss=y)
+temp = GiniCalc(Claims=y,PIx=P,Sx=1)
+Results=temp[[1]]
+Gini <- temp[[2]];#Gini
+stderrorGini <- temp[[3]];#Standard Error
+
+```
+
+
+***
+
+The performance curve can be helpful to the analyst who thinks about forming profitable portfolios for the insurer. For example, suppose that $s$ is chosen to represent the 95*th* percentile of the premium distribution. Then, the horizontal axis, $\hat{F}_P(s)$, represents the fraction of premiums for this portfolio and the vertical axis, $\hat{F}_L(s)$, the fraction of losses for this portfolio. When developing premium principles, analysts wish to avoid unprofitable situations and make profits, or at least break even.
+
+The expectation of the denominator in equation \@ref(eq:EmpLossDF) is $\sum_{i=1}^n \mathrm{E}~ [y_i]=\sum_{i=1}^n \mu_i$. Thus, if the premium principle is chosen such that $P_i= \mu_i$, then we anticipate a close relation between the premium and loss distributions, resulting in a 45 degree line. The 45 degree line presents equality between losses and premiums, a break-even situation which is the benchmark for insurance pricing.
+
+#### Gini Statistic {-}
+
+The classic Lorenz curve shows the proportion of policyholders on the horizontal axis and the loss distribution function on the vertical axis. The performance curve extends the classical Lorenz curve in two ways, (1) through the ordering of risks and prices by prices and (2) by allowing prices to vary by observation. We summarize the performance curve in the same way as the classic Lorenz curve using a Gini statistic, defined as twice the area between the curve and a 45 degree line. The analyst seeks ordered performance curves that approach passing through the 45 degree line; these have the least separation between the loss and premium distributions and therefore small Gini statistics.
+
+
+Specifically, the Gini statistic can be calculated as follows. Suppose that the empirical performance curve is given by $\{ (a_0=0, b_0=0), (a_1, b_1), \ldots,$ $(a_n=1, b_n=1) \}$ for a sample of $n$ observations. Here, we use $a_j = \hat{F}_P(P_j)$ and $b_j = \hat{F}_{L}(P_j)$. Then, the empirical Gini statistic is
+
+\begin{eqnarray}
+\widehat{Gini} 
+&=&  2\sum_{j=0}^{n-1} (a_{j+1} - a_j) \left \{
+\frac{a_{j+1}+a_j}{2} - \frac{b_{j+1}+b_j}{2} \right\} \nonumber \\
+&=& 1 - \sum_{j=0}^{n-1} (a_{j+1} - a_j) (b_{j+1}+b_j) .
+(\#eq:GiniDefn)
+\end{eqnarray}
+
+
+`r HideExample('AreaDemo', 'Show Gini Formula Details')`
+
+To understand the formula for the Gini statistic, here is a sketch of a parallelogram connecting points $(a_1, b_1)$, $(a_2, b_2)$, and a 45 degree line. You can use basic geometry to check that the area of the figure is $Area = (a_2 - a_1) \left \{\frac{a_2+a_1}{2} - \frac{b_2+b_1}{2} \right\}$. The definition of the Gini statistic in equation \@ref(eq:GiniDefn) is simply twice the sum of the parallelograms. The second equality in equation \@ref(eq:GiniDefn) is the result of some straight-forward algebra.
+
+
+```{r, warning=FALSE, message=FALSE, echo=FALSE}
+#  FIGURE 3
+x = 1:100/100
+plot(x,x, type="l", xlab="",ylab="", main="", yaxt="n", xaxt="n")
+text(.43, .51, expression(paste("(",a[1], ",", a[1],")")), cex=.8)
+text(.45, .10, expression(paste("(",a[1], ",", b[1],")")), cex=.8)
+text(.75, .25, expression(paste("(",a[2], ",", b[2],")")), cex=.8)
+text(.73, .81, expression(paste("(",a[2], ",", a[2],")")), cex=.8)
+points(.45, .45, pch = 19)
+points(.45, .15, pch = 19)
+points(.75, .30, pch = 19)
+points(.75, .75, pch = 19)
+arrows(.45, .15, .75, .30,length=0.1, angle = 0)
+arrows(.45, .15, .45, .45,length=0.1, angle = 0)
+arrows(.75, .30, .75, .75,length=0.1, angle = 0)
+text(.15, .35, "45 degree line")
+text(.60, .40, "Area")
+arrows(.15, .32, .20, .25,length=0.1, angle = 30)
+
+```
+
+
+***
+
+</div>
+
+
+**Example -- Loss Distribution: Continued.** The Gini statistic for the Lorenz curve (left-hand panel of Figure \@ref(fig:LorenzVsOrdered)) is `r round(100*GiniLoss,digits=1)` percent. In contrast, the Gini statistic for performance curve (right-hand panel) is `r round(100*Gini,digits=1)` percent. 
+
+
+### Out-of-Sample Validation 
+
+The benefits of out-of-sample validation for model selection were introduced in Section 4.2. We now demonstrate the use of the a Gini statistic and performance curve in this context. The procedure follows:
+
+1.  Use an in-sample data set to estimate several competing models, each producing a premium function.
+2.  Designate an out-of-sample, or validation, data set of the form $\{(\mathbf{x}_i, y_i), i=1,\ldots,n\}$.
+3.  Use the explanatory variables from the validation sample to form premiums of the form $P(\mathbf{x}_i)$.
+4.  Compute the Gini statistic for each model. Choose the model with the lowest Gini statistic.
+
+
+```{r, warning=FALSE, message=FALSE, echo=FALSE} 
+set.seed(2017)
+NInsamp  = 200
+NOutsamp = 100
+Nstate   = 25
+InClaims   <- matrix(0,NInsamp,Nstate)
+OutClaims  <- matrix(0,NOutsamp,Nstate)
+PredClaims <- matrix(0,NOutsamp,Nstate)
+ for (iState in  1:Nstate) { 
+InClaims[,iState]   <- rgamma(NInsamp, shape = 5, scale = 18+iState*2)
+PredClaims[,iState] <- rep(mean(InClaims[,iState]),NOutsamp)
+OutClaims[,iState]  <- rgamma(NOutsamp, shape = 5, scale = 18+iState*2)
+ }
+
+Predvec  <- as.vector(PredClaims)
+Flatpred <- Predvec*0+mean(PredClaims)
+Outy     <- as.vector(OutClaims)
+```
+
+**Example -- Community Rating versus Premiums that Vary by State.** Suppose that we have experience from `r Nstate` states and that for each state we have available `r NInsamp` observations that can be used to predict future losses. For simplicity, assume that the analyst knows that these losses were generated by a gamma distribution with a common shape parameter equal to 5. Unknown to the analyst, the scale parameters vary by state from a low of 20 to `r 18+2*(Nstate-1)`. 
+
+* To compute base premiums, the analyst assumes a scale parameter that is common to all states that is to be estimated from the data. You can think of this common premium as based on a `r Gloss('community rating')` principle. 
+* As an alternative, the analyst allows the scale parameters to vary by state and will again use the data to estimate these parameters.
+
+An out of sample validation set of `r NOutsamp` losses from each state is available. For each of the two rating procedures, determine the performance curve and the corresponding Gini statistic. Choose the rate procedure with the lower Gini statistic.
+
+`r HideExample('Lorenze','Show Example Solution')`
+
+***
+
+Recall for the gamma distribution that the mean equals the shape times the scale or, 5 times the scale parameter, for our example. So, you can check that the maximum likelihood estimates are simply the average experience.
+
+For our base premium, we assume a common distribution among all states. For these simulated data, the average in-sample loss is $P_1$=`r round(mean(InClaims),digits=2)`. 
+
+As an alternative, we use averages that are state-specific; these averages form our premiums $P_2$. Because this illustration uses means that vary by states, we anticipate this alternative rating procedure to be preferred to the community rating procedure. 
+
+Out of sample claims were generated from the same gamma distribution as the in-sample model, with `r NOutsamp` observations for each state. The following `R` code shows how to calculate the performance curves.
+
+
+```{r echo=FALSE} 
+GiniCalc <- function(Claims,PIx,Sx){
+   y   <- Claims/mean(Claims)
+   PIx <- PIx/mean(PIx)
+   Sx  <- Sx/mean(Sx)
+   Rx  <- Sx/PIx       #Relativity
+   n   <- length(PIx)
+   origorder <- (1:n)
+   PSRmat <- data.frame(cbind(PIx,Sx,Rx,y,origorder))
+   PSRmatOrder <- PSRmat[order(Rx),]  #  Sort by relativity
+#  PREMIUM, LOSS DFs
+   DFPrem <- cumsum(PSRmatOrder$PIx)/n
+   DFLoss <- cumsum(PSRmatOrder$y)/n
+#  GINI CALC
+   DFPremdiff <- DFPrem[2:n]-DFPrem[1:(n-1)]
+   DFPremavg  <- (DFPrem[2:n]+DFPrem[1:(n-1)])/2
+   DFLossavg  <- (DFLoss[2:n]+DFLoss[1:(n-1)])/2
+   (Gini <- 2*crossprod(DFPremdiff,DFPremavg-DFLossavg)) 
+#  STANDARD ERROR CALC
+   h1 <- 0.5* (PSRmatOrder$PIx*DFLoss + PSRmatOrder$y*(1-DFPrem) ) #  PROJECTION CALC
+   h1bar   <- mean(h1) 
+   sigmah  <- var(h1)
+   sigmahy <- cov(h1,PSRmatOrder$y)
+   sigmahpi <- cov(h1,PSRmatOrder$PIx)
+   sigmay  <- var(y)
+   sigmapi <- var(PIx)
+   sigmaypi <- cov(PSRmatOrder$y,PSRmatOrder$PIx)
+   temp1= 4*sigmah + h1bar^2*sigmay + h1bar^2*sigmapi -
+           4*h1bar*sigmahy - 4*h1bar*sigmahpi +
+           2*h1bar^2*sigmaypi
+   sigmaGini  <- 4*temp1
+   stderrGini <- sqrt(sigmaGini/n) 
+   #check <- var(PIx-Sx)
+   #Gini  <- Gini*(check != 0)
+   #stderrGini <- stderrGini*(check != 0)
+   Retmat <- data.frame(cbind(DFPrem,DFLoss)) 
+   RetmatGini<-list(Retmat,Gini,stderrGini)
+     return(RetmatGini)
+}
+Gini1 <- GiniCalc(Claims=Outy,PIx=Flatpred,Sx=Flatpred)[[2]];#Gini
+Gini2 <- GiniCalc(Claims=Outy,PIx=Predvec,Sx=Flatpred)[[2]];#Gini
+
 ```
 
 
 
-##Further Resources and Contributors
+```{r fig.cap='', out.width='90%', fig.align='center', echo=SHOW_PDF} 
+y <- Outy 
+P1 <- Flatpred
+P2 <- Predvec
+n1 = length(y)
+XYmat = data.frame(cbind(y,P1,P2))
+XYmatPOrder = XYmat[order(P1),]  #  Sort by premiums P1
+DFy1 = c(0,cumsum(XYmatPOrder$y)/sum(y))
+DFx1 = c(0,cumsum(XYmatPOrder$P1)/sum(P1))
+XYmatPOrder = XYmat[order(P2),]  #  Sort by premiums P2
+DFy2 = c(0,cumsum(XYmatPOrder$y)/sum(y))
+DFx2 = c(0,cumsum(XYmatPOrder$P2)/sum(P2))
+
+#  FIGURE 3
+par(mfrow=c(1, 2))
+#  Lorenz Curve
+plot(DFx1,DFy1,xlim=c(0,1),ylim=c(0,1), type="b", cex= 0.2,
+xlab="Premium Distn",ylab="", main="Flat");abline(0,1)
+mtext("Loss Distn", side=2, line=-0.5, at=1.1,   las=1, cex=1.0)
+#  Performance Curve
+plot(DFx2,DFy2,xlim=c(0,1),ylim=c(0,1), type="b", cex= 0.2,
+xlab="Premium Distn",ylab="", main="State Specific");abline(0,1)
+mtext("Loss Distn", side=2, line=-0.5, at=1.1,   las=1, cex=1.0)
+
+```
 
 
-This chapter serves as a bridge between the technical introduction of this book and an introduction to pricing and ratemaking for practicing actuaries. For readers interested in learn practical aspects of pricing, we recommend introductions by the Society of Actuaries in @friedland2013fundamentals and by the Casualty Actuarial Society in @werner2016basic. For a classic risk management introduction to pricing, see @niehaus2003risk. See also @finger2006risk and @frees2014frequency.
+
+For these data, the Gini statistics are `r round(100*Gini1,digits=1)` percent for the flat rate premium and `r round(100*Gini2,digits=3)` percent for the state-specific alternative.  This indicates that the state-specific alternative procedure is strongly preferred to the base community rating procedure.
+
+***
+
+</div>
+
+#### Discussion {-}
+
+In insurance claims modeling, standard out-of-sample validation measures are not the most informative due to the high proportions of zeros (corresponding to no claim) and the skewed fat-tailed distribution of the positive values. In contrast, the Gini statistic works well with many zeros (see the demonstration in [@frees2014insurance]). 
+
+The value of the performance curves and Gini statistics have been recently advanced in the paper of @denuit2019concentrationGini.
+Properties of an extended version, dealing with relativities for new premiums, were developed by @frees2011summarizing and @frees2014insurance. In these articles you can find formulas for the standard errors and additional background information.
+
+## Further Resources and Contributors
+
+This chapter serves as a bridge between the technical introduction of this book and an introduction to pricing and ratemaking for practicing actuaries. For readers interested in learning practical aspects of pricing, we recommend introductions by the Society of Actuaries in @friedland2013fundamentals and by the Casualty Actuarial Society in @werner2016basic. For a classic risk management introduction to pricing, see @niehaus2003risk. See also @finger2006risk and @frees2014frequency.
 
 @buhlmann1985premium was the first in the academic literature to argue that pricing should be done first at the portfolio level (he referred to this as a *top down* approach) which would be subsequently reconciled with pricing of individual contracts. See also the discussion in @kaas2008modern, Chapter 5.
 
 For more background on pricing principles, a classic treatment is by @gerber1979introduction with a more modern approach in 
-@kaas2008modern. For more discussion of a pricing from a financial economics viewpoint, see @bauer2013financial.
+@kaas2008modern. For more discussion of pricing from a financial economics viewpoint, see @bauer2013financial.
 
 
 - **Edward W. (Jed) Frees**, University of Wisconsin-Madison, and **Jos&eacute;  Garrido**, Concordia University are the principal authors of the initial version of this chapter. Email: jfrees@bus.wisc.edu and/or jose.garrido@concordia.ca for chapter comments and suggested improvements.
-- Chapter reviewers include: Write Jed or Jos&eacute; to add you name here.
+- Chapter reviewers include Chun Yong Chew, Curtis Gary Dean, Brian Hartman, and Jeffrey Pai. Write Jed or Jos&eacute; to add you name here.
 
 ### TS 7.A. Rate Regulation {-}
 
-```{r child = 'Chapters/PremiumSections/RateRegulation.Rmd'}
-```
+
+Insurance regulation helps to ensure the financial stability of insurers and to protect consumers. Insurers receive premiums in return for promises to pay in the event of a contingent (insured) event. Like other financial institutions such as banks, there is a strong public interest in promoting the continuing viability of insurers. 
+
+<!-- Further, regulation is needed to protect consumers because: -->
+
+<!-- a.	Insurance policies are complex legal documents that are often difficult to interpret and understand. -->
+<!-- b.	Insurers write policies and sell them to the public on a "take it or leave it" basis. Personal insurance is not a contract where each party has equal access to information. With their resources, insurers are thought to have greater access to information about risks they are insuring than consumers. -->
+
+#### Market Conduct {-}
+
+<!-- One aspect of regulation is known as *market conduct* regulation - systems of regulatory controls that have been established requiring insurers to demonstrate that they are providing fair and reliable services, including product regulation. -->
+
+To help protect consumers, regulators impose administrative rules on the behavior of market participants. These rules, known as `r Gloss('market conduct regulation')`, provide systems of regulatory controls that  require insurers to demonstrate that they are providing fair and reliable services, including rating, in accordance with the statutes and regulations of a jurisdiction. 
+
+1. *Product regulation* serves to protect consumers by ensuring that insurance policy provisions are reasonable and fair, and do not contain major gaps in coverage that might be misunderstood by consumers and leave them unprotected.
+2. The insurance product is the insurance contract (policy) and the coverage it provides. Insurance contracts are regulated for these reasons:
+    a. Insurance policies are complex legal documents that are often difficult to interpret and understand.
+    b. Insurers write insurance policies and sell them to the public on a "take it or leave it" basis.
+
+Market conduct includes rules for *intermediaries* such as agents (who sell insurance to individuals) and brokers (who sell insurance to businesses). Market conduct also includes *competition policy regulation*, designed to ensure an efficient and competitive marketplace that offers low prices to consumers. 
 
 
+#### Rate Regulation  {-}
 
+*Rate regulation* helps guide the development of premiums and so is the focus of this chapter. As with other aspects of market conduct regulation, the intent of these regulations is to ensure that insurers not take unfair advantage of consumers. Rate (and policy form) regulation is common worldwide.
+
+The amount of regulatory scrutiny varies by insurance product. Rate regulation is uncommon in life insurance. Further, in non-life insurance, most commercial lines and reinsurance are free from regulation. Rate regulation is common in automobile insurance, health insurance, workers compensation, medical malpractice, and homeowners insurance. These are markets in which insurance is mandatory or in which universal coverage is thought to be socially desirable.
+
+There are three principles that guide rate regulation: rates should
+
+* be adequate (to maintain insurance company solvency), 
+* but not excessive (not so high as to lead to exorbitant profits), 
+* nor unfairly discriminatory (price differences must reflect expected claim and expense differences). 
+
+Recently, in auto and home insurance, the twin issues of availability and affordability, which are not explicitly included in the guiding principles, have been assuming greater importance in regulatory decisions.
+
+
+#### Rates are Not Unfairly Discriminatory  {-}
+
+<!-- In general, government regulation of insurance rates takes on one of two forms: -->
+
+<!-- 1. Regulations that restrict the amount, or level, of premium rates, and -->
+<!-- 2. Regulations that restrict the type of information that can be used in risk classification. -->
+
+<!-- The following section, on types of insurance regulations, focuses on the amount of insurance rates. For the second, let us return to the guiding principles for insurance rate regulation. The first two of these three guiding principles, that rates be adequate but not excessive, are reasonably intuitive. The third, that rates not be unfairly discriminatory, requires a bit more explanation. -->
+
+
+Some government regulations of insurance restrict the amount, or level, of premium rates. These are based on the first two of the three guiding rate regulation principles, that rates be adequate but not excessive. This type of regulation is discussed further in the following section on types of rate regulation.
+
+Other government regulations restrict the type of information that can be used in risk classification. These are based on the third guiding principle, that rates not be unfairly discriminatory. "Discrimination" in an insurance context has a different meaning than commonly used; for our purposes, discrimination means the ability to distinguish among things or, in our case, policyholders. The real issue is what is meant by the adjective "fair."
+
+In life insurance, it has long been held that it is reasonable and fair to charge different premium rates by age. For example, a life insurance premium differs dramatically between an 80 year old and someone aged 20. In contrast, it is unheard of to use rates that differ by:
+
+- ethnicity or race,
+- political affiliation, or
+- religion.
+
+It is not a matter of whether data can be used to establish statistical significance among the levels of any of these variables. Rather, it is a societal decision as to what constitutes notions of "fairness."
+
+Different jurisdictions have taken different stances on what constitutes a fair rating variable. For example, in some jurisdictions for some insurance products, gender is no longer a permissible variable. As an illustration, the European Union now prohibits the use of gender for automobile rating. As another example, in the U.S., many discussions have revolved around the use of credit ratings to be used in automobile insurance pricing. 
+Credit ratings are designed to measure consumer financial responsibility. Yet, some argue that credit scores are good proxies for ethnicity and hence should be prohibited.
+
+In an age where more data is being used in imaginative ways, discussions of what constitutes a fair rating variable will only become more important going forward and much of that discussion is beyond the scope of this text. However, it is relevant to the discussion to remark that actuaries and other data analysts can contribute to societal discussions on what constitutes a "fair" rating variable  in unique ways by establishing the magnitude of price differences when using variables under discussion.
+
+<!-- Should we collect these variables? -->
+
+<!-- - Sometimes no. Just the act of collecting them means that we may become biased in subtle ways, a type of moral hazard. -->
+<!-- - Sometimes yes. Either the status is uncertain or we may wish to understand their effects and prove that we are not being biased. -->
+
+
+#### Types of Rate Regulation  {-}
+
+There are several methods, that vary by the level of scrutiny, by which regulators may restrict the rates that insurers offer.
+
+The most restrictive is a `r Gloss('government prescribed')` regulatory system, where the government regulator determines and promulgates the rates, classifications, forms, and so forth, to which all insurers must adhere. Also restrictive are `r Gloss('prior approval')` systems. Here, the insurer must file rates, rules, and so forth, with government regulators. Depending on the statute, the filing becomes effective when a specified waiting period elapses (if the government regulator does not take specific action on the filing, it is deemed approved automatically) or when the government regulator formally approves the filing.
+
+The least restrictive is a `r Gloss('no file')` or *record maintenance* system where the insurer need not file rates, rules, and so forth, with the government regulator. The regulator may periodically examine the insurer to ensure compliance with the law. Another relatively flexible system is the `r Gloss('file only')` system, also known as *competitive* rating, where the insurer simply keeps files to ensure compliance with the law.
+
+In between these two extremes are the (1) file and use, (2) use and file, (3) modified prior approval, and (4) flex rating systems.
+
+1. File and Use: The insurer must file rates, rules, and so forth, with the government regulator. The filing becomes effective immediately or on a future date specified by the filer.
+2. Use and File: The filing becomes effective when used. The insurer must file rates, rules, and so forth, with the government regulator within a specified time period after first use.
+3. Modified Prior Approval: This is a hybrid of "prior approval" and "file and use" laws. If the rate revision is based solely on a change in loss experience then "file and use" may apply. However, if the rate revision is based on a change in expense relationships or rate classifications, then "prior approval" may apply. 
+4. Flex (or Band) Rating: The insurer may increase or decrease a rate within a "flex band," or range, without approval of the government regulator. Generally, either "file and use" or "use and file" provisions apply.
+
+***
+
+For a broad introduction to government insurance regulation from a global perspective, see  the website of the [International Association of Insurance Supervisors (IAIS)](https://www.iaisweb.org/home).
 

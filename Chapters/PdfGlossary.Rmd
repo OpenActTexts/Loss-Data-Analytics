@@ -1,0 +1,11 @@
+`r if (knitr:::is_latex_output()) '# Glossary {#C:Glossary}'`
+
+```{r, echo=FALSE, eval=GLOSSARY}
+glossary <- read.csv("References/GlossFct.csv", header=TRUE)
+terms <- glossary$Term
+
+# replace single quotes
+knitr::kable(Gloss_data[,1:2], col.names = c("Term", "Definition"), longtable = T, format="latex") %>% 
+  kableExtra::column_spec(1, width = "10em") %>% 
+  kableExtra::column_spec(2, width = "30em")
+```

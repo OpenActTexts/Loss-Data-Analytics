@@ -3,8 +3,7 @@
 
 # Risk Classification {#C:RiskClass}
 
-*Chapter Preview.* This chapter motivates the use of risk classification in insurance pricing and introduces readers to the Poisson regression as a prominent example of risk classification. In Section \@ref(S:RC:Introduction) we explain why insurers need to incorporate various risk characteristics, or rating factors, of individual policyholders in pricing insurance contracts. We then introduce Section \@ref(S:RC:PoissonRegression) the Poisson regression as a pricing tool to achieve such premium differentials. The concept of exposure is also introduced in this section. As most rating factors are categorical, we show in Section \@ref(S:CatVarMultiTarriff) how the multiplicative tariff model can be incorporated in the Poisson regression model in practice, along with numerical examples for illustration.
-
+*Chapter Preview.* This chapter motivates the use of risk classification in insurance pricing and introduces readers to Poisson regression as a prominent example of risk classification. In Section \@ref(S:RC:Introduction) we explain why insurers need to incorporate various risk characteristics, or rating factors, of individual policyholders in pricing insurance contracts. In Section \@ref(S:RC:PoissonRegression), we introduce Poisson regression as a pricing tool to achieve such premium differentials. The concept of exposure is also introduced in this section. As most rating factors are categorical, we show in Section \@ref(S:CatVarMultiTarriff) how the multiplicative tariff model can be incorporated into a Poisson regression model in practice, along with numerical examples for illustration.
 
 ## Introduction {#S:RC:Introduction}
 
@@ -18,24 +17,28 @@ In this section, you learn:
 
 ***
 
-Through insurance contracts, the policyholders effectively transfer their risks to the insurer in exchange for premiums. For the insurer to stay in business, the premium income collected from a pool of policyholders must at least equal the benefit outgo. In general insurance products where a  premium is charged for a single period, say annual, the `r Gloss('gross insurance premium')` based on the equivalence principle is stated as
+Through insurance contracts, the policyholders effectively transfer their risks to the insurer in exchange for premiums. For the insurer to stay in business, the premium income collected from a pool of policyholders must at least equal the benefit outgo. In general insurance products where a  premium is charged for a single period, say annually, the `r Gloss('gross insurance premium')` based on the equivalence principle is stated as
 
 $$
 \text{Gross Premium = Expected Losses + Expected Expenses + Profit}.
 $$
 
-Thus, ignoring the frictional expenses associated with the administrative expenses and the profit, the net or pure premium charged by the insurer should be equal to the expected losses occurring from the risk that is transferred from the policyholder.  
+Thus, ignoring frictional expenses associated with the administrative expenses and the profit, the net or pure premium charged by the insurer should be equal to the expected losses occurring from the risk that is transferred from the policyholder.  
 
 If all policyholders in the insurance pool have identical risk profiles, the insurer simply charges the same premium for all  policyholders because they have the same expected loss. In reality, however, the policyholders are hardly homogeneous. For example, mortality risk in life insurance depends on the characteristics of the policyholder, such as, age, sex and life style. In auto insurance, those characteristics may include age, occupation, the type or use of the car, and the area where the driver resides. The knowledge of these characteristics or variables can enhance the ability of calculating fair premiums for individual policyholders, as they can be used to estimate or predict the expected losses more accurately.  
 
 
-**Adverse Selection.** Indeed, if the insurer does not differentiate the `r Gloss('risk characteristics')` of individual policyholders and simply charges the same premium to all insureds based on the average loss in the portfolio, the insurer would face `r Gloss('adverse selection')`, a situation where individuals with a higher chance of loss are attracted in the portfolio and low-risk individuals are repelled. For example, consider a health insurance industry where smoking status is an important risk factor for mortality and morbidity. Most health insurers in the market require different premiums depending on smoking status, so smokers pay higher premiums than non-smokers, with other characteristics being identical. Now suppose that there is an insurer, we will call EquitabAll, that offers the same premium to all insureds regardless of smoking status, unlike other competitors. The net premium of EquitabAll is naturally an average mortality loss accounting for both smokers and non-smokers. That is, the net premium is a weighted average of the losses with the weights being the proportion of smokers and non-smokers, respectively. Thus it is easy to see that that a smoker would have a good incentive to purchase insurance from EquitabAll than from other insurers as the offered premium by EquitabAll is relatively lower. At the same time non-smokers would prefer buying insurance from somewhere else where lower premiums, computed from the non-smoker group only, are offered. As a result,  there will be more smokers and less non-smokers in the EquitabAll's portfolio, which leads to larger-than-expected losses and hence a higher premium for insureds in the next period to cover the higher costs. With the raised new premium in the next period, non-smokers in EquitabAll will have even greater incentives to switch the insurer. As this cycle continues  over time, EquitabAll would gradually retain more smokers and less non-smokers in its portfolio with the premium continually raised, eventually leading to a collapsing of business. In the literature, this phenomenon is known as the `r Gloss('adverse selection spiral')` or death spiral. Therefore, incorporating and differentiating important risk characteristics of individuals in the insurance pricing process are a pertinent component for both the determination of fair premium for individual  policyholders and the long term sustainability of insurers. 
+**Adverse Selection.** Indeed, if the insurer does not differentiate the `r Gloss('risk characteristics')` of individual policyholders and simply charges the same premium to all insureds based on the average loss in the portfolio, the insurer would face `r Gloss('adverse selection')`, a situation where individuals with a higher chance of loss are attracted in the portfolio and low-risk individuals are repelled. 
 
-**Rating Factors**. In order to incorporate relevant risk characteristics of policyholders in the pricing process, insurers maintain some classification system that assigns each policyholder to one of the risk classes based on a relatively small number of risk characteristics that are deemed most relevant. These characteristics used in the classification system are called the `r Gloss('rating factors')`, which are `r Gloss('a priori variables')` in the sense that they are known before the contract begins (e.g., sex, health status, vehicle type, etc, are known during the underwriting). All policyholders sharing identical risk factors thus are assigned to the same risk class, and are considered homogeneous from the pricing viewpoint; the insurer consequently charge them the same premium or rate.
+For example, consider a health insurance industry where smoking status is an important risk factor for mortality and morbidity. Most health insurers in the market require different premiums depending on smoking status, so smokers pay higher premiums than non-smokers, with other characteristics being identical. Now suppose that there is an insurer, we will call EquitabAll, that offers the same premium to all insureds regardless of smoking status, unlike other competitors. The net premium of EquitabAll is naturally an average mortality loss accounting for both smokers and non-smokers. That is, the net premium is a weighted average of the losses with the weights being the proportions of smokers and non-smokers, respectively. Thus it is easy to see that that a smoker would have a good incentive to purchase insurance from EquitabAll than from other insurers as the offered premium by EquitabAll is relatively lower. At the same time non-smokers would prefer buying insurance from somewhere else where lower premiums, computed from the non-smoker group only, are offered. As a result,  there will be more smokers and less non-smokers in the EquitabAll's portfolio, which leads to larger-than-expected losses and hence a higher premium for insureds in the next period to cover the higher costs. With the raised new premium in the next period, non-smokers in EquitabAll will have even greater incentives to switch insurers. As this cycle continues  over time, EquitabAll would gradually retain more smokers and less non-smokers in its portfolio with the premium continually raised, eventually leading to a collapse of business. 
 
-Regarding the risk factors and premiums, the *Actuarial Standard of Practice* (ASOP No. 12) of the @ASBStandards states that the actuary should select risk characteristics that are related to expected outcomes, and that rates within a risk classification system would be considered equitable if differences in rates reflect material differences in expected cost for risk characteristics. In the process of choosing risk factors, ASOP also requires the actuary to  consider the following: relationship of risk characteristics and expected outcomes, causality, objectivity, practicality, applicable law, industry practices, and business practices. Technical Supplement **TS 8.B** provides additional discussion of selection of rating factors.
+In the literature, this phenomenon is known as the `r Gloss('adverse selection spiral')` or death spiral. Therefore, incorporating and differentiating important risk characteristics of individuals in the insurance pricing process are a pertinent component for both the determination of fair premium for individual  policyholders and the long term sustainability of insurers. 
 
-On the quantitative side, an important task for the actuary in building any risk classification is to construct a statistical model that can determine the expected loss given various rating factors of a policyholder. The standard approach is to adopt a regression model which produces the expected loss as the output when the relevant risk factors are given as the inputs. In this chapter we learn the Poisson regression, which can be used when the loss is a `r Gloss('count variable')`, as a prominent example of an insurance pricing tool.  
+**Rating Factors**. In order to incorporate relevant risk characteristics of policyholders in the pricing process, insurers maintain some classification system that assigns each policyholder to one of the risk classes based on a relatively small number of risk characteristics that are deemed most relevant. These characteristics used in the classification system are called `r Gloss('rating factors')`, which are `r Gloss('a priori variables')` in the sense that they are known before the contract begins (e.g., sex, health status, vehicle type, etc, are known during underwriting). All policyholders sharing identical risk factors thus are assigned to the same risk class, and are considered homogeneous from a pricing viewpoint; the insurer consequently charges them the same premium or rate.
+
+Regarding the risk factors and premiums, the *Actuarial Standard of Practice* (ASOP) No. 12 of the @ASBStandards states that the actuary should select risk characteristics that are related to expected outcomes, and that rates within a risk classification system would be considered equitable if differences in rates reflect material differences in expected cost for risk characteristics. In the process of choosing risk factors, ASOP also requires the actuary to  consider the following: relationship of risk characteristics and expected outcomes, causality, objectivity, practicality, applicable law, industry practices, and business practices. Technical Supplement **TS 8.B** provides additional discussion of selection of rating factors.
+
+On the quantitative side, an important task for the actuary in building a risk classification framework is to construct a statistical model that can determine the expected loss given various rating factors of a policyholder. The standard approach is to adopt a regression model which produces the expected loss as the output when the relevant risk factors are given as the inputs. In this chapter we learn about Poisson regression, which can be used when the loss is a `r Gloss('count variable')`, as a prominent example of an insurance pricing tool.  
 
 <!-- %\subsection{Fundamental concept of insurance pricing} -->
 <!-- %================================ -->
@@ -48,15 +51,15 @@ On the quantitative side, an important task for the actuary in building any risk
 ## Poisson Regression Model {#S:RC:PoissonRegression}
 
 
-The Poisson regression model has been successfully used in a wide range of applications and has an advantage of allowing `r Gloss('closed-form expressions')` for important quantities, which provides a informative intuition and interpretation. In this section we introduce the Poisson regression as a natural extension of the Poisson distribution.  
+The Poisson regression model has been successfully used in a wide range of applications and has an advantage of allowing `r Gloss('closed-form expressions')` for important quantities. In this section we introduce Poisson regression as a natural extension of the Poisson distribution.  
 
 ***
 
 In this section you will:  
 
-- Understand Poisson regressions as convenient tool to combine individual Poisson distributions in a unified fashion.
-- Learn the concept of exposure and its importance.  
-- Formally learn how to formulate the Poisson regression model using indicator variables when the explanatory variables are categorical.
+- Understand Poisson regression as a convenient tool for combining individual Poisson distributions.
+- Sharpen your understanding of the concept of exposure and its importance.  
+- Formally learn how to formulate a Poisson regression model using indicator variables when the explanatory variables are categorical.
 
 ***
 
@@ -66,12 +69,13 @@ In this section you will:
 
 **Poisson Distribution**  
 
-To introduce the Poisson regression, let us consider a hypothetical health insurance portfolio where all policyholders are of the same age and only one risk factor, smoking status, is relevant. Smoking status thus is a `r Gloss('categorical variable')` containing two different types: smoker and non-smoker. In the statistical literature different types in a given categorical variable are commonly called `r Gloss('levels')`. As there are two levels for the smoking status, we may denote smoker and non-smoker by level 1 and 2, respectively. Here the numbering is arbitrary and `r Gloss('nominal')`. Suppose now that we are interested in pricing a health insurance where the premium for each policyholder is determined by the number of outpatient visits to doctor's office during a year. The amount of medical cost for each visit is assumed to be the same regardless of the smoking status for simplicity. Thus if we believe that smoking status is a valid risk factor in this health insurance, it is natural to consider the data separately for each smoking status. In [Table 8.1] we present the data for this portfolio.
+To introduce Poisson regression, let us consider a hypothetical health insurance portfolio where all policyholders are of the same age and only one risk factor, smoking status, is relevant. Smoking status thus is a `r Gloss('categorical variable')` with two `r Gloss('levels')`: smoker and non-smoker. As there are two levels for smoking status, we may denote smoker and non-smoker by level 1 and 2, respectively. Here the numbering is arbitrary; smoking status is a `r Gloss('nominal')` categorical variable. (See Section \@ref(S:QuaVar) for more discussion of categorial and nominal variables.) Suppose now that we are interested in pricing a health insurance where the premium for each policyholder is determined by the number of outpatient visits to doctor's office during a year. The medical cost for each visit is assumed to be the same regardless of smoking status for simplicity. Thus if we believe that smoking status is a valid risk factor in this health insurance, it is natural to consider observations from smokers separately from non-smokers. In [Table 8.1] we present data for this portfolio.
 
 <a id=tab:8.1></a>  
 
 [Table 8.1]: \#tab:8.1
 
+Table 8.1. **Number of Visits to Doctor's Office in Last Year**
 
 $$
 {\small
@@ -94,9 +98,6 @@ $$
 }
 $$
 
-[Table 8.1] : Number of visits to doctor's office in last year
-
-
 As this dataset contains random counts, we try to fit a Poisson distribution for each level.  
 
 As introduced in Section \@ref(S:poisson-distribution), the probability mass function of the Poisson with mean $\mu$ is given by
@@ -106,17 +107,16 @@ As introduced in Section \@ref(S:poisson-distribution), the probability mass fun
 (\#eq:Pois-pmf)
 \end{equation}  
 
-and $\mathrm{E~}{(Y)}=\mathrm{Var~}{(Y)}=\mu$. In regression contexts, it is common to use $\mu$ for mean parameters instead of the Poisson parameter $\lambda$ although certainly both symbols are suitable. As we saw in Section
- \@ref(S:estimating-frequency-distributions), the `r Gloss('mle')` of the Poisson distribution is given by the sample mean. Thus if we denote the Poisson mean parameter for each level by $\mu_{(1)}$ (smoker) and $\mu_{(2)}$ (non-smoker), we see from [Table 8.1] that $\hat{\mu}_{(1)}=0.0926$ and $\hat{\mu}_{(2)}=0.0746$. This simple example shows the basic idea of risk classification. Depending on the smoking status a policyholder will have a different risk characteristic and it can be incorporated through varying Poisson parameter in computing the fair premium. In this example the ratio of expected loss frequencies is $\hat{\mu}_{(1)}/\hat{\mu}_{(2)}=1.2402$, implying that smokers tend to visit doctor's office 24.02$\%$ times more frequently compared to non-smokers.
+and $\mathrm{E~}{(Y)}=\mathrm{Var~}{(Y)}=\mu$. In regression contexts, it is common to use $\mu$ for mean parameters instead of the Poisson parameter $\lambda$ although certainly both symbols are suitable. As we saw in Section \@ref(S:estimating-frequency-distributions), the `r Gloss('mle')` of the Poisson distribution is given by the sample mean. Thus if we denote the Poisson mean parameter for each level by $\mu_{(1)}$ (smoker) and $\mu_{(2)}$ (non-smoker), we see from [Table 8.1] that $\hat{\mu}_{(1)}=0.0926$ and $\hat{\mu}_{(2)}=0.0746$. This simple example shows the basic idea of risk classification. Depending on smoking status, a policyholder will have a different risk characteristic that can be incorporated via varying Poisson mean parameters to compute the fair premium. In this example the ratio of expected loss frequencies is $\hat{\mu}_{(1)}/\hat{\mu}_{(2)}=1.2402$, implying that smokers tend to visit a doctor's office 24.02$\%$ times more frequently compared to non-smokers.
 
-It is also informative to note that if the insurer charges the same premium to all policyholders regardless of the smoking status, based on the average characteristic of the portfolio, as was the case for EquitabAll described in Introduction, the expected frequency (or the premium) $\hat{\mu}$ is 0.0792, obtained from the last column of [Table 8.1]. It is easily verified that
+It is also informative to note that if the insurer charges the same premium to all policyholders regardless of smoking status, based on the average characteristic of the portfolio, as was the case for EquitabAll described in Introduction, the expected frequency (or premium) $\hat{\mu}$ is 0.0792, obtained from the last column of [Table 8.1]. It can be verified that
 
 \begin{equation}
 \hat{\mu} = \left(\frac{n_1}{n_1+n_2}\right)\hat{\mu}_{(1)}+\left(\frac{n_2}{n_1+n_2}\right)\hat{\mu}_{(2)}=0.0792,
 (\#eq:coll-prem-avg)
 \end{equation}
 
-where $n_i$ is the number of observations in each level. Clearly, this premium is a weighted average of the premiums for each level with the weight equal to the proportion of the insureds in that level.  
+where $n_i$ is the number of observations in each level. Clearly, this premium is a weighted average of the premiums for each level with the weight equal to the proportion of insureds in that level.  
 
 **A simple Poisson regression**  
 In the example above, we have fitted a Poisson distribution for each level separately, but we can actually combine them together in a unified fashion so that a single Poisson model can encompass both smoking and non-smoking statuses. This can be done by relating the Poisson mean parameter with the risk factor. In other words, we make the Poisson mean, which is the expected loss frequency, respond to the change in the smoking status. The conventional approach to deal with a categorical variable is to adopt indicator or `r Gloss('dummy variables')` that take either 1 or 0, so that we turn the switch on for one level and off for others. Therefore we may propose to use
@@ -144,8 +144,7 @@ x_1=
 (\#eq:dummy-x1)
 \end{equation}
 
-We generally prefer the  log linear relation \@ref(eq:log-lin-mu) to the linear one in \@ref(eq:lin-mu) to prevent undesirable events of producing  negative $\mu$ values, which may happen when there are many different risk factors and levels. 
-The setup \@ref(eq:log-lin-mu) and \@ref(eq:dummy-x1) then results in different Poisson frequency parameters depending on the level in the risk factor:
+We generally prefer the  log linear relation in \@ref(eq:log-lin-mu) to the linear one in \@ref(eq:lin-mu) to prevent producing negative $\mu$ values, which can happen when there are many different risk factors and levels. The setup in \@ref(eq:log-lin-mu) and \@ref(eq:dummy-x1) then results in different Poisson frequency parameters depending on the level in the risk factor:
 
 \begin{equation}
 \log \mu=
@@ -155,12 +154,12 @@ The setup \@ref(eq:log-lin-mu) and \@ref(eq:dummy-x1) then results in different 
 \end{cases}
 \quad \text{or equivalently,}\qquad \mu= \begin{cases}
      e^{\beta_0+\beta_1} & \text{if smoker (level 1)}, \\
-     e^{\beta_0} & \text{if non-smoker (level 2)},
+     e^{\beta_0} & \text{if non-smoker (level 2)} .
 \end{cases} 
 (\#eq:ind-mu)
-\end{equation} 
+\end{equation}
 
-achieving what we aim for. This is the simplest form of the Poisson regression. Note that we require a single indicator variable to model two levels in this case. Alternatively, it is also possible to use two indicator variables through a different coding scheme. This scheme requires dropping the intercept term so that \@ref(eq:log-lin-mu) is modified to
+This is the simplest form of Poisson regression. Note that we require a single indicator variable to model two levels in this case. Alternatively, it is also possible to use two indicator variables through a different coding scheme. This scheme requires dropping the intercept term so that \@ref(eq:log-lin-mu) is modified to
 
 \begin{equation}
 \log \mu=\beta_1 x_1+\beta_2 x_2,
@@ -169,14 +168,13 @@ achieving what we aim for. This is the simplest form of the Poisson regression. 
 
 where $x_2$ is the second indicator variable with
 
-\begin{equation}
+$$
 x_2=
 \begin{cases}
      1 & \text{if non-smoker}, \\
      0 & \text{otherwise}.
 \end{cases}
-(\#eq:dummy-x-2)
-\end{equation}
+$$
 
 Then we have, from \@ref(eq:log-lin-mu-2),
 
@@ -193,16 +191,15 @@ Then we have, from \@ref(eq:log-lin-mu-2),
 (\#eq:ind-mu-2)
 \end{equation}
 
-The numerical result of \@ref(eq:ind-mu)  is the same as \@ref(eq:ind-mu-2) as all the coefficients are given as numbers in actual estimation, with the former setup more common in most texts; we also stick to the former.  
+The numerical result of \@ref(eq:ind-mu)  is the same as \@ref(eq:ind-mu-2) as all coefficients are given as numbers in actual estimation, with the former setup more common in most texts; we also stick to the former.  
 
-With this Poisson regression model we can easily understand how the coefficients $\beta_0$ and $\beta_1$ are linked to the expected loss frequency in each level. According to \@ref(eq:ind-mu), the Poisson mean of the smokers, $\mu_{(1)}$, is given by
+With this Poisson regression model we can readily understand how the coefficients $\beta_0$ and $\beta_1$ are linked to the expected loss frequency in each level. According to \@ref(eq:ind-mu), the Poisson mean of the smokers, $\mu_{(1)}$, is given by
 
-\begin{equation}
+$$
 \mu_{(1)}=e^{\beta_0+\beta_1}=\mu_{(2)} \,e^{\beta_1} \quad \text{or}\quad  \mu_{(1)}/\mu_{(2)} =e^{\beta_1}
-(\#eq:no-label)
-\end{equation}
+$$
 
-where $\mu_{(2)}$ is the Poisson mean for the non-smokers. This relation between the smokers and non-smokers suggests a useful way to compare the risks embedded in different levels of a given risk factor. That is, the proportional increase in the expected loss frequency of the smokers compared to that of the non-smokers is simply given by a multiplicative factor $e^{\beta_1}$. Putting another way, if we set the expected loss frequency of the non-smokers as the base value, the expected  loss frequency of the smokers is obtained by applying $e^{\beta_1}$ to the base value.  
+where $\mu_{(2)}$ is the Poisson mean for the non-smokers. This relation between the smokers and non-smokers suggests a useful way to compare the risks embedded in different levels of a given risk factor. That is, the proportional increase in the expected loss frequency of the smokers compared to that of the non-smokers is simply given by a multiplicative factor $e^{\beta_1}$. Put another way, if we set the expected loss frequency of the non-smokers as the base value, the expected  loss frequency of the smokers is obtained by applying $e^{\beta_1}$ to the base value.  
 
 **Dealing with multi-level case**  
 We can readily extend the two-level case to a multi-level one where $l$ different levels are involved for a single rating factor. For this we generally need $l-1$ indicator variables to formulate
@@ -210,56 +207,52 @@ We can readily extend the two-level case to a multi-level one where $l$ differen
 \begin{equation}
 \log \mu=\beta_0+\beta_1 x_1+\cdots+\beta_{l-1} x_{l-1},
 (\#eq:log-lin-mu-1)
-\end{equation} 
-
-where $x_k$ is an indicator variable that takes 1 if the policy belongs to level $k$ and 0 otherwise, for $k=1,2, \ldots, l-1$. By omitting the indicator variable associated with the last level in \@ref(eq:log-lin-mu-1) we effectively chose level $l$ as the `r Gloss('base case')`, but this choice is arbitrary and does not matter numerically.  The resulting Poisson parameter for policies in level $k$ then becomes, from \@ref(eq:log-lin-mu-1),
-
-\begin{equation}
-\nonumber
-\mu= \begin{cases}
-     e^{\beta_0+\beta_k} & \text{if the policy belongs to level $k$ (k=1,2, ..., l-1)}, \\
-     e^{\beta_0} & \text{if the policy belongs to level $l$}.
-\end{cases}
 \end{equation}
 
+where $x_k$ is an indicator variable that equals 1 if the policy belongs to level $k$ and 0 otherwise, for $k=1,2, \ldots, l-1$. By omitting the indicator variable associated with the last level in \@ref(eq:log-lin-mu-1) we effectively chose level $l$ as the `r Gloss('base case')`, or reference level, but this choice is arbitrary and does not matter numerically.  The resulting Poisson parameter for policies in level $k$ then becomes, from \@ref(eq:log-lin-mu-1),
+
+$$
+\mu= 
+\begin{cases}
+     e^{\beta_0+\beta_k} & \text{if the policy belongs to level } k, (k=1,2, ..., l-1), \\
+     e^{\beta_0} & \text{if the policy belongs to level } l.
+\end{cases}
+$$
+
 Thus if we denote the Poisson parameter for policies in level $k$ by $\mu_{(k)}$, we can relate the Poisson parameter for different levels through $\mu_{(k)}=\mu_{(l)}\, e^{\beta_k}$, $k=1,2, \ldots, l-1$. This indicates that, just like the two-level case, the expected loss frequency of the $k$th level is obtained from the base value multiplied by the relative factor $e^{\beta_k}$. 
-This relative interpretation becomes more powerful when there are many risk factors with multi-levels, and leads us to a better understanding  of the underlying risk and more accurate prediction of future losses. Finally, we note that the varying Poisson mean is completely driven by the coefficient parameters $\beta_k$'s, which are to be estimated from the dataset; the procedure of the parameter estimation will be discussed later in this chapter.
+This relative interpretation becomes more powerful when there are many risk factors with multi-levels, and leads us to a better understanding  of the underlying risk and a more accurate prediction of future losses. Finally, we note that the varying Poisson mean is completely driven by the coefficient parameters $\beta_k$'s, which are to be estimated from the dataset; the procedure of the parameter estimation will be discussed later in this chapter.
 
 
 ### Poisson Regression
 
-We now describe the Poisson regression in a formal and more general setting. Let us assume that there are $n$ independent policyholders with a set of rating factors characterized by a $k$-variate vector[^8.1]. The $i$th policyholder's rating factor is thus denoted by vector $\mathbf{ x}_i=(1, x_{i1}, \ldots, x_{ik})^{\prime}$, and the policyholder has recorded the loss count $y_i \in \{0,1,2, \ldots \}$ from the last period of loss observation, for $i=1, \ldots, n$. In the regression literature, the values $x_{i1}, \ldots, x_{ik}$ are generally known as the *explanatory variables*, as these are measurements providing information about the variable of interest $y_i$. In essence, regression analysis is a method to quantify the relationship between a variable of interest and explanatory variables.
+We now describe Poisson regression in a formal and more general setting. Let us assume that there are $n$ independent policyholders with a set of rating factors characterized by a $k$-variate vector[^8.1]. The $i$th policyholder's rating factor is thus denoted by vector $\mathbf{ x}_i=(1, x_{i1}, \ldots, x_{ik})^{\prime}$, and the policyholder has recorded the loss count $y_i \in \{0,1,2, \ldots \}$ from the last period of loss observation, for $i=1, \ldots, n$. In the regression literature, the values $x_{i1}, \ldots, x_{ik}$ are generally known as *explanatory variables*, as these are measurements providing information about the variable of interest $y_i$. In essence, regression analysis is a method to quantify the relationship between a variable of interest and explanatory variables.
 
 [^8.1]: For example, if there are 3 risk factors each of which the number of levels are 2, 3 and 4, respectively, we have $k=(2-1)\times(3-1)\times (4-1)=6$.
 
-We also assume, for now, that all policyholders have the same one unit period for loss observation, or equal exposure of 1, to keep things simple; we will discuss more details on the exposure in the following subsection. 
+We also assume, for now, that all policyholders have the same one unit period for loss observation, or equal exposure of 1, to keep things simple; we will discuss more details regarding the exposure in the following subsection. 
 
-
-As done before, we describe the Poisson regression through its mean function. For this we first denote $\mu_i$ to be the expected loss count of the $i$th policyholder under the Poisson specification \@ref(eq:Pois-pmf):
+We describe Poisson regression through its mean function. For this we first denote $\mu_i$ as the expected loss count of the $i$th policyholder under the Poisson specification \@ref(eq:Pois-pmf):
 
 \begin{equation}
 \mu_i=\mathrm{E~}{(y_i|\mathbf{ x}_i)}, \qquad y_i \sim Pois(\mu_i), \, i=1, \ldots, n.
 (\#eq:mui-glm)
 \end{equation}
 
-The condition inside the expectation operation in \@ref(eq:mui-glm) indicates that the loss frequency $\mu_i$ is the model output responding to the given set of risk factors or explanatory variables. 
-In principle the conditional mean $\mathrm{E~}{(y_i|\mathbf{ x}_i)}$ in \@ref(eq:mui-glm) can take different forms depending on how we specify the relationship between $\mathbf{ x}$ and $y$. The standard choice for the Poisson regression is to adopt the exponential function, as we mentioned previously, so that
+The condition inside the expectation in equation \@ref(eq:mui-glm) indicates that the loss frequency $\mu_i$ is the model expected response to the given set of risk factors or explanatory variables. In principle the conditional mean $\mathrm{E~}{(y_i|\mathbf{ x}_i)}$ in \@ref(eq:mui-glm) can take different forms depending on how we specify the relationship between $\mathbf{ x}$ and $y$. The standard choice for Poisson regression is to adopt the exponential function, as we mentioned previously, so that
 
 \begin{equation}
 \mu_i=\mathrm{E~}{(y_i|\mathbf{ x}_i)}=e^{\mathbf{ x}^{\prime}_i\beta}, \qquad y_i \sim Pois(\mu_i), \, i=1, \ldots, n.
 (\#eq:mean-ft-Pois)
 \end{equation}
 
-Here $\beta=(\beta_0, \ldots, \beta_k)^{\prime}$ is the vector of coefficients so that $\mathbf{ x}^{\prime}_i\beta=\beta_0+\beta_1x_{i1} +\ldots+\beta_k x_{ik}$. 
-The exponential function in \@ref(eq:mean-ft-Pois) ensures that $\mu_i >0$ for any set of rating factors $\mathbf{ x}_i$. Often \@ref(eq:mean-ft-Pois) is rewritten as a log linear form
+Here $\beta=(\beta_0, \ldots, \beta_k)^{\prime}$ is the vector of coefficients so that $\mathbf{ x}^{\prime}_i \boldsymbol \beta=\beta_0+\beta_1x_{i1} +\ldots+\beta_k x_{ik}$. The exponential function in \@ref(eq:mean-ft-Pois) ensures that $\mu_i >0$ for any set of rating factors $\mathbf{ x}_i$. Often \@ref(eq:mean-ft-Pois) is rewritten as a log linear form
 
 \begin{equation}
-\log \mu_i=\log \mathrm{E~}{(y_i|\mathbf{ x}_i)}=\mathbf{ x}^{\prime}_i\beta, \qquad y_i \sim Pois(\mu_i), \, i=1, \ldots, n
+\log \mu_i=\log \mathrm{E~}{(y_i|\mathbf{ x}_i)}=\mathbf{ x}^{\prime}_i \boldsymbol \beta, \qquad y_i \sim Pois(\mu_i), \, i=1, \ldots, n
 (\#eq:mean-ft-Pois-2)
-\end{equation} 
+\end{equation}
 
-to reveal the relationship when the right side is set as the linear form, $\mathbf{ x}^{\prime}_i\beta$. Again, we see that the  mapping works well as both sides of \@ref(eq:mean-ft-Pois-2), $\log \mu_i$ and $\mathbf{ x}_i\beta$, can now cover the entire real values. 
-This is the formulation of the Poisson regression, assuming that all policyholders have the same unit period of exposure. When the exposures differ among the policyholders, however, as is the case in most practical cases, we need to revise this formulation by adding  exposure component as an additional term in \@ref(eq:mean-ft-Pois-2).
+to reveal the relationship when the right side is set as the linear form, $\mathbf{ x}^{\prime}_i\beta$. Again, we see that the  mapping works well as both sides of \@ref(eq:mean-ft-Pois-2), $\log \mu_i$ and $\mathbf{ x}_i\beta$, can now cover all real values. This is the formulation of Poisson regression, assuming that all policyholders have the same unit period of exposure. When the exposures differ among the policyholders, however, as is the case in most practical cases, we need to revise this formulation by adding an exposure component as an additional term in \@ref(eq:mean-ft-Pois-2).
 
 
 ### Incorporating Exposure
@@ -267,19 +260,19 @@ This is the formulation of the Poisson regression, assuming that all policyholde
 
 **Concept of Exposure**  
 
-In order to determine the size of potential losses in any type of insurance, one must always know the corresponding exposure. The concept of exposure is an extremely important ingredient in insurance pricing, though we usually take it for granted. For example, when we say the expected  claim frequency of a health insurance policy is 0.2, it does not mean much without the specification of the exposure such as, in this case, per month or per year. In fact, all premiums and losses need the exposure precisely specified and must be quoted accordingly; otherwise all subsequent statistical analyses and predictions will be distorted.  
+We first saw the concept of exposures in Section \@ref(S:HeterogeneousRisks). In order to determine the size of potential losses in any type of insurance, one must always know the corresponding exposure. The concept of exposure is an extremely important ingredient in insurance pricing, though we usually take it for granted. For example, when we say the expected  claim frequency of a health insurance policy is 0.2, it does not mean much without the specification of the exposure such as, in this case, per month or per year. In fact, all premiums and losses need the exposure precisely specified and must be quoted accordingly; otherwise all subsequent statistical analyses and predictions will be distorted.  
 
-In the previous section we assumed the same unit of exposure across all policyholders, but this is hardly realistic in practice. In health insurance, for example, two different policyholders with different lengths of insurance coverage (e.g., 3 months and 12 months, respectively) could have recorded the same number of claim counts. As the expected number of claim counts would be proportional to the length of coverage, we should not treat these two policyholders' loss experiences identically in the modeling process. This motivates the need of the concept of *exposure* in the Poisson regression.  
+In the previous section we assumed the same unit of exposure across all policyholders, but this is hardly realistic in practice. In health insurance, for example, two different policyholders with different lengths of insurance coverage (e.g., 3 months and 12 months, respectively) could have recorded the same number of claim counts. As the expected number of claim counts would be proportional to the length of coverage, we should not treat these two policyholders' loss experiences identically in the modeling process. This motivates the need of the concept of *exposure* in Poisson regression.  
 
 The Poisson distribution in \@ref(eq:Pois-pmf) is parametrized via its mean. To understand the exposure, we alternatively parametrize the Poisson *pmf* in terms of the *rate* parameter $\lambda$, based on the definition of the Poisson process:
 
 \begin{equation}
 \Pr(Y=y)=\frac{(\lambda t)^y e^{-\lambda t}}{y!},\qquad y=0,1,2, \ldots
 (\#eq:Pois-pmf-2)
-\end{equation} 
+\end{equation}
 
 with $\mathrm{E~}{(Y)}=\mathrm{Var~}{(Y)}=\lambda t$. Here $\lambda$ is known as the rate or intensity per unit period of the Poisson process and $t$ represents the length of time or *exposure*, a known constant value. For given $\lambda$ the Poisson distribution \@ref(eq:Pois-pmf-2) produces a larger expected loss count  as the exposure $t$ gets larger. 
-Clearly, \@ref(eq:Pois-pmf-2) reduces to \@ref(eq:Pois-pmf) when $t=1$, which means that the mean and the rate become the same for the unit  exposure, the case we considered in the previous subsection.  
+Clearly, \@ref(eq:Pois-pmf-2) reduces to \@ref(eq:Pois-pmf) when $t=1$, which means that the mean and the rate become the same for an exposure of 1, the case we considered in the previous subsection.  
 
  In principle, the exposure does not need to be measured in units of time and may represent different things depending the problem at hand. For example:  
  
@@ -295,17 +288,18 @@ Actuaries may be able to use different `r Gloss('exposure bases')` for a given i
 
 
 **Incorporating exposure in Poisson regression**  
-As exposures affect the Poisson mean, constructing Poisson regressions requires us to carefully separate the rate and exposure in the modelling process. Focusing on the insurance context, let us denote the rate of the loss event of the $i$th policyholder by $\lambda_i$, the known exposure (the length of coverage) by  $m_i$ and the expected loss count under the given exposure by $\mu_i$. Then  the Poisson regression formulation in \@ref(eq:mean-ft-Pois) and \@ref(eq:mean-ft-Pois-2) should be revised in light of \@ref(eq:Pois-pmf-2) as
+
+As exposures affect the Poisson mean, constructing Poisson regressions requires us to carefully separate the rate and exposure in the modelling process. Focusing on the insurance context, let us denote the rate of the loss event of the $i$th policyholder by $\lambda_i$, the known exposure (the length of coverage) by  $m_i$ and the expected loss count under the given exposure by $\mu_i$. Then the Poisson regression formulation in \@ref(eq:mean-ft-Pois) and \@ref(eq:mean-ft-Pois-2) should be revised in light of \@ref(eq:Pois-pmf-2) as
 
 \begin{equation}
-\mu_i=\mathrm{E~}{(y_i|\mathbf{ x}_i)}=m_i \,\lambda_i=m_i \, e^{\mathbf{ x}^{\prime}_i\beta}, \qquad y_i \sim Pois(\mu_i), \, i=1, \ldots, n,
+\mu_i=\mathrm{E~}{(y_i|\mathbf{ x}_i)}=m_i \,\lambda_i=m_i \, e^{\mathbf{ x}^{\prime}_i \boldsymbol \beta}, \qquad y_i \sim Pois(\mu_i), \, i=1, \ldots, n,
 (\#eq:mean-ft-Pois-6)
 \end{equation} 
 
 which gives
 
 \begin{equation}
-\log \mu_i=\log m_i+\mathbf{ x}^{\prime}_i\beta, \qquad y_i \sim Pois(\mu_i), \, i=1, \ldots,
+\log \mu_i=\log m_i+\mathbf{ x}^{\prime}_i \boldsymbol \beta, \qquad y_i \sim Pois(\mu_i), \, i=1, \ldots,
 (\#eq:mean-ft-Pois-7)
 \end{equation}
 
@@ -323,7 +317,7 @@ Adding $\log m_i$ in \@ref(eq:mean-ft-Pois-7) does not pose a problem in fitting
     (b) Verify the number in equation \@ref(eq:coll-prem-avg).  
     (c) Produce the fitted Poisson counts for each smoking status in the table.  
 
-2. In the Poisson regression formulation \@ref(eq:mui-glm), consider using $\mu_i=\mathrm{E~}{(y_i|\mathbf{ x}_i)}=({\mathbf{ x}^{\prime}_i\beta})^2$, for  $i=1, \ldots, n$,  instead of the exponential function.  What potential issue would you have?  
+2. In a Poisson regression formulation \@ref(eq:mui-glm), consider using $\mu_i=\mathrm{E~}{(y_i|\mathbf{ x}_i)}=({\mathbf{ x}^{\prime}_i\beta})^2$, for  $i=1, \ldots, n$,  instead of the exponential function.  What potential issue would you have?  
 
 <!-- %3. Verify equation \@ref(eq:Inf-mtx-Poi) by differentiating the log-likelihood \@ref(eq:ll-Poi-reg). -->
 
@@ -335,13 +329,13 @@ Adding $\log m_i$ in \@ref(eq:mean-ft-Pois-7) does not pose a problem in fitting
 In this section you will learn:  
 
 - The multiplicative tariff model when the rating factors are categorical.  
-- How to construct the Poisson regression model based on the multiplicative tariff structure.
+- How to construct a Poisson regression model based on the multiplicative tariff structure.
 
 ***
 
 ### Rating Factors and Tariff
 
-In practice most rating factors in insurance are *categorical variables*, meaning that they take one of the pre-determined number of possible values. Examples of categorical variables include sex, type of cars, the driver's region of residence and occupation. Continuous variables, such as age or auto mileage, can also be grouped by bands and treated as categorical variables. Thus we can imagine that, with a small number of rating factors, there will be many policyholders falling into the same risk class,  charged with the same premium. For the remaining of this chapter we assume that all rating factors are categorical variables.  
+In practice most rating factors in insurance are *categorical variables*, meaning that they take one of the predetermined number of possible values. Examples of categorical variables include sex, type of cars, the driver's region of residence and occupation. Continuous variables, such as age or auto mileage, can also be grouped by bands and treated as categorical variables. Thus we can imagine that, with a small number of rating factors, there will be many policyholders falling into the same risk class,  charged with the same premium. For the remaining of this chapter we assume that all rating factors are categorical variables.  
 
 To illustrate how categorical variables are used in the pricing process, we consider a hypothetical auto insurance with only two rating factors:  
 
@@ -350,12 +344,13 @@ To illustrate how categorical variables are used in the pricing process, we cons
   
 <!-- %  \item  -->
 
-From this classification rule, we may create an organized  table or list, such as the one shown in [Table 8.2], collected from all policyholders. Clearly there are $2 \times 3=6$ different risk classes in total. Each row of the table shows a combination of different risk characteristics of individual policyholders. Our goal is to compute six different premiums for each of these combinations. Once the premium for each row has been determined using the given exposure and claim counts, the insurer can replace the last two columns in [Table 8.2] with a single column containing the computed premiums. This new table then can serve as a manual to determine the premium for a new policyholder given the rating factors during the underwriting process. In non-life insurance, a table (or a set of tables) or list that contains each set of rating factors and the associated premium is referred to as a `r Gloss('tariff')`. Each unique combination of the rating factors in a tariff is called a *tariff cell*; thus, in [Table 8.2] the number of tariff cells is six,  same as the number of risk classes.
+From this classification rule, we may create an organized  table or list, such as the one shown in [Table 8.2], collected from all policyholders. Clearly there are $2 \times 3=6$ different risk classes in total. Each row of the table shows a combination of different risk characteristics of individual policyholders. Our goal is to compute six different premiums for each of these combinations. Once the premium for each row has been determined using the given exposure and claim counts, the insurer can replace the last two columns in [Table 8.2] with a single column containing the computed premiums. This new table then can serve as a manual to determine the premium for a new policyholder given rating factors during the underwriting process. In non-life insurance, a table (or a set of tables) or list that contains each set of rating factors and the associated premium is referred to as a `r Gloss('tariff')`. Each unique combination of the rating factors in a tariff is called a *tariff cell*; thus, in [Table 8.2] the number of tariff cells is six,  same as the number of risk classes.
 
 <a id=tab:8.2></a>  
 
-
 [Table 8.2]: \#tab:8.2
+
+Table 8.2. **Loss Record of the Illustrative Auto Insurer**
 
 $$
 {\small
@@ -365,7 +360,7 @@ $$
 \text{Rating} &\text{factors}  &   \text{Exposure} & \text{Claim count} \\
 \text{Type }(j) & \text{Age }(k) &  \text{in year} & \text{observed}\\
 \hline \hline
-j=1 & k=1 &  89.1 & 9\\
+1 & 1 &  89.1 & 9\\
 1 & 2   & 208.5& 8\\
 1 & 3  & 155.2 & 6  \\
 2  & 1  & 19.3 & 1 \\
@@ -376,27 +371,25 @@ j=1 & k=1 &  89.1 & 9\\
 }
 $$
 
-[Table 8.2] : Loss record of the illustrative auto insurer
 
-Let us now look at the loss information in [Table 8.2] more closely. The exposure in each row represents the sum of the length of insurance coverages, or `r Gloss('in-force times')`, in the unit of year, of all the policyholders in that tariff cell. Similarly the claim counts in each row is the number of claims at each cell. Naturally the exposures and claim counts vary due to the different number of drivers across the cells, as well as different in-force time periods among the drivers within each cell.
+
+Let us now look at the loss information in [Table 8.2] more closely. The exposure in each row represents the sum of the length of insurance coverages, or `r Gloss('in-force times')`, in years, of all the policyholders in that tariff cell. Similarly the claim counts in each row is the number of claims in each cell. Naturally the exposures and claim counts vary due to the different number of drivers across the cells, as well as different in-force time periods among the drivers within each cell.
 
 In light of the Poisson regression framework, we denote the exposure and claim count of cell $(j,k)$ as $m_{jk}$ and $y_{jk}$, respectively, and define the claim count per unit exposure as
 
 
-\begin{equation}
-\nonumber
+$$
 z_{jk}= \frac{y_{jk}}{ m_{jk}}, \qquad j=1,2;\, k=1, 2,3.
-\end{equation}
+$$
 
-For example, $z_{12}=8/208.5=0.03837$, meaning that a policyholder in tariff cell (1,2) would have 0.03837 accidents if insured for a full year on average. The set of $z_{ij}$ values then corresponds to the `r Gloss('rate parameter')` in the Poisson distribution \@ref(eq:Pois-pmf-2) as they are the event occurrence rates per unit exposure. That is, we have $z_{jk}=\hat{\lambda}_{jk}$ where ${\lambda}_{jk}$ is the Poisson rate parameter. Producing $z_{ij}$ values however does not do much beyond comparing the average loss frequencies across risk classes. To fully exploit the dataset, we will construct a pricing model from [Table 8.2] using the Poisson regression, for the remaining part of the chapter.  
+For example, $z_{12}=8/208.5=0.03837$, meaning that a policyholder in tariff cell (1,2) would have 0.03837 accidents if insured for a full year on average. The set of $z_{ij}$ values then corresponds to the `r Gloss('rate parameter')` in the Poisson distribution \@ref(eq:Pois-pmf-2) as they are the event occurrence rates per unit exposure. That is, we have $z_{jk}=\hat{\lambda}_{jk}$ where ${\lambda}_{jk}$ is the Poisson rate parameter. Producing $z_{ij}$ values however does not do much beyond comparing the average loss frequencies across risk classes. To fully exploit the dataset, we will construct a pricing model from [Table 8.2] using Poisson regression, for the remaining part of the chapter.  
 
-We comment that actual loss records used by insurers typically include much more risk factors, in which case  the number of cells grows exponentially. The tariff would then consist of a set of tables, instead of one, separated by some of the basic rating factors, such as sex or territory. 
+We comment that actual loss records used by insurers typically include many more risk factors, in which case  the number of cells grows exponentially. The tariff would then consist of a set of tables, instead of one, separated by some of the basic rating factors, such as sex or territory. 
 
 ### Multiplicative Tariff Model
 
 <!-- %\noindent\textbf{Concept of tariff}\\ -->
-In this subsection, we introduce the `r Gloss('multiplicative tariff model')`, a popular pricing structure that can be naturally used within the Poisson regression framework. The developments here are based on [Table 8.2]. Recall that the loss count of a policyholder is described by the Poisson regression model with rate $\lambda$ and the exposure $m$, so that the expected loss count becomes $m\lambda$. As $m$ is a known constant, we are essentially concerned with modelling $\lambda$, so that it responds to the change in the rating factors. 
- Among other possible `r Gloss('functional forms')`, we commonly choose the multiplicative[^8.2] relation to model the Poisson rate $\lambda_{jk}$ for rating factor ($j,k$):
+In this subsection, we introduce the `r Gloss('multiplicative tariff model')`, a popular pricing structure that can be naturally used within the Poisson regression framework. The developments here are based on [Table 8.2]. Recall that the loss count of a policyholder is described by a Poisson regression model with rate $\lambda$ and the exposure $m$, so that the expected loss count becomes $m\lambda$. As $m$ is a known constant, we are essentially concerned with modelling $\lambda$, so that it responds to the change in rating factors. Among other possible `r Gloss('functional forms')`, we commonly choose the multiplicative[^8.2] relation to model the Poisson rate $\lambda_{jk}$ for cell ($j,k$):
  
 \begin{equation}
 \lambda_{jk}= f_0 \times f_{1j} \times f_{2k}, \qquad j=1,2;\, k=1, 2,3.
@@ -410,15 +403,15 @@ Here $\{ f_{1j}, j=1,2\}$ are the parameters associated with the two levels in t
 The multiplicative form \@ref(eq:multiplicative-tarrif) is easy to understand and use, because it clearly shows how the expected loss count (per unit exposure) changes as each rating factor varies. For example, if $f_{11}=1$ and $f_{12}=1.2$, then the expected loss count of a policyholder with a vehicle of type B would be 20$\%$ larger than type A, when the other factors are the same. In non-life insurance, the parameters $f_{1j}$ and $f_{2k}$  are known as `r Gloss('relativities')` as they determine how much expected loss should change relative to the base value $f_0$. The idea of relativity is quite convenient in practice, as we can decide the premium for a policyholder by simply multiplying a series of corresponding relativities to the base value. 
 
 
-Dropping an existing rating factor or adding a new one is also transparent with this multiplicative structure. In addition, the insurer may easily adjust the overall premium for all policyholders by controlling the base value $f_0$ without changing individual relativities. However, by adopting the multiplicative form, we implicitly assume that there is no serious interaction among the risk factors.  
+Dropping an existing rating factor or adding a new one is also transparent with this multiplicative structure. In addition, the insurer may adjust the overall premium for all policyholders by controlling the base value $f_0$ without changing individual relativities. However, by adopting the multiplicative form, we implicitly assume that there is no serious interaction among the risk factors.  
 
 When the multiplicative form is used we need to address an identification issue. That is, for any $c>0$, we can write 
 
-\begin{equation}
+$$
 \lambda_{jk}= f_0 \times \frac{f_{1j}}{c} \times c\,f_{2k}. 
-\end{equation}
+$$
 
-By comparing with \@ref(eq:multiplicative-tarrif), we see that the identical rate parameter $\lambda_{jk}$ can be obtained for very different individual relativities. This over-parametrization, meaning that many different sets of parameters arrive at the identical model, obviously calls for some restriction on $f_{1j}$ and $f_{2k}$. The standard practice is to make one relativity in each rating factor equal to one. This can be made arbitrarily in theory, but the standard practice is to make the relativity of most common class (base class) equals to one. We will assume that _type A vehicles_ and _young drivers_ to  be the most common classes, that is, $f_{11} = 1$ and $f_{21} = 1$.  This way all other relativities are uniquely determined. The tariff cell $(j,k)=(1,1)$ is then called the `r Gloss('base tariff cell')`, where the rate simply becomes $\lambda_{11}=f_0$, corresponding to the base value according to \@ref(eq:multiplicative-tarrif). Thus the base value $f_0$ is generally interpreted as the Poisson rate of the base tariff cell.  
+By comparing with \@ref(eq:multiplicative-tarrif), we see that the identical rate parameter $\lambda_{jk}$ can be obtained for very different individual relativities. This over-parametrization, meaning that many different sets of parameters arrive at an identical model, obviously calls for some restriction on $f_{1j}$ and $f_{2k}$. The standard practice is to make one relativity in each rating factor equal to one. This can be made arbitrarily in theory, but the standard practice is to make the relativity of most common class (base class) equal to one. We will assume that _type A vehicles_ and _young drivers_ to  be the most common classes, that is, $f_{11} = 1$ and $f_{21} = 1$.  This way all other relativities are uniquely determined. The tariff cell $(j,k)=(1,1)$ is then called the `r Gloss('base tariff cell')`, where the rate simply becomes $\lambda_{11}=f_0$, corresponding to the base value according to \@ref(eq:multiplicative-tarrif). Thus the base value $f_0$ is generally interpreted as the Poisson rate of the base tariff cell.  
 
 Again, \@ref(eq:multiplicative-tarrif) is log-transformed and rewritten as
 
@@ -430,18 +423,20 @@ Again, \@ref(eq:multiplicative-tarrif) is log-transformed and rewritten as
 as it is easier to work with in estimating process, similar to \@ref(eq:mean-ft-Pois-2). This log linear form makes the log relativities of the base level in each rating factor equal to zero, i.e., $\log f_{11}=\log f_{21}=0$, and leads to the following alternative, more explicit expression for \@ref(eq:log-linear-tariff):
 
 \begin{equation}
-\log \lambda=\begin{cases}
-      \log f_0 + \quad 0 \quad \,\,+ \quad 0 \quad \,\,& \text{for a policy in cell $(1,1)$}, \\
-            \log f_0+ \quad 0 \quad \,\,+\log f_{22}& \text{for a policy in cell $(1,2)$}, \\
-                  \log f_0+ \quad 0 \quad \,\,+\log f_{23}& \text{for a policy in cell $(1,3)$}, \\
-                        \log f_0+\log f_{12}+ \quad 0 \quad \,\,& \text{for a policy in cell $(2,1)$}, \\
-                              \log f_0+\log f_{12}+\log f_{22}& \text{for a policy in cell $(2,2)$}, \\
-                                    \log f_0+\log f_{12}+\log f_{23}& \text{for a policy in cell $(2,3)$}. \\
+\small{
+\log \lambda_{jk}=\begin{cases}
+\log f_0 + \quad 0 \quad \,\,+ \quad 0 \quad \,\,& \text{for a policy in cell }(1,1), \\
+\log f_0+ \quad 0 \quad \,\,+\log f_{22}& \text{for a policy in cell }(1,2), \\
+\log f_0+ \quad 0 \quad \,\,+\log f_{23}& \text{for a policy in cell }(1,3), \\
+\log f_0+\log f_{12}+ \quad 0 \quad \,\,& \text{for a policy in cell }(2,1), \\
+\log f_0+\log f_{12}+\log f_{22}& \text{for a policy in cell }(2,2), \\
+\log f_0+\log f_{12}+\log f_{23}& \text{for a policy in cell }(2,3). \\
 \end{cases}
+}
 (\#eq:log-rate-Poi-tariff-3)
 \end{equation}
 
-This clearly shows that the Poisson rate parameter $\lambda$ varies across different tariff cells, with the same log linear form used in the Poisson regression framework. In fact the reader may see that \@ref(eq:log-rate-Poi-tariff-3) is  an extended version of the early expression \@ref(eq:ind-mu) with multiple risk factors and that the log relativities now play the role of $\beta_i$ parameters. 
+This clearly shows that the Poisson rate parameter $\lambda$ varies across different tariff cells, with the same log linear form used in a Poisson regression framework. In fact the reader may see that \@ref(eq:log-rate-Poi-tariff-3) is  an extended version of the early expression \@ref(eq:ind-mu) with multiple risk factors and that the log relativities now play the role of $\beta_i$ parameters. 
 Therefore all the relativities can be readily estimated via fitting a Poisson regression with a suitably chosen set of indicator variables.
 
 
@@ -450,35 +445,35 @@ Therefore all the relativities can be readily estimated via fitting a Poisson re
 
 **Indicator Variables for Tariff Cells**  
 
-We now explain how the relativities can be incorporated in the Poisson regression. As seen early in this chapter we use indicator variables to deal with categorical variables. For our illustrative auto insurer, therefore, we define an indicator variable for the first rating factor as
+We now explain how the relativities can be incorporated into Poisson regression. As seen early in this chapter we use indicator variables to deal with categorical variables. For our illustrative auto insurer, therefore, we define an indicator variable for the first rating factor as
 
-\begin{equation}
+$$
 x_1=
 \begin{cases}
       1 & \text{ for vehicle type B}, \\
       0 & \text{ otherwise}.
 \end{cases}
-\end{equation}
+$$
 
 For the second rating factor, we employ two indicator variables for the age band, that is,
 
-\begin{equation}
+$$
 x_2=
 \begin{cases}
      1 & \text{for age band 2}, \\
      0 & \text{otherwise}.
 \end{cases}
-\end{equation}
+$$
 
 and 
 
-\begin{equation}
+$$
 x_3=
 \begin{cases}
      1 & \text{for age band 3}, \\
      0 & \text{otherwise}.
 \end{cases}
-\end{equation}
+$$
 
 The triple $(x_1, x_2, x_3)$ then can effectively and uniquely determine each risk class. By observing that the indicator variables associated with Type A and Age band 1 are omitted, we see that tariff cell $(j,k)=(1,1)$ plays the role of the base cell. We emphasize that our choice of the three indicator variables above has been carefully made so that it is consistent with the choice of the base levels in the multiplicative tariff model in the previous subsection (i.e., $f_{11}=1$ and $f_{21}=1$).  
 <!-- % -->
@@ -496,42 +491,44 @@ With the proposed indicator variables we can rewrite the log rate \@ref(eq:log-l
 which is identical to \@ref(eq:log-rate-Poi-tariff-3) when each triple value is actually applied. For example, we can verify that the base tariff cell $(j,k)=(1,1)$ corresponds to $(x_1, x_2,x_3)=(0, 0, 0)$, and in turn produces $\log \lambda=\log f_0$ or $\lambda= f_0$ in \@ref(eq:log-linear-tariff-3) as required. 
 
 **Poisson regression for the tariff model**  
-Under this specification, let us consider $n$ policyholders in the portfolio with the $i$th policyholder's risk characteristic given by  a vector of explanatory variables $\mathbf{ x}_i=(x_{i1}, x_{i2},x_{i3})^{\prime}$, for $i=1, \ldots, n$. 
+Under this specification, let us consider $n$ policyholders in the portfolio with the $i$th policyholder's risk characteristic given by  a vector of explanatory variables $\mathbf{ x}_i=(1, x_{i1}, x_{i2},x_{i3})^{\prime}$, for $i=1, \ldots, n$. 
 We then recognize \@ref(eq:log-linear-tariff-3) as 
 
-\begin{equation}
-\log \lambda_{i}= \beta_0+ \beta_1 \, x_{i1} + \beta_{2} \, x_{i2} +\beta_3  \, x_{i3}=\mathbf{ x}^{\prime}_i\beta, \qquad i=1, \ldots, n,
-\end{equation}
+$$
+\log \lambda_{i}= \beta_0+ \beta_1 \, x_{i1} + \beta_{2} \, x_{i2} +\beta_3  \, x_{i3}=\mathbf{ x}^{\prime}_i \boldsymbol \beta, \qquad i=1, \ldots, n,
+$$
 
-where $\beta_0, \ldots, \beta_3$ can be mapped to the corresponding log relativities in \@ref(eq:log-linear-tariff-3). This  is exactly the same setup as in \@ref(eq:mean-ft-Pois-7) except for the exposure component. Therefore, by incorporating the exposure in each risk class, the Poisson regression model for this multiplicative tariff model finally becomes 
+where $\beta_0, \ldots, \beta_3$ can be mapped to the corresponding log relativities in \@ref(eq:log-linear-tariff-3). This  is exactly the same setup as in \@ref(eq:mean-ft-Pois-7) except for the exposure component. Therefore, by incorporating the exposure in each risk class, a Poisson regression model for this multiplicative tariff model finally becomes 
 
-\begin{equation}
-\log \mu_i=\log \lambda_{i}+\log m_i= \log m_i+ \beta_0+ \beta_1 \, x_{i1} + \beta_{2} \, x_{i2} +\beta_3  \, x_{i3}=\log m_i+\mathbf{ x}^{\prime}_i\beta, 
-\end{equation}
+$$
+\begin{array}{ll}
+\log \mu_i &=\log \lambda_{i}+\log m_i= \log m_i+ \beta_0+ \beta_1 \, x_{i1} + \beta_{2} \, x_{i2} +\beta_3  \, x_{i3}\\
+&=\log m_i+\mathbf{ x}^{\prime}_i \boldsymbol \beta, 
+\end{array}
+$$
 
 for $i=1, \ldots, n$. 
 As a result, the relativities are given by
 
 \begin{equation}
-{f}_0=e^{\beta_0}, \quad {f}_{12}=e^{\beta_1}, \quad {f}_{22}=e^{\beta_2} \quad \text{and}\quad {f}_{23}=e^{\beta_3},
+{f}_0=e^{\beta_0}, \quad {f}_{12}=e^{\beta_1}, \quad {f}_{22}=e^{\beta_2}, \quad \text{and}\quad {f}_{23}=e^{\beta_3},
 (\#eq:relativity-1)
-\end{equation} 
+\end{equation}
 
 with $f_{11}=1$ and $f_{21}=1$ from the original construction. For the actual dataset, $\beta_i$, $i=0,1, 2, 3$, is replaced with the *mle*  $b_i$ using the method in the technical supplement at the end of this chapter (Section `r chapnum`.A).  
 
 
 ### Numerical Examples
 
-We present two numerical examples of the Poisson regression. In the first example we construct a Poisson regression model from [Table 8.2], which is a dataset of a hypothetical auto insurer. The second example uses an actual industry dataset with more risk factors. As our purpose is to show how the Poisson regression model can be used under a given classification rule, we are not concerned with the quality of the Poisson model fit  in this chapter.  
+We present two numerical examples of Poisson regression. In the first example we construct a Poisson regression model from [Table 8.2], which is a dataset of a hypothetical auto insurer. The second example uses an actual industry dataset with more risk factors. As our purpose is to show how a Poisson regression model can be used under a given classification rule, we are not concerned with the quality of the Poisson model fit  in this chapter.  
 
 **Example `r chapnum`.1: Poisson regression for the illustrative auto insurer**  
 
-In the last few subsections we considered a dataset of a hypothetical auto insurer with two risk factors, as given in  [Table 8.2]. We now apply the Poisson regression model to this dataset. As done before, we have set $(j,k)=(1,1)$ as the base tariff cell, so that  $f_{11}=f_{21}=1$. The result of the regression gives the coefficient estimates $(b_0, b_1,b_2,b_3)=(-2.3359,      -0.3004,      -0.7837,      -1.0655 )$, which in turn produces the corresponding relativities
+In the last few subsections we considered a dataset of a hypothetical auto insurer with two risk factors, as given in  [Table 8.2]. We now apply a Poisson regression model to this dataset. As done before, we have set $(j,k)=(1,1)$ as the base tariff cell, so that  $f_{11}=f_{21}=1$. The result of the regression gives the coefficient estimates $(b_0, b_1,b_2,b_3)=(-2.3359, -0.3004,  -0.7837, -1.0655)$, which in turn produces the corresponding estimated relativities
 
-\begin{equation}
-\nonumber
-{f}_0=0.0967, \quad {f}_{12}=  0.7405, \quad {f}_{22}=0.4567 \quad \text{and}\quad {f}_{23}=0.3445.
-\end{equation}
+$$
+{f}_0=0.0967, \quad {f}_{12}=  0.7405, \quad {f}_{22}=0.4567 \quad \text{and}\quad {f}_{23}=0.3445,
+$$
 
 from the relation given in \@ref(eq:relativity-1). The `R` script and the output are as follows.
 
@@ -569,10 +566,9 @@ Residual Deviance: 0.6514 	AIC: 30.37
 
 **Example `r chapnum`.2. Poisson regression for Singapore insurance claims data**  
 
-This actual dataset is a subset of the data used by [@frees2008hierarchical]. The data are from the General Insurance Association of Singapore, an organisation consisting of non-life insurers in Singapore. The data contains the number of car accidents for $n=7,483$ auto insurance policies with several categorical explanatory variables and the exposure for each policy. The explanatory variables include four risk factors: the type of the vehicle insured (either automobile (A) or other (O), denoted by $\tt{Vtype}$), the age of the vehicle in years ($\tt{Vage}$), gender of the policyholder ($\tt{Sex}$) and  the age of the policyholder (in years, grouped into seven categories, denoted $\tt{Age}$).  
+This actual dataset is a subset of the data used by @frees2008hierarchical. The data are from the General Insurance Association of Singapore, an organization consisting of non-life insurers in Singapore. These data contains the number of car accidents for $n=7,483$ auto insurance policies with several categorical explanatory variables and the exposure for each policy. The explanatory variables include four risk factors: the type of the vehicle insured (either automobile (A) or other (O), denoted by `Vtype`), the age of the vehicle in years (`Vage`), gender of the policyholder (`Sex`) and  the age of the policyholder (in years, grouped into seven categories, denoted `Age`).  
 
-Based on the data description, there are several things to remember before constructing a model. 
-First, there are 3,842 policies with vehicle type A (automobile) and 3,641 policies with other vehicle types. However, age and sex  information is available for the policies of vehicle type A only; the drivers of all other types of vehicles are recorded to be aged 21 or less with sex unspecified, except for one policy, indicating that no driver information has been collected for `r Gloss('non-automobile vehicles')`. Second, type A vehicles are all classified as  private vehicles and all the other types are not.  
+Based on the data description, there are several things to consider before constructing a model. First, there are 3,842 policies with vehicle type A (automobile) and 3,641 policies with other vehicle types. However, age and sex  information is available for the policies of vehicle type A only; the drivers of all other types of vehicles are recorded to be aged 21 or less with sex unspecified, except for one policy, indicating that no driver information has been collected for `r Gloss('non-automobile vehicles')`. Second, type A vehicles are all classified as  private vehicles and all the other types are not.  
 
 When we include these risk factors, we assume all unspecified sex to be male. As the age information is only applicable to type A vehicles, we set the model accordingly. That is, we apply the age variable only to vehicles of type A.  Also we used five vehicle age bands, simplifying the original seven bands, by combining vehicle ages 0,1 and 2; the combined band is marked as level 2[^8.3] in the data file. Thus our Poisson model has the following explicit form:
 
@@ -581,21 +577,21 @@ When we include these risk factors, we assume all unspecified sex to be male. As
 &+  \sum_{t=7}^{13} \beta_t \,I(Vtype_i=A)\times I(Age_i=t-7)+\log m_i.
 \end{align*}
 
-[^8.3]: corresponding to $\texttt{VAgecat1}$
+[^8.3]: corresponding to `VAgecat1`.
 
 The fitting result is given in [Table 8.3], for which we have several comments.  
 
-* The claim frequency is higher for male by 17.3\%, when other rating factors are held fixed. However, this may have been affected by the fact that all unspecified sex has been assigned to male.  
-* Regarding the vehicle age, the claim frequency gradually decreases as the vehicle gets old, when other rating factors are held fixed. The level starts from 2 for this variable but, again, the numbering is nominal and does not affect the numerical result.  
+* The claim frequency is higher for males by 17.3\%, when other rating factors are held fixed. However, this may have been affected by the fact that all unspecified sex has been assigned to male.  
+* Regarding the vehicle age, the claim frequency gradually decreases as the vehicle age increases, when other rating factors are held fixed. The level starts from 2 for this variable but, again, the numbering is nominal and does not affect the numerical result.  
 * The policyholder age variable only applies to type A (automobile) vehicle, and there is no policy in the first age band. We may speculate that younger drivers less than age 21 drive their parents' cars rather than having their own because of high insurance premiums or related regulations. The missing relativity may be estimated by some interpolation or the professional judgement of the actuary. The claim frequency is the lowest for age band 3 and 4, but gets substantially higher for older age bands, a reasonable pattern seen in many auto insurance loss datasets.  
 
 We also note that there is no base level in the policyholder age variable, in the sense that no relativity is equal to 1. This is because the variable is only applicable to vehicle type A. This does not cause a problem numerically, but one may set the base relativity as follows if necessary for other purposes. Since there is no policy in age band 0, we consider band 1 as the base case. Specifically, we treat its relativity as a product of 0.918 and 1, where the former is the common relativity (that is, the common premium reduction) applied to all policies with vehicle type A and the latter is the base value for age band 1. Then the relativity of age band 2 can be seen as $0.917=0.918 \times 0.999$, where 0.999 is understood as  the relativity for age band 2. The remaining age bands can be treated similarly.
 
 <a id=tab:8.3></a>  
 
-
 [Table 8.3]: \#tab:8.3
 
+Table 8.3. **Singapore Insurance Claims Data**
 
 $$
 {\small 
@@ -623,19 +619,18 @@ $$
 }
 $$
 
-[Table 8.3] : Singapore insurance claims data
 
 Let us try several examples based on [Table 8.3]. Suppose a male policyholder aged 40 who owns a 7-year-old vehicle of type A. The expected claim frequency for this policyholder is then given by 
 
-\begin{equation}
+$$
 \lambda=0.167 \times 1.173 \times 0.553 \times 0.758 = 0.082.
-\end{equation}
+$$
 
 As another example consider a female  policyholder aged 60 who owns a 3-year-old vehicle of type O. The expected claim frequency for this policyholder is
 
-\begin{equation}
+$$
 \lambda=0.167 \times 1 \times 0.843  = 0.141.
-\end{equation}
+$$
 
 Note that for this policy the age band variable is not used as the vehicle type is not A. The `R` script is given as follows.
 
@@ -684,7 +679,7 @@ detach(mydat)
 
 *** 
 
-As a concluding remark, we comment that the Poisson regression is not the only possible count regression model. Actually, the Poisson distribution can be restrictive in the sense that it has a single parameter and its mean and the variance are always equal. There are other count regression models that allow more flexible `r Gloss('distributional structure')`, such as negative binomial regressions and zero-inflated (ZI) regressions; details of these alternative regressions can be found in other texts listed in the next section.
+As a concluding remark, we comment that Poisson regression is not the only possible count regression model. Actually, the Poisson distribution can be restrictive in the sense that it has a single parameter and its mean and the variance are always equal. There are other count regression models that allow more flexible `r Gloss('distributional structure')`, such as negative binomial regressions and zero-inflated (ZI) regressions; details of these alternative regressions can be found in other texts listed in the next section.
 
 
 ```{r child = './Quizzes/Quiz83.html', eval = QUIZ}
@@ -696,7 +691,7 @@ As a concluding remark, we comment that the Poisson regression is not the only p
 
 #### Further Reading and References {-}
 
-The Poisson regression is a special member of a more general regression model class known as the generalized linear model (glm). The glm develops a unified regression framework for datasets when the response variables are continuous, binary or discrete. The classical linear regression model with normal error is also a member of the glm. There are many standard statistical texts dealing with the glm, including [@mccullagh1989generalized]. More accessible texts are [@dobson2008introduction], [@agresti1996introduction] and [@faraway2016extending].  For actuarial and insurance applications of the glm see [@frees2009regression], [@de2008generalized]. Also, [@ohlsson2010non] discusses the glm in non-life insurance pricing context with tariff analyses.  
+Poisson regression is a special member of a more general regression model class known as the generalized linear model (GLM). The GLM develops a unified regression framework for datasets when the response variables are continuous, binary or discrete. The classical linear regression model with a normally distributed error is also a member of the GLM. There are many standard statistical texts dealing with the GLM, including @McCullaghNelder89. More accessible texts are @dobson2008introduction, @agresti1996introduction and @faraway2016extending.  For actuarial and insurance GLM applications, see @frees2009regression, @Dejong08. Also, @ohlsson2010non discusses GLM in non-life insurance pricing context with tariff analyses.  
 
 #### Contributor {-}
 
@@ -706,11 +701,11 @@ The Poisson regression is a special member of a more general regression model cl
 
 ### TS `r chapnum`.A. Estimating Poisson Regression Models {-}
 
-The principles of maximum likelihood estimation (*mle*) are introduced in Sections \@ref(S:parameter-estimation) and \@ref(S:MaxLikeEstimation), defined in Section \@ref(S:AppA:MLE), and theoretically developed in Chapter \@ref(C:AppC). Here we present the *mle* procedure of the Poisson regression so that the reader can see how the explanatory variables are treated in maximizing the likelihood function in the regression setting. 
+The principles of maximum likelihood estimation (*mle*) are introduced in Sections \@ref(S:parameter-estimation) and \@ref(S:MaxLikeEstimation), defined in Section \@ref(S:AppA:MLE), and theoretically developed in Chapter \@ref(C:AppC). Here we present the *mle* procedure of Poisson regression so that the reader can see how the explanatory variables are treated in maximizing the likelihood function in the regression setting. 
 
 **Maximum Likelihood Estimation for Individual Data**  
 
-In the Poisson regression the varying Poisson mean is determined by parameters $\beta_i$'s, as shown in \@ref(eq:mean-ft-Pois-7). In this subsection we use the maximum likelihood method to estimate these parameters. Again, we assume that there are $n$ policyholders and the $i$th policyholder is characterized by $\mathbf{ x}_i=(1, x_{i1}, \ldots, x_{ik})^{\prime}$ with the observed loss count $y_i$. Then, from \@ref(eq:mean-ft-Pois-6) and \@ref(eq:mean-ft-Pois-7), the log-likelihood function of vector $\beta=(\beta_0, \dots, \beta_k)$ is given by
+In Poisson regression the varying Poisson mean is determined by parameters $\beta_i$'s, as shown in \@ref(eq:mean-ft-Pois-7). In this subsection we use the maximum likelihood method to estimate these parameters. Again, we assume that there are $n$ policyholders and the $i$th policyholder is characterized by $\mathbf{ x}_i=(1, x_{i1}, \ldots, x_{ik})^{\prime}$ with the observed loss count $y_i$. Then, from \@ref(eq:mean-ft-Pois-6) and \@ref(eq:mean-ft-Pois-7), the log-likelihood function of vector $\beta=(\beta_0, \dots, \beta_k)$ is given by
 
 \begin{align}
 \nonumber \log L(\beta)    &= l(\beta)=\sum^n_{i=1} \left( -\mu_i +y_i \, \log \mu_i -\log y_i! \right)  \\
@@ -721,7 +716,7 @@ In the Poisson regression the varying Poisson mean is determined by parameters $
 To obtain the *mle* of $\beta=(\beta_0, \ldots, \beta_k)^{\prime}$, we differentiate[^8.4] $l(\beta)$ with respect to vector $\beta$ and set it to zero:
 
 \begin{equation}
-\frac{\partial}{\partial \beta}l(\beta)\Bigg{|}_{\beta=\mathbf{b}}=\sum^n_{i=1} \left(y_i -m_i \exp(\mathbf{ x}^{\prime}_i \mathbf{ b}) \right)\mathbf{ x}_i=\mathbf{ 0}.
+\frac{\partial}{\partial \beta}l(\boldsymbol \beta)\Bigg{|}_{\beta=\mathbf{b}}=\sum^n_{i=1} \left(y_i -m_i \exp(\mathbf{ x}^{\prime}_i \mathbf{ b}) \right)\mathbf{ x}_i=\mathbf{ 0}.
 (\#eq:score-ft-Poi)
 \end{equation}  
 
@@ -730,21 +725,21 @@ To obtain the *mle* of $\beta=(\beta_0, \ldots, \beta_k)^{\prime}$, we different
 Numerically solving this equation system gives the *mle* of $\beta$, denoted by $\mathbf{ b}=(b_0, b_1, \ldots, b_k)^{\prime}$.
 Note that, as $\mathbf{ x}_i=(1, x_{i1}, \ldots, x_{ik})^{\prime}$ is a column vector, equation \@ref(eq:score-ft-Poi) is a system of $k+1$ equations with both sides written as column vectors of size $k+1$. If we denote $\hat{\mu}_i=m_i \exp(\mathbf{ x}^{\prime}_i \mathbf{ b})$, we can rewrite \@ref(eq:score-ft-Poi) as
 
-\begin{equation}
+$$
 \sum^n_{i=1} \left(y_i -\hat{\mu}_i \right)\mathbf{ x}_i=\mathbf{ 0}.
-\end{equation}
+$$
 
 Since the solution $\mathbf{ b}$ satisfies this equation, it follows that the first among the array of $k+1$ equations, corresponding to the first constant element of $\mathbf{ x}_i$, yields 
 
-\begin{equation}
+$$
 \sum^n_{i=1}\left( y_i -\hat{\mu}_i \right)\times 1={ 0},
-\end{equation}
+$$
 
 which implies that we must have
 
-\begin{equation}
+$$
 n^{-1}\sum_{i=1}^n y_i =\bar{y}=n^{-1}\sum_{i=1}^n \hat{\mu}_i.
-\end{equation}
+$$
 
 This is an interesting property saying that the average of the individual losses, $\bar{y}$, is same as the average of the estimated values. That is, the sample mean is preserved under the fitted Poisson regression model.  
 
@@ -763,13 +758,13 @@ $\mathbf{ x}_i=\mathbf{ x}_{(k)}$ for all $i \in C_k$. With this notation, we ca
 (\#eq:score-ft-Poi-2)
 \end{align}
 
-Since $n_k\, \bar{y}_{(k)}$ in \@ref(eq:score-ft-Poi-2) represents the total loss count for the $k$th risk class and  $m_{(k)}$ is its total exposure,  we see that for the Poisson regression the *mle* $\mathbf{ b}$ is the same whether if we use the individual data or the grouped data.  
+Since $n_k\, \bar{y}_{(k)}$ in \@ref(eq:score-ft-Poi-2) represents the total loss count for the $k$th risk class and  $m_{(k)}$ is its total exposure,  we see that for Poisson regression the *mle* $\mathbf{ b}$ is the same whether if we use the individual data or the grouped data.  
 
 **Information matrix**  
 Section \@ref(S:AppC:LF) defines information matrices. Taking second derivatives to \@ref(eq:ll-Poi-reg) gives the `r Gloss('information matrix')` of the *mle* estimators,
 
 \begin{equation}
-\mathbf{ I}(\beta)=-\mathrm{E~}{\left( \frac{\partial^2}{\partial \beta\partial \beta^{\prime}}l(\beta) \right)}=\sum^n_{i=1}m_i \exp(\mathbf{ x}^{\prime}_i \mathbf{ \beta})\mathbf{ x}_i \mathbf{ x}_i^{\prime}=\sum^n_{i=1} {\mu}_i \mathbf{ x}_i \mathbf{ x}_i^{\prime}.
+\mathbf{ I}(\boldsymbol \beta)=-\mathrm{E~}{\left( \frac{\partial^2}{\partial \boldsymbol \beta \partial \boldsymbol \beta^{\prime}}l(\boldsymbol \beta) \right)}=\sum^n_{i=1}m_i \exp(\mathbf{ x}^{\prime}_i \boldsymbol \beta)\mathbf{ x}_i \mathbf{ x}_i^{\prime}=\sum^n_{i=1} {\mu}_i \mathbf{ x}_i \mathbf{ x}_i^{\prime}.
 (\#eq:Inf-mtx-Poi)
 \end{equation} 
 
@@ -777,15 +772,64 @@ For actual datasets, ${\mu}_i$ in \@ref(eq:Inf-mtx-Poi) is replaced with $\hat{\
 
 For grouped datasets, we have 
 
-\begin{equation}
-\mathbf{ I}(\beta)=\sum^K_{k=1} \Big{\{}\sum_{i \in C_k}m_i \exp(\mathbf{ x}^{\prime}_i \mathbf{ \beta})\mathbf{ x}_i \mathbf{ x}_i^{\prime} \Big{\}}=\sum^K_{k=1} m_{(k)} \exp(\mathbf{ x}^{\prime}_{(k)} \mathbf{ \beta})\mathbf{ x}_{(k)} \mathbf{ x}_{(k)}^{\prime}.
-\end{equation}
+$$
+\mathbf{ I}(\boldsymbol \beta)=\sum^K_{k=1} \Big{\{}\sum_{i \in C_k}m_i \exp(\mathbf{ x}^{\prime}_i \boldsymbol \beta)\mathbf{ x}_i \mathbf{ x}_i^{\prime} \Big{\}}=\sum^K_{k=1} m_{(k)} \exp(\mathbf{ x}^{\prime}_{(k)} \boldsymbol \beta)\mathbf{ x}_{(k)} \mathbf{ x}_{(k)}^{\prime}.
+$$
 
 ### TS `r chapnum`.B. Selecting Rating Factors {-}
 
 
-```{r child = 'Chapters/PremiumSections/RateFactorSelection.Rmd'}
-```
+A complete discussion of rating factor selection is beyond the scope of this book. In addition to technical analyses, you have to think carefully about the type of business (personal, commercial) as well as the regulatory landscape. Nonetheless, a broad overview of some key concerns may serve to ground the reader as one thinks about the pricing of insurance contracts.
+
+
+#### Statistical Criteria  {-}
+
+From an analyst's perspective, the discussion starts with the statistical significance of a rating factor. If the factor is not statistically significant, then the variable is not even worthy of consideration for inclusion in a rating plan. The statistical significance is judged not only on an in-sample basis but also on how well it fares on an out-of-sample basis, as per our discussion in Section \@ref(S:MS:ModelSelection).
+
+It is common in insurance applications to have many rating factors. Handling multivariate aspects can be difficult with traditional univariate methods. Analysts employ techniques such as *generalized linear models* as described in Section \@ref(S:CatVarMultiTarriff).
+
+Rating factors are introduced to create cells that contain similar risks. A rating group should be large enough to measure costs with sufficient accuracy. There is an inherent trade-off between theoretical accuracy and homogeneity.
+
+As an example, most insurers charge the same automobile insurance premiums for drivers between the ages of 30 and 50, not varying the premium by age. Presumably costs do not vary much by age, or cost variances are due to other identifiable factors.
+
+#### Operational Criteria  {-}
+
+From a business perspective, statistical criteria only provide a starting point for discussions of potential inclusion of rating factors. Inclusion of a rating factor must also induce economically meaningful results. From an insured's perspective, if differentiation by a factor produces little change in a rate then it is not worth including. From an insurer's perspective, the inclusion of a factor should help segment the marketplace in a way that helps attract the business that they seek. For example, we introduce the `r Gloss('Gini index')` in Section \@ref(S:GiniStatistic) as one metric that insurers use to describe the financial impact of a rating variable.
+
+Rating factors should also be objective, inexpensive to administer, and verifiable. For example, automobile insurance underwriters often talk of "maturity" and "responsibility" as important criteria for youthful drivers. Yet, these are difficult to define objectively and to apply consistently. As another example, in automobile it has long been known that amount of miles (or kilometers) driven is an excellent rating factor. However, insurers have been reluctant to adopt this factor because it is subject to abuse. Historically, driving mileage has not been used because of the difficulty in verifying this variable (it is far too easy to alter the car's odometer to change reported mileage). Going forward, modern day drivers and cars are equipped with global positioning devices and other equipment that allow insurers to use distance driven as a rating factor because it can be verified.
+
+
+#### Rating Factors from the Perspective of a Consumer  {-}
+
+Insurance companies sell insurance products to a variety of consumers; consequently, companies are affected by public perception. 
+On the one hand, free market competition dictates rating factors that insurers use, as is common in commercial insurance. On the other hand, insurance may be required by law. This is common in personal insurance such as third party automobile liability and homeowners. In these instances, the mandatory and de facto mandatory purchase of insurance may mean that free market competition is insufficient to protect policyholders. Here, the following items affect the social acceptability of using a particular risk characteristic as a rating variable:
+
+- Affordability - introduction of some variables may be mitigated by resulting high costs of insurance. 
+- Causality - other things being equal, a rating variable is easier to justify if there is a "causal" relationship with losses. A good example is the effects of smoking in life insurance. For many years, this factor was viewed with suspicion by the industry. However, over time, scientific evidence provided overwhelming evidence as this an important predictor of mortality.
+- Controllability - A controllable variable is one that is under the control of the insured, e.g., installing burglar alarms. The use of controllable rating variables encourages accident prevention.
+- Privacy concerns - people are reluctant to disclose personal information. In today's world with increasing emphasis on social media and the availability of personal information, consumer advocates are concerned that the benefits of big data skew heavily in insurers' favor. They reason that insureds do not have equivalent new tools to compare quality of coverage/policies and performance of insurance companies. 
+
+**Example: Youthful Drivers.** In some cases, a particular risk characteristic may identify a small group of insureds whose risk level is extremely high, and if used as a rating variable, the resulting premium may be unaffordable for that high-risk class. To the extent that this occurs, companies may wish to or be required by regulators to combine classes and introduce subsidies. For example, 16-year-old drivers are generally higher risk than 17-year-old drivers. Some companies have chosen to use the same rates for 16- and 17-year-old drivers to minimize the affordability issues that arise when a family adds a 16-year-old to the auto policy.
+
+
+#### Societal Effects of Rating Factors  {-}
+
+With public discussions of rating factors, it is also important to think about the societal effects of classification.
+
+For example, does a rating variable encourage "good" behavior? As an example, we return to the use of distance driven as a rating factor. Many people advocate for including this variable as a factor. The motivation is that if insurance, like fuel, is priced based on distance driven, this will induce consumers to reduce the amount driven, thereby benefiting society.
+
+One can consider other aspects of societal effects of classification, see, for example, @niehaus2003risk:
+
+- Re-distributive Effects - provide a cross-subsidy from e.g., high risks to low risks
+- Classification Costs - Money spent by society, insurers, to classify people appropriately.
+
+
+#### Legal Criteria  {-}
+
+For example, some states have statutes prohibiting the use of gender in rating insurance while others permit it as a rating variable. As a result, an insurer writing in multiple states may include gender as a rating variable in those states where it is permitted, but not include it in a state that prohibits its use for rating. 
+
+If allowed by law, the company may continue to charge the average rate but utilize the characteristic to identify, attract, and select the lower-risk insureds that exist in the insured population; this is called *skimming the cream.* See @frees2020discriminating for a broad discussion of the discrimination in pricing.
+
 
 
 

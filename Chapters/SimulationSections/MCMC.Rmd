@@ -2,23 +2,25 @@
 <!-- ## MCMC -->
 
 
-The idea of Monte Carlo techniques rely on the law of large number (that insures the convengence of the average towards the integral) and the central limit theorem (that is used to quantify uncertainty in the computations). Recall that if $(X_i)$ is an i.id. sequence of random variables with distribution $F$, then
+The idea of Monte Carlo techniques rely on the law of large numbers (that insures the convergence of the average towards the integral) and the central limit theorem (that is used to quantify uncertainty in the computations). Recall that if $(X_i)$ is an *iid* sequence of random variables with distribution $F$, then
+
 $$
-\frac{1}{\sqrt{n}}\left(\sum_{i=1}^n h(X_i)-\int h(x)dF(x)\right)\overset{\mathcal{L}}{\rightarrow }\mathcal{N}(0,\sigma^2),\text{ as }n\rightarrow\infty.
+\frac{1}{\sqrt{n}}\left(\sum_{i=1}^n h(X_i)-\int h(x)dF(x)\right)\overset{\mathcal{L}}{\rightarrow }\mathcal{N}(0,\sigma^2),\text{ as }n\rightarrow\infty ,
 $$
 for some variance $\sigma^2>0$. But actually, the `r Gloss('ergodic theorem')` can be used to weaker the previous result, since it is not necessary to have independence of the variables. More precisely, if $(X_i)$ is a `r Gloss('Markov Process')` with `r Gloss('invariant measure')` $\mu$, under some additional technical assumptions, we can obtain that
+
 $$
 \frac{1}{\sqrt{n}}\left(\sum_{i=1}^n h(X_i)-\int h(x)d\mu(x)\right)\overset{\mathcal{L}}{\rightarrow }\mathcal{N}(0,\sigma_\star^2),\text{ as }n\rightarrow\infty.
 $$
 for some variance $\sigma_\star^2>0$.
 
-Hence, from this property, we can see that it is possible not necessarily to generate independent values from $F$, but to generate a markov process with invariante measure $F$, and to consider means over the process (not necessarily independent).
+Hence, from this property, we can see that it is possible not necessarily to generate independent values from $F$, but to generate a Markov process with invariant measure $F$, and to consider means over the process (not necessarily independent).
 
-Consider the case of a constraint Gaussian vector : we want to generate random pairs from a random vector $\boldsymbol{X}$, but we are interested only on the case where the sum of the `r Gloss('composants')` is large enough, which can be written $\boldsymbol{X}^T\boldsymbol{1}> m$ for some real valued $m$. Of course, it is possible to use the *accept-reject* algorithm, but we have seen that it might be quite inefficient. One can use `r Gloss('Hastings Metropolis')` and `r Gloss('Gibbs sampler')` to generate a Markov process with such an invariant measure.
+Consider the case of a constrained Gaussian vector : we want to generate random pairs from a random vector $\boldsymbol{X}$, but we are interested only in the case where the sum of the `r Gloss('composants')` is large enough, which can be written $\boldsymbol{X}^T\boldsymbol{1}> m$ for some real valued $m$. Of course, it is possible to use the *accept-reject* algorithm, but we have seen that it might be quite inefficient. One can use `r Gloss('Metropolis Hastings')` and `r Gloss('Gibbs sampler')` to generate a Markov process with such an invariant measure.
 
-### Hastings Metropolis
+### Metropolis Hastings 
 
-The algorithm is rather simple to generate from $f$ : we start with a feasible value $x_1$. Then, at step $t$, we need to specify a transition kernel : given $x_t$, we need a conditional distribution for $X_{t+1}$ given $x_t$. The algorithm will work well if that conditional distribution can easily be simulated. Let $\pi(\cdot|x_t)$ denote that probability.
+The algorithm is rather simple to generate from $f$: we start with a feasible value $x_1$. Then, at step $t$, we need to specify a transition kernel : given $x_t$, we need a conditional distribution for $X_{t+1}$ given $x_t$. The algorithm will work well if that conditional distribution can easily be simulated. Let $\pi(\cdot|x_t)$ denote that probability.
 
 Draw a potential value $x_{t+1}^\star$, and $u$, from a uniform distribution. Compute 
 $$
@@ -57,7 +59,7 @@ In the code above, `vec` contains values of $\boldsymbol{x}=(x_1,x_2,\cdots)$, `
 
 `r HideRCode('MCMC.2','Show R Code')`
 
-```{r eval = ANIMATION, echo=SHOW_PDF, animation.hook=ANIMATIONHOOK}
+```{r eval = ANIMATION, echo=SHOW_PDF, animation.hook=ANIMATIONHOOK, cache = TRUE}
 #install.packages('gifski')
 #if (packageVersion('knitr') < '1.20.14') {
 #  remotes::install_github('yihui/knitr')
@@ -90,7 +92,7 @@ for (k in 2:23) {pic_ani(k)}
 Now, if we use more simulations, we get
 
 
-```{r  eval = ANIMATION, echo=SHOW_PDF}
+```{r  eval = ANIMATION, echo=SHOW_PDF, cache = TRUE}
 vec <- metrop1(10000)
 simx <- vec[1000:10000,1]
 par(mfrow=c(1,4))
@@ -102,11 +104,11 @@ acf(simx,lag=100,lwd=2,col="light blue")
 ```
 
 
-### Gibbs sampler
+### Gibbs Sampler
 
-Consider some vector $\boldsymbol{X}=(X_1,\cdots,X_d)$ with ind\'ependent components, $X_i\sim\mathcal{E}(\lambda_i)$. We sample to sample from $\boldsymbol{X}$ given $\boldsymbol{X}^T\boldsymbol{1}>s$ for some threshold $s>0$.
+Consider some vector $\boldsymbol{X}=(X_1,\cdots,X_d)$ with independent components, $X_i \sim \mathcal{E}(\lambda_i)$. We sample to sample from $\boldsymbol{X}$ given $\boldsymbol{X}^T\boldsymbol{1}>s$ for some threshold $s>0$.
 
-- start with some starting point  $\boldsymbol{x}_0$ such that 
+- with some starting point  $\boldsymbol{x}_0$, 
 - pick up (randomly) $i\in\{1,\cdots,d\}$
 - $X_i$ given $X_i > s-\boldsymbol{x}_{(-i)}^T\boldsymbol{1}$ has an Exponential distribution $\mathcal{E}(\lambda_i)$
 - draw $Y\sim \mathcal{E}(\lambda_i)$ and set $x_i=y +(s-\boldsymbol{x}_{(-i)}^T\boldsymbol{1})_+$ until $\boldsymbol{x}_{(-i)}^T\boldsymbol{1}+x_i>s$
@@ -139,7 +141,7 @@ The construction of the sequence (`r Gloss('MCMC')` algorithms are iterative) ca
 
 `r HideRCode('Gibbs.2','Show R Code')`
 
-```{r, echo=SHOW_PDF}
+```{r, echo=SHOW_PDF, cache = TRUE}
 lambda <- c(1,2)
 X <- c(3,3)
 sim <- X
@@ -165,6 +167,6 @@ abline(5,-1,col="red")
 
 </div>
 
-```{r sampleani_HM, eval = ANIMATION, echo=SHOW_PDF, animation.hook=ANIMATIONHOOK}
+```{r sampleani_HM, eval = ANIMATION, echo=SHOW_PDF, animation.hook=ANIMATIONHOOK, cache = TRUE}
 for (i in 2:100) {pic_ani(i)}
 ```

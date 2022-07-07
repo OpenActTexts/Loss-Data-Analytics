@@ -1,10 +1,10 @@
 
 
-# Experience Rating Using Credibility Theory {#C:Credibility}
+# Experience Rating Using Credibility Theory {#ChapCredibility}
 
 `r chapnum = 9`
 
-*Chapter Preview.*    This chapter introduces credibility theory as an important actuarial tool for estimating pure premiums, frequencies, and severities for individual risks or classes of risks.  Credibility theory provides a convenient framework for combining the experience for an individual risk or class with other data to produce more stable and accurate estimates. Several models for calculating credibility estimates will be discussed including limited fluctuation, B&uuml;hlmann, B&uuml;hlmann-Straub, and nonparametric and semiparametric credibility methods.  The chapter will also show a connection between credibility theory and Bayesian estimation which was introduced in Chapter \@ref(C:ModelSelection).
+*Chapter Preview.*    This chapter introduces credibility theory as an important actuarial tool for estimating pure premiums, frequencies, and severities for individual risks or classes of risks.  Credibility theory provides a convenient framework for combining the experience for an individual risk or class with other data to produce more stable and accurate estimates. Several models for calculating credibility estimates will be discussed including limited fluctuation, B&uuml;hlmann, B&uuml;hlmann-Straub, and nonparametric and semiparametric credibility methods.  The chapter will also show a connection between credibility theory and Bayesian estimation which was introduced in Chapter \@ref(ChapModelSelection).
 
 ## Introduction to Applications of Credibility Theory
 
@@ -708,7 +708,7 @@ The policyholder has 18 vehicles in its fleet in year 4.  Use B&uuml;hlmann-Stra
 
 *** 
 
-## Bayesian Inference and B&uuml;hlmann Credibility
+## Bayesian Inference and B&uuml;hlmann Credibility {#S:Cred:BayesInf}
 
 ***
 
@@ -742,7 +742,7 @@ The posterior distribution comes from `r Gloss('Bayes theorem')`
 The conditional density function $f(x|\theta)$ and the prior distribution $\pi(\theta)$ must be specified.  The numerator $\prod_{j=1}^{n} f(x_j|\theta)$ on the right-hand side is called the likelihood.  The denominator $f(x_1,\ldots,x_n)$ is the joint density function for $n$ losses $x_1,\ldots,x_n$.
 
 
-### Gamma-Poisson Model
+### Gamma-Poisson Model {#Sec:Cred:gammaPoisson}
 
 In the `r Gloss('Gamma-Poisson model')` the number of claims $X$ has a Poisson distribution $\Pr(X=x|\lambda)=\lambda^xe^{-\lambda}/x!$ for a risk with risk parameter $\lambda$.  The prior distribution for $\lambda$ is gamma with $\pi(\lambda)=\beta^\alpha\lambda^{\alpha-1}e^{-\beta\lambda}/\Gamma(\alpha)$.  (Note that a rate parameter $\beta$ is being used in the gamma distribution rather than a scale parameter.)  The mean of the gamma is $\mathrm{E}(\lambda)=\alpha/\beta$ and the variance is $\mathrm{Var}(\lambda)=\alpha/\beta^2$.  In this section we will assume that $\lambda$ is the expected number of claims per year though we could have chosen another time interval.
 
@@ -760,7 +760,7 @@ $$
 \pi(\lambda|x_1,\ldots,x_n)=C\lambda^{(\alpha+\sum_{j=1}^{n}x_j)-1}e^{-(\beta+n)\lambda}. 
 \end{equation*}
 
-This is a gamma distribution with parameters $\alpha'=\alpha+\sum_{j=1}^{n}x_j$ and $\beta'=\beta+n$.  The constant must be $C={\beta'}^{\alpha'}/\Gamma(\alpha')$ so that $\int_{0}^{\infty}\pi(\lambda|x_1,\ldots,x_n) d\lambda=1$ though we do not need to know $C$.  As explained in Chapter \@ref(C:ModelSelection) the gamma distribution is a conjugate prior for the Poisson distribution so the posterior distribution is also gamma. See also Appendix Section \@ref(S:IterExp:Conjugate).
+This is a gamma distribution with parameters $\alpha'=\alpha+\sum_{j=1}^{n}x_j$ and $\beta'=\beta+n$.  The constant must be $C={\beta'}^{\alpha'}/\Gamma(\alpha')$ so that $\int_{0}^{\infty}\pi(\lambda|x_1,\ldots,x_n) d\lambda=1$ though we do not need to know $C$.  As explained in Chapter \@ref(ChapModelSelection) the gamma distribution is a conjugate prior for the Poisson distribution so the posterior distribution is also gamma. See also Appendix Section \@ref(S:IterExp:Conjugate).
 
 Because the posterior distribution is gamma the expected number of claims for the selected risk is
 
@@ -768,7 +768,7 @@ Because the posterior distribution is gamma the expected number of claims for th
 \mathrm{E}(\lambda|x_1,\ldots,x_n) = \frac{\alpha+\sum_{j=1}^{n}x_j}{\beta+n}=\frac{\alpha + \textrm{number of claims}}{\beta+\textrm{number of years}}. 
 \end{equation*}
 
-This formula is slightly different from Chapter \@ref(C:ModelSelection) because parameter $\beta$ is multiplied by $\lambda$ in the exponential of the gamma *pdf* whereas in Chapter \@ref(C:ModelSelection) $\lambda$ is divided by parameter $\theta$.  We have chosen this form for the exponential to simplify the equation for the expected number of claims. 
+This formula is slightly different from Chapter \@ref(ChapModelSelection) because parameter $\beta$ is multiplied by $\lambda$ in the exponential of the gamma *pdf* whereas in Chapter \@ref(ChapModelSelection) $\lambda$ is divided by parameter $\theta$.  We have chosen this form for the exponential to simplify the equation for the expected number of claims. 
 
 Now we will compute the B&uuml;hlmann credibility estimate for the gamma-Poisson model.  The variance for a Poisson distribution with parameter $\lambda$ is $\lambda$ so $EPV=\mathrm{E}(\mathrm{Var}(X|\lambda))=\mathrm{E}(\lambda)=\alpha/\beta$. The mean number of claims per year for the risk is $\lambda$ so $VHM=\mathrm{Var}(\mathrm{E}(X|\lambda))$ = $\mathrm{Var}(\lambda)=\alpha/\beta^2$.  The credibility parameter is $K=EPV/VHM$ = $(\alpha/\beta)/(\alpha/\beta^2)=\beta$.  The overall mean is $\mathrm{E}(\mathrm{E}(X|\lambda))=\mathrm{E}(\lambda)=\alpha/\beta$.  The sample mean is $\bar{X}=(\sum_{j=1}^{n}x_j)/n$.  The credibility-weighted estimate for the expected number of claims for the risk is
 

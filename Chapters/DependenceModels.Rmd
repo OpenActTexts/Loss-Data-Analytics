@@ -1,6 +1,6 @@
 `r chapnum = 14`
 
-# Dependence Modeling {#C:DependenceModel}
+# Dependence Modeling {#ChapDependenceModel}
 
 *Chapter Preview*. In practice, there are many types of variables that one encounters. The first step in dependence modeling is identifying the type of variable to help direct you to the appropriate technique. This chapter introduces readers to variable types and techniques for modeling dependence or association of multivariate distributions. Section \@ref(S:VarTypes) provides an overview of the types of variables. Section \@ref(S:Measures) then elaborates basic measures for modeling the dependence between variables. 
 
@@ -137,7 +137,7 @@ Insurance data typically are `r Gloss('multivariate')` in the sense that we can 
 
 In contrast, for some variables, it makes little sense to only look at one dimensional aspect. For example, insurers typically organize `r Gloss('spatial data')` by longitude and latitude to analyze the location of weather related insurance claims due to hailstorms. Having only a single number, either longitude or latitude, provides little information in understanding geographic location.
 
-Another special case of a multivariate variable, less obvious, involves coding for `r Gloss('missing data')`. Historically, some statistical packages used a -99 to report when a variable, such as policyholder's age, was not available or not reported. This led to many unsuspecting analysts providing strange statistics when summarizing a set of data. When data are missing, it is better to think about the variable as having two dimensions, one to indicate whether or not the variable is reported and the second providing the age (if reported). In the same way, insurance data are commonly `r Gloss('censored')` and `r Gloss('truncated')`. We refer you to Section \@ref(S:MS:ModifiedData) for more on censored and truncated data. `r Gloss('Aggregate claims')`, described in Chapter \@ref(C:AggLossModels), can also be coded as another special type of multivariate variable.
+Another special case of a multivariate variable, less obvious, involves coding for `r Gloss('missing data')`. Historically, some statistical packages used a -99 to report when a variable, such as policyholder's age, was not available or not reported. This led to many unsuspecting analysts providing strange statistics when summarizing a set of data. When data are missing, it is better to think about the variable as having two dimensions, one to indicate whether or not the variable is reported and the second providing the age (if reported). In the same way, insurance data are commonly `r Gloss('censored')` and `r Gloss('truncated')`. We refer you to Section \@ref(S:MS:ModifiedData) for more on censored and truncated data. `r Gloss('Aggregate claims')`, described in Chapter \@ref(ChapAggLossModels), can also be coded as another special type of multivariate variable.
 
 Perhaps the most complicated type of multivariate variable is a realization of a `r Gloss('stochastic process')`. You will recall that a stochastic process is little more than a collection of random variables. For example, in insurance, we might think about the times that claims arrive to an insurance company in a one-year time horizon. This is a high dimensional variable that theoretically is infinite dimensional. Special techniques are required to understand realizations of stochastic processes that will not be addressed here.
 
@@ -415,13 +415,13 @@ Output:
 #### Categorical Variables
 
 
-More generally, let $(X,Y)$ be a bivariate pair having $ncat_X$ and $ncat_Y$ numbers of categories, respectively. For a two-way table of counts, let $n_{jk}$ be the number in the $j$th row, $k$th column. Let $n_{j\centerdot}$ be the row margin total, $n_{\centerdot k}$ be the column margin total and $n=\sum_{j,k} n_{j,k}$. Define the `r Gloss('Pearson chi-square statistic')` as
+More generally, let $(X,Y)$ be a bivariate pair having $ncat_X$ and $ncat_Y$ numbers of categories, respectively. For a two-way table of counts, let $n_{jk}$ be the number in the $j$th row, $k$th column. Let $n_{j\cdot}$ be the row margin total, $n_{\cdot k}$ be the column margin total and $n=\sum_{j,k} n_{j,k}$. Define the `r Gloss('Pearson chi-square statistic')` as
 \begin{eqnarray*}
-\chi^2 = \sum_{jk} \frac{(n_{jk}- n_{j\centerdot}n_{\centerdot k}/n)^2}{n_{j\centerdot}n_{\centerdot k}/n} .
+\chi^2 = \sum_{jk} \frac{(n_{jk}- n_{j\cdot}n_{\cdot k}/n)^2}{n_{j\cdot}n_{\cdot k}/n} .
 \end{eqnarray*}
 The `r Gloss('likelihood ratio test')` statistic is
 \begin{eqnarray*}
-G^2 = 2 \sum_{jk} n_{jk} \log\frac{n_{jk}}{n_{j\centerdot}n_{\centerdot k}/n} .
+G^2 = 2 \sum_{jk} n_{jk} \log\frac{n_{jk}}{n_{j\cdot}n_{\cdot k}/n} .
 \end{eqnarray*}
 Under the assumption of independence, both $\chi^2$ and $G^2$ have an asymptotic chi-square distribution with $(ncat_X-1)(ncat_Y-1)$ degrees of freedom.
 
@@ -539,9 +539,9 @@ As described in Section \@ref(S:QuaVar), ordinal variables provide a clear order
 
 #### Parametric Approach Using Normal Based Correlations
 
-Refer to page 60, Section 2.12.7 of @joe2014dependence. Let $(y_1,y_2)$ be a bivariate pair with discrete values on $m_1, \ldots, m_2$. For a two-way table of ordinal counts, let $n_{st}$ be the number in the $s$th row, $t$ column. Let $(n_{m_1\centerdot}, \ldots, n_{m_2\centerdot})$ be the row margin total, $(n_{\centerdot m_1}, \ldots, n_{\centerdot m_2})$ be the column margin total and $n=\sum_{s,t} n_{s,t}$.
+Refer to page 60, Section 2.12.7 of @joe2014dependence. Let $(y_1,y_2)$ be a bivariate pair with discrete values on $m_1, \ldots, m_2$. For a two-way table of ordinal counts, let $n_{st}$ be the number in the $s$th row, $t$ column. Let $(n_{m_1\cdot}, \ldots, n_{m_2\cdot})$ be the row margin total, $(n_{\cdot m_1}, \ldots, n_{\cdot m_2})$ be the column margin total and $n=\sum_{s,t} n_{s,t}$.
 
-Let $\hat{\xi}_{1s} = \Phi^{-1}((n_{m_1}+\cdots+n_{s\centerdot})/n)$ for $s=m_1, \ldots, m_2$ be a cutpoint and similarly for $\hat{\xi}_{2t}$. The `r Gloss('polychoric correlation')`, based on a two-step estimation procedure, is
+Let $\hat{\xi}_{1s} = \Phi^{-1}((n_{m_1}+\cdots+n_{s\cdot})/n)$ for $s=m_1, \ldots, m_2$ be a cutpoint and similarly for $\hat{\xi}_{2t}$. The `r Gloss('polychoric correlation')`, based on a two-step estimation procedure, is
 
 
 $$
@@ -857,7 +857,7 @@ LOSS  &    16228.14797  &  1.23766 \\
 \end{matrix}}
 $$
 
-To visualize the fitted distribution of  ${\tt LOSS}$ and ${\tt ALAE}$ variables, one can use the estimated parameters and plot the corresponding distribution function and density function. For more details on the selection of marginal models, see Chapter \@ref(C:ModelSelection).
+To visualize the fitted distribution of  ${\tt LOSS}$ and ${\tt ALAE}$ variables, one can use the estimated parameters and plot the corresponding distribution function and density function. For more details on the selection of marginal models, see Chapter \@ref(ChapModelSelection).
 
 
 ### Probability Integral Transformation
@@ -1625,12 +1625,12 @@ In addition, to show that the Blomqvist's beta is invariant under strictly incre
 For the first variable, the average rank of observations in the $s$th row is
 
 \begin{equation*}
-r_{1s} = n_{m_1\centerdot}+ \cdots+ n_{s-1,\centerdot}+ \frac{1}{2} \left(1+ n_{s\centerdot}\right)
+r_{1s} = n_{m_1\cdot}+ \cdots+ n_{s-1,\cdot}+ \frac{1}{2} \left(1+ n_{s\cdot}\right)
 \end{equation*}
-and similarly $r_{2t} = \frac{1}{2} \left[(n_{\centerdot m_1}+ \cdots+ n_{\centerdot,s-1}+1)+ (n_{\centerdot m_1}+ \cdots+ n_{\centerdot s})\right]$. With this, we have Spearman's rho with tied rank is
+and similarly $r_{2t} = \frac{1}{2} \left[(n_{\cdot m_1}+ \cdots+ n_{\cdot,s-1}+1)+ (n_{\cdot m_1}+ \cdots+ n_{\cdot s})\right]$. With this, we have Spearman's rho with tied rank is
 \begin{equation*}
 \hat{\rho}_S = \frac{\sum_{s=m_1}^{m_2} \sum_{t=m_1}^{m_2} n_{st}(r_{1s} - \bar{r})(r_{2t} - \bar{r})}
-{\left[\sum_{s=m_1}^{m_2}n_{s \centerdot}(r_{1s} - \bar{r})^2 \sum_{t=m_1}^{m_2} n_{\centerdot t}(r_{2t} - \bar{r})^2
+{\left[\sum_{s=m_1}^{m_2}n_{s \cdot}(r_{1s} - \bar{r})^2 \sum_{t=m_1}^{m_2} n_{\cdot t}(r_{2t} - \bar{r})^2
 \right]^2}
 \end{equation*}
 
@@ -1638,38 +1638,38 @@ where the average rank is $\bar{r} = (n+1)/2$.
 
 `r HideRCode('Thry.1',"Click to Show Proof for Special Case: Binary Data.")`
 
-Special Case: Binary Data.  Here, $m_1=0$ and $m_2=1$. For the first variable ranks, we have $r_{10} = (1+n_{0\centerdot})/2$ and $r_{11} = (n_{0\centerdot}+1+n)/2$. Thus, $r_{10} -\bar{r}= (n_{0\centerdot}-n)/2$ and $r_{11}-\bar{r} = n_{0\centerdot}/2$.
-This means that we have $\sum_{s=0}^{1}n_{s\centerdot}(r_{1s} - \bar{r})^2 = n (n-n_{0\centerdot})n_{0\centerdot}/4$ and similarly for the second variable. For the numerator, we have
+Special Case: Binary Data.  Here, $m_1=0$ and $m_2=1$. For the first variable ranks, we have $r_{10} = (1+n_{0\cdot})/2$ and $r_{11} = (n_{0\cdot}+1+n)/2$. Thus, $r_{10} -\bar{r}= (n_{0\cdot}-n)/2$ and $r_{11}-\bar{r} = n_{0\cdot}/2$.
+This means that we have $\sum_{s=0}^{1}n_{s\cdot}(r_{1s} - \bar{r})^2 = n (n-n_{0\cdot})n_{0\cdot}/4$ and similarly for the second variable. For the numerator, we have
 \begin{eqnarray*}
 \sum_{s=0}^{1}  \sum_{t=0}^{1} && n_{st}(r_{1s} - \bar{r})(r_{2t} - \bar{r})\\
-&=& n_{00} \frac{n_{0\centerdot}-n}{2} \frac{n_{\centerdot 0}-n}{2}
-+n_{01} \frac{n_{0\centerdot}-n}{2} \frac{n_{\centerdot 0}}{2}
-+n_{10} \frac{n_{0\centerdot}}{2} \frac{n_{\centerdot 0}-n}{2}
-+n_{11} \frac{n_{0\centerdot}}{2} \frac{n_{\centerdot 0}}{2} \\
-&=& \frac{1}{4}(n_{00} (n_{0\centerdot}-n) (n_{\centerdot 0}-n)
-+(n_{0\centerdot}-n_{00}) (n_{0\centerdot}-n)n_{\centerdot 0} \\
-&&  ~ ~ ~ +(n_{\centerdot 0}-n_{00})  n_{0\centerdot}(n_{\centerdot 0}-n)
-+(n-n_{\centerdot 0}-n_{0\centerdot}+n_{00}) n_{0\centerdot}n_{\centerdot 0} ) \\
+&=& n_{00} \frac{n_{0\cdot}-n}{2} \frac{n_{\cdot 0}-n}{2}
++n_{01} \frac{n_{0\cdot}-n}{2} \frac{n_{\cdot 0}}{2}
++n_{10} \frac{n_{0\cdot}}{2} \frac{n_{\cdot 0}-n}{2}
++n_{11} \frac{n_{0\cdot}}{2} \frac{n_{\cdot 0}}{2} \\
+&=& \frac{1}{4}(n_{00} (n_{0\cdot}-n) (n_{\cdot 0}-n)
++(n_{0\cdot}-n_{00}) (n_{0\cdot}-n)n_{\cdot 0} \\
+&&  ~ ~ ~ +(n_{\cdot 0}-n_{00})  n_{0\cdot}(n_{\cdot 0}-n)
++(n-n_{\cdot 0}-n_{0\cdot}+n_{00}) n_{0\cdot}n_{\cdot 0} ) \\
 &=& \frac{1}{4}(n_{00} n^2
-- n_{0\centerdot} (n_{0\centerdot}-n)n_{\centerdot 0} \\
-&& ~ ~ ~ +n_{\centerdot 0}  n_{0\centerdot}(n_{\centerdot 0}-n)
-+(n-n_{\centerdot 0}-n_{0\centerdot}) n_{0\centerdot}n_{\centerdot 0} ) \\
+- n_{0\cdot} (n_{0\cdot}-n)n_{\cdot 0} \\
+&& ~ ~ ~ +n_{\cdot 0}  n_{0\cdot}(n_{\cdot 0}-n)
++(n-n_{\cdot 0}-n_{0\cdot}) n_{0\cdot}n_{\cdot 0} ) \\
 &=& \frac{1}{4}(n_{00} n^2
-- n_{0\centerdot}n_{\centerdot 0} (n_{0\centerdot}-n +n_{\centerdot 0}-n
-+n-n_{\centerdot 0}-n_{0\centerdot}) \\
-&=& \frac{n}{4}(n n_{00} - n_{0\centerdot}n_{\centerdot 0}) .
+- n_{0\cdot}n_{\cdot 0} (n_{0\cdot}-n +n_{\cdot 0}-n
++n-n_{\cdot 0}-n_{0\cdot}) \\
+&=& \frac{n}{4}(n n_{00} - n_{0\cdot}n_{\cdot 0}) .
 \end{eqnarray*}
 
 This yields
 \begin{eqnarray*}
-\hat{\rho}_S &=& \frac{n(n n_{00} - n_{0\centerdot}n_{\centerdot 0})}
-{4\sqrt{(n (n-n_{0\centerdot})n_{0\centerdot}/4)(n (n-n_{\centerdot 0})n_{\centerdot 0}/4)}} \\
-&=& \frac{n n_{00} - n_{0\centerdot}n_{\centerdot 0}}
-{\sqrt{ n_{0\centerdot} n_{\centerdot 0}(n-n_{0\centerdot}) (n-n_{\centerdot 0})}} \\
+\hat{\rho}_S &=& \frac{n(n n_{00} - n_{0\cdot}n_{\cdot 0})}
+{4\sqrt{(n (n-n_{0\cdot})n_{0\cdot}/4)(n (n-n_{\cdot 0})n_{\cdot 0}/4)}} \\
+&=& \frac{n n_{00} - n_{0\cdot}n_{\cdot 0}}
+{\sqrt{ n_{0\cdot} n_{\cdot 0}(n-n_{0\cdot}) (n-n_{\cdot 0})}} \\
 &=& \frac{n_{00} - n (1-\hat{\pi}_X)(1- \hat{\pi}_Y)}
 {\sqrt{\hat{\pi}_X(1-\hat{\pi}_X)\hat{\pi}_Y(1-\hat{\pi}_Y) }}
 \end{eqnarray*}
-where $\hat{\pi}_X = (n-n_{0\centerdot})/n$ and similarly for $\hat{\pi}_Y$. Note that this is same form as the Pearson measure. From this, we see that the joint count $n_{00}$ drives this association measure.
+where $\hat{\pi}_X = (n-n_{0\cdot})/n$ and similarly for $\hat{\pi}_Y$. Note that this is same form as the Pearson measure. From this, we see that the joint count $n_{00}$ drives this association measure.
 
 
 </div>  

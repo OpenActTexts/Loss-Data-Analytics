@@ -1,7 +1,7 @@
 
 `r chapnum = 2`
 
-# Frequency Modeling {#C:Frequency-Modeling}
+# Frequency Modeling {#ChapFrequency-Modeling}
 
 *Chapter Preview.* A primary focus for insurers is estimating the magnitude of aggregate claims it must bear under its insurance contracts. `r Gloss('Aggregate claims')` are affected by both the frequency and the severity of the insured event. Decomposing aggregate claims into these two components, each of which warrant significant attention, is essential for analysis and pricing. This chapter discusses frequency distributions, summary measures, and parameter estimation techniques. 
 
@@ -208,17 +208,17 @@ We begin with the binomial distribution which arises from any finite sequence of
 [^3]: In the following we suppress the reference to $N$ and denote the *pmf* by the sequence $\{p_k\}_{k\geq 0}$, instead of the function $p_N(\cdot)$.
 
 $$
-p_k= \binom{m}{k} q^k (1-q)^{m-k}, \quad k=0,\ldots,m.
+p_k= {m \choose k} q^k (1-q)^{m-k}, \quad k=0,\ldots,m.
 $$
 
-where \[\binom{m}{k} = \frac{m!}{k!(m-k)!}\]
+where \[{m \choose k} = \frac{m!}{k!(m-k)!}\]
 
 The reason for its name is that the *pmf* takes values among the terms that arise from the binomial expansion of $(q +(1-q))^m$. This realization then leads to the the following expression for the *pgf* of the binomial distribution:
 
 $$
 \begin{array}{ll}
-P_N(z) &= \sum_{k=0}^m z^k \binom{m}{k} q^k (1-q)^{m-k} \\
-&= \sum_{k=0}^m  \binom{m}{k} (zq)^k (1-q)^{m-k} \\
+P_N(z) &= \sum_{k=0}^m z^k {m \choose k} q^k (1-q)^{m-k} \\
+&= \sum_{k=0}^m  {m \choose k} (zq)^k (1-q)^{m-k} \\
 &= (qz+(1-q))^m = (1+q(z-1))^m.
 \end{array}
 $$
@@ -281,21 +281,21 @@ The third important count distribution is the `r Gloss('negative binomial distri
 \[
 (1+x)^s= 1 + s x + \frac{s(s-1)}{2!}x^2 + \ldots..., \quad s\in\mathbb{R}; \vert x \vert<1.
 \]
-If we define $\binom{s}{k}$, the generalized binomial coefficient, by 
+If we define ${s \choose k}$, the generalized binomial coefficient, by 
 \[
-\binom{s}{k}=\frac{s(s-1)\cdots(s-k+1)}{k!},
+{s \choose k}=\frac{s(s-1)\cdots(s-k+1)}{k!},
 \]
 then we have 
 \[
-(1+x)^s= \sum_{k=0}^{\infty} \binom{s}{k} x^k, \quad s\in\mathbb{R}; \vert x \vert<1.
+(1+x)^s= \sum_{k=0}^{\infty} {s \choose k} x^k, \quad s\in\mathbb{R}; \vert x \vert<1.
 \]
 If we let $s=-r$, then we see that the above yields
 \[
-(1-x)^{-r}= 1 + r x + \frac{(r+1)r}{2!}x^2 + \ldots...= \sum_{k=0}^\infty \binom{r+k-1}{k} x^k, \quad r\in\mathbb{R}; \vert x \vert<1.
+(1-x)^{-r}= 1 + r x + \frac{(r+1)r}{2!}x^2 + \ldots...= \sum_{k=0}^\infty {r+k-1 \choose k} x^k, \quad r\in\mathbb{R}; \vert x \vert<1.
 \]
 This implies that if we define $p_k$ as 
 \[
-p_k = \binom{k+r-1}{k} \left(\frac{1}{1+\beta}\right)^r \left(\frac{\beta}{1+\beta}\right)^k, \quad k=0,1,\ldots
+p_k = {r+k-1 \choose k} \left(\frac{1}{1+\beta}\right)^r \left(\frac{\beta}{1+\beta}\right)^k, \quad k=0,1,\ldots
 \]
 for $r>0$ and $\beta\geq0$, then it defines a valid *pmf*. Such defined distribution is called the negative binomial distribution with parameters $(r,\beta)$ with $r>0$ and $\beta\geq 0$. Moreover, the binomial series also implies that the *pgf* of this distribution is given by 
 \[
@@ -384,7 +384,7 @@ In the case of $a=0$, again by non-negativity of the ratio $p_k/p_{k-1}$, we hav
 
 In the case of $a>0$, again by non-negativity of the ratio $p_k/p_{k-1}$, we have $a+b/k\geq 0$ for all $k\geq 1$. The most stringent of these is the inequality $a+b\geq 0$. Note that $a+b=0$ again results in degeneracy at $0$; excluding this case we have $a+b>0$ or equivalently $b=(r-1)a$ with $r>0$. Some algebra easily yields the following expression for $p_k$:
 \[
-p_k = \binom{k+r-1}{k} p_0 a^k, \quad k=1,2,\ldots. 
+p_k = {r+k-1 \choose k} p_0 a^k, \quad k=1,2,\ldots. 
 \]
 The above series converges for $a<1$ when $r>0$, with the sum given by $p_0 \cdot ((1-a)^{(-r)}-1)$. Hence, equating the latter to $1-p_0$ we get $p_0=(1-a)^{(r)}$. So in this case the pair $(a,b)$ is of the form $(a,(r-1)a)$, for $r>0$ and $0<a<1$; since an equivalent parametrization is $(\beta/(1+\beta),(r-1)\beta/(1+\beta))$, for $r>0$ and $\beta>0$, we see from above that such distributions are negative binomial distributions.
 
@@ -452,7 +452,7 @@ $$
 with $\theta > 0$. In the case of the binomial distribution we have 
 
 $$
-p_\theta(x)=\binom{m}{x} q^x(1-q)^{m-x}, \quad x=0,1,\ldots,m.
+p_\theta(x)= {m \choose x} q^x(1-q)^{m-x}, \quad x=0,1,\ldots,m.
 $$
 
 For some applications, we can view $m$ as a parameter and so take $d=2$ so that $\theta=(m,q)\in \{0,1,2,\ldots\}\times[0,1]$. 
@@ -467,9 +467,9 @@ L(\lambda)=e^{-n\lambda} \lambda^{\sum_{i=1}^n x_i} \left(\prod_{i=1}^n x_i!\rig
 \]
 In the case of the binomial distribution we have 
 \[
-L(m,q)=\left(\prod_{i=1}^n \binom{m}{x_i}\right) q^{\sum_{i=1}^n x_i} (1-q)^{nm-\sum_{i=1}^n x_i} .
+L(m,q)=\left(\prod_{i=1}^n {m \choose x_i}\right) q^{\sum_{i=1}^n x_i} (1-q)^{nm-\sum_{i=1}^n x_i} .
 \] 
-The `r Gloss('maximum likelihood estimator (mle)')` for $\theta$ is any maximizer of the likelihood; in a sense the  *mle* chooses the set of parameter values that best explains the observed observations. Appendix Section \@ref(S:AppA:MLE) reviews the foundations of maximum likelihood estimation with more mathematical details in Appendix Chapter \@ref(C:AppC).
+The `r Gloss('maximum likelihood estimator (mle)')` for $\theta$ is any maximizer of the likelihood; in a sense the  *mle* chooses the set of parameter values that best explains the observed observations. Appendix Section \@ref(S:AppA:MLE) reviews the foundations of maximum likelihood estimation with more mathematical details in Appendix Chapter \@ref(CAppC).
 
 **Special Case: Three Bernoulli Outcomes.** To illustrate, consider a sample of size $n=3$ from a Bernoulli distribution (binomial with $m=1$) with values $0,1,0$. The likelihood in this case is easily checked to equal 
 \[
@@ -544,15 +544,15 @@ It is noteworthy that in the case of the Poisson, the exact distribution of $\ha
 
 **Special Case: Binomial Distribution.** Unlike the case of the Poisson distribution, the parameter space in the case of the binomial is $2$-dimensional. Hence the optimization problem is a bit more challenging. We begin by observing that the likelihood is given by 
 \[
-L(m,q)= \left(\prod_{i=1}^n \binom{m}{x_i}\right) q^{\sum_{i=1}^n x_i} (1-q)^{nm-\sum_{i=1}^n x_i} .
+L(m,q)= \left(\prod_{i=1}^n {m \choose x_i}\right) q^{\sum_{i=1}^n x_i} (1-q)^{nm-\sum_{i=1}^n x_i} .
 \]
 Taking logarithms, the log-likelihood is 
 
 $$
 \begin{array}{ll}
-l(m,q) &= \sum_{i=1}^n \log\left(\binom{m}{x_i}\right) + \left({\sum_{i=1}^n x_i}\right)\log(q) \\
+l(m,q) &= \sum_{i=1}^n \log\left({m \choose x_i}\right) + \left({\sum_{i=1}^n x_i}\right)\log(q) \\
 & \ \ \ + \left({nm-\sum_{i=1}^n x_i}\right)\log(1-q) \\
-&= \sum_{i=1}^n \log\left(\binom{m}{x_i}\right) + n \overline{x}\log(q) + n\left({m- \overline{x}}\right)\log(1-q) ,
+&= \sum_{i=1}^n \log\left({m \choose x_i}\right) + n \overline{x}\log(q) + n\left({m- \overline{x}}\right)\log(1-q) ,
 \end{array}
 $$
 
@@ -629,11 +629,11 @@ knitr::include_graphics("Figures/figure2.2.png")
 
 **Special Case: Negative Binomial Distribution.** The case of the negative binomial distribution is similar to that of the binomial distribution in the sense that we have two parameters and the *mle*s are not available in closed form. A difference between them is that unlike the binomial parameter $m$ which takes positive integer values, the parameter $r$ of the negative binomial can assume any positive real value. This makes the optimization problem a tad more complex. We begin by observing that the likelihood can be expressed in the following form: 
 \[
-L(r,\beta)=\left(\prod_{i=1}^n \binom{r+x_i-1}{x_i}\right) (1+\beta)^{-n(r+\overline{x})} \beta^{n\overline{x}}.  
+L(r,\beta)=\left(\prod_{i=1}^n {r+x_i-1 \choose x_i}{r+x_i-1 \choose x_i}\right) (1+\beta)^{-n(r+\overline{x})} \beta^{n\overline{x}}.  
 \]
 The above implies that log-likelihood is given by 
 \[
-l(r,\beta)=\sum_{i=1}^n \log\binom{r+x_i-1}{x_i} -n(r+\overline{x}) \log(1+\beta) +n\overline{x}\log\beta,
+l(r,\beta)=\sum_{i=1}^n \log{r+x_i-1 \choose x_i} -n(r+\overline{x}) \log(1+\beta) +n\overline{x}\log\beta,
 \]
 and hence
 \[
@@ -645,7 +645,7 @@ Equating the above to zero, we get
 \]
 The above reduces the two dimensional optimization problem to a one-dimensional problem - we need to maximize 
 \[
-l(r,\overline{x}/r)=\sum_{i=1}^n \log\binom{r+x_i-1}{x_i} -n(r+\overline{x}) \log(1+\overline{x}/r) +n\overline{x}\log(\overline{x}/r),
+l(r,\overline{x}/r)=\sum_{i=1}^n \log{r+x_i-1 \choose x_i} -n(r+\overline{x}) \log(1+\overline{x}/r) +n\overline{x}\log(\overline{x}/r),
 \]
 with respect to $r$, with the maximizing $r$ being its *mle* and $\hat{\beta}_{MLE}=\overline{x}/\hat{r}_{MLE}$. In @levin1977 it is shown that if the sample variance is greater than the sample mean then there exists a unique $r>0$ that maximizes $l(r,\overline{x}/r)$ and hence a unique 
 *mle* for $r$ and $\beta$. Also, they show that if $\hat{\sigma}^2\leq \overline{x}$, then the negative binomial likelihood will be dominated by the Poisson likelihood with $\hat{\lambda}=\overline{x}$. In other words, a Poisson distribution offers a better fit to the data. The guarantee in the case of $\hat{\sigma}^2>\hat{\mu}$ permits us to use some algorithm to maximize $l(r,\overline{x}/r)$. Towards an alternate method of computing the likelihood, we note that 
@@ -883,7 +883,7 @@ In \@ref(eq:mixdefn) we see that the distribution function is a convex combinati
 (\#eq:LawTotalVariation)
 \end{equation}
 
-Appendix Chapter \@ref(C:AppB) provides additional background about this important expression.
+Appendix Chapter \@ref(CAppB) provides additional background about this important expression.
 
 <!-- \phantom{Exercise or example for hazard rate density/survival expectation etc..} -->
 
@@ -952,7 +952,7 @@ $$
 \Pr(N=k)&= \int_0^\infty \frac{e^{-\lambda}\lambda^k}{k!} \frac{\lambda^{\alpha-1}e^{-\lambda/\theta}}{\Gamma{(\alpha)}\theta^{\alpha}} d\lambda = 
 \frac{1}{k!\Gamma(\alpha)\theta^\alpha}\int_0^\infty \lambda^{\alpha+k-1}e^{-\lambda(1+1/\theta)}~d\lambda \\
 &=\frac{\Gamma{(\alpha+k)}}{k!\Gamma(\alpha)\theta^\alpha(1+1/\theta)^{\alpha+k}} \\
-&=\binom{\alpha+k-1}{k}\left(\frac{1}{1+\theta}\right)^\alpha\left(\frac{\theta}{1+\theta}\right)^k, \quad k=0,1,\ldots
+&={\alpha+k-1 \choose k}\left(\frac{1}{1+\theta}\right)^\alpha\left(\frac{\theta}{1+\theta}\right)^k, \quad k=0,1,\ldots
 \end{array}
 $$
 
@@ -977,8 +977,8 @@ Suppose that \(N|\Lambda \sim\) Poisson\((\Lambda)\) and that \(\Lambda \sim\) g
 Now, one can directly use the above result to conclude that $N$ is distributed as a negative binomial with  \(r = \alpha = \frac{1}{2}\) and \(\beta= \theta =2\). Thus
 \[
 \begin{aligned}
-\Pr(N=1)  &= \binom{1+r-1}{1}(\frac{1}{(1+\beta)^r})\left(\frac{\beta}{1+\beta}\right)^1 \\
-&=                 \binom{1+\frac{1}{2}-1}{1}{\frac{1}{(1+2)^{1/2}}}\left(\frac{2}{1+2}\right)^1\\
+\Pr(N=1)  &= {1+r-1 \choose 1}(\frac{1}{(1+\beta)^r})\left(\frac{\beta}{1+\beta}\right)^1 \\
+&=                 {1+\frac{1}{2}-1 \choose 1}{\frac{1}{(1+2)^{1/2}}}\left(\frac{2}{1+2}\right)^1\\
 &=  \frac{1}{3^{3/2}} = 0.19245 .
 \end{aligned}
 \]
@@ -1192,7 +1192,7 @@ Here are a set of exercises that guide the viewer through some of the theoretica
 
 ## Further Resources and Contributors {#Freq-further-reading-and-resources}
 
-Appendix Chapter \@ref(C:AppA) gives a general introduction to maximum likelihood theory regarding estimation of parameters from a parametric family. Appendix Chapter \@ref(C:AppC) gives more specific examples and expands some of the concepts.
+Appendix Chapter \@ref(CAppA) gives a general introduction to maximum likelihood theory regarding estimation of parameters from a parametric family. Appendix Chapter \@ref(CAppC) gives more specific examples and expands some of the concepts.
 
 
 #### Contributors {-}

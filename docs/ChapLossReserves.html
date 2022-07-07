@@ -1,0 +1,1724 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 11 Loss Reserving | Loss Data Analytics</title>
+  <meta name="description" content="Chapter 11 Loss Reserving | Loss Data Analytics is an interactive, online, freely available text. - The online version will contain many interactive objects (quizzes, computer demonstrations, interactive graphs, video, and the like) to promote deeper learning. - A subset of the book will be available in pdf format for low-cost printing. - The online text will be available in multiple languages to promote access to a worldwide audience." />
+  <meta name="generator" content="bookdown 0.25 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 11 Loss Reserving | Loss Data Analytics" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Chapter 11 Loss Reserving | Loss Data Analytics is an interactive, online, freely available text. - The online version will contain many interactive objects (quizzes, computer demonstrations, interactive graphs, video, and the like) to promote deeper learning. - A subset of the book will be available in pdf format for low-cost printing. - The online text will be available in multiple languages to promote access to a worldwide audience." />
+  <meta name="github-repo" content="https://github.com/openacttexts/Loss-Data-Analytics" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 11 Loss Reserving | Loss Data Analytics" />
+  
+  <meta name="twitter:description" content="Chapter 11 Loss Reserving | Loss Data Analytics is an interactive, online, freely available text. - The online version will contain many interactive objects (quizzes, computer demonstrations, interactive graphs, video, and the like) to promote deeper learning. - A subset of the book will be available in pdf format for low-cost printing. - The online text will be available in multiple languages to promote access to a worldwide audience." />
+  
+
+<meta name="author" content="An open text authored by the Actuarial Community" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="ChapPortMgt.html"/>
+<link rel="next" href="ChapBonusMalus.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+<!-- Mathjax Version 2-->
+<script type='text/x-mathjax-config'>
+		MathJax.Hub.Config({
+			extensions: ['tex2jax.js'],
+			jax: ['input/TeX', 'output/HTML-CSS'],
+			tex2jax: {
+				inlineMath: [ ['$','$'], ['\\(','\\)'] ],
+				displayMath: [ ['$$','$$'], ['\\[','\\]'] ],
+				processEscapes: true
+			},
+			'HTML-CSS': { availableFonts: ['TeX'] }
+		});
+</script>
+
+<script type="text/javascript"  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js"> </script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://unpkg.com/survey-jquery/survey.jquery.min.js"></script>
+<link href="https://unpkg.com/survey-jquery/modern.min.css" type="text/css" rel="stylesheet">
+<script src="https://unpkg.com/showdown/dist/showdown.min.js"></script>
+
+
+<script>
+function markdownConverterEWF() {  
+//Create showdown markdown converter
+var converter = new showdown.Converter();
+converter.setOption('ghCompatibleHeaderId', true);
+survey
+    .onTextMarkdown
+    .add(function (survey, options) {
+        //convert the markdown text to html
+        var str = converter.makeHtml(options.text);
+        //remove root paragraphs <p></p>
+        str = str.substring(3);
+        str = str.substring(0, str.length - 4);
+        //set html
+        options.html = str;
+        MathJax.Hub.Queue(['Typeset',MathJax.Hub, 'options']);
+    });  
+};
+
+// Quiz Header info
+const jsonHeader = { 
+    showProgressBar: "bottom",
+    showTimerPanel: "none",
+    maxTimeToFinishPage: 10000,
+    maxTimeToFinish: 25000,
+    firstPageIsStarted: true,
+    startSurveyText: "Start Quiz" //,
+//    title: "Does This Make Sense?"
+}
+
+
+// One and Two question quizzes
+function jsonSummary1EWF(json) {  
+let jsonEnd1 = { 
+completedHtml: 
+json["pages"][1]["questions"][0]["name"]+ "<br>"+
+"<i>Question: </i>"+json["pages"][1]["questions"][0]["title"]+"<br>"+
+"<i>Answer: </i>"+json["pages"][1]["questions"][0]["correctAnswer"]
+};  
+return jsonEnd1;
+};
+
+
+function jsonSummary2EWF(json) {  
+let jsonEnd2 = { 
+completedHtml: 
+json["pages"][1]["questions"][0]["name"]+ "<br>"+
+"<i>Question: </i>"+json["pages"][1]["questions"][0]["title"]+"<br>"+
+"<i>Answer: </i>"+json["pages"][1]["questions"][0]["correctAnswer"]
++"<br>"+
+json["pages"][2]["questions"][0]["name"]+ "<br>"+
+"<i>Question: </i>"+json["pages"][2]["questions"][0]["title"]+"<br>"+
+"<i>Answer: </i>"+json["pages"][2]["questions"][0]["correctAnswer"]
+};  
+return jsonEnd2;
+};
+
+// Three, four, and five question quizzes
+function jsonSummary3EWF(json) {  
+let jsonEnd3 = { 
+completedHtml: 
+json["pages"][1]["questions"][0]["name"]+ "<br>"+
+"<i>Question: </i>"+json["pages"][1]["questions"][0]["title"]+"<br>"+
+"<i>Answer: </i>"+json["pages"][1]["questions"][0]["correctAnswer"]
++"<br>"+
+json["pages"][2]["questions"][0]["name"]+ "<br>"+
+"<i>Question: </i>"+json["pages"][2]["questions"][0]["title"]+"<br>"+
+"<i>Answer: </i>"+json["pages"][2]["questions"][0]["correctAnswer"]
++"<br>"+
+json["pages"][3]["questions"][0]["name"]+ "<br>"+
+"<i>Question: </i>"+json["pages"][3]["questions"][0]["title"]+"<br>"+
+"<i>Answer: </i>"+json["pages"][3]["questions"][0]["correctAnswer"]
+};  
+return jsonEnd3;
+};
+
+function jsonSummary4EWF(json) {  
+jsonEnd4 = jsonSummary3EWF(json);
+jsonEnd4.completedHtml = jsonEnd4.completedHtml +  
+"<br>"+
+json["pages"][4]["questions"][0]["name"]+ "<br>"+
+"<i>Question: </i>"+json["pages"][4]["questions"][0]["title"]+"<br>"+
+"<i>Answer: </i>"+json["pages"][4]["questions"][0]["correctAnswer"]
+;  
+return jsonEnd4;
+};
+
+function jsonSummary5EWF(json) {  
+jsonEnd5 = jsonSummary4EWF(json);
+jsonEnd5.completedHtml = jsonEnd5.completedHtml +  
+"<br>"+
+json["pages"][5]["questions"][0]["name"]+ "<br>"+
+"<i>Question: </i>"+json["pages"][5]["questions"][0]["title"]+"<br>"+
+"<i>Answer: </i>"+json["pages"][5]["questions"][0]["correctAnswer"]
+;  
+return jsonEnd5;
+};
+
+function jsonSummary6EWF(json) {  
+jsonEnd6 = jsonSummary5EWF(json);
+jsonEnd6.completedHtml = jsonEnd6.completedHtml +  
+"<br>"+
+json["pages"][6]["questions"][0]["name"]+ "<br>"+
+"<i>Question: </i>"+json["pages"][6]["questions"][0]["title"]+"<br>"+
+"<i>Answer: </i>"+json["pages"][6]["questions"][0]["correctAnswer"]
+;  
+return jsonEnd6;
+};
+
+function jsonSummary7EWF(json) {  
+jsonEnd7 = jsonSummary6EWF(json);
+jsonEnd7.completedHtml = jsonEnd7.completedHtml +  
+"<br>"+
+json["pages"][7]["questions"][0]["name"]+ "<br>"+
+"<i>Question: </i>"+json["pages"][7]["questions"][0]["title"]+"<br>"+
+"<i>Answer: </i>"+json["pages"][7]["questions"][0]["correctAnswer"]
+;  
+return jsonEnd7;
+};
+
+function jsonSummary8EWF(json) {  
+jsonEnd8 = jsonSummary7EWF(json);
+jsonEnd8.completedHtml = jsonEnd8.completedHtml +  
+"<br>"+
+json["pages"][8]["questions"][0]["name"]+ "<br>"+
+"<i>Question: </i>"+json["pages"][8]["questions"][0]["title"]+"<br>"+
+"<i>Answer: </i>"+json["pages"][8]["questions"][0]["correctAnswer"]
+;  
+return jsonEnd8;
+};
+
+function jsonSummary9EWF(json) {  
+jsonEnd9 = jsonSummary8EWF(json);
+jsonEnd9.completedHtml = jsonEnd9.completedHtml +  
+"<br>"+
+json["pages"][9]["questions"][0]["name"]+ "<br>"+
+"<i>Question: </i>"+json["pages"][9]["questions"][0]["title"]+"<br>"+
+"<i>Answer: </i>"+json["pages"][9]["questions"][0]["correctAnswer"]
+;  
+return jsonEnd9;
+};
+
+
+function jsonSummary10EWF(json) {  
+jsonEnd10 = jsonSummary9EWF(json);
+jsonEnd10.completedHtml = jsonEnd10.completedHtml +  
+"<br>"+
+json["pages"][10]["questions"][0]["name"]+ "<br>"+
+"<i>Question: </i>"+json["pages"][10]["questions"][0]["title"]+"<br>"+
+"<i>Answer: </i>"+json["pages"][10]["questions"][0]["correctAnswer"]
+;  
+return jsonEnd10;
+};
+
+
+function jsonSummary11EWF(json) {  
+jsonEnd11 = jsonSummary10EWF(json);
+jsonEnd11.completedHtml = jsonEnd11.completedHtml +  
+"<br>"+
+json["pages"][11]["questions"][0]["name"]+ "<br>"+
+"<i>Question: </i>"+json["pages"][11]["questions"][0]["title"]+"<br>"+
+"<i>Answer: </i>"+json["pages"][11]["questions"][0]["correctAnswer"]
+;  
+return jsonEnd11;
+};
+
+Survey.StylesManager.applyTheme("modern");
+
+</script>  
+<!-- This completes the code for the quizzes -->
+
+<!-- Various toggle functions used throughout --> 
+<script language="javascript">
+function toggle(id1,id2) {
+	var ele = document.getElementById(id1); var text = document.getElementById(id2);
+	if (ele.style.display == "block") {ele.style.display = "none"; text.innerHTML = "Show Solution";}
+		else {ele.style.display = "block"; text.innerHTML = "Hide Solution";}}
+function togglecode(id1,id2) {
+   var ele = document.getElementById(id1); var text = document.getElementById(id2);
+   if (ele.style.display == "block") {ele.style.display = "none"; text.innerHTML = "Show R Code";}
+      else {ele.style.display = "block"; text.innerHTML = "Hide R Code";}}
+function toggleEX(id1,id2) {
+   var ele = document.getElementById(id1); var text = document.getElementById(id2);
+   if (ele.style.display == "block") {ele.style.display = "none"; text.innerHTML = "Show Example";}
+      else {ele.style.display = "block"; text.innerHTML = "Hide Example";}}
+function toggleTheory(id1,id2) {
+   var ele = document.getElementById(id1); var text = document.getElementById(id2);
+   if (ele.style.display == "block") {ele.style.display = "none"; text.innerHTML = "Show Theory";}
+      else {ele.style.display = "block"; text.innerHTML = "Hide Theory";}}
+function toggleQuiz(id1,id2) {
+   var ele = document.getElementById(id1); var text = document.getElementById(id2);
+   if (ele.style.display == "block") {ele.style.display = "none"; text.innerHTML = "Show Quiz Solution";}
+      else {ele.style.display = "block"; text.innerHTML = "Hide Quiz Solution";}}      
+</script>
+
+<!-- A few functions for revealing definitions -->
+<script language="javascript">
+<!--   $( function() {
+    $("#tabs").tabs();
+  } ); -->
+
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
+
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover(); 
+});
+</script>
+
+<script language="javascript">
+function openTab(evt, tabName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(tabName).style.display = "block";
+    evt.currentTarget.className += " active";
+}
+
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpen").click();
+</script>
+
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Loss Data Analytics</a></li>
+
+<li class="divider"></li>
+<li><a href="index.html#preface">Preface<span></span></a>
+<ul>
+<li><a href="index.html#acknowledgements">Acknowledgements<span></span></a></li>
+<li><a href="index.html#contributors">Contributors<span></span></a></li>
+<li><a href="index.html#reviewers">Reviewers<span></span></a>
+<ul>
+<li><a href="index.html#other-collaborators">Other Collaborators<span></span></a></li>
+</ul></li>
+<li><a href="index.html#version">Version<span></span></a></li>
+<li><a href="index.html#for-our-readers">For our Readers<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="ChapIntro.html"><a href="ChapIntro.html"><i class="fa fa-check"></i><b>1</b> Introduction to Loss Data Analytics<span></span></a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="ChapIntro.html"><a href="ChapIntro.html#S:Intro"><i class="fa fa-check"></i><b>1.1</b> Relevance of Analytics to Insurance Activities<span></span></a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="ChapIntro.html"><a href="ChapIntro.html#nature-and-relevance-of-insurance"><i class="fa fa-check"></i><b>1.1.1</b> Nature and Relevance of Insurance<span></span></a></li>
+<li class="chapter" data-level="1.1.2" data-path="ChapIntro.html"><a href="ChapIntro.html#what-is-analytics"><i class="fa fa-check"></i><b>1.1.2</b> What is Analytics?<span></span></a></li>
+<li class="chapter" data-level="1.1.3" data-path="ChapIntro.html"><a href="ChapIntro.html#S:InsProcesses"><i class="fa fa-check"></i><b>1.1.3</b> Insurance Processes<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="ChapIntro.html"><a href="ChapIntro.html#S:PredModApps"><i class="fa fa-check"></i><b>1.2</b> Insurance Company Operations<span></span></a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="ChapIntro.html"><a href="ChapIntro.html#initiating-insurance"><i class="fa fa-check"></i><b>1.2.1</b> Initiating Insurance<span></span></a></li>
+<li class="chapter" data-level="1.2.2" data-path="ChapIntro.html"><a href="ChapIntro.html#renewing-insurance"><i class="fa fa-check"></i><b>1.2.2</b> Renewing Insurance<span></span></a></li>
+<li class="chapter" data-level="1.2.3" data-path="ChapIntro.html"><a href="ChapIntro.html#claims-and-product-management"><i class="fa fa-check"></i><b>1.2.3</b> Claims and Product Management<span></span></a></li>
+<li class="chapter" data-level="1.2.4" data-path="ChapIntro.html"><a href="ChapIntro.html#S:Reserving"><i class="fa fa-check"></i><b>1.2.4</b> Loss Reserving<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="ChapIntro.html"><a href="ChapIntro.html#S:LGPIF"><i class="fa fa-check"></i><b>1.3</b> Case Study: Wisconsin Property Fund<span></span></a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="ChapIntro.html"><a href="ChapIntro.html#S:OutComes"><i class="fa fa-check"></i><b>1.3.1</b> Fund Claims Variables: Frequency and Severity<span></span></a></li>
+<li class="chapter" data-level="1.3.2" data-path="ChapIntro.html"><a href="ChapIntro.html#S:FundVariables"><i class="fa fa-check"></i><b>1.3.2</b> Fund Rating Variables<span></span></a></li>
+<li class="chapter" data-level="1.3.3" data-path="ChapIntro.html"><a href="ChapIntro.html#fund-operations"><i class="fa fa-check"></i><b>1.3.3</b> Fund Operations<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="ChapIntro.html"><a href="ChapIntro.html#Intro-further-reading-and-resources"><i class="fa fa-check"></i><b>1.4</b> Further Resources and Contributors<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="ChapFrequency-Modeling.html"><a href="ChapFrequency-Modeling.html"><i class="fa fa-check"></i><b>2</b> Frequency Modeling<span></span></a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="ChapFrequency-Modeling.html"><a href="ChapFrequency-Modeling.html#S:frequency-distributions"><i class="fa fa-check"></i><b>2.1</b> Frequency Distributions<span></span></a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="ChapFrequency-Modeling.html"><a href="ChapFrequency-Modeling.html#S:how-frequency-augments-severity-information"><i class="fa fa-check"></i><b>2.1.1</b> How Frequency Augments Severity Information<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="ChapFrequency-Modeling.html"><a href="ChapFrequency-Modeling.html#S:basic-frequency-distributions"><i class="fa fa-check"></i><b>2.2</b> Basic Frequency Distributions<span></span></a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="ChapFrequency-Modeling.html"><a href="ChapFrequency-Modeling.html#S:foundations"><i class="fa fa-check"></i><b>2.2.1</b> Foundations<span></span></a></li>
+<li class="chapter" data-level="2.2.2" data-path="ChapFrequency-Modeling.html"><a href="ChapFrequency-Modeling.html#S:generating-functions"><i class="fa fa-check"></i><b>2.2.2</b> Moment and Probability Generating Functions<span></span></a></li>
+<li class="chapter" data-level="2.2.3" data-path="ChapFrequency-Modeling.html"><a href="ChapFrequency-Modeling.html#S:important-frequency-distributions"><i class="fa fa-check"></i><b>2.2.3</b> Important Frequency Distributions<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="ChapFrequency-Modeling.html"><a href="ChapFrequency-Modeling.html#S:the-a-b-0-class"><i class="fa fa-check"></i><b>2.3</b> The (<em>a</em>, <em>b</em>, 0) Class<span></span></a></li>
+<li class="chapter" data-level="2.4" data-path="ChapFrequency-Modeling.html"><a href="ChapFrequency-Modeling.html#S:estimating-frequency-distributions"><i class="fa fa-check"></i><b>2.4</b> Estimating Frequency Distributions<span></span></a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="ChapFrequency-Modeling.html"><a href="ChapFrequency-Modeling.html#S:parameter-estimation"><i class="fa fa-check"></i><b>2.4.1</b> Parameter Estimation<span></span></a></li>
+<li class="chapter" data-level="2.4.2" data-path="ChapFrequency-Modeling.html"><a href="ChapFrequency-Modeling.html#S:frequency-distributions-mle"><i class="fa fa-check"></i><b>2.4.2</b> Frequency Distributions MLE<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="ChapFrequency-Modeling.html"><a href="ChapFrequency-Modeling.html#S:other-frequency-distributions"><i class="fa fa-check"></i><b>2.5</b> Other Frequency Distributions<span></span></a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="ChapFrequency-Modeling.html"><a href="ChapFrequency-Modeling.html#S:zero-truncation-or-modification"><i class="fa fa-check"></i><b>2.5.1</b> Zero Truncation or Modification<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="ChapFrequency-Modeling.html"><a href="ChapFrequency-Modeling.html#S:mixture-distributions"><i class="fa fa-check"></i><b>2.6</b> Mixture Distributions<span></span></a></li>
+<li class="chapter" data-level="2.7" data-path="ChapFrequency-Modeling.html"><a href="ChapFrequency-Modeling.html#S:goodness-of-fit"><i class="fa fa-check"></i><b>2.7</b> Goodness of Fit<span></span></a></li>
+<li class="chapter" data-level="2.8" data-path="ChapFrequency-Modeling.html"><a href="ChapFrequency-Modeling.html#S:exercises"><i class="fa fa-check"></i><b>2.8</b> Exercises<span></span></a></li>
+<li class="chapter" data-level="2.9" data-path="ChapFrequency-Modeling.html"><a href="ChapFrequency-Modeling.html#Freq-further-reading-and-resources"><i class="fa fa-check"></i><b>2.9</b> Further Resources and Contributors<span></span></a>
+<ul>
+<li class="chapter" data-level="2.9.1" data-path="ChapFrequency-Modeling.html"><a href="ChapFrequency-Modeling.html#S:rcode"><i class="fa fa-check"></i><b>2.9.1</b> TS 2.A. R Code for Plots<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="ChapSeverity.html"><a href="ChapSeverity.html"><i class="fa fa-check"></i><b>3</b> Modeling Loss Severity<span></span></a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="ChapSeverity.html"><a href="ChapSeverity.html#S:BasicQuantities"><i class="fa fa-check"></i><b>3.1</b> Basic Distributional Quantities<span></span></a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="ChapSeverity.html"><a href="ChapSeverity.html#S:Chap3Moments"><i class="fa fa-check"></i><b>3.1.1</b> Moments<span></span></a></li>
+<li class="chapter" data-level="3.1.2" data-path="ChapSeverity.html"><a href="ChapSeverity.html#S:LS:Quantiles"><i class="fa fa-check"></i><b>3.1.2</b> Quantiles<span></span></a></li>
+<li class="chapter" data-level="3.1.3" data-path="ChapSeverity.html"><a href="ChapSeverity.html#moment-generating-function"><i class="fa fa-check"></i><b>3.1.3</b> Moment Generating Function<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="ChapSeverity.html"><a href="ChapSeverity.html#S:ContinuousDistn"><i class="fa fa-check"></i><b>3.2</b> Continuous Distributions for Modeling Loss Severity<span></span></a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="ChapSeverity.html"><a href="ChapSeverity.html#S:Loss:Gamma"><i class="fa fa-check"></i><b>3.2.1</b> Gamma Distribution<span></span></a></li>
+<li class="chapter" data-level="3.2.2" data-path="ChapSeverity.html"><a href="ChapSeverity.html#pareto-distribution"><i class="fa fa-check"></i><b>3.2.2</b> Pareto Distribution<span></span></a></li>
+<li class="chapter" data-level="3.2.3" data-path="ChapSeverity.html"><a href="ChapSeverity.html#S:LS:Weibull"><i class="fa fa-check"></i><b>3.2.3</b> Weibull Distribution<span></span></a></li>
+<li class="chapter" data-level="3.2.4" data-path="ChapSeverity.html"><a href="ChapSeverity.html#the-generalized-beta-distribution-of-the-second-kind"><i class="fa fa-check"></i><b>3.2.4</b> The Generalized Beta Distribution of the Second Kind<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="ChapSeverity.html"><a href="ChapSeverity.html#MethodsCreation"><i class="fa fa-check"></i><b>3.3</b> Methods of Creating New Distributions<span></span></a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="ChapSeverity.html"><a href="ChapSeverity.html#functions-of-random-variables-and-their-distributions"><i class="fa fa-check"></i><b>3.3.1</b> Functions of Random Variables and their Distributions<span></span></a></li>
+<li class="chapter" data-level="3.3.2" data-path="ChapSeverity.html"><a href="ChapSeverity.html#multiplication-by-a-constant"><i class="fa fa-check"></i><b>3.3.2</b> Multiplication by a Constant<span></span></a></li>
+<li class="chapter" data-level="3.3.3" data-path="ChapSeverity.html"><a href="ChapSeverity.html#S:LossSev:Raising"><i class="fa fa-check"></i><b>3.3.3</b> Raising to a Power<span></span></a></li>
+<li class="chapter" data-level="3.3.4" data-path="ChapSeverity.html"><a href="ChapSeverity.html#exponentiation"><i class="fa fa-check"></i><b>3.3.4</b> Exponentiation<span></span></a></li>
+<li class="chapter" data-level="3.3.5" data-path="ChapSeverity.html"><a href="ChapSeverity.html#finite-mixtures"><i class="fa fa-check"></i><b>3.3.5</b> Finite Mixtures<span></span></a></li>
+<li class="chapter" data-level="3.3.6" data-path="ChapSeverity.html"><a href="ChapSeverity.html#continuous-mixtures"><i class="fa fa-check"></i><b>3.3.6</b> Continuous Mixtures<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="ChapSeverity.html"><a href="ChapSeverity.html#S:CoverageModifications"><i class="fa fa-check"></i><b>3.4</b> Coverage Modifications<span></span></a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="ChapSeverity.html"><a href="ChapSeverity.html#S:PolicyDeduct"><i class="fa fa-check"></i><b>3.4.1</b> Policy Deductibles<span></span></a></li>
+<li class="chapter" data-level="3.4.2" data-path="ChapSeverity.html"><a href="ChapSeverity.html#S:PolicyLimits"><i class="fa fa-check"></i><b>3.4.2</b> Policy Limits<span></span></a></li>
+<li class="chapter" data-level="3.4.3" data-path="ChapSeverity.html"><a href="ChapSeverity.html#coinsurance-and-inflation"><i class="fa fa-check"></i><b>3.4.3</b> Coinsurance and Inflation<span></span></a></li>
+<li class="chapter" data-level="3.4.4" data-path="ChapSeverity.html"><a href="ChapSeverity.html#S:Chap3Reinsurance"><i class="fa fa-check"></i><b>3.4.4</b> Reinsurance<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="ChapSeverity.html"><a href="ChapSeverity.html#S:MaxLikeEstimation"><i class="fa fa-check"></i><b>3.5</b> Maximum Likelihood Estimation<span></span></a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="ChapSeverity.html"><a href="ChapSeverity.html#maximum-likelihood-estimators-for-complete-data"><i class="fa fa-check"></i><b>3.5.1</b> Maximum Likelihood Estimators for Complete Data<span></span></a></li>
+<li class="chapter" data-level="3.5.2" data-path="ChapSeverity.html"><a href="ChapSeverity.html#S:Loss:MLEModified"><i class="fa fa-check"></i><b>3.5.2</b> Maximum Likelihood Estimators using Modified Data<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="ChapSeverity.html"><a href="ChapSeverity.html#LM-further-reading-and-resources"><i class="fa fa-check"></i><b>3.6</b> Further Resources and Contributors<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="ChapModelSelection.html"><a href="ChapModelSelection.html"><i class="fa fa-check"></i><b>4</b> Model Selection and Estimation<span></span></a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="ChapModelSelection.html"><a href="ChapModelSelection.html#S:MS:NonParInf"><i class="fa fa-check"></i><b>4.1</b> Nonparametric Inference<span></span></a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="ChapModelSelection.html"><a href="ChapModelSelection.html#S:MS:NonParEst"><i class="fa fa-check"></i><b>4.1.1</b> Nonparametric Estimation<span></span></a></li>
+<li class="chapter" data-level="4.1.2" data-path="ChapModelSelection.html"><a href="ChapModelSelection.html#S:MS:ToolsModelSelection"><i class="fa fa-check"></i><b>4.1.2</b> Tools for Model Selection and Diagnostics<span></span></a></li>
+<li class="chapter" data-level="4.1.3" data-path="ChapModelSelection.html"><a href="ChapModelSelection.html#starting-values"><i class="fa fa-check"></i><b>4.1.3</b> Starting Values<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="ChapModelSelection.html"><a href="ChapModelSelection.html#S:MS:ModelSelection"><i class="fa fa-check"></i><b>4.2</b> Model Selection<span></span></a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="ChapModelSelection.html"><a href="ChapModelSelection.html#iterative-model-selection"><i class="fa fa-check"></i><b>4.2.1</b> Iterative Model Selection<span></span></a></li>
+<li class="chapter" data-level="4.2.2" data-path="ChapModelSelection.html"><a href="ChapModelSelection.html#model-selection-based-on-a-training-dataset"><i class="fa fa-check"></i><b>4.2.2</b> Model Selection Based on a Training Dataset<span></span></a></li>
+<li class="chapter" data-level="4.2.3" data-path="ChapModelSelection.html"><a href="ChapModelSelection.html#model-selection-based-on-a-test-dataset"><i class="fa fa-check"></i><b>4.2.3</b> Model Selection Based on a Test Dataset<span></span></a></li>
+<li class="chapter" data-level="4.2.4" data-path="ChapModelSelection.html"><a href="ChapModelSelection.html#S:MS:Cross-Validation"><i class="fa fa-check"></i><b>4.2.4</b> Model Selection Based on Cross-Validation<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="ChapModelSelection.html"><a href="ChapModelSelection.html#S:MS:ModifiedData"><i class="fa fa-check"></i><b>4.3</b> Estimation using Modified Data<span></span></a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="ChapModelSelection.html"><a href="ChapModelSelection.html#S:MS:ModifiedData1"><i class="fa fa-check"></i><b>4.3.1</b> Parametric Estimation using Modified Data<span></span></a></li>
+<li class="chapter" data-level="4.3.2" data-path="ChapModelSelection.html"><a href="ChapModelSelection.html#nonparametric-estimation-using-modified-data"><i class="fa fa-check"></i><b>4.3.2</b> Nonparametric Estimation using Modified Data<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="ChapModelSelection.html"><a href="ChapModelSelection.html#S:MS:BayesInference"><i class="fa fa-check"></i><b>4.4</b> Bayesian Inference<span></span></a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="ChapModelSelection.html"><a href="ChapModelSelection.html#S:IntroBayes"><i class="fa fa-check"></i><b>4.4.1</b> Introduction to Bayesian Inference<span></span></a></li>
+<li class="chapter" data-level="4.4.2" data-path="ChapModelSelection.html"><a href="ChapModelSelection.html#bayesian-model"><i class="fa fa-check"></i><b>4.4.2</b> Bayesian Model<span></span></a></li>
+<li class="chapter" data-level="4.4.3" data-path="ChapModelSelection.html"><a href="ChapModelSelection.html#bayesian-inference"><i class="fa fa-check"></i><b>4.4.3</b> Bayesian Inference<span></span></a></li>
+<li class="chapter" data-level="4.4.4" data-path="ChapModelSelection.html"><a href="ChapModelSelection.html#S:ConjugateDistributions"><i class="fa fa-check"></i><b>4.4.4</b> Conjugate Distributions<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="ChapModelSelection.html"><a href="ChapModelSelection.html#MS:further-reading-and-resources"><i class="fa fa-check"></i><b>4.5</b> Further Resources and Contributors<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="ChapAggLossModels.html"><a href="ChapAggLossModels.html"><i class="fa fa-check"></i><b>5</b> Aggregate Loss Models<span></span></a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="ChapAggLossModels.html"><a href="ChapAggLossModels.html#introduction"><i class="fa fa-check"></i><b>5.1</b> Introduction<span></span></a></li>
+<li class="chapter" data-level="5.2" data-path="ChapAggLossModels.html"><a href="ChapAggLossModels.html#individual-risk-model"><i class="fa fa-check"></i><b>5.2</b> Individual Risk Model<span></span></a></li>
+<li class="chapter" data-level="5.3" data-path="ChapAggLossModels.html"><a href="ChapAggLossModels.html#S:AggLoss:CRM"><i class="fa fa-check"></i><b>5.3</b> Collective Risk Model<span></span></a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="ChapAggLossModels.html"><a href="ChapAggLossModels.html#moments-and-distribution"><i class="fa fa-check"></i><b>5.3.1</b> Moments and Distribution<span></span></a></li>
+<li class="chapter" data-level="5.3.2" data-path="ChapAggLossModels.html"><a href="ChapAggLossModels.html#stop-loss-insurance"><i class="fa fa-check"></i><b>5.3.2</b> Stop-loss Insurance<span></span></a></li>
+<li class="chapter" data-level="5.3.3" data-path="ChapAggLossModels.html"><a href="ChapAggLossModels.html#analytic-results"><i class="fa fa-check"></i><b>5.3.3</b> Analytic Results<span></span></a></li>
+<li class="chapter" data-level="5.3.4" data-path="ChapAggLossModels.html"><a href="ChapAggLossModels.html#S:AggLoss:Tweedie"><i class="fa fa-check"></i><b>5.3.4</b> Tweedie Distribution<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="ChapAggLossModels.html"><a href="ChapAggLossModels.html#computing-the-aggregate-claims-distribution"><i class="fa fa-check"></i><b>5.4</b> Computing the Aggregate Claims Distribution<span></span></a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="ChapAggLossModels.html"><a href="ChapAggLossModels.html#recursive-method"><i class="fa fa-check"></i><b>5.4.1</b> Recursive Method<span></span></a></li>
+<li class="chapter" data-level="5.4.2" data-path="ChapAggLossModels.html"><a href="ChapAggLossModels.html#simulation"><i class="fa fa-check"></i><b>5.4.2</b> Simulation<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="ChapAggLossModels.html"><a href="ChapAggLossModels.html#effects-of-coverage-modifications"><i class="fa fa-check"></i><b>5.5</b> Effects of Coverage Modifications<span></span></a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="ChapAggLossModels.html"><a href="ChapAggLossModels.html#impact-of-exposure-on-frequency"><i class="fa fa-check"></i><b>5.5.1</b> Impact of Exposure on Frequency<span></span></a></li>
+<li class="chapter" data-level="5.5.2" data-path="ChapAggLossModels.html"><a href="ChapAggLossModels.html#S:MS:DedImpactClmFreq"><i class="fa fa-check"></i><b>5.5.2</b> Impact of Deductibles on Claim Frequency<span></span></a></li>
+<li class="chapter" data-level="5.5.3" data-path="ChapAggLossModels.html"><a href="ChapAggLossModels.html#impact-of-policy-modifications-on-aggregate-claims"><i class="fa fa-check"></i><b>5.5.3</b> Impact of Policy Modifications on Aggregate Claims<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="ChapAggLossModels.html"><a href="ChapAggLossModels.html#AL-further-reading-and-resources"><i class="fa fa-check"></i><b>5.6</b> Further Resources and Contributors<span></span></a>
+<ul>
+<li><a href="ChapAggLossModels.html#ts-5.a.1.-individual-risk-model-properties">TS 5.A.1. Individual Risk Model Properties<span></span></a></li>
+<li><a href="ChapAggLossModels.html#ts-5.a.2.-relationship-between-probability-generating-functions-of-x_i-and-x_it">TS 5.A.2. Relationship Between Probability Generating Functions of <span class="math inline">\(X_i\)</span> and <span class="math inline">\(X_i^T\)</span><span></span></a></li>
+<li><a href="ChapAggLossModels.html#ts-5.a.3.-example-5.3.8-moment-generating-function-of-aggregate-loss-s_n">TS 5.A.3. Example 5.3.8 Moment Generating Function of Aggregate Loss <span class="math inline">\(S_N\)</span><span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="ChapSimulation.html"><a href="ChapSimulation.html"><i class="fa fa-check"></i><b>6</b> Simulation and Resampling<span></span></a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="ChapSimulation.html"><a href="ChapSimulation.html#S:SimulationFundamentals"><i class="fa fa-check"></i><b>6.1</b> Simulation Fundamentals<span></span></a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="ChapSimulation.html"><a href="ChapSimulation.html#generating-independent-uniform-observations"><i class="fa fa-check"></i><b>6.1.1</b> Generating Independent Uniform Observations<span></span></a></li>
+<li class="chapter" data-level="6.1.2" data-path="ChapSimulation.html"><a href="ChapSimulation.html#S:InverseTransform"><i class="fa fa-check"></i><b>6.1.2</b> Inverse Transform Method<span></span></a></li>
+<li class="chapter" data-level="6.1.3" data-path="ChapSimulation.html"><a href="ChapSimulation.html#simulation-precision"><i class="fa fa-check"></i><b>6.1.3</b> Simulation Precision<span></span></a></li>
+<li class="chapter" data-level="6.1.4" data-path="ChapSimulation.html"><a href="ChapSimulation.html#S:SimulationStatInference"><i class="fa fa-check"></i><b>6.1.4</b> Simulation and Statistical Inference<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="ChapSimulation.html"><a href="ChapSimulation.html#S:Bootstrap"><i class="fa fa-check"></i><b>6.2</b> Bootstrapping and Resampling<span></span></a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="ChapSimulation.html"><a href="ChapSimulation.html#bootstrap-foundations"><i class="fa fa-check"></i><b>6.2.1</b> Bootstrap Foundations<span></span></a></li>
+<li class="chapter" data-level="6.2.2" data-path="ChapSimulation.html"><a href="ChapSimulation.html#S:Sim:Precision"><i class="fa fa-check"></i><b>6.2.2</b> Bootstrap Precision: Bias, Standard Deviation, and Mean Square Error<span></span></a></li>
+<li class="chapter" data-level="6.2.3" data-path="ChapSimulation.html"><a href="ChapSimulation.html#confidence-intervals"><i class="fa fa-check"></i><b>6.2.3</b> Confidence Intervals<span></span></a></li>
+<li class="chapter" data-level="6.2.4" data-path="ChapSimulation.html"><a href="ChapSimulation.html#S:ParametricBootStrap"><i class="fa fa-check"></i><b>6.2.4</b> Parametric Bootstrap<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="ChapSimulation.html"><a href="ChapSimulation.html#S:CrossValidation"><i class="fa fa-check"></i><b>6.3</b> Cross-Validation<span></span></a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="ChapSimulation.html"><a href="ChapSimulation.html#k-fold-cross-validation"><i class="fa fa-check"></i><b>6.3.1</b> k-Fold Cross-Validation<span></span></a></li>
+<li class="chapter" data-level="6.3.2" data-path="ChapSimulation.html"><a href="ChapSimulation.html#leave-one-out-cross-validation"><i class="fa fa-check"></i><b>6.3.2</b> Leave-One-Out Cross-Validation<span></span></a></li>
+<li class="chapter" data-level="6.3.3" data-path="ChapSimulation.html"><a href="ChapSimulation.html#cross-validation-and-bootstrap"><i class="fa fa-check"></i><b>6.3.3</b> Cross-Validation and Bootstrap<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="ChapSimulation.html"><a href="ChapSimulation.html#S:ImportanceSampling"><i class="fa fa-check"></i><b>6.4</b> Importance Sampling<span></span></a></li>
+<li class="chapter" data-level="6.5" data-path="ChapSimulation.html"><a href="ChapSimulation.html#S:MCMC"><i class="fa fa-check"></i><b>6.5</b> Monte Carlo Markov Chain (MCMC)<span></span></a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="ChapSimulation.html"><a href="ChapSimulation.html#metropolis-hastings"><i class="fa fa-check"></i><b>6.5.1</b> Metropolis Hastings<span></span></a></li>
+<li class="chapter" data-level="6.5.2" data-path="ChapSimulation.html"><a href="ChapSimulation.html#gibbs-sampler"><i class="fa fa-check"></i><b>6.5.2</b> Gibbs Sampler<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="ChapSimulation.html"><a href="ChapSimulation.html#Simulation:further-reading-and-resources"><i class="fa fa-check"></i><b>6.6</b> Further Resources and Contributors<span></span></a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="ChapSimulation.html"><a href="ChapSimulation.html#ts-6.a.-bootstrap-applications-in-predictive-modeling"><i class="fa fa-check"></i><b>6.6.1</b> TS 6.A. Bootstrap Applications in Predictive Modeling<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="ChapPremiumFoundations.html"><a href="ChapPremiumFoundations.html"><i class="fa fa-check"></i><b>7</b> Premium Foundations<span></span></a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="ChapPremiumFoundations.html"><a href="ChapPremiumFoundations.html#S:IntroductionRatemaking"><i class="fa fa-check"></i><b>7.1</b> Introduction to Ratemaking<span></span></a></li>
+<li class="chapter" data-level="7.2" data-path="ChapPremiumFoundations.html"><a href="ChapPremiumFoundations.html#S:AggRateMaking"><i class="fa fa-check"></i><b>7.2</b> Aggregate Ratemaking Methods<span></span></a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="ChapPremiumFoundations.html"><a href="ChapPremiumFoundations.html#S:PurePremium"><i class="fa fa-check"></i><b>7.2.1</b> Pure Premium Method<span></span></a></li>
+<li class="chapter" data-level="7.2.2" data-path="ChapPremiumFoundations.html"><a href="ChapPremiumFoundations.html#S:LossRatio"><i class="fa fa-check"></i><b>7.2.2</b> Loss Ratio Method<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="ChapPremiumFoundations.html"><a href="ChapPremiumFoundations.html#S:PricingPrinciples"><i class="fa fa-check"></i><b>7.3</b> Pricing Principles<span></span></a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="ChapPremiumFoundations.html"><a href="ChapPremiumFoundations.html#premium-principles"><i class="fa fa-check"></i><b>7.3.1</b> Premium Principles<span></span></a></li>
+<li class="chapter" data-level="7.3.2" data-path="ChapPremiumFoundations.html"><a href="ChapPremiumFoundations.html#properties-of-premium-principles"><i class="fa fa-check"></i><b>7.3.2</b> Properties of Premium Principles<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="ChapPremiumFoundations.html"><a href="ChapPremiumFoundations.html#S:HeterogeneousRisks"><i class="fa fa-check"></i><b>7.4</b> Heterogeneous Risks<span></span></a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="ChapPremiumFoundations.html"><a href="ChapPremiumFoundations.html#S:ExposureToRisk"><i class="fa fa-check"></i><b>7.4.1</b> Exposure to Risk<span></span></a></li>
+<li class="chapter" data-level="7.4.2" data-path="ChapPremiumFoundations.html"><a href="ChapPremiumFoundations.html#S:RatingFactors"><i class="fa fa-check"></i><b>7.4.2</b> Rating Factors<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="ChapPremiumFoundations.html"><a href="ChapPremiumFoundations.html#S:TrendDevelopment"><i class="fa fa-check"></i><b>7.5</b> Development and Trending<span></span></a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="ChapPremiumFoundations.html"><a href="ChapPremiumFoundations.html#exposures-and-premiums"><i class="fa fa-check"></i><b>7.5.1</b> Exposures and Premiums<span></span></a></li>
+<li class="chapter" data-level="7.5.2" data-path="ChapPremiumFoundations.html"><a href="ChapPremiumFoundations.html#losses-claims-and-payments"><i class="fa fa-check"></i><b>7.5.2</b> Losses, Claims, and Payments<span></span></a></li>
+<li class="chapter" data-level="7.5.3" data-path="ChapPremiumFoundations.html"><a href="ChapPremiumFoundations.html#S:CompareMethods"><i class="fa fa-check"></i><b>7.5.3</b> Comparing Pure Premium and Loss Ratio Methods<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="ChapPremiumFoundations.html"><a href="ChapPremiumFoundations.html#S:GiniStatistic"><i class="fa fa-check"></i><b>7.6</b> Selecting a Premium<span></span></a>
+<ul>
+<li class="chapter" data-level="7.6.1" data-path="ChapPremiumFoundations.html"><a href="ChapPremiumFoundations.html#classic-lorenz-curve"><i class="fa fa-check"></i><b>7.6.1</b> Classic Lorenz Curve<span></span></a></li>
+<li class="chapter" data-level="7.6.2" data-path="ChapPremiumFoundations.html"><a href="ChapPremiumFoundations.html#performance-curve-and-a-gini-statistic"><i class="fa fa-check"></i><b>7.6.2</b> Performance Curve and a Gini Statistic<span></span></a></li>
+<li class="chapter" data-level="7.6.3" data-path="ChapPremiumFoundations.html"><a href="ChapPremiumFoundations.html#out-of-sample-validation"><i class="fa fa-check"></i><b>7.6.3</b> Out-of-Sample Validation<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="ChapPremiumFoundations.html"><a href="ChapPremiumFoundations.html#further-resources-and-contributors"><i class="fa fa-check"></i><b>7.7</b> Further Resources and Contributors<span></span></a>
+<ul>
+<li><a href="ChapPremiumFoundations.html#ts-7.a.-rate-regulation">TS 7.A. Rate Regulation<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="ChapRiskClass.html"><a href="ChapRiskClass.html"><i class="fa fa-check"></i><b>8</b> Risk Classification<span></span></a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="ChapRiskClass.html"><a href="ChapRiskClass.html#S:RC:Introduction"><i class="fa fa-check"></i><b>8.1</b> Introduction<span></span></a></li>
+<li class="chapter" data-level="8.2" data-path="ChapRiskClass.html"><a href="ChapRiskClass.html#S:RC:PoissonRegression"><i class="fa fa-check"></i><b>8.2</b> Poisson Regression Model<span></span></a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="ChapRiskClass.html"><a href="ChapRiskClass.html#S:RC:Need.Poi.reg"><i class="fa fa-check"></i><b>8.2.1</b> Need for Poisson Regression<span></span></a></li>
+<li class="chapter" data-level="8.2.2" data-path="ChapRiskClass.html"><a href="ChapRiskClass.html#poisson-regression"><i class="fa fa-check"></i><b>8.2.2</b> Poisson Regression<span></span></a></li>
+<li class="chapter" data-level="8.2.3" data-path="ChapRiskClass.html"><a href="ChapRiskClass.html#incorporating-exposure"><i class="fa fa-check"></i><b>8.2.3</b> Incorporating Exposure<span></span></a></li>
+<li class="chapter" data-level="8.2.4" data-path="ChapRiskClass.html"><a href="ChapRiskClass.html#exercises-3"><i class="fa fa-check"></i><b>8.2.4</b> Exercises<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="ChapRiskClass.html"><a href="ChapRiskClass.html#S:CatVarMultiTarriff"><i class="fa fa-check"></i><b>8.3</b> Categorical Variables and Multiplicative Tariff<span></span></a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="ChapRiskClass.html"><a href="ChapRiskClass.html#rating-factors-and-tariff"><i class="fa fa-check"></i><b>8.3.1</b> Rating Factors and Tariff<span></span></a></li>
+<li class="chapter" data-level="8.3.2" data-path="ChapRiskClass.html"><a href="ChapRiskClass.html#multiplicative-tariff-model"><i class="fa fa-check"></i><b>8.3.2</b> Multiplicative Tariff Model<span></span></a></li>
+<li class="chapter" data-level="8.3.3" data-path="ChapRiskClass.html"><a href="ChapRiskClass.html#poisson-regression-for-multiplicative-tariff"><i class="fa fa-check"></i><b>8.3.3</b> Poisson Regression for Multiplicative Tariff<span></span></a></li>
+<li class="chapter" data-level="8.3.4" data-path="ChapRiskClass.html"><a href="ChapRiskClass.html#numerical-examples"><i class="fa fa-check"></i><b>8.3.4</b> Numerical Examples<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="ChapRiskClass.html"><a href="ChapRiskClass.html#RC:further-reading-and-resources"><i class="fa fa-check"></i><b>8.4</b> Further Resources and Contributors<span></span></a>
+<ul>
+<li><a href="ChapRiskClass.html#ts-8.a.-estimating-poisson-regression-models">TS 8.A. Estimating Poisson Regression Models<span></span></a></li>
+<li><a href="ChapRiskClass.html#ts-8.b.-selecting-rating-factors">TS 8.B. Selecting Rating Factors<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="ChapCredibility.html"><a href="ChapCredibility.html"><i class="fa fa-check"></i><b>9</b> Experience Rating Using Credibility Theory<span></span></a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="ChapCredibility.html"><a href="ChapCredibility.html#introduction-to-applications-of-credibility-theory"><i class="fa fa-check"></i><b>9.1</b> Introduction to Applications of Credibility Theory<span></span></a></li>
+<li class="chapter" data-level="9.2" data-path="ChapCredibility.html"><a href="ChapCredibility.html#limited-fluctuation-credibility"><i class="fa fa-check"></i><b>9.2</b> Limited Fluctuation Credibility<span></span></a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="ChapCredibility.html"><a href="ChapCredibility.html#S:frequency"><i class="fa fa-check"></i><b>9.2.1</b> Full Credibility for Claim Frequency<span></span></a></li>
+<li class="chapter" data-level="9.2.2" data-path="ChapCredibility.html"><a href="ChapCredibility.html#full-credibility-for-aggregate-losses-and-pure-premium"><i class="fa fa-check"></i><b>9.2.2</b> Full Credibility for Aggregate Losses and Pure Premium<span></span></a></li>
+<li class="chapter" data-level="9.2.3" data-path="ChapCredibility.html"><a href="ChapCredibility.html#full-credibility-for-severity"><i class="fa fa-check"></i><b>9.2.3</b> Full Credibility for Severity<span></span></a></li>
+<li class="chapter" data-level="9.2.4" data-path="ChapCredibility.html"><a href="ChapCredibility.html#partial-credibility"><i class="fa fa-check"></i><b>9.2.4</b> Partial Credibility<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="ChapCredibility.html"><a href="ChapCredibility.html#S:Cred:Buhlmann"><i class="fa fa-check"></i><b>9.3</b> Bühlmann Credibility<span></span></a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="ChapCredibility.html"><a href="ChapCredibility.html#S:EPV-VHM-Z"><i class="fa fa-check"></i><b>9.3.1</b> Credibility <em>Z</em>, <em>EPV</em>, and <em>VHM</em><span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="ChapCredibility.html"><a href="ChapCredibility.html#bühlmann-straub-credibility"><i class="fa fa-check"></i><b>9.4</b> Bühlmann-Straub Credibility<span></span></a></li>
+<li class="chapter" data-level="9.5" data-path="ChapCredibility.html"><a href="ChapCredibility.html#S:Cred:BayesInf"><i class="fa fa-check"></i><b>9.5</b> Bayesian Inference and Bühlmann Credibility<span></span></a>
+<ul>
+<li class="chapter" data-level="9.5.1" data-path="ChapCredibility.html"><a href="ChapCredibility.html#Sec:Cred:gammaPoisson"><i class="fa fa-check"></i><b>9.5.1</b> Gamma-Poisson Model<span></span></a></li>
+<li class="chapter" data-level="9.5.2" data-path="ChapCredibility.html"><a href="ChapCredibility.html#beta-binomial-model"><i class="fa fa-check"></i><b>9.5.2</b> Beta-Binomial Model<span></span></a></li>
+<li class="chapter" data-level="9.5.3" data-path="ChapCredibility.html"><a href="ChapCredibility.html#exact-credibility"><i class="fa fa-check"></i><b>9.5.3</b> Exact Credibility<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="9.6" data-path="ChapCredibility.html"><a href="ChapCredibility.html#estimating-credibility-parameters"><i class="fa fa-check"></i><b>9.6</b> Estimating Credibility Parameters<span></span></a>
+<ul>
+<li class="chapter" data-level="9.6.1" data-path="ChapCredibility.html"><a href="ChapCredibility.html#full-credibility-standard-for-limited-fluctuation-credibility"><i class="fa fa-check"></i><b>9.6.1</b> Full Credibility Standard for Limited Fluctuation Credibility<span></span></a></li>
+<li class="chapter" data-level="9.6.2" data-path="ChapCredibility.html"><a href="ChapCredibility.html#nonparametric-estimation-for-bühlmann-and-bühlmann-straub-models"><i class="fa fa-check"></i><b>9.6.2</b> Nonparametric Estimation for Bühlmann and Bühlmann-Straub Models<span></span></a></li>
+<li class="chapter" data-level="9.6.3" data-path="ChapCredibility.html"><a href="ChapCredibility.html#semiparametric-estimation-for-bühlmann-and-bühlmann-straub-models"><i class="fa fa-check"></i><b>9.6.3</b> Semiparametric Estimation for Bühlmann and Bühlmann-Straub Models<span></span></a></li>
+<li class="chapter" data-level="9.6.4" data-path="ChapCredibility.html"><a href="ChapCredibility.html#balancing-credibility-estimators"><i class="fa fa-check"></i><b>9.6.4</b> Balancing Credibility Estimators<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="9.7" data-path="ChapCredibility.html"><a href="ChapCredibility.html#Cred-further-reading-and-resources"><i class="fa fa-check"></i><b>9.7</b> Further Resources and Contributors<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="ChapPortMgt.html"><a href="ChapPortMgt.html"><i class="fa fa-check"></i><b>10</b> Insurance Portfolio Management including Reinsurance<span></span></a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="ChapPortMgt.html"><a href="ChapPortMgt.html#introduction-to-insurance-portfolios"><i class="fa fa-check"></i><b>10.1</b> Introduction to Insurance Portfolios<span></span></a></li>
+<li class="chapter" data-level="10.2" data-path="ChapPortMgt.html"><a href="ChapPortMgt.html#S:Tails"><i class="fa fa-check"></i><b>10.2</b> Tails of Distributions<span></span></a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="ChapPortMgt.html"><a href="ChapPortMgt.html#classification-based-on-moments"><i class="fa fa-check"></i><b>10.2.1</b> Classification Based on Moments<span></span></a></li>
+<li class="chapter" data-level="10.2.2" data-path="ChapPortMgt.html"><a href="ChapPortMgt.html#comparison-based-on-limiting-tail-behavior"><i class="fa fa-check"></i><b>10.2.2</b> Comparison Based on Limiting Tail Behavior<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="ChapPortMgt.html"><a href="ChapPortMgt.html#S:RiskMeasure"><i class="fa fa-check"></i><b>10.3</b> Risk Measures<span></span></a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="ChapPortMgt.html"><a href="ChapPortMgt.html#coherent-risk-measures"><i class="fa fa-check"></i><b>10.3.1</b> Coherent Risk Measures<span></span></a></li>
+<li class="chapter" data-level="10.3.2" data-path="ChapPortMgt.html"><a href="ChapPortMgt.html#value-at-risk"><i class="fa fa-check"></i><b>10.3.2</b> Value-at-Risk<span></span></a></li>
+<li class="chapter" data-level="10.3.3" data-path="ChapPortMgt.html"><a href="ChapPortMgt.html#tail-value-at-risk"><i class="fa fa-check"></i><b>10.3.3</b> Tail Value-at-Risk<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="ChapPortMgt.html"><a href="ChapPortMgt.html#S:Reinsurance"><i class="fa fa-check"></i><b>10.4</b> Reinsurance<span></span></a>
+<ul>
+<li class="chapter" data-level="10.4.1" data-path="ChapPortMgt.html"><a href="ChapPortMgt.html#S:ProportionalRe"><i class="fa fa-check"></i><b>10.4.1</b> Proportional Reinsurance<span></span></a></li>
+<li class="chapter" data-level="10.4.2" data-path="ChapPortMgt.html"><a href="ChapPortMgt.html#S:NonProportionalRe"><i class="fa fa-check"></i><b>10.4.2</b> Non-Proportional Reinsurance<span></span></a></li>
+<li class="chapter" data-level="10.4.3" data-path="ChapPortMgt.html"><a href="ChapPortMgt.html#S:AdditionalRe"><i class="fa fa-check"></i><b>10.4.3</b> Additional Reinsurance Treaties<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="ChapPortMgt.html"><a href="ChapPortMgt.html#further-resources-and-contributors-1"><i class="fa fa-check"></i><b>10.5</b> Further Resources and Contributors<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="ChapLossReserves.html"><a href="ChapLossReserves.html"><i class="fa fa-check"></i><b>11</b> Loss Reserving<span></span></a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="ChapLossReserves.html"><a href="ChapLossReserves.html#S:motivation"><i class="fa fa-check"></i><b>11.1</b> Motivation<span></span></a>
+<ul>
+<li class="chapter" data-level="11.1.1" data-path="ChapLossReserves.html"><a href="ChapLossReserves.html#S:claim-types"><i class="fa fa-check"></i><b>11.1.1</b> Closed, IBNR, and RBNS Claims<span></span></a></li>
+<li class="chapter" data-level="11.1.2" data-path="ChapLossReserves.html"><a href="ChapLossReserves.html#why-reserving"><i class="fa fa-check"></i><b>11.1.2</b> Why Reserving?<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="ChapLossReserves.html"><a href="ChapLossReserves.html#S:Data"><i class="fa fa-check"></i><b>11.2</b> Loss Reserve Data<span></span></a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="ChapLossReserves.html"><a href="ChapLossReserves.html#from-micro-to-macro"><i class="fa fa-check"></i><b>11.2.1</b> From Micro to Macro<span></span></a></li>
+<li class="chapter" data-level="11.2.2" data-path="ChapLossReserves.html"><a href="ChapLossReserves.html#run-off-triangles"><i class="fa fa-check"></i><b>11.2.2</b> Run-off Triangles<span></span></a></li>
+<li class="chapter" data-level="11.2.3" data-path="ChapLossReserves.html"><a href="ChapLossReserves.html#loss-reserve-notation"><i class="fa fa-check"></i><b>11.2.3</b> Loss Reserve Notation<span></span></a></li>
+<li class="chapter" data-level="11.2.4" data-path="ChapLossReserves.html"><a href="ChapLossReserves.html#S:Rcode"><i class="fa fa-check"></i><b>11.2.4</b> R Code to Summarize Loss Reserve Data<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="ChapLossReserves.html"><a href="ChapLossReserves.html#S:Chain-ladder"><i class="fa fa-check"></i><b>11.3</b> The Chain-Ladder Method<span></span></a>
+<ul>
+<li class="chapter" data-level="11.3.1" data-path="ChapLossReserves.html"><a href="ChapLossReserves.html#S:DeterministicCL"><i class="fa fa-check"></i><b>11.3.1</b> The Deterministic Chain-Ladder<span></span></a></li>
+<li class="chapter" data-level="11.3.2" data-path="ChapLossReserves.html"><a href="ChapLossReserves.html#macks-distribution-free-chain-ladder-model"><i class="fa fa-check"></i><b>11.3.2</b> Mack’s Distribution-Free Chain-Ladder Model<span></span></a></li>
+<li class="chapter" data-level="11.3.3" data-path="ChapLossReserves.html"><a href="ChapLossReserves.html#r-code-for-chain-ladder-predictions"><i class="fa fa-check"></i><b>11.3.3</b> R code for Chain-Ladder Predictions<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="ChapLossReserves.html"><a href="ChapLossReserves.html#S:GLMs"><i class="fa fa-check"></i><b>11.4</b> GLMs and Bootstrap for Loss Reserves<span></span></a>
+<ul>
+<li class="chapter" data-level="11.4.1" data-path="ChapLossReserves.html"><a href="ChapLossReserves.html#model-specification"><i class="fa fa-check"></i><b>11.4.1</b> Model Specification<span></span></a></li>
+<li class="chapter" data-level="11.4.2" data-path="ChapLossReserves.html"><a href="ChapLossReserves.html#model-estimation-and-prediction"><i class="fa fa-check"></i><b>11.4.2</b> Model Estimation and Prediction<span></span></a></li>
+<li class="chapter" data-level="11.4.3" data-path="ChapLossReserves.html"><a href="ChapLossReserves.html#bootstrap"><i class="fa fa-check"></i><b>11.4.3</b> Bootstrap<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="11.5" data-path="ChapLossReserves.html"><a href="ChapLossReserves.html#LossRe:further-reading-and-resources"><i class="fa fa-check"></i><b>11.5</b> Further Resources and Contributors<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="ChapBonusMalus.html"><a href="ChapBonusMalus.html"><i class="fa fa-check"></i><b>12</b> Experience Rating using Bonus-Malus<span></span></a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="ChapBonusMalus.html"><a href="ChapBonusMalus.html#S:ERBM:Intro"><i class="fa fa-check"></i><b>12.1</b> Introduction<span></span></a></li>
+<li class="chapter" data-level="12.2" data-path="ChapBonusMalus.html"><a href="ChapBonusMalus.html#S:ERBM:NCD"><i class="fa fa-check"></i><b>12.2</b> <em>NCD</em> System in Several Countries<span></span></a>
+<ul>
+<li class="chapter" data-level="12.2.1" data-path="ChapBonusMalus.html"><a href="ChapBonusMalus.html#ncd-system-in-malaysia"><i class="fa fa-check"></i><b>12.2.1</b> <em>NCD</em> System in Malaysia<span></span></a></li>
+<li class="chapter" data-level="12.2.2" data-path="ChapBonusMalus.html"><a href="ChapBonusMalus.html#ncd-systems-in-other-countries"><i class="fa fa-check"></i><b>12.2.2</b> NCD Systems in Other Countries<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="ChapBonusMalus.html"><a href="ChapBonusMalus.html#S:ERBM:BMS"><i class="fa fa-check"></i><b>12.3</b> <em>BMS</em> and Markov Chain Model<span></span></a>
+<ul>
+<li class="chapter" data-level="12.3.1" data-path="ChapBonusMalus.html"><a href="ChapBonusMalus.html#transition-probability"><i class="fa fa-check"></i><b>12.3.1</b> Transition Probability<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="ChapBonusMalus.html"><a href="ChapBonusMalus.html#S:ERBM:StatDist"><i class="fa fa-check"></i><b>12.4</b> <em>BMS</em> and Stationary Distribution<span></span></a>
+<ul>
+<li class="chapter" data-level="12.4.1" data-path="ChapBonusMalus.html"><a href="ChapBonusMalus.html#stationary-distribution"><i class="fa fa-check"></i><b>12.4.1</b> Stationary Distribution<span></span></a></li>
+<li class="chapter" data-level="12.4.2" data-path="ChapBonusMalus.html"><a href="ChapBonusMalus.html#r-code-for-a-stationary-distribution"><i class="fa fa-check"></i><b>12.4.2</b> <code>R</code> Code for a Stationary Distribution<span></span></a></li>
+<li class="chapter" data-level="12.4.3" data-path="ChapBonusMalus.html"><a href="ChapBonusMalus.html#premium-evolution"><i class="fa fa-check"></i><b>12.4.3</b> Premium Evolution<span></span></a></li>
+<li class="chapter" data-level="12.4.4" data-path="ChapBonusMalus.html"><a href="ChapBonusMalus.html#r-program-for-premium-evolution"><i class="fa fa-check"></i><b>12.4.4</b> <code>R</code> Program for Premium Evolution<span></span></a></li>
+<li class="chapter" data-level="12.4.5" data-path="ChapBonusMalus.html"><a href="ChapBonusMalus.html#convergence-rate"><i class="fa fa-check"></i><b>12.4.5</b> Convergence Rate<span></span></a></li>
+<li class="chapter" data-level="12.4.6" data-path="ChapBonusMalus.html"><a href="ChapBonusMalus.html#r-program-for-convergence-rate"><i class="fa fa-check"></i><b>12.4.6</b> <code>R</code> Program for Convergence Rate<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="12.5" data-path="ChapBonusMalus.html"><a href="ChapBonusMalus.html#S:PremRtg"><i class="fa fa-check"></i><b>12.5</b> <em>BMS</em> and Premium Rating<span></span></a>
+<ul>
+<li class="chapter" data-level="12.5.1" data-path="ChapBonusMalus.html"><a href="ChapBonusMalus.html#premium-rating"><i class="fa fa-check"></i><b>12.5.1</b> Premium Rating<span></span></a></li>
+<li class="chapter" data-level="12.5.2" data-path="ChapBonusMalus.html"><a href="ChapBonusMalus.html#a-priori-risk-classification"><i class="fa fa-check"></i><b>12.5.2</b> A Priori Risk Classification<span></span></a></li>
+<li class="chapter" data-level="12.5.3" data-path="ChapBonusMalus.html"><a href="ChapBonusMalus.html#modelling-of-residual-heterogeneity"><i class="fa fa-check"></i><b>12.5.3</b> Modelling of Residual Heterogeneity<span></span></a></li>
+<li class="chapter" data-level="12.5.4" data-path="ChapBonusMalus.html"><a href="ChapBonusMalus.html#stationary-distribution-allowing-for-residual-heterogeneity"><i class="fa fa-check"></i><b>12.5.4</b> Stationary Distribution Allowing for Residual Heterogeneity<span></span></a></li>
+<li class="chapter" data-level="12.5.5" data-path="ChapBonusMalus.html"><a href="ChapBonusMalus.html#determination-of-optimal-relativities"><i class="fa fa-check"></i><b>12.5.5</b> Determination of Optimal Relativities<span></span></a></li>
+<li class="chapter" data-level="12.5.6" data-path="ChapBonusMalus.html"><a href="ChapBonusMalus.html#numerical-illustrations"><i class="fa fa-check"></i><b>12.5.6</b> Numerical Illustrations<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="12.6" data-path="ChapBonusMalus.html"><a href="ChapBonusMalus.html#S:Further"><i class="fa fa-check"></i><b>12.6</b> Further Resources and Contributors<span></span></a>
+<ul>
+<li class="chapter" data-level="12.6.1" data-path="ChapBonusMalus.html"><a href="ChapBonusMalus.html#further-reading-and-references-1"><i class="fa fa-check"></i><b>12.6.1</b> Further Reading and References<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="ChapDataSystems.html"><a href="ChapDataSystems.html"><i class="fa fa-check"></i><b>13</b> Data and Systems<span></span></a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="ChapDataSystems.html"><a href="ChapDataSystems.html#data"><i class="fa fa-check"></i><b>13.1</b> Data<span></span></a>
+<ul>
+<li class="chapter" data-level="13.1.1" data-path="ChapDataSystems.html"><a href="ChapDataSystems.html#data-types-and-sources"><i class="fa fa-check"></i><b>13.1.1</b> Data Types and Sources<span></span></a></li>
+<li class="chapter" data-level="13.1.2" data-path="ChapDataSystems.html"><a href="ChapDataSystems.html#data-structures-and-storage"><i class="fa fa-check"></i><b>13.1.2</b> Data Structures and Storage<span></span></a></li>
+<li class="chapter" data-level="13.1.3" data-path="ChapDataSystems.html"><a href="ChapDataSystems.html#data-quality"><i class="fa fa-check"></i><b>13.1.3</b> Data Quality<span></span></a></li>
+<li class="chapter" data-level="13.1.4" data-path="ChapDataSystems.html"><a href="ChapDataSystems.html#data-cleaning"><i class="fa fa-check"></i><b>13.1.4</b> Data Cleaning<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="ChapDataSystems.html"><a href="ChapDataSystems.html#data-analysis-preliminaries"><i class="fa fa-check"></i><b>13.2</b> Data Analysis Preliminaries<span></span></a>
+<ul>
+<li class="chapter" data-level="13.2.1" data-path="ChapDataSystems.html"><a href="ChapDataSystems.html#S:process"><i class="fa fa-check"></i><b>13.2.1</b> Data Analysis Process<span></span></a></li>
+<li class="chapter" data-level="13.2.2" data-path="ChapDataSystems.html"><a href="ChapDataSystems.html#exploratory-versus-confirmatory"><i class="fa fa-check"></i><b>13.2.2</b> Exploratory versus Confirmatory<span></span></a></li>
+<li class="chapter" data-level="13.2.3" data-path="ChapDataSystems.html"><a href="ChapDataSystems.html#supervised-versus-unsupervised"><i class="fa fa-check"></i><b>13.2.3</b> Supervised versus Unsupervised<span></span></a></li>
+<li class="chapter" data-level="13.2.4" data-path="ChapDataSystems.html"><a href="ChapDataSystems.html#parametric-versus-nonparametric"><i class="fa fa-check"></i><b>13.2.4</b> Parametric versus Nonparametric<span></span></a></li>
+<li class="chapter" data-level="13.2.5" data-path="ChapDataSystems.html"><a href="ChapDataSystems.html#S:expred"><i class="fa fa-check"></i><b>13.2.5</b> Explanation versus Prediction<span></span></a></li>
+<li class="chapter" data-level="13.2.6" data-path="ChapDataSystems.html"><a href="ChapDataSystems.html#data-modeling-versus-algorithmic-modeling"><i class="fa fa-check"></i><b>13.2.6</b> Data Modeling versus Algorithmic Modeling<span></span></a></li>
+<li class="chapter" data-level="13.2.7" data-path="ChapDataSystems.html"><a href="ChapDataSystems.html#big-data-analysis"><i class="fa fa-check"></i><b>13.2.7</b> Big Data Analysis<span></span></a></li>
+<li class="chapter" data-level="13.2.8" data-path="ChapDataSystems.html"><a href="ChapDataSystems.html#reproducible-analysis"><i class="fa fa-check"></i><b>13.2.8</b> Reproducible Analysis<span></span></a></li>
+<li class="chapter" data-level="13.2.9" data-path="ChapDataSystems.html"><a href="ChapDataSystems.html#ethical-issues"><i class="fa fa-check"></i><b>13.2.9</b> Ethical Issues<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="ChapDataSystems.html"><a href="ChapDataSystems.html#data-analysis-techniques"><i class="fa fa-check"></i><b>13.3</b> Data Analysis Techniques<span></span></a>
+<ul>
+<li class="chapter" data-level="13.3.1" data-path="ChapDataSystems.html"><a href="ChapDataSystems.html#exploratory-techniques"><i class="fa fa-check"></i><b>13.3.1</b> Exploratory Techniques<span></span></a></li>
+<li class="chapter" data-level="13.3.2" data-path="ChapDataSystems.html"><a href="ChapDataSystems.html#confirmatory-techniques"><i class="fa fa-check"></i><b>13.3.2</b> Confirmatory Techniques<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="ChapDataSystems.html"><a href="ChapDataSystems.html#some-r-functions"><i class="fa fa-check"></i><b>13.4</b> Some R Functions<span></span></a></li>
+<li class="chapter" data-level="13.5" data-path="ChapDataSystems.html"><a href="ChapDataSystems.html#summary"><i class="fa fa-check"></i><b>13.5</b> Summary<span></span></a></li>
+<li class="chapter" data-level="13.6" data-path="ChapDataSystems.html"><a href="ChapDataSystems.html#DS:further-reading-and-resources"><i class="fa fa-check"></i><b>13.6</b> Further Resources and Contributors<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="ChapDependenceModel.html"><a href="ChapDependenceModel.html"><i class="fa fa-check"></i><b>14</b> Dependence Modeling<span></span></a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="ChapDependenceModel.html"><a href="ChapDependenceModel.html#S:VarTypes"><i class="fa fa-check"></i><b>14.1</b> Variable Types<span></span></a>
+<ul>
+<li class="chapter" data-level="14.1.1" data-path="ChapDependenceModel.html"><a href="ChapDependenceModel.html#S:QuaVar"><i class="fa fa-check"></i><b>14.1.1</b> Qualitative Variables<span></span></a></li>
+<li class="chapter" data-level="14.1.2" data-path="ChapDependenceModel.html"><a href="ChapDependenceModel.html#S:QuanVar"><i class="fa fa-check"></i><b>14.1.2</b> Quantitative Variables<span></span></a></li>
+<li class="chapter" data-level="14.1.3" data-path="ChapDependenceModel.html"><a href="ChapDependenceModel.html#multivariate-variables"><i class="fa fa-check"></i><b>14.1.3</b> Multivariate Variables<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="14.2" data-path="ChapDependenceModel.html"><a href="ChapDependenceModel.html#S:Measures"><i class="fa fa-check"></i><b>14.2</b> Classic Measures of Scalar Associations<span></span></a>
+<ul>
+<li class="chapter" data-level="14.2.1" data-path="ChapDependenceModel.html"><a href="ChapDependenceModel.html#association-measures-for-quantitative-variables"><i class="fa fa-check"></i><b>14.2.1</b> Association Measures for Quantitative Variables<span></span></a></li>
+<li class="chapter" data-level="14.2.2" data-path="ChapDependenceModel.html"><a href="ChapDependenceModel.html#rank-based-measures"><i class="fa fa-check"></i><b>14.2.2</b> Rank Based Measures<span></span></a></li>
+<li class="chapter" data-level="14.2.3" data-path="ChapDependenceModel.html"><a href="ChapDependenceModel.html#nominal-variables"><i class="fa fa-check"></i><b>14.2.3</b> Nominal Variables<span></span></a></li>
+<li class="chapter" data-level="14.2.4" data-path="ChapDependenceModel.html"><a href="ChapDependenceModel.html#ordinal-variables"><i class="fa fa-check"></i><b>14.2.4</b> Ordinal Variables<span></span></a></li>
+<li class="chapter" data-level="14.2.5" data-path="ChapDependenceModel.html"><a href="ChapDependenceModel.html#interval-variables"><i class="fa fa-check"></i><b>14.2.5</b> Interval Variables<span></span></a></li>
+<li class="chapter" data-level="14.2.6" data-path="ChapDependenceModel.html"><a href="ChapDependenceModel.html#discrete-and-continuous-variables"><i class="fa fa-check"></i><b>14.2.6</b> Discrete and Continuous Variables<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="ChapDependenceModel.html"><a href="ChapDependenceModel.html#S:Copula"><i class="fa fa-check"></i><b>14.3</b> Introduction to Copulas<span></span></a></li>
+<li class="chapter" data-level="14.4" data-path="ChapDependenceModel.html"><a href="ChapDependenceModel.html#S:CopAppl"><i class="fa fa-check"></i><b>14.4</b> Application Using Copulas<span></span></a>
+<ul>
+<li class="chapter" data-level="14.4.1" data-path="ChapDependenceModel.html"><a href="ChapDependenceModel.html#data-description"><i class="fa fa-check"></i><b>14.4.1</b> Data Description<span></span></a></li>
+<li class="chapter" data-level="14.4.2" data-path="ChapDependenceModel.html"><a href="ChapDependenceModel.html#marginal-models"><i class="fa fa-check"></i><b>14.4.2</b> Marginal Models<span></span></a></li>
+<li class="chapter" data-level="14.4.3" data-path="ChapDependenceModel.html"><a href="ChapDependenceModel.html#probability-integral-transformation"><i class="fa fa-check"></i><b>14.4.3</b> Probability Integral Transformation<span></span></a></li>
+<li class="chapter" data-level="14.4.4" data-path="ChapDependenceModel.html"><a href="ChapDependenceModel.html#joint-modeling-with-copula-function"><i class="fa fa-check"></i><b>14.4.4</b> Joint Modeling with Copula Function<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="14.5" data-path="ChapDependenceModel.html"><a href="ChapDependenceModel.html#S:CopTyp"><i class="fa fa-check"></i><b>14.5</b> Types of Copulas<span></span></a>
+<ul>
+<li class="chapter" data-level="14.5.1" data-path="ChapDependenceModel.html"><a href="ChapDependenceModel.html#normal-gaussian-copulas"><i class="fa fa-check"></i><b>14.5.1</b> Normal (Gaussian) Copulas<span></span></a></li>
+<li class="chapter" data-level="14.5.2" data-path="ChapDependenceModel.html"><a href="ChapDependenceModel.html#t--and-elliptical-copulas"><i class="fa fa-check"></i><b>14.5.2</b> <em>t</em>- and Elliptical Copulas<span></span></a></li>
+<li class="chapter" data-level="14.5.3" data-path="ChapDependenceModel.html"><a href="ChapDependenceModel.html#archimedean-copulas"><i class="fa fa-check"></i><b>14.5.3</b> Archimedean Copulas<span></span></a></li>
+<li class="chapter" data-level="14.5.4" data-path="ChapDependenceModel.html"><a href="ChapDependenceModel.html#properties-of-copulas"><i class="fa fa-check"></i><b>14.5.4</b> Properties of Copulas<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="14.6" data-path="ChapDependenceModel.html"><a href="ChapDependenceModel.html#S:CopImp"><i class="fa fa-check"></i><b>14.6</b> Why is Dependence Modeling Important?<span></span></a></li>
+<li class="chapter" data-level="14.7" data-path="ChapDependenceModel.html"><a href="ChapDependenceModel.html#Dep:further-reading-and-resources"><i class="fa fa-check"></i><b>14.7</b> Further Resources and Contributors<span></span></a>
+<ul>
+<li><a href="ChapDependenceModel.html#ts-14.a.-other-classic-measures-of-scalar-associations">TS 14.A. Other Classic Measures of Scalar Associations<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="CAppA.html"><a href="CAppA.html"><i class="fa fa-check"></i><b>15</b> Appendix A: Review of Statistical Inference<span></span></a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="CAppA.html"><a href="CAppA.html#S:AppA:BASIC"><i class="fa fa-check"></i><b>15.1</b> Basic Concepts<span></span></a>
+<ul>
+<li class="chapter" data-level="15.1.1" data-path="CAppA.html"><a href="CAppA.html#random-sampling"><i class="fa fa-check"></i><b>15.1.1</b> Random Sampling<span></span></a></li>
+<li class="chapter" data-level="15.1.2" data-path="CAppA.html"><a href="CAppA.html#sampling-distribution"><i class="fa fa-check"></i><b>15.1.2</b> Sampling Distribution<span></span></a></li>
+<li class="chapter" data-level="15.1.3" data-path="CAppA.html"><a href="CAppA.html#central-limit-theorem"><i class="fa fa-check"></i><b>15.1.3</b> Central Limit Theorem<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="15.2" data-path="CAppA.html"><a href="CAppA.html#S:AppA:PE"><i class="fa fa-check"></i><b>15.2</b> Point Estimation and Properties<span></span></a>
+<ul>
+<li class="chapter" data-level="15.2.1" data-path="CAppA.html"><a href="CAppA.html#method-of-moments-estimation"><i class="fa fa-check"></i><b>15.2.1</b> Method of Moments Estimation<span></span></a></li>
+<li class="chapter" data-level="15.2.2" data-path="CAppA.html"><a href="CAppA.html#S:AppA:MLE"><i class="fa fa-check"></i><b>15.2.2</b> Maximum Likelihood Estimation<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="CAppA.html"><a href="CAppA.html#S:AppA:IE"><i class="fa fa-check"></i><b>15.3</b> Interval Estimation<span></span></a>
+<ul>
+<li class="chapter" data-level="15.3.1" data-path="CAppA.html"><a href="CAppA.html#S:AppA:IE:ED"><i class="fa fa-check"></i><b>15.3.1</b> Exact Distribution for Normal Sample Mean<span></span></a></li>
+<li class="chapter" data-level="15.3.2" data-path="CAppA.html"><a href="CAppA.html#large-sample-properties-of-mle"><i class="fa fa-check"></i><b>15.3.2</b> Large-sample Properties of <em>MLE</em><span></span></a></li>
+<li class="chapter" data-level="15.3.3" data-path="CAppA.html"><a href="CAppA.html#confidence-interval"><i class="fa fa-check"></i><b>15.3.3</b> Confidence Interval<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="15.4" data-path="CAppA.html"><a href="CAppA.html#S:AppA:HT"><i class="fa fa-check"></i><b>15.4</b> Hypothesis Testing<span></span></a>
+<ul>
+<li class="chapter" data-level="15.4.1" data-path="CAppA.html"><a href="CAppA.html#basic-concepts"><i class="fa fa-check"></i><b>15.4.1</b> Basic Concepts<span></span></a></li>
+<li class="chapter" data-level="15.4.2" data-path="CAppA.html"><a href="CAppA.html#student-t-test-based-on-mle"><i class="fa fa-check"></i><b>15.4.2</b> Student-<em>t</em> test based on <em>mle</em><span></span></a></li>
+<li class="chapter" data-level="15.4.3" data-path="CAppA.html"><a href="CAppA.html#S:AppA:HT:LRT"><i class="fa fa-check"></i><b>15.4.3</b> Likelihood Ratio Test<span></span></a></li>
+<li class="chapter" data-level="15.4.4" data-path="CAppA.html"><a href="CAppA.html#S:AppA:HT:IC"><i class="fa fa-check"></i><b>15.4.4</b> Information Criteria<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="CAppB.html"><a href="CAppB.html"><i class="fa fa-check"></i><b>16</b> Appendix B: Iterated Expectations<span></span></a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="CAppB.html"><a href="CAppB.html#S:AppB:CD"><i class="fa fa-check"></i><b>16.1</b> Conditional Distribution and Conditional Expectation<span></span></a>
+<ul>
+<li class="chapter" data-level="16.1.1" data-path="CAppB.html"><a href="CAppB.html#conditional-distribution"><i class="fa fa-check"></i><b>16.1.1</b> Conditional Distribution<span></span></a></li>
+<li class="chapter" data-level="16.1.2" data-path="CAppB.html"><a href="CAppB.html#conditional-expectation-and-conditional-variance"><i class="fa fa-check"></i><b>16.1.2</b> Conditional Expectation and Conditional Variance<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="16.2" data-path="CAppB.html"><a href="CAppB.html#S:AppB:IE"><i class="fa fa-check"></i><b>16.2</b> Iterated Expectations and Total Variance<span></span></a>
+<ul>
+<li class="chapter" data-level="16.2.1" data-path="CAppB.html"><a href="CAppB.html#S:AppB:LIE"><i class="fa fa-check"></i><b>16.2.1</b> Law of Iterated Expectations<span></span></a></li>
+<li class="chapter" data-level="16.2.2" data-path="CAppB.html"><a href="CAppB.html#law-of-total-variance"><i class="fa fa-check"></i><b>16.2.2</b> Law of Total Variance<span></span></a></li>
+<li class="chapter" data-level="16.2.3" data-path="CAppB.html"><a href="CAppB.html#application"><i class="fa fa-check"></i><b>16.2.3</b> Application<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="16.3" data-path="CAppB.html"><a href="CAppB.html#S:AppConjugateDistributions"><i class="fa fa-check"></i><b>16.3</b> Conjugate Distributions<span></span></a>
+<ul>
+<li class="chapter" data-level="16.3.1" data-path="CAppB.html"><a href="CAppB.html#linear-exponential-family"><i class="fa fa-check"></i><b>16.3.1</b> Linear Exponential Family<span></span></a></li>
+<li class="chapter" data-level="16.3.2" data-path="CAppB.html"><a href="CAppB.html#S:IterExp:Conjugate"><i class="fa fa-check"></i><b>16.3.2</b> Conjugate Distributions<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="CAppC.html"><a href="CAppC.html"><i class="fa fa-check"></i><b>17</b> Appendix C: Maximum Likelihood Theory<span></span></a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="CAppC.html"><a href="CAppC.html#S:AppC:LF"><i class="fa fa-check"></i><b>17.1</b> Likelihood Function<span></span></a>
+<ul>
+<li class="chapter" data-level="17.1.1" data-path="CAppC.html"><a href="CAppC.html#likelihood-and-log-likelihood-functions"><i class="fa fa-check"></i><b>17.1.1</b> Likelihood and Log-likelihood Functions<span></span></a></li>
+<li class="chapter" data-level="17.1.2" data-path="CAppC.html"><a href="CAppC.html#properties-of-likelihood-functions"><i class="fa fa-check"></i><b>17.1.2</b> Properties of Likelihood Functions<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="17.2" data-path="CAppC.html"><a href="CAppC.html#S:AppC:MLE"><i class="fa fa-check"></i><b>17.2</b> Maximum Likelihood Estimators<span></span></a>
+<ul>
+<li class="chapter" data-level="17.2.1" data-path="CAppC.html"><a href="CAppC.html#definition-and-derivation-of-mle"><i class="fa fa-check"></i><b>17.2.1</b> Definition and Derivation of <em>MLE</em><span></span></a></li>
+<li class="chapter" data-level="17.2.2" data-path="CAppC.html"><a href="CAppC.html#asymptotic-properties-of-mle"><i class="fa fa-check"></i><b>17.2.2</b> Asymptotic Properties of <em>MLE</em><span></span></a></li>
+<li class="chapter" data-level="17.2.3" data-path="CAppC.html"><a href="CAppC.html#use-of-maximum-likelihood-estimation"><i class="fa fa-check"></i><b>17.2.3</b> Use of Maximum Likelihood Estimation<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="17.3" data-path="CAppC.html"><a href="CAppC.html#S:AppC:SI"><i class="fa fa-check"></i><b>17.3</b> Statistical Inference Based on Maximum Likelihood Estimation<span></span></a>
+<ul>
+<li class="chapter" data-level="17.3.1" data-path="CAppC.html"><a href="CAppC.html#hypothesis-testing"><i class="fa fa-check"></i><b>17.3.1</b> Hypothesis Testing<span></span></a></li>
+<li class="chapter" data-level="17.3.2" data-path="CAppC.html"><a href="CAppC.html#S:AppC:MLEModelVal"><i class="fa fa-check"></i><b>17.3.2</b> <em>MLE</em> and Model Validation<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="ChapSummaryDistributions.html"><a href="ChapSummaryDistributions.html"><i class="fa fa-check"></i><b>18</b> Appendix D: Summary of Distributions<span></span></a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="ChapSummaryDistributions.html"><a href="ChapSummaryDistributions.html#S:DiscreteDistributions"><i class="fa fa-check"></i><b>18.1</b> Discrete Distributions<span></span></a>
+<ul>
+<li class="chapter" data-level="18.1.1" data-path="ChapSummaryDistributions.html"><a href="ChapSummaryDistributions.html#the-ab0-class"><i class="fa fa-check"></i><b>18.1.1</b> The <em>(a,b,0)</em> Class<span></span></a></li>
+<li class="chapter" data-level="18.1.2" data-path="ChapSummaryDistributions.html"><a href="ChapSummaryDistributions.html#the-ab1-class"><i class="fa fa-check"></i><b>18.1.2</b> The <em>(a,b,1)</em> Class<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="18.2" data-path="ChapSummaryDistributions.html"><a href="ChapSummaryDistributions.html#S:ContinuousDistributions"><i class="fa fa-check"></i><b>18.2</b> Continuous Distributions<span></span></a>
+<ul>
+<li class="chapter" data-level="18.2.1" data-path="ChapSummaryDistributions.html"><a href="ChapSummaryDistributions.html#one-parameter-distributions"><i class="fa fa-check"></i><b>18.2.1</b> One Parameter Distributions<span></span></a></li>
+<li class="chapter" data-level="18.2.2" data-path="ChapSummaryDistributions.html"><a href="ChapSummaryDistributions.html#two-parameter-distributions"><i class="fa fa-check"></i><b>18.2.2</b> Two Parameter Distributions<span></span></a></li>
+<li class="chapter" data-level="18.2.3" data-path="ChapSummaryDistributions.html"><a href="ChapSummaryDistributions.html#three-parameter-distributions"><i class="fa fa-check"></i><b>18.2.3</b> Three Parameter Distributions<span></span></a></li>
+<li class="chapter" data-level="18.2.4" data-path="ChapSummaryDistributions.html"><a href="ChapSummaryDistributions.html#four-parameter-distribution"><i class="fa fa-check"></i><b>18.2.4</b> Four Parameter Distribution<span></span></a></li>
+<li class="chapter" data-level="18.2.5" data-path="ChapSummaryDistributions.html"><a href="ChapSummaryDistributions.html#other-distributions"><i class="fa fa-check"></i><b>18.2.5</b> Other Distributions<span></span></a></li>
+<li class="chapter" data-level="18.2.6" data-path="ChapSummaryDistributions.html"><a href="ChapSummaryDistributions.html#distributions-with-finite-support"><i class="fa fa-check"></i><b>18.2.6</b> Distributions with Finite Support<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="18.3" data-path="ChapSummaryDistributions.html"><a href="ChapSummaryDistributions.html#limited-expected-values"><i class="fa fa-check"></i><b>18.3</b> Limited Expected Values<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="ChapNotationConvention.html"><a href="ChapNotationConvention.html"><i class="fa fa-check"></i><b>19</b> Appendix E: Conventions for Notation<span></span></a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="ChapNotationConvention.html"><a href="ChapNotationConvention.html#S:General"><i class="fa fa-check"></i><b>19.1</b> General Conventions<span></span></a></li>
+<li class="chapter" data-level="19.2" data-path="ChapNotationConvention.html"><a href="ChapNotationConvention.html#S:Abbreviations"><i class="fa fa-check"></i><b>19.2</b> Abbreviations<span></span></a></li>
+<li class="chapter" data-level="19.3" data-path="ChapNotationConvention.html"><a href="ChapNotationConvention.html#S:StatSymbols"><i class="fa fa-check"></i><b>19.3</b> Common Statistical Symbols and Operators<span></span></a></li>
+<li class="chapter" data-level="19.4" data-path="ChapNotationConvention.html"><a href="ChapNotationConvention.html#S:Symbols"><i class="fa fa-check"></i><b>19.4</b> Common Mathematical Symbols and Functions<span></span></a></li>
+<li class="chapter" data-level="19.5" data-path="ChapNotationConvention.html"><a href="ChapNotationConvention.html#further-readings"><i class="fa fa-check"></i><b>19.5</b> Further Readings<span></span></a></li>
+</ul></li>
+<li><a href="bibliography.html#bibliography">Bibliography<span></span></a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/OpenActTexts/Loss-Data-Analytics" target="blank">Loss Data Analytics on GitHub</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Loss Data Analytics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="ChapLossReserves" class="section level1 hasAnchor" number="11">
+<h1><span class="header-section-number">Chapter 11</span> Loss Reserving<a href="ChapLossReserves.html#ChapLossReserves" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><em>Chapter Preview.</em> This chapter introduces loss reserving (also known as claims reserving) for property and casualty (P&amp;C, or general, non-life) insurance products. In particular, the chapter sketches some basic, though essential, analytic tools to assess the reserves on a portfolio of P&amp;C insurance products. First, Section <a href="ChapLossReserves.html#S:motivation">11.1</a> motivates the need for loss reserving, then Section <a href="ChapLossReserves.html#S:Data">11.2</a> studies the available data sources and introduces some formal notation to tackle loss reserving as a prediction challenge. Next, Section <a href="ChapLossReserves.html#S:Chain-ladder">11.3</a> covers the chain-ladder method and Mack’s distribution-free chain-ladder model. Section <a href="ChapLossReserves.html#S:GLMs">11.4</a> then develops a fully stochastic approach to determine the outstanding reserve with generalized linear models (GLMs), including the technique of bootstrapping to obtain a predictive distribution of the outstanding reserve via simulation.</p>
+<div id="S:motivation" class="section level2 hasAnchor" number="11.1">
+<h2><span class="header-section-number">11.1</span> Motivation<a href="ChapLossReserves.html#S:motivation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Our starting point is the lifetime of a P&amp;C insurance claim. Figure <a href="ChapLossReserves.html#fig:tikz-run-off">11.1</a> pictures the development of such a claim over time and identifies the events of interest:</p>
+
+<a id="tikz-run-off"></a>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:tikz-run-off"></span>
+<img src="LossDataAnalytics_files/figure-html/tikz-run-off-1.png" alt="Lifetime or Run-off of a Claim" width="480" />
+<p class="caption">
+Figure 11.1: <strong>Lifetime or Run-off of a Claim</strong>
+</p>
+</div>
+<p>The insured event or accident occurs at time <span class="math inline">\(t_{occ}\)</span>. This incident is reported to the insurance company at time <span class="math inline">\(t_{rep}\)</span>, after some delay. If the filed claim is accepted by the insurance company, payments will follow to reimburse the financial loss of the policyholder. In this example the insurance company compensates the incurred loss with loss payments at times <span class="math inline">\(t_1\)</span>, <span class="math inline">\(t_2\)</span> and <span class="math inline">\(t_3\)</span>. Eventually, the claim settles or closes at time <span class="math inline">\(t_{set}\)</span>.</p>
+<p>Often claims will not settle immediately due to the presence of delay in the reporting of a claim, delay in the settlement process or both. The <a href="#" class="tooltip" style="color:green"><em>reporting delay</em><span style="font-size:8pt">The time that elapses between the occurrence of the insured event and the reporting of this event to the insurance company.</span></a> is the time that elapses between the occurrence of the insured event and the reporting of this event to the insurance company. The time between reporting and settlement of a claim is known as the <a href="#" class="tooltip" style="color:green"><em>settlement delay</em><span style="font-size:8pt">The time between reporting and settlement of a claim.</span></a>. For example, it is very intuitive that a material or property damage claim settles quicker than a bodily injury claim involving a complex type of injury. Closed claims may also reopen due to new developments, e.g. an injury that requires extra treatment. Put together, the development of a claim typically takes some time. The presence of this delay in the run-off of a claim requires the insurer to hold capital in order to settle these claims in the future.</p>
+<div id="S:claim-types" class="section level3 hasAnchor" number="11.1.1">
+<h3><span class="header-section-number">11.1.1</span> Closed, IBNR, and RBNS Claims<a href="ChapLossReserves.html#S:claim-types" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Based on the status of the claim’s run-off we distinguish three types of claims in the books of an insurance company. A first type of claim is a closed claim. For these claims the complete development has been observed. With the red line in Figure <a href="ChapLossReserves.html#fig:tikz-closed">11.2</a> indicating the present moment, all events from the claim’s development take place before the present moment. Hence, these events are observed at the present moment. For convenience, we will assume that a closed claim can not reopen.</p>
+
+<a id="tikz-closed"></a>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:tikz-closed"></span>
+<img src="LossDataAnalytics_files/figure-html/tikz-closed-1.png" alt="Lifetime of a Closed Claim" width="480" />
+<p class="caption">
+Figure 11.2: <strong>Lifetime of a Closed Claim</strong>
+</p>
+</div>
+<p>An <a href="#" class="tooltip" style="color:green"><em>RBNS</em><span style="font-size:8pt">Reported, But is Not fully Settled</span></a> claim is one that has been <strong>R</strong>eported, <strong>B</strong>ut is <strong>N</strong>ot fully <strong>S</strong>ettled at the present moment or the moment of evaluation (the valuation date), that is, the moment when the reserves should be calculated and booked by the insurer. Occurrence, reporting and possibly some loss payments take place before the present moment, but the closing of the claim happens in the future, beyond the present moment.</p>
+
+<a id="tikz-RBNS"></a>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:tikz-RBNS"></span>
+<img src="LossDataAnalytics_files/figure-html/tikz-RBNS-1.png" alt="Lifetime of an RBNS Claim" width="480" />
+<p class="caption">
+Figure 11.3: <strong>Lifetime of an RBNS Claim</strong>
+</p>
+</div>
+<p>An <a href="#" class="tooltip" style="color:green"><em>IBNR</em><span style="font-size:8pt"> Incurred in the past But is Not yet Reported. For such a claim the insured event took place, but the insurance company is not yet aware of the associated claim.</span></a> claim is one that has <strong>I</strong>ncurred in the past <strong>B</strong>ut is <strong>N</strong>ot yet <strong>R</strong>eported. For such a claim the insured event took place, but the insurance company is not yet aware of the associated claim. This claim will be reported in the future and its complete development (from reporting to settlement) takes place in the future.</p>
+
+<a id="tikz-IBNR"></a>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:tikz-IBNR"></span>
+<img src="LossDataAnalytics_files/figure-html/tikz-IBNR-1.png" alt="Lifetime of an IBNR Claim" width="480" />
+<p class="caption">
+Figure 11.4: <strong>Lifetime of an IBNR Claim</strong>
+</p>
+</div>
+<p>Insurance companies will reserve capital to fulfill their future liabilities with respect to both RBNS as well as IBNR claims. The future development of such claims is uncertain and predictive modeling techniques will be used to calculate appropriate reserves, from the historical development data observed on similar claims.</p>
+</div>
+<div id="why-reserving" class="section level3 hasAnchor" number="11.1.2">
+<h3><span class="header-section-number">11.1.2</span> Why Reserving?<a href="ChapLossReserves.html#why-reserving" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The inverted production cycle of the insurance market and the claim dynamics pictured in Section <a href="ChapLossReserves.html#S:claim-types">11.1.1</a> motivate the need for reserving and the design of predictive modeling tools to estimate reserves. In insurance, the premium income precedes the costs. An insurer will charge a client a premium, before actually knowing how costly the insurance policy or contract will become. In typical manufacturing industry this is not the case and the manufacturer knows - before selling a product - what the cost of producing this product was. At a specified evaluation moment <span class="math inline">\(\tau\)</span> the insurer will predict outstanding liabilities with respect to contracts sold in the past. This is the claims reserve or loss reserve; it is the capital necessary to settle open claims from past exposures. It is a very important element on the balance sheet of the insurer, more specifically on the liabilities side of the balance sheet.</p>
+</div>
+</div>
+<div id="S:Data" class="section level2 hasAnchor" number="11.2">
+<h2><span class="header-section-number">11.2</span> Loss Reserve Data<a href="ChapLossReserves.html#S:Data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="from-micro-to-macro" class="section level3 hasAnchor" number="11.2.1">
+<h3><span class="header-section-number">11.2.1</span> From Micro to Macro<a href="ChapLossReserves.html#from-micro-to-macro" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We now shed light on the data available to estimate the outstanding reserve for a portfolio of P&amp;C contracts. Insurance companies typically register data on the development of an individual claim as sketched in the timeline on the left hand side of Figure <a href="ChapLossReserves.html#fig:tikz-micro-macro">11.5</a>. We refer to data registered at this level as <strong>granular or micro-level</strong> data. Typically, an actuary aggregates the information registered on the individual development of claims across all claims in a portfolio. This aggregation leads to data structured in a triangular format as shown on the right hand side of Figure <a href="ChapLossReserves.html#fig:tikz-micro-macro">11.5</a>. Such data are called <strong>aggregate or macro-level</strong> data because each cell in the triangle displays information obtained by aggregating the development of multiple claims.</p>
+
+<a id="tikz-micro-macro"></a>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:tikz-micro-macro"></span>
+<img src="LossDataAnalytics_files/figure-html/tikz-micro-macro-1.png" alt="From Granular Data to Run-off Triangle" width="480" />
+<p class="caption">
+Figure 11.5: <strong>From Granular Data to Run-off Triangle</strong>
+</p>
+</div>
+<p>The triangular display used in loss reserving is called a <strong>run-off or development</strong> triangle. On the vertical axis the triangle lists the accident or occurrence years during which a portfolio is followed. The loss payments booked for a specific claim are connected to the year during the which the insured event occurred. The horizontal axis indicates the payment delay since occurrence of the insured event.</p>
+</div>
+<div id="run-off-triangles" class="section level3 hasAnchor" number="11.2.2">
+<h3><span class="header-section-number">11.2.2</span> Run-off Triangles<a href="ChapLossReserves.html#run-off-triangles" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A first example of a <a href="#" class="tooltip" style="color:green"><em>run-off triangle</em><span style="font-size:8pt">Triangular display of loss reserve data. Accident or occurrence periods on one axis (often vertical) with development periods on the other (often horizontal). Also known as a development triangle.</span></a> with incremental payments is displayed in Figure <a href="ChapLossReserves.html#fig:tikz-triangle">11.6</a> (taken from <span class="citation">Wüthrich and Merz (<a href="#ref-WuthrichMerz2008" role="doc-biblioref">2008</a>)</span>, Table 2.2, also used in <span class="citation">Wüthrich and Merz (<a href="#ref-WuthrichMerz2015" role="doc-biblioref">2015</a>)</span>, Table 1.4). Accident years (or years of occurrence) are shown on the vertical axis and run from 2004 up to 2013. These refer to the year during which the insured event occurred. The horizontal axis indicates the payment delay in years since occurrence of the insured event. <em>0 delay</em> is used for payments made in the year of occurrence of the accident or insured event. <em>One year</em> of delay is used for payments made in the year after occurrence of the accident.</p>
+
+<a id="tikz-triangle"></a>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:tikz-triangle"></span>
+<img src="LossDataAnalytics_files/figure-html/tikz-triangle-1.png" alt="A Run-off Triangle with Incremental Payment Data. Source: Wüthrich and Merz (2008), Table 2.2." width="960" />
+<p class="caption">
+Figure 11.6: <strong>A Run-off Triangle with Incremental Payment Data.</strong> <em>Source: <span class="citation">Wüthrich and Merz (<a href="#ref-WuthrichMerz2008" role="doc-biblioref">2008</a>)</span>, Table 2.2.</em>
+</p>
+</div>
+<p>For example, cell <span class="math inline">\((2004, 0)\)</span> in the above triangle displays the number <span class="math inline">\(5,947\)</span>, the total amount paid in the year 2004 for all claims occurring in year 2004. Thus, it is the total amount paid with 0 years of delay on all claims that occurred in the year 2004. Similarly, the number in cell <span class="math inline">\((2012,1)\)</span> displays the total <span class="math inline">\(2,357.9\)</span> paid in the year 2013 for all claims that occurred in year 2012.</p>
+
+<a id="tikz-cum-triangle"></a>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:tikz-cum-triangle"></span>
+<img src="LossDataAnalytics_files/figure-html/tikz-cum-triangle-1.png" alt="A Run-off Triangle with Cumulative Payment Data. Source: Wüthrich and Merz (2008), Table 2.2." width="960" />
+<p class="caption">
+Figure 11.7: <strong>A Run-off Triangle with Cumulative Payment Data.</strong> <em>Source: <span class="citation">Wüthrich and Merz (<a href="#ref-WuthrichMerz2008" role="doc-biblioref">2008</a>)</span>, Table 2.2.</em>
+</p>
+</div>
+<p>Whereas the triangle in Figure <a href="ChapLossReserves.html#fig:tikz-triangle">11.6</a> displays incremental payment data, the Figure <a href="ChapLossReserves.html#fig:tikz-cum-triangle">11.7</a> shows the same information in cumulative format. Now, cell <span class="math inline">\((2004,1)\)</span> displays the total claim amount paid <em>up to</em> payment delay 1 for all claims that occurred in year 2004. Therefore, it is the sum of the amount paid in 2004 and the amount paid in 2005 on accidents that occurred in 2004.</p>
+<p>Different pieces of information can be stored in run-off triangles as those shown in Figure <a href="ChapLossReserves.html#fig:tikz-triangle">11.6</a> and Figure <a href="ChapLossReserves.html#fig:tikz-cum-triangle">11.7</a>. Depending on the kind of data stored, the triangle will be used to estimate different quantities.</p>
+<p>For example, in incremental format a cell may display:</p>
+<ul>
+<li>the claim payments, as motivated before</li>
+<li>the number of claims that occurred in a specific year and were reported with a certain delay, when the goal is to estimate the number of IBNR claims</li>
+<li>the change in incurred amounts, where incurred claim amounts are the sum of cumulative paid claims and the <a href="#" class="tooltip" style="color:green"><em>case estimates</em><span style="font-size:8pt">The claims handlers expert estimate of the outstanding amount on a claim.</span></a>. The case estimate is the claims handler’s expert estimate of the outstanding amount on a claim.</li>
+</ul>
+<p>In cumulative format a cell may display:</p>
+<ul>
+<li>the cumulative paid amount, as motivated before</li>
+<li>the total number of claims from an occurrence year, reported up to a certain delay</li>
+<li>the incurred claim amounts.</li>
+</ul>
+<p>Other sources of information are potentially available, e.g. covariates (like the type of claim), external information (like inflation, change in regulation). Most claims reserving methods designed for run-off triangles are rather based on a single source of information, although recent contributions focus on the use of more detailed data for loss reserving.</p>
+</div>
+<div id="loss-reserve-notation" class="section level3 hasAnchor" number="11.2.3">
+<h3><span class="header-section-number">11.2.3</span> Loss Reserve Notation<a href="ChapLossReserves.html#loss-reserve-notation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="run-off-triangles-1" class="section level4 unnumbered hasAnchor">
+<h4>Run-off Triangles<a href="ChapLossReserves.html#run-off-triangles-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>To formalize the displays shown in Figures <a href="ChapLossReserves.html#fig:tikz-triangle">11.6</a> and <a href="ChapLossReserves.html#fig:tikz-cum-triangle">11.7</a>, we let <span class="math inline">\(i\)</span> refer to the occurrence or accident year, the year in which the insured event happened. In our notation the first accident year considered in the portfolio is denoted with 1 and the latest, most recent accident year is denoted with <span class="math inline">\(I\)</span>. Then, <span class="math inline">\(j\)</span> refers to the payment delay or development year, where a delay equal to 0 corresponds to the accident year itself. Figure <a href="ChapLossReserves.html#fig:tikz-math-triangle">11.8</a> shows a triangle where the same number of years is considered in both the vertical as well as the horizontal direction, hence <span class="math inline">\(j\)</span> runs from 0 up to <span class="math inline">\(J = I-1\)</span>.</p>
+
+<a id="tikz-math-triangle"></a>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:tikz-math-triangle"></span>
+<img src="LossDataAnalytics_files/figure-html/tikz-math-triangle-1.png" alt="Mathematical notation for a run-off triangle. Source: Wüthrich and Merz (2008)" width="960" />
+<p class="caption">
+Figure 11.8: <strong>Mathematical notation for a run-off triangle.</strong> <em>Source:</em> <span class="citation">Wüthrich and Merz (<a href="#ref-WuthrichMerz2008" role="doc-biblioref">2008</a>)</span>
+</p>
+</div>
+<p>The random variable <span class="math inline">\(X_{ij}\)</span> denotes the incremental claims paid in development period <span class="math inline">\(j\)</span> on claims from accident year <span class="math inline">\(i\)</span>. Thus, <span class="math inline">\(X_{ij}\)</span> is the total amount paid in development year <span class="math inline">\(j\)</span> for all claims that happened in occurrence year <span class="math inline">\(i\)</span>. These payments are actually paid out in accounting or calendar year <span class="math inline">\(i+j\)</span>. Taking a cumulative point of view, <span class="math inline">\(C_{ij}\)</span> is the cumulative amount paid up until (and including) development year <span class="math inline">\(j\)</span> for accidents that occurred in year <span class="math inline">\(i\)</span>. Ultimately, a total amount <span class="math inline">\(C_{iJ}\)</span> is paid in the final development year <span class="math inline">\(J\)</span> for claims that occurred in accident year <span class="math inline">\(i\)</span>. In this chapter time is expressed in years, though other time units can be used as well, e.g. six-month periods or quarters.</p>
+</div>
+<div id="the-loss-reserve" class="section level4 unnumbered hasAnchor">
+<h4>The Loss Reserve<a href="ChapLossReserves.html#the-loss-reserve" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>At the evaluation moment <span class="math inline">\(\tau\)</span>, the data in the upper triangle have been observed, whereas the lower triangle has to be predicted. Here, the evaluation moment is the end of accident year <span class="math inline">\(I\)</span> which implies that a cell <span class="math inline">\((i,j)\)</span> with <span class="math inline">\(i+j \leq I\)</span> is observed, and a cell <span class="math inline">\((i,j)\)</span> with <span class="math inline">\(i+j &gt; I\)</span> belongs to the future and has to be predicted. Thus, for a cumulative run-off triangle, the goal of a loss reserving method is to predict <span class="math inline">\(C_{i,I-1}\)</span>,
+the ultimate claim amount for occurrence year <span class="math inline">\(i\)</span>, corresponding to the final development period <span class="math inline">\(I-1\)</span> in Figure <a href="ChapLossReserves.html#fig:tikz-cum-triangle">11.7</a>. We assume that - beyond this period - no further payments will follow, although this assumption can be relaxed.</p>
+<p>Since <span class="math inline">\(C_{i,I-1}\)</span> is cumulative, it includes both an observed part as well as a part that has to be predicted. Therefore, the outstanding liability or loss reserve for accident year <span class="math inline">\(i\)</span> is</p>
+<p><span class="math display">\[\begin{eqnarray*}
+\mathcal{R}^{(0)}_{i} = \sum_{\ell=I-i+1}^{I-1} X_{i\ell} = C_{i,I}-C_{i,I-i}.
+\end{eqnarray*}\]</span></p>
+<p>We express the reserve either as a sum of incremental data, the <span class="math inline">\(X_{i\ell}\)</span>, or as a difference between cumulative numbers. In the latter case the outstanding amount is the ultimate cumulative amount <span class="math inline">\(C_{i,I}\)</span> minus the most recently observed cumulative amount <span class="math inline">\(C_{i,I-i}\)</span>. Following <span class="citation">Wüthrich and Merz (<a href="#ref-WuthrichMerz2015" role="doc-biblioref">2015</a>)</span>, the notation <span class="math inline">\(\mathcal{R}^{(0)}_{i}\)</span> refers to the reserve for occurrence year <span class="math inline">\(i\)</span> where <span class="math inline">\(i=1,\ldots,I\)</span>. The superscript <span class="math inline">\((0)\)</span> refers to the evaluation of the reserve at the present moment, say <span class="math inline">\(\tau = 0\)</span>. We understand <span class="math inline">\(\tau = 0\)</span> at the end of occurrence year <span class="math inline">\(I\)</span>, the most recent calendar year for which data are observed and registered.</p>
+</div>
+</div>
+<div id="S:Rcode" class="section level3 hasAnchor" number="11.2.4">
+<h3><span class="header-section-number">11.2.4</span> R Code to Summarize Loss Reserve Data<a href="ChapLossReserves.html#S:Rcode" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We use the <code>ChainLadder</code> package <span class="citation">(<a href="#ref-R-chainladder" role="doc-biblioref">Gesmann et al. 2019</a>)</span> to import run-off triangles in <code>R</code> and to explore the trends present in these triangles. The package’s vignette nicely documents its functions for working with triangular data. First, we explore two ways to import a triangle.</p>
+<div id="long-format-data" class="section level4 unnumbered hasAnchor">
+<h4>Long Format Data<a href="ChapLossReserves.html#long-format-data" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>The dataset <code>triangle_W_M_long.txt</code> stores the cumulative run-off triangle from <span class="citation">Wüthrich and Merz (<a href="#ref-WuthrichMerz2008" role="doc-biblioref">2008</a>)</span> (Table 2.2) in long format. That is: each cell in the triangle is one row in this data set, and three features are stored: the payment size (cumulative, in this example), the year of occurrence (<span class="math inline">\(i\)</span>) and the payment delay (<span class="math inline">\(j\)</span>). We import the <a href="#" class="tooltip" style="color:green"><em>.txt</em><span style="font-size:8pt">Text file</span></a> file and store the resulting data frame as <code>my_triangle_long</code>:</p>
+<h5 style="text-align: center;">
+<a id="displayCode.TriangleText.1" href="javascript:togglecode('toggleCode.TriangleText.1','displayCode.TriangleText.1');"><i><strong>R Code for Importing Text Data</strong></i></a>
+</h5>
+<div id="toggleCode.TriangleText.1" style="display: none">
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="ChapLossReserves.html#cb115-1" aria-hidden="true" tabindex="-1"></a>my_triangle_long <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&quot;Data/triangle_W_M_long.txt&quot;</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb115-2"><a href="ChapLossReserves.html#cb115-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(my_triangle_long)</span></code></pre></div>
+<pre><code>   payment origin dev
+1  5946975   2004   0
+2  9668212   2004   1
+3 10563929   2004   2
+4 10771690   2004   3
+5 10978394   2004   4
+6 11040518   2004   5</code></pre>
+</div>
+<p>We use the <code>as.triangle</code> function from the <code>ChainLadder</code> package to transform the data frame into a triangular display. The resulting object <code>my_triangle</code> is now of type <code>triangle</code>.</p>
+<h5 style="text-align: center;">
+<a id="displayCode.TriangleText.2" href="javascript:togglecode('toggleCode.TriangleText.2','displayCode.TriangleText.2');"><i><strong>R Code for Transforming to Triangular Display</strong></i></a>
+</h5>
+<div id="toggleCode.TriangleText.2" style="display: none">
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="ChapLossReserves.html#cb117-1" aria-hidden="true" tabindex="-1"></a>my_triangle <span class="ot">&lt;-</span> <span class="fu">as.triangle</span>(my_triangle_long, <span class="at">origin =</span> <span class="st">&quot;origin&quot;</span>, <span class="at">dev =</span> <span class="st">&quot;dev&quot;</span>, <span class="at">value =</span> <span class="st">&quot;payment&quot;</span>)</span>
+<span id="cb117-2"><a href="ChapLossReserves.html#cb117-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(my_triangle)</span></code></pre></div>
+<pre><code> &#39;triangle&#39; int [1:10, 1:10] 5946975 6346756 6269090 5863015 5778885 6184793 5600184 5288066 5290793 5675568 ...
+ - attr(*, &quot;dimnames&quot;)=List of 2
+  ..$ origin: chr [1:10] &quot;2004&quot; &quot;2005&quot; &quot;2006&quot; &quot;2007&quot; ...
+  ..$ dev   : chr [1:10] &quot;0&quot; &quot;1&quot; &quot;2&quot; &quot;3&quot; ...</code></pre>
+</div>
+<p>We display the triangle and recognize the numbers (in thousands) from Figure <a href="ChapLossReserves.html#fig:tikz-cum-triangle">11.7</a>. Cells in the lower triangle are indicated as <em>not available</em>, <code>NA</code>.</p>
+<h5 style="text-align: center;">
+<a id="displayCode.TriangleText.3" href="javascript:togglecode('toggleCode.TriangleText.3','displayCode.TriangleText.3');"><i><strong>R Code for Displaying Triangular Data</strong></i></a>
+</h5>
+<div id="toggleCode.TriangleText.3" style="display: none">
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="ChapLossReserves.html#cb119-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(my_triangle<span class="sc">/</span><span class="dv">1000</span>, <span class="at">digits =</span> <span class="dv">0</span>)</span></code></pre></div>
+<pre><code>      dev
+origin    0    1     2     3     4     5     6     7     8     9
+  2004 5947 9668 10564 10772 10978 11041 11106 11121 11132 11148
+  2005 6347 9593 10316 10468 10536 10573 10625 10637 10648    NA
+  2006 6269 9245 10092 10355 10508 10573 10627 10636    NA    NA
+  2007 5863 8546  9269  9459  9592  9681  9724    NA    NA    NA
+  2008 5779 8524  9178  9451  9682  9787    NA    NA    NA    NA
+  2009 6185 9013  9586  9831  9936    NA    NA    NA    NA    NA
+  2010 5600 8493  9057  9282    NA    NA    NA    NA    NA    NA
+  2011 5288 7728  8256    NA    NA    NA    NA    NA    NA    NA
+  2012 5291 7649    NA    NA    NA    NA    NA    NA    NA    NA
+  2013 5676   NA    NA    NA    NA    NA    NA    NA    NA    NA</code></pre>
+</div>
+</div>
+<div id="triangular-format-data" class="section level4 unnumbered hasAnchor">
+<h4>Triangular Format Data<a href="ChapLossReserves.html#triangular-format-data" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Alternatively, the triangle may be stored in a <a href="#" class="tooltip" style="color:green"><em>.csv</em><span style="font-size:8pt">Comma separated value file</span></a> file with the occurrence years in the rows and the development years in the column cells. We import this .csv file and transform the resulting <code>my_triangle_csv</code> to a matrix.</p>
+<h5 style="text-align: center;">
+<a id="displayCode.TriangleCSV.1" href="javascript:togglecode('toggleCode.TriangleCSV.1','displayCode.TriangleCSV.1');"><i><strong>R Code for Importing Triangular Data</strong></i></a>
+</h5>
+<div id="toggleCode.TriangleCSV.1" style="display: none">
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="ChapLossReserves.html#cb121-1" aria-hidden="true" tabindex="-1"></a>my_triangle_csv <span class="ot">&lt;-</span> <span class="fu">read.csv2</span>(<span class="st">&quot;Data/triangle_W_M.csv&quot;</span>, <span class="at">header =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb121-2"><a href="ChapLossReserves.html#cb121-2" aria-hidden="true" tabindex="-1"></a>my_triangle_matrix <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(my_triangle_csv)</span>
+<span id="cb121-3"><a href="ChapLossReserves.html#cb121-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dimnames</span>(my_triangle_matrix) <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">origin =</span> <span class="dv">2004</span> <span class="sc">:</span> <span class="dv">2013</span>, <span class="at">dev =</span> <span class="dv">0</span><span class="sc">:</span>(<span class="fu">ncol</span>(my_triangle_matrix)<span class="sc">-</span><span class="dv">1</span>))</span></code></pre></div>
+</div>
+<p>We inspect the triangle:</p>
+<h5 style="text-align: center;">
+<a id="displayCode.TriangleCSV.2" href="javascript:togglecode('toggleCode.TriangleCSV.2','displayCode.TriangleCSV.2');"><i><strong>R Code for Displaying Triangular Data</strong></i></a>
+</h5>
+<div id="toggleCode.TriangleCSV.2" style="display: none">
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="ChapLossReserves.html#cb122-1" aria-hidden="true" tabindex="-1"></a>my_triangle <span class="ot">&lt;-</span> <span class="fu">as.triangle</span>(my_triangle_matrix) </span>
+<span id="cb122-2"><a href="ChapLossReserves.html#cb122-2" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(my_triangle<span class="sc">/</span><span class="dv">1000</span>, <span class="at">digits =</span> <span class="dv">0</span>)</span></code></pre></div>
+<pre><code>      dev
+origin    0    1     2     3     4     5     6     7     8     9
+  2004 5947 9668 10564 10772 10978 11041 11106 11121 11132 11148
+  2005 6347 9593 10316 10468 10536 10573 10625 10637 10648    NA
+  2006 6269 9245 10092 10355 10508 10573 10627 10636    NA    NA
+  2007 5863 8546  9269  9459  9592  9681  9724    NA    NA    NA
+  2008 5779 8524  9178  9451  9682  9787    NA    NA    NA    NA
+  2009 6185 9013  9586  9831  9936    NA    NA    NA    NA    NA
+  2010 5600 8493  9057  9282    NA    NA    NA    NA    NA    NA
+  2011 5288 7728  8256    NA    NA    NA    NA    NA    NA    NA
+  2012 5291 7649    NA    NA    NA    NA    NA    NA    NA    NA
+  2013 5676   NA    NA    NA    NA    NA    NA    NA    NA    NA</code></pre>
+</div>
+</div>
+<div id="from-cumulative-to-incremental-and-vice-versa" class="section level4 unnumbered hasAnchor">
+<h4>From Cumulative to Incremental, and vice versa<a href="ChapLossReserves.html#from-cumulative-to-incremental-and-vice-versa" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>The <code>R</code> functions <code>cum2incr()</code> and <code>incr2cum()</code> enable us to switch from cumulative to incremental displays, and vice versa, in an easy way.</p>
+<h5 style="text-align: center;">
+<a id="displayCode.TriangleCSV.2" href="javascript:togglecode('toggleCode.TriangleCSV.2','displayCode.TriangleCSV.2');"><i><strong>R Code for Switching from Cumulative to Incremental Display</strong></i></a>
+</h5>
+<div id="toggleCode.TriangleCSV.2" style="display: none">
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="ChapLossReserves.html#cb124-1" aria-hidden="true" tabindex="-1"></a>my_triangle_incr <span class="ot">&lt;-</span> <span class="fu">cum2incr</span>(my_triangle) </span>
+<span id="cb124-2"><a href="ChapLossReserves.html#cb124-2" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(my_triangle_incr<span class="sc">/</span><span class="dv">1000</span>, <span class="at">digits =</span> <span class="dv">0</span>)</span></code></pre></div>
+<pre><code>      dev
+origin    0    1   2   3   4   5  6  7  8  9
+  2004 5947 3721 896 208 207  62 66 15 11 16
+  2005 6347 3246 723 152  68  37 53 11 12 NA
+  2006 6269 2976 847 263 153  65 54  9 NA NA
+  2007 5863 2683 723 191 133  88 43 NA NA NA
+  2008 5779 2745 654 273 230 105 NA NA NA NA
+  2009 6185 2828 573 245 105  NA NA NA NA NA
+  2010 5600 2893 563 226  NA  NA NA NA NA NA
+  2011 5288 2440 528  NA  NA  NA NA NA NA NA
+  2012 5291 2358  NA  NA  NA  NA NA NA NA NA
+  2013 5676   NA  NA  NA  NA  NA NA NA NA NA</code></pre>
+</div>
+<p>We recognize the incremental triangle from Figure <a href="ChapLossReserves.html#fig:tikz-triangle">11.6</a>.</p>
+</div>
+<div id="visualizing-triangles" class="section level4 unnumbered hasAnchor">
+<h4>Visualizing Triangles<a href="ChapLossReserves.html#visualizing-triangles" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>To explore the evolution of the cumulative payments per occurrence year, Figure <a href="ChapLossReserves.html#fig:plottriangle">11.9</a> shows <code>my_triangle</code> using the <code>plot</code> function available for objects of type <code>triangle</code> in the <code>ChainLadder</code> package. Each line in this plot depicts an occurrence year (from 2004 to 2013, labelled as 1 to 10). Development periods are labelled from 1 to 10 (instead of 0 to 9, as used above).</p>
+
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="ChapLossReserves.html#cb126-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(my_triangle)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:plottriangle"></span>
+<img src="LossDataAnalytics_files/figure-html/plottriangle-1.png" alt="Claim Development by Occurrence Year" width="80%" />
+<p class="caption">
+Figure 11.9: <strong>Claim Development by Occurrence Year</strong>
+</p>
+</div>
+<p>Alternatively, the <code>lattice</code> argument creates one plot per occurrence year.</p>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="ChapLossReserves.html#cb127-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(my_triangle, <span class="at">lattice =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p><img src="LossDataAnalytics_files/figure-html/plot_triangle_lattice-1.png" width="80%" style="display: block; margin: auto;" /></p>
+<p>Instead of plotting the cumulative triangle stored in <code>my_triangle</code>, we can plot the incremental run-off triangle.</p>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="ChapLossReserves.html#cb128-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(my_triangle_incr)</span></code></pre></div>
+<p><img src="LossDataAnalytics_files/figure-html/plot_triangle_incr-1.png" width="80%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="ChapLossReserves.html#cb129-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(my_triangle_incr, <span class="at">lattice =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p><img src="LossDataAnalytics_files/figure-html/plot_triangle_incr-2.png" width="80%" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+</div>
+<div id="S:Chain-ladder" class="section level2 hasAnchor" number="11.3">
+<h2><span class="header-section-number">11.3</span> The Chain-Ladder Method<a href="ChapLossReserves.html#S:Chain-ladder" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The most widely used method to estimate outstanding loss reserves is the so-called <a href="#" class="tooltip" style="color:green"><em>chain-ladder method</em><span style="font-size:8pt">An algorithm for predicting incomplete losses to their ultimate cumulative value. The name refers to the chaining of a sequence of (year-to-year development) factors into a ladder of factors.</span></a>. The origins of this method are obscure but was firmly entrenched in practical applications by the early 1970’s, <span class="citation">G. C. Taylor (<a href="#ref-taylor1986claims" role="doc-biblioref">1986</a>)</span>. As will be seen, the name refers to the chaining of a sequence of (year-to-year development) factors into a ladder of factors; immature losses climb toward maturity when multiplied by this concatenation of ratios, hence the apt descriptor <em>chain-ladder method.</em> We will start with exploring the chain-ladder method in its deterministic or algorithmic version, hence without making any stochastic assumptions. Then we will describe Mack’s distribution-free chain-ladder model.</p>
+<div id="S:DeterministicCL" class="section level3 hasAnchor" number="11.3.1">
+<h3><span class="header-section-number">11.3.1</span> The Deterministic Chain-Ladder<a href="ChapLossReserves.html#S:DeterministicCL" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The deterministic chain-ladder method focuses on the run-off triangle in cumulative form. Recall that a cell <span class="math inline">\((i,j)\)</span> in this triangle displays the cumulative amount paid up until development period <span class="math inline">\(j\)</span> for claims that occurred in year <span class="math inline">\(i\)</span>. The chain-ladder method assumes that <strong>development factors</strong> <span class="math inline">\(f_j\)</span> (also called age-to-age factors, link ratios or chain-ladder factors) exist such that</p>
+<p><span class="math display">\[
+C_{i,j+1} = f_j \times C_{i,j}.
+\]</span></p>
+<p>Thus, the development factor tells you how the cumulative amount in development year <span class="math inline">\(j\)</span> grows to the cumulative amount in year <span class="math inline">\(j+1\)</span>. We highlight the cumulative amount in period 0 in blue and the cumulative amount in period 1 in red on the Figure <a href="ChapLossReserves.html#fig:tikz-cum-triangle-cl1">11.10</a> taken from <span class="citation">Wüthrich and Merz (<a href="#ref-WuthrichMerz2008" role="doc-biblioref">2008</a>)</span> (Table 2.2, also used in <span class="citation">Wüthrich and Merz (<a href="#ref-WuthrichMerz2015" role="doc-biblioref">2015</a>)</span>, Table 1.4).</p>
+
+<a id="tikz-cum-triangle-cl1"></a>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:tikz-cum-triangle-cl1"></span>
+<img src="LossDataAnalytics_files/figure-html/tikz-cum-triangle-cl1-1.png" alt="A Run-off Triangle with Cumulative Payment Data Highlighting the Cumulative Amount in Period 0 in Blue and the Cumulative Amount in Period 1 in Red. Source: Wüthrich and Merz (2008), Table 2.2." width="960" />
+<p class="caption">
+Figure 11.10: <strong>A Run-off Triangle with Cumulative Payment Data Highlighting the Cumulative Amount in Period 0 in Blue and the Cumulative Amount in Period 1 in Red.</strong> <em>Source: <span class="citation">Wüthrich and Merz (<a href="#ref-WuthrichMerz2008" role="doc-biblioref">2008</a>)</span>, Table 2.2.</em>
+</p>
+</div>
+<p>The chain-ladder method then presents an intuitive recipe to estimate or calculate these development factors. Since the first development factor <span class="math inline">\(f_0\)</span> describes the development of the cumulative claim amount from development period 0 to development period 1, it can be estimated as the ratio of the cumulative amounts in red and the cumulative amounts in blue, highlighted in the Figure <a href="ChapLossReserves.html#fig:tikz-cum-triangle-cl1">11.10</a>. We then obtain the following estimate <span class="math inline">\(\hat{f}_0^{CL}\)</span> for the first development factor <span class="math inline">\(f_0\)</span>, given observations <span class="math inline">\(\mathcal{D}_I\)</span>:</p>
+<p><span class="math display">\[
+\hat{f}^{CL}_{\color{magenta}{0}} = \frac{\sum_{i=1}^{10-\color{magenta}{0}-1} \color{red}{C_{i,\color{magenta}{0}+1}}}{\sum_{i=1}^{10-\color{magenta}{0}-1} \color{blue}{C_{i\color{magenta}{0}}}}= 1.4925.
+\]</span></p>
+<p>Note that the index <span class="math inline">\(i\)</span>, used in the sums in the numerator and denominator, runs from the first occurrence period (1) to the last occurrence period (9) for which both development periods 0 and 1 are observed. As such, this development factor measures how the data in blue grow to the data in red, averaged across all occurrence periods for which both periods are observed. The chain-ladder method then uses this development factor estimator to predict the cumulative amount <span class="math inline">\(C_{10,1}\)</span> (i.e. the cumulative amount paid up until and including development year 1 for accidents that occurred in year 10). This prediction is obtained by multiplying the most recent observed cumulative claim amount for occurrence period 10 (i.e. <span class="math inline">\(C_{10,0}\)</span> with development period 0) with the estimated development factor <span class="math inline">\(\hat{f}^{CL}_0\)</span>:</p>
+<p><span class="math display">\[
+\hat{C}_{10, 1} = C_{10,0} \cdot \hat{f}^{CL}_0 = 5,676\cdot 1.4925=8,471.
+\]</span>
+Going forward with this reasoning, the next development factor <span class="math inline">\(f_1\)</span> can be estimated. Since <span class="math inline">\(f_1\)</span> captures the development from period 1 to period 2, it can be estimated as the ratio of the numbers in red and the numbers in blue as highlighted in Figure <a href="ChapLossReserves.html#fig:tikz-cum-triangle-cl2">11.11</a>.</p>
+
+<a id="tikz-cum-triangle-cl2"></a>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:tikz-cum-triangle-cl2"></span>
+<img src="LossDataAnalytics_files/figure-html/tikz-cum-triangle-cl2-1.png" alt="A Run-off Triangle with Cumulative Payment Data Highlighting the Cumulative Amount in Period 1 in Blue and the Cumulative Amount in Period 2 in Red. Source: Wüthrich and Merz (2008), Table 2.2." width="960" />
+<p class="caption">
+Figure 11.11: <strong>A Run-off Triangle with Cumulative Payment Data Highlighting the Cumulative Amount in Period 1 in Blue and the Cumulative Amount in Period 2 in Red.</strong> <em>Source: <span class="citation">Wüthrich and Merz (<a href="#ref-WuthrichMerz2008" role="doc-biblioref">2008</a>)</span>, Table 2.2.</em>
+</p>
+</div>
+<p>The mathematical notation of the estimate <span class="math inline">\(\hat{f}_1^{CL}\)</span> for the next development factor <span class="math inline">\(f_1\)</span>, given observations <span class="math inline">\(\mathcal{D}_I\)</span>, equals:</p>
+<p><span class="math display">\[
+\hat{f}^{CL}_{\color{magenta}{1}} = \frac{\sum_{i=1}^{10-\color{magenta}{1}-1} \color{red}{C_{i,\color{magenta}{1}+1}}}{\sum_{i=1}^{10-\color{magenta}{1}-1} \color{blue}{C_{i\color{magenta}{1}}}}=1.0778.
+\]</span>
+Consequently, this factor measures how the cumulative paid amount in development period 1 grows to period 2, averaged across all occurrence periods for which both periods are observed. The index <span class="math inline">\(i\)</span> now runs from period 1 to 8, since these are the occurrence periods for which both development periods 1 and 2 are observed. This estimate for the second development factor is then used to predict the missing, unobserved cells in development period 2:</p>
+<p><span class="math display">\[
+\begin{array}{rl}
+\hat{C}_{10,2} &amp;= C_{10,0} \cdot \hat{f}^{CL}_0 \cdot \hat{f}_1^{CL} = \hat{C}_{10,1} \cdot \hat{f}_1^{CL} = 8,471 \cdot 1.0778 = 9,130 \\
+\hat{C}_{9,2}  &amp;= C_{9,1} \cdot \hat{f}^{CL}_1 = 7,649 \cdot 1.0778 = 8,244.
+\end{array}
+\]</span>
+Note that for <span class="math inline">\(\hat{C}_{10,2}\)</span> you actually use the estimate <span class="math inline">\(\hat{C}_{10,1}\)</span> and multiply it with the estimated development factor <span class="math inline">\(\hat{f}_1^{CL}\)</span>.</p>
+<p>We continue analogously and obtain following predictions, printed in italics in the Figure <a href="ChapLossReserves.html#fig:tikz-cum-triangle-cl3">11.12</a>:</p>
+
+<a id="tikz-cum-triangle-cl3"></a>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:tikz-cum-triangle-cl3"></span>
+<img src="LossDataAnalytics_files/figure-html/tikz-cum-triangle-cl3-1.png" alt="A Run-off Triangle with Cumulative Payment Data Including Predictions in Italic Source: Wüthrich and Merz (2008), Table 2.2." width="960" />
+<p class="caption">
+Figure 11.12: <strong>A Run-off Triangle with Cumulative Payment Data Including Predictions in Italic</strong> <em>Source: <span class="citation">Wüthrich and Merz (<a href="#ref-WuthrichMerz2008" role="doc-biblioref">2008</a>)</span>, Table 2.2.</em>
+</p>
+</div>
+<p>Eventually we need to estimate the values in the final column. The last development factor <span class="math inline">\(f_8\)</span> measures the growth from development period 8 to development period 9 in the triangle. Since only the first row in the triangle has both cells observed, this last factor is estimated as the ratio of the value in red and the value in blue in Figure <a href="ChapLossReserves.html#fig:tikz-cum-triangle-cl3b">11.13</a>.</p>
+
+<a id="tikz-cum-triangle-cl3b"></a>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:tikz-cum-triangle-cl3b"></span>
+<img src="LossDataAnalytics_files/figure-html/tikz-cum-triangle-cl3b-1.png" alt="A Run-off Triangle with Cumulative Payment Data Highlighting the Cumulative Amount in Period 8 in Blue and the Cumulative Amount in Period 9 in Red. Source: Wüthrich and Merz (2008), Table 2.2." width="960" />
+<p class="caption">
+Figure 11.13: <strong>A Run-off Triangle with Cumulative Payment Data Highlighting the Cumulative Amount in Period 8 in Blue and the Cumulative Amount in Period 9 in Red.</strong> <em>Source: <span class="citation">Wüthrich and Merz (<a href="#ref-WuthrichMerz2008" role="doc-biblioref">2008</a>)</span>, Table 2.2.</em>
+</p>
+</div>
+<p>Given observations <span class="math inline">\(\mathcal{D}_I\)</span>, this factor estimate <span class="math inline">\(\hat{f}^{CL}_{8}\)</span> is equal to:</p>
+<p><span class="math display">\[
+\hat{f}^{CL}_{\color{magenta}{8}} = \frac{\sum_{i=1}^{10-\color{magenta}{8}-1} \color{red}{C_{i,\color{magenta}{8}+1}}}{\sum_{i=1}^{10-\color{magenta}{8}-1} \color{blue}{C_{i\color{magenta}{8}}}}=1.001.
+\]</span>
+Typically this last development factor is close to 1 and hence the cash flows paid in the final development period are minor.
+Using this development factor estimate, we can now estimate the remaining cumulative claim amounts in the column by multiplying the values for development year 8 with this factor.</p>
+<p>The general math notation for the chain ladder predictions for the lower triangle (<span class="math inline">\(i+j&gt;I\)</span>) is as follows:</p>
+<p><span class="math display">\[
+\begin{array}{rl}
+\hat{C}_{ij}^{CL} &amp;= C_{i,I-i} \cdot \prod_{l=I-i}^{j-1} \hat{f}_l^{CL} \\
+\hat{f}_j^{CL} &amp;= \frac{\sum_{i=1}^{I-j-1} C_{i,j+1}}{\sum_{i=1}^{I-j-1} C_{ij}},
+\end{array}
+\]</span>
+where <span class="math inline">\(C_{i,I-i}\)</span> is on the last observed diagonal. It is clear that an important assumption of the chain-ladder method is that the proportional developments of claims from one development period to the next are similar for all occurrence years.</p>
+<p>This yields the following Figure <a href="ChapLossReserves.html#fig:tikz-cum-triangle-cl4">11.14</a>:</p>
+
+<a id="tikz-cum-triangle-cl4"></a>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:tikz-cum-triangle-cl4"></span>
+<img src="LossDataAnalytics_files/figure-html/tikz-cum-triangle-cl4-1.png" alt="A Run-off Triangle with Cumulative Payment Data Including Predictions in Italic Source: Wüthrich and Merz (2008), Table 2.2." width="960" />
+<p class="caption">
+Figure 11.14: <strong>A Run-off Triangle with Cumulative Payment Data Including Predictions in Italic</strong> <em>Source: <span class="citation">Wüthrich and Merz (<a href="#ref-WuthrichMerz2008" role="doc-biblioref">2008</a>)</span>, Table 2.2.</em>
+</p>
+</div>
+<p>The numbers in the last column show the estimates for the ultimate claim amounts. The estimate for the outstanding claim amount <span class="math inline">\(\hat{\mathcal{R}}_i^{CL}\)</span> for a particular occurrence period <span class="math inline">\(i=I-J+1,\ldots, I\)</span> is then given by the difference between the ultimate claim amount and the cumulative amount as observed on the most recent diagonal:</p>
+<p><span class="math display">\[
+\hat{\mathcal{R}}_i^{CL} =\hat{C}_{iJ}^{CL}-C_{i,I-i}.
+\]</span>
+This is the chain-ladder estimate for the reserve necessary to fulfill future liabilities with respect to claims that occurred in this particular occurrence period. These reserves per occurrence period and for the total summed over all occurrence periods are summarized in Figure <a href="ChapLossReserves.html#fig:tikz-cum-triangle-cl5">11.15</a>.</p>
+
+<a id="tikz-table-cl5"></a>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:tikz-cum-triangle-cl5"></span>
+<img src="LossDataAnalytics_files/figure-html/tikz-cum-triangle-cl5-1.png" alt="Reserves per Occurence Period and for Total" width="960" />
+<p class="caption">
+Figure 11.15: <strong>Reserves per Occurence Period and for Total</strong>
+</p>
+</div>
+</div>
+<div id="macks-distribution-free-chain-ladder-model" class="section level3 hasAnchor" number="11.3.2">
+<h3><span class="header-section-number">11.3.2</span> Mack’s Distribution-Free Chain-Ladder Model<a href="ChapLossReserves.html#macks-distribution-free-chain-ladder-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>At this stage, the traditional chain-ladder method provides a point estimator <span class="math inline">\(\hat{C}^{CL}_{iJ}\)</span> for the forecast of <span class="math inline">\(C_{iJ}\)</span>, using the information <span class="math inline">\(\mathcal{D}_I\)</span>. Since the chain-ladder method is a purely deterministic and intuitively natural algorithm to complete a run-off triangle, we are not able to determine how reliable that point estimator is or to model the variation of the future payments. To answer such questions an underlying stochastic model that reproduces the chain-ladder reserve estimates is needed.</p>
+<p>In this section we will focus on the distribution-free chain-ladder model as an underlying stochastic model, introduced in <span class="citation">Mack (<a href="#ref-Mack1993" role="doc-biblioref">1993</a>)</span>. This method allows us to estimate the standard errors of the chain-ladder predictions. In the next Section <a href="ChapLossReserves.html#S:GLMs">11.4</a>, generalized linear models are used to develop a fully stochastic approach for predicting the outstanding reserve.</p>
+<p>In Mack’s approach the following conditions (without assuming a distribution) hold:</p>
+<ul>
+<li><p>Cumulative claims <span class="math inline">\((C_{ij})_{j=0,\ldots,J}\)</span> are independent over different occurrence periods <span class="math inline">\(i\)</span>.</p></li>
+<li><p>There exist fixed constants <span class="math inline">\(f_0, \ldots, f_{J-1}\)</span> and <span class="math inline">\(\sigma^2_0,\ldots, \sigma^2_{J-1}\)</span> such that for all <span class="math inline">\(i=1,\ldots, I\)</span> and <span class="math inline">\(j=0,\ldots,J-1\)</span>:</p></li>
+</ul>
+<p><span class="math display">\[
+\begin{array}{rl}
+E[C_{i,j+1}|C_{i0},\ldots,C_{ij}] &amp;= f_j \cdot C_{ij} \\
+\text{Var}(C_{i,j+1}|C_{ij}) &amp;= \sigma^2_j \cdot C_{ij}.
+\end{array}
+\]</span></p>
+<p>This means that the cumulative claims <span class="math inline">\((C_{ij})_{j=0,\ldots,J}\)</span> are Markov processes (in the development periods <span class="math inline">\(j\)</span>) and hence the future only depends on the present.</p>
+<p>Under these assumptions, the expected value of the ultimate claim amount <span class="math inline">\(C_{i,J}\)</span>, given the available data in the upper triangle, is the cumulative amount on the most recent diagonal (<span class="math inline">\(C_{i, I-1}\)</span>) multiplied with appropriate development factors <span class="math inline">\(f_j\)</span>. In mathematical notation we obtain for known development factors <span class="math inline">\(f_j\)</span> and observations <span class="math inline">\(\mathcal{D}_I\)</span>:</p>
+<p><span class="math display">\[
+E[C_{iJ}|\mathcal{D}_I] = C_{i,I-i} \prod_{j=I-i}^{J-1} f_j.
+\]</span>
+This is exactly what the deterministic chain-ladder method does, as explained in Section <a href="ChapLossReserves.html#S:DeterministicCL">11.3.1</a>. In practice, the development factors are not known and need to be estimated from the data that is available in the upper triangle. In Mack’s approach we obtain exactly the same expression for estimating the development factors <span class="math inline">\(f_j\)</span> at time <span class="math inline">\(I\)</span> as in the deterministic chain-ladder algorithm:</p>
+<p><span class="math display">\[
+\hat{f}_j^{CL} =\frac{\sum_{j=1}^{I-j-1} C_{i,j+1}}{\sum_{i=1}^{I-j-1} C_{ij}}.
+\]</span>
+The predictions for the cells in the lower triangle (i.e. for cells $C_{i,j} $where <span class="math inline">\(i+j&gt;I\)</span>) are then obtained by replacing the unknown factors <span class="math inline">\(f_j\)</span> by their corresponding estimates <span class="math inline">\(\hat{f}_j^{CL}\)</span>:</p>
+<p><span class="math display">\[
+\hat{C}^{CL}_{ij} = C_{i,I-i}\prod_{l=I-i}^{j-1} \hat{f}_l^{CL}.
+\]</span></p>
+<p>To quantify the prediction error that comes with the chain-ladder predictions, Mack also introduced variance parameters <span class="math inline">\(\sigma^2_j\)</span>. To gain insight in the estimation of these variance parameters, so-called individual development factors <span class="math inline">\(f_{i,j}\)</span> are introduced (which are specific to occurrence period <span class="math inline">\(i\)</span>):</p>
+<p><span class="math display">\[
+f_{i,j} = \frac{C_{i,j+1}}{C_{ij}}.
+\]</span>
+These individual development also describe how the cumulative amount grows from period <span class="math inline">\(j\)</span> to period <span class="math inline">\(j+1\)</span>, but they consider the ratio of only two cells (instead of taking the ratio of two sums over all available occurrence periods).
+Note that the development factors can be written as a weighted average of individual development factors:</p>
+<p><span class="math display">\[
+\hat{f}_j^{CL} = \sum_{i=1}^{I-j-1} \frac{C_{ij}}{\sum_{i=1}^{I-j-1} C_{ij}} f_{i,j},
+\]</span>
+where the weights are equal to the cumulative claims <span class="math inline">\(C_{ij}\)</span>.</p>
+<p>Let us now estimate the variance parameters <span class="math inline">\(\sigma^2\)</span> by writing Mack’s variance assumption in equivalent ways.
+First, the variance of the ratio of <span class="math inline">\(C_{i,j+1}\)</span> and <span class="math inline">\(c_{i,j}\)</span> conditional on <span class="math inline">\(C_{i,0},\ldots, C_{i,j}\)</span> is proportional to the inverse of <span class="math inline">\(C_{i,j}\)</span>:</p>
+<p><span class="math display">\[
+\text{Var}[C_{i,j+1}/C_{ij}|C_{i0},\ldots,C_{ij}] ~ \propto ~ \frac{1}{C_{ij}}.
+\]</span></p>
+<p>This reminds us of a typical <em>weighted least squares</em> setting where the weights are the inverse of the variability of a response. Therefore, a more volatile or imprecise response variable will get less weight. The <span class="math inline">\(C_{i,j}\)</span> play the role of the weights. Using the unknown variance parameter <span class="math inline">\(\sigma^2_j\)</span> this variance assumption can be written as:</p>
+<p><span class="math display">\[
+\text{Var}[C_{i,j+1}|C_{i0},\ldots,C_{ij}] = \sigma^2_j \cdot C_{ij},
+\]</span>
+The connection with weighted least squares then directly leads to an unbiased estimate for the unknown variance parameter <span class="math inline">\(\sigma^2_j\)</span> in the form of a weighted residual sum of squares:</p>
+<p><span class="math display">\[
+\hat{\sigma}^2_j = \frac{1}{I-j-2}\sum_{i=1}^{I-j-1} C_{ij}\left(\frac{C_{i,j+1}}{C_{ij}}-\hat{f}_j^{CL}\right)^2.
+\]</span>
+The weights are again equal to <span class="math inline">\(C_{i,j}\)</span> and the residuals are the differences between the ratios <span class="math inline">\(C_{i,j+1}/C_{i,j}\)</span> and the individual development factors.</p>
+<p>We now have all ingredients required to calibrate the distribution-free chain-ladder model to the data. The next step is then to analyze the prediction uncertainty and the prediction error. Hereto we use the chain-ladder predictor where we replace the unknown development factors with their estimators:</p>
+<p><span class="math display">\[
+\hat{C}_{iJ}^{CL} = C_{i,I-i} \prod_{l=I-i}^{J-1} \hat{f}_l^{CL}
+\]</span></p>
+<p>We use this expression either as an estimator for the conditional expectation of the ultimate claim amount (given the observed upper triangle) or as a predictor for the ultimate claim amount as a random variable (given the observed upper triangle).</p>
+<p>In statistics the simplest measure to analyze the uncertainty that comes with a point estimate or prediction is the <em>Mean Squared Error of Prediction</em> (<em>MSEP</em>). Here we consider a conditional <em>MSEP</em>, conditional on the data observed in the upper triangle:</p>
+<p><span class="math display">\[
+MSEP_{C_{iJ}|\mathcal{D}_I}\left(\hat{C}_{iJ}^{CL}\right) = E\left[\left(C_{iJ}-\hat{C}_{iJ}^{CL}\right)^2|\mathcal{D}_I\right].
+\]</span>
+This conditional <em>MSEP</em> measures:</p>
+<ul>
+<li>the distance between the (true) ultimate claim <span class="math inline">\(C_{iJ}\)</span> and its chain-ladder predictor <span class="math inline">\(\hat{C}_{iJ}^{CL}\)</span> at time <span class="math inline">\(I\)</span>, and</li>
+<li>the total prediction uncertainty over the entire run-off of the nominal ultimate claim <span class="math inline">\(C_{iJ}\)</span>. It does not consider time value of money, a risk margin nor any dynamics in claim development.</li>
+</ul>
+<p>The <em>MSEP</em> that comes with the estimate for the ultimate cumulative claim amount is equal to the <em>MSEP</em> that measures the squared distance between the true and the estimated reserve:</p>
+<p><span class="math display">\[
+\begin{array}{rl}
+MSEP_{\hat{\mathcal{R}}^{I}_{i}|\mathcal{D}_I}(\hat{\mathcal{R}}^{I}_i) &amp;= E[(\hat{\mathcal{R}}^I_i-\mathcal{R}^I_i)^2|\mathcal{D}_I] \\
+&amp;= E[(\hat{C}^{CL}_{iJ}-C_{iJ})^2|\mathcal{D}_I] = MSEP(\hat{C}_{iJ}).
+\end{array}
+\]</span>
+The reason for this equivalence is the fact that the reserve is the ultimate claim amount minus the most recently observed claim amount. The latter is observed and used in both <span class="math inline">\(\mathcal{R}^I_i\)</span> and <span class="math inline">\(\hat{\mathcal{R}}^I_i\)</span>.</p>
+<p>It is interesting to decompose this <em>MSEP</em> into a component that captures <em>process variance</em> and a component that captures <em>parameter estimation variance</em>:</p>
+<p><span class="math display">\[
+\begin{array}{rl}
+MSEP_{C_{iJ|\mathcal{D}_I}}\left(\hat{C}_{iJ}^{CL}\right) &amp;=
+E\left[ \left( C_{iJ} - \hat{C}_{iJ} \right)^2 | \mathcal{D}_I\right] \\
+&amp;= \text{Var}(C_{iJ}|\mathcal{D}_I) + \left( E[C_{iJ}|\mathcal{D}_I]-\hat{C}_{iJ}^{CL} \right)^2 \\
+&amp;= \color{magenta}{\text{process variance}} + \color{magenta}{\text{parameter estimation variance}},
+\end{array}
+\]</span></p>
+<p>for a <span class="math inline">\(\mathcal{D}_I\)</span> measurable estimator/predictor <span class="math inline">\(\hat{C}_{iJ}\)</span>. The process variance component captures the volatility or uncertainty in the random variable <span class="math inline">\(C_{i,J}\)</span> and the parameter estimation variance measures the error that arises from replacing the unknown development factors <span class="math inline">\(f_j\)</span> with their estimated values. This result follows immediately from following equality about the variance of a shifted random variable <span class="math inline">\(X\)</span> where the shift <span class="math inline">\(a\)</span> is deterministic:</p>
+<p><span class="math display">\[
+\mathrm{E}~(X-a)^2 = \text{Var}(X)+\left[\mathrm{E}(X)-a\right]^2.
+\]</span></p>
+<p>Applied to the expression of the <em>MSEP</em> you treat <span class="math inline">\(\hat{C}_{i,J}\)</span> as fixed because you work conditionally on the data in the upper triangle and <span class="math inline">\(\hat{C}_{i,J}\)</span> only uses information from this upper triangle.</p>
+<p><span class="citation">Mack (<a href="#ref-Mack1993" role="doc-biblioref">1993</a>)</span> then derived the important formula for the conditional <em>MSEP</em> in the distribution-free chain-ladder model for a single occurrence period <span class="math inline">\(i\)</span>:</p>
+<p><span class="math display">\[
+\widehat{MSEP_{C_{iJ}|\mathcal{D}_I}}  =
+\left(\hat{C}_{iJ}^{CL}\right)^2 \sum_{j=I-i}^{J-1} \left[ \frac{\hat{\sigma}_j^2}{(\hat{f}_j^{CL})^2} \left(\frac{1}{\hat{C}^{CL}_{ij}}+\frac{1}{\sum_{n=1}^{I-j-1}C_{nj}}\right)\right].
+\]</span></p>
+<p>For the derivation of this popular formula, we refer to his paper. Note that it is an estimate of the <em>MSEP</em> since the unknown parameters <span class="math inline">\(f_j\)</span> and <span class="math inline">\(\sigma_j\)</span> need to be estimated as the estimation error cannot be calculated explicitly.</p>
+<p>Mack also derived a formula for the <em>MSEP</em> for the total reserve, across all occurrence periods:</p>
+<p><span class="math display">\[
+\begin{array}{ll}
+\widehat{MSEP_{\sum_{i=1}^I \hat{C}^{CL}_{iJ}}}\left( \sum_{i=1}^I \hat{C}^{CL}_{iJ}  \right) \\
+\ \ \ \ \ \sum_{i=1}^I \widehat{MSEP_{C_{iJ}|\mathcal{D}_I}}\left( \hat{C}^{CL}_{iJ} \right)
+\color{blue}{+2 \sum_{1\leq i&lt; k \leq I} \hat{C}_{iJ}^{CL} \hat{C}_{kJ}^{CL}
+\sum_{j=I-i}^{J-1} \frac{ \hat{\sigma}_j^2/\left( \hat{f}_j^{\text{CL}} \right)^2 }{ \sum_{n=1}^{I-j-1} C_{nj} }}.
+\end{array}
+\]</span>
+The result is the sum of the <em>MSEP</em>s per occurrence period plus a covariance term. This covariance term is added because the MSEPs for different occurrence periods <span class="math inline">\(i\)</span> use the same parameter estimates <span class="math inline">\(\hat{f}_j^{CL}\)</span> of <span class="math inline">\(f_j\)</span> for different accident years <span class="math inline">\(i\)</span>.</p>
+</div>
+<div id="r-code-for-chain-ladder-predictions" class="section level3 hasAnchor" number="11.3.3">
+<h3><span class="header-section-number">11.3.3</span> R code for Chain-Ladder Predictions<a href="ChapLossReserves.html#r-code-for-chain-ladder-predictions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We use the object <code>my_triangle</code> of type <code>triangle</code> that was created in Section <a href="ChapLossReserves.html#S:Rcode">11.2.4</a>. The distribution-free chain-ladder model of <span class="citation">Mack (<a href="#ref-Mack1993" role="doc-biblioref">1993</a>)</span> is implemented in the <code>ChainLadder</code> package <span class="citation">(<a href="#ref-R-chainladder" role="doc-biblioref">Gesmann et al. 2019</a>)</span> (as a special form of weighted least squares) and can be applied on the data <code>my_triangle</code> to predict outstanding claim amounts and to estimate the standard error around those forecasts.</p>
+<h5 style="text-align: center;">
+<a id="displayCode.MackModel.1" href="javascript:togglecode('toggleCode.MackModel.1','displayCode.MackModel.1');"><i><strong>R Code for Mack Model Forecasts</strong></i></a>
+</h5>
+<div id="toggleCode.MackModel.1" style="display: none">
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="ChapLossReserves.html#cb130-1" aria-hidden="true" tabindex="-1"></a>CL <span class="ot">&lt;-</span> <span class="fu">MackChainLadder</span>(my_triangle)</span>
+<span id="cb130-2"><a href="ChapLossReserves.html#cb130-2" aria-hidden="true" tabindex="-1"></a>CL</span></code></pre></div>
+<pre><code>MackChainLadder(Triangle = my_triangle)
+
+         Latest Dev.To.Date   Ultimate      IBNR Mack.S.E CV(IBNR)
+2004 11,148,124       1.000 11,148,124         0        0      NaN
+2005 10,648,192       0.999 10,663,318    15,126      716   0.0474
+2006 10,635,751       0.998 10,662,008    26,257    1,131   0.0431
+2007  9,724,068       0.996  9,758,606    34,538    3,121   0.0904
+2008  9,786,916       0.991  9,872,218    85,302    7,654   0.0897
+2009  9,935,753       0.984 10,092,247   156,494   33,347   0.2131
+2010  9,282,022       0.970  9,568,143   286,121   73,469   0.2568
+2011  8,256,211       0.948  8,705,378   449,167   85,400   0.1901
+2012  7,648,729       0.880  8,691,971 1,043,242  134,338   0.1288
+2013  5,675,568       0.590  9,626,383 3,950,815  410,818   0.1040
+
+                 Totals
+Latest:   92,741,334.00
+Dev:               0.94
+Ultimate: 98,788,397.77
+IBNR:      6,047,063.77
+Mack.S.E     462,977.83
+CV(IBNR):          0.08</code></pre>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="ChapLossReserves.html#cb132-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">summary</span>(CL)<span class="sc">$</span>Totals)</span></code></pre></div>
+<pre><code>             Totals
+Latest:    92741334
+Dev:              1
+Ultimate:  98788398
+IBNR:       6047064
+Mack S.E.:   462978
+CV(IBNR):         0</code></pre>
+</div>
+<p>The development factors are obtained as follows:</p>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="ChapLossReserves.html#cb134-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(CL<span class="sc">$</span>f,<span class="at">digits =</span> <span class="dv">4</span>)</span></code></pre></div>
+<pre><code> [1] 1.4925 1.0778 1.0229 1.0148 1.0070 1.0051 1.0011 1.0010 1.0014 1.0000</code></pre>
+<p>We can also print the complete run-off triangle (including predictions).</p>
+<h5 style="text-align: center;">
+<a id="displayCode.MackModel.1" href="javascript:togglecode('toggleCode.MackModel.1','displayCode.MackModel.1');"><i><strong>R Code for Mack Model Completed Triangle</strong></i></a>
+</h5>
+<div id="toggleCode.MackModel.1" style="display: none">
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="ChapLossReserves.html#cb136-1" aria-hidden="true" tabindex="-1"></a>CL<span class="sc">$</span>FullTriangle</span></code></pre></div>
+<pre><code>      dev
+origin       0       1        2        3        4        5        6        7
+  2004 5946975 9668212 10563929 10771690 10978394 11040518 11106331 11121181
+  2005 6346756 9593162 10316383 10468180 10536004 10572608 10625360 10636546
+  2006 6269090 9245313 10092366 10355134 10507837 10573282 10626827 10635751
+  2007 5863015 8546239  9268771  9459424  9592399  9680740  9724068  9734574
+  2008 5778885 8524114  9178009  9451404  9681692  9786916  9837277  9847905
+  2009 6184793 9013132  9585897  9830796  9935753 10005044 10056528 10067393
+  2010 5600184 8493391  9056505  9282022  9419776  9485469  9534279  9544579
+  2011 5288066 7728169  8256211  8445057  8570389  8630159  8674567  8683939
+  2012 5290793 7648729  8243496  8432051  8557190  8616868  8661208  8670566
+  2013 5675568 8470989  9129696  9338521  9477113  9543206  9592313  9602676
+      dev
+origin        8        9
+  2004 11132310 11148124
+  2005 10648192 10663318
+  2006 10646884 10662008
+  2007  9744764  9758606
+  2008  9858214  9872218
+  2009 10077931 10092247
+  2010  9554570  9568143
+  2011  8693029  8705378
+  2012  8679642  8691971
+  2013  9612728  9626383</code></pre>
+</div>
+<p>The <a href="#" class="tooltip" style="color:green"><em>MSEP</em><span style="font-size:8pt">Mean Squared Error of Prediction</span></a> for the total reserve across all occurrence periods is given by:</p>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="ChapLossReserves.html#cb138-1" aria-hidden="true" tabindex="-1"></a>CL<span class="sc">$</span>Total.Mack.S.E<span class="sc">^</span><span class="dv">2</span></span></code></pre></div>
+<pre><code>           9 
+214348469061 </code></pre>
+<p>It is strongly advised to validate Mack’s assumptions by checking that there are no trends in the residual plots. The last four plots that we obtain with the following command show respectively the standardized residuals versus the fitted values, the origin period, the calendar period and the development period.</p>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="ChapLossReserves.html#cb140-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(CL)</span></code></pre></div>
+<p><img src="LossDataAnalytics_files/figure-html/ResidualPlot-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>The top left-hand plot is a bar-chart of the latest claims position plus IBNR and Mack’s standard error by occurrence period. The top right-hand plot shows the forecasted development patterns for all occurrence periods (starting with 1 for the oldest occurrence period).</p>
+<p>When setting the argument <code>lattice=TRUE</code> we obtain a plot of the development, including the prediction and estimated standard errors by occurrence period:</p>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="ChapLossReserves.html#cb141-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(CL, <span class="at">lattice=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<p><img src="LossDataAnalytics_files/figure-html/PlotLattice-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="S:GLMs" class="section level2 hasAnchor" number="11.4">
+<h2><span class="header-section-number">11.4</span> GLMs and Bootstrap for Loss Reserves<a href="ChapLossReserves.html#S:GLMs" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<hr />
+<p><strong>This section is being written and is not yet complete nor edited. It is here to give you a flavor of what will be in the final version.</strong></p>
+<hr />
+<p>This section covers regression models to analyze run-off triangles. When analyzing the data in a run-off triangle with a regression model, the standard toolbox for model building, estimation and prediction becomes available. Using these tools we are able to go beyond the point estimate and standard error as derived in Section <a href="ChapLossReserves.html#S:Chain-ladder">11.3</a>. More specifically, we build a generalized linear model (<a href="#" class="tooltip" style="color:green"><em>GLM</em><span style="font-size:8pt">Generalized linear model</span></a>) for the incremental payments <span class="math inline">\(X_{ij}\)</span> in Figure <a href="ChapLossReserves.html#fig:tikz-triangle">11.6</a>. Whereas the chain-ladder method works with cumulative data, typical GLMs assume the response variables to be independent and therefore work with incremental run-off triangles.</p>
+<div id="model-specification" class="section level3 hasAnchor" number="11.4.1">
+<h3><span class="header-section-number">11.4.1</span> Model Specification<a href="ChapLossReserves.html#model-specification" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Let <span class="math inline">\(X_{ij}\)</span> denote the incremental payment in cell <span class="math inline">\((i,j)\)</span> of the run-off triangle. We assume the <span class="math inline">\(X_{ij}\)</span>s to be independent with a density <span class="math inline">\(f(x_{ij};\theta_{ij},\phi)\)</span> from the exponential family of distributions. We identify</p>
+<ul>
+<li><span class="math inline">\(\mu_{ij}=E[X_{ij}]\)</span> the expected value of cell <span class="math inline">\(X_{ij}\)</span></li>
+<li><span class="math inline">\(\phi\)</span> the dispersion parameter and <span class="math inline">\(\text{Var}[X_{ij}]=\phi \cdot V(\mu_{ij})\)</span>, where <span class="math inline">\(V(.)\)</span> is the variance function</li>
+<li><span class="math inline">\(\eta_{ij}\)</span> the linear predictor such that <span class="math inline">\(\eta_{ij}=g(\mu_{ij})\)</span> with <span class="math inline">\(g\)</span> the link function.</li>
+</ul>
+<p>Distributions from the exponential family and their default link functions are listed on <a href="http://stat.ethz.ch/R-manual/R-patched/library/stats/html/family.html" class="uri">http://stat.ethz.ch/R-manual/R-patched/library/stats/html/family.html</a>. We now discuss three specific GLMs widely used for loss reserving.</p>
+<p>First, the Poisson regression model was introduced in Section <a href="ChapRiskClass.html#S:RC:PoissonRegression">8.2</a>. In this model, we assume that <span class="math inline">\(X_{ij}\)</span> has a Poisson distribution with parameter</p>
+<p><span class="math display">\[
+\mu_{ij} = \pi_i \cdot \gamma_j,
+\]</span></p>
+<p>a cross-classified structure that captures a multiplicative effect of the occurrence year <span class="math inline">\(i\)</span> and the development period <span class="math inline">\(j\)</span>. The proposed model structure is not identifiable without an additional constraint on the parameters, e.g. <span class="math inline">\(\sum_{j=0}^J \gamma_j=1\)</span>. This constraint gives an explicit interpretation to <span class="math inline">\(\pi_i\)</span> (with <span class="math inline">\(i=1,\ldots,I\)</span>) as the exposure or volume measure for occurrence year <span class="math inline">\(i\)</span> and <span class="math inline">\(\gamma_j\)</span> as the fraction of the total volume paid out with delay <span class="math inline">\(j\)</span>. However, when calibrating GLMs in <code>R</code> alternative constraints such as <span class="math inline">\(\pi_1=1\)</span> or <span class="math inline">\(\gamma_1=1\)</span>, or a reparametrization where <span class="math inline">\(\mu_{ij} = \exp{(\mu+\alpha_i+\beta_j)}\)</span> are easier to implement. We continue with the latter specification, including <span class="math inline">\(\alpha_1 = \beta_0 = 0\)</span>, the so-called corner constraints. This GLM treats the occurrence year and the payment delay as factor variables and fits a parameter per level, next to an intercept <span class="math inline">\(\mu\)</span>. The corner constraints put the effect of the first level of a factor variable equal to zero. The Poisson assumption is particularly useful for a run-off triangle with numbers of reported claims, often used in the estimation of the number of <a href="#" class="tooltip" style="color:green"><em>IBNR</em><span style="font-size:8pt"> Incurred in the past But is Not yet Reported. For such a claim the insured event took place, but the insurance company is not yet aware of the associated claim.</span></a> claims (see Section <a href="ChapLossReserves.html#S:Data">11.2</a>).</p>
+<p>Second, an interesting modification of the basic Poisson regression model is the <strong>over-dispersed Poisson</strong> regression model where <span class="math inline">\(Z_{ij}\)</span> has a Poisson distribution with parameter <span class="math inline">\(\mu_{ij}/\phi\)</span> and</p>
+<p><span class="math display">\[
+\begin{array}{rl}
+X_{ij} &amp;\sim  \phi \cdot Z_{ij}  \\
+\mu_{ij} &amp;= \exp{(\mu + \alpha_i + \beta_j)}.
+\end{array}
+\]</span></p>
+<p>Consequently, <span class="math inline">\(X_{ij}\)</span> has the same specification for the mean as in the basic Poisson regression model, but now</p>
+<p><span class="math display">\[
+\text{Var}[X_{ij}] = \phi^2 \cdot \text{Var}[Z_{ij}] = \phi \cdot \exp{(\mu + \alpha_i + \beta_j)}.
+\]</span></p>
+<p>This construction allows for under (when <span class="math inline">\(\phi &lt;1\)</span>) and over-dispersion (with <span class="math inline">\(\phi&gt;1\)</span>). Because <span class="math inline">\(X_{ij}\)</span> no longer follows a well-known distribution, this approach is referred to as quasi-likelihood. It is particularly useful to model a run-off triangle with incremental payments, as these typically reveal over-dispersion.</p>
+<p>Third, the <strong>gamma</strong> regression model is relevant to model a run-off triangle with claim payments. Recall from Section <a href="ChapSeverity.html#S:Loss:Gamma">3.2.1</a> (see also the Appendix Chapter <a href="ChapSummaryDistributions.html#ChapSummaryDistributions">18</a>) that the gamma distribution has shape parameter <span class="math inline">\(\alpha\)</span> and scale parameter <span class="math inline">\(\theta\)</span>. From these, we reparameterize and define a new parameter <span class="math inline">\(\mu = \alpha \cdot \theta\)</span> while retaining the scale parameter <span class="math inline">\(\theta\)</span>. Further, assume that <span class="math inline">\(X_{ij}\)</span> has a gamma distribution and allow <span class="math inline">\(\mu\)</span> to vary by <span class="math inline">\(ij\)</span> such that</p>
+<p><span class="math display">\[
+\mu_{ij} =  \exp{(\mu + \alpha_i + \beta_j)}.
+\]</span></p>
+</div>
+<div id="model-estimation-and-prediction" class="section level3 hasAnchor" number="11.4.2">
+<h3><span class="header-section-number">11.4.2</span> Model Estimation and Prediction<a href="ChapLossReserves.html#model-estimation-and-prediction" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We now estimate the regression parameters <span class="math inline">\(\mu\)</span>, <span class="math inline">\(\alpha_i\)</span> and <span class="math inline">\(\beta_j\)</span> in the proposed GLMs. In <code>R</code> the <code>glm</code> function is readily available to estimate these parameters via maximum likelihood estimation (<a href="#" class="tooltip" style="color:green"><em>mle</em><span style="font-size:8pt">Maximum likelihood estimate</span></a>) or quasi-likelihood estimation (in the case of the over-dispersed Poisson). Having the parameter estimates <span class="math inline">\(\hat{\mu}\)</span>, <span class="math inline">\(\hat{\alpha}_i\)</span> and <span class="math inline">\(\hat{\beta}_j\)</span> available, a point estimate for each cell in the upper triangle follows</p>
+<p><span class="math display">\[
+\hat{X}_{ij} =\hat{E[X_{ij}]} = \exp{(\hat{\mu}+\hat{\alpha}_i+\hat{\beta}_j)},\ \text{with}\ i+j\leq I.
+\]</span>
+Similarly, a cell in the lower triangle will be predicted as</p>
+<p><span class="math display">\[
+\hat{X}_{ij} = \hat{E[X_{ij}]} = \exp{(\hat{\mu}+\hat{\alpha}_i+\hat{\beta}_j)},\ \text{with}\ i+j&gt; I.
+\]</span></p>
+<p>Point estimates for outstanding reserves (per occurrence year <span class="math inline">\(i\)</span> or the total reserve) then follow by summing the cell-specific estimates. By combining the observations in the upper triangle with their point estimates, we can construct properly defined residuals and use these for residual inspection.</p>
+</div>
+<div id="bootstrap" class="section level3 hasAnchor" number="11.4.3">
+<h3><span class="header-section-number">11.4.3</span> Bootstrap<a href="ChapLossReserves.html#bootstrap" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+</div>
+<div id="LossRe:further-reading-and-resources" class="section level2 hasAnchor" number="11.5">
+<h2><span class="header-section-number">11.5</span> Further Resources and Contributors<a href="ChapLossReserves.html#LossRe:further-reading-and-resources" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="contributors-7" class="section level4 unnumbered hasAnchor">
+<h4>Contributors<a href="ChapLossReserves.html#contributors-7" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li><strong>Katrien Antonio</strong>, KU Leuven and University of Amsterdam, <strong>Jan Beirlant</strong>, KU Leuven, and <strong>Tim Veerdonck</strong>, University of Antwerp, are the principal authors of the initial version of this chapter. Email: <a href="mailto:katrien.antonio@kuleuven.be" class="email">katrien.antonio@kuleuven.be</a> for chapter comments and suggested improvements.</li>
+</ul>
+</div>
+<div id="further-readings-and-references-1" class="section level4 unnumbered hasAnchor">
+<h4>Further Readings and References<a href="ChapLossReserves.html#further-readings-and-references-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>As displayed in Figure <a href="ChapLossReserves.html#fig:tikz-run-off">11.1</a>, similar timelines and visualizations are discussed (among others) in <span class="citation">Wüthrich and Merz (<a href="#ref-WuthrichMerz2008" role="doc-biblioref">2008</a>)</span>, <span class="citation">Antonio and Plat (<a href="#ref-AntonioPlat2014" role="doc-biblioref">2014</a>)</span> and <span class="citation">Wüthrich and Merz (<a href="#ref-WuthrichMerz2015" role="doc-biblioref">2015</a>)</span>.</p>
+<p>Over time actuaries started to think about possible underlying models and we mention some important contributions:</p>
+<ul>
+<li><span class="citation">Kremer (<a href="#ref-Kremer1982" role="doc-biblioref">1982</a>)</span>: two-way ANOVA</li>
+<li><span class="citation">Kremer (<a href="#ref-Kremer1984" role="doc-biblioref">1984</a>)</span>, <span class="citation">Mack (<a href="#ref-Mack1991" role="doc-biblioref">1991</a>)</span>: Poisson model</li>
+<li><span class="citation">Mack (<a href="#ref-Mack1993" role="doc-biblioref">1993</a>)</span>: distribution-free chain-ladder model</li>
+<li><span class="citation">A. E. Renshaw (<a href="#ref-Renshaw1989" role="doc-biblioref">1989</a>)</span>; <span class="citation">A. Renshaw and Verrall (<a href="#ref-RenshawVerrall1998" role="doc-biblioref">1998</a>)</span>: over-dispersed Poisson model</li>
+<li><span class="citation">Gisler (<a href="#ref-Gisler2006" role="doc-biblioref">2006</a>)</span>; <span class="citation">Gisler and Wüthrich (<a href="#ref-GislerWuthrich2008" role="doc-biblioref">2008</a>)</span>; <span class="citation">Bühlmann et al. (<a href="#ref-Buhlmann2009" role="doc-biblioref">2009</a>)</span>: Bayesian chain-ladder model.</li>
+</ul>
+<p>The various stochastic models proposed in actuarial literature rely on different assumptions and have different model properties, but have in common that they provide exactly the chain-ladder reserve estimates. For more information we also refer to <span class="citation">Mack and Venter (<a href="#ref-MackVenter2000" role="doc-biblioref">2000</a>)</span> and to the lively discussion that was published in <em>ASTIN Bulletin: Journal of the International Actuarial Association</em> in 2006 <span class="citation">(<a href="#ref-Venter2006" role="doc-biblioref">Gary G. Venter 2006</a>)</span>.</p>
+<p>To read more about exponential families and generalized linear models, see, for example, <span class="citation">McCullagh and Nelder (<a href="#ref-McCullaghNelder89" role="doc-biblioref">1989</a>)</span> and <span class="citation">Wüthrich and Merz (<a href="#ref-WuthrichMerz2008" role="doc-biblioref">2008</a>)</span>. We refer to <span class="citation">(<a href="#ref-Kremer1982" role="doc-biblioref">Kremer 1982</a>)</span>, <span class="citation">(<a href="#ref-RenshawVerrall1998" role="doc-biblioref">A. Renshaw and Verrall 1998</a>)</span> and <span class="citation">(<a href="#ref-EnglandVerrall2002" role="doc-biblioref">England and Verrall 2002</a>)</span>, and the overviews in <span class="citation">(<a href="#ref-Taylor2000" role="doc-biblioref">G. Taylor 2000</a>)</span>, <span class="citation">(<a href="#ref-WuthrichMerz2008" role="doc-biblioref">Wüthrich and Merz 2008</a>)</span> and <span class="citation">(<a href="#ref-WuthrichMerz2015" role="doc-biblioref">Wüthrich and Merz 2015</a>)</span> for more details on the discussed GLMs. XXX presents alternative distributional assumptions and specifications of the linear predictor.</p>
+
+</div>
+</div>
+</div>
+<h3>Bibliography<a href="bibliography.html#bibliography" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-AntonioPlat2014" class="csl-entry">
+Antonio, K., and R. Plat. 2014. <span>“Micro–Level Stochastic Loss Reserving for General Insurance.”</span> <em>Scandinavian Actuarial Journal</em> 7: 649–69.
+</div>
+<div id="ref-Buhlmann2009" class="csl-entry">
+Bühlmann, Hans, Massimo De Felice, Alois Gisler, Franco Moriconi, and Mario V Wüthrich. 2009. <span>“Recursive Credibility Formula for Chain Ladder Factors and the Claims Development Result.”</span> <em>ASTIN Bulletin: The Journal of the IAA</em> 39 (1): 275–306.
+</div>
+<div id="ref-EnglandVerrall2002" class="csl-entry">
+England, P., and R. Verrall. 2002. <span>“Stochastic Claims Reserving in General Insurance.”</span> <em>British Actuarial Journal</em> 8/3: 443–518.
+</div>
+<div id="ref-R-chainladder" class="csl-entry">
+Gesmann, Markus, Daniel Murphy, Yanwei Zhang, Alessandro Carrato, Mario Wuthrich, Fabio Concina, and Eric Dal Moro. 2019. <em>ChainLadder: Statistical Methods and Models for Claims Reserving in General Insurance</em>. <a href="https://CRAN.R-project.org/package=ChainLadder">https://CRAN.R-project.org/package=ChainLadder</a>.
+</div>
+<div id="ref-Gisler2006" class="csl-entry">
+Gisler, Alois. 2006. <span>“The Estimation Error in the Chain-Ladder Reserving Method: A Bayesian Approach.”</span> <em>ASTIN Bulletin: The Journal of the IAA</em> 36 (2): 554–65.
+</div>
+<div id="ref-GislerWuthrich2008" class="csl-entry">
+Gisler, Alois, and Mario V Wüthrich. 2008. <span>“Credibility for the Chain Ladder Reserving Method.”</span> <em>ASTIN Bulletin: The Journal of the IAA</em> 38 (2): 565–600.
+</div>
+<div id="ref-Kremer1982" class="csl-entry">
+Kremer, Erhard. 1982. <span>“IBNR-Claims and the Two-Way Model of ANOVA.”</span> <em>Scandinavian Actuarial Journal</em> 1982: 47–55.
+</div>
+<div id="ref-Kremer1984" class="csl-entry">
+———. 1984. <span>“A Class of Autoregressive Models for Predicting the Final Claims Amount.”</span> <em>Insurance: Mathematics and Economics</em> 3 (2): 111–19.
+</div>
+<div id="ref-Mack1991" class="csl-entry">
+Mack, Thomas. 1991. <span>“A Simple Parametric Model for Rating Automobile Insurance or Estimating IBNR Claims Reserves.”</span> <em>ASTIN Bulletin: The Journal of the IAA</em> 21 (1): 93–109.
+</div>
+<div id="ref-Mack1993" class="csl-entry">
+———. 1993. <span>“Distribution-Free Calculation of the Standard Error of Chain Ladder Reserve Estimates.”</span> <em>ASTIN Bulletin: The Journal of the IAA</em> 23 (2): 213–25.
+</div>
+<div id="ref-MackVenter2000" class="csl-entry">
+Mack, Thomas, and Gary Venter. 2000. <span>“A Comparison of Stochastic Models That Reproduce Chain Ladder Reserve Estimates.”</span> <em>Insurance: Mathematics and Economics</em> 26 (1): 101–7.
+</div>
+<div id="ref-McCullaghNelder89" class="csl-entry">
+McCullagh, Peter, and John A. Nelder. 1989. <em>Generalized Linear Models, Second Edition</em>. Chapman and Hall/CRC Monographs on Statistics and Applied Probability Series. Chapman &amp; Hall, London.
+</div>
+<div id="ref-Renshaw1989" class="csl-entry">
+Renshaw, Arthur E. 1989. <span>“Chain Ladder and Interactive Modelling.(claims Reserving and GLIM).”</span> <em>Journal of the Institute of Actuaries</em> 116 (3): 559–87.
+</div>
+<div id="ref-RenshawVerrall1998" class="csl-entry">
+Renshaw, A., and R. Verrall. 1998. <span>“A Stochastic Model Underlying the Chain-Ladder Technique.”</span> <em>British Actuarial Journal</em> 4/4: 903–23.
+</div>
+<div id="ref-Taylor2000" class="csl-entry">
+Taylor, G. 2000. <em>Loss Reserving: An Actuarial Perspective</em>. Kluwer Academic Publishers.
+</div>
+<div id="ref-taylor1986claims" class="csl-entry">
+Taylor, Gregory Clive. 1986. <em>Claims Reserving in Non-Life Insurance</em>. North Holland.
+</div>
+<div id="ref-Venter2006" class="csl-entry">
+Venter, Gary G. 2006. <span>“Discussion of the Mean Square Error of Prediction in the Chain Ladder Reserving Method.”</span> <em>ASTIN Bulletin: The Journal of the IAA</em> 36 (2): 566–71.
+</div>
+<div id="ref-WuthrichMerz2008" class="csl-entry">
+Wüthrich, Mario V., and Michael Merz. 2008. <em>Stochastic Claims Reserving Methods in Insurance</em>. Vol. 435. Wiley Finance. John Wiley &amp; Sons.
+</div>
+<div id="ref-WuthrichMerz2015" class="csl-entry">
+———. 2015. <em>Stochastic Claims Reserving Manual: Advances in Dynamic Modeling</em>. SSRN.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="ChapPortMgt.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="ChapBonusMalus.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

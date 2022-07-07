@@ -1,7 +1,7 @@
 
 `r chapnum = 7`
 
-# Premium Foundations {#C:PremiumFoundations}
+# Premium Foundations {#ChapPremiumFoundations}
 
 *Chapter Preview.* Setting prices for insurance products, premiums, is an important task for actuaries and other data analysts. This chapter introduces the foundations for pricing non-life products.
 
@@ -47,7 +47,7 @@ Nonetheless, by using expected losses, we essentially assume that the uncertaint
 
 The aggregate methods derived from equation \@ref(eq:AccountingEquation) focus on collections of `r Gloss('homogeneous risks')` that are similar except for the occurrence of random losses. In statistical language that we have introduced, this is a discussion about risks that have identical distributions. Naturally, when examining risks that insurers work with, there are many variations in the risks being insured including the features of the contracts and the people being insured.  Section \@ref(S:HeterogeneousRisks) extends pricing considerations to `r Gloss('heterogeneous')` collections of risks.
 
-Section \@ref(S:TrendDevelopment) introduces development and trending. When developing rates, we want to use the most recent loss experience because the goal is to develop rates that are forward looking. However, at contract initiation, recent loss experience is often not known; it may be several years until it is fully realized. So, this section introduces concepts needed for incorporating recent loss experience into our premium development. Development and trending of experience is related to but also differs from the idea of `r Gloss('experience rating')` that suggests that experience reveals hidden information about the insured and so should be incorporated in our forward thinking viewpoint. Chapter \@ref(C:Credibility) discusses this idea in more detail.
+Section \@ref(S:TrendDevelopment) introduces development and trending. When developing rates, we want to use the most recent loss experience because the goal is to develop rates that are forward looking. However, at contract initiation, recent loss experience is often not known; it may be several years until it is fully realized. So, this section introduces concepts needed for incorporating recent loss experience into our premium development. Development and trending of experience is related to but also differs from the idea of `r Gloss('experience rating')` that suggests that experience reveals hidden information about the insured and so should be incorporated in our forward thinking viewpoint. Chapter \@ref(ChapCredibility) discusses this idea in more detail.
 
 The final section of this chapter introduces methods for selecting a premium. This is done by comparing a premium rating method to losses from a held-out portfolio and selecting the method that produces the best match with the held-out data. For a typical insurance portfolio, most policies produce zero losses, that is, do not have a claim. Because the distribution of held-out losses is a combination of (a large number of) zeros and continuous amounts, special techniques are useful. Section \@ref(S:GiniStatistic) introduces concepts of *concentration curves* and corresponding *Gini statistics* to help in this selection.
 
@@ -304,7 +304,7 @@ For small values of the risk parameters, the variance principle is approximately
 
 ***
 
-**Special Case: Gamma Distribution**. Consider a loss that is gamma distributed with parameters $\eta$ and $\theta$ (we usually use $\alpha$ for the location parameter but, to distinguish it from the risk parameter, for this example we call it $\eta$). From the Appendix Chapter \@ref(C:SummaryDistributions), the mean is $\eta~ \theta$ and the variance is $\eta ~\theta^2$. Using $\alpha_{Var}$ for the risk parameter, the variance premium is  $H_{Var}(X) = \eta~ \theta+\alpha_{Var} ~(\eta ~\theta^2)$. From this appendix, it is straightforward to derive the well-known moment generating function, $M(t) = {\rm E} [e^{tX}] = (1-t\theta)^{-\eta}$. With this and a risk parameter $\alpha_{Exp}$, we may express the exponential premium as 
+**Special Case: Gamma Distribution**. Consider a loss that is gamma distributed with parameters $\eta$ and $\theta$ (we usually use $\alpha$ for the location parameter but, to distinguish it from the risk parameter, for this example we call it $\eta$). From the Appendix Chapter \@ref(ChapSummaryDistributions), the mean is $\eta~ \theta$ and the variance is $\eta ~\theta^2$. Using $\alpha_{Var}$ for the risk parameter, the variance premium is  $H_{Var}(X) = \eta~ \theta+\alpha_{Var} ~(\eta ~\theta^2)$. From this appendix, it is straightforward to derive the well-known moment generating function, $M(t) = {\rm E} [e^{tX}] = (1-t\theta)^{-\eta}$. With this and a risk parameter $\alpha_{Exp}$, we may express the exponential premium as 
 
 $$
 H_{Exp}(X) = \frac{-\eta}{\alpha_{Exp}} \log\left(1-\alpha_{Exp} \theta\right).
@@ -371,7 +371,7 @@ When thinking about a collection of different (`r Gloss('heterogeneous')`) risks
 
 ### Exposure to Risk {#S:ExposureToRisk}
 
-One way to make heterogeneous risks comparable is through the concept of an `r Gloss('exposure', '7.2, 7.4')`. To explain exposures, let us use *scale distributions* that we learned about in Chapter \@ref(C:Severity). To recall a `r Gloss('scale distribution', '7.4')`, suppose that $X$ has a `r Gloss('parametric distribution')` and define a rescaled version $R = X/E$, $E > 0$. If $R$ is in the same parametric family as $X$, then the distribution is said to be a scale distribution. As we have seen, the gamma, exponential, and Pareto distributions are examples of scale distributions.
+One way to make heterogeneous risks comparable is through the concept of an `r Gloss('exposure', '7.2, 7.4')`. To explain exposures, let us use *scale distributions* that we learned about in Chapter \@ref(ChapSeverity). To recall a `r Gloss('scale distribution', '7.4')`, suppose that $X$ has a `r Gloss('parametric distribution')` and define a rescaled version $R = X/E$, $E > 0$. If $R$ is in the same parametric family as $X$, then the distribution is said to be a scale distribution. As we have seen, the gamma, exponential, and Pareto distributions are examples of scale distributions.
 
 Intuitively, the idea behind exposures is to make risks more comparable to one another. For example, it may be that risks $X_1, \ldots, X_n$ come from different distributions and yet, with the choice of the right exposures, the rates $R_1, \ldots, R_n$ come from the same distribution. Here, we interpret the rate $R_i = X_i/E_i$ to be the loss divided by exposure.
 
@@ -486,7 +486,7 @@ $$
 }
 $$
 
-In this case, the rating factors *AOI* and *Terr* produce nine cells. Note that one might combine the cell "territory one with a low amount of insurance"" with another cell because there are only 7 policies in that cell. Doing so is perfectly acceptable - considerations of this sort is one of the main jobs of the analyst. An outline on selecting variables is in Chapter \@ref(C:RiskClass), including Technical Supplement TS **8.B**. Alternatively, you can also think about reinforcing information about the cell (*Terr* 1, Low *AOI*) by "borrowing" information from neighboring cells (e.g., other territories with the same *AOI*, or other amounts of *AOI* within *Terr* 1). This is the subject of `r Gloss('credibility', '7.4')` that is introduced in Chapter \@ref(C:Credibility).
+In this case, the rating factors *AOI* and *Terr* produce nine cells. Note that one might combine the cell "territory one with a low amount of insurance"" with another cell because there are only 7 policies in that cell. Doing so is perfectly acceptable - considerations of this sort is one of the main jobs of the analyst. An outline on selecting variables is in Chapter \@ref(ChapRiskClass), including Technical Supplement TS **8.B**. Alternatively, you can also think about reinforcing information about the cell (*Terr* 1, Low *AOI*) by "borrowing" information from neighboring cells (e.g., other territories with the same *AOI*, or other amounts of *AOI* within *Terr* 1). This is the subject of `r Gloss('credibility', '7.4')` that is introduced in Chapter \@ref(ChapCredibility).
 
 ***
 
@@ -531,7 +531,7 @@ The introduction of rating factors allows the analyst to create cells that defin
 
 Said another way, insurers are allowed to charge different rates for different risks; `r Gloss('discrimination')` of risks is legal and routinely done. Nonetheless, the basis of discrimination, the choice of risk factors, is the subject of extensive debate. The actuarial community, insurance management, regulators, and consumer advocates are all active participants in this debate. Technical Supplement TS **7.A** describes these issues from a regulatory perspective.
 
-In addition to statistical criteria for assessing the significance of a rating factor, analysts much pay attention to business concerns of the company (e.g., is it expensive to implement a rating factor?), social criteria (is a variable under the control of a policyholder?), legal criteria (are there regulations that prohibit the use of a rating factor such as gender?), and other societal issues. These questions are largely beyond the scope of this text. Nonetheless, because they are so fundamental to pricing of insurance, a brief overview is given in Chapter \@ref(C:RiskClass), including Technical Supplement TS **8.B.**
+In addition to statistical criteria for assessing the significance of a rating factor, analysts much pay attention to business concerns of the company (e.g., is it expensive to implement a rating factor?), social criteria (is a variable under the control of a policyholder?), legal criteria (are there regulations that prohibit the use of a rating factor such as gender?), and other societal issues. These questions are largely beyond the scope of this text. Nonetheless, because they are so fundamental to pricing of insurance, a brief overview is given in Chapter \@ref(ChapRiskClass), including Technical Supplement TS **8.B.**
 
 
 ## Development and Trending {#S:TrendDevelopment}

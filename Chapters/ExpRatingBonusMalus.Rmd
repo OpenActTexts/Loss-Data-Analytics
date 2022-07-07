@@ -1,7 +1,8 @@
 
 `r chapnum = 12`
 
-# Experience Rating using Bonus-Malus {#C:BonusMalus}
+
+# Experience Rating using Bonus-Malus {#ChapBonusMalus}
 
 ***
 
@@ -16,8 +17,6 @@ a number of simple relevant properties associated with the stationary
 distribution of bonus-malus system. Section \@ref(S:PremRtg) focuses on the 
 determination of *a posteriori* premium rating to complement *a priori* ratemaking.
 
-**This chapter is being written and is not yet complete nor edited. It is here to give you a flavor of what will be in the final version.**
-
 ***
 
 ## Introduction {#S:ERBM:Intro}
@@ -26,7 +25,10 @@ determination of *a posteriori* premium rating to complement *a priori* ratemaki
 discount", "merit rating", "experience rating" or "no-claim discount" in
 different countries, is based on penalizing insureds who are responsible
 for one or more claims by a premium surcharge (malus), and rewarding insureds
-with a premium discount (bonus) if they do not have any claims. Insurers use
+with a premium discount (bonus) if they do not have any claims. 
+A bonus-malus system can be perceived as a commercial implementation of the 
+ideal credibility premium as discussed in Chapter \@ref(ChapCredibility), where premium payable
+for insureds are calculated on an individual basis. Insurers use
 bonus-malus systems for two main purposes: to encourage drivers to drive
 more carefully in a year without any claims, and to ensure insureds to
 pay premiums proportional to their risks based on their claims
@@ -80,7 +82,9 @@ insurer, or from one takaful operator, to another.
 
 The discounts in the Malaysian *NCD* system are divided into six classes,
 starting from the initial class of 0% discount, followed by classes of
-25%, 30%, 38.3%, 45% and 55% discounts. [Table 12.1] provides the classes of
+25%, 30%, 38.3%, 45% and 55% discounts. [Figure 12.1] 
+<!-- \@ref(fig:TransitionMsia)  -->
+provides the classes of
 NCD system in Malaysia. A claim-free year indicates that a policyholder
 is entitled to move one-step forward to the next discount class, such as
 from a 0% discount to a 25% discount in the renewal year. If a
@@ -91,39 +95,59 @@ the year, the *NCD* will be forfeited and the policyholder has to start at
 0% discount in the renewal year. This set of transition rules can also be 
 summarized as a rule of -1/Top, that is, a class of bonus for a claim-free
 year, and moving to the highest class after having one or more claims.
-For an illustration purpose, [Table 12.1] and Figure \@ref(fig:TransitionMsia) respectively
-show the classes and the transition diagram for the Malaysian *NCD* system. 
+For an illustration purpose,  [Figure 12.1]
+<!-- \@ref(fig:TransitionMsia)  -->
+shows the classes and the transition diagram for the Malaysian *NCD* system. 
 
-<a id=tab:12.1></a> 
-
-[Table 12.1]: \#tab:12.1
-
-Table 12.1. **Classes of *NCD* (Malaysia)**
-
-$$
-\small{
-\begin{array}{*{20}c}
-\hline
-\text{Classes (claim-free years)} & \text{Discounts }(\%)\\
-\hline
-{0} & {0}\\
-{1} & {25}\\
-{2} & {30}\\
-{3} & {38.33}\\
-{4} & {45}\\
-{5\text{(and above)}} & {55}\\
-\hline
-\end{array}
-}
-$$
-
-(ref:TransitionMsia) **Transition Diagram for *NCD* Classes (Malaysia)**
-
-```{r, TransitionMsia, echo=FALSE, fig.cap='(ref:TransitionMsia)', out.width='60%', fig.align='center'}
-knitr::include_graphics("Figures/FigureTransitionMsia.png")
+```{r echo = F}
+library(gridExtra)
+library(grid)
+Classes <- c(0,1,2,3,4,"5 (and above)")
+Discounts <- c(0,25,30, 38.33, 45, 55)
+MalaysiaTab <- cbind(Classes, Discounts)
+colnames(MalaysiaTab) <- c("Classes (claim-free years)","Discount (%)")
+# png(filename = "Figures/gridMalayTable.png")
+# grid.table(MalaysiaTab)
+# dev.off()
 ```
 
-### *NCD* System in Other Countries
+<a id=fig:12.1></a> 
+
+[Figure 12.1]: \#fig:12.1
+
+(ref:TranMalaysia) **Transition Diagram for NCD Classes (Malaysia)**
+
+```{r fig.cap = '(ref:TranMalaysia)', fig.show="hold", out.width="45%", echo=FALSE}
+knitr::include_graphics("Figures/FigureTransitionMsia.png")
+knitr::include_graphics("Figures/gridMalayTable.png")
+```
+
+<!-- `r if (knitr:::is_html_output()) '<div class="twoC">'` -->
+
+<!-- ```{r results = 'asis', echo=FALSE, fig.align = "left", out.width = '50%'} -->
+<!-- if (knitr:::is_html_output()){ -->
+<!-- library(gridExtra) -->
+<!-- library(grid) -->
+<!-- Classes <- c(0,1,2,3,4,"5 (and above)") -->
+<!-- Discounts <- c(0,25,30, 38.33, 45, 55) -->
+<!-- MalaysiaTab <- cbind(Classes, Discounts) -->
+<!-- colnames(MalaysiaTab) <- c("Classes (claim-free years)","Discount (%)") -->
+<!-- grid.table(MalaysiaTab) -->
+<!-- } -->
+<!-- ``` -->
+
+<!-- ```{r TransitionMsia,  fig.cap = '(ref:TransitionBrazil)', fig.align = "left", echo = F, out.width = '50%'} -->
+<!-- if (knitr:::is_html_output()){ -->
+<!-- knitr::include_graphics("Figures/FigureTransitionMsia.png") -->
+<!-- } -->
+<!-- ``` -->
+<!-- </div> -->
+<!-- `r if (knitr:::is_html_output()) '<div class="clearer"></div>'` -->
+
+***
+
+
+### NCD Systems in Other Countries
 
 The *NCD* system in Brazil are subdivided into seven classes, with the
 following premium levels [@LemaireZi94]: 100, 90, 85, 80, 75, 70, and
@@ -132,42 +156,60 @@ classes: 0%, 10%, 15%, 20%, 25%, 30% and 45%. New policyholders have to
 start at 0% discount, or at premium level of 100, and a claim-free year indicates
 that a policyholder can move forward at a one-class discount. If one or
 more claims incurred within the year, the policyholder has to move one-class
-backward for each claim. [Table 12.2] and Figure \@ref(fig:TransitionBrazil)
-respectively show the classes and the transition diagram for the *NCD*
+backward for each claim. [Figure 12.2] 
+<!-- \ref{fig:TransitionBrazil} -->
+shows the classes and the transition diagram for the *NCD*
 system in Brazil. This set of transition rules can also be summarized as a rule
 of -1/+1, that is, a class of bonus for a claim-free year, and a class of malus
 for each claim reported. 
 
-<a id=tab:12.2></a> 
 
-[Table 12.2]: \#tab:12.2
+```{r echo = F}
+library(gridExtra)
+library(grid)
+Classes <- c(0,1,2,3,4,5,"6 (and above)")
+Discounts <- c(0,10,15,20,25,30,45)
+BrazilTab <- cbind(Classes, Discounts)
+colnames(BrazilTab) <- c("Classes (claim-free years)","Discount (%)")
+# png(filename = "Figures/gridBrazilTable.png")
+# grid.table(BrazilTab)
+# dev.off()
+```
 
-Table 12.2. **Classes of *NCD* (Brazil)**
+<a id=fig:12.2></a> 
 
-$$
-\small{
-\begin{array}{*{20}c}
-\hline
-\text{Classes (claim-free years)} & \text{Discounts }(\%)\\
-\hline
-{0} & {0}\\
-{1} & {10}\\
-{2} & {15}\\
-{3} & {20}\\
-{4} & {25}\\
-{5} & {30}\\
-{6\text{ (and above)}} & {45}\\
-\hline
-\end{array}
-}
-$$
-
+[Figure 12.2]: \#fig:12.2
 
 (ref:TransitionBrazil) **Transition Diagram for *NCD* Classes (Brazil)**
 
-```{r TransitionBrazil, echo=FALSE, fig.cap='(ref:TransitionBrazil)', out.width='60%', fig.align='center'}
+```{r fig.cap = '(ref:TransitionBrazil)', fig.show="hold", out.width="45%", echo=FALSE}
 knitr::include_graphics("Figures/FigureTransitionBrazil.png")
+knitr::include_graphics("Figures/gridBrazilTable.png")
 ```
+
+<!-- `r if (knitr:::is_html_output()) '<div class="twoC">'` -->
+
+<!-- ```{r results = 'asis', echo=FALSE, fig.align = "left", out.width = '50%'} -->
+<!-- if (knitr:::is_html_output()){ -->
+<!-- library(gridExtra) -->
+<!-- library(grid) -->
+<!-- Classes <- c(0,1,2,3,4,5,"6 (and above)") -->
+<!-- Discounts <- c(0,10,15,20,25,30,45) -->
+<!-- BrazilTab <- cbind(Classes, Discounts) -->
+<!-- colnames(BrazilTab) <- c("Classes (claim-free years)","Discount (%)") -->
+<!-- grid.table(BrazilTab) -->
+<!-- } -->
+<!-- ``` -->
+
+<!-- ```{r TransitionBrazil,  fig.cap = '(ref:TransitionBrazil)', fig.align = "left", echo = F, out.width = '50%'} -->
+<!-- if (knitr:::is_html_output()){ -->
+<!-- knitr::include_graphics("Figures/FigureTransitionBrazil.png") -->
+<!-- } -->
+<!-- ``` -->
+<!-- </div> -->
+<!-- `r if (knitr:::is_html_output()) '<div class="clearer"></div>'` -->
+
+***
 
 The *NCD* system in Switzerland are subdivided into twenty-two classes, 
 with the following premium levels:
@@ -179,15 +221,15 @@ also equivalent to the following loadings (malus): 170%, 150%, 130%, 115%, 100%,
 to start at 0% discount, or at premium level of 100, and a claim-free year
 indicates that a policyholder can move one-class forward. If one or more
 claims incurred within the year, the policyholder has to move
-four-classes backward for each claim. [Table 12.3] and Figure \@ref(fig:TransitionSwitz) 
+four-classes backward for each claim. [Table 12.1] and Figure \@ref(fig:TransitionSwitz) 
 respectively show the classes and the transition diagram for the *NCD* system in Switzerland.
 This set of transition rule can be summarized as a rule of -1/+4.
 
 <a id=tab:12.3></a> 
 
-[Table 12.3]: \#tab:12.3
+[Table 12.1]: \#tab:12.3
 
-Table 12.3. **Classes of *NCD* (Switzerland)**
+Table 12.1. **Classes of *NCD* (Switzerland)**
 
 $$
 \small{
@@ -236,17 +278,17 @@ $p_{ij}(n,n+1) = Pr (X_{n + 1} = j|X_n = i)$, $i = 1,2,\ldots,k$, $j = 1,2,\ldot
 For general transition from time $m$ to time $n$, for $m<n$, by conditioning on
 $X_{o}$ for $m\le o\le n$, we have the Chapman-Kolmogorov equation of 
 
-$$
+\begin{equation}
 p_{ij}(m,n)=\sum_{l\in S} p_{il}(m,o)p_{lj}(o,n).
-$$
+\end{equation}
 
 A time-homogeneous Markov Chain satisfies the property of $p_{ij}(n,n+t)=p_{ij}^{(t)}$
 for all $n$. For instance, we have $p_{ij}(n,n+1)=p_{ij}^{(1)}\equiv p_{ij}$. 
 In this case, the Chapman-Kolmogorov equation can be written as 
 
-$$
+\begin{equation}
 p_{ij}(0,m+n)=\sum_{l\in S} p_{il}(0,m)p_{lj}(m,m+n)=\sum_{l\in S}p_{il}^{(m)}p_{lj}^{(n)}.
-$$
+\end{equation}
 
 In the context of *BMS*, the transition of the *NCD* classes is governed by the transition probability in a given year. The transition of the *NCD* classes is also a time-homogeneous Markov Chain since the set of transition rules is fixed and independent of time. We can represent the one-step transition probabilities by a $k \times k$ *transition matrix* ${\bf P}=(p_{ij})$ that corresponds to *NCD* classes $0,1,2,\ldots,k-1$.  
 
@@ -308,8 +350,9 @@ Provide the transition matrix for the *NCD* system in Brazil.
 
 **Solution**
 
-Based on the *NCD* classes and the transition diagram shown respectively
-in [Table 12.2] and Figure \@ref(fig:TransitionBrazil), the probability of a no-claim year is equal to
+Based on the *NCD* classes and the transition diagram shown in [Figure 12.2]
+<!-- \@ref(fig:TransitionBrazil) -->
+, the probability of a no-claim year is equal to
 the probability of moving one-class forward, whereas the probability of
 having one or more claims within the year is equal to the probability of
 moving one-class backward for each claim. Therefore, each row can contain two or more
@@ -343,7 +386,7 @@ Provide the transition matrix for the *NCD* system in Switzerland.
 
 **Solution.**
 
-From [Table 12.3] and Figure \@ref(fig:TransitionSwitz), the probability of a no-claim year is equal to the probability of moving one-class forward, whereas the probability of having one or more claims within the year is equal to the probability of moving four-classes backward for each claim. The transition matrix is:
+From [Table 12.1] and Figure \@ref(fig:TransitionSwitz), the probability of a no-claim year is equal to the probability of moving one-class forward, whereas the probability of having one or more claims within the year is equal to the probability of moving four-classes backward for each claim. The transition matrix is:
 
 $$
 \small{
@@ -379,11 +422,11 @@ A stationary distribution of a Markov Chain is a probability distribution that
 remains unchanged as time progresses into the future. It is represented by 
 a row vector $\boldsymbol \pi =(\pi_{1},\pi_{2},\ldots,\pi_{k})$ with the following properties:
 
-\begin{align*}
-0\le \pi_{j}\le 1,\\
-\sum\limits_{j}\pi_{j}=1,\\
+\begin{align}
+0\le \pi_{j}\le 1,\notag\\
+\sum\limits_{j}\pi_{j}=1,\notag\\
 \pi_{j}=\sum\limits_{i}\pi_{i}p_{ij}.
-\end{align*}
+\end{align}
 
 The last equation can be written as $\boldsymbol\pi \bf P=\boldsymbol\pi$. The first two conditions are 
 necessary for probability distribution whereas the last property indicates that
@@ -524,7 +567,7 @@ Find the stationary distribution for the *NCD* system in Brazil assuming that th
 `r HideExample('12.4.2','Show Example Solution')`
 
 **Solution.**
-Under the Poisson distribution, the probability of* $k$ claims is $p_k = \frac{e^{ - 0.1}{(0.1)}^k}{{k!}},{\rm{ }}k = 0,1,2,\ldots.$
+As given in Appendix Section \@ref(S:DiscreteDistributions), when the number of claims is Poisson distributed with parameter $\lambda=0.10$, the probability of $k$ claims is $p_k = \frac{e^{ - 0.1}{(0.1)}^k}{{k!}},{\rm{ }}k = 0,1,2,\ldots.$
 
 The transition matrix is:
 
@@ -551,7 +594,7 @@ $$
 }
 $$
 
-Using `R` code, the stationary probabilities are:
+Using the earlier `R` codes on this transition matrix ${\bf P}$, the stationary probabilities are obtained as:
 
 $$
 \left[ {\begin{array}{*{20}{c}}
@@ -631,7 +674,7 @@ Observe the premiums in 20 years under the *NCD* system in Malaysia, assuming th
 `r HideExample('12.4.4','Show Example Solution')`
 
 **Solution.**
-Under the Malaysian *NCD*, we use the Poisson probability,* $p_k = \frac{e^{ - 0.1}{(0.1)}^k}{k!}$, only for $k = 0,1$. Therefore, the transition matrix in the first year is:
+Under the Malaysian *NCD*, we use the Poisson probability $p_k = \frac{e^{ - 0.1}{(0.1)}^k}{k!}$, only for $k = 0,1$. Therefore, the transition matrix in the first year is:
 
 $$
 \small{
@@ -663,7 +706,7 @@ $$
 $$
 
 Using similar steps, the premium in the $n$-th year for
-$n = 1,2,...,20$ can be observed. From `R`, the premiums in 20 years are:
+$n = 2,...,20$ can be observed. From `R`, the premiums in 20 years are:
 
 62.55, 59.87, 58.06, 57.06, 56.58, 56.58, 56.58, 56.58, 56.58, 56.58,
 
@@ -733,7 +776,7 @@ prem <- function(n){
          100*sum(p*NCD)
          }
 #example for n=3
-signif(prem(3), digits = 3)
+signif(prem(3), digits = 4)
 ```
 
 `r HideRCode('PremEvol.3', 'Show R Output')`
@@ -748,7 +791,7 @@ signif(prem(3), digits = 3)
 ```{r PremEvol4, eval=FALSE}
 premium=numeric(0)
 for (n in 1:20) {premium[n] = prem(n) }
-signif(premium, digits = 2)
+signif(premium, digits = 4)
 ```
 
 
@@ -804,7 +847,7 @@ $$
 \small{
 \begin{array}{ccc|ccc}
 \hline
-\text{Year} & \text{Premium} & \text{Premium} & \text{Year} & \text{Premium} & \text{Premium}  \\
+\text{Year} & \text{Premium} & \text{Premium} & \text{Year} & \text{Premium} & \text{Premium} \\
 & \text{Malaysia} & \text{Brazil} & & \text{Malaysia} & \text{Brazil} \\
 \hline
     0     & 100   & 100   & 11    & 56.58 & 65.72 \\
@@ -840,9 +883,9 @@ $$
 Therefore, the total variation can be measured by the sum of variation
 in all classes:
 
-$$
+\begin{equation}
 \sum\limits_j {\left| {average(p_{ij}^{(n)}) - {\pi _j}} \right|}.
-$$
+\end{equation}
 
 The total variation is also called the `r Gloss('convergence rate')` because it measures the convergence rate after $n$ years (or $n$ transitions). A lower
 total variation implies a better convergence rate between the $n$-step transition probabilities and the stationary distribution.
@@ -1006,69 +1049,84 @@ possible.
 
 ### Premium Rating
 
-In motor insurance ratemaking, *BMS* is a form of *a posteriori* rating mechanism 
-to complement the use of *a priori* risk classification. The *a priori* 
-*risk segmentation* divides portfolio of drivers into a number of homogeneous 
-risk classes based on observable characteristics, such that policyholders in
-the same risk class pay the same *a priori* premium. The underlying reason 
-for utilizing *BMS* that relies on claims experience information is to deal 
-with the *residual heterogeneity* within each homogeneous risk class since 
-the observable variables are far from perfect in predicting the riskiness of driving behaviors.
+In motor insurance ratemaking, BMS is a form of *a posteriori* rating mechanism to complement the use of *a priori* risk classification as described in Chapter \@ref(ChapRiskClass). The *a priori* ***risk segmentation*** introduced in Section \@ref(S:RC:Introduction)
+divides portfolio of drivers into a number of homogeneous risk classes based on observable rating factors (see Section \@ref(S:RatingFactors)),
+such that policyholders in the same risk class pay the same *a priori* premium. The underlying reason for utilizing BMS that relies on claims experience information is to deal with the *residual heterogeneity* within each homogeneous risk class (e.g., see the discussion before Example 2.6.2) since the observable variables are far from perfect in predicting the riskiness of driving behaviors.
 
-The ideal *a posteriori* mechanism is the credibility premium 
-[see @DionneVanasse89] framework, whereby premiums are derived on an 
-individual basis for each policyholder by incorporating both the *a priori* and 
-*a posteriori* information. However, such individual premium determination is 
-overly complex from a commercial standpoint for practical implementations by 
-motor insurers. For this reason, *BMS* is the preferred solution and it consists
-of the following three building blocks: (a) *BMS* classes; (b) transition rules; 
-(c) premium levels (also known as premium relativities or premium adjustment coefficients).
-The first two building blocks are pre-specified in advance and have been discussed
-in previous sections, whereas the determination (instead of pre-determined as discussed 
-in the cases of Malaysian, Brazilian and Swiss systems) of premium relativities 
-are important for motor insurers precisely because of its complementary and correction 
-nature to account for the imperfection or inaccuracies in the *a priori* 
-risk classification. In the following subsections, we briefly introduce the required
-modelling setup to study the determination of optimal relativities. We refer interested
-reader to @Denuit07 for a fuller discussion on the technical details. 
+
+The ideal *a posteriori* mechanism is the credibility premium framework developed in Chapter \@ref(ChapCredibility) and in particular Section \@ref(S:Cred:BayesInf) (see also @DionneVanasse89), whereby premiums are derived on an individual basis for each policyholder by incorporating both the *a priori* and  *a posteriori* information. However, such individual premium determination is overly complex from a commercial standpoint for practical implementations by motor insurers. For this reason, *BMS* is the preferred solution and it consists of the following three building blocks: (a) *BMS* classes; (b) transition rules; (c) premium levels (also known as premium relativities or premium adjustment coefficients).
+
+The first two building blocks are pre-specified in advance and have been discussed in previous sections, whereas the determination (instead of pre-determined as discussed in the cases of Malaysian, Brazilian and Swiss systems) of premium relativities are important for motor insurers precisely because of its complementary and correction nature to account for the imperfection or inaccuracies in the *a priori* 
+risk classification. Note that the premium relativities under BMS are different from the relativity measure defined in Section \@ref(S:RatingFactors), which is the ratio between the expected risk of a given risk class to a baseline risk class, both of which are calculated from observable rating factors. In the following subsections, we briefly introduce the required modelling setup to study the determination of optimal relativities. We refer interested reader to @Denuit07 for a fuller discussion on the technical details. 
+
 
 ### A Priori Risk Classification
 
-Let us consider a portfolio of $n$ policies, where the risk exposure of driver $i$
-is denoted as $d_{i}$ and the number of claims reported is represented by $N_{i}$.
-Let ${\bf X}_{i}^{T}=(X_{i1},X_{i2},\ldots, X_{iq})$ be the vector of observable 
-variables for $i=1,2,\ldots, n$. The Poisson regression is commonly chosen to model
-$N_{i}$ under the generalized linear models (GLM) framework, see @McCullaghNelder89. 
+Let us consider a portfolio of $n$ policies, where the risk exposure (see Section \@ref(S:ExposureToRisk)) of driver $i$
+is denoted as $m_{i}$ and the number of claims reported is represented by $Y_{i}$, following from the notations used in Section \@ref(S:RC:PoissonRegression). Let ${\bf x}_{i}^{T}=(x_{i1},x_{i2},\ldots, x_{iq})$ be the vector of observable 
+variables for $i=1,2,\ldots, n$. The Poisson regression as developed in Section \@ref(S:RC:PoissonRegression) is commonly chosen to model $Y_{i}$ under the generalized linear models (GLM) framework, see Section 13.3.2.2 and also @McCullaghNelder89.
 
-We can express the predicted *a priori* expected claim frequency for policyholder 
-$i$ as 
+We can then express the predicted *a priori* expected claim frequency for policyholder $i$ as 
 
 $$
-\lambda_{i}=d_{i}\exp\left(\hat{\beta}_{0}+\sum\limits_{m=1}^{q}\hat{\beta}_{m}x_{im}\right) ,
+\mu_{i}=m_{i}\lambda_{i}=m_{i}\exp\left(\hat{\beta}_{0}+\sum\limits_{m=1}^{q}\hat{\beta}_{m}x_{im}\right) ,
 $$
-
-where $\hat{\beta}_{0},\hat{\beta}_{1},\ldots,\hat{\beta}_{q}$ are the estimated
-regression coefficients.
+where $\hat{\beta}_{0},\hat{\beta}_{1},\ldots,\hat{\beta}_{q}$ are the estimated regression coefficients. In other words, $\lambda_{i}=\frac{\mu_{i}}{m_{i}}$ is the expected claim frequency per unit exposure, which is the main focus of the 
+*a priori* risk classification.
 
 ### Modelling of Residual Heterogeneity
+
 Since unobserved factors that may affect driving behaviors are not taken into account 
 in estimating the expected claim frequency, insurers would have to account 
 for the residual heterogeneity within each *a priori* risk class by introducing 
-a random effect component $\Theta_{i}$ into the conditional distribution of $N_{i}$.
-Given $\Theta_{i}=\theta$, $N_{i}$ follows a Poisson distribution with mean 
+a random effect component $\Theta_{i}$ into the conditional distribution of $Y_{i}$.
+Given $\Theta_{i}=\theta$, $Y_{i}$ follows a Poisson distribution with mean 
 $\lambda_{i}\theta$, that is, 
 
-$$
-\Pr(N_{i}=k|\Theta_{i}=\theta)=\exp(-\lambda_{i}\theta)\frac{(\lambda_{i}\theta)^{k}}{k!},k=0,1,2,\ldots.
-$$
+\begin{equation}
+\Pr(Y_{i}=k|\Theta_{i}=\theta)=\exp(-\lambda_{i}\theta)\frac{(\lambda_{i}\theta)^{k}}{k!},k=0,1,2,\ldots.
+\end{equation}
 
-We further assume that all the $\Theta_{i}$'s are independent and follow a gamma $(a,a)$ distribution with the following density function
-
-$$
+Following from the setup of gamma-Poisson model in Section \@ref(Sec:Cred:gammaPoisson), we further assume that all the $\Theta_{i}$'s are independent and follow a gamma $(a,a)$ distribution with the following density function as introduced in Appendix \@ref(S:ContinuousDistributions)
+\begin{equation}
 f(\theta)=\frac{1}{\Gamma(a)}a^{a}\theta^{a-1}\exp(-a\theta), \quad \theta > 0,
-$$
+\end{equation}
+where the use of gamma-Poisson mixture produces a negative binomial distribution for $Y_{i}$ 
+(see Section \@ref(S:mixture-distributions)). With these specifications, we obtain
+$\mathrm{E}(\Theta_{i})=1$ and hence 
+$\mathrm{E}(Y_{i})=\mathrm{E}(\mathrm{E}(Y_{i}|\Theta_{i}))=\mathrm{E}(\lambda_{i}\Theta_{i})=\lambda_{i}$.
+by the law of iterated expectation in Appendix \@ref(S:AppB:LIE).
 
-where the use of Poisson-gamma mixture produces a negative binomial distribution for $N_{i}$. With these specifications, we obtain $\mathbb{E}(\Theta_{i})=1$ and  hence $\mathbb{E}(N_{i})=\mathbb{E}(\mathbb{E}(N_{i}|\Theta_{i}))=\mathbb{E}(\lambda_{i}\Theta_{i})=\lambda_{i}$.
+Furthermore, it can be shown that the posterior distribution of 
+$\Theta| y_{1}=k_{1},y_{2}=k_{2},\ldots,y_{n}=k_{n}$ is gamma distributed with 
+parameters $a+\sum_{j=1}^{n} k_{j}$ and $a+n\lambda_{i}$ and therefore the Bayesian 
+premium is given as 
+\begin{equation}
+\mathrm{E}(\lambda_{i}\Theta| y_{1}=k_{1},\ldots,y_{n}=k_{n})=\lambda_{i}\times\frac{a+\sum_{j=1}^{n} k_{j}}{a+n\lambda_{i}}.
+\end{equation}
+On the other hand, applying the B&uuml;hlmann credibility-weighted estimate in Section \@ref(S:Cred:Buhlmann) to the gamma-Poisson model in Section \@ref(Sec:Cred:gammaPoisson), we obtain 
+\begin{align*}
+EPV&=\mathrm{E}(\mathrm{Var}(Y| \lambda_{i}))=\mathrm{E}(\lambda_{i}\Theta)=\lambda_{i},\\
+VHM&=\mathrm{Var}(\mathrm{E}(Y| \lambda_{i}))=\mathrm{Var}(\lambda_{i}\Theta)=\frac{\lambda_{i}^{2}}{a},\\
+K&=\frac{EPV}{VHM}=\frac{\lambda_{i}}{\frac{\lambda_{i}^{2}}{a}}=\frac{a}{\lambda_{i}},\\
+Z&=\frac{n}{n+K}=\frac{n\lambda_{i}}{n\lambda_{i}+a},\\
+\bar{Y}&=\frac{\sum_{j=1}^{n} y_{j}}{n}=\frac{\sum_{j=1}^{n} k_{j}}{n},\\ 
+\mu&=\mathrm{E}(\mathrm{E}(Y_{i}| \lambda_{i}))=\mathrm{E}(\lambda_{i}\Theta)=\lambda_{i},
+\end{align*}
+and hence the credibility-weighted estimate as 
+\begin{align}
+\mathrm{E}(\mathrm{E}(Y| \lambda_{i})| y_{1}=k_{1},\ldots,y_{n}=k_{n})&=\mathrm{E}(\lambda_{i}\Theta| y_{1}=k_{1},\ldots,y_{n}=k_{n})\notag\\
+&=Z\times \bar{Y}+ (1-Z)\times \mu\notag\\
+&=\frac{n\lambda_{i}}{n\lambda_{i}+a}\times \frac{\sum_{j=1}^{n} k_{j}}{n}+\frac{a}{n\lambda_{i}+a}\times\lambda_{i}\notag\\
+&=\frac{\lambda_{i}(a+\sum_{j=1}^{n} k_{j})}{a+n\lambda_{i}},
+\end{align}
+that is, the B&uuml;hlmann credibility premium exactly matches the Bayesian premium.
+
+Despite the fact that the credibility premium derived on an individual basis above
+is the ideal *a posteriori* premium, in practice insurers make use of BMS 
+as a discrete approximation to the Bayesian premium, due to
+the relatively simpler structure of BMS as compared to the individual calculations
+of credibility premium.
 
 ### Stationary Distribution Allowing for Residual Heterogeneity 
 
@@ -1102,30 +1160,36 @@ $\pi_{\ell}^{\lambda}(\lambda\theta)$ can be found by say MATLAB but not R.
 
 With these setup, the probability of drivers staying in *BMS* level $L=\ell$ for 
 $\ell=0,1,\ldots,k-1$ in the  context of the entire portfolio can be obtained as
-\begin{align*}
-\Pr(L=\ell)&=\sum\limits_{g=1}^{h}\Pr(L=\ell|\Lambda=\lambda_{g})\Pr(\Lambda=\lambda_{g})\\
-&=\sum\limits_{g=1}^{h}\Pr(\Lambda=\lambda_{g})\int_{0}^{\infty}\Pr(L=\ell|\Lambda=\lambda_{g},\Theta=\theta)f(\theta)d\theta\\
+\begin{align}
+\Pr(L=\ell)&=\sum\limits_{g=1}^{h}\Pr(L=\ell|\Lambda=\lambda_{g})\Pr(\Lambda=\lambda_{g})\notag\\
+&=\sum\limits_{g=1}^{h}\Pr(\Lambda=\lambda_{g})\int_{0}^{\infty}\Pr(L=\ell|\Lambda=\lambda_{g},\Theta=\theta)f(\theta)d\theta\notag\\
 &=\sum\limits_{g=1}^{h}w_{g}\int_{0}^{\infty}\pi_{\ell}^{\lambda_{g}}(\lambda_{g}\theta)f(\theta)d\theta.
-\end{align*}
+\end{align}
 
 ### Determination of Optimal Relativities
 
 The ***optimal relativity*** for each *BMS* level was first derived by @Norberg76
 through the minimization of the following objective function, which is more commonly
 known as the Norberg's criterion:
-$$\min \mathbb{E}\left((\bar{\lambda}\Theta-\bar{\lambda}r_{L})^{2}\right)\equiv\min\mathbb{E}\left((\Theta-r_{L})^{2}\right),$$
+\begin{equation*}
+\min \mathrm{E}\left((\bar{\lambda}\Theta-\bar{\lambda}r_{L})^{2}\right)\equiv\min\mathrm{E}\left((\Theta-r_{L})^{2}\right),
+\end{equation*}
 where $\hat{\lambda}$ is the constant expected claim frequency for all policyholders
 in the absence of *a priori* risk classification and $r_{L}$ is the premium relativity for
 BMS level $L$. @Pitrebois03 then incorporated the information of *a priori* 
 risk classification into the optimization of the same objective function of 
-$$\min\mathbb{E}\left((\Theta-r_{L})^{2}\right)$$ to derive $r_{L}$ analytically.
-@Tan15 further proposed the minimization of the following objective function 
-$$\min\mathbb{E}\left((\Lambda\Theta-\Lambda r_{L})^{2}\right), \text{ subject to } \mathbb{E}(r_{L})=1,$$
+\begin{equation*}
+\min\mathrm{E}\left((\Theta-r_{L})^{2}\right)
+\end{equation*} 
+to derive $r_{L}$ analytically. @Tan15 further proposed the minimization of the following objective function 
+\begin{equation}
+\min\mathrm{E}\left((\Lambda\Theta-\Lambda r_{L})^{2}\right), \text{ subject to } \mathrm{E}(r_{L})=1,
+\end{equation}
 under a financial balanced constraint (that is, the expected premium relativity equals 1) to determine the optimal relativities of a *BMS* given pre-specified *BMS* levels and transition rules, where 
 \begin{align*}
-\min\mathbb{E}\left((\Lambda\Theta-\Lambda r_{L})^{2}\right)&=\sum\limits_{\ell=0}^{k-1}\mathbb{E}\left((\Lambda\Theta-\Lambda r_{L})^{2}|L=\ell\right)\Pr(L=\ell)\\
-&=\sum\limits_{\ell=0}^{k-1}\mathbb{E}\left(\mathbb{E}\left((\Lambda\Theta-\Lambda r_{L})^{2}|L=\ell,\Lambda\right)|L=\ell\right)\Pr(L=\ell)\\
-&=\sum\limits_{\ell=0}^{k-1}\sum\limits_{g=1}^{h}\mathbb{E}\left((\Lambda\Theta-\Lambda r_{L})^{2}|L=\ell,\Lambda=\lambda_{g}\right)\times\Pr\left(\Lambda=\lambda_{g}|L=\ell\right)\Pr(L=\ell)\\
+\min\mathrm{E}\left((\Lambda\Theta-\Lambda r_{L})^{2}\right)&=\sum\limits_{\ell=0}^{k-1}\mathrm{E}\left((\Lambda\Theta-\Lambda r_{L})^{2}|L=\ell\right)\Pr(L=\ell)\\
+&=\sum\limits_{\ell=0}^{k-1}\mathrm{E}\left(\mathrm{E}\left((\Lambda\Theta-\Lambda r_{L})^{2}|L=\ell,\Lambda\right)|L=\ell\right)\Pr(L=\ell)\\
+&=\sum\limits_{\ell=0}^{k-1}\sum\limits_{g=1}^{h}\mathrm{E}\left((\Lambda\Theta-\Lambda r_{L})^{2}|L=\ell,\Lambda=\lambda_{g}\right)\times\Pr\left(\Lambda=\lambda_{g}|L=\ell\right)\Pr(L=\ell)\\
 &=\sum\limits_{\ell=0}^{k-1}\sum\limits_{g=1}^{h}\int_{0}^{\infty}(\lambda_{g}\theta-\lambda_{g}r_{\ell})^{2}\pi_{\ell}(\lambda_{g}\theta)w_{g}f(\theta)d\theta\\
 &=\sum\limits_{g=1}^{h}w_{g}\int_{0}^{\infty}\sum\limits_{\ell=0}^{k-1}(\lambda_{g}\theta-\lambda_{g}r_{\ell})^{2}\pi_{\ell}(\lambda_{g}\theta)f(\theta)d\theta.
 \end{align*}
@@ -1133,39 +1197,38 @@ It is crucially important that the optimal relativity has an average of 100\%,
 so that the bonuses and maluses exactly offset each other to result in a 
 financial equilibrium condition. Note that the approach considered by @Pitrebois03 
 does not require the financial balanced constraint because the analytical solution
-to its objective function is given by $r_{\ell}=\mathbb{E}(\Theta|L=\ell)$, so it
-follows that $\mathbb{E}(r_{L})=\mathbb{E}\left(\mathbb{E}(\Theta|L)\right)=\mathbb{E}(\Theta)=1$
-with the specific choice of Gamma $(a,a)$ distribution for the random
+to its objective function is given by $r_{\ell}=\mathrm{E}(\Theta|L=\ell)$, so it
+follows that $\mathrm{E}(r_{L})=\mathrm{E}\left(\mathrm{E}(\Theta|L)\right)=\mathrm{E}(\Theta)=1$
+with the specific choice of gamma $(a,a)$ distribution for the random
 effect component $\Theta$.
 
 In this case, the optimization problem can be solved by specifying the Lagrangian
 as 
-\begin{align*}
-\mathcal{L}({\bf r}, \alpha)&=\mathbb{E}\left((\Lambda\Theta-\Lambda r_{L})^{2}\right)+\alpha(\mathbb{E}(r_{L})-1)\\
-&=\sum\limits_{\ell=0}^{k-1} \mathbb{E}\left((\Lambda\Theta-\Lambda r_{L})^{2}|L=\ell\right)\Pr(L=\ell)+\alpha\left(\sum\limits_{\ell=0}^{k-1}r_{\ell}\Pr(L=\ell)-1\right),
-\end{align*}
+\begin{align}
+\mathcal{L}({\bf r}, \alpha)&=\mathrm{E}\left((\Lambda\Theta-\Lambda r_{L})^{2}\right)+\alpha(\mathrm{E}(r_{L})-1)\notag\\
+&=\sum\limits_{\ell=0}^{k-1} \mathrm{E}\left((\Lambda\Theta-\Lambda r_{L})^{2}|L=\ell\right)\Pr(L=\ell)+\alpha\left(\sum\limits_{\ell=0}^{k-1}r_{\ell}\Pr(L=\ell)-1\right),\notag
+\end{align}
 where ${\bf r}=(r_{0},r_{1},\ldots,r_{k-1})^{T}$. The required first order conditions
 are given as follows
 \begin{align*}
-\Pr(L=\ell)\times \left(2\mathbb{E}\left(\Lambda^{2}\Theta-\Lambda^{2}r_{L}|L=\ell\right)-\alpha\right)&=0, \qquad \ell=0,1,\ldots, k-1,\\
+\Pr(L=\ell)\times \left(2\mathrm{E}\left(\Lambda^{2}\Theta-\Lambda^{2}r_{L}|L=\ell\right)-\alpha\right)&=0, \qquad \ell=0,1,\ldots, k-1,\\
 \sum\limits_{\ell=0}^{k-1}r_{\ell}\Pr(L=\ell)-1&=0.
 \end{align*}
-Finally, the solution set for $\alpha$ and $r_{\ell}, \ell=0,1,\ldots,k-1$
-is obtained as 
+Finally, the solution set for $\alpha$ and $r_{\ell}, \ell=0,1,\ldots,k-1$ is obtained as 
 \begin{align*}
-\alpha&=\frac{\left(\sum\limits_{\ell=0}^{k-1}\frac{\mathbb{E}(\Lambda^{2}\Theta|L=\ell)\Pr(L=\ell)}{\mathbb{E}(\Lambda^{2}|L=\ell)}\right)-1}{\sum\limits_{\ell=0}^{k-1}\frac{\Pr(L=\ell)}{2\mathbb{E}(\Lambda^{2}|L=\ell)}},\\
-r_{\ell}&=\frac{\mathbb{E}(\Lambda^{2}\Theta|L=\ell)}{\mathbb{E}(\Lambda^{2}|L=\ell)}-\frac{\alpha}{2\mathbb{E}(\Lambda^{2}|L=\ell)},
+\alpha&=\frac{\left(\sum\limits_{\ell=0}^{k-1}\frac{\mathrm{E}(\Lambda^{2}\Theta|L=\ell)\Pr(L=\ell)}{\mathrm{E}(\Lambda^{2}|L=\ell)}\right)-1}{\sum\limits_{\ell=0}^{k-1}\frac{\Pr(L=\ell)}{2\mathrm{E}(\Lambda^{2}|L=\ell)}},\\
+r_{\ell}&=\frac{\mathrm{E}(\Lambda^{2}\Theta|L=\ell)}{\mathrm{E}(\Lambda^{2}|L=\ell)}-\frac{\alpha}{2\mathrm{E}(\Lambda^{2}|L=\ell)},
 \end{align*}
 where
 \begin{align*}
 \Pr(L=\ell)&=\sum\limits_{g=1}^{h}w_{g}\int_{0}^{\infty}\pi_{\ell}^{\lambda_{g}}(\lambda_{g}\theta)f(\theta)d\theta,\\
-\mathbb{E}(\Lambda^{2}\Theta|L=\ell)&=\frac{\sum\limits_{g=1}^{h}w_{g}\int_{0}^{\infty}\lambda_{g}^{2}\theta\pi_{\ell}^{\lambda_{g}}(\lambda_{g}\theta)f(\theta)d\theta}{\sum\limits_{g=1}^{h}w_{g}\int_{0}^{\infty}\pi_{\ell}^{\lambda_{g}}(\lambda_{g}\theta)f(\theta)d\theta},\\
-\mathbb{E}(\Lambda^{2}|L=\ell)&=\frac{\sum\limits_{g=1}^{h}w_{g}\int_{0}^{\infty}\lambda_{g}^{2}\pi_{\ell}^{\lambda_{g}}(\lambda_{g}\theta)f(\theta)d\theta}{\sum\limits_{g=1}^{h}w_{g}\int_{0}^{\infty}\pi_{\ell}^{\lambda_{g}}(\lambda_{g}\theta)f(\theta)d\theta}.
+\mathrm{E}(\Lambda^{2}\Theta|L=\ell)&=\frac{\sum\limits_{g=1}^{h}w_{g}\int_{0}^{\infty}\lambda_{g}^{2}\theta\pi_{\ell}^{\lambda_{g}}(\lambda_{g}\theta)f(\theta)d\theta}{\sum\limits_{g=1}^{h}w_{g}\int_{0}^{\infty}\pi_{\ell}^{\lambda_{g}}(\lambda_{g}\theta)f(\theta)d\theta},\\
+\mathrm{E}(\Lambda^{2}|L=\ell)&=\frac{\sum\limits_{g=1}^{h}w_{g}\int_{0}^{\infty}\lambda_{g}^{2}\pi_{\ell}^{\lambda_{g}}(\lambda_{g}\theta)f(\theta)d\theta}{\sum\limits_{g=1}^{h}w_{g}\int_{0}^{\infty}\pi_{\ell}^{\lambda_{g}}(\lambda_{g}\theta)f(\theta)d\theta}.
 \end{align*}
 If we perform the optimization without the financial balanced constraint, then we obtain
 \begin{align*}
 \alpha^{\text{unconstrained}}&=0,\\
-r_{\ell}^{\text{unconstrained}}&=\frac{\mathbb{E}(\Lambda^{2}\Theta|L=\ell)}{\mathbb{E}(\Lambda^{2}|L=\ell)}.
+r_{\ell}^{\text{unconstrained}}&=\frac{\mathrm{E}(\Lambda^{2}\Theta|L=\ell)}{\mathrm{E}(\Lambda^{2}|L=\ell)}.
 \end{align*}
 
 ### Numerical Illustrations 
@@ -1179,7 +1242,7 @@ $$
 \Pr(\Lambda=\lambda_{1})=0.6, \Pr(\Lambda=\lambda_{2})=0.3, \Pr(\Lambda=\lambda_{3})=0.1.
 $$
 
-We also assume that the gamma parameteris fixed at $a=1.5$. Note that while these modelling assumptions are simple, the purpose here is to demonstrate the 
+We also assume that the gamma parameter is fixed at $a=1.5$. Note that while these modelling assumptions are simple, the purpose here is to demonstrate the 
 determination of optimal relativities under a relatively simple setup, and that the optimization procedure for the *BMS* remains the same even if the 
 *a priori* risk classification is performed extensively. We refer interested readers to the motor vehicle claims data as documented in @Dejong08 
 to conduct the *a priori* risk segmentation before proceeding to the determination of optimal relativities.
@@ -1187,7 +1250,7 @@ to conduct the *a priori* risk segmentation before proceeding to the determinati
 Furthermore, as mentioned earlier, the inclusion of random effect parameter $\theta$ implies that the required expression (not numerical values) for 
 stationary probabilities $\pi_{\ell}^{\lambda}(\lambda\theta)$ to be used 
 for subsequent integrals can be found by say MATLAB but not `R`. Also, since the 
-obtained form of stationary probabilities are rather complex, in this section we
+obtained form of stationary probabilities are rather complex, in this subsection we
 choose not to include any `R` codes for the determination of optimal relativities.
 More importantly, we hope that the key take-away for this subsection is for readers to
 get a solid overall conceptual understanding on how to account for all 
@@ -1242,7 +1305,7 @@ with the lowest premium relativity in the stationary state. This finding is
 mainly due to the less severe penalty in the transition rule of -1/+1 
 in comparison to the rule of -1/Top, so more policyholders are expected to 
 occupy the highest *BMS* level. Similar to the earlier example, we find that the unconstrained 
-optimal relativities are lower and result in a lower value of $\mathbb{E}(r_{L})$. 
+optimal relativities are lower and result in a lower value of $\mathrm{E}(r_{L})$. 
 
 
 <a id=tab:12.6></a> 
@@ -1277,16 +1340,22 @@ imposing linear optimal relativities in the form of $r_{L}^{\text{linear}}=a+bL$
 by solving the following constrained optimization with an inequality constraint 
 
 $$
-\min\mathbb{E}\left((\Lambda\Theta-\Lambda a-\Lambda bL)^{2}\right) \text{ subject to }
-a+b\mathbb{E}(L)\ge 1.
+\min\mathrm{E}\left((\Lambda\Theta-\Lambda a-\Lambda bL)^{2}\right) \text{ subject to }
+a+b\mathrm{E}(L)\ge 1.
 $$
 
-We refer interested readers to @Tan16 for a discussion on how to incorporate
-further commercial constraints and also on the solution to this optimization problem 
-involving Kuhn-Tucker conditions. 
+We refer interested readers to @Tan16 for a discussion on how to incorporate further commercial constraints and also on the solution to this optimization problem involving Kuhn-Tucker conditions. 
+
+## Further Resources and Contributors {#S:Further}
+
+### Further Reading and References
+
+Note that our discussions in Section \@ref(S:PremRtg) focus on the classical frequency-driven BMS, which implicitly assume that the information of frequency and severity are independent, consistent with the collective risk model as discussed in Section \@ref(S:AggLoss:CRM). However, a number of recent empirical studies (@Frees2016; @Garrido2016) point towards the need  due to their significant dependence structure. In this regard, @Oh20b and @Oh20a propose recent BMS framework that allows for such frequency-severity dependence based on the bivariate random effect model, where the former utilize both frequency and severity information in the specification of transition rule. 
+
+On the other hand, the framework presented in Section \@ref(S:PremRtg) is found to suffer from a double-counting problem, which results in biased premiums due to the dual role of the *a priori* rating factors in affecting both the *a priori* risk classification as well as *a posteriori* experience rating. We refer interested readers to @Oh20c who propose to incorporate the estimation of *a priori* rate (in addition to the *a posteriori* rate) under a full optimization process to resolve the double-counting problem.
 
 
 #### Contributors {-}
 
 - **Noriszura Ismail**, Universiti Kebangsaan Malaysia and **Chong It Tan**, Macquarie University, are the principal authors of the initial version of this chapter. Email: <ni@ukm.edu.my> or <chongit.tan@mq.edu.au> for chapter comments and suggested improvements.
-- This chapter has not yet been reviewed. Write Noriszura, Chong It, or Jed Frees (jfrees@bus.wisc.edu> if you are interested.
+- This chapter has not yet been reviewed. Write Noriszura, Chong It, or Jed Frees (jfrees@bus.wisc.edu) if you are interested.

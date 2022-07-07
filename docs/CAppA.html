@@ -1,0 +1,1550 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 15 Appendix A: Review of Statistical Inference | Loss Data Analytics</title>
+  <meta name="description" content="Chapter 15 Appendix A: Review of Statistical Inference | Loss Data Analytics is an interactive, online, freely available text. - The online version will contain many interactive objects (quizzes, computer demonstrations, interactive graphs, video, and the like) to promote deeper learning. - A subset of the book will be available in pdf format for low-cost printing. - The online text will be available in multiple languages to promote access to a worldwide audience." />
+  <meta name="generator" content="bookdown 0.25 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 15 Appendix A: Review of Statistical Inference | Loss Data Analytics" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Chapter 15 Appendix A: Review of Statistical Inference | Loss Data Analytics is an interactive, online, freely available text. - The online version will contain many interactive objects (quizzes, computer demonstrations, interactive graphs, video, and the like) to promote deeper learning. - A subset of the book will be available in pdf format for low-cost printing. - The online text will be available in multiple languages to promote access to a worldwide audience." />
+  <meta name="github-repo" content="https://github.com/openacttexts/Loss-Data-Analytics" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 15 Appendix A: Review of Statistical Inference | Loss Data Analytics" />
+  
+  <meta name="twitter:description" content="Chapter 15 Appendix A: Review of Statistical Inference | Loss Data Analytics is an interactive, online, freely available text. - The online version will contain many interactive objects (quizzes, computer demonstrations, interactive graphs, video, and the like) to promote deeper learning. - A subset of the book will be available in pdf format for low-cost printing. - The online text will be available in multiple languages to promote access to a worldwide audience." />
+  
+
+<meta name="author" content="An open text authored by the Actuarial Community" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="ChapDependenceModel.html"/>
+<link rel="next" href="CAppB.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+<!-- Mathjax Version 2-->
+<script type='text/x-mathjax-config'>
+		MathJax.Hub.Config({
+			extensions: ['tex2jax.js'],
+			jax: ['input/TeX', 'output/HTML-CSS'],
+			tex2jax: {
+				inlineMath: [ ['$','$'], ['\\(','\\)'] ],
+				displayMath: [ ['$$','$$'], ['\\[','\\]'] ],
+				processEscapes: true
+			},
+			'HTML-CSS': { availableFonts: ['TeX'] }
+		});
+</script>
+
+<script type="text/javascript"  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js"> </script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://unpkg.com/survey-jquery/survey.jquery.min.js"></script>
+<link href="https://unpkg.com/survey-jquery/modern.min.css" type="text/css" rel="stylesheet">
+<script src="https://unpkg.com/showdown/dist/showdown.min.js"></script>
+
+
+<script>
+function markdownConverterEWF() {  
+//Create showdown markdown converter
+var converter = new showdown.Converter();
+converter.setOption('ghCompatibleHeaderId', true);
+survey
+    .onTextMarkdown
+    .add(function (survey, options) {
+        //convert the markdown text to html
+        var str = converter.makeHtml(options.text);
+        //remove root paragraphs <p></p>
+        str = str.substring(3);
+        str = str.substring(0, str.length - 4);
+        //set html
+        options.html = str;
+        MathJax.Hub.Queue(['Typeset',MathJax.Hub, 'options']);
+    });  
+};
+
+// Quiz Header info
+const jsonHeader = { 
+    showProgressBar: "bottom",
+    showTimerPanel: "none",
+    maxTimeToFinishPage: 10000,
+    maxTimeToFinish: 25000,
+    firstPageIsStarted: true,
+    startSurveyText: "Start Quiz" //,
+//    title: "Does This Make Sense?"
+}
+
+
+// One and Two question quizzes
+function jsonSummary1EWF(json) {  
+let jsonEnd1 = { 
+completedHtml: 
+json["pages"][1]["questions"][0]["name"]+ "<br>"+
+"<i>Question: </i>"+json["pages"][1]["questions"][0]["title"]+"<br>"+
+"<i>Answer: </i>"+json["pages"][1]["questions"][0]["correctAnswer"]
+};  
+return jsonEnd1;
+};
+
+
+function jsonSummary2EWF(json) {  
+let jsonEnd2 = { 
+completedHtml: 
+json["pages"][1]["questions"][0]["name"]+ "<br>"+
+"<i>Question: </i>"+json["pages"][1]["questions"][0]["title"]+"<br>"+
+"<i>Answer: </i>"+json["pages"][1]["questions"][0]["correctAnswer"]
++"<br>"+
+json["pages"][2]["questions"][0]["name"]+ "<br>"+
+"<i>Question: </i>"+json["pages"][2]["questions"][0]["title"]+"<br>"+
+"<i>Answer: </i>"+json["pages"][2]["questions"][0]["correctAnswer"]
+};  
+return jsonEnd2;
+};
+
+// Three, four, and five question quizzes
+function jsonSummary3EWF(json) {  
+let jsonEnd3 = { 
+completedHtml: 
+json["pages"][1]["questions"][0]["name"]+ "<br>"+
+"<i>Question: </i>"+json["pages"][1]["questions"][0]["title"]+"<br>"+
+"<i>Answer: </i>"+json["pages"][1]["questions"][0]["correctAnswer"]
++"<br>"+
+json["pages"][2]["questions"][0]["name"]+ "<br>"+
+"<i>Question: </i>"+json["pages"][2]["questions"][0]["title"]+"<br>"+
+"<i>Answer: </i>"+json["pages"][2]["questions"][0]["correctAnswer"]
++"<br>"+
+json["pages"][3]["questions"][0]["name"]+ "<br>"+
+"<i>Question: </i>"+json["pages"][3]["questions"][0]["title"]+"<br>"+
+"<i>Answer: </i>"+json["pages"][3]["questions"][0]["correctAnswer"]
+};  
+return jsonEnd3;
+};
+
+function jsonSummary4EWF(json) {  
+jsonEnd4 = jsonSummary3EWF(json);
+jsonEnd4.completedHtml = jsonEnd4.completedHtml +  
+"<br>"+
+json["pages"][4]["questions"][0]["name"]+ "<br>"+
+"<i>Question: </i>"+json["pages"][4]["questions"][0]["title"]+"<br>"+
+"<i>Answer: </i>"+json["pages"][4]["questions"][0]["correctAnswer"]
+;  
+return jsonEnd4;
+};
+
+function jsonSummary5EWF(json) {  
+jsonEnd5 = jsonSummary4EWF(json);
+jsonEnd5.completedHtml = jsonEnd5.completedHtml +  
+"<br>"+
+json["pages"][5]["questions"][0]["name"]+ "<br>"+
+"<i>Question: </i>"+json["pages"][5]["questions"][0]["title"]+"<br>"+
+"<i>Answer: </i>"+json["pages"][5]["questions"][0]["correctAnswer"]
+;  
+return jsonEnd5;
+};
+
+function jsonSummary6EWF(json) {  
+jsonEnd6 = jsonSummary5EWF(json);
+jsonEnd6.completedHtml = jsonEnd6.completedHtml +  
+"<br>"+
+json["pages"][6]["questions"][0]["name"]+ "<br>"+
+"<i>Question: </i>"+json["pages"][6]["questions"][0]["title"]+"<br>"+
+"<i>Answer: </i>"+json["pages"][6]["questions"][0]["correctAnswer"]
+;  
+return jsonEnd6;
+};
+
+function jsonSummary7EWF(json) {  
+jsonEnd7 = jsonSummary6EWF(json);
+jsonEnd7.completedHtml = jsonEnd7.completedHtml +  
+"<br>"+
+json["pages"][7]["questions"][0]["name"]+ "<br>"+
+"<i>Question: </i>"+json["pages"][7]["questions"][0]["title"]+"<br>"+
+"<i>Answer: </i>"+json["pages"][7]["questions"][0]["correctAnswer"]
+;  
+return jsonEnd7;
+};
+
+function jsonSummary8EWF(json) {  
+jsonEnd8 = jsonSummary7EWF(json);
+jsonEnd8.completedHtml = jsonEnd8.completedHtml +  
+"<br>"+
+json["pages"][8]["questions"][0]["name"]+ "<br>"+
+"<i>Question: </i>"+json["pages"][8]["questions"][0]["title"]+"<br>"+
+"<i>Answer: </i>"+json["pages"][8]["questions"][0]["correctAnswer"]
+;  
+return jsonEnd8;
+};
+
+function jsonSummary9EWF(json) {  
+jsonEnd9 = jsonSummary8EWF(json);
+jsonEnd9.completedHtml = jsonEnd9.completedHtml +  
+"<br>"+
+json["pages"][9]["questions"][0]["name"]+ "<br>"+
+"<i>Question: </i>"+json["pages"][9]["questions"][0]["title"]+"<br>"+
+"<i>Answer: </i>"+json["pages"][9]["questions"][0]["correctAnswer"]
+;  
+return jsonEnd9;
+};
+
+
+function jsonSummary10EWF(json) {  
+jsonEnd10 = jsonSummary9EWF(json);
+jsonEnd10.completedHtml = jsonEnd10.completedHtml +  
+"<br>"+
+json["pages"][10]["questions"][0]["name"]+ "<br>"+
+"<i>Question: </i>"+json["pages"][10]["questions"][0]["title"]+"<br>"+
+"<i>Answer: </i>"+json["pages"][10]["questions"][0]["correctAnswer"]
+;  
+return jsonEnd10;
+};
+
+
+function jsonSummary11EWF(json) {  
+jsonEnd11 = jsonSummary10EWF(json);
+jsonEnd11.completedHtml = jsonEnd11.completedHtml +  
+"<br>"+
+json["pages"][11]["questions"][0]["name"]+ "<br>"+
+"<i>Question: </i>"+json["pages"][11]["questions"][0]["title"]+"<br>"+
+"<i>Answer: </i>"+json["pages"][11]["questions"][0]["correctAnswer"]
+;  
+return jsonEnd11;
+};
+
+Survey.StylesManager.applyTheme("modern");
+
+</script>  
+<!-- This completes the code for the quizzes -->
+
+<!-- Various toggle functions used throughout --> 
+<script language="javascript">
+function toggle(id1,id2) {
+	var ele = document.getElementById(id1); var text = document.getElementById(id2);
+	if (ele.style.display == "block") {ele.style.display = "none"; text.innerHTML = "Show Solution";}
+		else {ele.style.display = "block"; text.innerHTML = "Hide Solution";}}
+function togglecode(id1,id2) {
+   var ele = document.getElementById(id1); var text = document.getElementById(id2);
+   if (ele.style.display == "block") {ele.style.display = "none"; text.innerHTML = "Show R Code";}
+      else {ele.style.display = "block"; text.innerHTML = "Hide R Code";}}
+function toggleEX(id1,id2) {
+   var ele = document.getElementById(id1); var text = document.getElementById(id2);
+   if (ele.style.display == "block") {ele.style.display = "none"; text.innerHTML = "Show Example";}
+      else {ele.style.display = "block"; text.innerHTML = "Hide Example";}}
+function toggleTheory(id1,id2) {
+   var ele = document.getElementById(id1); var text = document.getElementById(id2);
+   if (ele.style.display == "block") {ele.style.display = "none"; text.innerHTML = "Show Theory";}
+      else {ele.style.display = "block"; text.innerHTML = "Hide Theory";}}
+function toggleQuiz(id1,id2) {
+   var ele = document.getElementById(id1); var text = document.getElementById(id2);
+   if (ele.style.display == "block") {ele.style.display = "none"; text.innerHTML = "Show Quiz Solution";}
+      else {ele.style.display = "block"; text.innerHTML = "Hide Quiz Solution";}}      
+</script>
+
+<!-- A few functions for revealing definitions -->
+<script language="javascript">
+<!--   $( function() {
+    $("#tabs").tabs();
+  } ); -->
+
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
+
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover(); 
+});
+</script>
+
+<script language="javascript">
+function openTab(evt, tabName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(tabName).style.display = "block";
+    evt.currentTarget.className += " active";
+}
+
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpen").click();
+</script>
+
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Loss Data Analytics</a></li>
+
+<li class="divider"></li>
+<li><a href="index.html#preface">Preface<span></span></a>
+<ul>
+<li><a href="index.html#acknowledgements">Acknowledgements<span></span></a></li>
+<li><a href="index.html#contributors">Contributors<span></span></a></li>
+<li><a href="index.html#reviewers">Reviewers<span></span></a>
+<ul>
+<li><a href="index.html#other-collaborators">Other Collaborators<span></span></a></li>
+</ul></li>
+<li><a href="index.html#version">Version<span></span></a></li>
+<li><a href="index.html#for-our-readers">For our Readers<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="ChapIntro.html"><a href="ChapIntro.html"><i class="fa fa-check"></i><b>1</b> Introduction to Loss Data Analytics<span></span></a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="ChapIntro.html"><a href="ChapIntro.html#S:Intro"><i class="fa fa-check"></i><b>1.1</b> Relevance of Analytics to Insurance Activities<span></span></a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="ChapIntro.html"><a href="ChapIntro.html#nature-and-relevance-of-insurance"><i class="fa fa-check"></i><b>1.1.1</b> Nature and Relevance of Insurance<span></span></a></li>
+<li class="chapter" data-level="1.1.2" data-path="ChapIntro.html"><a href="ChapIntro.html#what-is-analytics"><i class="fa fa-check"></i><b>1.1.2</b> What is Analytics?<span></span></a></li>
+<li class="chapter" data-level="1.1.3" data-path="ChapIntro.html"><a href="ChapIntro.html#S:InsProcesses"><i class="fa fa-check"></i><b>1.1.3</b> Insurance Processes<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="ChapIntro.html"><a href="ChapIntro.html#S:PredModApps"><i class="fa fa-check"></i><b>1.2</b> Insurance Company Operations<span></span></a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="ChapIntro.html"><a href="ChapIntro.html#initiating-insurance"><i class="fa fa-check"></i><b>1.2.1</b> Initiating Insurance<span></span></a></li>
+<li class="chapter" data-level="1.2.2" data-path="ChapIntro.html"><a href="ChapIntro.html#renewing-insurance"><i class="fa fa-check"></i><b>1.2.2</b> Renewing Insurance<span></span></a></li>
+<li class="chapter" data-level="1.2.3" data-path="ChapIntro.html"><a href="ChapIntro.html#claims-and-product-management"><i class="fa fa-check"></i><b>1.2.3</b> Claims and Product Management<span></span></a></li>
+<li class="chapter" data-level="1.2.4" data-path="ChapIntro.html"><a href="ChapIntro.html#S:Reserving"><i class="fa fa-check"></i><b>1.2.4</b> Loss Reserving<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="ChapIntro.html"><a href="ChapIntro.html#S:LGPIF"><i class="fa fa-check"></i><b>1.3</b> Case Study: Wisconsin Property Fund<span></span></a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="ChapIntro.html"><a href="ChapIntro.html#S:OutComes"><i class="fa fa-check"></i><b>1.3.1</b> Fund Claims Variables: Frequency and Severity<span></span></a></li>
+<li class="chapter" data-level="1.3.2" data-path="ChapIntro.html"><a href="ChapIntro.html#S:FundVariables"><i class="fa fa-check"></i><b>1.3.2</b> Fund Rating Variables<span></span></a></li>
+<li class="chapter" data-level="1.3.3" data-path="ChapIntro.html"><a href="ChapIntro.html#fund-operations"><i class="fa fa-check"></i><b>1.3.3</b> Fund Operations<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="ChapIntro.html"><a href="ChapIntro.html#Intro-further-reading-and-resources"><i class="fa fa-check"></i><b>1.4</b> Further Resources and Contributors<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="ChapFrequency-Modeling.html"><a href="ChapFrequency-Modeling.html"><i class="fa fa-check"></i><b>2</b> Frequency Modeling<span></span></a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="ChapFrequency-Modeling.html"><a href="ChapFrequency-Modeling.html#S:frequency-distributions"><i class="fa fa-check"></i><b>2.1</b> Frequency Distributions<span></span></a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="ChapFrequency-Modeling.html"><a href="ChapFrequency-Modeling.html#S:how-frequency-augments-severity-information"><i class="fa fa-check"></i><b>2.1.1</b> How Frequency Augments Severity Information<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="ChapFrequency-Modeling.html"><a href="ChapFrequency-Modeling.html#S:basic-frequency-distributions"><i class="fa fa-check"></i><b>2.2</b> Basic Frequency Distributions<span></span></a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="ChapFrequency-Modeling.html"><a href="ChapFrequency-Modeling.html#S:foundations"><i class="fa fa-check"></i><b>2.2.1</b> Foundations<span></span></a></li>
+<li class="chapter" data-level="2.2.2" data-path="ChapFrequency-Modeling.html"><a href="ChapFrequency-Modeling.html#S:generating-functions"><i class="fa fa-check"></i><b>2.2.2</b> Moment and Probability Generating Functions<span></span></a></li>
+<li class="chapter" data-level="2.2.3" data-path="ChapFrequency-Modeling.html"><a href="ChapFrequency-Modeling.html#S:important-frequency-distributions"><i class="fa fa-check"></i><b>2.2.3</b> Important Frequency Distributions<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="ChapFrequency-Modeling.html"><a href="ChapFrequency-Modeling.html#S:the-a-b-0-class"><i class="fa fa-check"></i><b>2.3</b> The (<em>a</em>, <em>b</em>, 0) Class<span></span></a></li>
+<li class="chapter" data-level="2.4" data-path="ChapFrequency-Modeling.html"><a href="ChapFrequency-Modeling.html#S:estimating-frequency-distributions"><i class="fa fa-check"></i><b>2.4</b> Estimating Frequency Distributions<span></span></a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="ChapFrequency-Modeling.html"><a href="ChapFrequency-Modeling.html#S:parameter-estimation"><i class="fa fa-check"></i><b>2.4.1</b> Parameter Estimation<span></span></a></li>
+<li class="chapter" data-level="2.4.2" data-path="ChapFrequency-Modeling.html"><a href="ChapFrequency-Modeling.html#S:frequency-distributions-mle"><i class="fa fa-check"></i><b>2.4.2</b> Frequency Distributions MLE<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="ChapFrequency-Modeling.html"><a href="ChapFrequency-Modeling.html#S:other-frequency-distributions"><i class="fa fa-check"></i><b>2.5</b> Other Frequency Distributions<span></span></a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="ChapFrequency-Modeling.html"><a href="ChapFrequency-Modeling.html#S:zero-truncation-or-modification"><i class="fa fa-check"></i><b>2.5.1</b> Zero Truncation or Modification<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="ChapFrequency-Modeling.html"><a href="ChapFrequency-Modeling.html#S:mixture-distributions"><i class="fa fa-check"></i><b>2.6</b> Mixture Distributions<span></span></a></li>
+<li class="chapter" data-level="2.7" data-path="ChapFrequency-Modeling.html"><a href="ChapFrequency-Modeling.html#S:goodness-of-fit"><i class="fa fa-check"></i><b>2.7</b> Goodness of Fit<span></span></a></li>
+<li class="chapter" data-level="2.8" data-path="ChapFrequency-Modeling.html"><a href="ChapFrequency-Modeling.html#S:exercises"><i class="fa fa-check"></i><b>2.8</b> Exercises<span></span></a></li>
+<li class="chapter" data-level="2.9" data-path="ChapFrequency-Modeling.html"><a href="ChapFrequency-Modeling.html#Freq-further-reading-and-resources"><i class="fa fa-check"></i><b>2.9</b> Further Resources and Contributors<span></span></a>
+<ul>
+<li class="chapter" data-level="2.9.1" data-path="ChapFrequency-Modeling.html"><a href="ChapFrequency-Modeling.html#S:rcode"><i class="fa fa-check"></i><b>2.9.1</b> TS 2.A. R Code for Plots<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="ChapSeverity.html"><a href="ChapSeverity.html"><i class="fa fa-check"></i><b>3</b> Modeling Loss Severity<span></span></a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="ChapSeverity.html"><a href="ChapSeverity.html#S:BasicQuantities"><i class="fa fa-check"></i><b>3.1</b> Basic Distributional Quantities<span></span></a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="ChapSeverity.html"><a href="ChapSeverity.html#S:Chap3Moments"><i class="fa fa-check"></i><b>3.1.1</b> Moments<span></span></a></li>
+<li class="chapter" data-level="3.1.2" data-path="ChapSeverity.html"><a href="ChapSeverity.html#S:LS:Quantiles"><i class="fa fa-check"></i><b>3.1.2</b> Quantiles<span></span></a></li>
+<li class="chapter" data-level="3.1.3" data-path="ChapSeverity.html"><a href="ChapSeverity.html#moment-generating-function"><i class="fa fa-check"></i><b>3.1.3</b> Moment Generating Function<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="ChapSeverity.html"><a href="ChapSeverity.html#S:ContinuousDistn"><i class="fa fa-check"></i><b>3.2</b> Continuous Distributions for Modeling Loss Severity<span></span></a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="ChapSeverity.html"><a href="ChapSeverity.html#S:Loss:Gamma"><i class="fa fa-check"></i><b>3.2.1</b> Gamma Distribution<span></span></a></li>
+<li class="chapter" data-level="3.2.2" data-path="ChapSeverity.html"><a href="ChapSeverity.html#pareto-distribution"><i class="fa fa-check"></i><b>3.2.2</b> Pareto Distribution<span></span></a></li>
+<li class="chapter" data-level="3.2.3" data-path="ChapSeverity.html"><a href="ChapSeverity.html#S:LS:Weibull"><i class="fa fa-check"></i><b>3.2.3</b> Weibull Distribution<span></span></a></li>
+<li class="chapter" data-level="3.2.4" data-path="ChapSeverity.html"><a href="ChapSeverity.html#the-generalized-beta-distribution-of-the-second-kind"><i class="fa fa-check"></i><b>3.2.4</b> The Generalized Beta Distribution of the Second Kind<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="ChapSeverity.html"><a href="ChapSeverity.html#MethodsCreation"><i class="fa fa-check"></i><b>3.3</b> Methods of Creating New Distributions<span></span></a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="ChapSeverity.html"><a href="ChapSeverity.html#functions-of-random-variables-and-their-distributions"><i class="fa fa-check"></i><b>3.3.1</b> Functions of Random Variables and their Distributions<span></span></a></li>
+<li class="chapter" data-level="3.3.2" data-path="ChapSeverity.html"><a href="ChapSeverity.html#multiplication-by-a-constant"><i class="fa fa-check"></i><b>3.3.2</b> Multiplication by a Constant<span></span></a></li>
+<li class="chapter" data-level="3.3.3" data-path="ChapSeverity.html"><a href="ChapSeverity.html#S:LossSev:Raising"><i class="fa fa-check"></i><b>3.3.3</b> Raising to a Power<span></span></a></li>
+<li class="chapter" data-level="3.3.4" data-path="ChapSeverity.html"><a href="ChapSeverity.html#exponentiation"><i class="fa fa-check"></i><b>3.3.4</b> Exponentiation<span></span></a></li>
+<li class="chapter" data-level="3.3.5" data-path="ChapSeverity.html"><a href="ChapSeverity.html#finite-mixtures"><i class="fa fa-check"></i><b>3.3.5</b> Finite Mixtures<span></span></a></li>
+<li class="chapter" data-level="3.3.6" data-path="ChapSeverity.html"><a href="ChapSeverity.html#continuous-mixtures"><i class="fa fa-check"></i><b>3.3.6</b> Continuous Mixtures<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="ChapSeverity.html"><a href="ChapSeverity.html#S:CoverageModifications"><i class="fa fa-check"></i><b>3.4</b> Coverage Modifications<span></span></a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="ChapSeverity.html"><a href="ChapSeverity.html#S:PolicyDeduct"><i class="fa fa-check"></i><b>3.4.1</b> Policy Deductibles<span></span></a></li>
+<li class="chapter" data-level="3.4.2" data-path="ChapSeverity.html"><a href="ChapSeverity.html#S:PolicyLimits"><i class="fa fa-check"></i><b>3.4.2</b> Policy Limits<span></span></a></li>
+<li class="chapter" data-level="3.4.3" data-path="ChapSeverity.html"><a href="ChapSeverity.html#coinsurance-and-inflation"><i class="fa fa-check"></i><b>3.4.3</b> Coinsurance and Inflation<span></span></a></li>
+<li class="chapter" data-level="3.4.4" data-path="ChapSeverity.html"><a href="ChapSeverity.html#S:Chap3Reinsurance"><i class="fa fa-check"></i><b>3.4.4</b> Reinsurance<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="ChapSeverity.html"><a href="ChapSeverity.html#S:MaxLikeEstimation"><i class="fa fa-check"></i><b>3.5</b> Maximum Likelihood Estimation<span></span></a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="ChapSeverity.html"><a href="ChapSeverity.html#maximum-likelihood-estimators-for-complete-data"><i class="fa fa-check"></i><b>3.5.1</b> Maximum Likelihood Estimators for Complete Data<span></span></a></li>
+<li class="chapter" data-level="3.5.2" data-path="ChapSeverity.html"><a href="ChapSeverity.html#S:Loss:MLEModified"><i class="fa fa-check"></i><b>3.5.2</b> Maximum Likelihood Estimators using Modified Data<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="ChapSeverity.html"><a href="ChapSeverity.html#LM-further-reading-and-resources"><i class="fa fa-check"></i><b>3.6</b> Further Resources and Contributors<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="ChapModelSelection.html"><a href="ChapModelSelection.html"><i class="fa fa-check"></i><b>4</b> Model Selection and Estimation<span></span></a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="ChapModelSelection.html"><a href="ChapModelSelection.html#S:MS:NonParInf"><i class="fa fa-check"></i><b>4.1</b> Nonparametric Inference<span></span></a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="ChapModelSelection.html"><a href="ChapModelSelection.html#S:MS:NonParEst"><i class="fa fa-check"></i><b>4.1.1</b> Nonparametric Estimation<span></span></a></li>
+<li class="chapter" data-level="4.1.2" data-path="ChapModelSelection.html"><a href="ChapModelSelection.html#S:MS:ToolsModelSelection"><i class="fa fa-check"></i><b>4.1.2</b> Tools for Model Selection and Diagnostics<span></span></a></li>
+<li class="chapter" data-level="4.1.3" data-path="ChapModelSelection.html"><a href="ChapModelSelection.html#starting-values"><i class="fa fa-check"></i><b>4.1.3</b> Starting Values<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="ChapModelSelection.html"><a href="ChapModelSelection.html#S:MS:ModelSelection"><i class="fa fa-check"></i><b>4.2</b> Model Selection<span></span></a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="ChapModelSelection.html"><a href="ChapModelSelection.html#iterative-model-selection"><i class="fa fa-check"></i><b>4.2.1</b> Iterative Model Selection<span></span></a></li>
+<li class="chapter" data-level="4.2.2" data-path="ChapModelSelection.html"><a href="ChapModelSelection.html#model-selection-based-on-a-training-dataset"><i class="fa fa-check"></i><b>4.2.2</b> Model Selection Based on a Training Dataset<span></span></a></li>
+<li class="chapter" data-level="4.2.3" data-path="ChapModelSelection.html"><a href="ChapModelSelection.html#model-selection-based-on-a-test-dataset"><i class="fa fa-check"></i><b>4.2.3</b> Model Selection Based on a Test Dataset<span></span></a></li>
+<li class="chapter" data-level="4.2.4" data-path="ChapModelSelection.html"><a href="ChapModelSelection.html#S:MS:Cross-Validation"><i class="fa fa-check"></i><b>4.2.4</b> Model Selection Based on Cross-Validation<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="ChapModelSelection.html"><a href="ChapModelSelection.html#S:MS:ModifiedData"><i class="fa fa-check"></i><b>4.3</b> Estimation using Modified Data<span></span></a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="ChapModelSelection.html"><a href="ChapModelSelection.html#S:MS:ModifiedData1"><i class="fa fa-check"></i><b>4.3.1</b> Parametric Estimation using Modified Data<span></span></a></li>
+<li class="chapter" data-level="4.3.2" data-path="ChapModelSelection.html"><a href="ChapModelSelection.html#nonparametric-estimation-using-modified-data"><i class="fa fa-check"></i><b>4.3.2</b> Nonparametric Estimation using Modified Data<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="ChapModelSelection.html"><a href="ChapModelSelection.html#S:MS:BayesInference"><i class="fa fa-check"></i><b>4.4</b> Bayesian Inference<span></span></a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="ChapModelSelection.html"><a href="ChapModelSelection.html#S:IntroBayes"><i class="fa fa-check"></i><b>4.4.1</b> Introduction to Bayesian Inference<span></span></a></li>
+<li class="chapter" data-level="4.4.2" data-path="ChapModelSelection.html"><a href="ChapModelSelection.html#bayesian-model"><i class="fa fa-check"></i><b>4.4.2</b> Bayesian Model<span></span></a></li>
+<li class="chapter" data-level="4.4.3" data-path="ChapModelSelection.html"><a href="ChapModelSelection.html#bayesian-inference"><i class="fa fa-check"></i><b>4.4.3</b> Bayesian Inference<span></span></a></li>
+<li class="chapter" data-level="4.4.4" data-path="ChapModelSelection.html"><a href="ChapModelSelection.html#S:ConjugateDistributions"><i class="fa fa-check"></i><b>4.4.4</b> Conjugate Distributions<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="ChapModelSelection.html"><a href="ChapModelSelection.html#MS:further-reading-and-resources"><i class="fa fa-check"></i><b>4.5</b> Further Resources and Contributors<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="ChapAggLossModels.html"><a href="ChapAggLossModels.html"><i class="fa fa-check"></i><b>5</b> Aggregate Loss Models<span></span></a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="ChapAggLossModels.html"><a href="ChapAggLossModels.html#introduction"><i class="fa fa-check"></i><b>5.1</b> Introduction<span></span></a></li>
+<li class="chapter" data-level="5.2" data-path="ChapAggLossModels.html"><a href="ChapAggLossModels.html#individual-risk-model"><i class="fa fa-check"></i><b>5.2</b> Individual Risk Model<span></span></a></li>
+<li class="chapter" data-level="5.3" data-path="ChapAggLossModels.html"><a href="ChapAggLossModels.html#S:AggLoss:CRM"><i class="fa fa-check"></i><b>5.3</b> Collective Risk Model<span></span></a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="ChapAggLossModels.html"><a href="ChapAggLossModels.html#moments-and-distribution"><i class="fa fa-check"></i><b>5.3.1</b> Moments and Distribution<span></span></a></li>
+<li class="chapter" data-level="5.3.2" data-path="ChapAggLossModels.html"><a href="ChapAggLossModels.html#stop-loss-insurance"><i class="fa fa-check"></i><b>5.3.2</b> Stop-loss Insurance<span></span></a></li>
+<li class="chapter" data-level="5.3.3" data-path="ChapAggLossModels.html"><a href="ChapAggLossModels.html#analytic-results"><i class="fa fa-check"></i><b>5.3.3</b> Analytic Results<span></span></a></li>
+<li class="chapter" data-level="5.3.4" data-path="ChapAggLossModels.html"><a href="ChapAggLossModels.html#S:AggLoss:Tweedie"><i class="fa fa-check"></i><b>5.3.4</b> Tweedie Distribution<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="ChapAggLossModels.html"><a href="ChapAggLossModels.html#computing-the-aggregate-claims-distribution"><i class="fa fa-check"></i><b>5.4</b> Computing the Aggregate Claims Distribution<span></span></a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="ChapAggLossModels.html"><a href="ChapAggLossModels.html#recursive-method"><i class="fa fa-check"></i><b>5.4.1</b> Recursive Method<span></span></a></li>
+<li class="chapter" data-level="5.4.2" data-path="ChapAggLossModels.html"><a href="ChapAggLossModels.html#simulation"><i class="fa fa-check"></i><b>5.4.2</b> Simulation<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="ChapAggLossModels.html"><a href="ChapAggLossModels.html#effects-of-coverage-modifications"><i class="fa fa-check"></i><b>5.5</b> Effects of Coverage Modifications<span></span></a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="ChapAggLossModels.html"><a href="ChapAggLossModels.html#impact-of-exposure-on-frequency"><i class="fa fa-check"></i><b>5.5.1</b> Impact of Exposure on Frequency<span></span></a></li>
+<li class="chapter" data-level="5.5.2" data-path="ChapAggLossModels.html"><a href="ChapAggLossModels.html#S:MS:DedImpactClmFreq"><i class="fa fa-check"></i><b>5.5.2</b> Impact of Deductibles on Claim Frequency<span></span></a></li>
+<li class="chapter" data-level="5.5.3" data-path="ChapAggLossModels.html"><a href="ChapAggLossModels.html#impact-of-policy-modifications-on-aggregate-claims"><i class="fa fa-check"></i><b>5.5.3</b> Impact of Policy Modifications on Aggregate Claims<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="ChapAggLossModels.html"><a href="ChapAggLossModels.html#AL-further-reading-and-resources"><i class="fa fa-check"></i><b>5.6</b> Further Resources and Contributors<span></span></a>
+<ul>
+<li><a href="ChapAggLossModels.html#ts-5.a.1.-individual-risk-model-properties">TS 5.A.1. Individual Risk Model Properties<span></span></a></li>
+<li><a href="ChapAggLossModels.html#ts-5.a.2.-relationship-between-probability-generating-functions-of-x_i-and-x_it">TS 5.A.2. Relationship Between Probability Generating Functions of <span class="math inline">\(X_i\)</span> and <span class="math inline">\(X_i^T\)</span><span></span></a></li>
+<li><a href="ChapAggLossModels.html#ts-5.a.3.-example-5.3.8-moment-generating-function-of-aggregate-loss-s_n">TS 5.A.3. Example 5.3.8 Moment Generating Function of Aggregate Loss <span class="math inline">\(S_N\)</span><span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="ChapSimulation.html"><a href="ChapSimulation.html"><i class="fa fa-check"></i><b>6</b> Simulation and Resampling<span></span></a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="ChapSimulation.html"><a href="ChapSimulation.html#S:SimulationFundamentals"><i class="fa fa-check"></i><b>6.1</b> Simulation Fundamentals<span></span></a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="ChapSimulation.html"><a href="ChapSimulation.html#generating-independent-uniform-observations"><i class="fa fa-check"></i><b>6.1.1</b> Generating Independent Uniform Observations<span></span></a></li>
+<li class="chapter" data-level="6.1.2" data-path="ChapSimulation.html"><a href="ChapSimulation.html#S:InverseTransform"><i class="fa fa-check"></i><b>6.1.2</b> Inverse Transform Method<span></span></a></li>
+<li class="chapter" data-level="6.1.3" data-path="ChapSimulation.html"><a href="ChapSimulation.html#simulation-precision"><i class="fa fa-check"></i><b>6.1.3</b> Simulation Precision<span></span></a></li>
+<li class="chapter" data-level="6.1.4" data-path="ChapSimulation.html"><a href="ChapSimulation.html#S:SimulationStatInference"><i class="fa fa-check"></i><b>6.1.4</b> Simulation and Statistical Inference<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="ChapSimulation.html"><a href="ChapSimulation.html#S:Bootstrap"><i class="fa fa-check"></i><b>6.2</b> Bootstrapping and Resampling<span></span></a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="ChapSimulation.html"><a href="ChapSimulation.html#bootstrap-foundations"><i class="fa fa-check"></i><b>6.2.1</b> Bootstrap Foundations<span></span></a></li>
+<li class="chapter" data-level="6.2.2" data-path="ChapSimulation.html"><a href="ChapSimulation.html#S:Sim:Precision"><i class="fa fa-check"></i><b>6.2.2</b> Bootstrap Precision: Bias, Standard Deviation, and Mean Square Error<span></span></a></li>
+<li class="chapter" data-level="6.2.3" data-path="ChapSimulation.html"><a href="ChapSimulation.html#confidence-intervals"><i class="fa fa-check"></i><b>6.2.3</b> Confidence Intervals<span></span></a></li>
+<li class="chapter" data-level="6.2.4" data-path="ChapSimulation.html"><a href="ChapSimulation.html#S:ParametricBootStrap"><i class="fa fa-check"></i><b>6.2.4</b> Parametric Bootstrap<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="ChapSimulation.html"><a href="ChapSimulation.html#S:CrossValidation"><i class="fa fa-check"></i><b>6.3</b> Cross-Validation<span></span></a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="ChapSimulation.html"><a href="ChapSimulation.html#k-fold-cross-validation"><i class="fa fa-check"></i><b>6.3.1</b> k-Fold Cross-Validation<span></span></a></li>
+<li class="chapter" data-level="6.3.2" data-path="ChapSimulation.html"><a href="ChapSimulation.html#leave-one-out-cross-validation"><i class="fa fa-check"></i><b>6.3.2</b> Leave-One-Out Cross-Validation<span></span></a></li>
+<li class="chapter" data-level="6.3.3" data-path="ChapSimulation.html"><a href="ChapSimulation.html#cross-validation-and-bootstrap"><i class="fa fa-check"></i><b>6.3.3</b> Cross-Validation and Bootstrap<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="ChapSimulation.html"><a href="ChapSimulation.html#S:ImportanceSampling"><i class="fa fa-check"></i><b>6.4</b> Importance Sampling<span></span></a></li>
+<li class="chapter" data-level="6.5" data-path="ChapSimulation.html"><a href="ChapSimulation.html#S:MCMC"><i class="fa fa-check"></i><b>6.5</b> Monte Carlo Markov Chain (MCMC)<span></span></a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="ChapSimulation.html"><a href="ChapSimulation.html#metropolis-hastings"><i class="fa fa-check"></i><b>6.5.1</b> Metropolis Hastings<span></span></a></li>
+<li class="chapter" data-level="6.5.2" data-path="ChapSimulation.html"><a href="ChapSimulation.html#gibbs-sampler"><i class="fa fa-check"></i><b>6.5.2</b> Gibbs Sampler<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="ChapSimulation.html"><a href="ChapSimulation.html#Simulation:further-reading-and-resources"><i class="fa fa-check"></i><b>6.6</b> Further Resources and Contributors<span></span></a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="ChapSimulation.html"><a href="ChapSimulation.html#ts-6.a.-bootstrap-applications-in-predictive-modeling"><i class="fa fa-check"></i><b>6.6.1</b> TS 6.A. Bootstrap Applications in Predictive Modeling<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="ChapPremiumFoundations.html"><a href="ChapPremiumFoundations.html"><i class="fa fa-check"></i><b>7</b> Premium Foundations<span></span></a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="ChapPremiumFoundations.html"><a href="ChapPremiumFoundations.html#S:IntroductionRatemaking"><i class="fa fa-check"></i><b>7.1</b> Introduction to Ratemaking<span></span></a></li>
+<li class="chapter" data-level="7.2" data-path="ChapPremiumFoundations.html"><a href="ChapPremiumFoundations.html#S:AggRateMaking"><i class="fa fa-check"></i><b>7.2</b> Aggregate Ratemaking Methods<span></span></a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="ChapPremiumFoundations.html"><a href="ChapPremiumFoundations.html#S:PurePremium"><i class="fa fa-check"></i><b>7.2.1</b> Pure Premium Method<span></span></a></li>
+<li class="chapter" data-level="7.2.2" data-path="ChapPremiumFoundations.html"><a href="ChapPremiumFoundations.html#S:LossRatio"><i class="fa fa-check"></i><b>7.2.2</b> Loss Ratio Method<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="ChapPremiumFoundations.html"><a href="ChapPremiumFoundations.html#S:PricingPrinciples"><i class="fa fa-check"></i><b>7.3</b> Pricing Principles<span></span></a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="ChapPremiumFoundations.html"><a href="ChapPremiumFoundations.html#premium-principles"><i class="fa fa-check"></i><b>7.3.1</b> Premium Principles<span></span></a></li>
+<li class="chapter" data-level="7.3.2" data-path="ChapPremiumFoundations.html"><a href="ChapPremiumFoundations.html#properties-of-premium-principles"><i class="fa fa-check"></i><b>7.3.2</b> Properties of Premium Principles<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="ChapPremiumFoundations.html"><a href="ChapPremiumFoundations.html#S:HeterogeneousRisks"><i class="fa fa-check"></i><b>7.4</b> Heterogeneous Risks<span></span></a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="ChapPremiumFoundations.html"><a href="ChapPremiumFoundations.html#S:ExposureToRisk"><i class="fa fa-check"></i><b>7.4.1</b> Exposure to Risk<span></span></a></li>
+<li class="chapter" data-level="7.4.2" data-path="ChapPremiumFoundations.html"><a href="ChapPremiumFoundations.html#S:RatingFactors"><i class="fa fa-check"></i><b>7.4.2</b> Rating Factors<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="ChapPremiumFoundations.html"><a href="ChapPremiumFoundations.html#S:TrendDevelopment"><i class="fa fa-check"></i><b>7.5</b> Development and Trending<span></span></a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="ChapPremiumFoundations.html"><a href="ChapPremiumFoundations.html#exposures-and-premiums"><i class="fa fa-check"></i><b>7.5.1</b> Exposures and Premiums<span></span></a></li>
+<li class="chapter" data-level="7.5.2" data-path="ChapPremiumFoundations.html"><a href="ChapPremiumFoundations.html#losses-claims-and-payments"><i class="fa fa-check"></i><b>7.5.2</b> Losses, Claims, and Payments<span></span></a></li>
+<li class="chapter" data-level="7.5.3" data-path="ChapPremiumFoundations.html"><a href="ChapPremiumFoundations.html#S:CompareMethods"><i class="fa fa-check"></i><b>7.5.3</b> Comparing Pure Premium and Loss Ratio Methods<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="ChapPremiumFoundations.html"><a href="ChapPremiumFoundations.html#S:GiniStatistic"><i class="fa fa-check"></i><b>7.6</b> Selecting a Premium<span></span></a>
+<ul>
+<li class="chapter" data-level="7.6.1" data-path="ChapPremiumFoundations.html"><a href="ChapPremiumFoundations.html#classic-lorenz-curve"><i class="fa fa-check"></i><b>7.6.1</b> Classic Lorenz Curve<span></span></a></li>
+<li class="chapter" data-level="7.6.2" data-path="ChapPremiumFoundations.html"><a href="ChapPremiumFoundations.html#performance-curve-and-a-gini-statistic"><i class="fa fa-check"></i><b>7.6.2</b> Performance Curve and a Gini Statistic<span></span></a></li>
+<li class="chapter" data-level="7.6.3" data-path="ChapPremiumFoundations.html"><a href="ChapPremiumFoundations.html#out-of-sample-validation"><i class="fa fa-check"></i><b>7.6.3</b> Out-of-Sample Validation<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="ChapPremiumFoundations.html"><a href="ChapPremiumFoundations.html#further-resources-and-contributors"><i class="fa fa-check"></i><b>7.7</b> Further Resources and Contributors<span></span></a>
+<ul>
+<li><a href="ChapPremiumFoundations.html#ts-7.a.-rate-regulation">TS 7.A. Rate Regulation<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="ChapRiskClass.html"><a href="ChapRiskClass.html"><i class="fa fa-check"></i><b>8</b> Risk Classification<span></span></a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="ChapRiskClass.html"><a href="ChapRiskClass.html#S:RC:Introduction"><i class="fa fa-check"></i><b>8.1</b> Introduction<span></span></a></li>
+<li class="chapter" data-level="8.2" data-path="ChapRiskClass.html"><a href="ChapRiskClass.html#S:RC:PoissonRegression"><i class="fa fa-check"></i><b>8.2</b> Poisson Regression Model<span></span></a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="ChapRiskClass.html"><a href="ChapRiskClass.html#S:RC:Need.Poi.reg"><i class="fa fa-check"></i><b>8.2.1</b> Need for Poisson Regression<span></span></a></li>
+<li class="chapter" data-level="8.2.2" data-path="ChapRiskClass.html"><a href="ChapRiskClass.html#poisson-regression"><i class="fa fa-check"></i><b>8.2.2</b> Poisson Regression<span></span></a></li>
+<li class="chapter" data-level="8.2.3" data-path="ChapRiskClass.html"><a href="ChapRiskClass.html#incorporating-exposure"><i class="fa fa-check"></i><b>8.2.3</b> Incorporating Exposure<span></span></a></li>
+<li class="chapter" data-level="8.2.4" data-path="ChapRiskClass.html"><a href="ChapRiskClass.html#exercises-3"><i class="fa fa-check"></i><b>8.2.4</b> Exercises<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="ChapRiskClass.html"><a href="ChapRiskClass.html#S:CatVarMultiTarriff"><i class="fa fa-check"></i><b>8.3</b> Categorical Variables and Multiplicative Tariff<span></span></a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="ChapRiskClass.html"><a href="ChapRiskClass.html#rating-factors-and-tariff"><i class="fa fa-check"></i><b>8.3.1</b> Rating Factors and Tariff<span></span></a></li>
+<li class="chapter" data-level="8.3.2" data-path="ChapRiskClass.html"><a href="ChapRiskClass.html#multiplicative-tariff-model"><i class="fa fa-check"></i><b>8.3.2</b> Multiplicative Tariff Model<span></span></a></li>
+<li class="chapter" data-level="8.3.3" data-path="ChapRiskClass.html"><a href="ChapRiskClass.html#poisson-regression-for-multiplicative-tariff"><i class="fa fa-check"></i><b>8.3.3</b> Poisson Regression for Multiplicative Tariff<span></span></a></li>
+<li class="chapter" data-level="8.3.4" data-path="ChapRiskClass.html"><a href="ChapRiskClass.html#numerical-examples"><i class="fa fa-check"></i><b>8.3.4</b> Numerical Examples<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="ChapRiskClass.html"><a href="ChapRiskClass.html#RC:further-reading-and-resources"><i class="fa fa-check"></i><b>8.4</b> Further Resources and Contributors<span></span></a>
+<ul>
+<li><a href="ChapRiskClass.html#ts-8.a.-estimating-poisson-regression-models">TS 8.A. Estimating Poisson Regression Models<span></span></a></li>
+<li><a href="ChapRiskClass.html#ts-8.b.-selecting-rating-factors">TS 8.B. Selecting Rating Factors<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="ChapCredibility.html"><a href="ChapCredibility.html"><i class="fa fa-check"></i><b>9</b> Experience Rating Using Credibility Theory<span></span></a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="ChapCredibility.html"><a href="ChapCredibility.html#introduction-to-applications-of-credibility-theory"><i class="fa fa-check"></i><b>9.1</b> Introduction to Applications of Credibility Theory<span></span></a></li>
+<li class="chapter" data-level="9.2" data-path="ChapCredibility.html"><a href="ChapCredibility.html#limited-fluctuation-credibility"><i class="fa fa-check"></i><b>9.2</b> Limited Fluctuation Credibility<span></span></a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="ChapCredibility.html"><a href="ChapCredibility.html#S:frequency"><i class="fa fa-check"></i><b>9.2.1</b> Full Credibility for Claim Frequency<span></span></a></li>
+<li class="chapter" data-level="9.2.2" data-path="ChapCredibility.html"><a href="ChapCredibility.html#full-credibility-for-aggregate-losses-and-pure-premium"><i class="fa fa-check"></i><b>9.2.2</b> Full Credibility for Aggregate Losses and Pure Premium<span></span></a></li>
+<li class="chapter" data-level="9.2.3" data-path="ChapCredibility.html"><a href="ChapCredibility.html#full-credibility-for-severity"><i class="fa fa-check"></i><b>9.2.3</b> Full Credibility for Severity<span></span></a></li>
+<li class="chapter" data-level="9.2.4" data-path="ChapCredibility.html"><a href="ChapCredibility.html#partial-credibility"><i class="fa fa-check"></i><b>9.2.4</b> Partial Credibility<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="ChapCredibility.html"><a href="ChapCredibility.html#S:Cred:Buhlmann"><i class="fa fa-check"></i><b>9.3</b> Bühlmann Credibility<span></span></a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="ChapCredibility.html"><a href="ChapCredibility.html#S:EPV-VHM-Z"><i class="fa fa-check"></i><b>9.3.1</b> Credibility <em>Z</em>, <em>EPV</em>, and <em>VHM</em><span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="ChapCredibility.html"><a href="ChapCredibility.html#bühlmann-straub-credibility"><i class="fa fa-check"></i><b>9.4</b> Bühlmann-Straub Credibility<span></span></a></li>
+<li class="chapter" data-level="9.5" data-path="ChapCredibility.html"><a href="ChapCredibility.html#S:Cred:BayesInf"><i class="fa fa-check"></i><b>9.5</b> Bayesian Inference and Bühlmann Credibility<span></span></a>
+<ul>
+<li class="chapter" data-level="9.5.1" data-path="ChapCredibility.html"><a href="ChapCredibility.html#Sec:Cred:gammaPoisson"><i class="fa fa-check"></i><b>9.5.1</b> Gamma-Poisson Model<span></span></a></li>
+<li class="chapter" data-level="9.5.2" data-path="ChapCredibility.html"><a href="ChapCredibility.html#beta-binomial-model"><i class="fa fa-check"></i><b>9.5.2</b> Beta-Binomial Model<span></span></a></li>
+<li class="chapter" data-level="9.5.3" data-path="ChapCredibility.html"><a href="ChapCredibility.html#exact-credibility"><i class="fa fa-check"></i><b>9.5.3</b> Exact Credibility<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="9.6" data-path="ChapCredibility.html"><a href="ChapCredibility.html#estimating-credibility-parameters"><i class="fa fa-check"></i><b>9.6</b> Estimating Credibility Parameters<span></span></a>
+<ul>
+<li class="chapter" data-level="9.6.1" data-path="ChapCredibility.html"><a href="ChapCredibility.html#full-credibility-standard-for-limited-fluctuation-credibility"><i class="fa fa-check"></i><b>9.6.1</b> Full Credibility Standard for Limited Fluctuation Credibility<span></span></a></li>
+<li class="chapter" data-level="9.6.2" data-path="ChapCredibility.html"><a href="ChapCredibility.html#nonparametric-estimation-for-bühlmann-and-bühlmann-straub-models"><i class="fa fa-check"></i><b>9.6.2</b> Nonparametric Estimation for Bühlmann and Bühlmann-Straub Models<span></span></a></li>
+<li class="chapter" data-level="9.6.3" data-path="ChapCredibility.html"><a href="ChapCredibility.html#semiparametric-estimation-for-bühlmann-and-bühlmann-straub-models"><i class="fa fa-check"></i><b>9.6.3</b> Semiparametric Estimation for Bühlmann and Bühlmann-Straub Models<span></span></a></li>
+<li class="chapter" data-level="9.6.4" data-path="ChapCredibility.html"><a href="ChapCredibility.html#balancing-credibility-estimators"><i class="fa fa-check"></i><b>9.6.4</b> Balancing Credibility Estimators<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="9.7" data-path="ChapCredibility.html"><a href="ChapCredibility.html#Cred-further-reading-and-resources"><i class="fa fa-check"></i><b>9.7</b> Further Resources and Contributors<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="ChapPortMgt.html"><a href="ChapPortMgt.html"><i class="fa fa-check"></i><b>10</b> Insurance Portfolio Management including Reinsurance<span></span></a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="ChapPortMgt.html"><a href="ChapPortMgt.html#introduction-to-insurance-portfolios"><i class="fa fa-check"></i><b>10.1</b> Introduction to Insurance Portfolios<span></span></a></li>
+<li class="chapter" data-level="10.2" data-path="ChapPortMgt.html"><a href="ChapPortMgt.html#S:Tails"><i class="fa fa-check"></i><b>10.2</b> Tails of Distributions<span></span></a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="ChapPortMgt.html"><a href="ChapPortMgt.html#classification-based-on-moments"><i class="fa fa-check"></i><b>10.2.1</b> Classification Based on Moments<span></span></a></li>
+<li class="chapter" data-level="10.2.2" data-path="ChapPortMgt.html"><a href="ChapPortMgt.html#comparison-based-on-limiting-tail-behavior"><i class="fa fa-check"></i><b>10.2.2</b> Comparison Based on Limiting Tail Behavior<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="ChapPortMgt.html"><a href="ChapPortMgt.html#S:RiskMeasure"><i class="fa fa-check"></i><b>10.3</b> Risk Measures<span></span></a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="ChapPortMgt.html"><a href="ChapPortMgt.html#coherent-risk-measures"><i class="fa fa-check"></i><b>10.3.1</b> Coherent Risk Measures<span></span></a></li>
+<li class="chapter" data-level="10.3.2" data-path="ChapPortMgt.html"><a href="ChapPortMgt.html#value-at-risk"><i class="fa fa-check"></i><b>10.3.2</b> Value-at-Risk<span></span></a></li>
+<li class="chapter" data-level="10.3.3" data-path="ChapPortMgt.html"><a href="ChapPortMgt.html#tail-value-at-risk"><i class="fa fa-check"></i><b>10.3.3</b> Tail Value-at-Risk<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="ChapPortMgt.html"><a href="ChapPortMgt.html#S:Reinsurance"><i class="fa fa-check"></i><b>10.4</b> Reinsurance<span></span></a>
+<ul>
+<li class="chapter" data-level="10.4.1" data-path="ChapPortMgt.html"><a href="ChapPortMgt.html#S:ProportionalRe"><i class="fa fa-check"></i><b>10.4.1</b> Proportional Reinsurance<span></span></a></li>
+<li class="chapter" data-level="10.4.2" data-path="ChapPortMgt.html"><a href="ChapPortMgt.html#S:NonProportionalRe"><i class="fa fa-check"></i><b>10.4.2</b> Non-Proportional Reinsurance<span></span></a></li>
+<li class="chapter" data-level="10.4.3" data-path="ChapPortMgt.html"><a href="ChapPortMgt.html#S:AdditionalRe"><i class="fa fa-check"></i><b>10.4.3</b> Additional Reinsurance Treaties<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="ChapPortMgt.html"><a href="ChapPortMgt.html#further-resources-and-contributors-1"><i class="fa fa-check"></i><b>10.5</b> Further Resources and Contributors<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="ChapLossReserves.html"><a href="ChapLossReserves.html"><i class="fa fa-check"></i><b>11</b> Loss Reserving<span></span></a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="ChapLossReserves.html"><a href="ChapLossReserves.html#S:motivation"><i class="fa fa-check"></i><b>11.1</b> Motivation<span></span></a>
+<ul>
+<li class="chapter" data-level="11.1.1" data-path="ChapLossReserves.html"><a href="ChapLossReserves.html#S:claim-types"><i class="fa fa-check"></i><b>11.1.1</b> Closed, IBNR, and RBNS Claims<span></span></a></li>
+<li class="chapter" data-level="11.1.2" data-path="ChapLossReserves.html"><a href="ChapLossReserves.html#why-reserving"><i class="fa fa-check"></i><b>11.1.2</b> Why Reserving?<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="ChapLossReserves.html"><a href="ChapLossReserves.html#S:Data"><i class="fa fa-check"></i><b>11.2</b> Loss Reserve Data<span></span></a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="ChapLossReserves.html"><a href="ChapLossReserves.html#from-micro-to-macro"><i class="fa fa-check"></i><b>11.2.1</b> From Micro to Macro<span></span></a></li>
+<li class="chapter" data-level="11.2.2" data-path="ChapLossReserves.html"><a href="ChapLossReserves.html#run-off-triangles"><i class="fa fa-check"></i><b>11.2.2</b> Run-off Triangles<span></span></a></li>
+<li class="chapter" data-level="11.2.3" data-path="ChapLossReserves.html"><a href="ChapLossReserves.html#loss-reserve-notation"><i class="fa fa-check"></i><b>11.2.3</b> Loss Reserve Notation<span></span></a></li>
+<li class="chapter" data-level="11.2.4" data-path="ChapLossReserves.html"><a href="ChapLossReserves.html#S:Rcode"><i class="fa fa-check"></i><b>11.2.4</b> R Code to Summarize Loss Reserve Data<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="ChapLossReserves.html"><a href="ChapLossReserves.html#S:Chain-ladder"><i class="fa fa-check"></i><b>11.3</b> The Chain-Ladder Method<span></span></a>
+<ul>
+<li class="chapter" data-level="11.3.1" data-path="ChapLossReserves.html"><a href="ChapLossReserves.html#S:DeterministicCL"><i class="fa fa-check"></i><b>11.3.1</b> The Deterministic Chain-Ladder<span></span></a></li>
+<li class="chapter" data-level="11.3.2" data-path="ChapLossReserves.html"><a href="ChapLossReserves.html#macks-distribution-free-chain-ladder-model"><i class="fa fa-check"></i><b>11.3.2</b> Mack’s Distribution-Free Chain-Ladder Model<span></span></a></li>
+<li class="chapter" data-level="11.3.3" data-path="ChapLossReserves.html"><a href="ChapLossReserves.html#r-code-for-chain-ladder-predictions"><i class="fa fa-check"></i><b>11.3.3</b> R code for Chain-Ladder Predictions<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="ChapLossReserves.html"><a href="ChapLossReserves.html#S:GLMs"><i class="fa fa-check"></i><b>11.4</b> GLMs and Bootstrap for Loss Reserves<span></span></a>
+<ul>
+<li class="chapter" data-level="11.4.1" data-path="ChapLossReserves.html"><a href="ChapLossReserves.html#model-specification"><i class="fa fa-check"></i><b>11.4.1</b> Model Specification<span></span></a></li>
+<li class="chapter" data-level="11.4.2" data-path="ChapLossReserves.html"><a href="ChapLossReserves.html#model-estimation-and-prediction"><i class="fa fa-check"></i><b>11.4.2</b> Model Estimation and Prediction<span></span></a></li>
+<li class="chapter" data-level="11.4.3" data-path="ChapLossReserves.html"><a href="ChapLossReserves.html#bootstrap"><i class="fa fa-check"></i><b>11.4.3</b> Bootstrap<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="11.5" data-path="ChapLossReserves.html"><a href="ChapLossReserves.html#LossRe:further-reading-and-resources"><i class="fa fa-check"></i><b>11.5</b> Further Resources and Contributors<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="ChapBonusMalus.html"><a href="ChapBonusMalus.html"><i class="fa fa-check"></i><b>12</b> Experience Rating using Bonus-Malus<span></span></a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="ChapBonusMalus.html"><a href="ChapBonusMalus.html#S:ERBM:Intro"><i class="fa fa-check"></i><b>12.1</b> Introduction<span></span></a></li>
+<li class="chapter" data-level="12.2" data-path="ChapBonusMalus.html"><a href="ChapBonusMalus.html#S:ERBM:NCD"><i class="fa fa-check"></i><b>12.2</b> <em>NCD</em> System in Several Countries<span></span></a>
+<ul>
+<li class="chapter" data-level="12.2.1" data-path="ChapBonusMalus.html"><a href="ChapBonusMalus.html#ncd-system-in-malaysia"><i class="fa fa-check"></i><b>12.2.1</b> <em>NCD</em> System in Malaysia<span></span></a></li>
+<li class="chapter" data-level="12.2.2" data-path="ChapBonusMalus.html"><a href="ChapBonusMalus.html#ncd-systems-in-other-countries"><i class="fa fa-check"></i><b>12.2.2</b> NCD Systems in Other Countries<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="ChapBonusMalus.html"><a href="ChapBonusMalus.html#S:ERBM:BMS"><i class="fa fa-check"></i><b>12.3</b> <em>BMS</em> and Markov Chain Model<span></span></a>
+<ul>
+<li class="chapter" data-level="12.3.1" data-path="ChapBonusMalus.html"><a href="ChapBonusMalus.html#transition-probability"><i class="fa fa-check"></i><b>12.3.1</b> Transition Probability<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="ChapBonusMalus.html"><a href="ChapBonusMalus.html#S:ERBM:StatDist"><i class="fa fa-check"></i><b>12.4</b> <em>BMS</em> and Stationary Distribution<span></span></a>
+<ul>
+<li class="chapter" data-level="12.4.1" data-path="ChapBonusMalus.html"><a href="ChapBonusMalus.html#stationary-distribution"><i class="fa fa-check"></i><b>12.4.1</b> Stationary Distribution<span></span></a></li>
+<li class="chapter" data-level="12.4.2" data-path="ChapBonusMalus.html"><a href="ChapBonusMalus.html#r-code-for-a-stationary-distribution"><i class="fa fa-check"></i><b>12.4.2</b> <code>R</code> Code for a Stationary Distribution<span></span></a></li>
+<li class="chapter" data-level="12.4.3" data-path="ChapBonusMalus.html"><a href="ChapBonusMalus.html#premium-evolution"><i class="fa fa-check"></i><b>12.4.3</b> Premium Evolution<span></span></a></li>
+<li class="chapter" data-level="12.4.4" data-path="ChapBonusMalus.html"><a href="ChapBonusMalus.html#r-program-for-premium-evolution"><i class="fa fa-check"></i><b>12.4.4</b> <code>R</code> Program for Premium Evolution<span></span></a></li>
+<li class="chapter" data-level="12.4.5" data-path="ChapBonusMalus.html"><a href="ChapBonusMalus.html#convergence-rate"><i class="fa fa-check"></i><b>12.4.5</b> Convergence Rate<span></span></a></li>
+<li class="chapter" data-level="12.4.6" data-path="ChapBonusMalus.html"><a href="ChapBonusMalus.html#r-program-for-convergence-rate"><i class="fa fa-check"></i><b>12.4.6</b> <code>R</code> Program for Convergence Rate<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="12.5" data-path="ChapBonusMalus.html"><a href="ChapBonusMalus.html#S:PremRtg"><i class="fa fa-check"></i><b>12.5</b> <em>BMS</em> and Premium Rating<span></span></a>
+<ul>
+<li class="chapter" data-level="12.5.1" data-path="ChapBonusMalus.html"><a href="ChapBonusMalus.html#premium-rating"><i class="fa fa-check"></i><b>12.5.1</b> Premium Rating<span></span></a></li>
+<li class="chapter" data-level="12.5.2" data-path="ChapBonusMalus.html"><a href="ChapBonusMalus.html#a-priori-risk-classification"><i class="fa fa-check"></i><b>12.5.2</b> A Priori Risk Classification<span></span></a></li>
+<li class="chapter" data-level="12.5.3" data-path="ChapBonusMalus.html"><a href="ChapBonusMalus.html#modelling-of-residual-heterogeneity"><i class="fa fa-check"></i><b>12.5.3</b> Modelling of Residual Heterogeneity<span></span></a></li>
+<li class="chapter" data-level="12.5.4" data-path="ChapBonusMalus.html"><a href="ChapBonusMalus.html#stationary-distribution-allowing-for-residual-heterogeneity"><i class="fa fa-check"></i><b>12.5.4</b> Stationary Distribution Allowing for Residual Heterogeneity<span></span></a></li>
+<li class="chapter" data-level="12.5.5" data-path="ChapBonusMalus.html"><a href="ChapBonusMalus.html#determination-of-optimal-relativities"><i class="fa fa-check"></i><b>12.5.5</b> Determination of Optimal Relativities<span></span></a></li>
+<li class="chapter" data-level="12.5.6" data-path="ChapBonusMalus.html"><a href="ChapBonusMalus.html#numerical-illustrations"><i class="fa fa-check"></i><b>12.5.6</b> Numerical Illustrations<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="12.6" data-path="ChapBonusMalus.html"><a href="ChapBonusMalus.html#S:Further"><i class="fa fa-check"></i><b>12.6</b> Further Resources and Contributors<span></span></a>
+<ul>
+<li class="chapter" data-level="12.6.1" data-path="ChapBonusMalus.html"><a href="ChapBonusMalus.html#further-reading-and-references-1"><i class="fa fa-check"></i><b>12.6.1</b> Further Reading and References<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="ChapDataSystems.html"><a href="ChapDataSystems.html"><i class="fa fa-check"></i><b>13</b> Data and Systems<span></span></a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="ChapDataSystems.html"><a href="ChapDataSystems.html#data"><i class="fa fa-check"></i><b>13.1</b> Data<span></span></a>
+<ul>
+<li class="chapter" data-level="13.1.1" data-path="ChapDataSystems.html"><a href="ChapDataSystems.html#data-types-and-sources"><i class="fa fa-check"></i><b>13.1.1</b> Data Types and Sources<span></span></a></li>
+<li class="chapter" data-level="13.1.2" data-path="ChapDataSystems.html"><a href="ChapDataSystems.html#data-structures-and-storage"><i class="fa fa-check"></i><b>13.1.2</b> Data Structures and Storage<span></span></a></li>
+<li class="chapter" data-level="13.1.3" data-path="ChapDataSystems.html"><a href="ChapDataSystems.html#data-quality"><i class="fa fa-check"></i><b>13.1.3</b> Data Quality<span></span></a></li>
+<li class="chapter" data-level="13.1.4" data-path="ChapDataSystems.html"><a href="ChapDataSystems.html#data-cleaning"><i class="fa fa-check"></i><b>13.1.4</b> Data Cleaning<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="ChapDataSystems.html"><a href="ChapDataSystems.html#data-analysis-preliminaries"><i class="fa fa-check"></i><b>13.2</b> Data Analysis Preliminaries<span></span></a>
+<ul>
+<li class="chapter" data-level="13.2.1" data-path="ChapDataSystems.html"><a href="ChapDataSystems.html#S:process"><i class="fa fa-check"></i><b>13.2.1</b> Data Analysis Process<span></span></a></li>
+<li class="chapter" data-level="13.2.2" data-path="ChapDataSystems.html"><a href="ChapDataSystems.html#exploratory-versus-confirmatory"><i class="fa fa-check"></i><b>13.2.2</b> Exploratory versus Confirmatory<span></span></a></li>
+<li class="chapter" data-level="13.2.3" data-path="ChapDataSystems.html"><a href="ChapDataSystems.html#supervised-versus-unsupervised"><i class="fa fa-check"></i><b>13.2.3</b> Supervised versus Unsupervised<span></span></a></li>
+<li class="chapter" data-level="13.2.4" data-path="ChapDataSystems.html"><a href="ChapDataSystems.html#parametric-versus-nonparametric"><i class="fa fa-check"></i><b>13.2.4</b> Parametric versus Nonparametric<span></span></a></li>
+<li class="chapter" data-level="13.2.5" data-path="ChapDataSystems.html"><a href="ChapDataSystems.html#S:expred"><i class="fa fa-check"></i><b>13.2.5</b> Explanation versus Prediction<span></span></a></li>
+<li class="chapter" data-level="13.2.6" data-path="ChapDataSystems.html"><a href="ChapDataSystems.html#data-modeling-versus-algorithmic-modeling"><i class="fa fa-check"></i><b>13.2.6</b> Data Modeling versus Algorithmic Modeling<span></span></a></li>
+<li class="chapter" data-level="13.2.7" data-path="ChapDataSystems.html"><a href="ChapDataSystems.html#big-data-analysis"><i class="fa fa-check"></i><b>13.2.7</b> Big Data Analysis<span></span></a></li>
+<li class="chapter" data-level="13.2.8" data-path="ChapDataSystems.html"><a href="ChapDataSystems.html#reproducible-analysis"><i class="fa fa-check"></i><b>13.2.8</b> Reproducible Analysis<span></span></a></li>
+<li class="chapter" data-level="13.2.9" data-path="ChapDataSystems.html"><a href="ChapDataSystems.html#ethical-issues"><i class="fa fa-check"></i><b>13.2.9</b> Ethical Issues<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="ChapDataSystems.html"><a href="ChapDataSystems.html#data-analysis-techniques"><i class="fa fa-check"></i><b>13.3</b> Data Analysis Techniques<span></span></a>
+<ul>
+<li class="chapter" data-level="13.3.1" data-path="ChapDataSystems.html"><a href="ChapDataSystems.html#exploratory-techniques"><i class="fa fa-check"></i><b>13.3.1</b> Exploratory Techniques<span></span></a></li>
+<li class="chapter" data-level="13.3.2" data-path="ChapDataSystems.html"><a href="ChapDataSystems.html#confirmatory-techniques"><i class="fa fa-check"></i><b>13.3.2</b> Confirmatory Techniques<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="ChapDataSystems.html"><a href="ChapDataSystems.html#some-r-functions"><i class="fa fa-check"></i><b>13.4</b> Some R Functions<span></span></a></li>
+<li class="chapter" data-level="13.5" data-path="ChapDataSystems.html"><a href="ChapDataSystems.html#summary"><i class="fa fa-check"></i><b>13.5</b> Summary<span></span></a></li>
+<li class="chapter" data-level="13.6" data-path="ChapDataSystems.html"><a href="ChapDataSystems.html#DS:further-reading-and-resources"><i class="fa fa-check"></i><b>13.6</b> Further Resources and Contributors<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="ChapDependenceModel.html"><a href="ChapDependenceModel.html"><i class="fa fa-check"></i><b>14</b> Dependence Modeling<span></span></a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="ChapDependenceModel.html"><a href="ChapDependenceModel.html#S:VarTypes"><i class="fa fa-check"></i><b>14.1</b> Variable Types<span></span></a>
+<ul>
+<li class="chapter" data-level="14.1.1" data-path="ChapDependenceModel.html"><a href="ChapDependenceModel.html#S:QuaVar"><i class="fa fa-check"></i><b>14.1.1</b> Qualitative Variables<span></span></a></li>
+<li class="chapter" data-level="14.1.2" data-path="ChapDependenceModel.html"><a href="ChapDependenceModel.html#S:QuanVar"><i class="fa fa-check"></i><b>14.1.2</b> Quantitative Variables<span></span></a></li>
+<li class="chapter" data-level="14.1.3" data-path="ChapDependenceModel.html"><a href="ChapDependenceModel.html#multivariate-variables"><i class="fa fa-check"></i><b>14.1.3</b> Multivariate Variables<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="14.2" data-path="ChapDependenceModel.html"><a href="ChapDependenceModel.html#S:Measures"><i class="fa fa-check"></i><b>14.2</b> Classic Measures of Scalar Associations<span></span></a>
+<ul>
+<li class="chapter" data-level="14.2.1" data-path="ChapDependenceModel.html"><a href="ChapDependenceModel.html#association-measures-for-quantitative-variables"><i class="fa fa-check"></i><b>14.2.1</b> Association Measures for Quantitative Variables<span></span></a></li>
+<li class="chapter" data-level="14.2.2" data-path="ChapDependenceModel.html"><a href="ChapDependenceModel.html#rank-based-measures"><i class="fa fa-check"></i><b>14.2.2</b> Rank Based Measures<span></span></a></li>
+<li class="chapter" data-level="14.2.3" data-path="ChapDependenceModel.html"><a href="ChapDependenceModel.html#nominal-variables"><i class="fa fa-check"></i><b>14.2.3</b> Nominal Variables<span></span></a></li>
+<li class="chapter" data-level="14.2.4" data-path="ChapDependenceModel.html"><a href="ChapDependenceModel.html#ordinal-variables"><i class="fa fa-check"></i><b>14.2.4</b> Ordinal Variables<span></span></a></li>
+<li class="chapter" data-level="14.2.5" data-path="ChapDependenceModel.html"><a href="ChapDependenceModel.html#interval-variables"><i class="fa fa-check"></i><b>14.2.5</b> Interval Variables<span></span></a></li>
+<li class="chapter" data-level="14.2.6" data-path="ChapDependenceModel.html"><a href="ChapDependenceModel.html#discrete-and-continuous-variables"><i class="fa fa-check"></i><b>14.2.6</b> Discrete and Continuous Variables<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="ChapDependenceModel.html"><a href="ChapDependenceModel.html#S:Copula"><i class="fa fa-check"></i><b>14.3</b> Introduction to Copulas<span></span></a></li>
+<li class="chapter" data-level="14.4" data-path="ChapDependenceModel.html"><a href="ChapDependenceModel.html#S:CopAppl"><i class="fa fa-check"></i><b>14.4</b> Application Using Copulas<span></span></a>
+<ul>
+<li class="chapter" data-level="14.4.1" data-path="ChapDependenceModel.html"><a href="ChapDependenceModel.html#data-description"><i class="fa fa-check"></i><b>14.4.1</b> Data Description<span></span></a></li>
+<li class="chapter" data-level="14.4.2" data-path="ChapDependenceModel.html"><a href="ChapDependenceModel.html#marginal-models"><i class="fa fa-check"></i><b>14.4.2</b> Marginal Models<span></span></a></li>
+<li class="chapter" data-level="14.4.3" data-path="ChapDependenceModel.html"><a href="ChapDependenceModel.html#probability-integral-transformation"><i class="fa fa-check"></i><b>14.4.3</b> Probability Integral Transformation<span></span></a></li>
+<li class="chapter" data-level="14.4.4" data-path="ChapDependenceModel.html"><a href="ChapDependenceModel.html#joint-modeling-with-copula-function"><i class="fa fa-check"></i><b>14.4.4</b> Joint Modeling with Copula Function<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="14.5" data-path="ChapDependenceModel.html"><a href="ChapDependenceModel.html#S:CopTyp"><i class="fa fa-check"></i><b>14.5</b> Types of Copulas<span></span></a>
+<ul>
+<li class="chapter" data-level="14.5.1" data-path="ChapDependenceModel.html"><a href="ChapDependenceModel.html#normal-gaussian-copulas"><i class="fa fa-check"></i><b>14.5.1</b> Normal (Gaussian) Copulas<span></span></a></li>
+<li class="chapter" data-level="14.5.2" data-path="ChapDependenceModel.html"><a href="ChapDependenceModel.html#t--and-elliptical-copulas"><i class="fa fa-check"></i><b>14.5.2</b> <em>t</em>- and Elliptical Copulas<span></span></a></li>
+<li class="chapter" data-level="14.5.3" data-path="ChapDependenceModel.html"><a href="ChapDependenceModel.html#archimedean-copulas"><i class="fa fa-check"></i><b>14.5.3</b> Archimedean Copulas<span></span></a></li>
+<li class="chapter" data-level="14.5.4" data-path="ChapDependenceModel.html"><a href="ChapDependenceModel.html#properties-of-copulas"><i class="fa fa-check"></i><b>14.5.4</b> Properties of Copulas<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="14.6" data-path="ChapDependenceModel.html"><a href="ChapDependenceModel.html#S:CopImp"><i class="fa fa-check"></i><b>14.6</b> Why is Dependence Modeling Important?<span></span></a></li>
+<li class="chapter" data-level="14.7" data-path="ChapDependenceModel.html"><a href="ChapDependenceModel.html#Dep:further-reading-and-resources"><i class="fa fa-check"></i><b>14.7</b> Further Resources and Contributors<span></span></a>
+<ul>
+<li><a href="ChapDependenceModel.html#ts-14.a.-other-classic-measures-of-scalar-associations">TS 14.A. Other Classic Measures of Scalar Associations<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="CAppA.html"><a href="CAppA.html"><i class="fa fa-check"></i><b>15</b> Appendix A: Review of Statistical Inference<span></span></a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="CAppA.html"><a href="CAppA.html#S:AppA:BASIC"><i class="fa fa-check"></i><b>15.1</b> Basic Concepts<span></span></a>
+<ul>
+<li class="chapter" data-level="15.1.1" data-path="CAppA.html"><a href="CAppA.html#random-sampling"><i class="fa fa-check"></i><b>15.1.1</b> Random Sampling<span></span></a></li>
+<li class="chapter" data-level="15.1.2" data-path="CAppA.html"><a href="CAppA.html#sampling-distribution"><i class="fa fa-check"></i><b>15.1.2</b> Sampling Distribution<span></span></a></li>
+<li class="chapter" data-level="15.1.3" data-path="CAppA.html"><a href="CAppA.html#central-limit-theorem"><i class="fa fa-check"></i><b>15.1.3</b> Central Limit Theorem<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="15.2" data-path="CAppA.html"><a href="CAppA.html#S:AppA:PE"><i class="fa fa-check"></i><b>15.2</b> Point Estimation and Properties<span></span></a>
+<ul>
+<li class="chapter" data-level="15.2.1" data-path="CAppA.html"><a href="CAppA.html#method-of-moments-estimation"><i class="fa fa-check"></i><b>15.2.1</b> Method of Moments Estimation<span></span></a></li>
+<li class="chapter" data-level="15.2.2" data-path="CAppA.html"><a href="CAppA.html#S:AppA:MLE"><i class="fa fa-check"></i><b>15.2.2</b> Maximum Likelihood Estimation<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="CAppA.html"><a href="CAppA.html#S:AppA:IE"><i class="fa fa-check"></i><b>15.3</b> Interval Estimation<span></span></a>
+<ul>
+<li class="chapter" data-level="15.3.1" data-path="CAppA.html"><a href="CAppA.html#S:AppA:IE:ED"><i class="fa fa-check"></i><b>15.3.1</b> Exact Distribution for Normal Sample Mean<span></span></a></li>
+<li class="chapter" data-level="15.3.2" data-path="CAppA.html"><a href="CAppA.html#large-sample-properties-of-mle"><i class="fa fa-check"></i><b>15.3.2</b> Large-sample Properties of <em>MLE</em><span></span></a></li>
+<li class="chapter" data-level="15.3.3" data-path="CAppA.html"><a href="CAppA.html#confidence-interval"><i class="fa fa-check"></i><b>15.3.3</b> Confidence Interval<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="15.4" data-path="CAppA.html"><a href="CAppA.html#S:AppA:HT"><i class="fa fa-check"></i><b>15.4</b> Hypothesis Testing<span></span></a>
+<ul>
+<li class="chapter" data-level="15.4.1" data-path="CAppA.html"><a href="CAppA.html#basic-concepts"><i class="fa fa-check"></i><b>15.4.1</b> Basic Concepts<span></span></a></li>
+<li class="chapter" data-level="15.4.2" data-path="CAppA.html"><a href="CAppA.html#student-t-test-based-on-mle"><i class="fa fa-check"></i><b>15.4.2</b> Student-<em>t</em> test based on <em>mle</em><span></span></a></li>
+<li class="chapter" data-level="15.4.3" data-path="CAppA.html"><a href="CAppA.html#S:AppA:HT:LRT"><i class="fa fa-check"></i><b>15.4.3</b> Likelihood Ratio Test<span></span></a></li>
+<li class="chapter" data-level="15.4.4" data-path="CAppA.html"><a href="CAppA.html#S:AppA:HT:IC"><i class="fa fa-check"></i><b>15.4.4</b> Information Criteria<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="CAppB.html"><a href="CAppB.html"><i class="fa fa-check"></i><b>16</b> Appendix B: Iterated Expectations<span></span></a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="CAppB.html"><a href="CAppB.html#S:AppB:CD"><i class="fa fa-check"></i><b>16.1</b> Conditional Distribution and Conditional Expectation<span></span></a>
+<ul>
+<li class="chapter" data-level="16.1.1" data-path="CAppB.html"><a href="CAppB.html#conditional-distribution"><i class="fa fa-check"></i><b>16.1.1</b> Conditional Distribution<span></span></a></li>
+<li class="chapter" data-level="16.1.2" data-path="CAppB.html"><a href="CAppB.html#conditional-expectation-and-conditional-variance"><i class="fa fa-check"></i><b>16.1.2</b> Conditional Expectation and Conditional Variance<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="16.2" data-path="CAppB.html"><a href="CAppB.html#S:AppB:IE"><i class="fa fa-check"></i><b>16.2</b> Iterated Expectations and Total Variance<span></span></a>
+<ul>
+<li class="chapter" data-level="16.2.1" data-path="CAppB.html"><a href="CAppB.html#S:AppB:LIE"><i class="fa fa-check"></i><b>16.2.1</b> Law of Iterated Expectations<span></span></a></li>
+<li class="chapter" data-level="16.2.2" data-path="CAppB.html"><a href="CAppB.html#law-of-total-variance"><i class="fa fa-check"></i><b>16.2.2</b> Law of Total Variance<span></span></a></li>
+<li class="chapter" data-level="16.2.3" data-path="CAppB.html"><a href="CAppB.html#application"><i class="fa fa-check"></i><b>16.2.3</b> Application<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="16.3" data-path="CAppB.html"><a href="CAppB.html#S:AppConjugateDistributions"><i class="fa fa-check"></i><b>16.3</b> Conjugate Distributions<span></span></a>
+<ul>
+<li class="chapter" data-level="16.3.1" data-path="CAppB.html"><a href="CAppB.html#linear-exponential-family"><i class="fa fa-check"></i><b>16.3.1</b> Linear Exponential Family<span></span></a></li>
+<li class="chapter" data-level="16.3.2" data-path="CAppB.html"><a href="CAppB.html#S:IterExp:Conjugate"><i class="fa fa-check"></i><b>16.3.2</b> Conjugate Distributions<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="CAppC.html"><a href="CAppC.html"><i class="fa fa-check"></i><b>17</b> Appendix C: Maximum Likelihood Theory<span></span></a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="CAppC.html"><a href="CAppC.html#S:AppC:LF"><i class="fa fa-check"></i><b>17.1</b> Likelihood Function<span></span></a>
+<ul>
+<li class="chapter" data-level="17.1.1" data-path="CAppC.html"><a href="CAppC.html#likelihood-and-log-likelihood-functions"><i class="fa fa-check"></i><b>17.1.1</b> Likelihood and Log-likelihood Functions<span></span></a></li>
+<li class="chapter" data-level="17.1.2" data-path="CAppC.html"><a href="CAppC.html#properties-of-likelihood-functions"><i class="fa fa-check"></i><b>17.1.2</b> Properties of Likelihood Functions<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="17.2" data-path="CAppC.html"><a href="CAppC.html#S:AppC:MLE"><i class="fa fa-check"></i><b>17.2</b> Maximum Likelihood Estimators<span></span></a>
+<ul>
+<li class="chapter" data-level="17.2.1" data-path="CAppC.html"><a href="CAppC.html#definition-and-derivation-of-mle"><i class="fa fa-check"></i><b>17.2.1</b> Definition and Derivation of <em>MLE</em><span></span></a></li>
+<li class="chapter" data-level="17.2.2" data-path="CAppC.html"><a href="CAppC.html#asymptotic-properties-of-mle"><i class="fa fa-check"></i><b>17.2.2</b> Asymptotic Properties of <em>MLE</em><span></span></a></li>
+<li class="chapter" data-level="17.2.3" data-path="CAppC.html"><a href="CAppC.html#use-of-maximum-likelihood-estimation"><i class="fa fa-check"></i><b>17.2.3</b> Use of Maximum Likelihood Estimation<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="17.3" data-path="CAppC.html"><a href="CAppC.html#S:AppC:SI"><i class="fa fa-check"></i><b>17.3</b> Statistical Inference Based on Maximum Likelihood Estimation<span></span></a>
+<ul>
+<li class="chapter" data-level="17.3.1" data-path="CAppC.html"><a href="CAppC.html#hypothesis-testing"><i class="fa fa-check"></i><b>17.3.1</b> Hypothesis Testing<span></span></a></li>
+<li class="chapter" data-level="17.3.2" data-path="CAppC.html"><a href="CAppC.html#S:AppC:MLEModelVal"><i class="fa fa-check"></i><b>17.3.2</b> <em>MLE</em> and Model Validation<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="ChapSummaryDistributions.html"><a href="ChapSummaryDistributions.html"><i class="fa fa-check"></i><b>18</b> Appendix D: Summary of Distributions<span></span></a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="ChapSummaryDistributions.html"><a href="ChapSummaryDistributions.html#S:DiscreteDistributions"><i class="fa fa-check"></i><b>18.1</b> Discrete Distributions<span></span></a>
+<ul>
+<li class="chapter" data-level="18.1.1" data-path="ChapSummaryDistributions.html"><a href="ChapSummaryDistributions.html#the-ab0-class"><i class="fa fa-check"></i><b>18.1.1</b> The <em>(a,b,0)</em> Class<span></span></a></li>
+<li class="chapter" data-level="18.1.2" data-path="ChapSummaryDistributions.html"><a href="ChapSummaryDistributions.html#the-ab1-class"><i class="fa fa-check"></i><b>18.1.2</b> The <em>(a,b,1)</em> Class<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="18.2" data-path="ChapSummaryDistributions.html"><a href="ChapSummaryDistributions.html#S:ContinuousDistributions"><i class="fa fa-check"></i><b>18.2</b> Continuous Distributions<span></span></a>
+<ul>
+<li class="chapter" data-level="18.2.1" data-path="ChapSummaryDistributions.html"><a href="ChapSummaryDistributions.html#one-parameter-distributions"><i class="fa fa-check"></i><b>18.2.1</b> One Parameter Distributions<span></span></a></li>
+<li class="chapter" data-level="18.2.2" data-path="ChapSummaryDistributions.html"><a href="ChapSummaryDistributions.html#two-parameter-distributions"><i class="fa fa-check"></i><b>18.2.2</b> Two Parameter Distributions<span></span></a></li>
+<li class="chapter" data-level="18.2.3" data-path="ChapSummaryDistributions.html"><a href="ChapSummaryDistributions.html#three-parameter-distributions"><i class="fa fa-check"></i><b>18.2.3</b> Three Parameter Distributions<span></span></a></li>
+<li class="chapter" data-level="18.2.4" data-path="ChapSummaryDistributions.html"><a href="ChapSummaryDistributions.html#four-parameter-distribution"><i class="fa fa-check"></i><b>18.2.4</b> Four Parameter Distribution<span></span></a></li>
+<li class="chapter" data-level="18.2.5" data-path="ChapSummaryDistributions.html"><a href="ChapSummaryDistributions.html#other-distributions"><i class="fa fa-check"></i><b>18.2.5</b> Other Distributions<span></span></a></li>
+<li class="chapter" data-level="18.2.6" data-path="ChapSummaryDistributions.html"><a href="ChapSummaryDistributions.html#distributions-with-finite-support"><i class="fa fa-check"></i><b>18.2.6</b> Distributions with Finite Support<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="18.3" data-path="ChapSummaryDistributions.html"><a href="ChapSummaryDistributions.html#limited-expected-values"><i class="fa fa-check"></i><b>18.3</b> Limited Expected Values<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="ChapNotationConvention.html"><a href="ChapNotationConvention.html"><i class="fa fa-check"></i><b>19</b> Appendix E: Conventions for Notation<span></span></a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="ChapNotationConvention.html"><a href="ChapNotationConvention.html#S:General"><i class="fa fa-check"></i><b>19.1</b> General Conventions<span></span></a></li>
+<li class="chapter" data-level="19.2" data-path="ChapNotationConvention.html"><a href="ChapNotationConvention.html#S:Abbreviations"><i class="fa fa-check"></i><b>19.2</b> Abbreviations<span></span></a></li>
+<li class="chapter" data-level="19.3" data-path="ChapNotationConvention.html"><a href="ChapNotationConvention.html#S:StatSymbols"><i class="fa fa-check"></i><b>19.3</b> Common Statistical Symbols and Operators<span></span></a></li>
+<li class="chapter" data-level="19.4" data-path="ChapNotationConvention.html"><a href="ChapNotationConvention.html#S:Symbols"><i class="fa fa-check"></i><b>19.4</b> Common Mathematical Symbols and Functions<span></span></a></li>
+<li class="chapter" data-level="19.5" data-path="ChapNotationConvention.html"><a href="ChapNotationConvention.html#further-readings"><i class="fa fa-check"></i><b>19.5</b> Further Readings<span></span></a></li>
+</ul></li>
+<li><a href="bibliography.html#bibliography">Bibliography<span></span></a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/OpenActTexts/Loss-Data-Analytics" target="blank">Loss Data Analytics on GitHub</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Loss Data Analytics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="CAppA" class="section level1 hasAnchor" number="15">
+<h1><span class="header-section-number">Chapter 15</span> Appendix A: Review of Statistical Inference<a href="CAppA.html#CAppA" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><em>Chapter Preview</em>. The appendix gives an overview of concepts and methods related to statistical inference on the population of interest, using a random sample of observations from the population. In the appendix, Section <a href="CAppA.html#S:AppA:BASIC">15.1</a> introduces the basic concepts related to the population and the sample used for making the inference. Section <a href="CAppA.html#S:AppA:PE">15.2</a> presents the commonly used methods for point estimation of population characteristics. Section <a href="CAppA.html#S:AppA:IE">15.3</a> demonstrates interval estimation that takes into consideration the uncertainty in the estimation, due to use of a random sample from the population. Section <a href="CAppA.html#S:AppA:HT">15.4</a> introduces the concept of hypothesis testing for the purpose of variable and model selection.</p>
+<div id="S:AppA:BASIC" class="section level2 hasAnchor" number="15.1">
+<h2><span class="header-section-number">15.1</span> Basic Concepts<a href="CAppA.html#S:AppA:BASIC" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<hr />
+<p>In this section, you learn the following concepts related to statistical inference.</p>
+<ul>
+<li>Random sampling from a population that can be summarized using a list of items or individuals within the population</li>
+<li>Sampling distributions that characterize the distributions of possible outcomes for a statistic calculated from a random sample</li>
+<li>The central limit theorem that guides the distribution of the mean of a random sample from the population</li>
+</ul>
+<hr />
+<p><strong>Statistical inference</strong> is the process of making conclusions on the characteristics of a large set of items/individuals (i.e., the <strong>population</strong>), using a representative set of data (e.g., a <strong>random sample</strong>) from a list of items or individuals from the population that can be sampled. While the process has a broad spectrum of applications in various areas including science, engineering, health, social, and economic fields, statistical inference is important to insurance companies that use data from their existing policy holders in order to make inference on the characteristics (e.g., risk profiles) of a specific segment of target customers (i.e., the population) whom the insurance companies do not directly observe.</p>
+<h5 style="text-align: center;">
+<a id="displayExample.SI" href="javascript:toggleEX('toggleExample.SI','displayExample.SI');"><i><strong>Show An Empirical Example Using the Wisconsin Property Fund</strong></i></a>
+</h5>
+<div id="toggleExample.SI" style="display: none">
+<p><strong>Example – Wisconsin Property Fund.</strong> Assume there are 1,377 <em>individual</em> claims from the 2010 experience.</p>
+<!---
+ (slightly different from the analysis of 403 average claims in Chapter 1)
+--->
+<table style="width:100%;">
+<colgroup>
+<col width="21%" />
+<col width="9%" />
+<col width="14%" />
+<col width="6%" />
+<col width="6%" />
+<col width="14%" />
+<col width="10%" />
+<col width="18%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="right"></th>
+<th align="right">Minimum</th>
+<th align="right">First Quartile</th>
+<th align="right">Median</th>
+<th align="right">Mean</th>
+<th align="right">Third Quartile</th>
+<th align="right">Maximum</th>
+<th align="right">Standard Deviation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">Claims</td>
+<td align="right">1</td>
+<td align="right">788</td>
+<td align="right">2,250</td>
+<td align="right">26,620</td>
+<td align="right">6,171</td>
+<td align="right">12,920,000</td>
+<td align="right">368,030</td>
+</tr>
+<tr class="even">
+<td align="right">Logarithmic Claims</td>
+<td align="right">0</td>
+<td align="right">6.670</td>
+<td align="right">7.719</td>
+<td align="right">7.804</td>
+<td align="right">8.728</td>
+<td align="right">16.370</td>
+<td align="right">1.683</td>
+</tr>
+</tbody>
+</table>
+
+<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="CAppA.html#cb201-1" aria-hidden="true" tabindex="-1"></a>ClaimLev <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;Data/CLAIMLEVEL.csv&quot;</span>, <span class="at">header=</span><span class="cn">TRUE</span>)</span>
+<span id="cb201-2"><a href="CAppA.html#cb201-2" aria-hidden="true" tabindex="-1"></a>ClaimLevBC10<span class="ot">&lt;-</span><span class="fu">subset</span>(ClaimLev,Year<span class="sc">==</span><span class="dv">2010</span>); </span>
+<span id="cb201-3"><a href="CAppA.html#cb201-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Sample size: &quot;</span>, <span class="fu">nrow</span>(ClaimLevBC10), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb201-4"><a href="CAppA.html#cb201-4" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb201-5"><a href="CAppA.html#cb201-5" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(ClaimLevBC10<span class="sc">$</span>Claim, <span class="at">main=</span><span class="st">&quot;&quot;</span>, <span class="at">xlab=</span><span class="st">&quot;Claims&quot;</span>)</span>
+<span id="cb201-6"><a href="CAppA.html#cb201-6" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(<span class="fu">log</span>(ClaimLevBC10<span class="sc">$</span>Claim), <span class="at">main=</span><span class="st">&quot;&quot;</span>, <span class="at">xlab=</span><span class="st">&quot;Logarithmic Claims&quot;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:ClaimDistn1"></span>
+<img src="LossDataAnalytics_files/figure-html/ClaimDistn1-1.png" alt="Distribution of Claims" width="80%" />
+<p class="caption">
+Figure 15.1: <strong>Distribution of Claims</strong>
+</p>
+</div>
+<pre><code>## Sample size:  1377</code></pre>
+<p>Using the 2010 claim experience (the sample), the Wisconsin Property Fund may be interested in assessing the severity of all claims that could potentially occur, such as 2010, 2011, and so forth (the population). This process is important in the contexts of ratemaking or claim predictive modeling. In order for such inference to be valid, we need to assume that</p>
+<ul>
+<li>the set of 2010 claims is a <em>random sample</em> that is representative of the population,</li>
+<li>the <em>sampling distribution</em> of the average claim amount can be estimated, so that we can quantify the bias and uncertainty in the estimation due to use of a finite sample.</li>
+</ul>
+</div>
+<div id="random-sampling" class="section level3 hasAnchor" number="15.1.1">
+<h3><span class="header-section-number">15.1.1</span> Random Sampling<a href="CAppA.html#random-sampling" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In statistics, a sampling <strong>error</strong> occurs when the <strong>sampling frame</strong>, the list from which the sample is drawn, is not an adequate
+approximation of the population of interest. A sample must be a representative subset of a population, or universe, of interest. If the sample is not representative, taking a larger sample does not eliminate bias, as the same mistake is repeated over again and again. Thus, we introduce the concept for random sampling that gives rise to a simple <strong>random sample</strong> that is representative of the population.</p>
+<p>We assume that the random variable <span class="math inline">\(X\)</span> represents a draw from a
+population with a distribution function <span class="math inline">\(F(\cdot)\)</span> with mean <span class="math inline">\(\mathrm{E}[X]=\mu\)</span> and variance <span class="math inline">\(\mathrm{Var}[X]=\mathrm{E}[(X-\mu)^2]\)</span>, where <span class="math inline">\(E(\cdot)\)</span> denotes the expectation of a random variable. In <strong>random sampling</strong>, we make a total of <span class="math inline">\(n\)</span> such draws represented by <span class="math inline">\(X_1, \ldots, X_n\)</span>, each unrelated to one another (i.e., <em>statistically independent</em>). We refer to <span class="math inline">\(X_1, \ldots, X_n\)</span> as a <strong>random sample</strong> (<em>with replacement</em>) from <span class="math inline">\(F(\cdot)\)</span>, taking either a parametric or nonparametric form. Alternatively, we may say that <span class="math inline">\(X_1, \ldots, X_n\)</span> are identically and independently distributed (<em>iid</em>) with distribution function <span class="math inline">\(F(\cdot)\)</span>.</p>
+</div>
+<div id="sampling-distribution" class="section level3 hasAnchor" number="15.1.2">
+<h3><span class="header-section-number">15.1.2</span> Sampling Distribution<a href="CAppA.html#sampling-distribution" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Using the random sample <span class="math inline">\(X_1, \ldots, X_n\)</span>, we are interested in making a conclusion on a specific attribute of the population distribution <span class="math inline">\(F(\cdot)\)</span>. For example, we may be interested in making an inference on the population mean, denoted <span class="math inline">\(\mu\)</span>. It is natural to think of the <strong>sample mean</strong>, <span class="math inline">\(\bar{X}=\sum_{i=1}^nX_i\)</span>, as an estimate of the population mean <span class="math inline">\(\mu\)</span>. We call the sample mean as a <strong>statistic</strong> calculated from the random sample <span class="math inline">\(X_1, \ldots, X_n\)</span>. Other commonly used summary statistics include sample standard deviation and sample quantiles.</p>
+<p>When using a statistic (e.g., the sample mean <span class="math inline">\(\bar{X}\)</span>) to make statistical inference on the population attribute (e.g., population mean <span class="math inline">\(\mu\)</span>), the quality of inference is determined by the bias and uncertainty in the estimation, owing to the use of a sample in place of the population. Hence, it is important to study the distribution of a statistic that quantifies the bias and variability of the statistic. In particular, the distribution of the sample mean, <span class="math inline">\(\bar{X}\)</span> (or any other statistic), is called the <strong>sampling distribution</strong>. The sampling distribution depends on the sampling process, the statistic, the sample size <span class="math inline">\(n\)</span> and the population distribution <span class="math inline">\(F(\cdot)\)</span>. The central limit theorem gives the large-sample (sampling) distribution of the sample mean under certain conditions.</p>
+</div>
+<div id="central-limit-theorem" class="section level3 hasAnchor" number="15.1.3">
+<h3><span class="header-section-number">15.1.3</span> Central Limit Theorem<a href="CAppA.html#central-limit-theorem" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In statistics, there are variations of the central limit theorem (CLT) ensuring that, under certain conditions, the sample mean will approach the population mean with its sampling distribution approaching the normal distribution as the sample size goes to infinity. We give the Lindeberg–Levy CLT that establishes the asymptotic sampling distribution of the sample mean <span class="math inline">\(\bar{X}\)</span> calculated using a random sample from a universe population having a distribution <span class="math inline">\(F(\cdot)\)</span>.</p>
+<p><strong>Lindeberg–Levy CLT.</strong> Let <span class="math inline">\(X_1, \ldots, X_n\)</span> be a random sample from a population distribution <span class="math inline">\(F(\cdot)\)</span> with mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2&lt;\infty\)</span>. The difference between the sample mean <span class="math inline">\(\bar{X}\)</span> and <span class="math inline">\(\mu\)</span>, when multiplied by <span class="math inline">\(\sqrt{n}\)</span>, converges in distribution to a normal distribution as the sample size goes to infinity. That is, <span class="math display">\[\sqrt{n}(\bar{X}-\mu)\xrightarrow[]{d}N(0,\sigma).\]</span></p>
+<p>Note that the CLT does not require a parametric form for <span class="math inline">\(F(\cdot)\)</span>. Based on the CLT, we may perform statistical inference on the population mean (we <em>infer</em>, not <em>deduce</em>). The types of inference we may perform include <strong>estimation</strong> of the population, <strong>hypothesis testing</strong> on whether a null statement is true, and <strong>prediction</strong> of future samples from the population.</p>
+</div>
+</div>
+<div id="S:AppA:PE" class="section level2 hasAnchor" number="15.2">
+<h2><span class="header-section-number">15.2</span> Point Estimation and Properties<a href="CAppA.html#S:AppA:PE" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<hr />
+<p>In this section, you learn how to</p>
+<ul>
+<li>estimate population parameters using method of moments estimation</li>
+<li>estimate population parameters based on maximum likelihood estimation</li>
+</ul>
+<hr />
+<p>The population distribution function <span class="math inline">\(F(\cdot)\)</span> can usually be characterized by a limited (finite) number of terms called <strong>parameters</strong>, in which case we refer to the distribution as a <strong>parametric distribution</strong>. In contrast, in <strong>nonparametric</strong> analysis, the attributes of the sampling distribution are not limited to a small number of parameters.</p>
+<p>For obtaining the population characteristics, there are different attributes related to the population distribution <span class="math inline">\(F(\cdot)\)</span>. Such measures include the mean, median, percentiles (i.e., 95th percentile), and standard deviation. Because these summary measures do not depend on a specific parametric reference, they are <strong>nonparametric</strong> summary measures.</p>
+<p>In <strong>parametric</strong> analysis, on the other hand, we may assume specific families of distributions with specific parameters. For example, people usually think of logarithm of claim amounts to be normally distributed with mean <span class="math inline">\(\mu\)</span> and standard deviation <span class="math inline">\(\sigma\)</span>. That is, we assume that the claims have a <em>lognormal</em> distribution with parameters <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span>. Alternatively, insurance companies commonly assume that claim severity follows a gamma distribution with a shape parameter <span class="math inline">\(\alpha\)</span> and a scale parameter <span class="math inline">\(\theta\)</span>. Here, the normal, lognormal, and gamma distributions are examples of parametric distributions. In the above examples, the quantities of <span class="math inline">\(\mu\)</span>, <span class="math inline">\(\sigma\)</span>, <span class="math inline">\(\alpha\)</span>, and <span class="math inline">\(\theta\)</span> are known as <em>parameters</em>. For a given parametric distribution family, the distribution is uniquely determined by the values of the parameters.</p>
+<p>One often uses <span class="math inline">\(\theta\)</span> to denote a summary attribute of the population. In parametric models, <span class="math inline">\(\theta\)</span> can be a parameter or a function of parameters from a distribution such as the normal mean and variance parameters. In nonparametric analysis, it can take a form of a nonparametric summary such as the population mean or standard deviation. Let <span class="math inline">\(\hat{\theta} =\hat{\theta}(X_1, \ldots, X_n)\)</span> be a function of the sample that provides a proxy, or an <strong>estimate</strong>, of <span class="math inline">\(\theta\)</span>. It is referred to as a <strong>statistic</strong>, a function of the sample <span class="math inline">\(X_1, \ldots, X_n\)</span>.</p>
+<h5 style="text-align: center;">
+<a id="displayExample.PE" href="javascript:toggleEX('toggleExample.PE','displayExample.PE');"><i><strong>Show Wisconsin Property Fund Example - Continued</strong></i></a>
+</h5>
+<div id="toggleExample.PE" style="display: none">
+<p><strong>Example – Wisconsin Property Fund.</strong> The sample mean 7.804 and the sample standard deviation 1.683 can be either deemed as nonparametric estimates of the population mean and standard deviation, or as parametric estimates of <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span> of the normal distribution concerning the logarithmic claims. Using results from the lognormal distribution, we may estimate the expected claim, the lognormal mean, as 10,106.8 ( <span class="math inline">\(=\exp(7.804+1.683^2/2)\)</span> ).</p>
+<p>For the Wisconsin Property Fund data, we may denote <span class="math inline">\(\hat{\mu} =7.804\)</span> and <span class="math inline">\(\hat{\sigma} = 1.683\)</span>, with the hat notation denoting an <strong>estimate</strong> of the parameter based on the sample. In particular, such an estimate is referred to as a <strong>point estimate</strong>, a single approximation of the corresponding parameter. For point estimation, we introduce the two commonly used methods called the method of moments estimation and maximum likelihood estimation.</p>
+</div>
+<div id="method-of-moments-estimation" class="section level3 hasAnchor" number="15.2.1">
+<h3><span class="header-section-number">15.2.1</span> Method of Moments Estimation<a href="CAppA.html#method-of-moments-estimation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Before defining the method of moments estimation, we define the the concept of <strong>moments</strong>. Moments are population attributes that characterize the distribution function <span class="math inline">\(F(\cdot)\)</span>. Given a random draw <span class="math inline">\(X\)</span> from <span class="math inline">\(F(\cdot)\)</span>, the expectation <span class="math inline">\(\mu_k=\mathrm{E}[X^k]\)</span> is called the <strong><span class="math inline">\(k\)</span>th moment</strong> of <span class="math inline">\(X\)</span>, <span class="math inline">\(k=1,2,3,\ldots\)</span> For example, the population mean <span class="math inline">\(\mu\)</span> is the <em>first</em> moment. Furthermore, the expectation <span class="math inline">\(\mathrm{E}[(X-\mu)^k]\)</span> is called a <strong><span class="math inline">\(k\)</span>th central moment</strong>. Thus, the variance is the second central moment.</p>
+<p>Using the random sample <span class="math inline">\(X_1, \ldots, X_n\)</span>, we may construct the corresponding sample moment, <span class="math inline">\(\hat{\mu}_k=(1/n)\sum_{i=1}^n X_i^k\)</span>, for estimating the population attribute <span class="math inline">\(\mu_k\)</span>. For example, we have used the sample mean <span class="math inline">\(\bar{X}\)</span> as an estimator for the population mean <span class="math inline">\(\mu\)</span>. Similarly, the second central moment can be estimated as <span class="math inline">\((1/n)\sum_{i=1}^n(X_i-\bar{X})^2\)</span>. Without assuming a parametric form for <span class="math inline">\(F(\cdot)\)</span>, the sample moments constitute nonparametric estimates of the corresponding population attributes. Such an estimator based on matching of the corresponding sample and population moments is called a <strong>method of moments estimator</strong> (<em>mme</em>).</p>
+<p>While the <em>mme</em> works naturally in a nonparametric model, it can be used to estimate parameters when a specific parametric family of distribution is assumed for <span class="math inline">\(F(\cdot)\)</span>. Denote by <span class="math inline">\(\boldsymbol{\theta}=(\theta_1,\cdots,\theta_m)\)</span> the vector of parameters corresponding to a parametric distribution <span class="math inline">\(F(\cdot)\)</span>. Given a distribution family, we commonly know the relationships between the parameters and the moments. In particular, we know the specific forms of the functions <span class="math inline">\(h_1(\cdot),h_2(\cdot),\cdots,h_m(\cdot)\)</span> such that <span class="math inline">\(\mu_1=h_1(\boldsymbol{\theta}),\,\mu_2=h_2(\boldsymbol{\theta}),\,\cdots,\,\mu_m=h_m(\boldsymbol{\theta})\)</span>. Given the <em>mme</em> <span class="math inline">\(\hat{\mu}_1, \ldots, \hat{\mu}_m\)</span> from the random sample, the <em>mme</em> of the parameters <span class="math inline">\(\hat{\theta}_1,\cdots,\hat{\theta}_m\)</span> can be obtained by solving the equations of
+<span class="math display">\[\hat{\mu}_1=h_1(\hat{\theta}_1,\cdots,\hat{\theta}_m);\]</span>
+<span class="math display">\[\hat{\mu}_2=h_2(\hat{\theta}_1,\cdots,\hat{\theta}_m);\]</span>
+<span class="math display">\[\cdots\]</span>
+<span class="math display">\[\hat{\mu}_m=h_m(\hat{\theta}_1,\cdots,\hat{\theta}_m).\]</span></p>
+<h5 style="text-align: center;">
+<a id="displayExample.MME" href="javascript:toggleEX('toggleExample.MME','displayExample.MME');"><i><strong>Show Wisconsin Property Fund Example - Continued</strong></i></a>
+</h5>
+<div id="toggleExample.MME" style="display: none">
+<p><strong>Example – Wisconsin Property Fund.</strong> Assume that the claims follow a lognormal distribution, so that logarithmic claims follow a normal distribution. Specifically, assume <span class="math inline">\(\log(X)\)</span> has a normal distribution with mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2\)</span>, denoted as <span class="math inline">\(\log(X) \sim N(\mu, \sigma^2)\)</span>. It is straightforward that the <em>mme</em> <span class="math inline">\(\hat{\mu}=\bar{X}\)</span> and <span class="math inline">\(\hat{\sigma}=\sqrt{(1/n)\sum_{i=1}^n(X_i-\bar{X})^2}\)</span>. For the Wisconsin Property Fund example, the method of moments estimates are <span class="math inline">\(\hat{\mu} =7.804\)</span> and <span class="math inline">\(\hat{\sigma} = 1.683\)</span>.</p>
+</div>
+</div>
+<div id="S:AppA:MLE" class="section level3 hasAnchor" number="15.2.2">
+<h3><span class="header-section-number">15.2.2</span> Maximum Likelihood Estimation<a href="CAppA.html#S:AppA:MLE" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>When <span class="math inline">\(F(\cdot)\)</span> takes a parametric form, the maximum likelihood method is widely used for estimating the population parameters <span class="math inline">\(\boldsymbol{\theta}\)</span>. Maximum likelihood estimation is based on the likelihood function, a function of the parameters given the observed sample. Denote by <span class="math inline">\(f(x_i|\boldsymbol{\theta})\)</span> the probability function of <span class="math inline">\(X_i\)</span> evaluated at <span class="math inline">\(X_i=x_i\)</span> <span class="math inline">\((i=1,2,\cdots,n)\)</span>; it is the probability mass function in the case of a discrete <span class="math inline">\(X\)</span> and the probability density function in the case of a continuous <span class="math inline">\(X\)</span>. Assuming independence, the <strong>likelihood function</strong> of <span class="math inline">\(\boldsymbol{\theta}\)</span> associated with the observation <span class="math inline">\((X_1,X_2,\cdots,X_n)=(x_1,x_2,\cdots,x_n)=\mathbf{x}\)</span> can be written as
+<span class="math display">\[L(\boldsymbol{\theta}|\mathbf{x})=\prod_{i=1}^nf(x_i|\boldsymbol{\theta}),\]</span>
+with the corresponding <strong>log-likelihood function</strong> given by
+<span class="math display">\[l(\boldsymbol{\theta}|\mathbf{x})=\log(L(\boldsymbol{\theta}|\mathbf{x}))=\sum_{i=1}^n\log f(x_i|\boldsymbol{\theta}).\]</span>
+The maximum likelihood estimator (<em>mle</em>) of <span class="math inline">\(\boldsymbol{\theta}\)</span> is the set of values of <span class="math inline">\(\boldsymbol{\theta}\)</span> that maximize the likelihood function (log-likelihood function), given the observed sample. That is, the <em>mle</em> <span class="math inline">\(\hat{\boldsymbol{\theta}}\)</span> can be written as
+<span class="math display">\[\hat{\boldsymbol{\theta}}={\mbox{argmax}}_{\boldsymbol{\theta}\in\Theta}l(\boldsymbol{\theta}|\mathbf{x}),\]</span>
+where <span class="math inline">\(\Theta\)</span> is the parameter space of <span class="math inline">\(\boldsymbol{\theta}\)</span>, and <span class="math inline">\({\mbox{argmax}}_{\boldsymbol{\theta}\in\Theta}l(\boldsymbol{\theta}|\mathbf{x})\)</span> is defined as the value of <span class="math inline">\(\boldsymbol{\theta}\)</span> at which the function <span class="math inline">\(l(\boldsymbol{\theta}|\mathbf{x})\)</span> reaches its maximum.</p>
+<p>Given the analytical form of the likelihood function, the <em>mle</em> can be obtained by taking the first derivative of the log-likelihood function with respect to <span class="math inline">\(\boldsymbol{\theta}\)</span>, and setting the values of the partial derivatives to zero. That is, the <em>mle</em> are the solutions of the equations of
+<span class="math display">\[\frac{\partial l(\hat{\boldsymbol{\theta}}|\mathbf{x})}{\partial\hat{\theta}_1}=0;\]</span>
+<span class="math display">\[\frac{\partial l(\hat{\boldsymbol{\theta}}|\mathbf{x})}{\partial\hat{\theta}_2}=0;\]</span>
+<span class="math display">\[\cdots\]</span>
+<span class="math display">\[\frac{\partial l(\hat{\boldsymbol{\theta}}|\mathbf{x})}{\partial\hat{\theta}_m}=0,\]</span>
+provided that the second partial derivatives are negative.</p>
+<p>For parametric models, the <em>mle</em> of the parameters can be obtained either analytically (e.g., in the case of normal distributions and linear estimators), or numerically through iterative algorithms such as the Newton-Raphson method and its adaptive versions (e.g., in the case of generalized linear models with a non-normal response variable).</p>
+<p><strong>Normal distribution.</strong> Assume <span class="math inline">\((X_1,X_2,\cdots,X_n)\)</span> to be a random sample from the normal distribution <span class="math inline">\(N(\mu, \sigma^2)\)</span>. With an observed sample <span class="math inline">\((X_1,X_2,\cdots,X_n)=(x_1,x_2,\cdots,x_n)\)</span>, we can write the likelihood function of <span class="math inline">\(\mu,\sigma^2\)</span> as
+<span class="math display">\[L(\mu,\sigma^2)=\prod_{i=1}^n\left[\frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{\left(x_i-\mu\right)^2}{2\sigma^2}}\right],\]</span>
+with the corresponding log-likelihood function given by
+<span class="math display">\[l(\mu,\sigma^2)=-\frac{n}{2}[\log(2\pi)+\log(\sigma^2)]-\frac{1}{2\sigma^2}\sum_{i=1}^n\left(x_i-\mu\right)^2.\]</span></p>
+<p>By solving
+<span class="math display">\[\frac{\partial l(\hat{\mu},\sigma^2)}{\partial \hat{\mu}}=0,\]</span>
+we obtain <span class="math inline">\(\hat{\mu}=\bar{x}=(1/n)\sum_{i=1}^nx_i\)</span>. It is straightforward to verify that <span class="math inline">\(\frac{\partial l^2(\hat{\mu},\sigma^2)}{\partial \hat{\mu}^2}\left|_{\hat{\mu}=\bar{x}}\right.&lt;0\)</span>. Since this works for arbitrary <span class="math inline">\(x\)</span>, <span class="math inline">\(\hat{\mu}=\bar{X}\)</span> is the <em>mle</em> of <span class="math inline">\(\mu\)</span>. Similarly, by solving
+<span class="math display">\[\frac{\partial l(\mu,\hat{\sigma}^2)}{\partial \hat{\sigma}^2}=0,\]</span>
+we obtain <span class="math inline">\(\hat{\sigma}^2=(1/n)\sum_{i=1}^n(x_i-\mu)^2\)</span>. Further replacing <span class="math inline">\(\mu\)</span> by <span class="math inline">\(\hat{\mu}\)</span>, we derive the <em>mle</em> of <span class="math inline">\(\sigma^2\)</span> as <span class="math inline">\(\hat{\sigma}^2=(1/n)\sum_{i=1}^n(X_i-\bar{X})^2\)</span>.</p>
+<p>Hence, the sample mean <span class="math inline">\(\bar{X}\)</span> and <span class="math inline">\(\hat{\sigma}^2\)</span> are both the <em>mme</em> and <a href="#" class="tooltip" style="color:green"><em>MLE</em><span style="font-size:8pt">Maximum likelihood estimate</span></a> for the mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2\)</span>, under a normal population distribution <span class="math inline">\(F(\cdot)\)</span>. More details regarding the properties of the likelihood function are given in Appendix Section <a href="CAppC.html#S:AppC:LF">17.1</a>.</p>
+</div>
+</div>
+<div id="S:AppA:IE" class="section level2 hasAnchor" number="15.3">
+<h2><span class="header-section-number">15.3</span> Interval Estimation<a href="CAppA.html#S:AppA:IE" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<hr />
+<p>In this section, you learn how to</p>
+<ul>
+<li>derive the exact sampling distribution of the <em>mle</em> of the normal mean</li>
+<li>obtain the large-sample approximation of the sampling distribution using the large sample properties of the <em>mle</em></li>
+<li>construct a confidence interval of a parameter based on the large sample properties of the <em>mle</em></li>
+</ul>
+<hr />
+<p>Now that we have introduced the <em>mme</em> and <em>mle</em>, we may perform the first type of statistical inference, <strong>interval estimation</strong> that quantifies the uncertainty resulting from the use of a finite sample. By deriving the sampling distribution of <em>mle</em>, we can estimate an interval (a confidence interval) for the parameter. Under the frequentist approach (e.g., that based on maximum likelihood estimation), the confidence intervals generated from the same random sampling frame will cover the true value the majority of times (e.g., 95% of the times), if we repeat the sampling process and re-calculate the interval over and over again. Such a process requires the derivation of the sampling distribution for the <em>mle</em>.</p>
+<div id="S:AppA:IE:ED" class="section level3 hasAnchor" number="15.3.1">
+<h3><span class="header-section-number">15.3.1</span> Exact Distribution for Normal Sample Mean<a href="CAppA.html#S:AppA:IE:ED" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Due to the <strong>additivity</strong> property of the normal distribution (i.e., a sum of normal random variables that follows a multivariate normal distribution still follows a normal distribution) and that the normal distribution belongs to the <strong>location–scale family</strong> (i.e., a location and/or scale transformation of a normal random variable has a normal distribution), the sample mean <span class="math inline">\(\bar{X}\)</span> of a random sample from a normal <span class="math inline">\(F(\cdot)\)</span> has a normal sampling distribution for any finite <span class="math inline">\(n\)</span>. Given <span class="math inline">\(X_i\sim^{iid} N(\mu,\sigma^2)\)</span>, <span class="math inline">\(i=1,\dots,n\)</span>, the <em>mle</em> of <span class="math inline">\(\mu\)</span> has an exact distribution <span class="math display">\[\bar{X}\sim N\left(\mu,\frac{\sigma^2}{n}\right).\]</span>
+Hence, the sample mean is an unbiased estimator of <span class="math inline">\(\mu\)</span>. In addition, the uncertainty in the estimation can be quantified by its variance <span class="math inline">\(\sigma^2/n\)</span>, that decreases with the sample size <span class="math inline">\(n\)</span>. When the sample size goes to infinity, the sample mean will approach a single mass at the true value.</p>
+</div>
+<div id="large-sample-properties-of-mle" class="section level3 hasAnchor" number="15.3.2">
+<h3><span class="header-section-number">15.3.2</span> Large-sample Properties of <em>MLE</em><a href="CAppA.html#large-sample-properties-of-mle" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>For the <em>mle</em> of the mean parameter and any other parameters of other parametric distribution families, however, we usually cannot derive an exact sampling distribution for finite samples. Fortunately, when the sample size is sufficiently large, <em>mle</em>s can be approximated by a normal distribution. Due to the general maximum likelihood theory, the <em>mle</em> has some nice large-sample properties.</p>
+<ul>
+<li><p>The <em>mle</em> <span class="math inline">\(\hat{\theta}\)</span> of a parameter <span class="math inline">\(\theta\)</span>, is a <strong>consistent</strong> estimator. That is, <span class="math inline">\(\hat{\theta}\)</span> converges in probability to the true value <span class="math inline">\(\theta\)</span>, as the sample size <span class="math inline">\(n\)</span> goes to infinity.</p></li>
+<li><p>The <em>mle</em> has the <strong>asymptotic normality</strong> property, meaning that the estimator will converge in distribution to a normal distribution centered around the true value, when the sample size goes to infinity. Namely,
+<span class="math display">\[\sqrt{n}(\hat{\theta}-\theta)\rightarrow_d N\left(0,\,V\right),\quad \mbox{as}\quad n\rightarrow \infty,\]</span>
+where <span class="math inline">\(V\)</span> is the inverse of the Fisher Information. Hence, the <em>mle</em> <span class="math inline">\(\hat{\theta}\)</span> approximately follows a normal distribution with mean <span class="math inline">\(\theta\)</span> and variance <span class="math inline">\(V/n\)</span>, when the sample size is large.</p></li>
+<li><p>The <em>mle</em> is <strong>efficient</strong>, meaning that it has the smallest asymptotic variance <span class="math inline">\(V\)</span>, commonly referred to as the <strong>Cramer–Rao lower bound</strong>. In particular, the Cramer–Rao lower bound is the inverse of the Fisher information defined as <span class="math inline">\(\mathcal{I}(\theta)=-\mathrm{E}(\partial^2\log f(X;\theta)/\partial \theta^2)\)</span>. Hence, <span class="math inline">\(\mathrm{Var}(\hat{\theta})\)</span> can be estimated based on the observed Fisher information that can be written as <span class="math inline">\(-\sum_{i=1}^n \partial^2\log f(X_i;\theta)/\partial \theta^2\)</span>.</p></li>
+</ul>
+<p>For many parametric distributions, the Fisher information may be derived analytically for the <em>mle</em> of parameters. For more sophisticated parametric models, the Fisher information can be evaluated numerically using numerical integration for continuous distributions, or numerical summation for discrete distributions. More details regarding maximum likelihood estimation are given in Appendix Section <a href="CAppC.html#S:AppC:MLE">17.2</a>.</p>
+</div>
+<div id="confidence-interval" class="section level3 hasAnchor" number="15.3.3">
+<h3><span class="header-section-number">15.3.3</span> Confidence Interval<a href="CAppA.html#confidence-interval" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Given that the <em>mle</em> <span class="math inline">\(\hat{\theta}\)</span> has either an exact or an approximate normal distribution with mean <span class="math inline">\(\theta\)</span> and variance <span class="math inline">\(\mathrm{Var}(\hat{\theta})\)</span>, we may take the square root of the variance and plug-in the estimate to define <span class="math inline">\(se(\hat{\theta}) = \sqrt{\mathrm{Var}(\hat{\theta})}\)</span>. A <strong>standard error</strong> is an estimated standard deviation that quantifies the uncertainty in the estimation resulting from the use of a finite sample. Under some regularity conditions governing the population distribution, we may establish that the statistic</p>
+<p><span class="math display">\[
+\frac{\hat{\theta}-\theta}{se(\hat{\theta})}
+\]</span></p>
+<p>converges in distribution to a Student-<span class="math inline">\(t\)</span> distribution with degrees of freedom (a parameter of the distribution) <span class="math inline">\({n-p}\)</span>, where <span class="math inline">\(p\)</span> is the number of parameters in the model other than the variance. For example, for the normal distribution case, we have <span class="math inline">\(p=1\)</span> for the parameter <span class="math inline">\(\mu\)</span>; for a linear regression model with an independent variable, we have <span class="math inline">\(p=2\)</span> for the parameters of the intercept and the independent variable. Denote by <span class="math inline">\(t_{n-p}(1-\alpha/2)\)</span> the <span class="math inline">\(100\times(1-\alpha/2)\)</span>-th percentile of the Student-<span class="math inline">\(t\)</span> distribution that satisfies <span class="math inline">\(\Pr\left[t&lt; t_{n-p}\left(1-{\alpha}/{2}\right) \right]= 1-{\alpha}/{2}\)</span>. We have,</p>
+<p><span class="math display">\[
+\Pr\left[-t_{n-p}\left(1-\frac{\alpha}{2}\right)&lt;\frac{\hat{\theta}-\theta}{se(\hat{\theta})}&lt; t_{n-p}\left(1-\frac{\alpha}{2}\right) \right]= 1-{\alpha},
+\]</span></p>
+<p>from which we can derive a <strong>confidence interval</strong> for <span class="math inline">\(\theta\)</span>. From the above equation we can derive a pair of statistics, <span class="math inline">\(\hat{\theta}_1\)</span> and <span class="math inline">\(\hat{\theta}_2\)</span>, that provide an interval of the form <span class="math inline">\([\hat{\theta}_1, \hat{\theta}_2]\)</span>. This interval is a <span class="math inline">\(1-\alpha\)</span> confidence interval for <span class="math inline">\(\theta\)</span> such that <span class="math inline">\(\Pr\left(\hat{\theta}_1 \le \theta \le \hat{\theta}_2\right) = 1-\alpha,\)</span> where the probability <span class="math inline">\(1-\alpha\)</span> is referred to as the <strong>confidence level</strong>. Note that the above confidence interval is not valid for small samples, except for the case of the normal mean.</p>
+<p><strong>Normal distribution.</strong> For the normal population mean <span class="math inline">\(\mu\)</span>, the <em>mle</em> has an exact sampling distribution <span class="math inline">\(\bar{X}\sim N(\mu,\sigma/\sqrt{n})\)</span>, in which we can estimate <span class="math inline">\(se(\hat{\theta})\)</span> by <span class="math inline">\(\hat{\sigma}/\sqrt{n}\)</span>. Based on the <strong>Cochran’s theorem</strong>, the resulting statistic has an exact Student-<span class="math inline">\(t\)</span> distribution with degrees of freedom <span class="math inline">\(n-1\)</span>. Hence, we can derive the lower and upper bounds of the confidence interval as</p>
+<p><span class="math display">\[
+\hat{\mu}_1 = \hat{\mu} - t_{n-1}\left(1-\frac{\alpha}{2}\right)\frac{ \hat{\sigma}}{\sqrt{n}}
+\]</span></p>
+<p>and</p>
+<p><span class="math display">\[
+\hat{\mu}_2 = \hat{\mu} + t_{n-1}\left(1-\frac{\alpha}{2}\right)\frac{ \hat{\sigma}}{\sqrt{n}}.
+\]</span></p>
+<p>When <span class="math inline">\(\alpha = 0.05\)</span>, <span class="math inline">\(t_{n-1}(1-\alpha/2) \approx 1.96\)</span> for large values of <span class="math inline">\(n\)</span>. Based on the Cochran’s theorem, the confidence interval is valid regardless of the sample size.</p>
+<hr />
+<h5 style="text-align: center;">
+<a id="displayExample.CI" href="javascript:toggleEX('toggleExample.CI','displayExample.CI');"><i><strong>Show Wisconsin Property Fund Example - Continued</strong></i></a>
+</h5>
+<div id="toggleExample.CI" style="display: none">
+<p><strong>Example – Wisconsin Property Fund.</strong> For the lognormal claim model, (7.715235, 7.893208) is a 95% confidence interval for <span class="math inline">\(\mu\)</span>.</p>
+<p>More details regarding interval estimation based the <em>mle</em> of other parameters and distribution families are given in Appendix Chapter <a href="CAppC.html#CAppC">17</a>.</p>
+</div>
+<hr />
+</div>
+</div>
+<div id="S:AppA:HT" class="section level2 hasAnchor" number="15.4">
+<h2><span class="header-section-number">15.4</span> Hypothesis Testing<a href="CAppA.html#S:AppA:HT" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<hr />
+<p>In this section, you learn how to</p>
+<ul>
+<li>understand the basic concepts in hypothesis testing including the level of significance and the power of a test</li>
+<li>perform hypothesis testing such as a Student-<span class="math inline">\(t\)</span> test based on the properties of the <em>mle</em></li>
+<li>construct a likelihood ratio test for a single parameter or multiple parameters from the same statistical model</li>
+<li>use information criteria such as the Akaike’s information criterion or the Bayesian information criterion to perform model selection</li>
+</ul>
+<hr />
+<p>For the parameter(s) <span class="math inline">\(\boldsymbol{\theta}\)</span> from a parametric distribution, an alternative type of statistical inference is called <strong>hypothesis testing</strong> that verifies whether a hypothesis regarding the parameter(s) is true, under a given probability called the <strong>level of significance</strong> <span class="math inline">\(\alpha\)</span> (e.g., 5%). In hypothesis testing, we reject the null hypothesis, a restrictive statement concerning the parameter(s), if the probability of observing a random sample as extremal as the observed one is smaller than <span class="math inline">\(\alpha\)</span>, if the null hypothesis were true.</p>
+<div id="basic-concepts" class="section level3 hasAnchor" number="15.4.1">
+<h3><span class="header-section-number">15.4.1</span> Basic Concepts<a href="CAppA.html#basic-concepts" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In a statistical test, we are usually interested in testing whether a statement regarding some parameter(s), a <strong>null hypothesis</strong> (denoted <span class="math inline">\(H_0\)</span>), is true given the observed data. The null hypothesis can take a general form <span class="math inline">\(H_0:\theta\in\Theta_0\)</span>, where <span class="math inline">\(\Theta_0\)</span> is a subset of the parameter space <span class="math inline">\(\Theta\)</span> of <span class="math inline">\(\theta\)</span> that may contain multiple parameters. For the case with a single parameter <span class="math inline">\(\theta\)</span>, the null hypothesis usually takes either the form <span class="math inline">\(H_0:\theta=\theta_0\)</span> or <span class="math inline">\(H_0:\theta\leq\theta_0\)</span>. The opposite of the null hypothesis is called the <strong>alternative hypothesis</strong> that can be written as <span class="math inline">\(H_a:\theta\neq\theta_0\)</span> or <span class="math inline">\(H_a:\theta&gt;\theta_0\)</span>. The statistical test on <span class="math inline">\(H_0:\theta=\theta_0\)</span> is called a <strong>two-sided</strong> as the alternative hypothesis contains two inequalities of <span class="math inline">\(H_a:\theta&lt;\theta_0\)</span> or <span class="math inline">\(\theta&gt;\theta_0\)</span>. In contrast, the statistical test on either <span class="math inline">\(H_0:\theta\leq\theta_0\)</span> or <span class="math inline">\(H_0:\theta\geq\theta_0\)</span> is called a <strong>one-sided</strong> test.</p>
+<p>A statistical test is usually constructed based on a statistic <span class="math inline">\(T\)</span> and its exact or large-sample distribution. The test typically rejects a two-sided test when either <span class="math inline">\(T &gt; c_1\)</span> or <span class="math inline">\(T &lt; c_2\)</span>, where the two constants <span class="math inline">\(c_1\)</span> and <span class="math inline">\(c_2\)</span> are obtained based on the sampling distribution of <span class="math inline">\(T\)</span> at a probability level <span class="math inline">\(\alpha\)</span> called the <strong>level of significance</strong>. In particular, the level of significance <span class="math inline">\(\alpha\)</span> satisfies</p>
+<p><span class="math display">\[
+\alpha=\Pr(\mbox{reject }H_0|H_0\mbox{ is true}),
+\]</span></p>
+<p>meaning that if the null hypothesis were true, we would reject the null hypothesis only 5% of the times, if we repeat the sampling process and perform the test over and over again.</p>
+<p>Thus, the level of significance is the probability of making a <strong>type I error</strong> (error of the first kind), the error of incorrectly rejecting a true null hypothesis. For this reason, the level of significance <span class="math inline">\(\alpha\)</span> is also referred to as the type I error rate. Another type of error we may make in hypothesis testing is the <strong>type II error</strong> (error of the second kind), the error of incorrectly accepting a false null hypothesis. Similarly, we can define the <strong>type II error rate</strong> as the probability of not rejecting (accepting) a null hypothesis given that it is not true. That is, the type II error rate is given by</p>
+<p><span class="math display">\[
+\Pr(\mbox{accept }H_0|H_0\mbox{ is false}).
+\]</span></p>
+<p>Another important quantity concerning the quality of the statistical test is called the <strong>power</strong> of the test <span class="math inline">\(\beta\)</span>, defined as the probability of rejecting a false null hypothesis. The mathematical definition of the power is</p>
+<p><span class="math display">\[
+\beta=\Pr(\mbox{reject }H_0|H_0\mbox{ is false}).
+\]</span></p>
+<p>Note that the power of the test is typically calculated based on a specific alternative value of <span class="math inline">\(\theta=\theta_a\)</span>, given a specific sampling distribution and a given sample size. In real experimental studies, people usually calculate the required sample size in order to choose a sample size that will ensure a large chance of obtaining a statistically significant test (i.e., with a prespecified statistical power such as 85%).</p>
+</div>
+<div id="student-t-test-based-on-mle" class="section level3 hasAnchor" number="15.4.2">
+<h3><span class="header-section-number">15.4.2</span> Student-<em>t</em> test based on <em>mle</em><a href="CAppA.html#student-t-test-based-on-mle" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Based on the results from Section <a href="CAppA.html#S:AppA:IE:ED">15.3.1</a>, we can define a Student-<span class="math inline">\(t\)</span> test for testing <span class="math inline">\(H_0:\theta=\theta_0\)</span>. In particular, we define the test statistic as</p>
+<p><span class="math display">\[
+t\text{-stat}=\frac{\hat{\theta}-\theta_0}{se(\hat{\theta})},
+\]</span></p>
+<p>which has a large-sample distribution of a student-<span class="math inline">\(t\)</span> distribution with degrees of freedom <span class="math inline">\({n-p}\)</span>, when the null hypothesis is true (i.e., when <span class="math inline">\(\theta=\theta_0\)</span>).</p>
+<p>For a given <strong>level of significance</strong> <span class="math inline">\(\alpha\)</span>, say 5%, we reject the null hypothesis if the event <span class="math inline">\(t\text{-stat}&lt;-t_{n-p}\left(1-{\alpha}/{2}\right)\)</span> or <span class="math inline">\(t\text{-stat}&gt; t_{n-p}\left(1-{\alpha}/{2}\right)\)</span> occurs (the <strong>rejection region</strong>). Under the null hypothesis <span class="math inline">\(H_0\)</span>, we have</p>
+<p><span class="math display">\[
+\Pr\left[t\text{-stat}&lt;-t_{n-p}\left(1-\frac{\alpha}{2}\right)\right]=\Pr\left[t\text{-stat}&gt; t_{n-p}\left(1-\frac{\alpha}{2}\right) \right]= \frac{\alpha}{2}.
+\]</span></p>
+<p>In addition to the concept of rejection region, we may reject the test based on the <span class="math inline">\(p\)</span><strong>-value</strong> defined as <span class="math inline">\(2\Pr(T&gt;|t\text{-stat}|)\)</span> for the aforementioned two-sided test, where the random variable <span class="math inline">\(T\sim T_{n-p}\)</span>. We reject the null hypothesis if <span class="math inline">\(p\)</span>-value is smaller than and equal to <span class="math inline">\(\alpha\)</span>. For a given sample, a <span class="math inline">\(p\)</span>-value is defined to be the smallest significance level for which the null hypothesis would be rejected.</p>
+<p>Similarly, we can construct a one-sided test for the null hypothesis <span class="math inline">\(H_0:\theta\leq\theta_0\)</span> (or <span class="math inline">\(H_0:\theta\geq\theta_0\)</span>). Using the same test statistic, we reject the null hypothesis when <span class="math inline">\(t\text{-stat}&gt; t_{n-p}\left(1-{\alpha}\right)\)</span> (or <span class="math inline">\(t\text{-stat}&lt;- t_{n-p}\left(1-{\alpha}\right)\)</span> for the test on <span class="math inline">\(H_0:\theta\geq\theta_0\)</span>). The corresponding <span class="math inline">\(p\)</span>-value is defined as <span class="math inline">\(\Pr(T&gt;|t\text{-stat}|)\)</span> (or <span class="math inline">\(\Pr(T&lt;|t\text{-stat}|)\)</span> for the test on <span class="math inline">\(H_0:\theta\geq\theta_0\)</span>). Note that the test is not valid for small samples, except for the case of the test on the normal mean.</p>
+<p><strong>One-sample <span class="math inline">\(t\)</span> Test for Normal Mean.</strong> For the test on the normal mean of the form <span class="math inline">\(H_0:\mu=\mu_0\)</span>, <span class="math inline">\(H_0:\mu\leq\mu_0\)</span> or <span class="math inline">\(H_0:\mu\geq\mu_0\)</span>, we can define the test statistic as</p>
+<p><span class="math display">\[
+t\text{-stat}=\frac{\bar{X}-\mu_0}{{\hat{\sigma}}/{\sqrt{n}}},
+\]</span></p>
+<p>for which we have an exact sampling distribution <span class="math inline">\(t\text{-stat}\sim T_{n-1}\)</span> from the Cochran’s theorem, with <span class="math inline">\(T_{n-1}\)</span> denoting a Student-<span class="math inline">\(t\)</span> distribution with degrees of freedom <span class="math inline">\(n-1\)</span>. According to the Cochran’s theorem, the test is valid for both small and large samples.</p>
+<h5 style="text-align: center;">
+<a id="displayExample.TST1" href="javascript:toggleEX('toggleExample.TST1','displayExample.TST1');"><i><strong>Show Wisconsin Property Fund Example - Continued</strong></i></a>
+</h5>
+<div id="toggleExample.TST1" style="display: none">
+<p><strong>Example – Wisconsin Property Fund.</strong> Assume that mean logarithmic claims have historically been approximately by
+<span class="math inline">\(\mu_0 = \log(5000)= 8.517\)</span>. We might want to use the 2010 data to assess whether the mean of the distribution has changed (a two-sided test), or whether it has increased (a one-sided test). Given the actual 2010 average <span class="math inline">\(\hat{\mu} =7.804\)</span>, we may use the one-sample <span class="math inline">\(t\)</span> test to assess whether this is a significant departure from <span class="math inline">\(\mu_0 = 8.517\)</span> (i.e., in testing <span class="math inline">\(H_0:\mu=8.517\)</span>). The test statistic <span class="math inline">\(t\text{-stat}=(8.517-7.804)/(1.683/\sqrt{1377}) = 15.72&gt;t_{1376}\left(0.975\right)\)</span>. Hence, we reject the two-sided test at <span class="math inline">\(\alpha=5\%\)</span>. Similarly, we will reject the one-sided test at <span class="math inline">\(\alpha=5\%\)</span>.</p>
+</div>
+<h5 style="text-align: center;">
+<a id="displayExample.TST2" href="javascript:toggleEX('toggleExample.TST2','displayExample.TST2');"><i><strong>Show Wisconsin Property Fund Example - Continued</strong></i></a>
+</h5>
+<div id="toggleExample.TST2" style="display: none">
+<p><strong>Example – Wisconsin Property Fund.</strong> For numerical stability and extensions to regression applications, statistical packages often work with transformed versions of parameters. The following estimates are from the <strong>R</strong> package <strong>VGAM</strong> (the function). More details on the <em>mle</em> of other distribution families are given in Appendix Chapter <a href="CAppC.html#CAppC">17</a>.</p>
+<table>
+<tbody>
+<tr class="odd">
+<td align="right">Distribution</td>
+<td align="right">Parameter</td>
+<td align="right">Standard</td>
+<td align="right"><span class="math inline">\(t\)</span>-stat</td>
+</tr>
+<tr class="even">
+<td align="right"></td>
+<td align="right">Estimate</td>
+<td align="right">Error</td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="right">Gamma</td>
+<td align="right">10.190</td>
+<td align="right">0.050</td>
+<td align="right">203.831</td>
+</tr>
+<tr class="even">
+<td align="right"></td>
+<td align="right">-1.236</td>
+<td align="right">0.030</td>
+<td align="right">-41.180</td>
+</tr>
+<tr class="odd">
+<td align="right">Lognormal</td>
+<td align="right">7.804</td>
+<td align="right">0.045</td>
+<td align="right">172.089</td>
+</tr>
+<tr class="even">
+<td align="right"></td>
+<td align="right">0.520</td>
+<td align="right">0.019</td>
+<td align="right">27.303</td>
+</tr>
+<tr class="odd">
+<td align="right">Pareto</td>
+<td align="right">7.733</td>
+<td align="right">0.093</td>
+<td align="right">82.853</td>
+</tr>
+<tr class="even">
+<td align="right"></td>
+<td align="right">-0.001</td>
+<td align="right">0.054</td>
+<td align="right">-0.016</td>
+</tr>
+<tr class="odd">
+<td align="right">GB2</td>
+<td align="right">2.831</td>
+<td align="right">1.000</td>
+<td align="right">2.832</td>
+</tr>
+<tr class="even">
+<td align="right"></td>
+<td align="right">1.203</td>
+<td align="right">0.292</td>
+<td align="right">4.120</td>
+</tr>
+<tr class="odd">
+<td align="right"></td>
+<td align="right">6.329</td>
+<td align="right">0.390</td>
+<td align="right">16.220</td>
+</tr>
+<tr class="even">
+<td align="right"></td>
+<td align="right">1.295</td>
+<td align="right">0.219</td>
+<td align="right">5.910</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="S:AppA:HT:LRT" class="section level3 hasAnchor" number="15.4.3">
+<h3><span class="header-section-number">15.4.3</span> Likelihood Ratio Test<a href="CAppA.html#S:AppA:HT:LRT" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In the previous subsection, we have introduced the Student-<span class="math inline">\(t\)</span> test on a single parameter, based on the properties of the <em>mle</em>. In this section, we define an alternative test called the <strong>likelihood ratio test</strong> (<em>LRT</em>). The <em>LRT</em> may be used to test multiple parameters from the same statistical model.</p>
+<p>Given the likelihood function <span class="math inline">\(L(\theta|\mathbf{x})\)</span> and <span class="math inline">\(\Theta_0 \subset \Theta\)</span>, the likelihood ratio test statistic for testing <span class="math inline">\(H_0:\theta\in\Theta_0\)</span> against <span class="math inline">\(H_a:\theta\notin\Theta_0\)</span> is given by</p>
+<p><span class="math display">\[
+L=\frac{\sup_{\theta\in\Theta_0}L(\theta|\mathbf{x})}{\sup_{\theta\in\Theta}L(\theta|\mathbf{x})},
+\]</span></p>
+<p>and that for testing <span class="math inline">\(H_0:\theta=\theta_0\)</span> versus <span class="math inline">\(H_a:\theta\neq\theta_0\)</span> is</p>
+<p><span class="math display">\[
+L=\frac{L(\theta_0|\mathbf{x})}{\sup_{\theta\in\Theta}L(\theta|\mathbf{x})}.
+\]</span></p>
+<p>The <em>LRT</em> rejects the null hypothesis when <span class="math inline">\(L &lt; c\)</span>, with the threshold depending on the level of significance <span class="math inline">\(\alpha\)</span>, the sample size <span class="math inline">\(n\)</span>, and the number of parameters in <span class="math inline">\(\theta\)</span>. Based on the <strong>Neyman–Pearson Lemma</strong>, the <em>LRT</em> is the <strong>uniformly most powerful</strong> test for testing <span class="math inline">\(H_0:\theta=\theta_0\)</span> versus <span class="math inline">\(H_a:\theta=\theta_a\)</span>. That is, it provides the largest power <span class="math inline">\(\beta\)</span> for a given <span class="math inline">\(\alpha\)</span> and a given alternative value <span class="math inline">\(\theta_a\)</span>.</p>
+<p>Based on the <strong>Wilks’s Theorem</strong>, the likelihood ratio test statistic <span class="math inline">\(-2\log(L)\)</span> converges in distribution to a Chi-square distribution with the degree of freedom being the difference between the dimensionality of the parameter spaces <span class="math inline">\(\Theta\)</span> and <span class="math inline">\(\Theta_0\)</span>, when the sample size goes to infinity and when the null model is nested within the alternative model. That is, when the null model is a special case of the alternative model containing a restricted sample space, we may approximate <span class="math inline">\(c\)</span> by <span class="math inline">\(\chi^2_{p_1 - p_2}(1-\alpha)\)</span>, the <span class="math inline">\(100\times(1-\alpha)\)</span> th percentile of the Chi-square distribution, with <span class="math inline">\(p_1-p_2\)</span> being the degrees of freedom, and <span class="math inline">\(p_1\)</span> and <span class="math inline">\(p_2\)</span> being the numbers of parameters in the alternative and null models, respectively. Note that the <em>LRT</em> is also a large-sample test that will not be valid for small samples.</p>
+</div>
+<div id="S:AppA:HT:IC" class="section level3 hasAnchor" number="15.4.4">
+<h3><span class="header-section-number">15.4.4</span> Information Criteria<a href="CAppA.html#S:AppA:HT:IC" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In real-life applications, the <em>LRT</em> has been commonly used for comparing two nested models. The <em>LRT</em> approach as a model selection tool, however, has two major drawbacks: 1) It typically requires the null model to be nested within the alternative model; 2) models selected from the <em>LRT</em> tends to provide in-sample over-fitting, leading to poor out-of-sample prediction. In order to overcome these issues, model selection based on information criteria, applicable to non-nested models while taking into consideration the model complexity, is more widely used for model selection. Here, we introduce the two most widely used criteria, the Akaike’s information criterion and the Bayesian information criterion.</p>
+<p>In particular, the <strong>Akaike’s information criterion</strong> (<span class="math inline">\(AIC\)</span>) is defined as</p>
+<p><span class="math display">\[
+AIC = -2\log L(\hat{\boldsymbol \theta}) + 2p,
+\]</span></p>
+<p>where <span class="math inline">\(\hat{\boldsymbol \theta}\)</span> denotes the <em>mle</em> of <span class="math inline">\({\boldsymbol \theta}\)</span>, and <span class="math inline">\(p\)</span> is the number of parameters in the model. The additional term <span class="math inline">\(2 p\)</span> represents a penalty for the complexity of the model. That is, with the same maximized likelihood function, the <span class="math inline">\(AIC\)</span> favors model with less parameters. We note that the <span class="math inline">\(AIC\)</span> does not consider the impact from the sample size <span class="math inline">\(n\)</span>.</p>
+<p>Alternatively, people use the <strong>Bayesian information criterion</strong> (<span class="math inline">\(BIC\)</span>) that takes into consideration the sample size. The <span class="math inline">\(BIC\)</span> is defined as</p>
+<p><span class="math display">\[
+BIC = -2\log L(\hat{\boldsymbol \theta}) + p\,\log(n).
+\]</span></p>
+<p>We observe that the <span class="math inline">\(BIC\)</span> generally puts a higher weight on the number of parameters. With the same maximized likelihood function, the <span class="math inline">\(BIC\)</span> will suggest a more parsimonious model than the <span class="math inline">\(AIC\)</span>.</p>
+<h5 style="text-align: center;">
+<a id="displayExample.AIC" href="javascript:toggleEX('toggleExample.AIC','displayExample.AIC');"><i><strong>Show Wisconsin Property Fund Example - Continued</strong></i></a>
+</h5>
+<div id="toggleExample.AIC" style="display: none">
+<p><strong>Example – Wisconsin Property Fund.</strong> Both the <span class="math inline">\(AIC\)</span> and <span class="math inline">\(BIC\)</span> statistics suggest that the <em>GB2</em> is the best fitting model whereas gamma is the worst.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Distribution</th>
+<th align="right">AIC</th>
+<th align="right">BIC</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">Gamma</td>
+<td align="right">28,305.2</td>
+<td align="right">28,315.6</td>
+</tr>
+<tr class="even">
+<td align="right">Lognormal</td>
+<td align="right">26,837.7</td>
+<td align="right">26,848.2</td>
+</tr>
+<tr class="odd">
+<td align="right">Pareto</td>
+<td align="right">26,813.3</td>
+<td align="right">26,823.7</td>
+</tr>
+<tr class="even">
+<td align="right">GB2</td>
+<td align="right">26,768.1</td>
+<td align="right">26,789.0</td>
+</tr>
+</tbody>
+</table>
+<p>In this graph,</p>
+<ul>
+<li>black represents actual (smoothed) logarithmic claims</li>
+<li>Best approximated by green which is fitted GB2</li>
+<li>Pareto (purple) and Lognormal (lightblue) are also pretty good</li>
+<li>Worst are the exponential (in red) and gamma (in dark blue)</li>
+</ul>
+
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:FitClaimDistn"></span>
+<img src="LossDataAnalytics_files/figure-html/FitClaimDistn-1.png" alt="Fitted Claims Distribution" width="80%" />
+<p class="caption">
+Figure 15.2: <strong>Fitted Claims Distribution</strong>
+</p>
+</div>
+<pre><code>## Sample size:  6258</code></pre>
+<h5 style="text-align: center;">
+<a id="displayCode.FIT" href="javascript:togglecode('toggleCode.FIT','displayCode.FIT');"><i><strong>Show R Code</strong></i></a>
+</h5>
+<div id="toggleCode.FIT" style="display: none">
+<p>R Code for Fitted Claims Distributions</p>
+<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="CAppA.html#cb204-1" aria-hidden="true" tabindex="-1"></a><span class="co"># R Code to fit several claims distributions</span></span>
+<span id="cb204-2"><a href="CAppA.html#cb204-2" aria-hidden="true" tabindex="-1"></a>ClaimLev <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;Data/CLAIMLEVEL.csv&quot;</span>, <span class="at">header=</span><span class="cn">TRUE</span>); <span class="fu">nrow</span>(ClaimLev)</span>
+<span id="cb204-3"><a href="CAppA.html#cb204-3" aria-hidden="true" tabindex="-1"></a>ClaimData<span class="ot">&lt;-</span><span class="fu">subset</span>(ClaimLev,Year<span class="sc">==</span><span class="dv">2010</span>); </span>
+<span id="cb204-4"><a href="CAppA.html#cb204-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Use &quot;VGAM&quot; library for estimation of parameters </span></span>
+<span id="cb204-5"><a href="CAppA.html#cb204-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(VGAM)</span>
+<span id="cb204-6"><a href="CAppA.html#cb204-6" aria-hidden="true" tabindex="-1"></a>fit.LN <span class="ot">&lt;-</span> <span class="fu">vglm</span>(Claim <span class="sc">~</span> <span class="dv">1</span>, <span class="at">family=</span>lognormal, <span class="at">data =</span> ClaimData)</span>
+<span id="cb204-7"><a href="CAppA.html#cb204-7" aria-hidden="true" tabindex="-1"></a>fit.gamma <span class="ot">&lt;-</span> <span class="fu">vglm</span>(Claim <span class="sc">~</span> <span class="dv">1</span>, <span class="at">family=</span>gamma2, <span class="at">data =</span> ClaimData)</span>
+<span id="cb204-8"><a href="CAppA.html#cb204-8" aria-hidden="true" tabindex="-1"></a>  theta.gamma<span class="ot">&lt;-</span><span class="fu">exp</span>(<span class="fu">coef</span>(fit.gamma)[<span class="dv">1</span>])<span class="sc">/</span><span class="fu">exp</span>(<span class="fu">coef</span>(fit.gamma)[<span class="dv">2</span>]) </span>
+<span id="cb204-9"><a href="CAppA.html#cb204-9" aria-hidden="true" tabindex="-1"></a>  alpha.gamma<span class="ot">&lt;-</span><span class="fu">exp</span>(<span class="fu">coef</span>(fit.gamma)[<span class="dv">2</span>])</span>
+<span id="cb204-10"><a href="CAppA.html#cb204-10" aria-hidden="true" tabindex="-1"></a>fit.exp <span class="ot">&lt;-</span> <span class="fu">vglm</span>(Claim <span class="sc">~</span> <span class="dv">1</span>, exponential, <span class="at">data =</span> ClaimData)</span>
+<span id="cb204-11"><a href="CAppA.html#cb204-11" aria-hidden="true" tabindex="-1"></a>fit.pareto <span class="ot">&lt;-</span> <span class="fu">vglm</span>(Claim <span class="sc">~</span> <span class="dv">1</span>, paretoII, <span class="at">loc=</span><span class="dv">0</span>, <span class="at">data =</span> ClaimData)</span>
+<span id="cb204-12"><a href="CAppA.html#cb204-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb204-13"><a href="CAppA.html#cb204-13" aria-hidden="true" tabindex="-1"></a><span class="do">###################################################</span></span>
+<span id="cb204-14"><a href="CAppA.html#cb204-14" aria-hidden="true" tabindex="-1"></a><span class="co">#  Inference assuming a GB2 Distribution - this is more complicated</span></span>
+<span id="cb204-15"><a href="CAppA.html#cb204-15" aria-hidden="true" tabindex="-1"></a><span class="co"># The likelihood function of GB2 distribution (negative for optimization)</span></span>
+<span id="cb204-16"><a href="CAppA.html#cb204-16" aria-hidden="true" tabindex="-1"></a>likgb2 <span class="ot">&lt;-</span> <span class="cf">function</span>(param) {</span>
+<span id="cb204-17"><a href="CAppA.html#cb204-17" aria-hidden="true" tabindex="-1"></a>  a1 <span class="ot">&lt;-</span> param[<span class="dv">1</span>]</span>
+<span id="cb204-18"><a href="CAppA.html#cb204-18" aria-hidden="true" tabindex="-1"></a>  a2 <span class="ot">&lt;-</span> param[<span class="dv">2</span>]</span>
+<span id="cb204-19"><a href="CAppA.html#cb204-19" aria-hidden="true" tabindex="-1"></a>  mu <span class="ot">&lt;-</span> param[<span class="dv">3</span>]</span>
+<span id="cb204-20"><a href="CAppA.html#cb204-20" aria-hidden="true" tabindex="-1"></a>  sigma <span class="ot">&lt;-</span> param[<span class="dv">4</span>]</span>
+<span id="cb204-21"><a href="CAppA.html#cb204-21" aria-hidden="true" tabindex="-1"></a>  yt <span class="ot">&lt;-</span> (<span class="fu">log</span>(ClaimData<span class="sc">$</span>Claim)<span class="sc">-</span>mu)<span class="sc">/</span>sigma</span>
+<span id="cb204-22"><a href="CAppA.html#cb204-22" aria-hidden="true" tabindex="-1"></a>  logexpyt<span class="ot">&lt;-</span><span class="fu">ifelse</span>(yt<span class="sc">&gt;</span><span class="dv">23</span>,yt,<span class="fu">log</span>(<span class="dv">1</span><span class="sc">+</span><span class="fu">exp</span>(yt)))</span>
+<span id="cb204-23"><a href="CAppA.html#cb204-23" aria-hidden="true" tabindex="-1"></a>  logdens <span class="ot">&lt;-</span> a1<span class="sc">*</span>yt <span class="sc">-</span> <span class="fu">log</span>(sigma) <span class="sc">-</span> <span class="fu">log</span>(<span class="fu">beta</span>(a1,a2)) <span class="sc">-</span> (a1<span class="sc">+</span>a2)<span class="sc">*</span>logexpyt <span class="sc">-</span><span class="fu">log</span>(ClaimData<span class="sc">$</span>Claim) </span>
+<span id="cb204-24"><a href="CAppA.html#cb204-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="sc">-</span><span class="fu">sum</span>(logdens))</span>
+<span id="cb204-25"><a href="CAppA.html#cb204-25" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb204-26"><a href="CAppA.html#cb204-26" aria-hidden="true" tabindex="-1"></a><span class="co">#  &quot;optim&quot; is a general purpose minimization function</span></span>
+<span id="cb204-27"><a href="CAppA.html#cb204-27" aria-hidden="true" tabindex="-1"></a>gb2bop <span class="ot">&lt;-</span> <span class="fu">optim</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>),likgb2,<span class="at">method=</span><span class="fu">c</span>(<span class="st">&quot;L-BFGS-B&quot;</span>),</span>
+<span id="cb204-28"><a href="CAppA.html#cb204-28" aria-hidden="true" tabindex="-1"></a>                <span class="at">lower=</span><span class="fu">c</span>(<span class="fl">0.01</span>,<span class="fl">0.01</span>,<span class="sc">-</span><span class="dv">500</span>,<span class="fl">0.01</span>),<span class="at">upper=</span><span class="fu">c</span>(<span class="dv">500</span>,<span class="dv">500</span>,<span class="dv">500</span>,<span class="dv">500</span>),<span class="at">hessian=</span><span class="cn">TRUE</span>)</span>
+<span id="cb204-29"><a href="CAppA.html#cb204-29" aria-hidden="true" tabindex="-1"></a><span class="do">###################################################</span></span>
+<span id="cb204-30"><a href="CAppA.html#cb204-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting the fit using densities (on a logarithmic scale)</span></span>
+<span id="cb204-31"><a href="CAppA.html#cb204-31" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">density</span>(<span class="fu">log</span>(ClaimData<span class="sc">$</span>Claim)), <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">0.36</span>),<span class="at">main=</span><span class="st">&quot;&quot;</span>, <span class="at">xlab=</span><span class="st">&quot;Log Expenditures&quot;</span>)</span>
+<span id="cb204-32"><a href="CAppA.html#cb204-32" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">15</span>,<span class="at">by=</span><span class="fl">0.01</span>)</span>
+<span id="cb204-33"><a href="CAppA.html#cb204-33" aria-hidden="true" tabindex="-1"></a>fexp_ex <span class="ot">=</span> <span class="fu">dgamma</span>(<span class="fu">exp</span>(x), <span class="at">scale =</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="fu">coef</span>(fit.exp)), <span class="at">shape =</span> <span class="dv">1</span>)<span class="sc">*</span><span class="fu">exp</span>(x)</span>
+<span id="cb204-34"><a href="CAppA.html#cb204-34" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(x,fexp_ex, <span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
+<span id="cb204-35"><a href="CAppA.html#cb204-35" aria-hidden="true" tabindex="-1"></a>fgamma_ex <span class="ot">=</span> <span class="fu">dgamma</span>(<span class="fu">exp</span>(x), <span class="at">shape =</span> alpha.gamma, <span class="at">scale=</span>theta.gamma)<span class="sc">*</span><span class="fu">exp</span>(x)</span>
+<span id="cb204-36"><a href="CAppA.html#cb204-36" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(x,fgamma_ex,<span class="at">col=</span><span class="st">&quot;blue&quot;</span>)</span>
+<span id="cb204-37"><a href="CAppA.html#cb204-37" aria-hidden="true" tabindex="-1"></a>fpareto_ex <span class="ot">=</span> <span class="fu">dparetoII</span>(<span class="fu">exp</span>(x),<span class="at">loc=</span><span class="dv">0</span>,<span class="at">shape =</span> <span class="fu">exp</span>(<span class="fu">coef</span>(fit.pareto)[<span class="dv">2</span>]), <span class="at">scale =</span> <span class="fu">exp</span>(<span class="fu">coef</span>(fit.pareto)[<span class="dv">1</span>]))<span class="sc">*</span><span class="fu">exp</span>(x)</span>
+<span id="cb204-38"><a href="CAppA.html#cb204-38" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(x,fpareto_ex,<span class="at">col=</span><span class="st">&quot;purple&quot;</span>)</span>
+<span id="cb204-39"><a href="CAppA.html#cb204-39" aria-hidden="true" tabindex="-1"></a>flnorm_ex <span class="ot">=</span> <span class="fu">dlnorm</span>(<span class="fu">exp</span>(x), <span class="at">mean =</span> <span class="fu">coef</span>(fit.LN)[<span class="dv">1</span>], <span class="at">sd =</span> <span class="fu">exp</span>(<span class="fu">coef</span>(fit.LN)[<span class="dv">2</span>]))<span class="sc">*</span><span class="fu">exp</span>(x)</span>
+<span id="cb204-40"><a href="CAppA.html#cb204-40" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(x,flnorm_ex, <span class="at">col=</span><span class="st">&quot;lightblue&quot;</span>)</span>
+<span id="cb204-41"><a href="CAppA.html#cb204-41" aria-hidden="true" tabindex="-1"></a><span class="co"># density for GB II</span></span>
+<span id="cb204-42"><a href="CAppA.html#cb204-42" aria-hidden="true" tabindex="-1"></a>gb2density <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
+<span id="cb204-43"><a href="CAppA.html#cb204-43" aria-hidden="true" tabindex="-1"></a>  a1 <span class="ot">&lt;-</span> gb2bop<span class="sc">$</span>par[<span class="dv">1</span>]</span>
+<span id="cb204-44"><a href="CAppA.html#cb204-44" aria-hidden="true" tabindex="-1"></a>  a2 <span class="ot">&lt;-</span> gb2bop<span class="sc">$</span>par[<span class="dv">2</span>]</span>
+<span id="cb204-45"><a href="CAppA.html#cb204-45" aria-hidden="true" tabindex="-1"></a>  mu <span class="ot">&lt;-</span> gb2bop<span class="sc">$</span>par[<span class="dv">3</span>]</span>
+<span id="cb204-46"><a href="CAppA.html#cb204-46" aria-hidden="true" tabindex="-1"></a>  sigma <span class="ot">&lt;-</span> gb2bop<span class="sc">$</span>par[<span class="dv">4</span>]</span>
+<span id="cb204-47"><a href="CAppA.html#cb204-47" aria-hidden="true" tabindex="-1"></a>  xt <span class="ot">&lt;-</span> (<span class="fu">log</span>(x)<span class="sc">-</span>mu)<span class="sc">/</span>sigma</span>
+<span id="cb204-48"><a href="CAppA.html#cb204-48" aria-hidden="true" tabindex="-1"></a>  logexpxt<span class="ot">&lt;-</span><span class="fu">ifelse</span>(xt<span class="sc">&gt;</span><span class="dv">23</span>,yt,<span class="fu">log</span>(<span class="dv">1</span><span class="sc">+</span><span class="fu">exp</span>(xt)))</span>
+<span id="cb204-49"><a href="CAppA.html#cb204-49" aria-hidden="true" tabindex="-1"></a>  logdens <span class="ot">&lt;-</span> a1<span class="sc">*</span>xt <span class="sc">-</span> <span class="fu">log</span>(sigma) <span class="sc">-</span> <span class="fu">log</span>(<span class="fu">beta</span>(a1,a2)) <span class="sc">-</span> (a1<span class="sc">+</span>a2)<span class="sc">*</span>logexpxt <span class="sc">-</span><span class="fu">log</span>(x) </span>
+<span id="cb204-50"><a href="CAppA.html#cb204-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">exp</span>(logdens)</span>
+<span id="cb204-51"><a href="CAppA.html#cb204-51" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb204-52"><a href="CAppA.html#cb204-52" aria-hidden="true" tabindex="-1"></a>fGB2_ex <span class="ot">=</span> <span class="fu">gb2density</span>(<span class="fu">exp</span>(x))<span class="sc">*</span><span class="fu">exp</span>(x)</span>
+<span id="cb204-53"><a href="CAppA.html#cb204-53" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(x,fGB2_ex, <span class="at">col=</span><span class="st">&quot;green&quot;</span>)</span></code></pre></div>
+</div>
+</div>
+<div id="contributors-10" class="section level4 unnumbered hasAnchor">
+<h4>Contributors<a href="CAppA.html#contributors-10" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li><strong>Lei (Larry) Hua</strong>, Northern Illinois University, and <strong>Edward W. (Jed) Frees</strong>, University of Wisconsin-Madison, are the principal authors of the initial version of this chapter. Email: <a href="mailto:lhua@niu.edu" class="email">lhua@niu.edu</a> or <a href="mailto:jfrees@bus.wisc.edu" class="email">jfrees@bus.wisc.edu</a> for chapter comments and suggested improvements.</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="ChapDependenceModel.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="CAppB.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

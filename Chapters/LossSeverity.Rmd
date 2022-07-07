@@ -1,10 +1,10 @@
 
 `r chapnum = 3`
 
-# Modeling Loss Severity {#C:Severity}
+# Modeling Loss Severity {#ChapSeverity}
 
 
-*Chapter Preview.* The traditional loss distribution approach to modeling `r Gloss('aggregate losses')` starts by separately fitting a frequency distribution to the number of losses and a severity distribution to the size of losses. The estimated aggregate loss distribution combines the loss frequency distribution and the loss severity distribution by convolution. Discrete distributions often referred to as counting or frequency distributions were used in Chapter \@ref(C:Frequency-Modeling) to describe the number of events such as number of accidents to the driver or number of claims to the insurer. Lifetimes, asset values, losses and claim sizes are usually modeled as continuous random variables and as such are modeled using continuous distributions, often referred to as loss or severity distributions. A `r Gloss('mixture distribution', '3')` is a weighted combination of simpler distributions that is used to model phenomenon investigated in a heterogeneous population, such as modeling more than one type of claims in `r Gloss('liability insurance')` (small frequent claims and large relatively rare claims). In this chapter we explore the use of continuous as well as mixture distributions to model the random size of loss. Sections \@ref(S:BasicQuantities) and \@ref(S:ContinuousDistn) present key attributes that characterize continuous models and means of creating new distributions from existing ones. Section \@ref(S:CoverageModifications) describes the effect of coverage modifications, which change the conditions that trigger a payment, such as applying deductibles, limits, or adjusting for inflation, on the distribution of individual loss amounts. For calibrating models, Section \@ref(S:MaxLikeEstimation) deepens our understanding of maximum likelihood methods. The frequency distributions from Chapter \@ref(C:Frequency-Modeling) will be combined with the ideas from this chapter to describe the aggregate losses over the whole portfolio in Chapter \@ref(C:AggLossModels).
+*Chapter Preview.* The traditional loss distribution approach to modeling `r Gloss('aggregate losses')` starts by separately fitting a frequency distribution to the number of losses and a severity distribution to the size of losses. The estimated aggregate loss distribution combines the loss frequency distribution and the loss severity distribution by convolution. Discrete distributions often referred to as counting or frequency distributions were used in Chapter \@ref(ChapFrequency-Modeling) to describe the number of events such as number of accidents to the driver or number of claims to the insurer. Lifetimes, asset values, losses and claim sizes are usually modeled as continuous random variables and as such are modeled using continuous distributions, often referred to as loss or severity distributions. A `r Gloss('mixture distribution', '3')` is a weighted combination of simpler distributions that is used to model phenomenon investigated in a heterogeneous population, such as modeling more than one type of claims in `r Gloss('liability insurance')` (small frequent claims and large relatively rare claims). In this chapter we explore the use of continuous as well as mixture distributions to model the random size of loss. Sections \@ref(S:BasicQuantities) and \@ref(S:ContinuousDistn) present key attributes that characterize continuous models and means of creating new distributions from existing ones. Section \@ref(S:CoverageModifications) describes the effect of coverage modifications, which change the conditions that trigger a payment, such as applying deductibles, limits, or adjusting for inflation, on the distribution of individual loss amounts. For calibrating models, Section \@ref(S:MaxLikeEstimation) deepens our understanding of maximum likelihood methods. The frequency distributions from Chapter \@ref(ChapFrequency-Modeling) will be combined with the ideas from this chapter to describe the aggregate losses over the whole portfolio in Chapter \@ref(ChapAggLossModels).
 
 
 
@@ -196,7 +196,7 @@ In this section, you learn how to define and apply four fundamental severity dis
 
 ### Gamma Distribution {#S:Loss:Gamma}
 
-Recall that the traditional approach in modeling losses is to fit separate models for frequency and claim severity. When frequency and severity are modeled separately it is common for actuaries to use the Poisson distribution (introduced in Section \@ref(S:poisson-distribution)) for claim count and the gamma distribution to model severity. An alternative approach for modeling losses that has recently gained popularity is to create a single model for pure premium (average claim cost) that will be described in Chapter \@ref(C:ModelSelection).
+Recall that the traditional approach in modeling losses is to fit separate models for frequency and claim severity. When frequency and severity are modeled separately it is common for actuaries to use the Poisson distribution (introduced in Section \@ref(S:poisson-distribution)) for claim count and the gamma distribution to model severity. An alternative approach for modeling losses that has recently gained popularity is to create a single model for pure premium (average claim cost) that will be described in Chapter \@ref(ChapModelSelection).
 
 The continuous variable $X$ is said to have the gamma distribution with shape parameter $\alpha$ and scale parameter $\theta$ if its probability
 density function is given by
@@ -641,9 +641,9 @@ $$
 
 has an $F$-distribution with numerator degrees of freedom $2\alpha_1$ and denominator degrees of freedom $2\alpha_2$. Thus, a random variable $X$ with a *GB2* distribution can be expressed as $X = \theta \left(\frac{G_1}{G_2}\right)^{\sigma}= \theta ~ F^{\sigma}$. With this, you can think of a *GB2* as a "power $F$" or a "generalized $F$", as it is sometimes known in the literature.
 
-Simulation, discussed in Chapter \@ref(C:Simulation), provides a direct application of this result. Suppose we know how to simulate an outcome with an $F-distribution$ (that is easy to do using, for example, the `R` function `rf(n,df1,df2)`), say $F$. Then we raise it to the power $\sigma$ and multiply it by $\theta$ so that $\theta ~ F^{\sigma}$ is an outcome that has a *GB2* distribution.
+Simulation, discussed in Chapter \@ref(ChapSimulation), provides a direct application of this result. Suppose we know how to simulate an outcome with an $F-distribution$ (that is easy to do using, for example, the `R` function `rf(n,df1,df2)`), say $F$. Then we raise it to the power $\sigma$ and multiply it by $\theta$ so that $\theta ~ F^{\sigma}$ is an outcome that has a *GB2* distribution.
 
-Residual analysis provides another direct application. Suppose we have an outcome, say $X$, that we think comes from a *GB2* distribution. Then we can examine the transformed version $X^{\ast} = \left(X/\theta\right)^{1/\sigma}$. If the original specification is correct, then $X^{\ast}$ has an $F-$ distribution and there are many well-known techniques, some described in Chapter \@ref(C:ModelSelection), for verifying this assertion.
+Residual analysis provides another direct application. Suppose we have an outcome, say $X$, that we think comes from a *GB2* distribution. Then we can examine the transformed version $X^{\ast} = \left(X/\theta\right)^{1/\sigma}$. If the original specification is correct, then $X^{\ast}$ has an $F-$ distribution and there are many well-known techniques, some described in Chapter \@ref(ChapModelSelection), for verifying this assertion.
 
 ***
 
@@ -792,7 +792,7 @@ $$
 \mathrm{E}\left( X^{k} \right) = \int_{-\infty}^{\infty}{\mathrm{E}\left( X^{k}\left| \theta \right.  \right)g_{\Theta}(\theta)}d\theta ~=~ \mathrm{E}\left\lbrack \mathrm{E}\left( X^{k}\left| \Theta \right.  \right) \right\rbrack .
 $$
 
-Using the law of iterated expectations (see Appendix Chapter \@ref(C:AppB)), we can define the mean and variance of $X$ as
+Using the law of iterated expectations (see Appendix Chapter \@ref(CAppB)), we can define the mean and variance of $X$ as
 $$
 \mathrm{E}\left( X \right) = \mathrm{E}\left\lbrack \mathrm{E}\left( X\left| \Theta \right.  \right) \right\rbrack
 $$
@@ -1405,7 +1405,7 @@ l(\boldsymbol \theta) = \log L(\boldsymbol \theta) = \sum_{i=1}^n \log f(x_i) .
 (\#eq:Loglikelihood)
 \end{equation}
 
-Appendix Section \@ref(S:AppA:MLE) reviews the foundations of maximum likelihood estimation with more mathematical details in Appendix Chapter \@ref(C:AppC).
+Appendix Section \@ref(S:AppA:MLE) reviews the foundations of maximum likelihood estimation with more mathematical details in Appendix Chapter \@ref(CAppC).
 
 **Example `r chapnum`.5.1. Actuarial Exam Question.** You are given the following five observations: 521, 658, 702, 819, 1217. You use the single-parameter Pareto with distribution function:
 
@@ -1593,7 +1593,7 @@ $$
 
 ***
 
-Two follow-up questions rely on large sample properties that you may have seen in an earlier course. Appendix Chapter \@ref(C:AppC) reviews the definition of the likelihood function, introduces its properties, reviews the maximum likelihood estimators, extends their large-sample properties to the case where there are multiple parameters in the model, and reviews statistical inference based on maximum likelihood estimators. In the solutions of these examples we derive the asymptotic variance of maximum-likelihood estimators of the model parameters. We use the delta method to derive the asymptotic variances of functions of these parameters.
+Two follow-up questions rely on large sample properties that you may have seen in an earlier course. Appendix Chapter \@ref(CAppC) reviews the definition of the likelihood function, introduces its properties, reviews the maximum likelihood estimators, extends their large-sample properties to the case where there are multiple parameters in the model, and reviews statistical inference based on maximum likelihood estimators. In the solutions of these examples we derive the asymptotic variance of maximum-likelihood estimators of the model parameters. We use the delta method to derive the asymptotic variances of functions of these parameters.
 
 
 **Example `r chapnum`.5.2 - Follow - Up.** Refer to **Example `r chapnum`.5.2.**
@@ -1836,7 +1836,7 @@ legend("topleft", c("log(Expend)", "Exponential", "Gamma", "Pareto",
 
 ```
 
-Results from the fitting exercise are summarized in Figure \@ref(fig:MLEComparea). Here, the black "longdash" curve is a smoothed histogram of the actual data (that we will introduce in Section \@ref(S:MS:NonParInf)); the other curves are parametric curves where the parameters are computed via maximum likelihood. We see poor fits in the red dashed line from the exponential distribution fit and the blue dotted line from the gamma distribution fit. Fits of the other curves, Pareto, lognormal, and GB2, all seem to provide reasonably good fits to the actual data. Chapter \@ref(C:ModelSelection) describes in more detail the principles of model selection. 
+Results from the fitting exercise are summarized in Figure \@ref(fig:MLEComparea). Here, the black "longdash" curve is a smoothed histogram of the actual data (that we will introduce in Section \@ref(S:MS:NonParInf)); the other curves are parametric curves where the parameters are computed via maximum likelihood. We see poor fits in the red dashed line from the exponential distribution fit and the blue dotted line from the gamma distribution fit. Fits of the other curves, Pareto, lognormal, and GB2, all seem to provide reasonably good fits to the actual data. Chapter \@ref(ChapModelSelection) describes in more detail the principles of model selection. 
 
 ***
 
